@@ -14,3 +14,7 @@ proportion(x, ...)
 \description{
 Calculates a proportion!
 }
+\examples{
+proportion(iris, Species)
+
+}
