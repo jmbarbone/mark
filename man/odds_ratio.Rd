@@ -7,7 +7,9 @@
 odds_ratio(a, b, c, d, type = "hits_misses")
 }
 \arguments{
-\item{.x}{A vector of values to repeat}
+\item{a, b, c, d}{Values in the contingency table.}
+
+\item{type}{Type to use}
 }
 \value{
 The odds ratio

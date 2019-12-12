@@ -3,10 +3,10 @@
 #' Additional functionality and expansion of `dplyr::between`
 #'
 #' @param x A numeric vector of values.
-#' @params `left, right` Boundary values.
+#' @param left,right Boundary values.
 #' @param type Abrreviated type (g: greater than, ge: greater than or equal to, l: less than, le: less than or equal to)
 #' @export
-#' @seealso \link[dplyr][case_when]
+#' @seealso `dplyr::case_when()`
 #' @examples
 #' between_more(10, 2, 10, "gl")
 #' between_more(10, 2, 10, "gle")

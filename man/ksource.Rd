@@ -9,9 +9,9 @@ ksource(x, ..., quiet = TRUE)
 \arguments{
 \item{x}{An Rmd file.}
 
-\item{...}{Additional arguments passes to \code{knitr::purl}}
+\item{...}{Additional arguments passes to `knitr::purl`}
 
-\item{quiet}{Logical.  Determines whether to apply silence to \cide{knitr::purl}}
+\item{quiet}{Logical.  Determines whether to apply silence to `knitr::purl`}
 }
 \description{
 Sources an Rmd file as a temp file

@@ -12,8 +12,6 @@ get_recent_dir(.dir, recursive = FALSE, ...)
 \item{recursive}{From `list.dirs()`}
 
 \item{...}{Further arguments passed to `list.dirs()`}
-
-\item{pattern}{The pattern to pass for the target directory name}
 }
 \value{
 The full path of the most recent directory

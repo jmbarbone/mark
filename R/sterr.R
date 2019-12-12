@@ -19,10 +19,6 @@ sterr.numeric <- function(x, na.rm = F) {
   sd / sqrt(n)
 }
 
-sterr.character <- function(x) {
-  stop("Data is character!", call. = F)
-}
-
 sterr.data.frame <- function(x, na.rm = F) {
   vapply(x, sterr, double(1), na.rm = na.rm)
 }

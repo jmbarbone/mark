@@ -41,8 +41,8 @@ z_score <- function(x, na.rm = FALSE) {
 #'
 #' Returns the odds ratio without returning infinity
 #'
-#' @param .x A vector of values to repeat
-#' @params `a, b, c, d` Values in the contingency table.
+#' @param a,b,c,d Values in the contingency table.
+#' @param type Type to use
 #' @return The odds ratio
 #'
 #' @import stats
@@ -86,7 +86,7 @@ odds2d <- function(odds, var = FALSE)
 #' Transforms an odds ratio to an r value
 #'
 #' @param odds A single odds ratio.
-#' @params `n2, n2` The ns of the groups.
+#' @param n1,n2 The ns of the groups.
 #' @param var Logical.  Determines if variance should be computed.
 #'
 #' @import stats
@@ -120,7 +120,7 @@ r2cohensd <- function(r) {
 #' Converts an r value to Cohen's D value
 #'
 #' @param d Cohen's d
-#' @params `n1, n2` Ns for the groups
+#' @param n1,n2 Ns for the groups
 #' @param var Logical.
 #'
 #' @import stats

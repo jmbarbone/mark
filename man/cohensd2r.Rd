@@ -9,6 +9,8 @@ cohensd2r(d, n1 = NULL, n2 = n1, var = F)
 \arguments{
 \item{d}{Cohen's d}
 
+\item{n1, n2}{Ns for the groups}
+
 \item{var}{Logical.}
 }
 \description{

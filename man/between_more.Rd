@@ -9,6 +9,8 @@ between_more(x, left, right, type = "gele")
 \arguments{
 \item{x}{A numeric vector of values.}
 
+\item{left, right}{Boundary values.}
+
 \item{type}{Abrreviated type (g: greater than, ge: greater than or equal to, l: less than, le: less than or equal to)}
 }
 \description{
@@ -19,5 +21,5 @@ between_more(10, 2, 10, "gl")
 between_more(10, 2, 10, "gle")
 }
 \seealso{
-\link[dplyr][case_when]
+`dplyr::case_when()`
 }

@@ -3,7 +3,6 @@
 #' Finds the recent subdirectory in a directory.
 #'
 #' @param .dir The root directory
-#' @param pattern The pattern to pass for the target directory name
 #' @param recursive From `list.dirs()`
 #' @param ... Further arguments passed to `list.dirs()`
 #' @return The full path of the most recent directory
@@ -57,8 +56,15 @@ get_dir_recent_date <- function(dirs, dt_pattern = NULL, dt_format = NULL) {
   list.files(dirs, pattern = dt_pattern, full.names = T)[dir_int]
 }
 
-get_dir_recent_numbrs <- function(dirs) {
-  dir_int <- which.max(list.files(dirs, pattern = "^[:digit:]+$"))
+#' Get recent directory by number name
+#'
+#' Finds the directory where the number is the greatest.  This can be useful for when folders are created as run IDs.
+#'
+#' @pararm dirs The directory to look in.
+#' @export
+
+get_dir_max_number <- function(dir) {
+  dir_int <- which.max(list.files(dir, pattern = "^[:digit:]+$"))
   list.files(dirs, pattern = "^[:digit:]+$", full.names = T)[dir_int]
 }
 

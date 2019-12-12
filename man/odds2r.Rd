@@ -9,6 +9,8 @@ odds2r(odds, n1 = NULL, n2 = n1, var = FALSE)
 \arguments{
 \item{odds}{A single odds ratio.}
 
+\item{n1, n2}{The ns of the groups.}
+
 \item{var}{Logical.  Determines if variance should be computed.}
 }
 \description{

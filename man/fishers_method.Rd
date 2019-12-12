@@ -9,7 +9,7 @@ fishers_method(.x, ...)
 \arguments{
 \item{.x}{A vector of p-values.}
 
-\item{...}{Additional arguments passed to \link[base][pchisq]}
+\item{...}{Additional arguments passed to `base:pchisq`}
 }
 \description{
 Computes Fisher's method for combined probabilities

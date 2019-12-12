@@ -3,7 +3,7 @@
 #' Computes Fisher's method for combined probabilities
 #'
 #' @param .x A vector of p-values.
-#' @param ... Additional arguments passed to \link[base][pchisq]
+#' @param ... Additional arguments passed to `base:pchisq`
 #' @import stats
 #' @export
 
