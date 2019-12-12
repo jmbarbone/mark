@@ -3,8 +3,9 @@
 #' Returns the standard error of a vector or columns of a data.frame
 #'
 #' @param x A vector or data.frame
-#' @param na.rm Passed to `sd()`.
+#' @param na.rm Passed to `stats::sd()`.
 #' @return A vector
+#' @import stats
 #' @export
 
 sterr <- function(x, na.rm = F)

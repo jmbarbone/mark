@@ -2,10 +2,22 @@ Package: easyr
 Type: Package
 Title: What the Package Does (Title Case)
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Author: person("Jordan Mark", "Barbone", email = "jmbarbone@gmail.com", role = c("aut", "crh", "cre", ))
+Maintainer: Jordan Mark Barbone <jmbarbone@gmail.comt>
+Description: A set of functions and wrappers for making my day (and maybe others') easyr.
+    Mostly just a provide package.
+License: We don't need no stinky license
 Encoding: UTF-8
 LazyData: true
+Depends:
+    R (>= 3.6),
+    stats
+Imports: 
+    dplyr,
+    purrr,
+    tibble,
+    tidyr,
+    stats
+Suggests: 
+    testthat
+RoxygenNote: 7.0.2

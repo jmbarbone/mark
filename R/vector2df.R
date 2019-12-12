@@ -1,3 +1,11 @@
+#' Vector to data.frame
+#'
+#' Transforms a vector (named) to a data.frame
+#'
+#' @param .vector A vector of values.
+#' @param show_NA Logical.
+#' @export
+
 vector2df <- function(.vector, show_NA = F)
 {
   if(!is.vector(.vector)) stop("Object is not a vector!", call. = F)

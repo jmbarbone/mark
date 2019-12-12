@@ -5,7 +5,7 @@
 #' @param .x A vector of values to repeat
 #' @param times The number of times to repeat each value in in `.x`
 #' @return a `vector` with the values repeated in the order in which they were called
-#' @export
+# @export
 
 rep_each <- function(.x, times = 1)
 {

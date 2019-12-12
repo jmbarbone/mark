@@ -1,1 +1,3 @@
+importFrom("stats", "mad", "median", "quantile", "sd", "var")
+
 exportPattern("^[[:alpha:]]+")
