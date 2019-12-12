@@ -6,6 +6,9 @@
 \usage{
 get_dir_max_number(dir)
 }
+\arguments{
+\item{dir}{The directory to look in.}
+}
 \description{
 Finds the directory where the number is the greatest.  This can be useful for when folders are created as run IDs.
 }

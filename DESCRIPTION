@@ -6,7 +6,7 @@ Author: person("Jordan Mark", "Barbone", email = "jmbarbone@gmail.com", role = c
 Maintainer: Jordan Mark Barbone <jmbarbone@gmail.comt>
 Description: A set of functions and wrappers for making my day (and maybe others') easyr.
     Mostly just a provide package.
-License: MIT License
+License: MIT
 Encoding: UTF-8
 LazyData: true
 Depends:
