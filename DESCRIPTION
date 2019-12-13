@@ -20,6 +20,7 @@ Imports:
     knitr,
     stringr,
     openxlsx
+    stringr
 Suggests: 
     testthat
 RoxygenNote: 7.0.2
