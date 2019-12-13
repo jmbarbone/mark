@@ -1,7 +1,6 @@
-#' Utilz
-#'
-#' Additional utils
-#'
-#' @importFrom stats mad, median, pchisq, quantile, sd, var
+# Smaller functions that are used internally
 
-invisible()
+deparser <- function(x, env = parent.frame()) {
+  if(class(substitute(x, env)) == "name") deparse(substitute(x, env)) else x
+}
+

@@ -3,38 +3,50 @@
 #' Calculates a proportion!
 #'
 #' @param x A data.frame or a vector.
-#' @param ... Additional arguments to be passed to methods.
+#' @param .name The name of the column or new name for the group.  For data.frames this must be set.
+#' @param ... Additional arguments to be passed to methods (not in use).
 #'
 #' @examples
 #' proportion(iris, Species)
+#' proportion(iris$Species)
+#' proportion(iris$Species)
 #'
-#' @import stats
 #' @export
 
-proportion <- function(x, ...) {
+proportion <- function(x, .name, ...) {
   UseMethod("proportion")
 }
 
-proportion.tbl <- function(x, column) {
-  col <- as.character(substitute(column))
+#' @export
+proportion.default <- function(x) {
+  groups <- sort(unique(x))
+  res <- vapply(groups, function(.x) mean(.x == x), double(1), USE.NAMES = T)
+  names(res) <- groups
+  res
+}
 
-  groups <- .my_sort(x[[col]])
+#' @export
+proportion.tbl <- function(x, .name) {
+  col <- as.character(substitute(.name))
+
+  groups <- sort(unique(x[[col]]))
   props <- vapply(groups, function(x) mean(x[[col]]), double(1), USE.NAMES = T)
 
   tibble::enframe(props, col, "prop")
 }
 
-proportion.data.frame <- function(x, col) {
+#' @export
+proportion.data.frame <- function(x, .name) {
 
-  if(is.name(substitute(col))) {
-    vals <- eval(substitute(col), x, enclos = parent.frame())
-    col_name <- deparse(substitute(col))
+  if(is.name(substitute(.name))) {
+    vals <- eval(substitute(.name), x, enclos = parent.frame())
+    col_name <- deparse(substitute(.name))
   } else {
-    vals <- x[[col]]
-    col_name <- col
+    vals <- x[[.name]]
+    col_name <- .name
   }
 
-  groups <- unique(vals)
+  groups <- sort(unique(vals))
 
   res <- data.frame(
     col_name = groups,
@@ -45,6 +57,4 @@ proportion.data.frame <- function(x, col) {
   res
 }
 
-.my_sort <- function(x) UseMethod(".my_sort")
-.my_sort.factor <- function(x) unique(x)
-.my_sort.default <- function(x) sort(unique(x))
+
