@@ -19,7 +19,7 @@ Imports:
     stats,
     knitr,
     stringr,
-    openxlsx
+    openxlsx,
     stringr
 Suggests: 
     testthat
