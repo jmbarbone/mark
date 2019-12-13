@@ -6,8 +6,10 @@
 #'
 #' @return The coefficient of the distance from Q1 or Q3 by IQR values
 #'
-#' @import stats
-#' @example tukey_coef(0:20)
+#' @importFrom stats quantile
+#' @importFrom dplyr case_when
+#' @examples
+#' tukey_coef(0:20)
 #' @export
 
 tukey_coef <- function(x) {
@@ -16,10 +18,10 @@ tukey_coef <- function(x) {
   q3 <- quantile(x, .75, names = F, na.rm = T)
   iqr <- q3 - q1
 
-  dplyr::case_when(x < q1   ~ (x - q1) / iqr,
-                   x > q3   ~ (q3 - x) / iqr,
-                   is.na(x) ~ NaN,
-                   TRUE     ~ 0)
+  case_when(x < q1   ~ (x - q1) / iqr,
+            x > q3   ~ (q3 - x) / iqr,
+            is.na(x) ~ NaN,
+            TRUE     ~ 0)
 }
 
 #' Z-score
@@ -29,7 +31,7 @@ tukey_coef <- function(x) {
 #' @param x A numeric vector of values.
 #' @param na.rm Logical
 #'
-#' @import stats
+#' @importFrom stats sd
 #' @export
 
 z_score <- function(x, na.rm = FALSE) {
@@ -45,7 +47,6 @@ z_score <- function(x, na.rm = FALSE) {
 #' @param type Type to use
 #' @return The odds ratio
 #'
-#' @import stats
 #' @export
 
 odds_ratio <- function(a, b, c, d, type = "hits_misses") {
@@ -69,7 +70,7 @@ odds_ratio <- function(a, b, c, d, type = "hits_misses") {
 #' @param odds An odds ratio
 #' @param var Logical.
 #'
-#' @import stats
+#' @importFrom stats var
 #' @export
 
 odds2d <- function(odds, var = FALSE)
@@ -89,7 +90,6 @@ odds2d <- function(odds, var = FALSE)
 #' @param n1,n2 The ns of the groups.
 #' @param var Logical.  Determines if variance should be computed.
 #'
-#' @import stats
 #' @export
 
 odds2r <- function(odds, n1 = NULL, n2 = n1, var = FALSE)
@@ -103,7 +103,7 @@ odds2r <- function(odds, n1 = NULL, n2 = n1, var = FALSE)
 #'
 #' @param r An r value
 #'
-#' @import stats
+#' @importFrom stats var
 #' @export
 
 r2cohensd <- function(r) {
@@ -123,7 +123,7 @@ r2cohensd <- function(r) {
 #' @param n1,n2 Ns for the groups
 #' @param var Logical.
 #'
-#' @import stats
+#' @importFrom stats var
 #' @export
 
 cohensd2r <- function(d, n1 = NULL, n2 = n1, var = F) {

@@ -11,6 +11,9 @@ get_recent_file(dir, pattern = "^[~$]{0}.*\\\\.csv|\\\\.txt$")
 
 \item{pattern}{The regularly expression to be passed to to the file.  THe default searches for any .txt or .csv file that isn't temporary}
 }
+\value{
+The full name of the most recent file from the stated directory
+}
 \description{
 A function where you can detect the most recent file from a directory.
 }

@@ -75,7 +75,7 @@ get_dir_max_number <- function(dir) {
 #'
 #' @param dir The directory in which to search the file
 #' @param pattern The regularly expression to be passed to to the file.  THe default searches for any .txt or .csv file that isn't temporary
-#' @output The full name of the most recent file from the stated directory
+#' @return The full name of the most recent file from the stated directory
 #' @export
 
 get_recent_file <- function(dir, pattern = "^[~$]{0}.*\\.csv|\\.txt$") {
