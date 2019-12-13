@@ -1,0 +1,24 @@
+Package: easyr
+Type: Package
+Title: What the Package Does (Title Case)
+Version: 0.1.0
+Author: person("Jordan Mark", "Barbone", email = "jmbarbone@gmail.com", role = c("aut", "crh", "cre", ))
+Maintainer: Jordan Mark Barbone <jmbarbone@gmail.comt>
+Description: A set of functions and wrappers for making my day (and maybe others') easyr.
+    Mostly just a private package.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Depends:
+    R (>= 3.6)
+Imports: 
+    dplyr,
+    purrr,
+    tibble,
+    tidyr,
+    stats,
+    knitr,
+    stringr
+Suggests: 
+    testthat
+RoxygenNote: 7.0.2
