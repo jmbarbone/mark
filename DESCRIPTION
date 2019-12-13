@@ -18,7 +18,6 @@ Imports:
     tidyr,
     stats,
     knitr,
-    stringr,
     openxlsx,
     stringr
 Suggests: 
