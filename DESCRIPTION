@@ -19,7 +19,8 @@ Imports:
     stats,
     knitr,
     openxlsx,
-    stringr
+    stringr,
+    Hmisc
 Suggests: 
     testthat
 RoxygenNote: 7.0.2
