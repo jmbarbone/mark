@@ -4,4 +4,5 @@
 #'
 #' @docType package
 #' @name easyr
+#' @import stats
 "_PACKAGE"
