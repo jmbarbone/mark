@@ -9,7 +9,7 @@
 #' @export
 #'
 #' @examples
-#' round_by(sample(100, 100, T), by = 5)
+#' round_by(sample(100, 100, replace = TRUE), by = 5)
 #' round_by(seq(1, 20, .6), 2, "ceiling")
 #' round_by(runif(10), .01, "floor")
 #' round_by(runif(10) * 100, seq(10))
