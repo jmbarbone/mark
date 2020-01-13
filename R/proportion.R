@@ -13,12 +13,12 @@
 #'
 #' @export
 
-proportion <- function(x, .name, ...) {
+proportion <- function(x, .name) {
   UseMethod("proportion")
 }
 
 #' @export
-proportion.default <- function(x) {
+proportion.default <- function(x, .name = NULL) {
   groups <- sort(unique(x))
   res <- vapply(groups, function(.x) mean(.x == x), double(1), USE.NAMES = T)
   names(res) <- groups

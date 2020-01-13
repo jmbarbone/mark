@@ -4,7 +4,7 @@
 \alias{proportion}
 \title{Calculate a proportion}
 \usage{
-proportion(x, .name, ...)
+proportion(x, .name)
 }
 \arguments{
 \item{x}{A data.frame or a vector.}
