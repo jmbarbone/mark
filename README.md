@@ -1,7 +1,3 @@
-# easyr
+# jordan
 
-R package with a set of general use functions for easier working.  Developed for personal use.
-
-Add this environment variable to your computer variables:
-
-`GITHUB_PAT` `5660c420572f36b9ec8be9a63d96a2d381dae618`
+Just Other R Data Analytic Nuggets.  An R package with a set of general use functions for data analytics.  Developed for personal use.  Some parts happily ripped from and creditted to others.
