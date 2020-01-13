@@ -14,3 +14,14 @@ assign_label(.data, ...)
 \description{
 Assign labels to data frames
 }
+\examples{
+## Best when run with RStudio
+
+labs <- assign_label(iris,
+                     Sepal.Length = "cms",
+                     Sepal.Width  = "cms",
+                     Petal.Length = "cms",
+                     Petal.Width  = "cms",
+                     Species      = "Iris ...")
+# View(labs)
+}

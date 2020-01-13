@@ -8,10 +8,16 @@
 #' @importFrom Hmisc label
 #' @export
 #'
-#' @example
+#' @examples
 #' ## Best when run with RStudio
-#' labs <- assign_label(iris, Sepal.Length = "cms", Sepal.Width = "cms", Petal.Length = "cms", Petal.Width = "cms", Species = "Iris ...")
-#' View(labs)
+#'
+#' labs <- assign_label(iris,
+#'                      Sepal.Length = "cms",
+#'                      Sepal.Width  = "cms",
+#'                      Petal.Length = "cms",
+#'                      Petal.Width  = "cms",
+#'                      Species      = "Iris ...")
+#' # View(labs)
 
 assign_label <- function(.data, ...) {
   ls <- list(...)
