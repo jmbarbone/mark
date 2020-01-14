@@ -8,3 +8,11 @@
 \description{
 Just Other R Data Analytic Nuggets.  This package contains a variety of functions and wrappers developed for personally and professional use.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/jmbarbone/jordan}
+  \item Report bugs at \url{https://github.com/jmbarbone/jordan/issues}
+}
+
+}
