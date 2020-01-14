@@ -18,7 +18,6 @@ Imports:
     stats,
     knitr,
     openxlsx,
-    stringr,
     Hmisc,
     scales
 Suggests: 

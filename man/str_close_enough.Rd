@@ -4,14 +4,12 @@
 \alias{str_close_enough}
 \title{String Close enough}
 \usage{
-str_close_enough(string, pattern, ..., negate = FALSE)
+str_close_enough(string, pattern, negate = FALSE)
 }
 \arguments{
 \item{string}{Input vector. Either a character vector, or something coercible to one.}
 
 \item{pattern}{A character string of the actual value (see below)}
-
-\item{...}{Additional arguments passed to `stringr::regex()`}
 
 \item{negate}{If TRUE, return non-matching elements.}
 }
@@ -21,4 +19,8 @@ It's not the most precise but can be used to determine additional explortation.
 }
 \details{
 pattern will be coerced like so: "abc" turned into "[a|b|c][a|b|c][a|b|c]"
+}
+\examples{
+str_close_enough(c("thsi", "TIHS", "that"), "this", negate = TRUE)  ##  TRUE  TRUE FALSE
+str_close_enough(c("thsi", "TIHS", "that"), "this", negate = FALSE) ## FALSE FALSE  TRUE
 }
