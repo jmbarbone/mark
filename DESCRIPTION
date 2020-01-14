@@ -2,10 +2,15 @@ Package: jordan
 Type: Package
 Title: Just Other R Data Analytic Nuggets
 Version: 0.1.0
-Author: person("Jordan Mark", "Barbone", email = "jmbarbone@gmail.com", role = c("aut", "crh", "cre", ))
+Author: person(given  = "Jordan Mark",
+               family = "Barbone",
+               role   = c("aut", "crh", "cre"),
+               email  = "jmbarbone@gmail.com")
 Maintainer: Jordan Mark Barbone <jmbarbone@gmail.comt>
 Description: Contains a variety of functions and wrappers developed for personally and professional use.
 License: MIT + file LICENSE
+URL: https://github.com/jmbarbone/jordan
+BugReports: https://github.com/jmbarbone/jordan/issues
 Encoding: UTF-8
 LazyData: true
 Depends:
