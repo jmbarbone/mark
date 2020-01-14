@@ -5,7 +5,6 @@
 #' @param .data A dataframe
 #' @param ... One or more unquoted expressed separated by commas
 #'
-#' @importFrom Hmisc label
 #' @export
 #'
 #' @examples
@@ -20,6 +19,8 @@
 #' # View(labs)
 
 assign_label <- function(.data, ...) {
+  require_namespace("Hmisc")
+
   ls <- list(...)
   n <- names(ls)
 

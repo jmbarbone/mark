@@ -18,8 +18,8 @@ Imports:
     stats,
     knitr,
     openxlsx,
-    Hmisc,
     scales
 Suggests: 
+    Hmisc,
     testthat
 RoxygenNote: 7.0.2
