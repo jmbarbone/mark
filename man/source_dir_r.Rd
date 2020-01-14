@@ -4,18 +4,23 @@
 \alias{source_dir_r}
 \title{Source file from directory}
 \usage{
-source_dir_r(dir, quiet = F)
+source_dir_r(dir, echo = FALSE, quiet = FALSE, ...)
 }
 \arguments{
 \item{dir}{The location of your R scripts}
 
+\item{echo}{logical; if \code{TRUE}, each expression is printed
+    after parsing, before evaluation.}
+
 \item{quiet}{Logical.  Whether to print out a message for each file.}
+
+\item{...}{Additional arguments passed to [base::source()]}
 }
 \description{
 Walk through files in a directory and output them
 }
 \examples{
 \dontrun{
-source_dir_r("C:/Users/jbarbone/GitHub/easyr/R/")
+source_dir_r("C:/Users/jbarbone/GitHub/test")
 }
 }
