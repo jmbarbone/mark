@@ -18,7 +18,6 @@ Depends:
 Imports: 
     dplyr,
     tibble,
-    tidyr,
     stats,
     knitr,
     openxlsx,
