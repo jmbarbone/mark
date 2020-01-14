@@ -19,10 +19,10 @@ Imports:
     dplyr,
     tibble,
     stats,
-    knitr,
     scales
 Suggests: 
     Hmisc,
+    knitr,
     openxlsx,
     testthat
 RoxygenNote: 7.0.2
