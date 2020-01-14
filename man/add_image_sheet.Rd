@@ -4,7 +4,7 @@
 \alias{add_image_sheet}
 \title{Add image to sheet}
 \usage{
-add_image_sheet(wb, file, sheetname, ..., override = T)
+add_image_sheet(wb, file, sheetname, ..., override = TRUE)
 }
 \arguments{
 \item{wb}{A Workbook object to attach the new worksheet and table}

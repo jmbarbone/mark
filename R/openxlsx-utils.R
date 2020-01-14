@@ -5,7 +5,7 @@
 #' A wrapper function to use within the openxlsx workbook building.
 #' This adds additional functionality to override within the function and provude an output that can be piped.
 #'
-#' @details These should be applied to a string starting with `openxlsx::createWorkbook()` then piped through with the functions below.
+#' @details These should be applied to a string starting with [openxlsx::createWorkbook()] then piped through with the functions below.
 #'
 #' @param wb A Workbook object to attach the new worksheet and table
 #' @param data A dataframe.
@@ -16,27 +16,22 @@
 #' @param ... Additional arguments passed to openxlsx::writeDataTable that are not already listed
 #' @param override Logical.  If TRUE, will delete the sheetname (if present)
 #'
-#' @importFrom openxlsx removeWorksheet
-#' @importFrom openxlsx addWorksheet
-#' @importFrom openxlsx writeDataTable
-#'
-#'
 #' @export
 
 add_data_sheet <- function(wb, data, sheetname,
                            tableStyle = "TableStyleLight8", bandedRows = TRUE, bandedCols = TRUE, ...,
-                           override = T)
+                           override = TRUE)
 {
-  requireNamespace("openxlsx", quietly = TRUE)
+  require_namespace("openxlsx")
 
-  if(override && sheetname %in% wb$sheet_names) removeWorksheet(wb, sheetname)
+  if(override && sheetname %in% wb$sheet_names) openxlsx::removeWorksheet(wb, sheetname)
 
-  addWorksheet(wb, sheetname)
-  writeDataTable(wb, sheetname, x = data,
-                 tableStyle = tableStyle,
-                 bandedRows = bandedRows,
-                 bandedCols = bandedCols,
-                 ...)
+  openxlsx::addWorksheet(wb, sheetname)
+  openxlsx::writeDataTable(wb, sheetname, x = data,
+                           tableStyle = tableStyle,
+                           bandedRows = bandedRows,
+                           bandedCols = bandedCols,
+                           ...)
   invisible(wb)
 }
 
@@ -50,16 +45,15 @@ add_data_sheet <- function(wb, data, sheetname,
 #' @param ... Additional arguments passed to openxlsx::insertImage
 #' @param override Logical.  If TRUE, will delete the sheetname (if present)
 #'
-#' @importFrom openxlsx removeWorksheet
-#' @importFrom openxlsx addWorksheet
-#' @importFrom openxlsx insertImage
-#'
 #' @export
 
-add_image_sheet <- function(wb, file, sheetname, ..., override = T)
+add_image_sheet <- function(wb, file, sheetname, ..., override = TRUE)
 {
-  if(override && sheetname %in% wb$sheet_names) removeWorksheet(wb, sheetname)
-  addWorksheet(wb, sheetname)
-  insertImage(wb, sheetname, file = file, ...)
+  require_namespace("openxlsx")
+
+  if(override && sheetname %in% wb$sheet_names) openxlsx::removeWorksheet(wb, sheetname)
+
+  openxlsx::addWorksheet(wb, sheetname)
+  openxlsx::insertImage(wb, sheetname, file = file, ...)
   invisible(wb)
 }

@@ -12,7 +12,7 @@ add_data_sheet(
   bandedRows = TRUE,
   bandedCols = TRUE,
   ...,
-  override = T
+  override = TRUE
 )
 }
 \arguments{
@@ -39,5 +39,5 @@ Add data to sheet
 A wrapper function to use within the openxlsx workbook building.
 This adds additional functionality to override within the function and provude an output that can be piped.
 
-These should be applied to a string starting with `openxlsx::createWorkbook()` then piped through with the functions below.
+These should be applied to a string starting with [openxlsx::createWorkbook()] then piped through with the functions below.
 }

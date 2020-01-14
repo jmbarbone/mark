@@ -20,9 +20,9 @@ Imports:
     tibble,
     stats,
     knitr,
-    openxlsx,
     scales
 Suggests: 
     Hmisc,
+    openxlsx,
     testthat
 RoxygenNote: 7.0.2
