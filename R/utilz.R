@@ -13,3 +13,12 @@ require_namespace <- function(namespace) {
          call. = FALSE)
   }
 }
+
+opposite <- function(x, y) {
+  all(x != y)
+}
+
+all_na <- function(x) {
+  all(is.nan(x) || is.na(x))
+}
+# all_na(c(NA, NaN, NA_character_, NA_complex_))
