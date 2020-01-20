@@ -1,3 +1,7 @@
+#' @importFrom magrittr %>%
+#' @export
+magrittr::`%>%`
+
 # Smaller functions that are used internally
 
 deparser <- function(x, env = parent.frame()) {
