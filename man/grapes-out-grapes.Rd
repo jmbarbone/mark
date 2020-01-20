@@ -20,7 +20,7 @@ no_match(x, table)
     \link[base]{Long vectors} are not supported.}
 }
 \description{
-Non matching alternatives and supplementary functions.  Contrast with [base::match()]
+Non matching alternatives and supplementary functions.  Contrast with [base::match()].
 }
 \examples{
 1:10 \%in\% c(1,3,5,9)
