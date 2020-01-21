@@ -11,6 +11,8 @@
 #' @importFrom dplyr select
 #' @importFrom dplyr summarise_all
 #' @importFrom tibble deframe
+#' @importFrom stats mahalanobis
+#' @importFrom stats cov
 #'
 #' @export
 #'

@@ -4,7 +4,7 @@
 \alias{sd_pooled}
 \title{Pooled standard deviation}
 \usage{
-sd_pooled(ns, ses, max = F)
+sd_pooled(ns, ses, max = FALSE)
 }
 \arguments{
 \item{ns}{A vector of N values.}

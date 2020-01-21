@@ -4,7 +4,7 @@
 #'
 #' @param .x A vector of p-values.
 #' @param ... Additional arguments passed to `base:pchisq`
-#' @import stats
+#' @importFrom stats pchisq
 #' @export
 
 fishers_method <- function(.x, ...) {
@@ -13,5 +13,5 @@ fishers_method <- function(.x, ...) {
   ps[ps == 0] <- min(valid)
   log_ps <- log(ps)
   estimate <- (-2) * sum(log_ps)
-  stats::pchisq(estimate, df = 2 * length(log_ps), lower.tail = F, ...)
+  pchisq(estimate, df = 2 * length(log_ps), lower.tail = F, ...)
 }

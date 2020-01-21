@@ -4,5 +4,4 @@
 #'
 #' @docType package
 #' @name jordan
-#' @import stats
 "_PACKAGE"

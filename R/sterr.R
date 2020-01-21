@@ -5,7 +5,7 @@
 #' @param x A vector or data.frame
 #' @param na.rm Passed to `stats::sd()`.
 #' @return A vector
-#' @import stats
+#' @importFrom stats sd
 #' @export
 
 sterr <- function(x, na.rm = F)
