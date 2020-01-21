@@ -93,3 +93,24 @@ get_recent_file <- function(dir, pattern = "^[~$]{0}.*\\.csv|\\.txt$") {
     return(recent)
   }
 }
+
+
+#' File path in user directory
+#'
+#' A wrapper for creating a file name under your R_USER directory.
+#'
+#' @inheritParams base::file.path
+#'
+#' @export
+#'
+#' @seealso [base::file.path()]
+#' @examples
+#' \dontrun{
+#' data(iris)
+#' file_path <- user_file("outputs/tests.csv")
+#' write.csv(iris, file = file_path)
+#' }
+
+user_file <- function(..., fsep = .Platform$file.sep) {
+  file.path(Sys.getenv("R_USER"), ..., fsep = fsep)
+}
