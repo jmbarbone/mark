@@ -19,6 +19,7 @@ Imports:
     dplyr,
     magrittr,
     tibble,
+    rlang,
     stats,
     scales
 Suggests: 
