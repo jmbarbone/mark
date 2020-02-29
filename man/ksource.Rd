@@ -4,7 +4,7 @@
 \alias{ksource}
 \title{Source an Rmd file}
 \usage{
-ksource(x, ..., quiet = TRUE)
+ksource(x, ..., quiet = TRUE, change_directory = FALSE)
 }
 \arguments{
 \item{x}{An Rmd file.}

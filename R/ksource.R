@@ -7,8 +7,8 @@
 #' @param quiet Logical.  Determines whether to apply silence to `knitr::purl`
 #' @export
 
-ksource <- function(x, ..., quiet = TRUE)
+ksource <- function(x, ..., quiet = TRUE, change_directory = FALSE)
 {
   require_namespace("knitr")
-  source(knitr::purl(x, output = tempfile(), quiet = quiet, ...))
+  source(knitr::purl(x, output = tempfile(), quiet = quiet, ...), chdir = change_directory)
 }
