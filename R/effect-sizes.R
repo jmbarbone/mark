@@ -14,13 +14,13 @@
 
 tukey_coef <- function(x) {
   stopifnot(is.numeric(x))
-  q1 <- quantile(x, .25, names = F, na.rm = T)
-  q3 <- quantile(x, .75, names = F, na.rm = T)
+  q1 <- quantile(x, .25, names = FALSE, na.rm = TRUE)
+  q3 <- quantile(x, .75, names = FALSE, na.rm = TRUE)
   iqr <- q3 - q1
 
   case_when(x < q1   ~ (x - q1) / iqr,
             x > q3   ~ (q3 - x) / iqr,
-            is.na(x) ~ NaN,
+            is.na(x) ~ NA_real_,
             TRUE     ~ 0)
 }
 
@@ -52,7 +52,9 @@ z_score <- function(x, na.rm = FALSE) {
 odds_ratio <- function(a, b, c, d, type = "hits_misses") {
   ## does not return any Inf values
 
-  if(a < 0 || b < 0 || c < 0 || d < 0) stop("Cells cannot have negative numbers.", call. = F)
+  if(a < 0 || b < 0 || c < 0 || d < 0) {
+    stop("Cells cannot have negative numbers", call. = FALSE)
+  }
 
   if(type == "hits_evals") {
     ## save over for single line at end
@@ -60,7 +62,10 @@ odds_ratio <- function(a, b, c, d, type = "hits_misses") {
     d <- d - b
   }
   if((b == 0) || (c == 0)) return(NA)
-  if(a < 5 || b < 5 || c < 5 || d < 5) warning("Cells should all have at least 5 observations.", call. = F)
+  if(a < 5 || b < 5 || c < 5 || d < 5) {
+    warning("Cells should all have at least 5 observations",
+            call. = FALSE)
+  }
   (a * d) / (b * c)
 }
 
@@ -76,7 +81,7 @@ odds_ratio <- function(a, b, c, d, type = "hits_misses") {
 odds2d <- function(odds, var = FALSE)
 {
   if(var) {
-    var(log(odds), na.rm = T) * sqrt(3) / pi^2
+    var(log(odds), na.rm = TRUE) * sqrt(3) / pi^2
   }  else {
     log(odds) * sqrt(3) / pi
   }
@@ -107,17 +112,19 @@ odds2r <- function(odds, n1 = NULL, n2 = n1, var = FALSE)
 #' @export
 
 r2cohensd <- function(r) {
-  if(any(r > 1 || r < -1)) stop("r values outside bounds.", call. = F)
+  if(any(r > 1 || r < -1)) {
+    stop("r values outside bounds", call. = FALSE)
+  }
   if(var) {
-    (4 * var(r, na.rm = T)) / ((1 - r^2)^3)
+    (4 * var(r, na.rm = TRUE)) / ((1 - r^2)^3)
   } else {
     (2 * r) / sqrt(1 - r^2)
   }
 }
 
-#' r to Cohen's D
+#' Cohen's D to r
 #'
-#' Converts an r value to Cohen's D value
+#' Converts Cohen's D to an r value
 #'
 #' @param d Cohen's d
 #' @param n1,n2 Ns for the groups
@@ -126,14 +133,14 @@ r2cohensd <- function(r) {
 #' @importFrom stats var
 #' @export
 
-cohensd2r <- function(d, n1 = NULL, n2 = n1, var = F) {
+cohensd2r <- function(d, n1 = NULL, n2 = n1, var = FALSE) {
   if(is.null(n1)) {
     a <- 4
   } else {
     a <- sum(n1, n2)^2 / prod(n1, n2)
   }
   if(var) {
-    (a^2 * var(d, na.rm = T)) / ((d^2 + a)^3)
+    (a^2 * var(d, na.rm = TRUE)) / ((d^2 + a)^3)
   } else {
     d / sqrt(d^2 + a)
   }

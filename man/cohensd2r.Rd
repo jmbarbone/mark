@@ -2,9 +2,9 @@
 % Please edit documentation in R/effect-sizes.R
 \name{cohensd2r}
 \alias{cohensd2r}
-\title{r to Cohen's D}
+\title{Cohen's D to r}
 \usage{
-cohensd2r(d, n1 = NULL, n2 = n1, var = F)
+cohensd2r(d, n1 = NULL, n2 = n1, var = FALSE)
 }
 \arguments{
 \item{d}{Cohen's d}
@@ -14,5 +14,5 @@ cohensd2r(d, n1 = NULL, n2 = n1, var = F)
 \item{var}{Logical.}
 }
 \description{
-Converts an r value to Cohen's D value
+Converts Cohen's D to an r value
 }
