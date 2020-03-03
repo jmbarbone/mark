@@ -4,22 +4,31 @@
 \alias{between_more}
 \title{Between more}
 \usage{
-between_more(x, left, right, type = "gele")
+between_more(x, left, right, type = c("gele", "gel", "gle", "gl"))
 }
 \arguments{
 \item{x}{A numeric vector of values.}
 
 \item{left, right}{Boundary values.}
 
-\item{type}{Abrreviated type (g: greater than, ge: greater than or equal to, l: less than, le: less than or equal to)}
+\item{type}{Abbreviation for the evaluation of `left` on `right`}
 }
 \description{
 Additional functionality and expansion of `dplyr::between`
+}
+\details{
+Type can be one of the below:
+\itemize{
+ \item{"\strong{g}": }{is greater than (>)}
+ \item{"\strong{ge}": }{greater than or equal to (>=)}
+ \item{"\strong{l}": }{less than (<)}
+ \item{"\strong{le}": }{less than or equal to (<=)}
+}
 }
 \examples{
 between_more(10, 2, 10, "gl")
 between_more(10, 2, 10, "gle")
 }
 \seealso{
-`dplyr::case_when()`
+[dplyr::case_when()]
 }
