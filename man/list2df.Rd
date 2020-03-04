@@ -4,18 +4,24 @@
 \alias{list2df}
 \title{List to data.frame}
 \usage{
-list2df(.list, show_NA = F, ...)
+list2df(list, key = "key", value = "value", show_NA = FALSE)
 }
 \arguments{
-\item{.list}{A (prefferably) named `list` with any number of values}
+\item{list}{A (preferably) named `list` with any number of values}
 
-\item{show_NA}{Logical.  If FALSE elements without names will be listed as ""; otherwise as NA.}
+\item{key, value}{Names of the new key and value columns, respectively}
 
-\item{...}{Arguments passed to `as.data.frame()`}
+\item{show_NA}{Logical; if FALSE elements without names will be listed as ""; otherwise as NA}
 }
 \value{
-a `data.frame` object with columns "name" and "value" for the names of the `list` and the values in each
+a `data.frame` object with columns "name" and "value" for the names of the `list`
+  and the values in each
 }
 \description{
 Converts a list object into a a tidy data.frame
+}
+\examples{
+\dontrun{
+list2df(list(a = 1, b = 2:4, c = letters[10:20]), "col1", "col2")
+}
 }
