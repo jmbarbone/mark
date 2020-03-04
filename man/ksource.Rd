@@ -4,14 +4,17 @@
 \alias{ksource}
 \title{Source an Rmd file}
 \usage{
-ksource(x, ..., quiet = TRUE, change_directory = FALSE)
+ksource(file, ..., quiet = TRUE, change_directory = FALSE)
 }
 \arguments{
-\item{x}{An Rmd file.}
+\item{file}{An Rmd file.}
 
 \item{...}{Additional arguments passes to [knitr::purl()]}
 
-\item{quiet}{Logical.  Determines whether to apply silence to `knitr::purl`}
+\item{quiet}{Logical; Determines whether to apply silence to [knitr::purl()]}
+
+\item{change_directory}{Logical; if TRUE, the R working directory is temporarily
+changed to the directory containing file for evaluating}
 }
 \description{
 Sources an Rmd file as a temp file

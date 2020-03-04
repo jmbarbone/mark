@@ -20,24 +20,25 @@ write_clipboard <- function(x, ...) {
 }
 
 #' @export
-write_clipboard.default <- function(x, format = "1L") {
-  writeClipboard(str = x, format = format)
+write_clipboard.default <- function(x, format = "1L", ...) {
+  writeClipboard(str = x, format = format, ...)
 }
 
 #' @export
-write_clipboard.data.frame <- function(x, sep = "\t") {
-  write.table(x, file = "clipboard", sep = sep, row.names = FALSE)
+write_clipboard.data.frame <- function(x, sep = "\t", ...) {
+  write.table(x, file = "clipboard", sep = sep, row.names = FALSE, ...)
 }
 
 #' @export
-write_clipboard.matrix <- function(x, sep = "\t") {
-  write_clipboard.data.frame(x, sep = sep)
+write_clipboard.matrix <- function(x, sep = "\t", ...) {
+  write_clipboard.data.frame(x, sep = sep, ...)
 }
-write_clipboard.list <- function(x, sep = "\t", show_NA = FALSE) {
+
+#' @export
+write_clipboard.list <- function(x, sep = "\t", show_NA = FALSE, ...) {
   ls <- list2df(x, show_NA = show_NA)
-  write_clipboard(ls, sep = "\t")
+  write_clipboard(ls, sep = "\t", ...)
 }
-
 
 #' @export
 #' @rdname clipboard
