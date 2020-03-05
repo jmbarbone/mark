@@ -8,6 +8,9 @@ deparser <- function(x, env = parent.frame()) {
   if(class(substitute(x, env)) == "name") deparse(substitute(x, env)) else x
 }
 
+ept <- function(x) {
+  eval(parse(text = x))
+}
 
 # Happily ripped from: http://r-pkgs.had.co.nz/description.html
 
