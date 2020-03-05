@@ -10,8 +10,6 @@ proportion(x, .name)
 \item{x}{A data.frame or a vector.}
 
 \item{.name}{The name of the column or new name for the group.  For data.frames this must be set.}
-
-\item{...}{Additional arguments to be passed to methods (not in use).}
 }
 \description{
 Calculates a proportion!

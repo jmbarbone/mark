@@ -4,7 +4,6 @@
 #'
 #' @param x A data.frame or a vector.
 #' @param .name The name of the column or new name for the group.  For data.frames this must be set.
-#' @param ... Additional arguments to be passed to methods (not in use).
 #'
 #' @examples
 #' proportion(iris, Species)
