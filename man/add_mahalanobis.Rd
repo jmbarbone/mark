@@ -21,5 +21,9 @@ add_mahalanobis(df, ..., .inverted = FALSE, .name = "md", .p = "p_value")
 Add a mahalanobis distance to the end of a data frame.
 }
 \examples{
-add_mahalanobis(iris, Sepal.Length, Sepal.Width)
+add_mahalanobis(iris, Sepal.Length, Sepal.Width, Petal.Length, Petal.Width) \%>\% head
+df <- iris
+df[1, ] <- NA_real_
+head(df)
+add_mahalanobis(df, Sepal.Length, Sepal.Width, Petal.Length, Petal.Width) \%>\% head
 }

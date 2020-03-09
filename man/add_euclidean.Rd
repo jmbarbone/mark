@@ -4,12 +4,12 @@
 \alias{add_euclidean}
 \title{Add Euclidean distance}
 \usage{
-add_euclidean(df, .x, .y, .name = "eucd")
+add_euclidean(df, x, y, .name = "eucd")
 }
 \arguments{
 \item{df}{A data.frame}
 
-\item{.x, .y}{The two values to compute the distance from}
+\item{x, y}{The two values to compute the distance from}
 
 \item{.name}{The name of the new column for the distance value}
 }
@@ -17,5 +17,9 @@ add_euclidean(df, .x, .y, .name = "eucd")
 Add a Euclidean distance measure to the end of a data frame
 }
 \examples{
-add_euclidean(iris, "Sepal.Width", "Sepal.Length")
+add_euclidean(iris, Sepal.Width, Sepal.Length)
+df <- iris
+df[1, ] <- NA_real_
+head(df)
+add_euclidean(df, Sepal.Length, Sepal.Width) \%>\% head
 }
