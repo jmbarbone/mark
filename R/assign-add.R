@@ -9,10 +9,10 @@
          inherits = TRUE)
 }
 
-val <- 1
-val %=+% 2
-val
-val %=+% 2
-val
-val %=+% c(1, 2, 3)
-val
+# val <- 1
+# val %=+% 2
+# val
+# val %=+% 2
+# val
+# val %=+% c(1, 2, 3)
+# val
