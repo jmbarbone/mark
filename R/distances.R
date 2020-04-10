@@ -14,6 +14,7 @@
 #' @importFrom rlang enquos
 #' @importFrom stats mahalanobis
 #' @importFrom stats cov
+#' @importFrom stats complete.cases
 #'
 #' @export
 #'
