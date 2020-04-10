@@ -4,12 +4,24 @@
 \alias{get_recent_file}
 \title{Get recent file}
 \usage{
-get_recent_file(dir, pattern = "^[~$]{0}.*\\\\.csv|\\\\.txt$")
+get_recent_file(
+  dir,
+  pattern = NULL,
+  negate = FALSE,
+  exclude_temp = TRUE,
+  recursive = FALSE
+)
 }
 \arguments{
 \item{dir}{The directory in which to search the file}
 
-\item{pattern}{The regularly expression to be passed to to the file.  THe default searches for any .txt or .csv file that isn't temporary}
+\item{pattern}{The regularly expression to be passed to to the file}
+
+\item{negate}{Logical, if TRUE, files with matching `pattern` will be removed}
+
+\item{exclude_temp}{Logical, if TRUE files that begin with "^\\~\\$" are excluded}
+
+\item{recursive}{Logical, passed to `list.files(., recursive)`}
 }
 \value{
 The full name of the most recent file from the stated directory

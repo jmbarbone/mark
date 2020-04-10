@@ -74,24 +74,32 @@ get_dir_max_number <- function(dir) {
 #' A function where you can detect the most recent file from a directory.
 #'
 #' @param dir The directory in which to search the file
-#' @param pattern The regularly expression to be passed to to the file.  THe default searches for any .txt or .csv file that isn't temporary
+#' @param pattern The regularly expression to be passed to to the file
+#' @param negate Logical, if TRUE, files with matching `pattern` will be removed
+#' @param exclude_temp Logical, if TRUE files that begin with "^\\~\\$" are excluded
+#' @param recursive Logical, passed to `list.files(., recursive)`
 #' @return The full name of the most recent file from the stated directory
+#'
 #' @export
 
-get_recent_file <- function(dir, pattern = "^[~$]{0}.*\\.csv|\\.txt$") {
+get_recent_file <- function(dir, pattern = NULL, negate = FALSE, exclude_temp = TRUE, recursive = FALSE) {
   stopifnot(dir.exists(dir))
-  files <- list.files(dir, full.names = T, pattern = pattern)
-  files <- files[grep("^[~$]", sub(dir, "", files, fixed = T), invert = T)]
-  if(length(files) == 0) {
-    stop("No files found!", call. = F)
-  } else if(length(files) == 1) {
-    return(files)
+  files <- if(negate) {
+    grep(pattern, list.files(dir, pattern = NULL, recursive = recursive), value = TRUE, invert = TRUE)
   } else {
-    times <- file.mtime(files)
-    recent <- files[times == max(times)]
-    if(length(recent) > 1) warning("More than one file found!", call. = F)
-    return(recent)
+    list.files(dir, pattern = pattern, recursive)
   }
+  if(exclude_temp) files <- grep("^\\~\\$", files, value = TRUE, invert = TRUE)
+  res <- file.path(dir, files)
+  if(!length(res)) {
+    stop("No files found.", call. = FALSE)
+  } else if(length(res) == 1) {
+  } else {
+    times <- file.mtime(res)
+    res <- res[times == max(times)]
+    if(length(res) > 1) warning("More than one file found.", call. = FALSE)
+  }
+  res
 }
 
 
