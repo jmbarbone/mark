@@ -2,14 +2,12 @@
 % Please edit documentation in R/fishers_method.R
 \name{fishers_method}
 \alias{fishers_method}
-\title{Fisher's method for combined probabilites}
+\title{Fisher's method for combined probabilities}
 \usage{
-fishers_method(.x, ...)
+fishers_method(x)
 }
 \arguments{
-\item{.x}{A vector of p-values.}
-
-\item{...}{Additional arguments passed to `base:pchisq`}
+\item{x}{A vector of p-values.}
 }
 \description{
 Computes Fisher's method for combined probabilities
