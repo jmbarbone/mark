@@ -1,11 +1,17 @@
-# this needs to be tested...
+#' Assign add
+#'
+#' this needs to be tested...
+#'
+#' @param lhs left side statement
+#' @param rhs right side statement
 
 `%=+%` <- function(lhs, rhs) {
   if(length(rhs) != 1) warning("rhs is a vector of length != 1")
+  e <- parent.frame()
   assign(x = as.character(substitute(lhs)),
          value = lhs + rhs,
-         pos = 1,
-         envir = new.env(parent = parent.frame()),
+         pos = -1,
+         envir = e,
          inherits = TRUE)
 }
 
