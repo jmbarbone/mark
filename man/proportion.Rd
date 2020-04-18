@@ -2,21 +2,70 @@
 % Please edit documentation in R/proportion.R
 \name{proportion}
 \alias{proportion}
-\title{Calculate a proportion}
+\alias{prop_tapply}
+\alias{prop_tapply.default}
+\alias{prop_tapply.data.frame}
+\alias{cum_prop}
+\title{Proportions}
 \usage{
-proportion(x, .name)
+proportion(x, ...)
+
+prop_tapply(x, ...)
+
+\method{prop_tapply}{default}(x, ...)
+
+\method{prop_tapply}{data.frame}(x, col, ...)
+
+cum_prop(x)
 }
 \arguments{
 \item{x}{A data.frame or a vector.}
 
-\item{.name}{The name of the column or new name for the group.  For data.frames this must be set.}
+\item{...}{Additional arguments to be passed to methods.}
 }
 \description{
-Calculates a proportion!
+Calculates a proportion from a vector or data.frame/matrix.
+}
+\details{
+tapply(x, x, length) / length(x) can be speedier for smaller data sets and groups
+  but slows down with more data or a greater number of groups.
 }
 \examples{
-proportion(iris, Species)
-proportion(iris$Species)
+proportion(iris, "Species")
 proportion(iris$Species)
 
+\dontrun{
+## With smaller n, tapply edges out as faster
+microbenchmark::microbenchmark(
+  tapply = prop_tapply(iris, "Sepal.Length"),
+  proportion = proportion(iris, "Sepal.Length"),
+  times = 1000
+)
+microbenchmark::microbenchmark(
+  tapply = prop_tapply(iris$Species),
+  proportion = proportion(iris$Species),
+  times = 1000
+)
+
+## But in larger n, proportion is faster
+x <- dplyr::sample_n(iris, 1e6, TRUE)
+microbenchmark::microbenchmark(
+  tapply = prop_tapply(x, "Sepal.Length"),
+  proportion = proportion(x, "Sepal.Length"),
+  times = 10
+)
+microbenchmark::microbenchmark(
+  tapply = prop_tapply(x$Species),
+  proportion = proportion(x$Species),
+  times = 100
+)
+
+## more groups (very slow) prop_tapply excels
+x <- runif(1e5)
+microbenchmark::microbenchmark(
+  tapply = prop_tapply(x),
+  proportion = proportion(x),
+  times = 2
+)
+}
 }

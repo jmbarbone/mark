@@ -9,16 +9,19 @@ percentile_rank(x)
 \arguments{
 \item{x}{A vector of values to rank}
 }
+\value{
+A percentile rank between 0L and 100L
+}
 \description{
 Computes a percentile rank for each score in a set.
-The bounds of a percentile rank are 0 - 99th percentile.
+The bounds of a percentile rank are > 0 and < 100.
 A percentile rank here is the proportion of scores that are less than
   the current score.
 }
 \details{
 This is not a very fast formula, but it is correct.
 
-\deqn{PR = (c_L + 0.5 f_i) / N}
+\deqn{PR = (c_L + 0.5 f_i) / N * 100}
 
 Where
 
@@ -30,6 +33,6 @@ Where
 x <- c(1, 1, 2, 5, 7, 7, 8, 10)
 percentile_rank(x)
 \dontrun{
-dplyr::percent_rank(x)
+dplyr::percent_rank(x) * 100
 }
 }
