@@ -20,7 +20,7 @@ write_clipboard <- function(x, ...) {
 }
 
 #' @export
-write_clipboard.default <- function(x, format = "1L", ...) {
+write_clipboard.default <- function(x, format = 1L, ...) {
   writeClipboard(str = x, format = format, ...)
 }
 
