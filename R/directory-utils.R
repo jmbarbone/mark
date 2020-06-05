@@ -122,3 +122,25 @@ get_recent_file <- function(dir, pattern = NULL, negate = FALSE, exclude_temp = 
 user_file <- function(..., fsep = .Platform$file.sep) {
   file.path(Sys.getenv("R_USER"), ..., fsep = fsep)
 }
+
+#' File path
+#'
+#' Create a character string of a file path and check that it exists
+#'
+#' @details
+#' File path is created with `file.path()` then passed to [tools::file_path_as_absolute()]
+#'   and then checked with `dir.exists(basename(.))`.
+#'
+#' @param ... Character vectors
+#' @param sep The path separator to be applied
+#'
+#' @importFrom tools file_path_as_absolute
+#' @export
+fp <- function(..., sep = .Platform$file.sep) {
+  p <- file_path_as_absolute(file.path(..., fsep = sep))
+  if (!dir.exists(basename(p))) {
+    warning(sprintf("Directory does not exist: \"%s\"", basename(p)),
+            call. = FALSE)
+  }
+  p
+}
