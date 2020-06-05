@@ -4,12 +4,12 @@
 \alias{t_df}
 \title{Data frame transpose}
 \usage{
-t_df(.data.frame, .id = 1)
+t_df(x, id = 1L)
 }
 \arguments{
-\item{.data.frame}{A data.frame}
+\item{x}{A data.frame}
 
-\item{.id}{The identification column number.}
+\item{id}{The identification column number.}
 }
 \description{
 Transposes a data.frame

@@ -2,15 +2,13 @@
 #'
 #' Transposes a data.frame
 #'
-#' @param .data.frame A data.frame
-#' @param .id The identification column number.
+#' @param x A data.frame
+#' @param id The identification column number.
 #' @export
 
-t_df <- function(.data.frame, .id = 1)
-{
-  temp <- data.frame(t(.data.frame[-.id]), stringsAsFactors = F, row.names = NULL)
-  colnames(temp) <- unlist(.data.frame[,.id], use.names = F)
-  temp$.id <- colnames(.data.frame)[-.id]
-  n <- ncol(temp)
-  temp[c(".id", colnames(temp)[-n])]
+t_df <- function(x, id = 1L) {
+  temp <- data.frame(t(as.data.frame(x)[-id]), stringsAsFactors = FALSE, row.names = NULL)
+  colnames(temp) <- paste(unlist(x[, id], use.names = FALSE))
+  temp$.id <- colnames(x)[-id]
+  temp[c(".id", paste(colnames(temp)[-ncol(temp)]))]
 }
