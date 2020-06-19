@@ -7,9 +7,9 @@
 user_file(..., fsep = .Platform$file.sep)
 }
 \arguments{
-\item{...}{character vectors.}
+\item{...}{character vectors.  Long vectors are not supported.}
 
-\item{fsep}{the path separator to use.}
+\item{fsep}{the path separator to use (assumed to be ASCII).}
 }
 \description{
 A wrapper for creating a file name under your R_USER directory.
