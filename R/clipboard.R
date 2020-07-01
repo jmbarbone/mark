@@ -15,17 +15,17 @@
 
 #' @export
 #' @rdname clipboard
-write_clipboard <- function(x, ...) {
+write_clipboard <- function(x = .Last.value, ...) {
   UseMethod("write_clipboard", x)
 }
 
 #' @export
-write_clipboard.default <- function(x, format = 1L, ...) {
+write_clipboard.default <- function(x = .Last.value, format = 1L, ...) {
   writeClipboard(str = x, format = format, ...)
 }
 
 #' @export
-write_clipboard.data.frame <- function(x, sep = "\t", ...) {
+write_clipboard.data.frame <- function(x = .Last.value, sep = "\t", ...) {
   write.table(x, file = "clipboard", sep = sep, row.names = FALSE, ...)
 }
 
