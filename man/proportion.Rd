@@ -22,6 +22,8 @@ cum_prop(x)
 \item{x}{A data.frame or a vector.}
 
 \item{...}{Additional arguments to be passed to methods.}
+
+\item{col}{A character string of the column name which holds the groups}
 }
 \description{
 Calculates a proportion from a vector or data.frame/matrix.
