@@ -20,7 +20,8 @@ add_data_sheet(
 
 \item{data}{A dataframe.}
 
-\item{sheetname}{The worksheet to write to. Can be the worksheet index or name.}
+\item{sheetname}{The worksheet to write to. Can be the worksheet index or
+name.}
 
 \item{tableStyle}{Any excel table style name or "none".}
 
@@ -28,7 +29,8 @@ add_data_sheet(
 
 \item{bandedCols}{Logical. If TRUE, the columns are colour banded}
 
-\item{...}{Additional arguments passed to openxlsx::writeDataTable that are not already listed}
+\item{...}{Additional arguments passed to openxlsx::writeDataTable that are
+not already listed}
 
 \item{override}{Logical.  If TRUE, will delete the sheetname (if present)}
 }
@@ -39,5 +41,6 @@ Add data to sheet
 A wrapper function to use within the openxlsx workbook building.
 This adds additional functionality to override within the function and provude an output that can be piped.
 
-These should be applied to a string starting with [openxlsx::createWorkbook()] then piped through with the functions below.
+These should be applied to a string starting with
+  [openxlsx::createWorkbook()] then piped through with the functions below.
 }

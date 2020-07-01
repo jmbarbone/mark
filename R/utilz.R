@@ -5,7 +5,11 @@ magrittr::`%>%`
 # Smaller functions that are used internally
 
 deparser <- function(x, env = parent.frame()) {
-  if(class(substitute(x, env)) == "name") deparse(substitute(x, env)) else x
+  if (class(substitute(x, env)) == "name") {
+    deparse(substitute(x, env))
+  } else {
+    x
+  }
 }
 
 ept <- function(x) {
@@ -16,7 +20,8 @@ ept <- function(x) {
 
 require_namespace <- function(namespace) {
   if (!requireNamespace(namespace, quietly = TRUE)) {
-    stop(sprintf("Package \"%s\" needed for this function to work. Please install it.", namespace),
+    stop(paste0("Package << ", namespace,
+                " >> needed for this function to work.\nPlease install this."),
          call. = FALSE)
   }
 }
@@ -35,9 +40,9 @@ all_na.default <- function(x) {
 
 all_na.character <- function(x, convert = FALSE) {
   found <- which(x == "NaN")
-  if(convert) {
+  if (convert) {
     x[found] <- NA_character_
-  } else if(length(found) > 0) {
+  } else if (length(found) > 0) {
     warning("These values may be NA types `convert`ed to character:\n",
             paste(paste0("    ",  x[found]), collapse = "\n"),
             call. = FALSE)
@@ -53,7 +58,10 @@ all_na.character <- function(x, convert = FALSE) {
 
 
 construct_date <- function(date_text, collapse = "") {
-  paste(sapply(unlist(strsplit(date_text, "")), date_switch, USE.NAMES = FALSE), collapse = collapse)
+  paste(sapply(unlist(strsplit(date_text, "")),
+               date_switch,
+               USE.NAMES = FALSE),
+        collapse = collapse)
 }
 
 date_switch <- function(x) {
