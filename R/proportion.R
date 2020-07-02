@@ -8,6 +8,7 @@
 #'
 #' @param x A data.frame or a vector.
 #' @param ... Additional arguments to be passed to methods.
+#' @param col A character string of the column name which holds the groups
 #'
 #' @examples
 #' proportion(iris, "Species")

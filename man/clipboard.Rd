@@ -6,7 +6,7 @@
 \alias{read_clipboard}
 \title{Write to and read from the clipboard}
 \usage{
-write_clipboard(x, ...)
+write_clipboard(x = .Last.value, ...)
 
 read_clipboard(method = c("default", "data.frame", "tibble"), ...)
 }
