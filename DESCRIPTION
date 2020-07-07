@@ -21,7 +21,8 @@ Imports:
     tibble,
     rlang,
     stats,
-    scales
+    scales,
+    tools
 Suggests: 
     Hmisc,
     knitr,
