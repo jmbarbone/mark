@@ -79,3 +79,8 @@ date_switch <- function(x) {
 # grepl(construct_date("bdY", "[\\s|,]+"), "December 17, 1992", ignore.case = TRUE)
 # grepl(construct_date("Ymd", "-"), "1992-12-17", ignore.case = TRUE)
 
+# Simplified as factor
+# Does not sort the levels
+as_factor_unordered <- function(f) {
+  factor(f, levels = unique(as.character(f)))
+}

@@ -14,3 +14,13 @@ lhs \%=+\% rhs
 \description{
 this needs to be tested...
 }
+\examples{
+val <- 1
+val \%=+\% 2
+val # 3
+val \%=+\% 2
+val # 5
+\dontrun{
+val \%=+\% c(1, 2, 3) # fails
+}
+}
