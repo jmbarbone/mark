@@ -15,11 +15,11 @@ A percentile rank between 0L and 100L
 \description{
 Computes a percentile rank for each score in a set.
 The bounds of a percentile rank are > 0 and < 100.
-A percentile rank here is the proportion of scores that are less than
-  the current score.
+A percentile rank here is the proportion of scores that are less than the
+  current score.
 }
 \details{
-This is not a very fast formula, but it is correct.
+This is not a very fast formula, however it is correct.
 
 \deqn{PR = (c_L + 0.5 f_i) / N * 100}
 
