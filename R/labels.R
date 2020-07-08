@@ -38,7 +38,7 @@ assign_label.data.frame <- function(x, ...) {
   ls <- list(...)
   n <- names(ls)
 
-  for(i in seq_along(n)) {
+  for (i in seq_along(n)) {
     x[[i]] <- assign_label(x[[i]], ls[[i]])
   }
 

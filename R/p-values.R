@@ -5,7 +5,7 @@
 #' @param x A vector of p-values
 #' @param n Number of digits to round by (if NULL - no rounding occurs)
 #' @param sig Number of significant figures (if NULL - not used)
-#' @param one,two,three,four The significance thresholds (defaults to .001, .01, .05, and .10).
+#' @param cutoffs A named vector for significant cutoffs
 #'
 #' @export
 #' @name p_values
@@ -44,12 +44,21 @@ p_round <- function(x, n = 3, sig = n) {
 #' @rdname p_values
 #' @export
 
-p_value_sig <- function(x, one = .001, two = .01, three = .05, four = .10) {
-  stopifnot(inherits(x, "numeric"))
-  out <- character(length(x))
-  out[x < one] <- "***"
-  out[x < two & x >= one] <- "**"
-  out[x < three & x >= two] <- "*"
-  out[x < four & x >= three] <- "."
-  out
+p_value_sig <- function(x, cutoffs = c("***" = 0.001,
+                                       "**" = 0.01,
+                                       "*" = 0.05,
+                                       "." = 0.10)) {
+  cutoffs <- sort(cutoffs, decreasing = FALSE)
+  cutoffs <- append(cutoffs, c(" " = 1))
+  nm <- names(cutoffs)
+  stopifnot("cuttoffs must be numeric" = is.numeric(cutoffs),
+            "cuttoffs must be named" = !is.null(nm),
+            "x must be 1 or less" = all(x <= 1, na.rm = TRUE))
+  vapply(x,
+         function(p) {
+           nm[min(which(cutoffs >= p),
+                  na.rm = TRUE)]
+         },
+         character(1),
+         USE.NAMES = FALSE)
 }

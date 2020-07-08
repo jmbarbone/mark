@@ -8,7 +8,7 @@
 \usage{
 p_round(x, n = 3, sig = n)
 
-p_value_sig(x, one = 0.001, two = 0.01, three = 0.05, four = 0.1)
+p_value_sig(x, cutoffs = c(`***` = 0.001, `**` = 0.01, `*` = 0.05, . = 0.1))
 }
 \arguments{
 \item{x}{A vector of p-values}
@@ -17,7 +17,7 @@ p_value_sig(x, one = 0.001, two = 0.01, three = 0.05, four = 0.1)
 
 \item{sig}{Number of significant figures (if NULL - not used)}
 
-\item{one, two, three, four}{The significance thresholds (defaults to .001, .01, .05, and .10).}
+\item{cutoffs}{A named vector for significant cutoffs}
 }
 \description{
 Rounds a p-value by decimal places and reports with sig figs

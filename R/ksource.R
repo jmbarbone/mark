@@ -14,7 +14,7 @@
 #' This can be useful for when a script calls on multiple, independent files to be sourced
 #' and a single failure shouldn't prevent the entire run to fail as well.
 #'
-#' `ksource()` ... sends additional arguemnts to [knitr:purl()]
+#' `ksource()` ... sends additional arguments to [knitr:purl()]
 #'
 #' @name sourcing
 #' @export
