@@ -2,6 +2,8 @@
 
 S3method(assign_label,data.frame)
 S3method(assign_label,default)
+S3method(get_labels,data.frame)
+S3method(get_labels,default)
 S3method(list2df,default)
 S3method(list2df,list)
 S3method(prop_tapply,data.frame)

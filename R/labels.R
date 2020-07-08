@@ -19,6 +19,9 @@
 #'                      Petal.Width  = "cms",
 #'                      Species      = "Iris ...")
 #' # View(labs)
+#'
+#' labs$dummy <- ""
+#' get_labels(labs) # shows label as <NA> for dummy column
 
 assign_label <- function(x, ...) {
   UseMethod("assign_label", x)
@@ -45,9 +48,27 @@ assign_label.data.frame <- function(x, ...) {
   x
 }
 
+
 #' @export
 #' @rdname labels
 get_labels <- function(x) {
+  UseMethod("get_labels", x)
+}
+
+#' @export
+#' @rdname labels
+get_labels.data.frame <- function(x) {
   stopifnot("`x` must be a data.frame" = inherits(x, "data.frame"))
-  vector2df(vapply(unclass(x), attr, character(1), "label"), "column", "label")
+  vector2df(vapply(unclass(x), get_labels, character(1)), "column", "label")
+}
+
+#' @export
+#' @rdname labels
+get_labels.default <- function(x) {
+  lb <- attr(x, "label")
+  if (is.null(lb)) {
+    NA_character_
+  } else {
+    lb
+  }
 }

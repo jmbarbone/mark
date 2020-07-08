@@ -6,6 +6,8 @@
 \alias{assign_label.default}
 \alias{assign_label.data.frame}
 \alias{get_labels}
+\alias{get_labels.data.frame}
+\alias{get_labels.default}
 \title{Dataframe labels}
 \usage{
 assign_label(x, ...)
@@ -15,6 +17,10 @@ assign_label(x, ...)
 \method{assign_label}{data.frame}(x, ...)
 
 get_labels(x)
+
+\method{get_labels}{data.frame}(x)
+
+\method{get_labels}{default}(x)
 }
 \arguments{
 \item{x}{A vector of data.frame}
@@ -36,4 +42,7 @@ labs <- assign_label(iris,
                      Petal.Width  = "cms",
                      Species      = "Iris ...")
 # View(labs)
+
+labs$dummy <- ""
+get_labels(labs) # shows label as <NA> for dummy column
 }
