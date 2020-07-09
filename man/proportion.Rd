@@ -25,10 +25,6 @@ cum_prop(x)
 \description{
 Calculates a proportion from a vector or data.frame/matrix.
 }
-\details{
-tapply(x, x, length) / length(x) can be speedier for smaller data sets and groups
-  but slows down with more data or a greater number of groups.
-}
 \examples{
 proportion(iris, "Species")
 proportion(iris$Species)
