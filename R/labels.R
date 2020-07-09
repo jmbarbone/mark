@@ -40,9 +40,15 @@ assign_label.default <- function(x, label, ...) {
 assign_label.data.frame <- function(x, ...) {
   ls <- list(...)
   n <- names(ls)
+  m <- match(n, colnames(x))
+
+  if (anyNA(m)) {
+    stop("Columns not found: ", paste(n[is.na(m)], collapse = ", "), call. = FALSE)
+  }
 
   for (i in seq_along(n)) {
-    x[[i]] <- assign_label(x[[i]], ls[[i]])
+    mi <- m[i]
+    x[[mi]] <- jordan::assign_label(x[[mi]], ls[[i]])
   }
 
   x
