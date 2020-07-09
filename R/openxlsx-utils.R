@@ -28,8 +28,11 @@ add_data_sheet <- function(wb, data, sheetname,
 {
   require_namespace("openxlsx")
 
-  if (override && sheetname %in% wb$sheet_names) {
-    openxlsx::removeWorksheet(wb, sheetname)
+  sns <- wb$sheet_names
+  snsl <- tolower(sns)
+  sn_in <- tolower(sheetname) %in% snl
+  if (override & sn_in) {
+    openxlsx::removeWorksheet(wb, sns[sn_in])
   }
 
   openxlsx::addWorksheet(wb, sheetname)
@@ -57,8 +60,11 @@ add_image_sheet <- function(wb, file, sheetname, ..., override = TRUE)
 {
   require_namespace("openxlsx")
 
-  if (override && sheetname %in% wb$sheet_names) {
-    openxlsx::removeWorksheet(wb, sheetname)
+  sns <- wb$sheet_names
+  snsl <- tolower(sns)
+  sn_in <- tolower(sheetname) %in% snl
+  if (override & sn_in) {
+    openxlsx::removeWorksheet(wb, sns[sn_in])
   }
 
   openxlsx::addWorksheet(wb, sheetname)
