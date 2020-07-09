@@ -20,7 +20,7 @@
 #' @param x A vector of values to rank
 #' @export
 #'
-#' @return A percentile rank between 0L and 100L
+#' @return A percentile rank between 0 and 100
 #'
 #' @examples
 #' x <- c(1, 1, 2, 5, 7, 7, 8, 10)
@@ -30,6 +30,6 @@
 #' }
 
 percentile_rank <- function(x) {
-  p <- unname(proportion(x))
-  (cumsum(p) - p + p * .5)[match(x, sort(unique(x)))] * 100
+  p <- proportion(x)
+  (cumsum(p) - p * .5)[match(x, sort.int(unique.default(x)))] * 100
 }

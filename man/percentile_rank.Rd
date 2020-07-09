@@ -10,7 +10,7 @@ percentile_rank(x)
 \item{x}{A vector of values to rank}
 }
 \value{
-A percentile rank between 0L and 100L
+A percentile rank between 0 and 100
 }
 \description{
 Computes a percentile rank for each score in a set.
