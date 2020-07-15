@@ -48,12 +48,11 @@ assign_label.data.frame <- function(x, ...) {
 
   for (i in seq_along(n)) {
     mi <- m[i]
-    x[[mi]] <- jordan::assign_label(x[[mi]], ls[[i]])
+    x[[mi]] <- assign_label(x[[mi]], ls[[i]])
   }
 
   x
 }
-
 
 #' @export
 #' @rdname labels
@@ -72,6 +71,7 @@ get_labels.data.frame <- function(x) {
 #' @rdname labels
 get_labels.default <- function(x) {
   lb <- attr(x, "label")
+
   if (is.null(lb)) {
     NA_character_
   } else {
