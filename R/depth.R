@@ -7,7 +7,7 @@
 #'   objects.
 #'
 #' @param x An object
-#' @param ... Additional arguments passed to methods
+#' @param ... Possible additional arguments passed to methods (not in use)
 #'
 #' @export
 #'
@@ -19,13 +19,13 @@
 #' b <- list(a = 1, b = list(list(1)))
 #' depth(b)
 
-depth <- function(x) {
+depth <- function(x, ...) {
   UseMethod("depth", x)
 }
 
 #' @export
 #' @rdname depth
-depth.default <- function(x) {
+depth.default <- function(x, ...) {
   if (is.null(x)) {
     0L
   } else {
@@ -35,7 +35,7 @@ depth.default <- function(x) {
 
 #' @export
 #' @rdname depth
-depth.list <- function(x) {
+depth.list <- function(x, ...) {
   if (length(x) == 0L) {
     # Empty list -- don't count
     return(0L)

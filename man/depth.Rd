@@ -6,16 +6,16 @@
 \alias{depth.list}
 \title{Depth}
 \usage{
-depth(x)
+depth(x, ...)
 
-\method{depth}{default}(x)
+\method{depth}{default}(x, ...)
 
-\method{depth}{list}(x)
+\method{depth}{list}(x, ...)
 }
 \arguments{
 \item{x}{An object}
 
-\item{...}{Additional arguments passed to methods}
+\item{...}{Possible additional arguments passed to methods (not in use)}
 }
 \description{
 Functions to extract the 'depth' of an object
