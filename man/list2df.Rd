@@ -4,24 +4,35 @@
 \alias{list2df}
 \title{List to data.frame}
 \usage{
-list2df(list, key = "key", value = "value", show_NA = FALSE)
+list2df(x, name = "name", value = "value", show_NA = FALSE, warn = FALSE)
 }
 \arguments{
-\item{list}{A (preferably) named `list` with any number of values}
+\item{x}{A (preferably) named `list` with any number of values}
 
-\item{key, value}{Names of the new key and value columns, respectively}
+\item{name, value}{Names of the new key and value columns, respectively}
 
-\item{show_NA}{Logical; if FALSE elements without names will be listed as ""; otherwise as NA}
+\item{show_NA}{Logical; if FALSE elements without names will be listed as "";
+otherwise as NA}
+
+\item{warn}{Logical; if TRUE will show a warning when}
 }
 \value{
-a `data.frame` object with columns "name" and "value" for the names of the `list`
-  and the values in each
+a `data.frame` object with columns "name" and "value" for the names
+of the `list` and the values in each
 }
 \description{
-Converts a list object into a a tidy data.frame
+Converts a list object into a data.frame
+}
+\details{
+Unlike [base::list2DF()], `list2df()` tries to format the data.frame by using
+  the names of the list as values rather than variables.  This creates a
+  longer form list that may be more tidy.
 }
 \examples{
 \dontrun{
-list2df(list(a = 1, b = 2:4, c = letters[10:20]), "col1", "col2")
+x <- list(a = 1, b = 2:4, c = letters[10:20])
+list2df(x, "col1", "col2", force = TRUE)
+# contrast with `base::list2DF()` w
+list2DF(x)
 }
 }

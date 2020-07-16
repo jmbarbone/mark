@@ -1,60 +1,57 @@
 #' List to data.frame
 #'
-#' Converts a list object into a a tidy data.frame
+#' Converts a list object into a data.frame
 #'
-#' @param list A (preferably) named `list` with any number of values
-#' @param key,value Names of the new key and value columns, respectively
-#' @param show_NA Logical; if FALSE elements without names will be listed as ""; otherwise as NA
-#' @return a `data.frame` object with columns "name" and "value" for the names of the `list`
-#'   and the values in each
+#' @details
+#' Unlike [base::list2DF()], `list2df()` tries to format the data.frame by using
+#'   the names of the list as values rather than variables.  This creates a
+#'   longer form list that may be more tidy.
+#'
+#' @param x A (preferably) named `list` with any number of values
+#' @param name,value Names of the new key and value columns, respectively
+#' @param show_NA Logical; if FALSE elements without names will be listed as "";
+#'   otherwise as NA
+#' @param warn Logical; if TRUE will show a warning when
+#'
+#' @return a `data.frame` object with columns "name" and "value" for the names
+#' of the `list` and the values in each
 #' @export
 #' @examples
 #' \dontrun{
-#' list2df(list(a = 1, b = 2:4, c = letters[10:20]), "col1", "col2")
+#' x <- list(a = 1, b = 2:4, c = letters[10:20])
+#' list2df(x, "col1", "col2", force = TRUE)
+#' # contrast with `base::list2DF()` w
+#' list2DF(x)
 #' }
 
-list2df <- function(list, key = "key", value = "value", show_NA = FALSE) {
-  UseMethod("list2df", list)
-}
+list2df <- function(x, name = "name", value = "value", show_NA = FALSE, warn = FALSE) {
+  stopifnot("`x` must be a list" = is.list(x))
 
-#' @export
-list2df.default <- function(list, key = "key", value = "value", show_NA = FALSE) {
-  stop("Object must be class list", call. = FALSE)
-}
+  cl <- lapply(x, class)
+  n_cl <- length(unique(cl))
 
-#' @export
-list2df.list <- function(list, key = "key", value = "value", show_NA = FALSE) {
-  classes <- sapply(list, class, simplify = TRUE)
-  n_classes <- length(unique(classes))
-
-  if(n_classes > 1) {
+  if (n_cl > 1 & !warn) {
     warning("Not all values are the same class", call. = FALSE)
-    if(any(c("character", "factor") %in% classes)) {
+    if (any(c("character", "factor") %in% cl)) {
       warning("Values converted to character", call. = FALSE)
     }
   }
 
-  list_names <- rep(names(list), sapply(list, length))
+  ulist <- unlist(x, use.names = FALSE)
+  ln <- length(ulist)
+  nm <- rep(names(x), vapply(x, length, integer(1)))
 
-  if(show_NA) {
-    list_names[list_names == ""] <- NA
-  }  else if(is.null(list_names) | any(list_names == "")) {
-    warning("Name missing from list.", call. = FALSE)
+  if (is.null(nm)) {
+    nm <- character(ln)
   }
 
-  data.frame(key = list_names,
-             value = unlist(list, use.names = FALSE),
-             stringsAsFactors = FALSE) %>%
-    `names<-`(c(key, value))
+  if (show_NA) {
+    nm[nm == ""] <- NA_character_
+  }
+
+  structure(list(name = nm,
+                 value = unname(ulist)),
+            class = "data.frame",
+            row.names = c(NA_integer_, ln),
+            .Names = c(name, value))
 }
-
-
-# testing -------------------------------------------------------------------------------------
-
-# length(x)
-# lengths(x)
-#
-# for(i in seq_along(x)) {
-#   magrittr::extract2(x, 1)
-#   print(sapply(x[[i]], length))
-# }

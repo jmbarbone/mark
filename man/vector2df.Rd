@@ -4,10 +4,10 @@
 \alias{vector2df}
 \title{Vector to data.frame}
 \usage{
-vector2df(vec, name = "name", value = "value", show_NA = FALSE)
+vector2df(x, name = "name", value = "value", show_NA = FALSE)
 }
 \arguments{
-\item{vec}{A vector of values.}
+\item{x}{A vector of values.}
 
 \item{name, value}{Character strings for the name and value columns}
 

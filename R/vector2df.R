@@ -2,26 +2,27 @@
 #'
 #' Transforms a vector (named) to a data.frame
 #'
-#' @param vec A vector of values.
+#' @param x A vector of values.
 #' @param name,value Character strings for the name and value columns
 #' @param show_NA Logical
 #' @export
 
-vector2df <- function(vec, name = "name", value = "value", show_NA = FALSE) {
-  if (!is.vector(vec)) stop("Object is not a vector.", call. = FALSE)
-  vector_names <- names(vec)
+vector2df <- function(x, name = "name", value = "value", show_NA = FALSE) {
+  stopifnot("`x` must be a vector" = is.vector(x))
+  nm <- names(x)
+  ln <- length(x)
 
-  if (show_NA) {
-    vector_names[vector_names == ""] <- NA_character_
-  } else if (is.null(vector_names) || any(vector_names == "")) {
-    warning("Name missing from vector.", call. = FALSE)
+  if (is.null(nm)) {
+    nm <- character(ln)
   }
 
-  out <- data.frame(name = vector_names,
-                    value = unname(vec),
-                    stringsAsFactors = FALSE,
-                    fix.empty.names = FALSE,
-                    check.names = FALSE)
-  colnames(out) <- c(name, value)
-  out
+  if (show_NA) {
+    nm[nm == ""] <- NA_character_
+  }
+
+  structure(list(v1 = nm,
+                 v2 = unname(x)),
+            class = "data.frame",
+            row.names = c(NA_integer_, ln),
+            .Names = c(name, value))
 }
