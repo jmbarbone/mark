@@ -27,5 +27,6 @@ Suggests:
     Hmisc,
     knitr,
     openxlsx,
+    stringi,
     testthat
 RoxygenNote: 7.1.1
