@@ -3,7 +3,9 @@
 #' Assign labels to a vector or data.frame.
 #'
 #' @param x A vector of data.frame
-#' @param ... One or more unquoted expressed separated by commas
+#' @param ... One or more unquoted expressed separated by commas.  If assigning
+#'   to a data.frame, `...` can be replaced with a `data.frame` where the first
+#'   column is the targeted colname and the second is the desired label.
 #' @param label A single length string of a label to be assigned
 #'
 #' @name labels
@@ -30,7 +32,8 @@ assign_label <- function(x, ...) {
 #' @export
 #' @rdname labels
 assign_label.default <- function(x, label, ...) {
-  stopifnot(length(label) == 1L)
+  stopifnot("`label` is NULL" = !is.null(label),
+            "`label` is not of length 1L" = length(label) == 1L)
   attr(x, "label") <- label
   x
 }
@@ -39,15 +42,22 @@ assign_label.default <- function(x, label, ...) {
 #' @rdname labels
 assign_label.data.frame <- function(x, ...) {
   ls <- list(...)
-  n <- names(ls)
-  m <- match(n, colnames(x))
 
-  if (anyNA(m)) {
-    stop("Columns not found: ", paste(n[is.na(m)], collapse = ", "), call. = FALSE)
+  stopifnot("`...` is NULL" = !is.null(unlist(ls)))
+
+  if (inherits(ls[[1]], "data.frame")) {
+    ls <- as.vector(setNames(ls[[1]][[2]], ls[[1]][[1]]), "list")
   }
 
-  for (i in seq_along(n)) {
-    mi <- m[i]
+  nm <- names(ls)
+  ma <- match(nm, colnames(x), nomatch = NA_integer_)
+
+  if (anyNA(ma)) {
+    stop("Columns not found: ", paste(nm[is.na(ma)], collapse = ", "), call. = FALSE)
+  }
+
+  for (i in seq_along(nm)) {
+    mi <- ma[i]
     x[[mi]] <- assign_label(x[[mi]], ls[[i]])
   }
 

@@ -25,7 +25,9 @@ get_labels(x)
 \arguments{
 \item{x}{A vector of data.frame}
 
-\item{...}{One or more unquoted expressed separated by commas}
+\item{...}{One or more unquoted expressed separated by commas.  If assigning
+to a data.frame, `...` can be replaced with a `data.frame` where the first
+column is the targeted colname and the second is the desired label.}
 
 \item{label}{A single length string of a label to be assigned}
 }
