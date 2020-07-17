@@ -20,8 +20,8 @@ test_that("list to data.frame", {
                     value = c(1, 2:4, letters[10:20]))
 
   expect_warning(list2df(x))
-  expect_warning(list2df(x, warn = TRUE), NA)
-  expect_equal(list2df(x, warn = TRUE), exp)
+  expect_warning(list2df(x, warn = FALSE), NA)
+  expect_equal(list2df(x, warn = FALSE), exp)
 
   x <- list(a = 1, b = seq(2, 9, 1.0), c = 20)
   exp <- data.frame(name = c("a", rep("b", 8), "c"),

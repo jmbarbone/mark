@@ -4,7 +4,7 @@
 \alias{list2df}
 \title{List to data.frame}
 \usage{
-list2df(x, name = "name", value = "value", show_NA = FALSE, warn = FALSE)
+list2df(x, name = "name", value = "value", show_NA = FALSE, warn = TRUE)
 }
 \arguments{
 \item{x}{A (preferably) named `list` with any number of values}

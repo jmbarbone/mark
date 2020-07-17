@@ -24,13 +24,13 @@
 #' list2DF(x)
 #' }
 
-list2df <- function(x, name = "name", value = "value", show_NA = FALSE, warn = FALSE) {
+list2df <- function(x, name = "name", value = "value", show_NA = FALSE, warn = TRUE) {
   stopifnot("`x` must be a list" = is.list(x))
 
   cl <- lapply(x, class)
   n_cl <- length(unique(cl))
 
-  if (n_cl > 1 & !warn) {
+  if (n_cl > 1 & warn) {
     warning("Not all values are the same class", call. = FALSE)
     if (any(c("character", "factor") %in% cl)) {
       warning("Values converted to character", call. = FALSE)
