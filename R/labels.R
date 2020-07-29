@@ -46,7 +46,9 @@ assign_label.data.frame <- function(x, ...) {
   stopifnot("`...` is NULL" = !is.null(unlist(ls)))
 
   if (inherits(ls[[1]], "data.frame")) {
-    ls <- as.vector(setNames(ls[[1]][[2]], ls[[1]][[1]]), "list")
+    lsx <- as.vector(ls[[1]][[2]], "list")
+    names(lsx) <- ls[[1]][[1]]
+    ls <- lsx
   }
 
   nm <- names(ls)
