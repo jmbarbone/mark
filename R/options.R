@@ -22,6 +22,7 @@
 #' }
 
 setOption <- function(name, value) {
+  # do.call(options, as.list(new_options))
   ept(sprintf('options(%s = %s)', name, optsVal(value)))
 }
 
