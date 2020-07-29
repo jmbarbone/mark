@@ -23,4 +23,7 @@ test_that("string slices", {
   expect_equal(paste(res, collapse = ""), x, info = "By word:  Collapsed res")
   lengths <- vapply(res, nchar, integer(1))
   expect_true(all(lengths <= len), info = "By word:  All lines within desired length")
+
+  xx <- c(x, x)
+  expect_error(str_slice_by_word(xx, 80), info = "Must take character(1)")
 })

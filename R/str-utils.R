@@ -61,7 +61,8 @@ str_slice <- function(x, n = 80L) {
 #' @export
 #' @rdname str_slice
 str_slice_by_word <- function(x, n = 80L) {
-  stopifnot(is.character(x))
+  stopifnot(is.character(x),
+            "Input text must be length 1L" = length(x) == 1L)
 
   ss <- strsplit(x, "")[[1]]
   n_chars <- nchar(x)
