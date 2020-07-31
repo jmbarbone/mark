@@ -2,9 +2,12 @@
 % Please edit documentation in R/paths.R
 \name{path_norm}
 \alias{path_norm}
+\alias{file_path}
 \title{Normalize a path}
 \usage{
-path_norm(x, check = FALSE, remove = check)
+path_norm(x = ".", check = FALSE, remove = check)
+
+file_path(..., check = FALSE, remove = check)
 }
 \arguments{
 \item{x}{A vector of paths}
@@ -13,6 +16,8 @@ path_norm(x, check = FALSE, remove = check)
 warning if it does not.}
 
 \item{remove}{Logical, if TRUE will remove paths that are not found}
+
+\item{...}{Character vectors for creating a path}
 }
 \description{
 Normalize and check a vector of paths
