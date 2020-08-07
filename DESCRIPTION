@@ -25,9 +25,11 @@ Imports:
     scales,
     tools
 Suggests: 
+    graphics,
     Hmisc,
     knitr,
     openxlsx,
+    pROC,
     stringi,
     testthat
 RoxygenNote: 7.1.1
