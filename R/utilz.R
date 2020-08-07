@@ -84,3 +84,11 @@ date_switch <- function(x) {
 as_factor_unordered <- function(f) {
   factor(f, levels = unique(as.character(f)))
 }
+
+remove_na <- function(x) {
+  x[!is.na(x)]
+}
+
+unique_no_na <- function(x) {
+  unique(remove_na(x))
+}

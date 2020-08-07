@@ -10,51 +10,79 @@
 #' This will also include as many categories as possible from the entry.
 #'
 #' @param file File or connection
-#' @param n Integer, the maximum number of lines to read (passed to readLines)
+#' @param skip The lines to skip
+#' @param max_lines The maximum number of lines to read
 #' @param encoding Assumed encoding of file (passed to readLines)
 #'
 #' @export
 #'
 #' @examples
 #' file <- "https://raw.githubusercontent.com/jmbarbone/bib-references/master/references.bib"
-#' bibdf <- read_bib(file, n = 51L)
+#' bibdf <- read_bib(file, max_lines = 51L)
+#'
+#' \dontrun{
 #' if (requireNamespace("tibble")) tibble::as_tibble(bibdf) else head(bibdf)
 #'
 #' if (requireNamespace("bib2df") & requireNamespace("microbenchmark")) {
 #'   file1 <- system.file("extdata", "bib2df_testfile_3.bib", package = "bib2df")
+#'
+#'   # Doesn't include the 'tidying' up
+#'   foo <- function(file) {
+#'     bib <- bib2df:::bib2df_read(file)
+#'     bib2df:::bib2df_gather(bib)
+#'   }
+#'
 #'   microbenchmark::microbenchmark(
 #'     read_bib(file1),
 #'     bib2df::bib2df(file1)
 #'   )
 #' }
+#' }
 
-read_bib <- function(file, n = -1L, encoding = "UTF-8")
+read_bib <- function(file, skip = 0, max_lines = NULL, encoding = "UTF-8")
 {
-  bib <- readLines(file, n = n, encoding = encoding)
+  bib <- readLines(file, encoding = encoding)
+
+  if (!is.null(max_lines)) {
+    start <- skip + 1
+    n_lines <- length(bib)
+    last_line <- skip + max_lines
+    bib <- bib[seq.int(start, ifelse(last_line > n_lines, n_lines, last_line))]
+  }
+
   bib <- gsub("[^[:graph:]]", " ", bib)
 
   # Find start of entries
   from <- grep("[@]", bib)
   stopifnot("No entries detected" = length(from) > 0)
+
   # shift over (may contain white space?)
   to <- c(from[-1] - 1, length(bib))
 
-  itemlist <- mapply(function(x, y) bib[x:y],
-                     x = from,
-                     y = to - 1,
-                     SIMPLIFY = FALSE)
+  item_list <- Map(function(x, y) bib[x:y], x = from, y = to - 1)
 
   # Extract first line for speediness
-  first_line <- sapply(itemlist, function(x) x[1])
+  first_line <- sapply(item_list, function(x) x[1])
 
   keys <- gsub(".*((?<=\\{)[^,]+).*", "\\1", first_line, perl = TRUE)
-
   fields <- gsub(".*((?<=@)[^\\{]+).*", "\\1", first_line, perl = TRUE)
   fields <- tolower(fields)
 
   # TODO Implement checks for duplicate categories?
+  categories <- get_bib_categories(item_list)
+  values <- get_bib_values(item_list)
 
-  categories <- lapply(itemlist, function(x) {
+  bib_dataframe <- process_bib_dataframe(categories, values, fields, keys)
+  bib_list <- process_bib_list(keys, fields, categories, values)
+
+  as_bib(bib_dataframe, bib_list = bib_list)
+}
+
+
+# FUNS --------------------------------------------------------------------
+
+get_bib_categories <- function(list) {
+  lapply(list, function(x) {
     # Assuming categories are to the left of any "="
     xx <- strsplit(x[-1], "=")
     xx <- sapply(xx, `[`, 1)
@@ -62,30 +90,43 @@ read_bib <- function(file, n = -1L, encoding = "UTF-8")
     xx[xx %in% c("{", "}")] <- NA_character_
     tolower(xx)
   })
+}
 
-  values <- lapply(itemlist, function(x) {
+get_bib_values <- function(list) {
+  lapply(list, function(x) {
     # Assuming values are to the right of any "="
     xx <- strsplit(x[-1], "=")
     xx <- sapply(xx, `[`, -1)
     # remove empty columns
     xx[sapply(xx, function(x) length(x) == 0)] <- NA_character_
+    # There may be something better than this
     xx <- gsub("\\{|\\}|,?$", "", xx)
     xx <- trimws(xx)
     xx
   })
+}
 
+#' Process bib values
+#'
+#' Generates a data frame of values from bibs
+#'
+#' @param categories A list of categories
+#' @param values A list of values
+#' @param fields a Vector of fields
+#' @param keys a Vector of keys
+#'
+#' @return A wide data.frame with explicit NAs
+
+process_bib_dataframe <- function(categories, values, fields, keys) {
   # Determine all categories for missing values inside Map
-  ucats <- unique(unlist(categories))
-  ucats <- ucats[!is.na(ucats)]
+  ucats <- unique_no_na(unlist(categories))
   ucats_n <- length(ucats)
-  ucats_df <- structure(
-    list(v1 = ucats,
-         v2 = rep(NA_character_, ucats_n)),
-    class = "data.frame",
-    row.names = c(NA_integer_, ucats_n),
-    .Names = c("category", "value"))
+  ucats_df <- structure(list(v1 = ucats, v2 = rep(NA_character_, ucats_n)),
+                        class = "data.frame",
+                        row.names = c(NA_integer_, ucats_n),
+                        .Names = c("category", "value"))
 
-  items <- Map(
+  x <- Map(
     function(cats, vals, field, key) {
       # Determine valids
       valids <- !is.na(cats)
@@ -118,11 +159,13 @@ read_bib <- function(file, n = -1L, encoding = "UTF-8")
     cats = categories,
     vals = values,
     field = fields,
-    key = keys
-  )
+    key = keys)
 
+  Reduce(rbind, x)
+}
 
-  bib_list <- Map(
+process_bib_list <- function(keys, fields, categories, values) {
+  x <- Map(
     function(key, field, cats, vals) {
       vals[is.na(vals)] <- ""
       new <- c(key, field, vals)
@@ -133,22 +176,26 @@ read_bib <- function(file, n = -1L, encoding = "UTF-8")
     key = keys,
     field = fields,
     cats = categories,
-    vals = values
-  )
-
-  bib_list <- structure(bib_list,
-                        class = c("list", "jordan_bib_list"),
-                        .Names = keys)
-
-  structure(Reduce(rbind, items),
-            bib_list = bib_list,
-            class = c("data.frame", "jordan_bib")
-  )
+    vals = values)
+  as_bib_list(x, keys)
 }
 
+as_bib_list <- function(x, names = NULL) {
+  stopifnot(is.list(x))
+  structure(x, class = c("list", "jordan_bib_list"), names = names)
+}
+
+as_bib <- function(x, bib_list = NULL) {
+  stopifnot(inherits(x, "data.frame"))
+  structure(x, bib_list = bib_list, class = c("data.frame", "jordan_bib"))
+}
+
+
+# Prints ------------------------------------------------------------------
+
 #' @export
+#' @importFrom utils capture.output
 print.jordan_bib_list <- function(x, ...) {
-  # out <- sapply(x, function(x) capture.output(print(x)), USE.NAMES = FALSE)
   nm <- names(x)
   out <- x
   names(out) <- NULL
@@ -175,7 +222,6 @@ print.jordan_bib_list <- function(x, ...) {
 
 #' @export
 print.jordan_bib_entry <- function(x, ...) {
-  # x <- bib_list[[1]]
   out <- x[!(is.na(x) | x == "")]
   nm <- names(out)
   chars <- nchar(nm)

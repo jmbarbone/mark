@@ -4,12 +4,14 @@
 \alias{read_bib}
 \title{Read Bib file}
 \usage{
-read_bib(file, n = -1L, encoding = "UTF-8")
+read_bib(file, skip = 0, max_lines = NULL, encoding = "UTF-8")
 }
 \arguments{
 \item{file}{File or connection}
 
-\item{n}{Integer, the maximum number of lines to read (passed to readLines)}
+\item{skip}{The lines to skip}
+
+\item{max_lines}{The maximum number of lines to read}
 
 \item{encoding}{Assumed encoding of file (passed to readLines)}
 }
@@ -25,14 +27,24 @@ This will also include as many categories as possible from the entry.
 }
 \examples{
 file <- "https://raw.githubusercontent.com/jmbarbone/bib-references/master/references.bib"
-bibdf <- read_bib(file, n = 51L)
+bibdf <- read_bib(file, max_lines = 51L)
+
+\dontrun{
 if (requireNamespace("tibble")) tibble::as_tibble(bibdf) else head(bibdf)
 
 if (requireNamespace("bib2df") & requireNamespace("microbenchmark")) {
   file1 <- system.file("extdata", "bib2df_testfile_3.bib", package = "bib2df")
+
+  # Doesn't include the 'tidying' up
+  foo <- function(file) {
+    bib <- bib2df:::bib2df_read(file)
+    bib2df:::bib2df_gather(bib)
+  }
+
   microbenchmark::microbenchmark(
     read_bib(file1),
     bib2df::bib2df(file1)
   )
+}
 }
 }
