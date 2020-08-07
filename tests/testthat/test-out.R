@@ -12,7 +12,7 @@ test_that("`%out%` returns opposite of `%in%`", {
 })
 
 test_that("`%w/o%` returns duplicates.", {
-  expect_equal(c(1:6, 7:2) %w/o% c(3, 7, 12),
+  expect_equal(c(1:6, 7:2) %wo% c(3, 7, 12),
                c(1, 2, 4, 5, 6, 6, 5, 4, 2))
 })
 

@@ -33,6 +33,6 @@ letters[1:5] \%wo\% letters[3:7]
 letters[1:5] \%wi\% letters[3:7]
 
 ## Note that setdiff() is very similar and typically makes more sense:
-        c(1:6,7:2) \%w/o\% c(3,7,12)  # -> keeps duplicates
-setdiff(c(1:6,7:2),      c(3,7,12)) # -> unique values
+        c(1:6,7:2) \%wo\% c(3,7,12)  # -> keeps duplicates
+setdiff(c(1:6,7:2),     c(3,7,12)) # -> unique values
 }
