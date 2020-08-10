@@ -11,7 +11,8 @@
 #' @name p_values
 #'
 #' @examples
-#' x <- stats::pchisq(abs(runif(25)), 3)
+#' set.seed(42)
+#' x <- stats::pchisq(abs(runif(25)), 4)
 #' print(data.frame(x = x,
 #'                  p = p_round(x),
 #'                  sigs = p_value_sig(x)),
@@ -20,7 +21,9 @@
 
 p_round <- function(x, n = 3, sig = n) {
   valid_n <- !is.null(n)
+
   if (valid_n) {
+    below <- x < (1 / (10^(n)))
     stopifnot(n > 1L)
     x <- round(x, n)
   }
@@ -30,13 +33,13 @@ p_round <- function(x, n = 3, sig = n) {
   out[nans] <- "(NaN)"
 
   if (valid_n) {
-    out[!nans & x == 0L] <- sprintf("< .%s1", paste(rep("0", n - 1), collapse = ""))
+    out[!nans & below] <- sprintf("< .%s1", paste(rep("0", n - 1), collapse = ""))
   }
-  non_zeros <- !nans & x > 0
 
-  if (length(non_zeros) > 0L & !is.null(sig)) {
-    out[non_zeros] <- as.character(signif(x[non_zeros], sig))
-  }
+  empty <- out == ""
+  # formatc(., digits = NULL) is default
+  # Cannot do this as one vector -- sigs should be evaluated item by item
+  out[empty] <- vapply(x[empty], format, character(1), digits = sig, scientific = FALSE, USE.NAMES = FALSE)
 
   out
 }

@@ -23,7 +23,8 @@ p_value_sig(x, cutoffs = c(`***` = 0.001, `**` = 0.01, `*` = 0.05, . = 0.1))
 Rounds a p-value by decimal places and reports with sig figs
 }
 \examples{
-x <- stats::pchisq(abs(runif(25)), 3)
+set.seed(42)
+x <- stats::pchisq(abs(runif(25)), 4)
 print(data.frame(x = x,
                  p = p_round(x),
                  sigs = p_value_sig(x)),
