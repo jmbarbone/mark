@@ -13,6 +13,7 @@ if (requireNamespace("prompt", quietly = TRUE)) {
 
 .Reload <- function(remove_objects = TRUE, loud = FALSE) {
   .pe$lss <- ls(envir = .GlobalEnv)
+
   if (remove_objects && length(.pe$lss) > 0L && loud) {
     message("Removing all objects in the Global Environment:\n",
             paste(.pe$lss, collapse = " ... "))
@@ -46,8 +47,38 @@ ht <- function(x, n = 5L) {
 }
 
 # Be nice to yourself
-if (requireNamespace("praise", quietly = TRUE)) cat(praise::praise(), "\n")
-if (requireNamespace("fortunes", quietly = TRUE)) fortunes::fortune()
+if(stats::runif(1) > .5) {
+  if (requireNamespace("praise", quietly = TRUE)) cat(praise::praise(), "\n")
+} else {
+  if (requireNamespace("fortunes", quietly = TRUE)) fortunes::fortune()
+}
 
-# This is maybe dangerous but it is package development, right?
-# jordan::source_r_file("r/utilz.R")
+# This is maybe dangerous but it is package development, right?"
+
+.RProfileUserCheck <- function() {
+  rpu <- Sys.getenv("R_PROFILE_USER")
+  if (rpu == "") return(invisible(NULL))
+  if (requireNamespace("waldo", quietly = TRUE)) {
+    diffs <- waldo::compare(readLines(rpu), readLines(".Rprofile"))
+    if (length(diffs)) {
+      cat(diffs, "\n")
+      switch(
+        utils::menu(title = "Differences foundnWould you like to update the file?",
+                    choices = c("No",
+                                "Yes -- Update .Rprofile",
+                                "Yes -- Updated R_PROFILE_USER")),
+        `2` = cat("Okay, just checking"),
+        `2` = {
+          file.copy(rpu, ".Rprofile", overwrite = TRUE, copy.date = TRUE)
+          .Reload()
+        },
+        `3` = {
+          file.copy(".Rprofile", rpu, overwrite = TRUE, copy.date = TRUE)
+          .Reload()
+        })
+     } else {
+        cat("No differences found")
+      }
+  }
+}
+
