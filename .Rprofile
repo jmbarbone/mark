@@ -14,9 +14,11 @@ if (requireNamespace("prompt", quietly = TRUE)) {
 .Reload <- function(remove_objects = TRUE, loud = FALSE) {
   .pe$lss <- ls(envir = .GlobalEnv)
 
-  if (remove_objects && length(.pe$lss) > 0L && loud) {
-    message("Removing all objects in the Global Environment:\n",
-            paste(.pe$lss, collapse = " ... "))
+  if (remove_objects) {
+    if (loud & length(.pe$lss) > 0L){
+      message("Removing all objects in the Global Environment:\n",
+              paste(.pe$lss, collapse = " ... "))
+    }
     rm(list = .pe$lss, envir = .GlobalEnv)
   }
 
@@ -61,9 +63,9 @@ if(stats::runif(1) > .5) {
   if (requireNamespace("waldo", quietly = TRUE)) {
     diffs <- waldo::compare(readLines(rpu), readLines(".Rprofile"))
     if (length(diffs)) {
-      cat(diffs, "\n")
+      cat(diffs)
       switch(
-        utils::menu(title = "Differences foundnWould you like to update the file?",
+        utils::menu(title = "\nWould you like to update the file?",
                     choices = c("No",
                                 "Yes -- Update .Rprofile",
                                 "Yes -- Updated R_PROFILE_USER")),
