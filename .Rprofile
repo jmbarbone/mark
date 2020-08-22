@@ -67,7 +67,7 @@ if(stats::runif(1) > .5) {
                     choices = c("No",
                                 "Yes -- Update .Rprofile",
                                 "Yes -- Updated R_PROFILE_USER")),
-        `2` = cat("Okay, just checking"),
+        `1` = cat("Okay, just checking"),
         `2` = {
           file.copy(rpu, ".Rprofile", overwrite = TRUE, copy.date = TRUE)
           .Reload()
