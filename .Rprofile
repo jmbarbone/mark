@@ -5,8 +5,8 @@
 
 if (requireNamespace("prompt", quietly = TRUE)) {
   .pe$branch <- prompt::prompt_git()
-  .pe$branch_promt <-  paste0("[", sub("\\*", "]", .pe$branch))
-  prompt::set_prompt(.pe$branch_promt)
+  .pe$branch_prompt <-  paste0("[", sub(" >", "] >", .pe$branch))
+  prompt::set_prompt(.pe$branch_prompt)
 }
 
 .Restart <- rstudioapi::restartSession
