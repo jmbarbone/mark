@@ -1,0 +1,51 @@
+context("Expand by and Reindex")
+
+test_that("expand_by examples work", {
+  x <- letters[c(3:2, 5, 9)]
+  y <- letters[c(1:4, 8)]
+
+  res <- expand_by(x, y, "x")
+  exp <- c(c = "c", b = "b", e = NA, i = NA)
+  expect_equal(res, exp)
+
+  res <- expand_by(x, y, "y")
+  # what?  shit, that's not right
+  exp <- c(a = NA, b = "b", c = "c", d = NA, h = NA)
+  expect_equal(res, exp)
+
+  res <- expand_by(x, y, "intersect")
+  exp <- c(b = "b", c = "c")
+  expect_equal(exp, res)
+
+  res <- expand_by(x, y, "both")
+  exp <- c(c = "c", b = "b", e = "e", i = "i", a = NA, d = NA, h = NA)
+  expect_equal(exp, res)
+
+  res <- expand_by(x, y, "both", sort = TRUE)
+  exp <- sort_names(c(c = "c", b = "b", e = "e", i = "i", a = NA, d = NA, h = NA))
+  expect_equal(exp, res)
+
+})
+
+test_that("reindex examples work", {
+  iris1 <- head(iris, 5)
+  iris1$index <- 1:5
+  res <- reindex(iris1, "index", seq(2, 8, 2))
+  exp <- iris1[c(2, 4), ]
+  # row name attributes mode change
+  expect_equivalent(res, exp)
+
+
+  res <- reindex(iris1, "index", seq(2, 8, 2), expand = "both")
+  exp <- iris1[seq(2:8), ]
+  expect_equivalent(res, exp)
+
+
+  #' # Using letters will show changes in rownames
+  iris1$index <- letters[1:5]
+  reindex(iris1, "index", letters[seq(2, 8, 2)])
+
+  reindex(iris1, "index", seq(2, 8, 2))
+  reindex(iris1, "index", seq(2, 8, 2), expand = "both")
+})
+

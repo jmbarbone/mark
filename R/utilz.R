@@ -92,3 +92,38 @@ remove_na <- function(x) {
 unique_no_na <- function(x) {
   unique(remove_na(x))
 }
+
+is_named <- function(x) {
+  !is.null(names(x))
+}
+
+#' Sort by names
+#'
+#' Sort a vector by it's name
+#'
+#' @param x A vector
+#'
+#' @export
+sort_names <- function(x) {
+  stopifnot(is_named(x), is.vector(x))
+  x[sort(names(x))]
+}
+
+# Checks that names are unique in the vector
+unique_name_check <- function(x) {
+  nm <- names(x)
+  if (is.null(nm)) nm <- x
+
+  lens <- sapply(split(nm, nm), length, USE.NAMES = TRUE)
+  int <- lens > 1
+
+  if (any(int)) {
+    warning("These names are duplicated: ",
+            paste0(names(lens[int]), collapse = ", "),
+            call. = FALSE)
+    invisible(FALSE)
+  } else {
+    invisible(TRUE)
+  }
+}
+
