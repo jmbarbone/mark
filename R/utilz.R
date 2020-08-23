@@ -127,3 +127,8 @@ unique_name_check <- function(x) {
   }
 }
 
+# Removes object's attributes before printing
+print_no_attr <- function(x, ...) {
+  attributes(x) <- NULL
+  NextMethod("print", x)
+}
