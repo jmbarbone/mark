@@ -4,7 +4,6 @@
 \alias{proportion}
 \alias{proportion.default}
 \alias{proportion.data.frame}
-\alias{cum_prop}
 \title{Proportions}
 \usage{
 proportion(x, ...)
@@ -12,8 +11,6 @@ proportion(x, ...)
 \method{proportion}{default}(x, ...)
 
 \method{proportion}{data.frame}(x, col, ...)
-
-cum_prop(x)
 }
 \arguments{
 \item{x}{A data.frame or a vector.}

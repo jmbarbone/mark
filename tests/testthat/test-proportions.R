@@ -3,13 +3,18 @@ context("proportions")
 library(dplyr)
 
 test_that("Fake test", {
+  # proportion.default
+  res <- proportion(iris$Species)
+  exp <- c(1, 1, 1) / 3
+  names(exp) <- c("setosa", "versicolor", "virginica")
+  expect_equal(res, exp)
 
-  # microbenchmark::microbenchmark(
-  #   dplyr      = temp %>% count(Species, name = "prop") %>% mutate(prop = prop / sum(prop)),
-  #   proportion = proportion(temp, Species),
-  #   times      = 10,
-  #   # check      = "equal",
-  #   setup      = {temp <- as_tibble(iris)})
+  # proportion.data.frame
+  res <- proportion(iris, "Species")
+  exp <- vector2df(exp, "Species", "prop")
+  expect_equal(res, exp)
 
-  expect_true(TRUE)
+  # TODO test for ordering
+  # TODO test for ordered factor
+  # TODO test for numeric
 })

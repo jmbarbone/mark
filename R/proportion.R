@@ -22,18 +22,19 @@ proportion.default <- function(x, ...) {
   if (!inherits(x, "factor")) {
     x <- as_factor_unordered(x)
   }
+
   vapply(split(x, x), length, double(1)) / length(x)
 }
 
 #' @export
 #' @rdname proportion
 proportion.data.frame <- function(x, col, ...) {
-  vector2df(proportion.default(x[[col]]), "col_name", "props")
-}
+  cn <- colnames(x)
+  is_in <- col %in% cn
 
-#' @export
-#' @rdname proportion
-cum_prop <- function(x) {
-  x <- cumsum(x)
-  x / x[length(x)]
+  stopifnot("Column name not found" = any(is_in),
+            "Multiple matches found" = sum(is_in) == 1L)
+
+  props <- proportion.default(x[[col]])
+  vector2df(props, col, "prop")
 }
