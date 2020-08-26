@@ -1,6 +1,76 @@
 #' Start up functions
 #'
-#' Functions that try to assit with start ups
+#' Functions that try to assist with start ups
+#'
+#' @details
+#' These functions can be used to create an enviornment for startup.
+#'
+#' @name startup_funs
+#' @family startup_utils
+NULL
+
+
+#' @export
+#' @family startup_utils
+#' @rdname startup_funs
+.LoadFunctionsFromJordan <- function() {
+  e <- new.env()
+  e$op <- options()
+  j <- asNamespace("jordan")
+
+  sf <- get("startup_funs", envir = j)
+  for (f in sf) {
+    fun <- get(f, envir = j)
+    assign(f, fun, envir = .GlobalEnv)
+  }
+
+  assign(".pe", e, envir = .GlobalEnv)
+
+  .ResetOptions <- function(keep_prompt = TRUE) {
+    # Resets options
+    # Calls the created .pe environment made in .LoadFunctionsFromJordan()
+    # As far as I can tell, this has to be created inside the funciton to work
+    #   prorperly.  I mean, I could always be wrong and not be good enough?
+    op <- get("op", envir = get(".pe", .GlobalEnv))
+    if (keep_prompt) op$prompt <- options()$prompt
+    on.exit(options(op), add = TRUE)
+    invisible(NULL)
+  }
+
+  assign(".ResetOptions", .ResetOptions, envir = .GlobalEnv)
+
+  invisible(NULL)
+}
+
+#' @export
+#' @rdname startup_funs
+.RunDefaultFunctionsFromJordan <- function() {
+  invisible(
+    eval({
+      .load_pipe()
+      .NiceMessage()
+      .git_branch_prompt()
+    },
+    envir = .GlobalEnv)
+  )
+}
+
+#' @export
+#' @rdname startup_funs
+startup_funs <- c(
+  '.RunDefaultFunctionsFromJordan',
+  '.SendAttachedPackagesToREnviron',
+  '.RemoveAttachedPackages',
+  '.Reload',
+  '.Restart',
+  '.load_pipe',
+  '.git_branch_prompt',
+  '.NiceMessage',
+  'ht',
+  'ht.default',
+  'ht.tbl_df',
+  NULL
+)
 
 
 #' Manage attached packages
@@ -11,6 +81,7 @@
 #'   .Renvironment file
 #'
 #' @export
+#' @family startup_funs
 #' @name attached_packages
 .SendAttachedPackagesToREnviron <- function(remove_renviron = FALSE) {
   attached <- grep("^package[:]", search(), value = TRUE)
@@ -42,6 +113,7 @@
 }
 
 #' @export
+#' @family startup_funs
 #' @rdname attached_packages
 .RemoveAttachedPackages <- function(attached = NULL) {
   if (is.null(attached)) {
@@ -54,39 +126,60 @@
     detach(a, character.only = TRUE)
   }
 
-  invisible(NULL)
+  inv()
 }
 
 
 .default_packages <- c("base", "datasets", "utils", "grDevices", "graphics", "stats", "methods")
 names(.default_packages) <- paste0("package:", .default_packages)
 
+#' Reload
+#'
+#' Reloads your session
+#'
+#' @details
+#'
+#'
 #' @export
-.Reload <- function (remove_objects = TRUE, loud = FALSE) {
+#' @family startup_utils
+#' @name Reload
+.Reload <- function(remove_objects = TRUE, loud = FALSE) {
+  require_namespace("rstudioapi")
   objs <- ls(envir = .GlobalEnv, all.names = TRUE)
   if (remove_objects) {
     if (loud & length(objs) > 0L) {
       message("Removing all objects in the Global Environment:\n",
               paste(objs, collapse = " ... "))
     }
-    rm(objs, envir = .GlobalEnv)
+    rm(list = objs, envir = .GlobalEnv)
   }
+
   .Restart()
-  invisible(NULL)
+  inv()
 }
 
 #' @export
-.Restart <- rstudioapi::restartSession
+#' @name Reload
+.Restart <- function() {
+  require_namespace("rstudioapi")
+  rstudioapi::restartSession()
+}
 
-#' Update your git branch
+
+
+#' Start up functions
 #'
-#' Mostly a wrapper for prompt::git() but with brackets
+#' A collection of startup functions that require no parameters
 #'
+#' @rdname startup_funs
+#' @family startup_utils
 #' @export
-.git_branch <- function() {
+.git_branch_prompt <- function() {
+  require_namespace("prompt")
   branch <- prompt::prompt_git()
   branch_prompt <-  paste0("[", sub(" >", "] >", branch))
-  prompt::set_prompt(branch_prompt)
+  on.exit(options(prompt = branch_prompt), add = TRUE)
+  inv()
 }
 
 
@@ -94,8 +187,11 @@ names(.default_packages) <- paste0("package:", .default_packages)
 #'
 #' @param x A vector of integers to select from.  If the package isn't available
 #'   another random message is generated -- or not
+#'
+#' @family startup_utils
 #' @export
 .NiceMessage <- function(x = 1:2) {
+  if (length(x) == 0L) return(inv())
   x <- as.integer(x)
   RN <- function(x) requireNamespace(x, quietly = TRUE)
 
@@ -104,16 +200,22 @@ names(.default_packages) <- paste0("package:", .default_packages)
     if (RN("praise")) cat(praise::praise(), "\n") else .NiceMessage(x[-1L]),
     if (RN("fortunes")) fortunes::fortune() else .NiceMessage(x[-2L])
   )
+
+  inv()
 }
 
+
+#' @rdname startup_funs
 #' @export
+#' @family startup_utils
 .load_pipe <- function() {
   if (!"%>%" %in% ls(envir = .GlobalEnv)) {
-    assign("%>%", `magrittr::`%>%`, envir = .GlobalEnv)
+    assign("%>%", magrittr::`%>%`, envir = .GlobalEnv)
   }
 
-  invisible()
+  inv()
 }
+
 
 #' Head-Tail
 #'
@@ -123,12 +225,16 @@ names(.default_packages) <- paste0("package:", .default_packages)
 #' This contains a separate method for class `tbl_df`
 #'
 #' @param x A data.frame
-#' @param n The number of rows to see (if length 1 is repeated for head and tail)
+#' @param n The number of rows to see (if length 1L, is repeated for head and
+#'   tail)
+#'
+#' @family startup_utils
 #' @export
 ht <- function(x, n = 5L) {
   UseMethod("ht", x)
 }
 
+#' @export
 ht.default <- function(x, n = 5L) {
   stopifnot(is.data.frame(x))
 
@@ -142,12 +248,12 @@ ht.default <- function(x, n = 5L) {
   invisible(x)
 }
 
+#' @export
 ht.tbl_df <- function(x, n = 5L) {
   if (length(n) == 1L) n[2] <- n
 
   cat(capture.output(head(x, n[1]))[-1], sep = "\n")
   cat("\t...\t...\t... \n")
-  nr <- nrow(x)
   # rownames don't line up
   # need to do this to maintain row numbers
   xx <- as.data.frame(x)
@@ -156,8 +262,43 @@ ht.tbl_df <- function(x, n = 5L) {
   invisible(x)
 }
 
-.LoadFunctionsFromJordan <- function() {
-  # List functions with the tag
-  # Assign functions
-  invisible(NULL)
+
+# Environment -------------------------------------------------------------
+
+.startup_env_file <- function() {
+  x <- file_path(Sys.getenv("R_USER"), "startup_files/jordan_startup_env.rds")
+  dir.create(dirname(x), recursive = TRUE, showWarnings = FALSE)
+  x
 }
+
+.set_startup_env <- function() {
+  e <- new.env(parent = baseenv())
+  e$op <- options()
+  f <- .startup_env_file()
+  if (file.exists(f)) file.remove(f)
+  con <- file(f)
+  suppressWarnings(saveRDS(e, file = con))
+
+  on.exit(close(con))
+  invisible(e)
+}
+
+.remove_startup_env <- function() {
+  op <- .getstartup_env()$op
+
+  on.exit(options(op))
+  file.remove(.startup_env_file())
+  inv()
+}
+
+.getstartup_env <- function() {
+  readRDS(file = .startup_env_file())
+}
+
+
+# e <- .set_startup_env()
+# e
+# .getstartup_env()
+# options(not.real = TRUE)
+# .remove_startup_env()
+# getOption("not.real")

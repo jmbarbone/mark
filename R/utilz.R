@@ -2,6 +2,9 @@
 #' @export
 magrittr::`%>%`
 
+# To avoid RStudio "error"
+inv <- function() base::invisible(NULL)
+
 # Smaller functions that are used internally
 
 deparser <- function(x, env = parent.frame()) {
@@ -19,12 +22,36 @@ ept <- function(x) {
 # Happily ripped from: http://r-pkgs.had.co.nz/description.html
 
 require_namespace <- function(namespace) {
-  if (!requireNamespace(namespace, quietly = TRUE)) {
+  if (!RN(namespace)) {
     stop(paste0("Package << ", namespace,
                 " >> needed for this function to work.\nPlease install this."),
          call. = FALSE)
   }
 }
+
+RN <- function(namespace) {
+  requireNamespace(namespace, quietly = TRUE)
+}
+
+rn_soft <- function(namespace) {
+  if (!RN(namespace)) {
+    quiet_stop()
+  }
+  inv()
+}
+
+quiet_stop <- function() {
+  op <- options()
+  options(show.error.messages = FALSE)
+  stop()
+  on.exit(options(op), add = TRUE)
+}
+
+foo <- function(x) {
+  rn_soft(x)
+  x
+}
+
 
 opposite <- function(x, y) {
   all(x != y)

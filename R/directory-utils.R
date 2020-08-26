@@ -40,8 +40,8 @@ get_recent_dir <- function(.dir, recursive = FALSE, ...) {
 #' @export
 
 get_dir_recent_date <- function(dirs, dt_pattern = NULL, dt_format = NULL) {
-  if(is.null(dt_pattern)) dt_pattern <- "^[[:digit:]]{4}-[[:digit:]]{2}-[[:digit:]]{2}\\s[[:digit:]]{6}$"
-  if(is.null(dt_format)) dt_format <- "%Y-%m-%d %H%M%S"
+  if (is.null(dt_pattern)) dt_pattern <- "^[[:digit:]]{4}-[[:digit:]]{2}-[[:digit:]]{2}\\s[[:digit:]]{6}$"
+  if (is.null(dt_format)) dt_format <- "%Y-%m-%d %H%M%S"
 
   # as.POSIXlt(x, tz = "", format,
   #            tryFormats = c("%Y-%m-%d %H:%M:%OS",
@@ -84,34 +84,47 @@ get_dir_max_number <- function(dir) {
 
 get_recent_file <- function(dir, pattern = NULL, negate = FALSE, exclude_temp = TRUE, recursive = FALSE) {
   stopifnot(dir.exists(dir))
-  files <- if(negate) {
-    grep(pattern, list.files(dir, pattern = NULL, recursive = recursive), value = TRUE, invert = TRUE)
+  files <- if (negate) {
+    lf <- list.files(dir, pattern = NULL, recursive = recursive)
+    grep(pattern, lf, value = TRUE, invert = TRUE)
   } else {
     list.files(dir, pattern = pattern, recursive)
   }
-  if(exclude_temp) files <- grep("^\\~\\$", files, value = TRUE, invert = TRUE)
-  res <- file.path(dir, files)
-  if(!length(res)) {
+
+  if (exclude_temp) {
+    files <- grep("^\\~\\$", files, value = TRUE, invert = TRUE)
+  }
+
+  res <- file_path(dir, files)
+
+  if (!length(res)) {
     stop("No files found.", call. = FALSE)
-  } else if(length(res) == 1) {
+  } else if (length(res) == 1) {
   } else {
     times <- file.mtime(res)
     res <- res[times == max(times)]
-    if(length(res) > 1) warning("More than one file found.", call. = FALSE)
+
+    if (length(res) > 1) {
+      warning("More than one file found.", call. = FALSE)
+    }
   }
   res
 }
 
 
-#' File path in user directory
+
+#' Normalize paths
 #'
-#' A wrapper for creating a file name under your R_USER directory.
+#' Normalize and check a vector of paths
 #'
-#' @inheritParams base::file.path
+#' @param x A vector of paths
+#' @param check Logical, if TRUE will check if the path exists and output a
+#'   warning if it does not.
+#' @param remove Logical, if TRUE will remove paths that are not found
+#' @param ... Character vectors for creating a path
 #'
 #' @export
 #'
-#' @seealso [base::file.path()]
 #' @examples
 #' \dontrun{
 #' data(iris)
@@ -119,28 +132,32 @@ get_recent_file <- function(dir, pattern = NULL, negate = FALSE, exclude_temp = 
 #' write.csv(iris, file = file_path)
 #' }
 
-user_file <- function(..., fsep = .Platform$file.sep) {
-  file.path(Sys.getenv("R_USER"), ..., fsep = fsep)
-}
+path_norm <- function(x = ".", check = FALSE, remove = check) {
+  paths <- normalizePath(x, winslash = .Platform$file.sep, mustWork = FALSE)
+  ind <- !file.exists(paths)
 
-#' File path
-#'
-#' Create a character string of a file path and check that it exists
-#'
-#' @details
-#' File path is created with `file.path()` then passed to [tools::file_path_as_absolute()]
-#'   and then checked with `dir.exists(basename(.))`.
-#'
-#' @param ... Character vectors
-#' @param sep The path separator to be applied
-#'
-#' @importFrom tools file_path_as_absolute
-#' @export
-fp <- function(..., sep = .Platform$file.sep) {
-  p <- file_path_as_absolute(file.path(..., fsep = sep))
-  if (!dir.exists(basename(p))) {
-    warning(sprintf("Directory does not exist: \"%s\"", basename(p)),
+  if (check && any(ind)) {
+    warning("Paths not found:\n  ",
+            paste(paths[ind], collapse = "\n  "),
             call. = FALSE)
   }
-  p
+
+  if (remove) {
+    paths[ind] <- NA_character_
+  }
+
+  paths
+}
+
+#' @export
+#' @rdname path_norm
+file_path <- function(..., check = FALSE, remove = check) {
+  fp <- file.path(..., fsep = .Platform$file.sep)
+  path_norm(fp, check = check, remove = remove)
+}
+
+#' @export
+#' @rdname path_norm
+user_file <- function(..., check = FALSE, remove = check) {
+  file_path(Sys.getenv("R_USER"), ..., check = check, remove = remove)
 }
