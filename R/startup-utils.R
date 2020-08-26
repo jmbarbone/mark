@@ -34,25 +34,24 @@ NULL
     op <- get("op", envir = get(".pe", .GlobalEnv))
     if (keep_prompt) op$prompt <- options()$prompt
     on.exit(options(op), add = TRUE)
-    invisible(NULL)
+    inv()
   }
 
   assign(".ResetOptions", .ResetOptions, envir = .GlobalEnv)
 
-  invisible(NULL)
+  inv()
 }
 
 #' @export
 #' @rdname startup_funs
 .RunDefaultFunctionsFromJordan <- function() {
-  invisible(
-    eval({
-      .load_pipe()
-      .NiceMessage()
-      .git_branch_prompt()
-    },
-    envir = .GlobalEnv)
-  )
+  eval({
+    .load_pipe()
+    .NiceMessage()
+    .git_branch_prompt()
+  }, envir = .GlobalEnv)
+
+  inv()
 }
 
 #' @export
@@ -144,7 +143,7 @@ names(.default_packages) <- paste0("package:", .default_packages)
 #' @family startup_utils
 #' @name Reload
 .Reload <- function(remove_objects = TRUE, loud = FALSE) {
-  require_namespace("rstudioapi")
+  rn_soft("rstudioapi")
   objs <- ls(envir = .GlobalEnv, all.names = TRUE)
   if (remove_objects) {
     if (loud & length(objs) > 0L) {
@@ -161,7 +160,7 @@ names(.default_packages) <- paste0("package:", .default_packages)
 #' @export
 #' @name Reload
 .Restart <- function() {
-  require_namespace("rstudioapi")
+  rn_soft("rstudioapi")
   rstudioapi::restartSession()
 }
 
@@ -175,11 +174,10 @@ names(.default_packages) <- paste0("package:", .default_packages)
 #' @family startup_utils
 #' @export
 .git_branch_prompt <- function() {
-  require_namespace("prompt")
+  rn_soft("prompt")
   branch <- prompt::prompt_git()
   branch_prompt <-  paste0("[", sub(" >", "] >", branch))
-  on.exit(options(prompt = branch_prompt), add = TRUE)
-  inv()
+  prompt::set_prompt(branch_prompt)
 }
 
 
@@ -193,7 +191,6 @@ names(.default_packages) <- paste0("package:", .default_packages)
 .NiceMessage <- function(x = 1:2) {
   if (length(x) == 0L) return(inv())
   x <- as.integer(x)
-  RN <- function(x) requireNamespace(x, quietly = TRUE)
 
   switch(
     sample(x, 1),
