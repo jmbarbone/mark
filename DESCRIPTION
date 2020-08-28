@@ -25,11 +25,15 @@ Imports:
     scales,
     tools
 Suggests: 
+    crayon,
+    fortunes,
     graphics,
     Hmisc,
     knitr,
     openxlsx,
+    praise,
     pROC,
+    rstudioapi,
     stringi,
     testthat
 RoxygenNote: 7.1.1
