@@ -29,8 +29,8 @@ NULL
   .ResetOptions <- function(keep_prompt = TRUE) {
     # Resets options
     # Calls the created .pe environment made in .LoadFunctionsFromJordan()
-    # As far as I can tell, this has to be created inside the funciton to work
-    #   prorperly.  I mean, I could always be wrong and not be good enough?
+    # As far as I can tell, this has to be created inside the function to work
+    #   properly.  I mean, I could always be wrong and not be good enough?
     op <- get("op", envir = get(".pe", .GlobalEnv))
     if (keep_prompt) op$prompt <- options()$prompt
     on.exit(options(op), add = TRUE)
@@ -49,6 +49,7 @@ NULL
     .load_pipe()
     .NiceMessage()
     .git_branch_prompt()
+    # .ResetOptions()
   }, envir = .GlobalEnv)
 
   inv()
@@ -62,14 +63,18 @@ startup_funs <- c(
   '.RemoveAttachedPackages',
   '.Reload',
   '.Restart',
-  '.load_pipe',
   '.git_branch_prompt',
   '.NiceMessage',
+  '.load_pipe',
   'ht',
   'ht.default',
   'ht.tbl_df',
   NULL
 )
+
+
+# Accessory ---------------------------------------------------------------
+
 
 
 #' Manage attached packages
@@ -88,28 +93,30 @@ startup_funs <- c(
   attached2 <- setdiff(attached2, .default_packages)
 
   file <- ".Renviron"
-  file_remove_renviorn <- file.exists(file) & remove_renviron
+  tag <- "UpdateDefaultPackages"
+  fe <- file.exists(file)
 
-  if (file_remove_renviorn) {
+  if (isTRUE(remove_renviron)) {
     file.remove(file)
   }
 
-  # If file exists, this appends to the file
-  cat(
-    "\n# Below created with ",
-    "jordan::.SendAttachedPackagesToREnviron() ",
-    "from your .Rprofile\n",
-    "R_DEFAULT_PACKAGES='",
-    paste(c(.default_packages, attached2), collapse = ","),
-    "'\n",
-    sep = "",
-    file = file,
-    append = !file_remove_renviorn
-  )
+  # If File exists, this appends to the file
+  if (!is.na(remove_renviron)) {
+    # TODO Check for tag?
+    if (isFALSE(remove_renviron) & fe) {
+      remove_tag_and_save(file, tag)
+    }
 
-  # Remove `base` which is always last
-  .RemoveAttachedPackages(attached2)
+    pgks <- paste(c(.default_packages, attached2), collapse = ",")
+    pgks <- paste0("'", pgks, "'")
+    lines <- wrap_tags(tag, "R_DEFAULT_PACKAGES=", pgks, add_returns = TRUE)
+    append <- if (isTRUE(fe & remove_renviron)) TRUE else fe
+    cat(lines, sep = "", file = file, append = append)
+  }
+
+  .RemoveAttachedPackages()
 }
+
 
 #' @export
 #' @family startup_funs
@@ -138,12 +145,16 @@ names(.default_packages) <- paste0("package:", .default_packages)
 #'
 #' @details
 #'
+#' @param remove_objects Logical, if `TRUE` will remove all objects found
+#' @param loud Logical, if `TRUE` will present a message on removed objects
 #'
 #' @export
 #' @family startup_utils
 #' @name Reload
 .Reload <- function(remove_objects = TRUE, loud = FALSE) {
   rn_soft("rstudioapi")
+  cat(crayon::cyan("\nPreparing Restart ...\n"))
+
   objs <- ls(envir = .GlobalEnv, all.names = TRUE)
   if (remove_objects) {
     if (loud & length(objs) > 0L) {
@@ -153,6 +164,7 @@ names(.default_packages) <- paste0("package:", .default_packages)
     rm(list = objs, envir = .GlobalEnv)
   }
 
+  cat(crayon::cyan("\nStarting Restart ...\n"))
   .Restart()
   inv()
 }
@@ -176,8 +188,11 @@ names(.default_packages) <- paste0("package:", .default_packages)
 .git_branch_prompt <- function() {
   rn_soft("prompt")
   branch <- prompt::prompt_git()
-  branch_prompt <-  paste0("[", sub(" >", "] >", branch))
-  prompt::set_prompt(branch_prompt)
+
+  if (branch != getOption("prompt", "> ")) {
+    branch_prompt <-  paste0("[", sub(" >", "] >", branch))
+    prompt::set_prompt(branch_prompt)
+  }
 }
 
 
@@ -299,3 +314,31 @@ ht.tbl_df <- function(x, n = 5L) {
 # options(not.real = TRUE)
 # .remove_startup_env()
 # getOption("not.real")
+
+
+# FUNS --------------------------------------------------------------------
+
+
+remove_tag_and_save <- function(file, tag) {
+  x <- readLines(file)
+  x <- paste(x, collapse = "\n")
+  pattern <- wrap_tags(tag, ".*", sep = "", add_returns = FALSE)
+  out <- gsub(pattern, "", x)
+  out <- gsub("(\n)+$", "", out)
+  writeLines(out, file)
+}
+
+wrap_tags <- function(tag, ..., sep = "\n", add_returns = FALSE) {
+  ls <- list(...)
+  stopifnot(length(ls) > 0L)
+  ls <- unlist(ls)
+  tags <- paste0(sprintf("# @madrigal_%s_", tag), c("start", "stop"))
+
+  if (add_returns) {
+    tags[1] <- paste0("\n", tags[1])
+    tags[2] <- paste0(tags[2], "\n")
+  }
+
+  x <- paste(ls, collapse = "")
+  paste(list(tags[1], x, tags[2]), collapse = sep)
+}
