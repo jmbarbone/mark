@@ -194,13 +194,23 @@ names(.default_packages) <- paste0("package:", .default_packages)
 
   switch(
     sample(x, 1),
-    if (RN("praise")) cat(praise::praise(), "\n") else .NiceMessage(x[-1L]),
-    if (RN("fortunes")) fortunes::fortune() else .NiceMessage(x[-2L])
+    if (RN("praise")) cat_praise() else .NiceMessage(x[-1L]),
+    if (RN("fortunes")) cat_fortune() else .NiceMessage(x[-2L])
   )
 
   inv()
 }
 
+cat_praise <- function() {
+  cat("\n", crayon::yellow(praise::praise()), "\n\n")
+  inv()
+}
+
+cat_fortune <- function() {
+  x <- paste(capture.output(fortunes::fortune()))
+  cat(crayon::yellow(x), sep = "\n")
+  inv()
+}
 
 #' @rdname startup_funs
 #' @export
