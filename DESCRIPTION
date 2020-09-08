@@ -33,6 +33,7 @@ Suggests:
     knitr,
     openxlsx,
     praise,
+    prompt,
     pROC,
     rstudioapi,
     stringi,
