@@ -83,6 +83,7 @@ startup_funs <- c(
 #'
 #' @param remove_renviron Logical, if TRUE will force an update to the
 #'   .Renvironment file
+#' @param attached A character vector of packages - if NULL will find packages
 #'
 #' @export
 #' @family startup_funs
@@ -241,6 +242,10 @@ names(.default_packages) <- paste0("package:", .default_packages)
 #'   tail)
 #'
 #' @family startup_utils
+#'
+#' @importFrom utils head
+#' @importFrom utils tail
+#'
 #' @export
 ht <- function(x, n = 5L) {
   UseMethod("ht", x)

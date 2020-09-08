@@ -23,7 +23,8 @@ Imports:
     rlang,
     stats,
     scales,
-    tools
+    tools,
+    utils
 Suggests: 
     crayon,
     fortunes,
