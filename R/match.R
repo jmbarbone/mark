@@ -28,7 +28,7 @@
 #' @rdname grapes-out-grapes
 #' @export
 `%wi%` <- function(x, table) {
-  x[match(x, table, nomatch = 0L)]
+  x[match(table, x, nomatch = 0L)]
 }
 
 #' @rdname grapes-out-grapes
