@@ -1,7 +1,12 @@
-#' Value Non-matching
+#' Value matching - Extensions
 #'
 #' Non matching alternatives and supplementary functions.
-#'   Contrast with [base::match()], [base::intersect()], and [base::`%in%`()]
+#'
+#' @details
+#' Contrast with [base::match()], [base::intersect()], and [base::`%in%`()]
+#' The functions of `%wi%` and `%wo%` can be used in leiu of `intersect()` and
+#'   `setdiff()`.  The primary difference is that the base functions return only
+#'   unique values, which may not be a desired behavior.
 #'
 #' @inheritParams base::`%in%`
 #' @export
@@ -11,28 +16,34 @@
 #' letters[1:5] %wo% letters[3:7]
 #' letters[1:5] %wi% letters[3:7]
 #'
-#' ## Note that setdiff() is very similar and typically makes more sense:
-#'         c(1:6,7:2) %wo% c(3,7,12)  # -> keeps duplicates
-#' setdiff(c(1:6,7:2),     c(3,7,12)) # -> unique values
+#' # base functions only return unique values
+#'
+#'           c(1:6,7:2) %wo% c(3,7,12)  # -> keeps duplicates
+#'   setdiff(c(1:6,7:2),     c(3,7,12)) # -> unique values
+#'
+#'           c(1:6,7:2) %wi% c(3,7,12)  # -> keeps duplicates
+#' intersect(c(1:6,7:2),     c(3,7,12)) # -> unique values
+#'
+#' @name match_ext
 
 `%out%` <- function(x, table) {
   match(x, table, nomatch = 0L) == 0L
 }
 
-#' @rdname grapes-out-grapes
+#' @rdname match_ext
 #' @export
 `%wo%` <- function(x, table) {
   x[x %out% table]
 }
 
-#' @rdname grapes-out-grapes
+#' @rdname match_ext
 #' @export
 `%wi%` <- function(x, table) {
   x[match(table, x, nomatch = 0L)]
 }
 
-#' @rdname grapes-out-grapes
+#' @rdname match_ext
 #' @export
 no_match <- function(x, table) {
-  all_na(match(x, table, nomatch = NA_integer_, incomparables = NULL))
+  all(match(x, table, nomatch = 0L) == 0L)
 }
