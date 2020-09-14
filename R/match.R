@@ -47,3 +47,8 @@
 no_match <- function(x, table) {
   all(match(x, table, nomatch = 0L) == 0L)
 }
+#' @rdname match_ext
+#' @export
+any_match <- function(x, table) {
+  any(match(x, table, nomatch = 0L) == 0L)
+}
