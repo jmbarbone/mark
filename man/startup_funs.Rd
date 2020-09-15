@@ -12,15 +12,18 @@
 An object of class \code{character} of length 11.
 }
 \usage{
-.LoadFunctionsFromJordan()
+.LoadFunctionsFromJordan(env = parent.frame())
 
-.RunDefaultFunctionsFromJordan()
+.RunDefaultFunctionsFromJordan(env = parent.frame())
 
 startup_funs
 
 .git_branch_prompt()
 
-.load_pipe()
+.load_pipe(env = parent.frame())
+}
+\arguments{
+\item{env}{The environment to save objects}
 }
 \description{
 Functions that try to assist with start ups

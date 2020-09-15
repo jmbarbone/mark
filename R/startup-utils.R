@@ -5,6 +5,7 @@
 #' @details
 #' These functions can be used to create an enviornment for startup.
 #'
+#' @param env The environment to save objects
 #' @name startup_funs
 #' @family startup_utils
 NULL
@@ -13,7 +14,7 @@ NULL
 #' @export
 #' @family startup_utils
 #' @rdname startup_funs
-.LoadFunctionsFromJordan <- function() {
+.LoadFunctionsFromJordan <- function(env = parent.frame()) {
   e <- new.env()
   e$op <- options()
   j <- asNamespace("jordan")
@@ -21,36 +22,38 @@ NULL
   sf <- get("startup_funs", envir = j)
   for (f in sf) {
     fun <- get(f, envir = j)
-    assign(f, fun, envir = .GlobalEnv)
+    assign(f, fun, envir = env)
   }
 
-  assign(".pe", e, envir = .GlobalEnv)
+  assign(".pe", e, envir = env)
 
   .ResetOptions <- function(keep_prompt = TRUE) {
     # Resets options
     # Calls the created .pe environment made in .LoadFunctionsFromJordan()
     # As far as I can tell, this has to be created inside the function to work
     #   properly.  I mean, I could always be wrong and not be good enough?
-    op <- get("op", envir = get(".pe", .GlobalEnv))
-    if (keep_prompt) op$prompt <- options()$prompt
+    op <- get("op", envir = get(".pe", env))
+    if (keep_prompt) {
+      op$prompt <- getOption("prompt")
+    }
     on.exit(options(op), add = TRUE)
     inv()
   }
 
-  assign(".ResetOptions", .ResetOptions, envir = .GlobalEnv)
+  assign(".ResetOptions", .ResetOptions, envir = env)
 
   inv()
 }
 
 #' @export
 #' @rdname startup_funs
-.RunDefaultFunctionsFromJordan <- function() {
+.RunDefaultFunctionsFromJordan <- function(env = parent.frame()) {
   eval({
-    .load_pipe()
     .NiceMessage()
+    .load_pipe(env)
     .git_branch_prompt()
     # .ResetOptions()
-  }, envir = .GlobalEnv)
+  }, envir = env)
 
   inv()
 }
@@ -144,8 +147,6 @@ names(.default_packages) <- paste0("package:", .default_packages)
 #'
 #' Reloads your session
 #'
-#' @details
-#'
 #' @param remove_objects Logical, if `TRUE` will remove all objects found
 #' @param loud Logical, if `TRUE` will present a message on removed objects
 #'
@@ -153,10 +154,10 @@ names(.default_packages) <- paste0("package:", .default_packages)
 #' @family startup_utils
 #' @name Reload
 .Reload <- function(remove_objects = TRUE, loud = FALSE) {
-  rn_soft("rstudioapi")
   cat(crayon::cyan("\nPreparing Restart ...\n"))
 
   objs <- ls(envir = .GlobalEnv, all.names = TRUE)
+
   if (remove_objects) {
     if (loud & length(objs) > 0L) {
       message("Removing all objects in the Global Environment:\n",
@@ -165,7 +166,6 @@ names(.default_packages) <- paste0("package:", .default_packages)
     rm(list = objs, envir = .GlobalEnv)
   }
 
-  cat(crayon::cyan("\nStarting Restart ...\n"))
   .Restart()
   inv()
 }
@@ -190,7 +190,7 @@ names(.default_packages) <- paste0("package:", .default_packages)
   rn_soft("prompt")
   branch <- prompt::prompt_git()
 
-  if (branch != getOption("prompt", "> ")) {
+  if (branch != getOption("prompt", "> ") & branch != "> ") {
     branch_prompt <-  paste0("[", sub(" >", "] >", branch))
     prompt::set_prompt(branch_prompt)
   }
@@ -231,9 +231,9 @@ cat_fortune <- function() {
 #' @rdname startup_funs
 #' @export
 #' @family startup_utils
-.load_pipe <- function() {
-  if (!"%>%" %in% ls(envir = .GlobalEnv)) {
-    assign("%>%", magrittr::`%>%`, envir = .GlobalEnv)
+.load_pipe <- function(env = parent.frame()) {
+  if (!"%>%" %in% ls(envir = env)) {
+    assign("%>%", magrittr::`%>%`, envir = env)
   }
 
   inv()
@@ -263,7 +263,7 @@ ht <- function(x, n = 5L) {
 
 #' @export
 ht.default <- function(x, n = 5L) {
-  stopifnot(is.data.frame(x))
+  stopifnot(is.data.frame(x) | is.matrix(x))
 
   if (length(n) == 1L) n[2] <- n
 

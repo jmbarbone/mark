@@ -18,9 +18,6 @@
 \description{
 Reloads your session
 }
-\details{
-
-}
 \seealso{
 Other startup_utils: 
 \code{\link{.NiceMessage}()},
