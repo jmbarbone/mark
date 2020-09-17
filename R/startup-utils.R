@@ -5,6 +5,7 @@
 #' @details
 #' These functions can be used to create an enviornment for startup.
 #'
+#' @param env The environment to save objects
 #' @name startup_funs
 #' @family startup_utils
 NULL
@@ -13,7 +14,7 @@ NULL
 #' @export
 #' @family startup_utils
 #' @rdname startup_funs
-.LoadFunctionsFromJordan <- function() {
+.LoadFunctionsFromJordan <- function(env = parent.frame()) {
   e <- new.env()
   e$op <- options()
   j <- asNamespace("jordan")
@@ -21,35 +22,38 @@ NULL
   sf <- get("startup_funs", envir = j)
   for (f in sf) {
     fun <- get(f, envir = j)
-    assign(f, fun, envir = .GlobalEnv)
+    assign(f, fun, envir = env)
   }
 
-  assign(".pe", e, envir = .GlobalEnv)
+  assign(".pe", e, envir = env)
 
   .ResetOptions <- function(keep_prompt = TRUE) {
     # Resets options
     # Calls the created .pe environment made in .LoadFunctionsFromJordan()
-    # As far as I can tell, this has to be created inside the funciton to work
-    #   prorperly.  I mean, I could always be wrong and not be good enough?
-    op <- get("op", envir = get(".pe", .GlobalEnv))
-    if (keep_prompt) op$prompt <- options()$prompt
+    # As far as I can tell, this has to be created inside the function to work
+    #   properly.  I mean, I could always be wrong and not be good enough?
+    op <- get("op", envir = get(".pe", env))
+    if (keep_prompt) {
+      op$prompt <- getOption("prompt")
+    }
     on.exit(options(op), add = TRUE)
     inv()
   }
 
-  assign(".ResetOptions", .ResetOptions, envir = .GlobalEnv)
+  assign(".ResetOptions", .ResetOptions, envir = env)
 
   inv()
 }
 
 #' @export
 #' @rdname startup_funs
-.RunDefaultFunctionsFromJordan <- function() {
+.RunDefaultFunctionsFromJordan <- function(env = parent.frame()) {
   eval({
-    .load_pipe()
     .NiceMessage()
+    .load_pipe(env)
     .git_branch_prompt()
-  }, envir = .GlobalEnv)
+    # .ResetOptions()
+  }, envir = env)
 
   inv()
 }
@@ -62,14 +66,18 @@ startup_funs <- c(
   '.RemoveAttachedPackages',
   '.Reload',
   '.Restart',
-  '.load_pipe',
   '.git_branch_prompt',
   '.NiceMessage',
+  '.load_pipe',
   'ht',
   'ht.default',
   'ht.tbl_df',
   NULL
 )
+
+
+# Accessory ---------------------------------------------------------------
+
 
 
 #' Manage attached packages
@@ -78,7 +86,7 @@ startup_funs <- c(
 #'
 #' @param remove_renviron Logical, if TRUE will force an update to the
 #'   .Renvironment file
-#' @param attached An optional vector of package names
+#' @param attached A character vector of packages - if NULL will find packages
 #'
 #' @export
 #' @family startup_funs
@@ -89,9 +97,10 @@ startup_funs <- c(
   attached2 <- setdiff(attached2, .default_packages)
 
   file <- ".Renviron"
-  file_remove_renviorn <- file.exists(file) & remove_renviron
+  tag <- "UpdateDefaultPackages"
+  fe <- file.exists(file)
 
-  if (file_remove_renviorn) {
+  if (isTRUE(remove_renviron)) {
     file.remove(file)
   }
 
@@ -119,9 +128,16 @@ startup_funs <- c(
     append = !file_remove_renviorn
   )
 
-  # Remove `base` which is always last
-  .RemoveAttachedPackages(attached2)
+    pgks <- paste(c(.default_packages, attached2), collapse = ",")
+    pgks <- paste0("'", pgks, "'")
+    lines <- wrap_tags(tag, "R_DEFAULT_PACKAGES=", pgks, add_returns = TRUE)
+    append <- if (isTRUE(fe & remove_renviron)) TRUE else fe
+    cat(lines, sep = "", file = file, append = append)
+  }
+
+  .RemoveAttachedPackages()
 }
+
 
 #' @export
 #' @family startup_funs
@@ -158,15 +174,17 @@ names(.default_packages) <- paste0("package:", .default_packages)
 #'
 #' Reloads your session
 #'
-#' @param remove_objects if `TRUE` will remove all objects from `.GlobalEnv`
-#' @param loud If `TRUE` will produce a message about objects removed
+#' @param remove_objects Logical, if `TRUE` will remove all objects found
+#' @param loud Logical, if `TRUE` will present a message on removed objects
 #'
 #' @export
 #' @family startup_utils
 #' @name Reload
 .Reload <- function(remove_objects = TRUE, loud = FALSE) {
-  rn_soft("rstudioapi")
+  cat(crayon::cyan("\nPreparing Restart ...\n"))
+
   objs <- ls(envir = .GlobalEnv, all.names = TRUE)
+
   if (remove_objects) {
     if (loud & length(objs) > 0L) {
       message("Removing all objects in the Global Environment:\n",
@@ -198,8 +216,11 @@ names(.default_packages) <- paste0("package:", .default_packages)
 .git_branch_prompt <- function() {
   rn_soft("prompt")
   branch <- prompt::prompt_git()
-  branch_prompt <-  paste0("[", sub(" >", "] >", branch))
-  prompt::set_prompt(branch_prompt)
+
+  if (branch != getOption("prompt", "> ") & branch != "> ") {
+    branch_prompt <-  paste0("[", sub(" >", "] >", branch))
+    prompt::set_prompt(branch_prompt)
+  }
 }
 
 
@@ -237,9 +258,9 @@ cat_fortune <- function() {
 #' @rdname startup_funs
 #' @export
 #' @family startup_utils
-.load_pipe <- function() {
-  if (!"%>%" %in% ls(envir = .GlobalEnv)) {
-    assign("%>%", magrittr::`%>%`, envir = .GlobalEnv)
+.load_pipe <- function(env = parent.frame()) {
+  if (!"%>%" %in% ls(envir = env)) {
+    assign("%>%", magrittr::`%>%`, envir = env)
   }
 
   inv()
@@ -261,6 +282,10 @@ cat_fortune <- function() {
 #' @importFrom utils tail
 #'
 #' @family startup_utils
+#'
+#' @importFrom utils head
+#' @importFrom utils tail
+#'
 #' @export
 ht <- function(x, n = 5L) {
   UseMethod("ht", x)
@@ -268,7 +293,7 @@ ht <- function(x, n = 5L) {
 
 #' @export
 ht.default <- function(x, n = 5L) {
-  stopifnot(is.data.frame(x))
+  stopifnot(is.data.frame(x) | is.matrix(x))
 
   if (length(n) == 1L) n[2] <- n
 
@@ -334,3 +359,31 @@ ht.tbl_df <- function(x, n = 5L) {
 # options(not.real = TRUE)
 # .remove_startup_env()
 # getOption("not.real")
+
+
+# FUNS --------------------------------------------------------------------
+
+
+remove_tag_and_save <- function(file, tag) {
+  x <- readLines(file)
+  x <- paste(x, collapse = "\n")
+  pattern <- wrap_tags(tag, ".*", sep = "", add_returns = FALSE)
+  out <- gsub(pattern, "", x)
+  out <- gsub("(\n)+$", "", out)
+  writeLines(out, file)
+}
+
+wrap_tags <- function(tag, ..., sep = "\n", add_returns = FALSE) {
+  ls <- list(...)
+  stopifnot(length(ls) > 0L)
+  ls <- unlist(ls)
+  tags <- paste0(sprintf("# @madrigal_%s_", tag), c("start", "stop"))
+
+  if (add_returns) {
+    tags[1] <- paste0("\n", tags[1])
+    tags[2] <- paste0(tags[2], "\n")
+  }
+
+  x <- paste(ls, collapse = "")
+  paste(list(tags[1], x, tags[2]), collapse = sep)
+}

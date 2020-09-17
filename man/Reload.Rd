@@ -11,15 +11,15 @@
 .Restart()
 }
 \arguments{
-\item{remove_objects}{if `TRUE` will remove all objects from `.GlobalEnv`}
+\item{remove_objects}{Logical, if `TRUE` will remove all objects found}
 
-\item{loud}{If `TRUE` will produce a message about objects removed}
+\item{loud}{Logical, if `TRUE` will present a message on removed objects}
 }
 \description{
 Reloads your session
 }
 \seealso{
-Other startup_utils: 
+Other startup_utils:
 \code{\link{.NiceMessage}()},
 \code{\link{ht}()},
 \code{\link{startup_funs}}

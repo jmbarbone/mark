@@ -15,7 +15,7 @@ Encoding: UTF-8
 LazyData: true
 Depends:
     R (>= 3.6)
-Imports: 
+Imports:
     dplyr,
     magrittr,
     methods,
@@ -23,8 +23,9 @@ Imports:
     rlang,
     stats,
     scales,
-    tools
-Suggests: 
+    tools,
+    utils
+Suggests:
     crayon,
     fortunes,
     furrr,
