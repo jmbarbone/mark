@@ -2,7 +2,7 @@
 #'
 #' Find the optimal threshold from a pROC mod
 #'
-#' @param mod A roc mod from the pROC package
+#' @param mod An object with class "roc" (a ROC model made with pROC::roc(.))
 #' @param method Method to determine optimal threshold
 #' @param ... Additional arguments passed to [pROC::ci.thresholds()]
 #' @export
@@ -11,9 +11,9 @@
 #' x <- pROC::aSAH
 #' mod <- pROC::roc(x$outcome, x$s100b, levels=c("Good", "Poor"))
 #'
-#' optimal_threshold(mod)
+#' pROC_optimal_threshold(mod)
 
-optimal_threshold <- function(mod, method = c("youden", "top_left"), ...) {
+pROC_optimal_threshold <- function(mod, method = c("youden", "top_left"), ...) {
   require_namespace("pROC")
   stopifnot(inherits(mod, "roc"))
   method <- match_arg(method)
@@ -70,22 +70,37 @@ subset_rownames <- function(x, y) {
 
 #' Plots an ROC model
 #'
-#' Quickly plots a model based on my own likings
+#' Quickly plots a model based on my own liking
 #'
-#' @param mod A model from pROC
+#' @details
+#' When adding bootstrapped confidence intervals, the core function of
+#'   [pROC:::ci.sp.roc()] is replaced with a quicker version that uses parallel
+#'   processing to speed up the bootstraps and some other data manipuluation.
+#'   There will likely be a delay when running with bootstraps.
+#'
+#' @param mod An object with class "roc" (a ROC model made with pROC::roc(.))
 #' @param thres_method The threshold method to print
-#' @param col The color of the line
+#' @param col The color of the curve
 #' @param ... Additional arguments passed to [pROC::plot.roc()]
+#' @param boots Number of bootstrap replications to perform; if < 2L will not
+#'   perform any
+#'
+#' @importFrom grDevices rgb
 #'
 #' @export
 #' @examples
 #' x <- pROC::aSAH
-#' mod <- pROC::roc(x$outcome, x$s100b, levels=c("Good", "Poor"))
+#' mod <- pROC::roc(x$outcome, x$s100b, levels = c("Good", "Poor"))
+#' pROC_quick_plot(mod)
 #'
-#' quick_plot_roc(mod)
-quick_plot_roc <- function(mod, thres_method = c("youden", "closest.topleft"), col = "blue", ...) {
+#' \dontrun{
+#' pROC_quick_plot(mod, boots = 100)
+#' }
+
+pROC_quick_plot <- function(mod, thres_method = c("youden", "closest.topleft"), col = "blue", ..., boots = 0L) {
   require_namespace("pROC")
   stopifnot(inherits(mod, "roc"))
+
   thres_method <- match_arg(thres_method)
 
   pROC::plot.roc(
@@ -95,9 +110,23 @@ quick_plot_roc <- function(mod, thres_method = c("youden", "closest.topleft"), c
     print.auc = TRUE,
     print.thres = "best",
     print.thres.best.method = thres_method,
-    ...
+    ...,
+    add = FALSE
   )
 
+  if (boots > 1L) {
+    cis <- pROC_ci_sp_roc(mod, boots = boots)
+    # Defaults to a grey
+    ci_col <- rgb(red = 0, green = 0, blue = 0, alpha = 0.1)
+
+    pROC:::plot.ci.sp(
+      cis,
+      type = "shape",
+      col = ci_col
+    )
+  }
+
+  # Add smoothed
   plot(pROC::smooth(mod), add = TRUE, col = col, lwd = 2, lty = 2)
 
   graphics::legend("bottomright",
@@ -108,3 +137,62 @@ quick_plot_roc <- function(mod, thres_method = c("youden", "closest.topleft"), c
   invisible(mod)
 }
 
+# Replaces pROC:::ci.sp.roc
+# pROC function is slow; uses plyr functions and has some slower applications
+#   of base functions
+pROC_ci_sp_roc <- function(mod, boots = 500, se = seq(0, 1, .01), conf_level = 0.95) {
+  require_namespace("future")
+  require_namespace("furrr")
+  require_namespace("dplyr")
+
+  # Maintain same warnings
+  if (conf_level > 1 | conf_level < 0) {
+    stop("'conf_level' must be within the interval [0,1].", call. = FALSE)
+  }
+
+  if (pROC:::roc.utils.is.perfect.curve(mod)) {
+    warning("ci.sp() of a ROC curve with AUC == 1 is always a null interval",
+            " and can be misleading.", call. = FALSE)
+  }
+
+  # Use of furrr makes bootstrapping much, much quicker
+  future::plan(future::multiprocess)
+
+  perfs <- furrr::future_map(
+    seq(boots),
+    pROC:::stratified.ci.sp,
+    roc = mod,
+    se = se
+  )
+
+  # Set back to default
+  future::plan(future::sequential)
+
+  # Suppress messages about new names
+  perfs <- suppressMessages(dplyr::bind_rows(perfs))
+
+  # anyNA(.) quicker than any(is.na(.))
+  if (anyNA(perfs)) {
+    warning("NA value(s) produced during bootstrap were ignored.")
+    # complete.cases(.) quicker than !apply(., 1, function(x) any(is.na(x)))
+    perfs <- perfs[complete.cases(perfs), ]
+  }
+
+  cl <- (1 - conf_level) / 2
+  probs <- c(cl, 0.5, 1 - cl)
+  # Replace apply(., 2) with vapply()
+  ci <- t(vapply(perfs, quantile, double(3), probs = probs))
+
+  structure(
+    ci,
+    # Default Doesn't use percentage
+    # rownames = paste0(sensitivities, ifelse(roc$percent, "%", "")),
+    rownames = se,
+    con.level = conf_level,
+    boot.n = boots,
+    # Default is not stratified.
+    boot.stratified = FALSE,
+    sensitivities = se,
+    roc = mod
+  )
+}
