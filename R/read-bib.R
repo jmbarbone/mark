@@ -34,14 +34,17 @@
 #'
 #'   microbenchmark::microbenchmark(
 #'     read_bib(file1),
-#'     bib2df::bib2df(file1)
+#'     bib2df::bib2df(file1),
+#'     foo(file1)
 #'   )
 #' }
 #' }
 
 read_bib <- function(file, skip = 0, max_lines = NULL, encoding = "UTF-8")
 {
-  bib <- readLines(file, encoding = encoding)
+  # Account for nul values found in encoding?
+  # skipNul = TRUE could do this but an erro can still be caused later
+  bib <- readLines(file, encoding = encoding, skipNul = FALSE)
 
   if (!is.null(max_lines)) {
     start <- skip + 1
@@ -100,8 +103,10 @@ get_bib_values <- function(list) {
     # remove empty columns
     xx[sapply(xx, function(x) length(x) == 0)] <- NA_character_
     # There may be something better than this
-    xx <- gsub("\\{|\\}|,?$", "", xx)
+    # Would like to maintain the { and }
+    # xx <- gsub("\\{|\\}|,?$", "", xx)
     xx <- trimws(xx)
+    xx <- gsub("^(\\{|\")|(\"|\\})[,]?$", "", xx)
     xx
   })
 }
@@ -128,10 +133,21 @@ process_bib_dataframe <- function(categories, values, fields, keys) {
 
   x <- Map(
     function(cats, vals, field, key) {
-      # Determine valids
+      # Determine valid categories/values
       valids <- !is.na(cats)
       cats <- cats[valids]
       vals <- vals[valids]
+
+      # Check for duplicate categories
+      lens <- tapply(cats, cats, length)
+      bad <- lens > 1L
+
+      if (any(bad)) {
+        stop("The key `", key, "` has duplicate categories of `",
+             names(lens)[bad], "`",
+             call. = FALSE
+        )
+      }
 
       # Append vectors
       cats <- c("key", "field", cats)
@@ -154,6 +170,7 @@ process_bib_dataframe <- function(categories, values, fields, keys) {
       # Transpose to prep for reduce rbinding
       new <- list2DF(as.list(data[[2]]))
       colnames(new) <- as.list(data[[1]])
+
       new
     },
     cats = categories,
