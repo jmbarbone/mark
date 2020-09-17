@@ -78,6 +78,7 @@ startup_funs <- c(
 #'
 #' @param remove_renviron Logical, if TRUE will force an update to the
 #'   .Renvironment file
+#' @param attached An optional vector of package names
 #'
 #' @export
 #' @family startup_funs
@@ -92,6 +93,17 @@ startup_funs <- c(
 
   if (file_remove_renviorn) {
     file.remove(file)
+  }
+
+  # If file exists, see if we need to remove the previous statement
+  if (file.exists(file)) {
+    rl <- readLines(".Renviron")
+    line <- grep("jordan::.SendAttachedPackagesToREnviron()", rl, fixed = TRUE)
+
+    if (length(line) == 1L) {
+      cat(rl[-seq.int(line - 1L, line + 2L)], sep = "\n", file = file)
+    }
+
   }
 
   # If file exists, this appends to the file
@@ -117,12 +129,22 @@ startup_funs <- c(
 .RemoveAttachedPackages <- function(attached = NULL) {
   if (is.null(attached)) {
     attached <- grep("^package[:]", search(), value = TRUE)
+  } else {
+    bad <- grep("^package[:]", attached, invert = TRUE)
+    attached[bad] <- paste0("package:", attached[bad])
   }
 
-  attached <- setdiff(attached, rev(.default_packages))
+  attached <- setdiff(attached, rev(names(.default_packages)))
 
   for (a in attached) {
-    detach(a, character.only = TRUE)
+    tryCatch(
+      detach(a, character.only = TRUE),
+      error = function(e) {
+        warning("`", a, "` was not found `detach()`")
+      },
+      finally = function() {
+        inv()
+      })
   }
 
   inv()
@@ -136,8 +158,8 @@ names(.default_packages) <- paste0("package:", .default_packages)
 #'
 #' Reloads your session
 #'
-#' @details
-#'
+#' @param remove_objects if `TRUE` will remove all objects from `.GlobalEnv`
+#' @param loud If `TRUE` will produce a message about objects removed
 #'
 #' @export
 #' @family startup_utils
@@ -234,6 +256,9 @@ cat_fortune <- function() {
 #' @param x A data.frame
 #' @param n The number of rows to see (if length 1L, is repeated for head and
 #'   tail)
+#'
+#' @importFrom utils head
+#' @importFrom utils tail
 #'
 #' @family startup_utils
 #' @export

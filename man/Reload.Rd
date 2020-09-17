@@ -10,11 +10,13 @@
 
 .Restart()
 }
+\arguments{
+\item{remove_objects}{if `TRUE` will remove all objects from `.GlobalEnv`}
+
+\item{loud}{If `TRUE` will produce a message about objects removed}
+}
 \description{
 Reloads your session
-}
-\details{
-
 }
 \seealso{
 Other startup_utils: 

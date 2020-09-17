@@ -13,6 +13,8 @@
 \arguments{
 \item{remove_renviron}{Logical, if TRUE will force an update to the
 .Renvironment file}
+
+\item{attached}{An optional vector of package names}
 }
 \description{
 Clears out attached packages and properly loads
