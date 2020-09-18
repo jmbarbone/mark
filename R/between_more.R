@@ -26,11 +26,9 @@ between_more <- function(x, left, right, type = c("gele", "gel", "gle", "gl")) {
   type <- match.arg(type)
   if(left > right) warning("`left` > `right`", call. = FALSE)
 
-  vapply(x, function(x) {
-    switch(type,
-           gele = x >= left & x <= right,
-           gel  = x >= left & x < right,
-           gle  = x > left & x <= right,
-           gl   = x > left & x < right)
-  }, logical(1))
+  switch(type,
+         gele = x >= left & x <= right,
+         gel  = x >= left & x < right,
+         gle  = x > left & x <= right,
+         gl   = x > left & x < right)
 }
