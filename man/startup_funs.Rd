@@ -31,7 +31,7 @@ Functions that try to assist with start ups
 A collection of startup functions that require no parameters
 }
 \details{
-These functions can be used to create an enviornment for startup.
+These functions can be used to create an environment for startup.
 }
 \seealso{
 Other startup_utils: 

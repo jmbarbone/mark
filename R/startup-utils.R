@@ -3,7 +3,7 @@
 #' Functions that try to assist with start ups
 #'
 #' @details
-#' These functions can be used to create an enviornment for startup.
+#' These functions can be used to create an environment for startup.
 #'
 #' @param env The environment to save objects
 #' @name startup_funs
@@ -97,8 +97,6 @@ startup_funs <- c(
   attached2 <- setdiff(attached2, .default_packages)
 
   file <- ".Renviron"
-  tag <- "UpdateDefaultPackages"
-  fe <- file.exists(file)
 
   if (isTRUE(remove_renviron)) {
     file.remove(file)
@@ -127,13 +125,6 @@ startup_funs <- c(
     file = file,
     append = !file_remove_renviorn
   )
-
-    pgks <- paste(c(.default_packages, attached2), collapse = ",")
-    pgks <- paste0("'", pgks, "'")
-    lines <- wrap_tags(tag, "R_DEFAULT_PACKAGES=", pgks, add_returns = TRUE)
-    append <- if (isTRUE(fe & remove_renviron)) TRUE else fe
-    cat(lines, sep = "", file = file, append = append)
-  }
 
   .RemoveAttachedPackages()
 }

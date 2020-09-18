@@ -43,7 +43,8 @@ if (requireNamespace("bib2df") & requireNamespace("microbenchmark")) {
 
   microbenchmark::microbenchmark(
     read_bib(file1),
-    bib2df::bib2df(file1)
+    bib2df::bib2df(file1),
+    foo(file1)
   )
 }
 }

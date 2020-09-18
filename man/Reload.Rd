@@ -19,7 +19,7 @@
 Reloads your session
 }
 \seealso{
-Other startup_utils:
+Other startup_utils: 
 \code{\link{.NiceMessage}()},
 \code{\link{ht}()},
 \code{\link{startup_funs}}
