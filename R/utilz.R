@@ -2,42 +2,26 @@
 #' @export
 magrittr::`%>%`
 
-# To avoid RStudio "error"
-inv <- function() base::invisible(NULL)
-
-# Smaller functions that are used internally
-
-deparser <- function(x, env = parent.frame()) {
-  if (class(substitute(x, env)) == "name") {
-    deparse(substitute(x, env))
-  } else {
-    x
-  }
-}
-
 ept <- function(x) {
   eval(parse(text = x))
 }
 
 # Happily ripped from: http://r-pkgs.had.co.nz/description.html
-
 require_namespace <- function(namespace) {
-  if (!RN(namespace)) {
-    stop(paste0("Package << ", namespace,
-                " >> needed for this function to work.\nPlease install this."),
+  if (!rn(namespace)) {
+    stop(paste("Package <<", namespace, ">> needed for this function to work."),
          call. = FALSE)
   }
 }
 
-RN <- function(namespace) {
+rn <- function(namespace) {
   requireNamespace(namespace, quietly = TRUE)
 }
 
 rn_soft <- function(namespace) {
-  if (!RN(namespace)) {
+  if (!rn(namespace)) {
     quiet_stop()
   }
-  inv()
 }
 
 quiet_stop <- function() {
@@ -46,43 +30,6 @@ quiet_stop <- function() {
   stop()
   on.exit(options(op), add = TRUE)
 }
-
-foo <- function(x) {
-  rn_soft(x)
-  x
-}
-
-
-opposite <- function(x, y) {
-  all(x != y)
-}
-
-all_na <- function(x, ...) {
-  UseMethod("all_na", x)
-}
-
-all_na.default <- function(x) {
-  all(is.nan(x) | is.na(x))
-}
-
-all_na.character <- function(x, convert = FALSE) {
-  found <- which(x == "NaN")
-  if (convert) {
-    x[found] <- NA_character_
-  } else if (length(found) > 0) {
-    warning("These values may be NA types `convert`ed to character:\n",
-            paste(paste0("    ",  x[found]), collapse = "\n"),
-            call. = FALSE)
-  }
-  all_na.default(x)
-}
-
-# all_na(c(NA, NaN, NA_complex_, NA_integer_))
-# all_na(c(NA, NA_character_))
-# all_na(c(NA, NA_character_, NA_complex_, NA_integer_))
-# all_na(c(NA_character_, NaN)) ## fails
-# all_na(c(NA_character_, NaN), override_nan = TRUE)
-
 
 construct_date <- function(date_text, collapse = "") {
   paste(sapply(unlist(strsplit(date_text, "")),
@@ -134,24 +81,6 @@ is_named <- function(x) {
 sort_names <- function(x) {
   stopifnot(is_named(x), is.vector(x))
   x[sort(names(x))]
-}
-
-# Checks that names are unique in the vector
-unique_name_check <- function(x) {
-  nm <- names(x)
-  if (is.null(nm)) nm <- x
-
-  lens <- sapply(split(nm, nm), length, USE.NAMES = TRUE)
-  int <- lens > 1
-
-  if (any(int)) {
-    warning("These names are duplicated: ",
-            paste0(names(lens[int]), collapse = ", "),
-            call. = FALSE)
-    invisible(FALSE)
-  } else {
-    invisible(TRUE)
-  }
 }
 
 # Removes object's attributes before printing

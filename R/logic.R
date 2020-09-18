@@ -73,7 +73,6 @@ AND <- function(..., na.rm = FALSE) {
 
 # FUNS --------------------------------------------------------------------
 
-
 null_check <- function(x) {
   if (length(x) == 0L || is.null(x)) {
     stop("Cannot accept `NULL` or 0 length values",

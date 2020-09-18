@@ -115,3 +115,24 @@ reindex <- function(x, index = NULL, new_index, expand = c("intersect", "both"),
   rownames(out) <- nm
   out
 }
+
+
+# FUNS --------------------------------------------------------------------
+
+unique_name_check <- function(x) {
+  # Checks that names are unique in the vector
+  nm <- names(x)
+  if (is.null(nm)) nm <- x
+
+  lens <- sapply(split(nm, nm), length, USE.NAMES = TRUE)
+  int <- lens > 1
+
+  if (any(int)) {
+    warning("These names are duplicated: ",
+            paste0(names(lens[int]), collapse = ", "),
+            call. = FALSE)
+    invisible(FALSE)
+  } else {
+    invisible(TRUE)
+  }
+}

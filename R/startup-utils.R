@@ -37,12 +37,12 @@ NULL
       op$prompt <- getOption("prompt")
     }
     on.exit(options(op), add = TRUE)
-    inv()
+    invisible()
   }
 
   assign(".ResetOptions", .ResetOptions, envir = env)
 
-  inv()
+  invisible()
 }
 
 #' @export
@@ -55,7 +55,7 @@ NULL
     # .ResetOptions()
   }, envir = env)
 
-  inv()
+  invisible()
 }
 
 #' @export
@@ -84,47 +84,29 @@ startup_funs <- c(
 #'
 #' Clears out attached packages and properly loads
 #'
-#' @param remove_renviron Logical, if TRUE will force an update to the
-#'   .Renvironment file
 #' @param attached A character vector of packages - if NULL will find packages
 #'
 #' @export
 #' @family startup_funs
 #' @name attached_packages
-.SendAttachedPackagesToREnviron <- function(remove_renviron = FALSE) {
+.SendAttachedPackagesToREnviron <- function() {
   attached <- grep("^package[:]", search(), value = TRUE)
   attached2 <- rev(gsub("^package[:]", "", attached))
   attached2 <- setdiff(attached2, .default_packages)
 
   file <- ".Renviron"
-
-  if (isTRUE(remove_renviron)) {
-    file.remove(file)
-  }
+  tag <- jtag()
 
   # If file exists, see if we need to remove the previous statement
-  if (file.exists(file)) {
-    rl <- readLines(".Renviron")
-    line <- grep("jordan::.SendAttachedPackagesToREnviron()", rl, fixed = TRUE)
+  fe <- file.exists(file)
 
-    if (length(line) == 1L) {
-      cat(rl[-seq.int(line - 1L, line + 2L)], sep = "\n", file = file)
-    }
-
+  if (fe) {
+    remove_tag_and_save(file, tag, warn = FALSE)
   }
 
-  # If file exists, this appends to the file
-  cat(
-    "\n# Below created with ",
-    "jordan::.SendAttachedPackagesToREnviron() ",
-    "from your .Rprofile\n",
-    "R_DEFAULT_PACKAGES='",
-    paste(c(.default_packages, attached2), collapse = ","),
-    "'\n",
-    sep = "",
-    file = file,
-    append = !file_remove_renviorn
-  )
+  pkgs <- paste(c(.default_packages, attached2), collapse = ",")
+  line <- sprintf("%s\nR_DEFAULT_PACKAGES='%s'\n", tag, pkgs)
+  cat(line, sep = "", file = file, append = fe)
 
   .RemoveAttachedPackages()
 }
@@ -150,11 +132,11 @@ startup_funs <- c(
         warning("`", a, "` was not found `detach()`")
       },
       finally = function() {
-        inv()
+        invisible()
       })
   }
 
-  inv()
+  invisible()
 }
 
 
@@ -185,7 +167,7 @@ names(.default_packages) <- paste0("package:", .default_packages)
   }
 
   .Restart()
-  inv()
+  invisible()
 }
 
 #' @export
@@ -223,27 +205,28 @@ names(.default_packages) <- paste0("package:", .default_packages)
 #' @family startup_utils
 #' @export
 .NiceMessage <- function(x = 1:2) {
-  if (length(x) == 0L) return(inv())
+  if (length(x) == 0L) return(invisible())
   x <- as.integer(x)
 
   switch(
     sample(x, 1),
-    if (RN("praise")) cat_praise() else .NiceMessage(x[-1L]),
-    if (RN("fortunes")) cat_fortune() else .NiceMessage(x[-2L])
+    if (rn("praise")) cat_praise() else .NiceMessage(x[-1L]),
+    if (rn("fortunes")) cat_fortune() else .NiceMessage(x[-2L])
   )
 
-  inv()
+  invisible()
 }
 
 cat_praise <- function() {
   cat("\n", crayon::yellow(praise::praise()), "\n\n")
-  inv()
+  invisible()
 }
 
 cat_fortune <- function() {
-  x <- paste(capture.output(fortunes::fortune()))
+  # setting width high as it is adjusted later
+  x <- paste(capture.output(fortunes::fortune(width = 1000)))
   cat(crayon::yellow(x), sep = "\n")
-  inv()
+  invisible()
 }
 
 #' @rdname startup_funs
@@ -254,7 +237,7 @@ cat_fortune <- function() {
     assign("%>%", magrittr::`%>%`, envir = env)
   }
 
-  inv()
+  invisible()
 }
 
 
@@ -336,7 +319,7 @@ ht.tbl_df <- function(x, n = 5L) {
 
   on.exit(options(op))
   file.remove(.startup_env_file())
-  inv()
+  invisible()
 }
 
 .getstartup_env <- function() {
@@ -344,37 +327,50 @@ ht.tbl_df <- function(x, n = 5L) {
 }
 
 
-# e <- .set_startup_env()
-# e
-# .getstartup_env()
-# options(not.real = TRUE)
-# .remove_startup_env()
-# getOption("not.real")
-
-
 # FUNS --------------------------------------------------------------------
 
-
-remove_tag_and_save <- function(file, tag) {
+remove_tag_and_save <- function(file, tag, warn = TRUE) {
+  # Finds where tag is in file and removes the line and the line after
+  # Assumes that the 'tag' is from this package and starts with
+  #   '@jordan_'
+  # setting "tag" to NULL will remove any instances
   x <- readLines(file)
-  x <- paste(x, collapse = "\n")
-  pattern <- wrap_tags(tag, ".*", sep = "", add_returns = FALSE)
-  out <- gsub(pattern, "", x)
-  out <- gsub("(\n)+$", "", out)
+
+  tag0 <- if (is.null(tag)) {
+    jtag("")
+  } else {
+    jtag(tag)
+  }
+
+  pattern <- paste0("^(", tag0, ")")
+  line <- grep(pattern, x, fixed = FALSE)
+
+  if (length(line) == 0L) {
+    if (warn) {
+      warning("Tag `", tag0, "` not found in ", file, call. = FALSE)
+    }
+    return(invisible())
+  }
+
+  # Remove line of tag and next line
+  out <- x[-c(line, line + 1L)]
+  out <- paste(out, collapse = "\n")
+  out <- gsub("\n?$", "\n", out)
   writeLines(out, file)
 }
 
-wrap_tags <- function(tag, ..., sep = "\n", add_returns = FALSE) {
-  ls <- list(...)
-  stopifnot(length(ls) > 0L)
-  ls <- unlist(ls)
-  tags <- paste0(sprintf("# @madrigal_%s_", tag), c("start", "stop"))
-
-  if (add_returns) {
-    tags[1] <- paste0("\n", tags[1])
-    tags[2] <- paste0(tags[2], "\n")
+jtag <- function(x = NULL) {
+  # Creates a tag using the system name
+  if (is.null(x)) {
+    x <- as.character(sys.call(1L))
   }
 
-  x <- paste(ls, collapse = "")
-  paste(list(tags[1], x, tags[2]), collapse = sep)
+  stopifnot("x must be a character" = is.character(x))
+
+  if (!grepl("^# @jordan ", x)) {
+    x <- paste0("# @jordan ", x)
+  }
+
+  x
+
 }

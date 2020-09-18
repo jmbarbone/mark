@@ -6,14 +6,11 @@
 \alias{.RemoveAttachedPackages}
 \title{Manage attached packages}
 \usage{
-.SendAttachedPackagesToREnviron(remove_renviron = FALSE)
+.SendAttachedPackagesToREnviron()
 
 .RemoveAttachedPackages(attached = NULL)
 }
 \arguments{
-\item{remove_renviron}{Logical, if TRUE will force an update to the
-.Renvironment file}
-
 \item{attached}{A character vector of packages - if NULL will find packages}
 }
 \description{
