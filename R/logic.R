@@ -23,6 +23,27 @@
 #' @param na.rm Logical, if `TRUE` will ignore `NA`
 #' @export
 #' @name logic_ext
+#' @examples
+#'
+#' x <- c(TRUE, FALSE, NA)
+#' y <- c(FALSE, FALSE, TRUE)
+#' z <- c(TRUE, NA, TRUE)
+#' isTRUE(x)
+#' is_true(x)
+#' isFALSE(x)
+#' is_false(x)
+#' TRUE %or% FALSE
+#' NA %or% FALSE
+#' OR(x, y, z)
+#' OR(x, y, z, na.rm = TRUE)
+#' AND(x, y, z)
+#' AND(x, y, z, na.rm = TRUE)
+#' either(TRUE, FALSE)
+#' either(FALSE, NA)
+#' either(TRUE, NA)
+#' is_boolean(x)
+#' is_boolean(c(1L, NA_integer_, 0L))
+#' is_boolean(c(1.01, 0, -1))
 
 is_true <- function(x) {
   null_check(x)
@@ -70,6 +91,27 @@ AND <- function(..., na.rm = FALSE) {
   apply_logical_matrix(mat, "&", na.rm = na.rm)
 }
 
+#' @export
+#' @rdname logic_ext
+either <- function(x, y) {
+  x[is.na(x)] <- FALSE
+  y[is.na(y)] <- FALSE
+  x | y
+}
+
+#' @export
+#' @rdname logic_ext
+is_boolean <- function(x) {
+  if (is.logical(x)) {
+    TRUE
+  } else if (is.numeric(x)) {
+    bools <- x %in% c(1, 0)
+    bools[is.na(x)] <- TRUE
+    all(bools)
+  } else {
+    FALSE
+  }
+}
 
 # FUNS --------------------------------------------------------------------
 
@@ -109,14 +151,4 @@ apply_logical_matrix <- function(mat, FUN, na.rm) {
   )
 }
 
-is_boolean <- function(x) {
-  if (is.logical(x)) {
-    TRUE
-  } else if (is.numeric(x)) {
-    bools <- x %in% c(1, 0)
-    bools[is.na(x)] <- TRUE
-    all(bools)
-  } else {
-    FALSE
-  }
-}
+

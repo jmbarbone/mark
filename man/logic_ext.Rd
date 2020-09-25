@@ -7,6 +7,8 @@
 \alias{\%or\%}
 \alias{OR}
 \alias{AND}
+\alias{either}
+\alias{is_boolean}
 \title{Logic - Extension'}
 \usage{
 is_true(x)
@@ -18,6 +20,10 @@ x \%or\% y
 OR(..., na.rm = FALSE)
 
 AND(..., na.rm = FALSE)
+
+either(x, y)
+
+is_boolean(x)
 }
 \arguments{
 \item{x, y}{A vector of logical values.  If `NULL` will generate a warning.  If
@@ -44,4 +50,26 @@ Extensions to the base logical operations to account for `NA` values.
 }
 \details{
 Logical operations, extended
+}
+\examples{
+
+x <- c(TRUE, FALSE, NA)
+y <- c(FALSE, FALSE, TRUE)
+z <- c(TRUE, NA, TRUE)
+isTRUE(x)
+is_true(x)
+isFALSE(x)
+is_false(x)
+TRUE \%or\% FALSE
+NA \%or\% FALSE
+OR(x, y, z)
+OR(x, y, z, na.rm = TRUE)
+AND(x, y, z)
+AND(x, y, z, na.rm = TRUE)
+either(TRUE, FALSE)
+either(FALSE, NA)
+either(TRUE, NA)
+is_boolean(x)
+is_boolean(c(1L, NA_integer_, 0L))
+is_boolean(c(1.01, 0, -1))
 }
