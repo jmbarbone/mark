@@ -363,6 +363,9 @@ jtag <- function(x = NULL) {
   # Creates a tag using the system name
   if (is.null(x)) {
     x <- as.character(sys.call(1L))
+    # Remove package name
+    x <- sub("^.*[:]", "", x)
+    stopifnot(length(x) > 0L)
   }
 
   stopifnot("x must be a character" = is.character(x))
