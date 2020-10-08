@@ -88,3 +88,16 @@ print_no_attr <- function(x, ...) {
   attributes(x) <- NULL
   NextMethod("print", x)
 }
+
+#' That
+#'
+#' Grammatical correctness
+#'
+#' @details
+#' See `fortunes::fortune(175)`.
+#'
+#' @inheritParams base::which
+#'
+#' @export
+#' @seealso [base::which()]
+that <- base::which
