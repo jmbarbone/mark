@@ -21,6 +21,7 @@ It's not the most precise but can be used to determine additional explortation.
 pattern will be coerced like so: "abc" turned into "[a|b|c][a|b|c][a|b|c]"
 }
 \examples{
-str_close_enough(c("thsi", "TIHS", "that"), "this", negate = TRUE)  ##  TRUE  TRUE FALSE
-str_close_enough(c("thsi", "TIHS", "that"), "this", negate = FALSE) ## FALSE FALSE  TRUE
+x <- c("thsi", "TIHS", "that")
+str_close_enough(x, "this", negate = FALSE) ##  TRUE  TRUE FALSE
+str_close_enough(x, "this", negate = TRUE)  ## FALSE FALSE  TRUE
 }
