@@ -128,12 +128,14 @@ str_extract_date <- function(x, format = "%Y-%m-%d") {
 #'
 #' @param x A date format, assuming
 #' @examples
+#' \dontrun{
 #' format_to_regex("%Y-%m-%d")
 #' format_to_regex("%b/%d/%y")
 #' format_to_regex("%d %B %Y")
 #'
 #' pattern <- format_to_regex("%Y-%m-%d")
 #' grepl(pattern, Sys.Date())
+#' }
 format_to_regex <- function(x) {
   # may not need to be so comprehensive because a bad date will fail with the
   #   date parsing anyway
