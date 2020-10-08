@@ -44,5 +44,5 @@ test_that("Extract dates", {
     c("This is a file name 2020-02-21.csv", "No date"),
     c("2020-02-21", NA)
   )
-  expect_my_date("Last saved 17 December 2019", "2019-12-17", format = "%d %B %y")
+  expect_my_date("Last saved 17 December 2019", "2019-12-17", format = "%d %B %Y")
 })
