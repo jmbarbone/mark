@@ -132,7 +132,7 @@ get_recent_file <- function(dir, pattern = NULL, negate = FALSE, exclude_temp = 
 #' write.csv(iris, file = file_path)
 #' }
 
-path_norm <- function(x = ".", check = FALSE, remove = check) {
+norm_path <- function(x = ".", check = FALSE, remove = check) {
   paths <- normalizePath(x, winslash = .Platform$file.sep, mustWork = FALSE)
   ind <- !file.exists(paths)
 
@@ -150,14 +150,113 @@ path_norm <- function(x = ".", check = FALSE, remove = check) {
 }
 
 #' @export
-#' @rdname path_norm
+#' @rdname norm_path
 file_path <- function(..., check = FALSE, remove = check) {
   fp <- file.path(..., fsep = .Platform$file.sep)
-  path_norm(fp, check = check, remove = remove)
+  norm_path(fp, check = check, remove = remove)
 }
 
 #' @export
-#' @rdname path_norm
+#' @rdname norm_path
 user_file <- function(..., check = FALSE, remove = check) {
   file_path(Sys.getenv("R_USER"), ..., check = check, remove = remove)
 }
+
+#' File information utils
+#'
+#' Other utility functions for dealing with files
+#'
+#' @param x A vector of file paths
+#' @export
+#' @name file_info
+newest_file <- function(x) {
+  x <- norm_path(x, check = TRUE)
+  x[which.max(file.mtime(x))]
+}
+
+#' @export
+#' @rdname file_info
+oldest_file <- function(x) {
+  x <- norm_path(x, check = TRUE)
+  x[which.min(file.mtime(x))]
+}
+
+#' @export
+#' @rdname file_info
+largest_file <- function(x) {
+  x <- norm_path(x, check = TRUE)
+  x[which.max(file.size(x))]
+}
+
+#' @export
+#' @rdname file_info
+smallest_file <- function(x) {
+  x <- norm_path(x, check = TRUE)
+  x[which.min(file_size(x))]
+}
+
+#' @export
+#' @rdname file_info
+file_info <- function(x) {
+  x <- norm_path(check = TRUE)
+  res <- .Internal(file.info(x, FALSE))
+  res
+}
+
+#' @export
+#' @rdname file_info
+file_time <- function(x) {
+  x <- norm_path(x, check = TRUE)
+  .Internal(file.info(x, FALSE))$mtime
+}
+
+#' @export
+#' @rdname file_info
+file_size <- function(x) {
+  x <- norm_path(x, check = TRUE)
+  .Internal(file.info(x, FALSE))$size
+}
+
+#' @details
+#' Mostly a wrapper for [base::list.files()] with preferred defaults.
+list_files <- function(x, pattern = NULL, ignore_case = FALSE, all = FALSE) {
+  out <- list.files(
+    path = x,
+    pattern = pattern,
+    all.files = all,
+    full.names = TRUE,
+    recursive = all,
+    ignore.case = ignore_case,
+    include.dirs = FALSE,
+    no.. = !all
+  )
+  norm_path(out)
+}
+
+
+#' Open a file using windows file associations
+#'
+#' Opens the given files(s)
+#'
+#' @details
+#' An alternative to [base::shell.exec()] that can take take multiple files.
+#'
+#' @export
+#'
+#' @examples
+open_file <- function(x) {
+  x <- norm_path(x, check = TRUE)
+  shell_exec(x)
+}
+
+#' @rdname open_file
+#' @export
+shell_exec <- function(x) {
+  for (i in x) {
+    cm <- sprintf('start "" "%s"', shQuote(i))
+    shell(cm, wait = FALSE, translate = TRUE)
+  }
+}
+
+# x <- list_files("test-docs")
+# open_file(x)
