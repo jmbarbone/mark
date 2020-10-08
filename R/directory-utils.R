@@ -217,33 +217,25 @@ file_size <- function(x) {
   .Internal(file.info(x, FALSE))$size
 }
 
-#' @details
-#' Mostly a wrapper for [base::list.files()] with preferred defaults.
-list_files <- function(x, pattern = NULL, ignore_case = FALSE, all = FALSE) {
-  out <- list.files(
-    path = x,
-    pattern = pattern,
-    all.files = all,
-    full.names = TRUE,
-    recursive = all,
-    ignore.case = ignore_case,
-    include.dirs = FALSE,
-    no.. = !all
-  )
-  norm_path(out)
-}
-
 
 #' Open a file using windows file associations
 #'
 #' Opens the given files(s)
 #'
 #' @details
-#' An alternative to [base::shell.exec()] that can take take multiple files.
+#' `open_file` is an alternative to [base::shell.exec()] that can take take
+#'   multiple files.
+#' `list_files` is mostly a wrapper for [base::list.files()] with preferred
+#'   defaults.
+#'
+#' @inheritParams norm_path
+#' @inheritParams base::file.path
+#' @param ignore_case logical. Should pattern-matching be case-insensitive?
+#' @param all a logical value. If FALSE, only the names of visible files are
+#'   returned (following Unix-style visibility, that is files whose name does
+#'   not start with a dot). If TRUE, all file names will be returned.
 #'
 #' @export
-#'
-#' @examples
 open_file <- function(x) {
   x <- norm_path(x, check = TRUE)
   shell_exec(x)
@@ -258,5 +250,18 @@ shell_exec <- function(x) {
   }
 }
 
-# x <- list_files("test-docs")
-# open_file(x)
+#' @rdname open_file
+#' @export
+list_files <- function(x, pattern = NULL, ignore_case = FALSE, all = FALSE) {
+  out <- list.files(
+    path = x,
+    pattern = pattern,
+    all.files = all,
+    full.names = TRUE,
+    recursive = all,
+    ignore.case = ignore_case,
+    include.dirs = FALSE,
+    no.. = !all
+  )
+  norm_path(out)
+}
