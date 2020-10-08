@@ -229,7 +229,7 @@ file_size <- function(x) {
 #'   defaults.
 #'
 #' @inheritParams norm_path
-#' @inheritParams base::file.path
+#' @inheritParams base::list.files
 #' @param ignore_case logical. Should pattern-matching be case-insensitive?
 #' @param all a logical value. If FALSE, only the names of visible files are
 #'   returned (following Unix-style visibility, that is files whose name does
