@@ -10,10 +10,10 @@ open_file(x)
 
 shell_exec(x)
 
-list_files(x, pattern = NULL, ignore_case = FALSE, all = FALSE)
+list_files(x = ".", pattern = NULL, ignore_case = FALSE, all = FALSE)
 }
 \arguments{
-\item{x}{A vector of paths}
+\item{x}{A character vector of paths}
 
 \item{pattern}{an optional \link[base]{regular expression}.  Only file names
     which match the regular expression will be returned.}

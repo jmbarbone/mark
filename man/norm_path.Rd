@@ -13,7 +13,7 @@ file_path(..., check = FALSE, remove = check)
 user_file(..., check = FALSE, remove = check)
 }
 \arguments{
-\item{x}{A vector of paths}
+\item{x}{A character vector of paths}
 
 \item{check}{Logical, if TRUE will check if the path exists and output a
 warning if it does not.}
@@ -31,4 +31,5 @@ data(iris)
 file_path <- user_file("outputs/tests.csv")
 write.csv(iris, file = file_path)
 }
+
 }

@@ -117,7 +117,7 @@ get_recent_file <- function(dir, pattern = NULL, negate = FALSE, exclude_temp = 
 #'
 #' Normalize and check a vector of paths
 #'
-#' @param x A vector of paths
+#' @param x A character vector of paths
 #' @param check Logical, if TRUE will check if the path exists and output a
 #'   warning if it does not.
 #' @param remove Logical, if TRUE will remove paths that are not found
@@ -131,14 +131,18 @@ get_recent_file <- function(dir, pattern = NULL, negate = FALSE, exclude_temp = 
 #' file_path <- user_file("outputs/tests.csv")
 #' write.csv(iris, file = file_path)
 #' }
+#'
 
 norm_path <- function(x = ".", check = FALSE, remove = check) {
+  stopifnot("x (path) must be a character vector" = is.character(x))
+
   paths <- normalizePath(x, winslash = .Platform$file.sep, mustWork = FALSE)
   ind <- !file.exists(paths)
 
   if (check && any(ind)) {
-    warning("Paths not found:\n  ",
-            paste(paths[ind], collapse = "\n  "),
+    warning("Paths not found:\n  '",
+            paste(paths[ind], collapse = "'\n  '"),
+            "'",
             call. = FALSE)
   }
 
@@ -252,7 +256,11 @@ shell_exec <- function(x) {
 
 #' @rdname open_file
 #' @export
-list_files <- function(x, pattern = NULL, ignore_case = FALSE, all = FALSE) {
+list_files <- function(x = ".", pattern = NULL, ignore_case = FALSE, all = FALSE) {
+  path <- norm_path(x, check = TRUE)
+  if (is.na(path)) {
+    return(NA_character_)
+  }
   out <- list.files(
     path = x,
     pattern = pattern,
