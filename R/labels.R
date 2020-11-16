@@ -7,6 +7,8 @@
 #'   to a data.frame, `...` can be replaced with a `data.frame` where the first
 #'   column is the targeted colname and the second is the desired label.
 #' @param label A single length string of a label to be assigned
+#' @param title Title for the viewer window -- if not supplemented will show as
+#'   `paste0(as.character(substitute(x)), " - Labels")`
 #'
 #' @name labels
 #' @export
@@ -24,6 +26,7 @@
 #'
 #' labs$dummy <- ""
 #' get_labels(labs) # shows label as <NA> for dummy column
+#' # view_labels(labs)
 
 assign_label <- function(x, ...) {
   UseMethod("assign_label", x)
@@ -89,4 +92,15 @@ get_labels.default <- function(x) {
   } else {
     lb
   }
+}
+
+#' @export
+#' @rdname labels
+view_labels <- function(x, title) {
+  if(missing(title)) {
+    title <- paste0(as.character(substitute(x)), " - Labels")
+  }
+
+  view_fun <- get("View", envir = as.environment("package:utils"))
+  view_fun(x = get_labels(x), title = title)
 }
