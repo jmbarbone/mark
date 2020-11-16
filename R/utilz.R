@@ -101,3 +101,20 @@ print_no_attr <- function(x, ...) {
 #' @export
 #' @seealso [base::which()]
 that <- base::which
+
+#' Lines of R code
+#'
+#' How many lines of R code in a directory?
+#'
+#' @param x Directory
+lines_of_r_code <- function(x) {
+  sum(vapply(
+    list.files(x, full.names = TRUE, recursive = TRUE, pattern = "\\.[rR]$"),
+    function(xx) {
+      tryCatch(length(readLines(xx)),
+               error = function(e) NULL,
+               finally = 0L)
+    },
+    integer(1)
+  ))
+}
