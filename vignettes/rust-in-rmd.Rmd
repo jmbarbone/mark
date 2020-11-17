@@ -19,9 +19,8 @@ Function sets the knitr rust engine
 ```{r set engine}
 jordan::set_rust_engine()
 # wrapper for: 
-# kntir::knit_engines$set(rust = jordan::engine_rust)
+# knitr::knit_engines$set(rust = jordan::engine_rust)
 ```
-
 
 ## Rust
 
