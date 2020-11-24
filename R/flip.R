@@ -11,6 +11,8 @@
 #' flip(head(iris))
 #' flip(head(iris), rownames = TRUE)
 #' flip(head(iris), by_row = FALSE)
+#'
+#' @export
 
 flip <- function(x, ...) {
   UseMethod("flip")
