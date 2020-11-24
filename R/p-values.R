@@ -33,20 +33,17 @@ p_round <- function(x, n = 3, sig = n) {
   out[nans] <- "(NaN)"
 
   if (valid_n) {
-    out[!nans & below] <- sprintf("< .%s1", paste(rep("0", n - 1), collapse = ""))
+    out[!nans & below] <- sprintf("<.%s1", paste(rep("0", n - 1), collapse = ""))
   }
 
   empty <- out == ""
-  # formatc(., digits = NULL) is default
-  # Cannot do this as one vector -- sigs should be evaluated item by item
-  out[empty] <- vapply(x[empty], format, character(1), digits = sig, scientific = FALSE, USE.NAMES = FALSE)
+  out[empty] <- vapply(x[empty], format, character(1), digits = sig, nsmall = sig, scientific = FALSE, USE.NAMES = FALSE)
 
   out
 }
 
 #' @rdname p_values
 #' @export
-
 p_value_sig <- function(x, cutoffs = c("***" = 0.001,
                                        "**" = 0.01,
                                        "*" = 0.05,
