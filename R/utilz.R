@@ -104,7 +104,9 @@ print_no_attr <- function(x, ...) {
 #'
 #' @export
 #' @seealso [base::which()]
-that <- base::which
+that <- function(x, arr.ind = FALSE, useNames = TRUE) {
+  which(x, arr.ind = arr.ind, useNames = useNames)
+}
 
 #' Lines of R code
 #'
