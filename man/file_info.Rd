@@ -6,8 +6,6 @@
 \alias{oldest_file}
 \alias{largest_file}
 \alias{smallest_file}
-\alias{file_time}
-\alias{file_size}
 \title{File information utils}
 \usage{
 newest_file(x)
@@ -17,12 +15,6 @@ oldest_file(x)
 largest_file(x)
 
 smallest_file(x)
-
-file_info(x)
-
-file_time(x)
-
-file_size(x)
 }
 \arguments{
 \item{x}{A vector of file paths}

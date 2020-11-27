@@ -196,29 +196,7 @@ largest_file <- function(x) {
 #' @rdname file_info
 smallest_file <- function(x) {
   x <- norm_path(x, check = TRUE)
-  x[which.min(file_size(x))]
-}
-
-#' @export
-#' @rdname file_info
-file_info <- function(x) {
-  x <- norm_path(check = TRUE)
-  res <- .Internal(file.info(x, FALSE))
-  res
-}
-
-#' @export
-#' @rdname file_info
-file_time <- function(x) {
-  x <- norm_path(x, check = TRUE)
-  .Internal(file.info(x, FALSE))$mtime
-}
-
-#' @export
-#' @rdname file_info
-file_size <- function(x) {
-  x <- norm_path(x, check = TRUE)
-  .Internal(file.info(x, FALSE))$size
+  x[which.min(file.size(x))]
 }
 
 
