@@ -24,6 +24,10 @@ list_files(x = ".", pattern = NULL, ignore_case = FALSE, all = FALSE)
 returned (following Unix-style visibility, that is files whose name does
 not start with a dot). If TRUE, all file names will be returned.}
 }
+\value{
+A logical vector where TRUE successfully opened, FALSE did not, and
+  NA did not try to open (file not found)
+}
 \description{
 Opens the given files(s)
 }

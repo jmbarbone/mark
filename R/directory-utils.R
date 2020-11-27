@@ -218,18 +218,30 @@ smallest_file <- function(x) {
 #'   not start with a dot). If TRUE, all file names will be returned.
 #'
 #' @export
+#' @return A logical vector where TRUE successfully opened, FALSE did not, and
+#'   NA did not try to open (file not found)
 open_file <- function(x) {
   x <- norm_path(x, check = TRUE)
-  shell_exec(x)
+  out <- rep(NA, length(x))
+  out[!is.na(x)] <- shell_exec(x[!is.na(x)])
+  out
 }
 
 #' @rdname open_file
 #' @export
 shell_exec <- function(x) {
-  for (i in x) {
-    cm <- sprintf('start "" "%s"', shQuote(i))
-    shell(cm, wait = FALSE, translate = TRUE)
-  }
+  invisible(vapply(x, try_shell_exec, logical(1), USE.NAMES = FALSE))
+}
+
+try_shell_exec <- function(x) {
+  tryCatch({
+    shell.exec(x)
+    TRUE
+  },
+  error = function(e) {
+    warning(e, call. = FALSE)
+    FALSE
+  })
 }
 
 #' @rdname open_file
