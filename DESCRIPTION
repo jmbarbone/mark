@@ -40,6 +40,7 @@ Suggests:
     rstudioapi,
     stringi,
     testthat,
-    rmarkdown
+    rmarkdown,
+    xfun
 RoxygenNote: 7.1.1
 VignetteBuilder: knitr
