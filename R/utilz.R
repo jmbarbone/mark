@@ -2,6 +2,10 @@
 #' @export
 magrittr::`%>%`
 
+`%colons%` <- function(pkg, name) {
+  get(name, envir = asNamespace(pkg))
+}
+
 ept <- function(x) {
   eval(parse(text = x))
 }

@@ -118,8 +118,8 @@ pROC_quick_plot <- function(mod, thres_method = c("youden", "closest.topleft"), 
     cis <- pROC_ci_sp_roc(mod, boots = boots)
     # Defaults to a grey
     ci_col <- rgb(red = 0, green = 0, blue = 0, alpha = 0.1)
-
-    pROC:::plot.ci.sp(
+    f <- "pROC" %colons% "plot.ci.sp"
+    f(
       cis,
       type = "shape",
       col = ci_col
@@ -150,7 +150,8 @@ pROC_ci_sp_roc <- function(mod, boots = 500, se = seq(0, 1, .01), conf_level = 0
     stop("'conf_level' must be within the interval [0,1].", call. = FALSE)
   }
 
-  if (pROC:::roc.utils.is.perfect.curve(mod)) {
+  f <- "pROC" %colons% "roc.utils.is.perfect.curve"
+  if (f(mod)) {
     warning("ci.sp() of a ROC curve with AUC == 1 is always a null interval",
             " and can be misleading.", call. = FALSE)
   }
@@ -160,7 +161,7 @@ pROC_ci_sp_roc <- function(mod, boots = 500, se = seq(0, 1, .01), conf_level = 0
 
   perfs <- furrr::future_map(
     seq(boots),
-    pROC:::stratified.ci.sp,
+    "pROC" %colons% "stratified.ci.sp",
     roc = mod,
     se = se
   )
