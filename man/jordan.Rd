@@ -16,3 +16,7 @@ Useful links:
 }
 
 }
+\author{
+\strong{Maintainer}: Jordan Mark Barbone \email{jmbarbone@gmail.com} (0000-0001-9788-3628) [copyright holder]
+
+}
