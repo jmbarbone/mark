@@ -6,7 +6,7 @@ Author: person(given  = "Jordan Mark",
                family = "Barbone",
                role   = c("aut", "crh", "cre"),
                email  = "jmbarbone@gmail.com")
-Maintainer: Jordan Mark Barbone <jmbarbone@gmail.comt>
+Maintainer: Jordan Mark Barbone <jmbarbone@gmail.com>
 Description: Contains a variety of functions and wrappers developed for personally and professional use.
 License: MIT + file LICENSE
 URL: https://github.com/jmbarbone/jordan
