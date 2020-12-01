@@ -63,7 +63,15 @@ as_factor_unordered <- function(f) {
   factor(f, levels = unique(as.character(f)))
 }
 
+#' Remove NA
+#'
+#' Remove NAs from a vector
+#'
+#' @param x A vector
+#'
+#' @export
 remove_na <- function(x) {
+  stopifnot(is.vector(x))
   x[!is.na(x)]
 }
 
