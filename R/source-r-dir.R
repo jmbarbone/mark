@@ -33,11 +33,19 @@ source_dir_r <- function(dir, echo = FALSE, quiet = FALSE, ...) {
 #' @inheritParams source_files
 source_r_file <- function(path, echo = FALSE, quiet = FALSE, ...) {
   stopifnot("Must be a .R file" = grepl("\\.[rR]$", path))
-  if(!file.exists(path)) {
+
+  if (!file.exists(path)) {
     stop(sprintf("File << %s >> not found.", path), call. = FALSE)
   }
-  st <- system.time(source(path, echo = echo, ..., chdir = FALSE))
-  if(!quiet) {
+
+  st <- system.time(
+    tryCatch(
+      source(path, echo = echo, ..., chdir = FALSE),
+      error = function(e) stop("Error in ", path, "\n", e, call. = FALSE)
+    )
+  )
+
+  if (!quiet) {
     message(sprintf("Successfully sourced: %s [%s]",
                     basename(path),
                     round(st[["elapsed"]], 2)))
