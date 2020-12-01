@@ -118,17 +118,92 @@ that <- function(x, arr.ind = FALSE, useNames = TRUE) {
 
 #' Lines of R code
 #'
-#' How many lines of R code in a directory?
+#' Find the total number of lines of R code
 #'
-#' @param x Directory
-lines_of_r_code <- function(x) {
-  sum(vapply(
-    list.files(x, full.names = TRUE, recursive = TRUE, pattern = "\\.[rR]$"),
-    function(xx) {
-      tryCatch(length(readLines(xx)),
-               error = function(e) NULL,
-               finally = 0L)
-    },
-    integer(1)
-  ))
+#' @details
+#' Tries to read each file in the directory that ends in .R or .r and sums
+#'   together.  Files that fail to read are not counted.
+#'
+#' @param x Directory to search for files
+#' @param skip_empty Logical, if TRUE will not count lines that are empty or
+#'   only contain a bracket or quotation mark.
+#'
+#' @export
+#'
+#' @examples
+#' lines_of_r_code(system.file())
+#' lines_of_r_code(system.file(), skip_empty = FALSE)
+
+lines_of_r_code <- function(x = ".", skip_empty = TRUE) {
+  if (dir.exists(x)) {
+    files <- list_r_files(x)
+  }
+
+  if (skip_empty) {
+    return(sum(vap_int(files, n_lines_r_file)))
+  } else {
+    sum(vap_int(files, n_lines_r_file_all))
+  }
+}
+
+list_r_files <- function(x = ".") {
+  list_files(x, pattern = "\\.[rR]$", all = TRUE)
+}
+
+n_lines_r_file <- function(r_file) {
+  withCallingHandlers({
+    x <- trimws(readLines(r_file, skipNul = TRUE, warn = FALSE))
+    length(x %wo% c("", "}", "{", "(", ")", "[", "]", '"', "'"))
+  },
+  error = function(e) {
+    return(0L)
+  })
+}
+
+n_lines_r_file_all <- function(r_file) {
+  withCallingHandlers({
+    length(readLines(r_file, skipNul = TRUE, warn = FALSE))
+  },
+  error = function(e) {
+    return(0L)
+  })
+}
+
+chr_split <- function(x) {
+  stopifnot("x must be a single element" = length(x) == 1)
+  strsplit(as.character(x), "")[[1]]
+}
+
+# vaps --------------------------------------------------------------------
+
+# I'm lazy and don't want to use a bunch of exports and I like the functionality
+#   of map_* so this is shorthand and only base dependent
+
+
+# These are single element expectations
+
+vap_int <- function(x, f, ..., nm = FALSE) {
+  vapply(x, FUN = f, FUN.VALUE = integer(1), ..., USE.NAMES = nm)
+}
+
+vap_dbl <- function(x, f, ..., nm = FALSE) {
+  vapply(x, FUN = f, FUN.VALUE = double(1), ..., USE.NAMES = nm)
+}
+
+vap_chr <- function(x, f, ..., nm = FALSE) {
+  vapply(x, FUN = f, FUN.VALUE = character(1), ..., USE.NAMES = nm)
+}
+
+# dates are expected to be in a standard format
+vap_date <- function(x, f, ..., nm = FALSE) {
+  out <- vap_dbl(x, f, ..., nm = nm)
+  as.Date.numeric(out, origin = "1970-01-01")
+}
+
+# sapply(1:5, function(x) Sys.Date() + x)
+# capply(1:5, function(x) Sys.Date() + x)
+
+# This can take multiple elements, so can be a little dangerous
+capply <- function(x, f, ..., nm = FALSE) {
+  do.call(c, sapply(x, FUN = f, ..., simplify = FALSE, USE.NAMES = nm))
 }

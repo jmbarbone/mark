@@ -4,11 +4,22 @@
 \alias{lines_of_r_code}
 \title{Lines of R code}
 \usage{
-lines_of_r_code(x)
+lines_of_r_code(x = ".", skip_empty = TRUE)
 }
 \arguments{
-\item{x}{Directory}
+\item{x}{Directory to search for files}
+
+\item{skip_empty}{Logical, if TRUE will not count lines that are empty or
+only contain a bracket or quotation mark.}
 }
 \description{
-How many lines of R code in a directory?
+Find the total number of lines of R code
+}
+\details{
+Tries to read each file in the directory that ends in .R or .r and sums
+  together.  Files that fail to read are not counted.
+}
+\examples{
+lines_of_r_code(system.file())
+lines_of_r_code(system.file(), skip_empty = FALSE)
 }
