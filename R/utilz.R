@@ -13,7 +13,7 @@ ept <- function(x) {
 # Happily ripped from: http://r-pkgs.had.co.nz/description.html
 require_namespace <- function(namespace) {
   if (!rn(namespace)) {
-    stop(paste("Package <<", namespace, ">> needed for this function to work."),
+    stop(sprintf("Package \"%s\" needed for this function to work.", namespace),
          call. = FALSE)
   }
 }
