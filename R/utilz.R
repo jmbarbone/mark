@@ -130,21 +130,21 @@ chr_split <- function(x) {
 
 # These are single element expectations
 
-vap_int <- function(x, f, ..., nm = FALSE) {
-  vapply(x, FUN = f, FUN.VALUE = integer(1), ..., USE.NAMES = nm)
+vap_int <- function(.x, .f, ..., .nm = FALSE) {
+  vapply(X = .x, FUN = .f, FUN.VALUE = integer(1), ..., USE.NAMES = .nm)
 }
 
-vap_dbl <- function(x, f, ..., nm = FALSE) {
-  vapply(x, FUN = f, FUN.VALUE = double(1), ..., USE.NAMES = nm)
+vap_dbl <- function(.x, .f, ..., .nm = FALSE) {
+  vapply(X = .x, FUN = .f, FUN.VALUE = double(1), ..., USE.NAMES = .nm)
 }
 
-vap_chr <- function(x, f, ..., nm = FALSE) {
-  vapply(x, FUN = f, FUN.VALUE = character(1), ..., USE.NAMES = nm)
+vap_chr <- function(.x, .f, ..., .nm = FALSE) {
+  vapply(X = .x, FUN = .f, FUN.VALUE = character(1), ..., USE.NAMES = .nm)
 }
 
 # dates are expected to be in a standard format
-vap_date <- function(x, f, ..., nm = FALSE) {
-  out <- vap_dbl(x, f, ..., nm = nm)
+vap_date <- function(.x, .f, ..., .nm = FALSE) {
+  out <- vap_dbl(.x, .f, ..., .nm = .nm)
   as.Date.numeric(out, origin = "1970-01-01")
 }
 
@@ -152,6 +152,6 @@ vap_date <- function(x, f, ..., nm = FALSE) {
 # capply(1:5, function(x) Sys.Date() + x)
 
 # This can take multiple elements, so can be a little dangerous
-capply <- function(x, f, ..., nm = FALSE) {
-  do.call(c, sapply(x, FUN = f, ..., simplify = FALSE, USE.NAMES = nm))
+capply <- function(.x, .f, ..., .nm = FALSE) {
+  do.call(c, sapply(X = x, FUN = .f, ..., simplify = FALSE, USE.NAMES = .nm))
 }
