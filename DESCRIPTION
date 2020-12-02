@@ -18,15 +18,15 @@ LazyData: true
 Depends:
     R (>= 3.6)
 Imports:
-    dplyr,
-    magrittr,
-    methods,
-    tibble,
-    rlang,
-    stats,
-    scales,
-    tools,
-    utils
+    dplyr (>= 1.0.2),
+    magrittr (>= 2.0.1),
+    methods (>= 4.0.3),
+    rlang (>= 0.4.8),
+    scales (>= 1.1.1),
+    stats (>= 4.0.3),
+    tibble (>= 3.0.4),
+    tools (>= 4.0.3),
+    utils (>= 4.0.3)
 Suggests:
     crayon,
     fortunes,
@@ -44,5 +44,8 @@ Suggests:
     testthat,
     rmarkdown,
     xfun
+Remotes:
+    gaborcsardi/prompt,
+    seasmith/AlignAssign
 RoxygenNote: 7.1.1
 VignetteBuilder: knitr
