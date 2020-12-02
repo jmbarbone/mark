@@ -40,13 +40,13 @@ clean_todo_split <- function(x) {
   stopifnot(n >= 3)
 
   if (n > 3) {
-    x[3] <- paste(x[3:n], sep = ":")
+    x[3] <- paste(x[3:n], collapse = ":")
     x <- x[1:3]
   }
 
   names(x) <- c("file", "line", "todo")
   x <- as.list(x[c(2, 1, 3)])
-  x["todo"] <- sub(".*[#].*TODO\\s", "", x["todo"])
+  x["todo"] <- sub(".*[#]\\s{0,}TODO[:]?\\s", "", x["todo"])
   x["line"] <- as.integer(x["line"])
 
   structure(x, class = "data.frame", row.names = 1L)
