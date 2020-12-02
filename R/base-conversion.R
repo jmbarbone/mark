@@ -16,7 +16,7 @@
 base_alpha <- function(x, base = 26)  {
   stopifnot(is.character(x))
   check_base_alpha(base, high = 26)
-  vap_int(x, alpha_base_single, base = base)
+  vap_int(x, base_alpha_single, base = base)
 }
 
 alpha_base <- function(x, base = 26) {
