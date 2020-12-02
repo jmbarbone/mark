@@ -36,12 +36,12 @@ todos <- function() {
 }
 
 clean_todo_split <- function(x) {
-  len <- length(x)
-  stopifnot(len >= 3)
+  n <- length(x)
+  stopifnot(n >= 3)
 
-  if (len > 3) {
+  if (n > 3) {
     x[3] <- paste(x[3:n], sep = ":")
-    x <- x[c(2, 1, 3)]
+    x <- x[1:3]
   }
 
   names(x) <- c("file", "line", "todo")
@@ -52,12 +52,8 @@ clean_todo_split <- function(x) {
   structure(x, class = "data.frame", row.names = 1L)
 }
 
-
-withCallingHandlers(
-  system2("git", 'grep -in "[#] fdsa"', stdout = TRUE, stderr = TRUE),
-  warning = function(e) {
-    if (grepl("had status 1$", e$message)) {
-      invokeRestart("muffleWarning")
-    }
-  }
-)
+# bench::mark(
+#   `1` = vap_int(1:100, function(x) x + 1),
+#   `2` = purrr::map_int(1:100, function(x) x + 1),
+#   `3` = purrr::map_int(1:100, ~x + 1)
+# )
