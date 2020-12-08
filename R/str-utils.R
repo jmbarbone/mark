@@ -46,31 +46,25 @@ str_close_enough <- function(string, pattern, negate = FALSE) {
 #' }
 
 str_slice <- function(x, n = 80L) {
-  stopifnot(is.character(x))
-
-  ss <- strsplit(x, "")[[1]]
+  ss <- chr_split(x)
   n_chars <- nchar(x)
-  lens <- seq(1L, n_chars, by = n)
+  lens <- seq.int(1L, n_chars, by = n)
 
-  vapply(lens,
-         function(x) {
-           end <- x + n - 1
-           if (end > n_chars) {
-             end <- n_chars
-           }
-           paste(ss[seq(x, end, by = 1L)], collapse = "")
-         },
-         character(1))
-
+  vap_chr(
+    lens,
+    function(.x) {
+      end <- .x + n - 1
+      if (end > n_chars) {
+        end <- n_chars
+      }
+      paste(ss[.x:end], collapse = "")
+    })
 }
 
 #' @export
 #' @rdname str_slice
 str_slice_by_word <- function(x, n = 80L) {
-  stopifnot(is.character(x),
-            "Input text must be length 1L" = length(x) == 1L)
-
-  ss <- strsplit(x, "")[[1]]
+  ss <- chr_split(x)
   n_chars <- nchar(x)
 
   st <- 1L
@@ -98,9 +92,11 @@ str_slice_by_word <- function(x, n = 80L) {
     st <- end + 1L
   }
 
-  mapply(function(x, y) paste(ss[x:y], collapse = ""),
-         x = starts,
-         y = ends)
+  mapply(function(xx, y) {
+    paste(ss[xx:y], collapse = "")
+  },
+  xx = starts,
+  y = ends)
 
 }
 
@@ -152,6 +148,7 @@ format_to_regex <- function(x) {
   x <- sub("%Y", "[[:digit:]]{4}", x)
   x
 }
+
 
 month_abbr_regex <- sprintf("(%s)", paste(month.abb,  collapse = "|"))
 month_name_regex <- sprintf("(%s)", paste(month.name, collapse = "|"))
