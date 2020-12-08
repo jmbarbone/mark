@@ -52,8 +52,3 @@ clean_todo_split <- function(x) {
   structure(x, class = "data.frame", row.names = 1L)
 }
 
-# bench::mark(
-#   `1` = vap_int(1:100, function(x) x + 1),
-#   `2` = purrr::map_int(1:100, function(x) x + 1),
-#   `3` = purrr::map_int(1:100, ~x + 1)
-# )
