@@ -22,7 +22,7 @@ objects_all(all.names = FALSE)
 Functions to list out all environments and objects
 }
 \details{
-`environments()` is basically a printing wrapper for `base::search()`
+\code{environments()} is basically a printing wrapper for \code{base::search()}
 
-`ls_all()` and `objects_all()` print out way too much text
+\code{ls_all()} and \code{objects_all()} print out way too much text
 }

@@ -21,8 +21,8 @@ depth(x, ...)
 Functions to extract the 'depth' of an object
 }
 \details{
-This function does not count an empty lists (`list()`) as a level or `NULL`
-  objects.
+This function does not count an empty lists (\code{list()}) as a level or \code{NULL}
+objects.
 }
 \examples{
 

@@ -16,7 +16,7 @@ A percentile rank between 0 and 100
 Computes a percentile rank for each score in a set.
 The bounds of a percentile rank are > 0 and < 100.
 A percentile rank here is the proportion of scores that are less than the
-  current score.
+current score.
 }
 \details{
 This is not a very fast formula, however it is correct.
@@ -25,9 +25,9 @@ This is not a very fast formula, however it is correct.
 
 Where
 
-  \eqn{c_L} is the frequency of scores less than the score of interest
+\eqn{c_L} is the frequency of scores less than the score of interest
 
-  \eqn{f_i} is the frequency of the score of interest
+\eqn{f_i} is the frequency of the score of interest
 }
 \examples{
 x <- c(1, 1, 2, 5, 7, 7, 8, 10)

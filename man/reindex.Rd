@@ -15,15 +15,15 @@ reindex(
 \arguments{
 \item{x}{A data.frame}
 
-\item{index}{The column name or number of an index to use; if `NULL` will assume the
-first column; a value of `row.names` will use `row.names(x)`}
+\item{index}{The column name or number of an index to use; if \code{NULL} will assume the
+first column; a value of \code{row.names} will use \code{row.names(x)}}
 
 \item{new_index}{A column vector of the new index value}
 
 \item{expand}{Character switch to expand or keep only the values that
 intersect (none), all values in x or index, or retain all values found.}
 
-\item{sort}{Logical, if `TRUE` will sort the rows in output}
+\item{sort}{Logical, if \code{TRUE} will sort the rows in output}
 }
 \description{
 Reindexes a data.frame with a reference

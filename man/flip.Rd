@@ -17,9 +17,9 @@ flip(x, ...)
 
 \item{...}{Additional arguments passed to methods}
 
-\item{by_row}{`TRUE`, flips by row, otherwise by column}
+\item{by_row}{\code{TRUE}, flips by row, otherwise by column}
 
-\item{rownames}{`FALSE`, if `TRUE` will update the rownames}
+\item{rownames}{\code{FALSE}, if \code{TRUE} will update the rownames}
 }
 \description{
 Flip an object

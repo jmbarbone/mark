@@ -9,7 +9,7 @@ iqrs(x, na.rm = FALSE)
 \arguments{
 \item{x}{A vector of values}
 
-\item{na.rm}{Logical. If `TRUE`, any `NA` and `NaN`'s are removed from `x` before the median and quantiles are computed.}
+\item{na.rm}{Logical. If \code{TRUE}, any \code{NA} and \code{NaN}'s are removed from \code{x} before the median and quantiles are computed.}
 }
 \description{
 Computes the IQR magnitude of a vector

@@ -16,7 +16,7 @@ filter_combine(x, ..., .id, .names)
   }}
 
 \item{.id}{When .id is supplied, a new column of identifiers is created to link each row to its original data frame.
-The labels are taken from `.names`}
+The labels are taken from \code{.names}}
 
 \item{.names}{vector of characters for the}
 }
@@ -24,5 +24,5 @@ The labels are taken from `.names`}
 Filters a data frame then binds the result with it (with names).
 }
 \seealso{
-[dplyr::filter()] and [dplyr::bind_rows()]
+\code{\link[dplyr:filter]{dplyr::filter()}} and \code{\link[dplyr:bind]{dplyr::bind_rows()}}
 }

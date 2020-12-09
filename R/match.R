@@ -3,7 +3,7 @@
 #' Non matching alternatives and supplementary functions.
 #'
 #' @details
-#' Contrast with [base::match()], [base::intersect()], and [base::`%in%`()]
+#' Contrast with [base::match()], [base::intersect()], and `%in%`
 #' The functions of `%wi%` and `%wo%` can be used in leiu of `intersect()` and
 #'   `setdiff()`.  The primary difference is that the base functions return only
 #'   unique values, which may not be a desired behavior.

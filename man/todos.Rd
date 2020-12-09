@@ -7,13 +7,13 @@
 todos()
 }
 \value{
-`NULL` if none are found, otherwise a data.frame with the line
-  number, file name, and TODO comment.
+\code{NULL} if none are found, otherwise a data.frame with the line
+number, file name, and TODO comment.
 }
 \description{
 Search for # TODO tags
 }
 \details{
-Calls `git grep -in "[#] TODO"` to find any lines with a comment.
+Calls \verb{git grep -in "[#] TODO"} to find any lines with a comment.
 Removes any finds in the NAMESPACE
 }

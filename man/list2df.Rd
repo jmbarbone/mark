@@ -7,7 +7,7 @@
 list2df(x, name = "name", value = "value", show_NA = FALSE, warn = TRUE)
 }
 \arguments{
-\item{x}{A (preferably) named `list` with any number of values}
+\item{x}{A (preferably) named \code{list} with any number of values}
 
 \item{name, value}{Names of the new key and value columns, respectively}
 
@@ -17,16 +17,16 @@ otherwise as NA}
 \item{warn}{Logical; if TRUE will show a warning when}
 }
 \value{
-a `data.frame` object with columns "name" and "value" for the names
-of the `list` and the values in each
+a \code{data.frame} object with columns "name" and "value" for the names
+of the \code{list} and the values in each
 }
 \description{
 Converts a list object into a data.frame
 }
 \details{
-Unlike [base::list2DF()], `list2df()` tries to format the data.frame by using
-  the names of the list as values rather than variables.  This creates a
-  longer form list that may be more tidy.
+Unlike \code{\link[base:list2DF]{base::list2DF()}}, \code{list2df()} tries to format the data.frame by using
+the names of the list as values rather than variables.  This creates a
+longer form list that may be more tidy.
 }
 \examples{
 \dontrun{

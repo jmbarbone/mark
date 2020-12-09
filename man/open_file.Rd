@@ -26,14 +26,14 @@ not start with a dot). If TRUE, all file names will be returned.}
 }
 \value{
 A logical vector where TRUE successfully opened, FALSE did not, and
-  NA did not try to open (file not found)
+NA did not try to open (file not found)
 }
 \description{
 Opens the given files(s)
 }
 \details{
-`open_file` is an alternative to [base::shell.exec()] that can take take
-  multiple files.
-`list_files` is mostly a wrapper for [base::list.files()] with preferred
-  defaults.
+\code{open_file} is an alternative to \code{\link[base:shell.exec]{base::shell.exec()}} that can take take
+multiple files.
+\code{list_files} is mostly a wrapper for \code{\link[base:list.files]{base::list.files()}} with preferred
+defaults.
 }

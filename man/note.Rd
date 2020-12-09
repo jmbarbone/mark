@@ -20,18 +20,18 @@ note(x)
 \item{...}{Additional arguments passed from methods (not used)}
 }
 \description{
-An alternative to the [base::comment()].
+An alternative to the \code{\link[base:comment]{base::comment()}}.
 }
 \details{
 When the note is assigned to an object a new class will be added,
-  `jordan_note`, so that a `print` function can call an S3 method.  The print
-  for this can be adjusted for it's width by using the option
-  `jordan.note.width` which defaults to the option `width` when not set.
+\code{jordan_note}, so that a \code{print} function can call an S3 method.  The print
+for this can be adjusted for it's width by using the option
+\code{jordan.note.width} which defaults to the option \code{width} when not set.
 
-The method of _printing_ can also be adjusted with the `jordan.note.fun`
-  option in which a function can be assigned.  This function will then be
-  applied to the note at print.
+The method of \emph{printing} can also be adjusted with the \code{jordan.note.fun}
+option in which a function can be assigned.  This function will then be
+applied to the note at print.
 
 The type of object assigned to the note is not restricted, so user beware
-  of odd prints or additional features added to the notes fun.
+of odd prints or additional features added to the notes fun.
 }

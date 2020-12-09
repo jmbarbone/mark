@@ -11,18 +11,18 @@ between_more(x, left, right, type = c("gele", "gel", "gle", "gl"))
 
 \item{left, right}{Boundary values.}
 
-\item{type}{Abbreviation for the evaluation of `left` on `right`}
+\item{type}{Abbreviation for the evaluation of \code{left} on \code{right}}
 }
 \description{
-Additional functionality and expansion of `dplyr::between`
+Additional functionality and expansion of \code{dplyr::between}
 }
 \details{
 Type can be one of the below:
 \itemize{
- \item{"\strong{g}": }{is greater than (>)}
- \item{"\strong{ge}": }{greater than or equal to (>=)}
- \item{"\strong{l}": }{less than (<)}
- \item{"\strong{le}": }{less than or equal to (<=)}
+\item{"\strong{g}": }{is greater than (>)}
+\item{"\strong{ge}": }{greater than or equal to (>=)}
+\item{"\strong{l}": }{less than (<)}
+\item{"\strong{le}": }{less than or equal to (<=)}
 }
 }
 \examples{
@@ -30,5 +30,5 @@ between_more(10, 2, 10, "gl")
 between_more(10, 2, 10, "gle")
 }
 \seealso{
-[dplyr::case_when()]
+\code{\link[dplyr:case_when]{dplyr::case_when()}}
 }

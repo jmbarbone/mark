@@ -11,13 +11,13 @@ multi_grepl(x, patterns, ..., simplify = TRUE)
     object which can be coerced by \code{as.character} to a character
     vector.  \link[base]{Long vectors} are supported.}
 
-\item{patterns}{A list or vector of patterns to search across `x`; if named
+\item{patterns}{A list or vector of patterns to search across \code{x}; if named
 value returned will be the name of the pattern -- otherwise the position.
 Paterrn match reported will be the first in the list that is found}
 
-\item{...}{Additional arguments passed to [base::grepl()]}
+\item{...}{Additional arguments passed to \code{\link[base:grep]{base::grepl()}}}
 
-\item{simplify}{if `FALSE` will return a list of all matches, otherwise the
+\item{simplify}{if \code{FALSE} will return a list of all matches, otherwise the
 first match found}
 }
 \value{

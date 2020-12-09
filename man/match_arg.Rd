@@ -12,9 +12,9 @@ match_arg(x, table)
 \item{table}{A table of choices}
 }
 \description{
-This function is essentially a clear version of [base::match.arg()] which
-  produces a cleaner warning message and does not restrict the `table` param
-  to `character` vectors only.
+This function is essentially a clear version of \code{\link[base:match.arg]{base::match.arg()}} which
+produces a cleaner warning message and does not restrict the \code{table} param
+to \code{character} vectors only.
 }
 \details{
 Match arguments

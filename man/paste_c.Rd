@@ -9,8 +9,8 @@ paste_c(x, y, collate = TRUE, sep = "")
 \arguments{
 \item{x, y}{Vectors to paste and combine}
 
-\item{collate}{Logical; `TRUE` prints out combinations in order of vector
-`x` elements then `y`; otherwise reversed (see examples)}
+\item{collate}{Logical; \code{TRUE} prints out combinations in order of vector
+\code{x} elements then \code{y}; otherwise reversed (see examples)}
 
 \item{sep}{A character string to separate terms}
 }

@@ -29,13 +29,13 @@ view_labels(x, title)
 \item{x}{A vector of data.frame}
 
 \item{...}{One or more unquoted expressed separated by commas.  If assigning
-to a data.frame, `...` can be replaced with a `data.frame` where the first
+to a data.frame, \code{...} can be replaced with a \code{data.frame} where the first
 column is the targeted colname and the second is the desired label.}
 
 \item{label}{A single length string of a label to be assigned}
 
 \item{title}{Title for the viewer window -- if not supplemented will show as
-`paste0(as.character(substitute(x)), " - Labels")`}
+\code{paste0(as.character(substitute(x)), " - Labels")}}
 }
 \description{
 Assign labels to a vector or data.frame.

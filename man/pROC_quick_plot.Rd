@@ -13,13 +13,13 @@ pROC_quick_plot(
 )
 }
 \arguments{
-\item{mod}{An object with class "roc" (a ROC model made with pROC::roc(.))}
+\item{mod}{An object with class "roc" (a ROC model made with \code{\link[pROC:roc]{pROC::roc()}})}
 
 \item{thres_method}{The threshold method to print}
 
 \item{col}{The color of the curve}
 
-\item{...}{Additional arguments passed to [pROC::plot.roc()]}
+\item{...}{Additional arguments passed to \code{\link[pROC:plot.roc]{pROC::plot.roc()}}}
 
 \item{boots}{Number of bootstrap replications to perform; if < 2L will not
 perform any}
@@ -29,9 +29,9 @@ Quickly plots a model based on my own liking
 }
 \details{
 When adding bootstrapped confidence intervals, the core function of
-  [pROC:::ci.sp.roc()] is replaced with a quicker version that uses parallel
-  processing to speed up the bootstraps and some other data manipuluation.
-  There will likely be a delay when running with bootstraps.
+\code{pROC:::ci.sp.roc()} is replaced with a quicker version that uses parallel
+processing to speed up the bootstraps and some other data manipuluation.
+There will likely be a delay when running with bootstraps.
 }
 \examples{
 x <- pROC::aSAH

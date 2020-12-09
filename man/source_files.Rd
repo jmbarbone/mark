@@ -21,7 +21,7 @@ source_r_file(path, echo = FALSE, quiet = FALSE, ...)
 
 \item{quiet}{Logical.  Whether to print out a message for each file.}
 
-\item{...}{Additional arguments passed to [base::source()]}
+\item{...}{Additional arguments passed to \code{\link[base:source]{base::source()}}}
 
 \item{path}{The location of the R file.}
 }

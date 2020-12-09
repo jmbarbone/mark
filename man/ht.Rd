@@ -16,7 +16,7 @@ tail)}
 Quick head & tail function
 }
 \details{
-This contains a separate method for class `tbl_df`
+This contains a separate method for class \code{tbl_df}
 }
 \seealso{
 Other startup_utils: 

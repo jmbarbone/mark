@@ -16,10 +16,10 @@ set_rust_engine()
 Set Rust engine for knitr
 }
 \details{
-If dependencies are needed they should be defined in a `cargo.toml` file in
-  the working directory and the code chunk option `toml=TRUE` should be set.
+If dependencies are needed they should be defined in a \code{cargo.toml} file in
+the working directory and the code chunk option \code{toml=TRUE} should be set.
 }
 \references{
 Adapted from
-  https://greenwood.dev/2019/12/22/running-rust-in-rmd/
+https://greenwood.dev/2019/12/22/running-rust-in-rmd/
 }

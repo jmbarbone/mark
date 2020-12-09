@@ -9,7 +9,7 @@ sterr(x, na.rm = F)
 \arguments{
 \item{x}{A vector or data.frame}
 
-\item{na.rm}{Passed to `stats::sd()`.}
+\item{na.rm}{Passed to \code{stats::sd()}.}
 }
 \value{
 A vector

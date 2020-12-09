@@ -11,7 +11,7 @@ eval_named_chunk(rmd_file, label_name, ...)
 
 \item{label_name}{Name of label}
 
-\item{...}{Additional arguments passed to [base::eval()]}
+\item{...}{Additional arguments passed to \code{\link[base:eval]{base::eval()}}}
 }
 \description{
 Evaluate a named chunk from an Rmd file.

@@ -18,7 +18,7 @@ try_ksource(file, ..., change_directory = FALSE)
 
 \item{...}{Additional arguments, see details.}
 
-\item{quiet}{Logical; Determines whether to apply silence to [knitr::purl()]}
+\item{quiet}{Logical; Determines whether to apply silence to \code{\link[knitr:knit]{knitr::purl()}}}
 
 \item{change_directory}{Logical; if TRUE, the R working directory is temporarily
 changed to the directory containing file for evaluating}
@@ -27,9 +27,9 @@ changed to the directory containing file for evaluating}
 Functions for extending sourcing features
 }
 \details{
-`try_source()` will output an error message rather than completely preventing the execution.
+\code{try_source()} will output an error message rather than completely preventing the execution.
 This can be useful for when a script calls on multiple, independent files to be sourced
 and a single failure shouldn't prevent the entire run to fail as well.
 
-`ksource()` ... sends additional arguments to [knitr:purl()]
+\code{ksource()} ... sends additional arguments to \code{\link[=knitr:purl]{knitr:purl()}}
 }

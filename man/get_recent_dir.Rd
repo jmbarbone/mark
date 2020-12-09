@@ -9,9 +9,9 @@ get_recent_dir(.dir, recursive = FALSE, ...)
 \arguments{
 \item{.dir}{The root directory}
 
-\item{recursive}{From `list.dirs()`}
+\item{recursive}{From \code{list.dirs()}}
 
-\item{...}{Further arguments passed to `list.dirs()`}
+\item{...}{Further arguments passed to \code{list.dirs()}}
 }
 \value{
 The full path of the most recent directory

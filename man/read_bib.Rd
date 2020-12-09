@@ -19,10 +19,10 @@ read_bib(file, skip = 0, max_lines = NULL, encoding = "UTF-8")
 Read a bib file into a data.frame
 }
 \details{
-Inspired and partially credited to [bib2df::bib2df()] although this has no
-  dependencies outside of base functions and much quicker.  This speed seems
-  to come from removing `stringr` functions and simplifying a few *apply
-  functions.
+Inspired and partially credited to \code{\link[bib2df:bib2df]{bib2df::bib2df()}} although this has no
+dependencies outside of base functions and much quicker.  This speed seems
+to come from removing \code{stringr} functions and simplifying a few *apply
+functions.
 This will also include as many categories as possible from the entry.
 }
 \examples{

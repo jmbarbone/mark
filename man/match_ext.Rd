@@ -30,10 +30,10 @@ any_match(x, table)
 Non matching alternatives and supplementary functions.
 }
 \details{
-Contrast with [base::match()], [base::intersect()], and [base::`%in%`()]
-The functions of `%wi%` and `%wo%` can be used in leiu of `intersect()` and
-  `setdiff()`.  The primary difference is that the base functions return only
-  unique values, which may not be a desired behavior.
+Contrast with \code{\link[base:match]{base::match()}}, \code{\link[base:sets]{base::intersect()}}, and \code{\%in\%}
+The functions of \verb{\%wi\%} and \verb{\%wo\%} can be used in leiu of \code{intersect()} and
+\code{setdiff()}.  The primary difference is that the base functions return only
+unique values, which may not be a desired behavior.
 }
 \examples{
 1:10 \%in\% c(1,3,5,9)

@@ -11,7 +11,7 @@ pROC_optimal_threshold(mod, method = c("youden", "top_left"), ...)
 
 \item{method}{Method to determine optimal threshold}
 
-\item{...}{Additional arguments passed to [pROC::ci.thresholds()]}
+\item{...}{Additional arguments passed to \code{\link[pROC:ci.thresholds]{pROC::ci.thresholds()}}}
 }
 \description{
 Find the optimal threshold from a pROC mod

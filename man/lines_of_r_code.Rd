@@ -17,7 +17,7 @@ Find the total number of lines of R code
 }
 \details{
 Tries to read each file in the directory that ends in .R or .r and sums
-  together.  Files that fail to read are not counted.
+together.  Files that fail to read are not counted.
 }
 \examples{
 lines_of_r_code(system.file())

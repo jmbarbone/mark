@@ -74,11 +74,11 @@ subset_rownames <- function(x, y) {
 #'
 #' @details
 #' When adding bootstrapped confidence intervals, the core function of
-#'   [pROC:::ci.sp.roc()] is replaced with a quicker version that uses parallel
+#'   `pROC:::ci.sp.roc()` is replaced with a quicker version that uses parallel
 #'   processing to speed up the bootstraps and some other data manipuluation.
 #'   There will likely be a delay when running with bootstraps.
 #'
-#' @param mod An object with class "roc" (a ROC model made with pROC::roc(.))
+#' @param mod An object with class "roc" (a ROC model made with [pROC::roc()])
 #' @param thres_method The threshold method to print
 #' @param col The color of the curve
 #' @param ... Additional arguments passed to [pROC::plot.roc()]
@@ -137,7 +137,7 @@ pROC_quick_plot <- function(mod, thres_method = c("youden", "closest.topleft"), 
   invisible(mod)
 }
 
-# Replaces pROC:::ci.sp.roc
+# Replaces pROC ::: ci.sp.roc
 # pROC function is slow; uses plyr functions and has some slower applications
 #   of base functions
 pROC_ci_sp_roc <- function(mod, boots = 500, se = seq(0, 1, .01), conf_level = 0.95) {

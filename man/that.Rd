@@ -20,8 +20,8 @@ that(x, arr.ind = FALSE, useNames = TRUE)
 Grammatical correctness
 }
 \details{
-See `fortunes::fortune(175)`.
+See \code{fortunes::fortune(175)}.
 }
 \seealso{
-[base::which()]
+\code{\link[base:which]{base::which()}}
 }

@@ -24,7 +24,7 @@ fct_expand_seq(
 Expands an ordered factor from one level to another
 }
 \details{
-Defaults for `min_lvl` and `max_lvl` are the minimum and maximum levels in the ordered vector `x`.
+Defaults for \code{min_lvl} and \code{max_lvl} are the minimum and maximum levels in the ordered vector \code{x}.
 This can be adjusted if we
 }
 \examples{
