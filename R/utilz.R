@@ -153,5 +153,5 @@ vap_date <- function(.x, .f, ..., .nm = FALSE) {
 
 # This can take multiple elements, so can be a little dangerous
 capply <- function(.x, .f, ..., .nm = FALSE) {
-  do.call(c, sapply(X = x, FUN = .f, ..., simplify = FALSE, USE.NAMES = .nm))
+  do.call("c", sapply(X = .x, FUN = .f, ..., simplify = FALSE, USE.NAMES = .nm))
 }
