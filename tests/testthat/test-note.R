@@ -1,5 +1,3 @@
-context("notes")
-
 test_that("Assignments work", {
   op <- options()
 

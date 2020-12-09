@@ -1,5 +1,3 @@
-context("Labels")
-
 test_that("default assignment", {
   x <- runif(10)
   x <- assign_label(x, "runs")

@@ -1,5 +1,3 @@
-context("Expand by and Reindex")
-
 test_that("expand_by examples work", {
   x <- letters[c(3:2, 5, 9)]
   y <- letters[c(1:4, 8)]
@@ -30,20 +28,20 @@ test_that("expand_by examples work", {
 test_that("reindex examples work", {
   iris1 <- head(iris, 5)
   iris1$index <- 1:5
-  res <- reindex(iris1, "index", seq(2, 8, 2))
+  res <- reindex(iris1, "index", seq.int(2, 8, 2))
   exp <- iris1[c(2, 4), ]
   # row name attributes mode change
-  expect_equivalent(res, exp)
+  expect_equal(res, exp, ignore_attr = TRUE)
 
 
   res <- reindex(iris1, "index", seq(2, 8, 2), expand = "both")
   exp <- iris1[seq(2:8), ]
-  expect_equivalent(res, exp)
+  expect_equal(res, exp, ignore_attr = TRUE)
 
 
   #' # Using letters will show changes in rownames
   iris1$index <- letters[1:5]
-  reindex(iris1, "index", letters[seq(2, 8, 2)])
+  reindex(iris1, "index", letters[seq.int(2, 8, 2)])
 
   reindex(iris1, "index", seq(2, 8, 2))
   reindex(iris1, "index", seq(2, 8, 2), expand = "both")

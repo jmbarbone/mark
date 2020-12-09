@@ -1,5 +1,3 @@
-context("Testing out functionality")
-
 test_that("`%out%` returns opposite of `%in%`", {
   a <- 1:10
   b <- c(1, 3, 5, 9)

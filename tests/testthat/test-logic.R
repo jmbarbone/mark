@@ -1,5 +1,3 @@
-context("Logical extension")
-
 test_that("Logical extension work", {
   x <- c(TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, NA, NA, NA)
   y <- c(TRUE, FALSE, NA, TRUE, FALSE, NA, TRUE, FALSE, NA)
@@ -20,7 +18,7 @@ test_that("Logical extension work", {
   res_xyz_or     <- res_n
   res_xyz_or_na  <- res_n
 
-  for(i in seq_along(x)) {
+  for (i in seq_along(x)) {
     res_xy_and[i] <- x[i] & y[i]
     res_xy_or[i]  <- x[i] | y[i]
 

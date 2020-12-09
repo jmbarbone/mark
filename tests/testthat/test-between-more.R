@@ -1,5 +1,3 @@
-context("Between more")
-
 test_that("Examples are accurate", {
   expect_false(between_more(10, 2, 10, "gl"))
   expect_true(between_more(10, 2, 10, "gle"))

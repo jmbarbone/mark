@@ -1,5 +1,3 @@
-context("depth")
-
 test_that("depth", {
   expect_equal(depth(NA), 1L)
   expect_equal(depth(data.frame(a = 1)), 1L)

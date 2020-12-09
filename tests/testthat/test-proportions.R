@@ -1,8 +1,4 @@
-context("proportions")
-
-library(dplyr)
-
-test_that("Fake test", {
+test_that("Proportions", {
   # proportion.default
   res <- proportion(iris$Species)
   exp <- c(1, 1, 1) / 3

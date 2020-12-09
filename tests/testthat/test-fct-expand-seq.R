@@ -1,5 +1,3 @@
-context("Factor expand by sequence")
-
 x <- ordered(letters[c(5:15, 2)], levels = letters)
 
 test_that("Sequences correctly", {

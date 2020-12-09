@@ -1,5 +1,3 @@
-context("Search functions")
-
 test_that("multi_grepl() examples are correct", {
   x <- c("apple", "banana", "lemon")
 

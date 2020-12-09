@@ -1,4 +1,3 @@
-
 test_that("trailing zeros", {
   x <- c(0.90001, 0.00999)
   res <- c("0.900", "0.010")
