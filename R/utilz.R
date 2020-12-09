@@ -160,3 +160,42 @@ set_names <- function(x, nms = x) {
   names(x) <- nms
   x
 }
+
+#' Match params
+#'
+#' Param matching for an argument
+#'
+#' @description
+#' Much like [base::match.arg()] with a few key differences:
+#' * Will not perform partial matching
+#' * Will not return error messages with ugly quotation marks
+#'
+#' @param param The parameter
+#' @param choices The available choices
+#'
+match_param <- function(param, choices) {
+  stopifnot(!is.null(param))
+
+  param_c <- as.character(substitute(param))
+
+  if (missing(choices)) {
+    parent <- sys.parent()
+    forms <- formals(sys.function(parent))
+    choices <- eval(forms[[param_c]], envir = parent)
+  }
+
+  res <- choices[match(param[1], choices, nomatch = 0L)[1]]
+
+  if (length(res) == 0) {
+    stop(sprintf(
+      '`match_param(%s)` failed in `%s`:\n  `%s` must be one of the following: "%s"',
+      param_c,
+      as.character(as.expression(sys.call(1))),
+      param_c,
+      paste(choices, collapse = '", "')
+    ),
+    call. = FALSE)
+  }
+
+  res
+}
