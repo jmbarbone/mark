@@ -1,8 +1,10 @@
-#' Flip an object
+#' Flip
+#'
+#' Flip an object.
 #'
 #' @param x An object
 #' @param by_row `TRUE`, flips by row, otherwise by column
-#' @param rownames `FALSE`, if `TRUE` will update the rownames
+#' @param keep_rownames Logical, if `TRUE` will not reset rownames; `NULL`
 #' @param ... Additional arguments passed to methods
 #'
 #' @examples
@@ -23,8 +25,8 @@ flip <- function(x, ...) {
 flip.default <- function(x, ...) {
   len <- length(x)
 
-  if (!len) {
-    stop("Object is of length > 0", call. = FALSE)
+  if (len < 2) {
+    return(x)
   }
 
   x[len:1L]
@@ -32,24 +34,76 @@ flip.default <- function(x, ...) {
 
 #' @export
 #' @rdname flip
-flip.data.frame <- function(x, by_row = TRUE, rownames = FALSE, ...) {
+flip.matrix <- function(x, by_row = TRUE, keep_rownames = NULL, ...) {
   if (by_row) {
     rows <- nrow(x)
-    if (!rows) {
-      stop("data.frame has no rows", call. = FALSE)
+    dims <- dimnames(x)
+
+    if (rows < 2) {
+      return(x)
     }
-    out <- x[rows:1L, ]
-    if (rownames) {
-      rownames(out) <- flip(rownames(out))
+
+    out <- x[rows:1, ]
+    rn <- dims[[1]]
+
+    if (is.null(keep_rownames)) {
+      keep_rownames <- !identical(rn, 1:rows)
+    }
+
+    if (!keep_rownames) {
+      dims[[1]] <- rn
     }
 
   } else {
     cols <- ncol(x)
+
     if (!cols) {
-      stop("data.frame has no columns", call. = FALSE)
+      return(x)
     }
+
     out <- x[, cols:1L]
   }
 
   out
+}
+
+#' @export
+#' @rdname flip
+flip.data.frame <- function(x, by_row = TRUE, keep_rownames = NULL, ...) {
+  if (by_row) {
+    rows <- nrow(x)
+
+    if (rows < 2) {
+      return(x)
+    }
+
+    out <- x[rows:1, ]
+    rn <- attr(x, "row.names")
+
+    if (is.null(keep_rownames)) {
+      keep_rownames <- !identical(rn, 1:rows)
+    }
+
+    if (!keep_rownames) {
+      attr(out, "row.names") <- rn
+    }
+  } else {
+    cols <- ncol(x)
+
+    if (!cols) {
+      return(x)
+    }
+
+    out <- x[, cols:1L]
+  }
+
+  out
+}
+
+#' @export
+#' @rdname flip
+reverse <- function(x, ...) {
+  warning("Whoops, this should be `jordan::flip()`",
+          call. = FALSE)
+  flip(x, ...)
 }

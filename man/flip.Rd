@@ -3,14 +3,20 @@
 \name{flip}
 \alias{flip}
 \alias{flip.default}
+\alias{flip.matrix}
 \alias{flip.data.frame}
-\title{Flip an object}
+\alias{reverse}
+\title{Flip}
 \usage{
 flip(x, ...)
 
 \method{flip}{default}(x, ...)
 
-\method{flip}{data.frame}(x, by_row = TRUE, rownames = FALSE, ...)
+\method{flip}{matrix}(x, by_row = TRUE, keep_rownames = NULL, ...)
+
+\method{flip}{data.frame}(x, by_row = TRUE, keep_rownames = NULL, ...)
+
+reverse(x, ...)
 }
 \arguments{
 \item{x}{An object}
@@ -19,10 +25,10 @@ flip(x, ...)
 
 \item{by_row}{\code{TRUE}, flips by row, otherwise by column}
 
-\item{rownames}{\code{FALSE}, if \code{TRUE} will update the rownames}
+\item{keep_rownames}{Logical, if \code{TRUE} will not reset rownames; \code{NULL}}
 }
 \description{
-Flip an object
+Flip an object.
 }
 \examples{
 flip(letters[1:3])
