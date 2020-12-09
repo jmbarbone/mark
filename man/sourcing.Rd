@@ -31,5 +31,5 @@ Functions for extending sourcing features
 This can be useful for when a script calls on multiple, independent files to be sourced
 and a single failure shouldn't prevent the entire run to fail as well.
 
-\code{ksource()} ... sends additional arguments to \code{\link[=knitr:purl]{knitr:purl()}}
+\code{ksource()} ... sends additional arguments to \code{\link[knitr:knit]{knitr::purl()}}
 }
