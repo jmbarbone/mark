@@ -142,6 +142,14 @@ vap_chr <- function(.x, .f, ..., .nm = FALSE) {
   vapply(X = .x, FUN = .f, FUN.VALUE = character(1), ..., USE.NAMES = .nm)
 }
 
+vap_lgl <- function(.x, .f, ..., .nm = FALSE) {
+  vapply(X = .x, FUN = .f, FUN.VALUE = logical(1), ..., USE.NAMES = .nm)
+}
+
+vap_cplx <- function(.x, .f, ..., .nm = FALSE) {
+  vapply(X = .x, FUN = .f, FUN.VALUE = complex(1), ..., USE.NAMES = .nm)
+}
+
 # dates are expected to be in a standard format
 vap_date <- function(.x, .f, ..., .nm = FALSE) {
   out <- vap_dbl(.x, .f, ..., .nm = .nm)

@@ -101,7 +101,7 @@ get_bib_values <- function(list) {
     xx <- strsplit(x[-1], "=")
     xx <- sapply(xx, `[`, -1)
     # remove empty columns
-    xx[sapply(xx, function(x) length(x) == 0)] <- NA_character_
+    xx[vap_lgl(xx, function(x) length(x) == 0)] <- NA_character_
     # There may be something better than this
     # Would like to maintain the { and }
     # xx <- gsub("\\{|\\}|,?$", "", xx)
@@ -233,6 +233,7 @@ print.jordan_bib_list <- function(x, ...) {
         sep = "\n"
     )
   }
+
   invisible(x)
 }
 
@@ -245,10 +246,8 @@ print.jordan_bib_entry <- function(x, ...) {
   chars[is.na(chars)] <- 0L
   chars_max <- max(chars)
 
-  blanks <- vapply(chars_max - chars + 2,
-                   function(x) paste(rep(" ", x), collapse = ""),
-                   character(1),
-                   USE.NAMES = FALSE)
+  blanks <- vap_chr(chars_max - chars + 2,
+                    function(x) paste(rep(" ", x), collapse = ""))
   cat(paste(nm, blanks, out), sep = "\n")
   invisible(x)
 }
