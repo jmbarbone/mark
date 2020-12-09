@@ -155,3 +155,8 @@ vap_date <- function(.x, .f, ..., .nm = FALSE) {
 capply <- function(.x, .f, ..., .nm = FALSE) {
   do.call("c", sapply(X = .x, FUN = .f, ..., simplify = FALSE, USE.NAMES = .nm))
 }
+
+set_names <- function(x, nms = x) {
+  names(x) <- nms
+  x
+}
