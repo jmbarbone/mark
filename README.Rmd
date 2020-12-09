@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-**J**ust **O**ther **R** **D**ata **A**nalytic **N**uggets
+**j**ust **o**ther **R** **d**ata **a**nalytic **n**uggets
 
 An R package with a set of general use functions for data analytics.
 This is developed mostly for personal use and has no real _goal_ other than to limit the time I spend searching where I did that thing that I think I could use again because it worked well but this problem might be slightly different and I know I had to change it before.
@@ -29,15 +29,49 @@ Some parts happily ripped from and (hopefully) credited to others.
 
 You can the development version from [GitHub](https://github.com/jmbarbone/jordan) with:
 
-``` r
-remotes::install_github("jmbarbone/jordan")
 ```
-## Example
+devtools::install_github("jmbarbone/jordan")
+```
 
-~~We're~~ I'm still working on this...
+## Select examples
 
-```{r example}
+This package contains a many variety of functions, some useful, some not so much.
+Below are a selection of a few functions that could potential be useful for others:
+
+```{r library}
 library(jordan)
 ```
 
+Get dates from sloppy entries:
+
+```{r dates}
+bad_dates <- c("2020 Dec 8th", "1970 May", "??", "1984 UNK UN")
+date_from_partial(bad_dates)
+date_from_partial(bad_dates, method = "max")
+date_from_partial(c("May 2000", "08Dec2020"), format = "dmy")
+```
+
+Slice strings:
+
+```{r strings}
+x <- stringi::stri_rand_lipsum(1)
+str_slice(x, n = 50L)
+str_slice_by_word(x)
+```
+
+Read in bibliographies:
+
+```{r bibs}
+file <- "https://raw.githubusercontent.com/jmbarbone/bib-references/master/references.bib"
+bib <- read_bib(file)
+tibble::as_tibble(bib)
+```
+
+More matching:
+
+```{r matching}
+1:10 %out% c(1, 3, 5, 9) # opposite of %in% 
+letters[1:5] %wo% letters[3:7]
+letters[1:5] %wi% letters[3:7]
+```
 
