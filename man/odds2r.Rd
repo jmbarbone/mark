@@ -4,12 +4,14 @@
 \alias{odds2r}
 \title{Odds ratio to r}
 \usage{
-odds2r(odds, n1, n2 = n1)
+odds2r(odds, n1, n2 = n1, var = FALSE)
 }
 \arguments{
 \item{odds}{A single odds ratio.}
 
 \item{n1, n2}{The ns of the groups.}
+
+\item{var}{Logical.}
 }
 \description{
 Transforms an odds ratio to an r value

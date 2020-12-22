@@ -106,12 +106,13 @@ odds2d <- function(odds, var = FALSE, na.rm = FALSE) {
 #'
 #' Transforms an odds ratio to an r value
 #'
+#' @inheritParams cohensd2r
 #' @param odds A single odds ratio.
 #' @param n1,n2 The ns of the groups.
 #'
 #' @export
 
-odds2r <- function(odds, n1, n2 = n1) {
+odds2r <- function(odds, n1, n2 = n1, var = FALSE) {
   cohensd2r(odds2d(odds), n1 = n1, n2 = n2, var = var)
 }
 
@@ -120,10 +121,11 @@ odds2r <- function(odds, n1, n2 = n1) {
 #' Converts an r value to Cohne's d
 #'
 #' @param r An r value
+#' @param var Logical
 #'
 #' @export
 
-r2cohensd <- function(r) {
+r2cohensd <- function(r, var = FALSE) {
   if(any(r > 1 || r < -1)) {
     stop("r values outside bounds", call. = FALSE)
   }

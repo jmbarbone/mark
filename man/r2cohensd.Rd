@@ -4,10 +4,12 @@
 \alias{r2cohensd}
 \title{r to Cohen's D}
 \usage{
-r2cohensd(r)
+r2cohensd(r, var = FALSE)
 }
 \arguments{
 \item{r}{An r value}
+
+\item{var}{Logical}
 }
 \description{
 Converts an r value to Cohne's d
