@@ -28,7 +28,9 @@ Defaults for \code{min_lvl} and \code{max_lvl} are the minimum and maximum level
 This can be adjusted if we
 }
 \examples{
-x <- factor(letters[c(5:15, 2)], levels = letters, ordered = TRUE)
+x <- ordered(letters[c(5:15, 2)], levels = letters)
 fct_expand_seq(x)
-fct_expand_seq(x, "j", by = 3L)
+fct_expand_seq(x, "g", "s", 3L) # from "g" to "s" by 3
+fct_expand_seq(x, "g", "t", 3L) # same as above
+fct_expand_seq(x, min(levels(x))) # from the first inherit level to the last observed
 }

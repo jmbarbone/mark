@@ -4,7 +4,7 @@
 \alias{logic_ext}
 \alias{is_true}
 \alias{is_false}
-\alias{\%or\%}
+\alias{\%xor\%}
 \alias{OR}
 \alias{AND}
 \alias{either}
@@ -15,7 +15,7 @@ is_true(x)
 
 is_false(x)
 
-x \%or\% y
+x \%xor\% y
 
 OR(..., na.rm = FALSE)
 
