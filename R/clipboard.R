@@ -11,6 +11,7 @@
 #' @export
 #' @rdname clipboard
 write_clipboard <- function(x = .Last.value, ...) {
+  clear_clipboard()
   UseMethod("write_clipboard", x)
 }
 
@@ -21,7 +22,7 @@ write_clipboard.default <- function(x = .Last.value, format = 1L, ...) {
 
 #' @export
 write_clipboard.data.frame <- function(x = .Last.value, sep = "\t", ...) {
-  utils::write.table(x, file = "clipboard", sep = sep, row.names = FALSE, ...)
+  utils::write.table(x, file = "clipboard-128", sep = sep, row.names = FALSE, ...)
 }
 
 #' @export
@@ -39,13 +40,13 @@ write_clipboard.list <- function(x, sep = "\t", show_NA = FALSE, ...) {
 #' @rdname clipboard
 read_clipboard <- function(method = c("default", "data.frame", "tibble"), ...) {
   switch(
-    match.arg(method),
+    match_param(method),
 
     default = utils::readClipboard(),
 
     # Specifications I prefer -- mostly copying from Excel
     data.frame = utils::read.table(
-      file = "clipboard",
+      file = "clipboard-128",
       header = TRUE,
       # Copying form Excel produces tab sepertions
       sep = "\t",
@@ -64,4 +65,8 @@ read_clipboard <- function(method = c("default", "data.frame", "tibble"), ...) {
 
     tibble = tibble::as_tibble(read_clipboard("data.frame", ...))
     )
+}
+
+clear_clipboard <- function() {
+  utils::writeClipboard("")
 }
