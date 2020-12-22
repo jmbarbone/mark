@@ -79,7 +79,7 @@ get_labels <- function(x) {
 #' @rdname labels
 get_labels.data.frame <- function(x) {
   stopifnot("`x` must be a data.frame" = inherits(x, "data.frame"))
-  vector2df(vapply(unclass(x), get_labels, character(1)), "column", "label")
+  vector2df(vap_chr(unclass(x), get_labels, .nm = TRUE), "column", "label")
 }
 
 #' @export

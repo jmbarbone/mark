@@ -8,7 +8,7 @@
 #' @export
 
 sd_pooled <- function(ns, ses, max = FALSE) {
-  st_devs <- ses * sapply(ns, sqrt)
   a <- ifelse(max, 0, -length(st_devs))
-  sqrt(sum(sapply(ns, function(x) x - 1) * sapply(st_devs, function(x) x^2)) / sum(ns, a))
+  st_devs <- ses * vap_dbl(ns, sqrt)
+  sqrt(sum(vap_dbl(ns, function(x) x - 1) * vap_dbl(st_devs, function(x) x^2)) / sum(ns, a))
 }

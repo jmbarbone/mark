@@ -23,7 +23,7 @@
 #' between_more(10, 2, 10, "gle")
 
 between_more <- function(x, left, right, type = c("gele", "gel", "gle", "gl")) {
-  type <- match.arg(type)
+  type <- match_param(type)
   if(left > right) warning("`left` > `right`", call. = FALSE)
 
   switch(type,

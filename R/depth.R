@@ -36,7 +36,7 @@ depth.default <- function(x, ...) {
 #' @export
 #' @rdname depth
 depth.list <- function(x, ...) {
-  if (length(x) == 0L) {
+  if (is_length0(x)) {
     # Empty list -- don't count
     return(0L)
   } else if (length(x) == 1L & !is.list(x[[1]])) {
@@ -44,6 +44,6 @@ depth.list <- function(x, ...) {
     depth(x[[1]])
   } else {
     # +1 for every level
-    max(vapply(x, depth, integer(1)) + 1L)
+    max(vap_int(x, depth) + 1L)
   }
 }

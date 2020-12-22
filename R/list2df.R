@@ -39,7 +39,7 @@ list2df <- function(x, name = "name", value = "value", show_NA = FALSE, warn = T
 
   ulist <- unlist(x, use.names = FALSE)
   ln <- length(ulist)
-  nm <- rep(names(x), vapply(x, length, integer(1)))
+  nm <- rep(names(x), vap_int(x, length))
 
   if (is.null(nm)) {
     nm <- character(ln)

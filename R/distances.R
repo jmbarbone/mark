@@ -63,7 +63,7 @@ add_mahalanobis <- function(df, ..., .inverted = FALSE, .name = "md", .p = "p_va
 add_euclidean <- function(df, x, y, .name = "eucd") {
   x1 <- pull(df, {{ x }})
   y1 <- pull(df, {{ y }})
-  center <- vapply(list(x1, y1), mean, double(1), na.rm = TRUE)
+  center <- vap_dbl(list(x1, y1), mean, na.rm = TRUE)
   eucs <- mapply(function(x, y) sqrt(sum((c(x, y) - center)^2)), x1, y1)
   df[[.name]] <- eucs
   df
