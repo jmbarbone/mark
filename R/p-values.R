@@ -60,4 +60,10 @@ p_value_sig <- function(x, cutoffs = c("***" = 0.001,
                   na.rm = TRUE)]
          })
 }
+
+ndigits <- function(x) {
+  ok <- grep("\\.", x)
+  out <- integer(length(x)) # anything not ok will be 0
+  out[ok] <- nchar(sub("^[0-9]*[.]([0-9]+$)", "\\1", x[ok]))
+  out
 }
