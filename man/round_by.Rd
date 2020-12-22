@@ -4,7 +4,7 @@
 \alias{round_by}
 \title{Rounding by a specific interval.}
 \usage{
-round_by(x, by = 1, method = "round")
+round_by(x, by = 1, method = c("round", "ceiling", "floor"))
 }
 \arguments{
 \item{x}{A number or vector to round.}

@@ -4,7 +4,14 @@
 \alias{add_mahalanobis}
 \title{Add Mahalanobis distance}
 \usage{
-add_mahalanobis(df, ..., .inverted = FALSE, .name = "md", .p = "p_value")
+add_mahalanobis(
+  df,
+  ...,
+  .inverted = FALSE,
+  .name = "md",
+  .p = "p_value",
+  tolerance = .Machine$double.eps
+)
 }
 \arguments{
 \item{df}{A data.frame}
@@ -16,6 +23,8 @@ add_mahalanobis(df, ..., .inverted = FALSE, .name = "md", .p = "p_value")
 \item{.name}{The name of the new column for the distance value}
 
 \item{.p}{The name for the new column for the p-value calculation}
+
+\item{tolerance}{\code{tol} in \code{\link[base:solve]{base::solve()}}}
 }
 \description{
 Add a mahalanobis distance to the end of a data frame.

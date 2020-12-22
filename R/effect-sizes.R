@@ -6,22 +6,22 @@
 #'
 #' @return The coefficient of the distance from Q1 or Q3 by IQR values
 #'
-#' @importFrom stats quantile
-#' @importFrom dplyr case_when
 #' @examples
 #' tukey_coef(0:20)
 #' @export
 
 tukey_coef <- function(x) {
   stopifnot(is.numeric(x))
-  q1 <- quantile(x, .25, names = FALSE, na.rm = TRUE)
-  q3 <- quantile(x, .75, names = FALSE, na.rm = TRUE)
+  q1 <- stats::quantile(x, .25, names = FALSE, na.rm = TRUE)
+  q3 <- stats::quantile(x, .75, names = FALSE, na.rm = TRUE)
   iqr <- q3 - q1
 
-  case_when(x < q1   ~ (x - q1) / iqr,
-            x > q3   ~ (q3 - x) / iqr,
-            is.na(x) ~ NA_real_,
-            TRUE     ~ 0)
+  dplyr::case_when(
+    x < q1   ~ (x - q1) / iqr,
+    x > q3   ~ (q3 - x) / iqr,
+    is.na(x) ~ NA_real_,
+    TRUE     ~ 0
+  )
 }
 
 #' Z-score
@@ -31,11 +31,10 @@ tukey_coef <- function(x) {
 #' @param x A numeric vector of values.
 #' @param na.rm Logical
 #'
-#' @importFrom stats sd
 #' @export
 
 z_score <- function(x, na.rm = FALSE) {
-  (x - mean(x, na.rm = na.rm)) / sd(x, na.rm = na.rm)
+  (x - mean(x, na.rm = na.rm)) / stats::sd(x, na.rm = na.rm)
 }
 
 
@@ -52,7 +51,7 @@ z_score <- function(x, na.rm = FALSE) {
 odds_ratio <- function(a, b, c, d, type = "hits_misses") {
   ## does not return any Inf values
 
-  if(a < 0 || b < 0 || c < 0 || d < 0) {
+  if(a < 0 | b < 0 | c < 0 | d < 0) {
     stop("Cells cannot have negative numbers", call. = FALSE)
   }
 
@@ -61,8 +60,8 @@ odds_ratio <- function(a, b, c, d, type = "hits_misses") {
     c <- c - a
     d <- d - b
   }
-  if((b == 0) || (c == 0)) return(NA)
-  if(a < 5 || b < 5 || c < 5 || d < 5) {
+  if((b == 0) | (c == 0)) return(NA)
+  if(a < 5 | b < 5 | c < 5 | d < 5) {
     warning("Cells should all have at least 5 observations",
             call. = FALSE)
   }
@@ -73,19 +72,35 @@ odds_ratio <- function(a, b, c, d, type = "hits_misses") {
 #' Odds ratio to Cohen's D
 #'
 #' @param odds An odds ratio
-#' @param var Logical.
+#' @param var Logical, if `TRUE` calculates the variances of d
+#' @param na.rm Logical, if TRUE `NA` values are removed
+#'   (only needed for `var = TRUE`)
 #'
-#' @importFrom stats var
+#' @examples
+#' odds2d(c(1.1, .001, 2, NA)) # cohen's D for each
+#' odds2d(c(1.1, .001, 2, NA), var = TRUE)
+#' odds2d(c(1.1, .001, 2, NA), var = TRUE, na.rm = TRUE)
+#'
 #' @export
 
-odds2d <- function(odds, var = FALSE)
-{
-  if(var) {
-    var(log(odds), na.rm = TRUE) * sqrt(3) / pi^2
-  }  else {
+odds2d <- function(odds, var = FALSE, na.rm = FALSE) {
+  if (var) {
+    if (na.rm) {
+      odds <- remove_na(odds)
+    }
+
+    if (length(odds) < 2) {
+      warning("`odds` needs a vector of length at least 2", call. = FALSE)
+      return(NA_real_)
+    }
+
+    stats::var(log(odds)) * sqrt(3) / pi^2
+  } else {
     log(odds) * sqrt(3) / pi
   }
 }
+
+
 
 #' Odds ratio to r
 #'
@@ -93,13 +108,11 @@ odds2d <- function(odds, var = FALSE)
 #'
 #' @param odds A single odds ratio.
 #' @param n1,n2 The ns of the groups.
-#' @param var Logical.  Determines if variance should be computed.
 #'
 #' @export
 
-odds2r <- function(odds, n1 = NULL, n2 = n1, var = FALSE)
-{
-  cohensd2r(odds2d(odds, var = var), n1 = n1, n2 = n2, var = var)
+odds2r <- function(odds, n1, n2 = n1) {
+  cohensd2r(odds2d(odds), n1 = n1, n2 = n2, var = var)
 }
 
 #' r to Cohen's D
@@ -108,7 +121,6 @@ odds2r <- function(odds, n1 = NULL, n2 = n1, var = FALSE)
 #'
 #' @param r An r value
 #'
-#' @importFrom stats var
 #' @export
 
 r2cohensd <- function(r) {
@@ -116,7 +128,7 @@ r2cohensd <- function(r) {
     stop("r values outside bounds", call. = FALSE)
   }
   if(var) {
-    (4 * var(r, na.rm = TRUE)) / ((1 - r^2)^3)
+    (4 * stats::var(r, na.rm = TRUE)) / ((1 - r^2)^3)
   } else {
     (2 * r) / sqrt(1 - r^2)
   }
@@ -130,17 +142,16 @@ r2cohensd <- function(r) {
 #' @param n1,n2 Ns for the groups
 #' @param var Logical.
 #'
-#' @importFrom stats var
 #' @export
 
-cohensd2r <- function(d, n1 = NULL, n2 = n1, var = FALSE) {
+cohensd2r <- function(d, n1, n2 = n1, var = FALSE) {
   if(is.null(n1)) {
     a <- 4
   } else {
     a <- sum(n1, n2)^2 / prod(n1, n2)
   }
   if(var) {
-    (a^2 * var(d, na.rm = TRUE)) / ((d^2 + a)^3)
+    (a^2 * stats::var(d, na.rm = TRUE)) / ((d^2 + a)^3)
   } else {
     d / sqrt(d^2 + a)
   }

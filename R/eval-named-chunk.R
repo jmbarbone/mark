@@ -6,8 +6,6 @@
 #' @param label_name Name of label
 #' @param ... Additional arguments passed to [base::eval()]
 #'
-#' @importFrom tools file_ext
-#'
 #' @export
 #'
 #' @examples
@@ -35,7 +33,7 @@
 #' }
 
 eval_named_chunk <- function(rmd_file, label_name, ...) {
-  stopifnot(tolower(file_ext(rmd_file)) == "rmd")
+  stopifnot(tolower(tools::file_ext(rmd_file)) == "rmd")
 
   lines <- readLines(rmd_file)
   label_line <- grep(paste0("\\{r ", label_name), lines)[1]

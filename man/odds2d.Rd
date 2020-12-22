@@ -4,13 +4,22 @@
 \alias{odds2d}
 \title{Odds ratio to Cohen's D}
 \usage{
-odds2d(odds, var = FALSE)
+odds2d(odds, var = FALSE, na.rm = FALSE)
 }
 \arguments{
 \item{odds}{An odds ratio}
 
-\item{var}{Logical.}
+\item{var}{Logical, if \code{TRUE} calculates the variances of d}
+
+\item{na.rm}{Logical, if TRUE \code{NA} values are removed
+(only needed for \code{var = TRUE})}
 }
 \description{
 Odds ratio to Cohen's D
+}
+\examples{
+odds2d(c(1.1, .001, 2, NA)) # cohen's D for each
+odds2d(c(1.1, .001, 2, NA), var = TRUE)
+odds2d(c(1.1, .001, 2, NA), var = TRUE, na.rm = TRUE)
+
 }

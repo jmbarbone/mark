@@ -6,8 +6,6 @@
 #' @inheritParams base::log
 #'
 #' @author Brian Diggs (https://stackoverflow.com/users/892313/brian-diggs)
-#' @importFrom scales trans_new
-#' @importFrom scales log_breaks
 #'
 #' @export
 

@@ -4,7 +4,7 @@
 \alias{cohensd2r}
 \title{Cohen's D to r}
 \usage{
-cohensd2r(d, n1 = NULL, n2 = n1, var = FALSE)
+cohensd2r(d, n1, n2 = n1, var = FALSE)
 }
 \arguments{
 \item{d}{Cohen's d}

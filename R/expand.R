@@ -97,7 +97,7 @@ reindex <- function(x, index = NULL, new_index, expand = c("intersect", "both"),
   xi <- if (is.null(index)) {
     x[[1L]]
   } else if (index == "row.names") {
-    rownames(x)
+    attr(x, "row.names")
   } else {
     x[[index]]
   }
@@ -115,7 +115,7 @@ reindex <- function(x, index = NULL, new_index, expand = c("intersect", "both"),
 
   nm <- names(ro)
   out <- x[nm, ]
-  rownames(out) <- nm
+  attr(out, "row.names") <- nm
   out
 }
 
