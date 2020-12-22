@@ -5,7 +5,7 @@
 #' @param file An R or Rmd file.
 #' @param ... Additional arguments, see details.
 #' @param quiet Logical; Determines whether to apply silence to [knitr::purl()]
-#' @param change_directory Logical; if TRUE, the R working directory is temporarily
+#' @param cd Logical; if TRUE, the R working directory is temporarily
 #'   changed to the directory containing file for evaluating
 #'
 #' @details
@@ -19,33 +19,44 @@
 #' @name sourcing
 #' @export
 
-ksource <- function(file, ..., quiet = TRUE, change_directory = FALSE)
+ksource <- function(file, ..., quiet = TRUE, cd = FALSE)
 {
   require_namespace("knitr")
-  source(knitr::purl(file,
-                     output = tempfile(),
-                     quiet = quiet,
-                     ...),
-         chdir = change_directory)
+  source(
+    knitr::purl(
+      file,
+      output = tempfile(),
+      quiet = quiet,
+      ...
+    ),
+    chdir = cd
+  )
 }
 
 
 #' @rdname sourcing
 #' @export
-try_source <- function(file, ..., change_directory = FALSE) {
-  tryCatch(source(file,
-                  chdir = change_directory),
-           simpleWarning = function(e) warning(e, call. = TRUE))
+try_source <- function(file, ..., cd = FALSE) {
+  tryCatch(
+    source(file, chdir = cd),
+    error = function(e) {
+      warning(e, call. = FALSE)
+    },
+    simpleWarning = function(e) {
+      warning(e, call. = FALSE)
+    })
 }
 
 #' @rdname sourcing
 #' @export
-try_ksource <- function(file, ..., change_directory = FALSE) {
-  tryCatch(source(knitr::purl(file,
-                              output = tempfile(),
-                              quiet = quiet,
-                              ...),
-                  chdir = change_directory),
-           simpleWarning = function(e) warning(e, call. = TRUE))
+try_ksource <- function(file, ..., cd = FALSE) {
+  tryCatch(
+    ksource(file = file, ..., cd = cd),
+    error = function(e) {
+      warning(e, call. = FALSE)
+    },
+    simpleWarning = function(e) {
+      warning(e, call. = FALSE)
+    })
 }
 
