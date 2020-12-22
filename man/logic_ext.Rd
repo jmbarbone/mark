@@ -60,8 +60,9 @@ isTRUE(x)
 is_true(x)
 isFALSE(x)
 is_false(x)
-TRUE \%or\% FALSE
-NA \%or\% FALSE
+TRUE \%xor\% TRUE
+TRUE \%xor\% FALSE
+NA \%xor\% FALSE
 OR(x, y, z)
 OR(x, y, z, na.rm = TRUE)
 AND(x, y, z)
