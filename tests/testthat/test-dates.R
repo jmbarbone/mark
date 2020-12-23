@@ -59,13 +59,13 @@ test_that("Some examples", {
 
 test_that("Bad date: Earliest", {
   dates <- c("3 UNK 2019", "UN JUN 2004", "Feb 2000",   "UK UNK UNKN")
-  exp <-   c("2019-01-03", "2004-06-01",  "2000-02-01", "0000-01-01")
+  exp <-   c("2019-01-03", "2004-06-01",  "2000-02-01", NA_character_)
   expect_equal(foo(dates, format = "dmy"), exp)
 })
 
 test_that("Bad date: Latest", {
   dates <- c("3 UNK 2019", "UN JUN 2004", "Feb 2000",   "Feb 2100",   "UK UNK UNKN")
-  exp <-  c("2019-12-03",  "2004-06-30",  "2000-02-29", "2100-02-28", "9999-12-31")
+  exp <-  c("2019-12-03",  "2004-06-30",  "2000-02-29", "2100-02-28", NA_character_)
   expect_equal(foo(dates, format = "dmy", method = "max"), exp)
 })
 

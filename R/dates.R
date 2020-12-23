@@ -2,13 +2,15 @@
 #'
 #' Derive a date object from a partial date
 #'
-#' @description
+#' @details
 #' Takes a character as an argument and attempts to create a date object when
 #'   part of the date string is missing.
+#'
 #' @param x A vector of character dates
 #' @param format Format order of the date (accepts only combinations of 'y',
 #'   'm', and 'd')
 #' @param method Method for reporting partial dates -- "min" or "max"
+#' @param year_replacement If set, will use a year
 #' @examples
 #' x <- c("2020-12-17", NA_character_, "", "2020-12-UN", "2020-12-UN",
 #'        "2019-Unknown-00", "UNK-UNK-UNK", "1991-02-UN", "    ",
@@ -16,15 +18,15 @@
 #' data.frame(x = x,
 #'            min = date_from_partial(x),
 #'            max = date_from_partial(x, method = "max"))
-#'@export
+#' @export
 
 
-date_from_partial <- function(x, format = "ymd", method = c("min", "max")) {
+date_from_partial <- function(x, format = "ymd", method = c("min", "max"), year_replacement = NA) {
   x <- as.character(x)
   fmt <- verify_format(format)
   method <- match_param(method, c("min", "max"))
 
-  out <- not_available("date", length(x))
+  out <- not_available("Date", length(x))
 
   # disregard the bad inputs
   ok <- is_valid_date_string(x)
@@ -37,8 +39,13 @@ date_from_partial <- function(x, format = "ymd", method = c("min", "max")) {
   res <- as_date_strptime(prep, format = strp_format(fmt))
   nas <- is.na(res)
 
-  if (length(nas) && any(nas)) {
-    res[nas] <- parse_date_strings(prep[nas], fmt = fmt, method = method)
+  if (any(nas)) {
+    res[nas] <- parse_date_strings(
+      prep[nas],
+      fmt = fmt,
+      method = method,
+      year_replacement = year_replacement
+    )
   }
 
   # replace only bad results
@@ -49,10 +56,12 @@ date_from_partial <- function(x, format = "ymd", method = c("min", "max")) {
 verify_format <- function(format) {
   s <- chr_split(format)
   m <- match(c("y", "m", "d"), s)
+
   stopifnot(
     "format must be 3 characters" = length(unique(s)) == 3L,
     'format must contain "y", "m", and "d"' = !anyNA(m)
   )
+
   s
 }
 
@@ -81,35 +90,40 @@ prep_date_string <- function(x) {
   out
 }
 
-parse_date_strings <- function(.x, fmt, method) {
-  min_year <- getOption("jordan.min_year", 0L)
-  max_year <- getOption("jordan.max_year", 9999L)
-
+parse_date_strings <- function(.x, fmt, method, year_replacement) {
   splits <- strsplit(.x, "-")
 
   mat <- sapply(splits, function(x) {
     x <- switch(
       length(x),
+
       c(y = x, m = NA_character_, d = NA_character_),
       c(date_offset_match(x, fmt), d = NA_character_),
       set_names(x, fmt)
     )
 
+    ints <- c(y = NA_integer_, m = NA_integer_, d = NA_integer_)
+
     if (is.null(x)) {
-      return(NA_Date_)
+      # x will be NULL is length is not 1, 2, or 3
+      return(ints)
     }
 
+    # (re)set names and (re)arrange
     x <- set_names(suppressWarnings(as.integer(x)), names(x))
     x <- x[c('y', 'm', 'd')]
     x[is.na(x)] <- 0L
 
     if (all(x == integer(3))) {
-      out <- switch(
-        method,
-        min = c(y = min_year, m = 1L, d = 1L),
-        max = c(y = max_year, m = 12L, d = 31L)
-      )
-
+      out <- if (is.na(year_replacement)) {
+        ints
+      } else {
+        switch(
+          method,
+          min = c(y = year_replacement, m = 1L, d = 1L),
+          max = c(y = year_replacement, m = 12L, d = 31L)
+        )
+      }
       return(out)
     }
 
@@ -124,7 +138,12 @@ parse_date_strings <- function(.x, fmt, method) {
       }
 
       if (x['y'] == 0L) {
-        x['y'] <- min_year
+
+        if (is.na(year_replacement)) {
+          return(ints)
+        }
+
+        x['y'] <- year_replacement
       }
 
       return(x)

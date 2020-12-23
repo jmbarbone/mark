@@ -4,7 +4,12 @@
 \alias{date_from_partial}
 \title{Partial dates}
 \usage{
-date_from_partial(x, format = "ymd", method = c("min", "max"))
+date_from_partial(
+  x,
+  format = "ymd",
+  method = c("min", "max"),
+  year_replacement = NA
+)
 }
 \arguments{
 \item{x}{A vector of character dates}
@@ -13,13 +18,15 @@ date_from_partial(x, format = "ymd", method = c("min", "max"))
 'm', and 'd')}
 
 \item{method}{Method for reporting partial dates -- "min" or "max"}
+
+\item{year_replacement}{If set, will use a year}
 }
 \description{
-Takes a character as an argument and attempts to create a date object when
-part of the date string is missing.
+Derive a date object from a partial date
 }
 \details{
-Derive a date object from a partial date
+Takes a character as an argument and attempts to create a date object when
+part of the date string is missing.
 }
 \examples{
 x <- c("2020-12-17", NA_character_, "", "2020-12-UN", "2020-12-UN",
