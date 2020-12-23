@@ -18,8 +18,8 @@
 
 with_par <- function(..., ops = NULL) {
   if ("package:graphics" %out% search()) {
-    warning("Pacakge `graphics` will be loaded", call. = FALSE)
-    require("graphics")
+    warning("Package `graphics` will be loaded", call. = FALSE)
+    rn("graphics")
   }
 
   par0 <- graphics::par(no.readonly = TRUE)
