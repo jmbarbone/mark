@@ -41,7 +41,7 @@ Extensions to the base logical operations to account for \code{NA} values.
 
 \code{\link[base:Logic]{base::isTRUE()}} and \code{\link[base:Logic]{base::isFALSE()}} will only return single length \code{TRUE}
 or \code{FALSE} as it checks for valid lengths in the evaluation.  When needing
-to check over a vector for the presense of \code{TRUE} or \code{FALSE} and not being
+to check over a vector for the presence of \code{TRUE} or \code{FALSE} and not being
 held back by \code{NA} values, \code{is_true} and \code{is_false} will always provide a
 \code{TRUE} \code{FALSE} when the vector is logical or return \code{NA} is the vector \code{x}
 is not logical.
