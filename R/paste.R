@@ -16,6 +16,7 @@
 #' z <- month.abb[c(1, 12)]
 #' paste_combine(x, y)
 #' paste_combine(x, y, z)
+#' paste_combine(x, y, z, sep = ".")
 #' paste_combine(x, y, sep = "_")
 #' paste_combine(x, y, collate = FALSE)
 
@@ -32,13 +33,13 @@ paste_combine <- function(..., collate = TRUE, sep = "") {
   n <- length(ls)
   stopifnot("length of ... must be at least 2" = n >= 2)
 
-  out <- do_paste_combine(ls[[1]], ls[[2]], collate = collate, sep = "")
+  out <- do_paste_combine(ls[[1]], ls[[2]], collate = collate, sep = sep)
 
   if (n == 2) {
     return(out)
   }
 
-  for (i in 1:(-2)) {
+  for (i in 2:n) {
     out <- do_paste_combine(out, ls[[i]], collate = collate, sep = sep)
   }
 

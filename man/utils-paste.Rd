@@ -33,6 +33,7 @@ y <- 1:3
 z <- month.abb[c(1, 12)]
 paste_combine(x, y)
 paste_combine(x, y, z)
+paste_combine(x, y, z, sep = ".")
 paste_combine(x, y, sep = "_")
 paste_combine(x, y, collate = FALSE)
 }
