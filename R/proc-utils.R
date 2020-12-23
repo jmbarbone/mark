@@ -75,7 +75,7 @@ subset_rownames <- function(x, y) {
 #' @details
 #' When adding bootstrapped confidence intervals, the core function of
 #'   `pROC:::ci.sp.roc()` is replaced with a quicker version that uses parallel
-#'   processing to speed up the bootstraps and some other data manipuluation.
+#'   processing to speed up the bootstraps and some other data manipulation.
 #'   There will likely be a delay when running with bootstraps.
 #'
 #' @param mod An object with class "roc" (a ROC model made with [pROC::roc()])

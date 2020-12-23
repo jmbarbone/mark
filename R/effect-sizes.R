@@ -1,6 +1,6 @@
 #' Tukey's coefficient
 #'
-#' Returns the coeficient for Tukey's boxplot
+#' Returns the coefficient for Tukey's boxplot
 #'
 #' @param x A vector of values
 #'

@@ -5,7 +5,7 @@
 #' @inheritParams base::grepl
 #' @param patterns A list or vector of patterns to search across `x`; if named
 #'   value returned will be the name of the pattern -- otherwise the position.
-#'   Paterrn match reported will be the first in the list that is found
+#'   Pattern match reported will be the first in the list that is found
 #' @param ... Additional arguments passed to [base::grepl()]
 #' @param simplify if `FALSE` will return a list of all matches, otherwise the
 #'   first match found

@@ -1,9 +1,9 @@
-#' Wrappers for openxlsx pacakge functions
+#' Wrappers for openxlsx package functions
 #'
 #' Add data to sheet
 #'
 #' A wrapper function to use within the openxlsx workbook building.
-#' This adds additional functionality to override within the function and provude an output that can be piped.
+#' This adds additional functionality to override within the function and provide an output that can be piped.
 #'
 #' @details These should be applied to a string starting with
 #'   [openxlsx::createWorkbook()] then piped through with the functions below.

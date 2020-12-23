@@ -31,7 +31,7 @@ Non matching alternatives and supplementary functions.
 }
 \details{
 Contrast with \code{\link[base:match]{base::match()}}, \code{\link[base:sets]{base::intersect()}}, and \code{\%in\%}
-The functions of \verb{\%wi\%} and \verb{\%wo\%} can be used in leiu of \code{intersect()} and
+The functions of \verb{\%wi\%} and \verb{\%wo\%} can be used in lieu of \code{intersect()} and
 \code{setdiff()}.  The primary difference is that the base functions return only
 unique values, which may not be a desired behavior.
 }

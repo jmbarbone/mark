@@ -10,7 +10,7 @@
 #'
 #' [base::isTRUE()] and [base::isFALSE()] will only return single length `TRUE`
 #'   or `FALSE` as it checks for valid lengths in the evaluation.  When needing
-#'   to check over a vector for the presense of `TRUE` or `FALSE` and not being
+#'   to check over a vector for the presence of `TRUE` or `FALSE` and not being
 #'   held back by `NA` values, `is_true` and `is_false` will always provide a
 #'   `TRUE` `FALSE` when the vector is logical or return `NA` is the vector `x`
 #'   is not logical.

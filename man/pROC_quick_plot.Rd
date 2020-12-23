@@ -30,7 +30,7 @@ Quickly plots a model based on my own liking
 \details{
 When adding bootstrapped confidence intervals, the core function of
 \code{pROC:::ci.sp.roc()} is replaced with a quicker version that uses parallel
-processing to speed up the bootstraps and some other data manipuluation.
+processing to speed up the bootstraps and some other data manipulation.
 There will likely be a delay when running with bootstraps.
 }
 \examples{

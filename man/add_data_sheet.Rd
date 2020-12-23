@@ -2,7 +2,7 @@
 % Please edit documentation in R/openxlsx-utils.R
 \name{add_data_sheet}
 \alias{add_data_sheet}
-\title{Wrappers for openxlsx pacakge functions}
+\title{Wrappers for openxlsx package functions}
 \usage{
 add_data_sheet(
   wb,
@@ -39,7 +39,7 @@ Add data to sheet
 }
 \details{
 A wrapper function to use within the openxlsx workbook building.
-This adds additional functionality to override within the function and provude an output that can be piped.
+This adds additional functionality to override within the function and provide an output that can be piped.
 
 These should be applied to a string starting with
 \code{\link[openxlsx:createWorkbook]{openxlsx::createWorkbook()}} then piped through with the functions below.

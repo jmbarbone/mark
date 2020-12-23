@@ -43,7 +43,8 @@ Suggests:
     stringi,
     testthat,
     rmarkdown,
-    xfun
+    xfun,
+    spelling
 Remotes:
     gaborcsardi/prompt,
     seasmith/AlignAssign
@@ -52,3 +53,4 @@ Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 Config/testthat/parallel: false
+Language: en-US

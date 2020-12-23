@@ -48,7 +48,7 @@ read_clipboard <- function(method = c("default", "data.frame", "tibble"), ...) {
     data.frame = utils::read.table(
       file = "clipboard-128",
       header = TRUE,
-      # Copying form Excel produces tab sepertions
+      # Copying form Excel produces tab separations
       sep = "\t",
       row.names = NULL,
       # Excel formula for NA produces #N/A -- sometimes people use N/A...

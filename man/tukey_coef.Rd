@@ -13,7 +13,7 @@ tukey_coef(x)
 The coefficient of the distance from Q1 or Q3 by IQR values
 }
 \description{
-Returns the coeficient for Tukey's boxplot
+Returns the coefficient for Tukey's boxplot
 }
 \examples{
 tukey_coef(0:20)

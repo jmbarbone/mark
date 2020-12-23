@@ -15,7 +15,7 @@ str_close_enough(string, pattern, negate = FALSE)
 }
 \description{
 Find a value that is, eh, close enough by listed all possible values.
-It's not the most precise but can be used to determine additional explortation.
+It's not the most precise but can be used to determine additional exploration.
 }
 \details{
 pattern will be coerced like so: "abc" turned into "[a|b|c][a|b|c][a|b|c]"

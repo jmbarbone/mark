@@ -1,7 +1,7 @@
 #' String Close enough
 #'
 #' Find a value that is, eh, close enough by listed all possible values.
-#' It's not the most precise but can be used to determine additional explortation.
+#' It's not the most precise but can be used to determine additional exploration.
 #'
 #' @param string Input vector. Either a character vector, or something coercible to one.
 #' @param pattern A character string of the actual value (see below)
