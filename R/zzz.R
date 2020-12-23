@@ -2,6 +2,6 @@
   create_na_env()
 }
 
-.onDetach <- function(libname, pkgname) {
+.onDetach <- function(libpath) {
   remove(.na_env)
 }
