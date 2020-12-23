@@ -39,4 +39,10 @@ Create NA vectors
 \details{
 If length is a text it will search for an appropriate match.
 }
+\examples{
+x <- not_available("Date", 3)
+x
+class(x)
+
+}
 \keyword{datasets}
