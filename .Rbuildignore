@@ -4,3 +4,5 @@
 ^lab\*$
 ^README\.Rmd$
 test-docs/
+^bench$
+^\.travis\.yml$

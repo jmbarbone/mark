@@ -16,6 +16,7 @@ knitr::opts_chunk$set(
 # jordan
 
 <!-- badges: start -->
+[![Travis build status](https://travis-ci.com/jmbarbone/jordan.svg?branch=master)](https://travis-ci.com/jmbarbone/jordan)
 <!-- badges: end -->
 
 **j**ust **o**ther **R** **d**ata **a**nalytic **n**uggets

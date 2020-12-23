@@ -4,6 +4,9 @@
 # jordan
 
 <!-- badges: start -->
+
+[![Travis build
+status](https://travis-ci.com/jmbarbone/jordan.svg?branch=master)](https://travis-ci.com/jmbarbone/jordan)
 <!-- badges: end -->
 
 **j**ust **o**ther **R** **d**ata **a**nalytic **n**uggets
@@ -50,20 +53,34 @@ Slice strings:
 ``` r
 x <- stringi::stri_rand_lipsum(1)
 str_slice(x, n = 50L)
-#> [1] "Lorem ipsum dolor sit amet, nullam in eu torquent."
-#> [2] " Phasellus sociis, aptent, sociis id vel finibus. "
-#> [3] "Elit, faucibus erat nulla fames libero consequat, "
-#> [4] "mi cursus. Vehicula augue sed non dui. Porta ut to"
-#> [5] "rtor nec in litora sed non odio. Tellus ullamcorpe"
-#> [6] "r vulputate dictum ut nostra. Urna sodales mauris "
-#> [7] "malesuada cum vitae, a, maecenas. Sit accumsan, at"
-#> [8] ", tellus ridiculus egestas litora."
+#>  [1] "Lorem ipsum dolor sit amet, id maecenas luctus ame"
+#>  [2] "t ipsum nibh laoreet faucibus donec at, venenatis."
+#>  [3] " Consequat luctus maximus ut, mi malesuada non qua"
+#>  [4] "m. Fusce aliquam et pellentesque per, eros tincidu"
+#>  [5] "nt non. Donec dis gravida non integer cubilia at, "
+#>  [6] "ipsum fringilla congue vivamus. Dui sed maximus a "
+#>  [7] "velit cras sem enim placerat lobortis, sed purus t"
+#>  [8] "incidunt fermentum. Nullam per fermentum facilisis"
+#>  [9] " ultricies urna. Urna, ultrices sed proin potenti "
+#> [10] "ipsum ac risus, luctus faucibus gravida congue ut "
+#> [11] "cum semper. Ut parturient tristique nec congue tac"
+#> [12] "iti malesuada sed! Aptent tortor. Tempus ac aliqua"
+#> [13] "m eget erat sed in in congue vestibulum. Ac pellen"
+#> [14] "tesque potenti nec vitae convallis integer sed sed"
+#> [15] " blandit amet taciti nascetur. Himenaeos nunc sed "
+#> [16] "odio scelerisque diam, molestie."
 str_slice_by_word(x)
-#> [1] "Lorem ipsum dolor sit amet, nullam in eu torquent. Phasellus sociis, aptent,"    
-#> [2] " sociis id vel finibus. Elit, faucibus erat nulla fames libero consequat, mi"    
-#> [3] " cursus. Vehicula augue sed non dui. Porta ut tortor nec in litora sed non odio."
-#> [4] " Tellus ullamcorper vulputate dictum ut nostra. Urna sodales mauris malesuada"   
-#> [5] " cum vitae, a, maecenas. Sit accumsan, at, tellus ridiculus egestas litora."
+#>  [1] "Lorem ipsum dolor sit amet, id maecenas luctus amet ipsum nibh laoreet faucibus"
+#>  [2] " donec at, venenatis. Consequat luctus maximus ut, mi malesuada non quam. Fusce"
+#>  [3] " aliquam et pellentesque per, eros tincidunt non. Donec dis gravida non integer"
+#>  [4] " cubilia at, ipsum fringilla congue vivamus. Dui sed maximus a velit cras sem"  
+#>  [5] " enim placerat lobortis, sed purus tincidunt fermentum. Nullam per fermentum"   
+#>  [6] " facilisis ultricies urna. Urna, ultrices sed proin potenti ipsum ac risus,"    
+#>  [7] " luctus faucibus gravida congue ut cum semper. Ut parturient tristique nec"     
+#>  [8] " congue taciti malesuada sed! Aptent tortor. Tempus ac aliquam eget erat sed in"
+#>  [9] " in congue vestibulum. Ac pellentesque potenti nec vitae convallis integer sed" 
+#> [10] " sed blandit amet taciti nascetur. Himenaeos nunc sed odio scelerisque diam,"   
+#> [11] " molestie."
 ```
 
 Read in bibliographies:
