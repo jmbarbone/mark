@@ -31,22 +31,19 @@ rn_soft <- function(namespace) {
 quiet_stop <- function() {
   op <- options()
   options(show.error.messages = FALSE)
-  stop()
   on.exit(options(op), add = TRUE)
+  stop()
 }
 
 construct_date <- function(date_text, collapse = "") {
-  paste(sapply(unlist(strsplit(date_text, "")),
-               date_switch,
-               USE.NAMES = FALSE),
-        collapse = collapse)
+  paste(vap_chr(unlist(strsplit(date_text, "")), date_switch), collapse = collapse)
 }
 
 date_switch <- function(x) {
   switch(x,
          Y = "[[:digit:]]{4}",
          y = "[0-99]{2}",
-         m = "1[0-2]|[1-9]  ",
+         m = "1[0-2]|[1-9]",
          b = "[[:alpha:]]{3,}",
          d = "3[01]|[12][0-9]|[1-9]",
          NULL)
@@ -206,4 +203,8 @@ match_param <- function(param, choices) {
   }
 
   res
+}
+
+is_length0 <- function(x) {
+  length(x) == 0L
 }

@@ -19,5 +19,5 @@ remove_na_cols <- function(x) {
 }
 
 is_na_cols <- function(x) {
-  vapply(x, function(xx) all(is.na(xx)), logical(1))
+  vap_lgl(x, function(xx) all(is.na(xx)))
 }

@@ -7,11 +7,11 @@
 \alias{try_ksource}
 \title{Sourcing extensions}
 \usage{
-ksource(file, ..., quiet = TRUE, change_directory = FALSE)
+ksource(file, ..., quiet = TRUE, cd = FALSE)
 
-try_source(file, ..., change_directory = FALSE)
+try_source(file, ..., cd = FALSE)
 
-try_ksource(file, ..., change_directory = FALSE)
+try_ksource(file, ..., cd = FALSE)
 }
 \arguments{
 \item{file}{An R or Rmd file.}
@@ -20,7 +20,7 @@ try_ksource(file, ..., change_directory = FALSE)
 
 \item{quiet}{Logical; Determines whether to apply silence to \code{\link[knitr:knit]{knitr::purl()}}}
 
-\item{change_directory}{Logical; if TRUE, the R working directory is temporarily
+\item{cd}{Logical; if TRUE, the R working directory is temporarily
 changed to the directory containing file for evaluating}
 }
 \description{

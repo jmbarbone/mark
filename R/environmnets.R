@@ -9,15 +9,13 @@
 #'
 #' @inheritParams base::ls
 #'
-#' @importFrom utils str
-#'
 #' @export
 #' @name list_environments
 environments <- function() {
   s <- search()
 
   for (e in s) {
-    cat(str(parent.env(as.environment(e)), give.attr = FALSE))
+    cat(utils::str(parent.env(as.environment(e)), give.attr = FALSE))
   }
 
   invisible(s)

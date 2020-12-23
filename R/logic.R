@@ -32,8 +32,9 @@
 #' is_true(x)
 #' isFALSE(x)
 #' is_false(x)
-#' TRUE %or% FALSE
-#' NA %or% FALSE
+#' TRUE %xor% TRUE
+#' TRUE %xor% FALSE
+#' NA %xor% FALSE
 #' OR(x, y, z)
 #' OR(x, y, z, na.rm = TRUE)
 #' AND(x, y, z)
@@ -73,7 +74,7 @@ is_false <- function(x) {
 
 #' @export
 #' @rdname logic_ext
-`%or%` <- function(x, y) {
+`%xor%` <- function(x, y) {
   xor(x, y)
 }
 
@@ -105,9 +106,7 @@ is_boolean <- function(x) {
   if (is.logical(x)) {
     TRUE
   } else if (is.numeric(x)) {
-    bools <- x %in% c(1, 0)
-    bools[is.na(x)] <- TRUE
-    all(bools)
+    all(x %in% c(1, 0) | is.na(x), na.rm = TRUE)
   } else {
     FALSE
   }
@@ -121,7 +120,7 @@ none <- function(..., na.rm = FALSE) {
 # FUNS --------------------------------------------------------------------
 
 null_check <- function(x) {
-  if (length(x) == 0L || is.null(x)) {
+  if (is.null(x) || is_length0(x)) {
     stop("Cannot accept `NULL` or 0 length values",
          call. = FALSE)
   }
@@ -131,13 +130,18 @@ apply_logical_matrix <- function(mat, FUN, na.rm) {
   stopifnot("Not a matrix" = is.matrix(mat),
             "Not logical" = is_boolean(mat))
 
-  use_val <- switch(FUN, `|` = FALSE, `&` = TRUE)
+  na_val <- if (na.rm) {
+    switch(FUN, `|` = FALSE, `&` = TRUE)
+  } else {
+    NA
+  }
+
   use_fun <- match.fun(FUN)
 
   apply(
     mat,
     1,
-    function(x, na.rm = FALSE) {
+    function(x) {
       if (na.rm) {
         x <- x[!is.na(x)]
       }
@@ -145,15 +149,12 @@ apply_logical_matrix <- function(mat, FUN, na.rm) {
       len <- length(x)
 
       if (len == 0L) {
-        if (na.rm) use_val else NA
+        na_val
       } else if (len == 1L) {
         x
       } else {
         Reduce(use_fun, x)
       }
-    },
-    na.rm = na.rm
+    }
   )
 }
-
-

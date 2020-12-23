@@ -14,8 +14,8 @@
 #' round_by(runif(10), .01, "floor")
 #' round_by(runif(10) * 100, seq(10))
 
-round_by <- function(x, by = 1, method = "round") {
-  switch(match.arg(method, c("round", "ceiling", "floor")),
+round_by <- function(x, by = 1, method = c("round", "ceiling", "floor")) {
+  switch(match_param(method),
          round   = round(x / by) * by,
          floor   = mapply(function(x, by)   floor(x / by) * by, x = x, by = by, USE.NAMES = FALSE),
          ceiling = mapply(function(x, by) ceiling(x / by) * by, x = x, by = by, USE.NAMES = FALSE))

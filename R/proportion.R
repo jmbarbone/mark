@@ -23,7 +23,7 @@ proportion.default <- function(x, ...) {
     x <- as_factor_unordered(x)
   }
 
-  vapply(split(x, x), length, double(1)) / length(x)
+  vap_dbl(split(x, x), length, .nm = TRUE) / length(x)
 }
 
 #' @export

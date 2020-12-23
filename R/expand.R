@@ -16,7 +16,7 @@
 #' expand_by(x, y, "both")
 #' @export
 expand_by <- function(x, y, expand = c("x","y", "intersect", "both"), sort = FALSE) {
-  expand <- match.arg(expand)
+  expand <- match_param(expand)
   if (!is_named(x)) names(x) <- x
   if (!is_named(y)) names(y) <- y
 
@@ -28,18 +28,17 @@ expand_by <- function(x, y, expand = c("x","y", "intersect", "both"), sort = FAL
   out <- switch(
     expand,
     intersect = {
-      mt <- match(ny, nx, 0L)
-      x[mt]
+      x[match(ny, nx, 0L)]
     },
     x = {
-      mt <- match(nx, ny, 0L) == 0L
+      mt <- nx %out% ny
       out <- x
       out[mt] <- NA
       out[!mt] <- x[!mt]
       out
     },
     y = {
-      mt <- match(ny, nx, 0L) == 0L
+      mt <- ny %out% nx
       out <- y
       out[mt] <- NA
       out[!mt] <- x[!mt]
@@ -51,12 +50,16 @@ expand_by <- function(x, y, expand = c("x","y", "intersect", "both"), sort = FAL
     both = {
       uq <- unique(c(nx, ny))
       out <- x[uq]
-      ind <- match(uq, nx, 0L) == 0L
+      ind <- uq %out% nx
       names(out)[ind] <- uq[ind]
       out
     }
   )
-  if (sort) out <- out[sort(names(out))]
+
+  if (sort) {
+    return(sort_names(out))
+  }
+
   out
 }
 
@@ -94,7 +97,7 @@ reindex <- function(x, index = NULL, new_index, expand = c("intersect", "both"),
   xi <- if (is.null(index)) {
     x[[1L]]
   } else if (index == "row.names") {
-    rownames(x)
+    attr(x, "row.names")
   } else {
     x[[index]]
   }
@@ -112,7 +115,7 @@ reindex <- function(x, index = NULL, new_index, expand = c("intersect", "both"),
 
   nm <- names(ro)
   out <- x[nm, ]
-  rownames(out) <- nm
+  attr(out, "row.names") <- nm
   out
 }
 

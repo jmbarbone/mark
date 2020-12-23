@@ -8,18 +8,14 @@
 #' The labels are taken from `.names`
 #' @param .names vector of characters for the
 #'
-#' @importFrom rlang enquos
-#' @importFrom dplyr filter
-#' @importFrom dplyr bind_rows
-#'
 #' @export
 #'
 #' @seealso [dplyr::filter()] and [dplyr::bind_rows()]
 
 filter_combine <- function(x, ..., .id, .names) {
   stopifnot(length(.names) <= 2)
-  dots <- enquos(...)
-  xy <- list(x, filter(x, !!!dots))
+  dots <- rlang::enquos(...)
+  xy <- list(x, dplyr::filter(x, !!!dots))
   names(xy) <- .names
-  bind_rows(xy, .id = .id)
+  dplyr::bind_rows(xy, .id = .id)
 }

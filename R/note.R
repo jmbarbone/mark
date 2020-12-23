@@ -65,6 +65,6 @@ print.jordan_note <- function(x, ...) {
       })
   }
 
-  on.exit(fun(out))
+  fun(out)
   invisible(x)
 }

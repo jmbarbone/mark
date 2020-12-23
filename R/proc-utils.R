@@ -176,13 +176,13 @@ pROC_ci_sp_roc <- function(mod, boots = 500, se = seq(0, 1, .01), conf_level = 0
   if (anyNA(perfs)) {
     warning("NA value(s) produced during bootstrap were ignored.")
     # complete.cases(.) quicker than !apply(., 1, function(x) any(is.na(x)))
-    perfs <- perfs[complete.cases(perfs), ]
+    perfs <- perfs[stats::complete.cases(perfs), ]
   }
 
   cl <- (1 - conf_level) / 2
   probs <- c(cl, 0.5, 1 - cl)
   # Replace apply(., 2) with vapply()
-  ci <- t(vapply(perfs, quantile, double(3), probs = probs))
+  ci <- t(vapply(perfs, stats::quantile, double(3), probs = probs))
 
   structure(
     ci,

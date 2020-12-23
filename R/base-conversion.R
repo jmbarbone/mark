@@ -27,15 +27,19 @@ alpha_base <- function(x, base = 26) {
 base_alpha_single <- function(x, base) {
   a <- letters %wi% chr_split(tolower(x))
   a <- match(a, letters[1:base], nomatch = NA_integer_)
+
   if (anyNA(a)) {
     stop(sprintf('Cannot calculate alpha base "%s" for "%s" which has letters beyond "%s"',
                  base, x, x[base]),
          call. = FALSE)
   }
+
   n <- length(a)
+
   if (n == 0) {
     return(NA_integer_)
   }
+
   as.integer(sum(c(a[-n] * base^(1:(n - 1)), a[n])))
 }
 

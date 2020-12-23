@@ -4,13 +4,23 @@
 \alias{to_row_names}
 \title{To row names}
 \usage{
-to_row_names(.df, .row_names = 1)
+to_row_names(data, row_names = 1L)
 }
 \arguments{
-\item{.df}{A data.frame}
+\item{data}{A data.frame}
 
-\item{.row_names}{The numeric position of the column.}
+\item{row_names}{The numeric position of the column.}
 }
 \description{
 Converts a column to row names
+}
+\examples{
+
+x <- data.frame(
+  a = 1:4,
+  b = letters[1:4]
+)
+
+to_row_names(x)
+to_row_names(x, "b")
 }

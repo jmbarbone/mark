@@ -6,22 +6,22 @@
 #'
 #' @return The coefficient of the distance from Q1 or Q3 by IQR values
 #'
-#' @importFrom stats quantile
-#' @importFrom dplyr case_when
 #' @examples
 #' tukey_coef(0:20)
 #' @export
 
 tukey_coef <- function(x) {
   stopifnot(is.numeric(x))
-  q1 <- quantile(x, .25, names = FALSE, na.rm = TRUE)
-  q3 <- quantile(x, .75, names = FALSE, na.rm = TRUE)
+  q1 <- stats::quantile(x, .25, names = FALSE, na.rm = TRUE)
+  q3 <- stats::quantile(x, .75, names = FALSE, na.rm = TRUE)
   iqr <- q3 - q1
 
-  case_when(x < q1   ~ (x - q1) / iqr,
-            x > q3   ~ (q3 - x) / iqr,
-            is.na(x) ~ NA_real_,
-            TRUE     ~ 0)
+  dplyr::case_when(
+    x < q1   ~ (x - q1) / iqr,
+    x > q3   ~ (q3 - x) / iqr,
+    is.na(x) ~ NA_real_,
+    TRUE     ~ 0
+  )
 }
 
 #' Z-score
@@ -31,117 +31,157 @@ tukey_coef <- function(x) {
 #' @param x A numeric vector of values.
 #' @param na.rm Logical
 #'
-#' @importFrom stats sd
 #' @export
 
 z_score <- function(x, na.rm = FALSE) {
-  (x - mean(x, na.rm = na.rm)) / sd(x, na.rm = na.rm)
+  (x - mean(x, na.rm = na.rm)) / stats::sd(x, na.rm = na.rm)
 }
 
-
-#' Odds ratio
+#' Effect sizes conversions
 #'
-#' Returns the odds ratio without returning infinity
+#' Calculate effect sizes and conversions
 #'
-#' @param a,b,c,d Values in the contingency table.
-#' @param type Type to use
-#' @return The odds ratio
+#' @details
+#' `odds` are log odds
 #'
+#' @param odds,r,cohend A vector of effect sizes
+#' @param var Logical, if `TRUE` converts the variance instead
+#' @param type Type of entry for [odds_ratio()]
+#' @param a,b,c,d Values in the contingency table; valid if either `a`, `b`,
+#'   `c` and `d` are the same length or if `a` has length of `4` and `b`, `c`,
+#'   and `d` are `NULL`.
+#' @param n1,n2 The ns of the groups
+#'
+#' @examples
+#' x <- c(26, 13, 5, 6)
+#' odds_ratio(x)           # 2.4
+#' odds2r(2.4)             # 0.2346004
+#' odds2d(2.4)             # 0.4826712
+#' r2cohend(0.2346004)    # 0.4826712
+#' cohend2odds(0.4826712) # 0.8754687
+#' cohend2r(0.4826712)    # 0.2346004
+#' exp(0.8754687)          # 2.4
+#'
+#'
+#' @rdname effect_sizes
 #' @export
 
-odds_ratio <- function(a, b, c, d, type = "hits_misses") {
-  ## does not return any Inf values
+odds_ratio <- function(a, b = NULL, c = NULL, d = NULL, type = "hits_misses")
+{
+  if (length(a) == 4 & is.null(b) & is.null(c) & is.null(d)) {
+    d <- a[4]
+    c <- a[3]
+    b <- a[2]
+    a <- a[1]
+  }
 
-  if(a < 0 || b < 0 || c < 0 || d < 0) {
+  if(a < 0 | b < 0 | c < 0 | d < 0) {
     stop("Cells cannot have negative numbers", call. = FALSE)
   }
 
   if(type == "hits_evals") {
-    ## save over for single line at end
     c <- c - a
     d <- d - b
   }
-  if((b == 0) || (c == 0)) return(NA)
-  if(a < 5 || b < 5 || c < 5 || d < 5) {
+
+  if((b == 0) | (c == 0))  {
+    return(NaN)
+  }
+
+  if(a < 5 | b < 5 | c < 5 | d < 5) {
     warning("Cells should all have at least 5 observations",
             call. = FALSE)
   }
+
   (a * d) / (b * c)
 }
 
 
-#' Odds ratio to Cohen's D
-#'
-#' @param odds An odds ratio
-#' @param var Logical.
-#'
-#' @importFrom stats var
+#' @rdname effect_sizes
 #' @export
+odds2d <- function(odds, var = FALSE) {
+  out <- log(odds) * sqrt(3) / pi
 
-odds2d <- function(odds, var = FALSE)
-{
-  if(var) {
-    var(log(odds), na.rm = TRUE) * sqrt(3) / pi^2
-  }  else {
-    log(odds) * sqrt(3) / pi
+  if (var) {
+    out <- out / pi
   }
+
+  out
 }
 
-#' Odds ratio to r
-#'
-#' Transforms an odds ratio to an r value
-#'
-#' @param odds A single odds ratio.
-#' @param n1,n2 The ns of the groups.
-#' @param var Logical.  Determines if variance should be computed.
-#'
-#' @export
 
-odds2r <- function(odds, n1 = NULL, n2 = n1, var = FALSE)
-{
-  cohensd2r(odds2d(odds, var = var), n1 = n1, n2 = n2, var = var)
+#' @rdname effect_sizes
+#' @export
+odds2r <- function(odds, n1 = 4, n2 = n1, var = FALSE) {
+  mapply(
+    function(odds, n1, n2, var) {
+      cohend2r(odds2d(odds, var = var), n1 = n1, n2 = n2, var = var)
+    },
+    odds = odds,
+    n1 = n1,
+    n2 = n2,
+    var = var,
+    SIMPLIFY = TRUE,
+    USE.NAMES = FALSE
+  )
 }
 
-#' r to Cohen's D
-#'
-#' Converts an r value to Cohne's d
-#'
-#' @param r An r value
-#'
-#' @importFrom stats var
+#' @rdname effect_sizes
 #' @export
+r2cohend <- function(r, var = FALSE) {
+  nas <- is.na(r)
+  res <- double(length(r))
 
-r2cohensd <- function(r) {
-  if(any(r > 1 || r < -1)) {
-    stop("r values outside bounds", call. = FALSE)
+  ok <- !nas
+
+  if (!var) {
+    ok <- r <= 1 & r >= -1
+
+    if (any(!ok, na.rm = TRUE)) {
+      warning("r values outside bounds", call. = FALSE)
+    }
+
+    ok[is.na(ok)] <- FALSE
+    res[!ok] <- NaN
+    r <- r[ok]
   }
-  if(var) {
-    (4 * var(r, na.rm = TRUE)) / ((1 - r^2)^3)
+
+  res[nas] <- NA_real_
+  res[ok] <- if (var) {
+    (4 * r) / ((1 - r^2)^3)
   } else {
     (2 * r) / sqrt(1 - r^2)
   }
+
+  res
 }
 
-#' Cohen's D to r
-#'
-#' Converts Cohen's D to an r value
-#'
-#' @param d Cohen's d
-#' @param n1,n2 Ns for the groups
-#' @param var Logical.
-#'
-#' @importFrom stats var
+#' @rdname effect_sizes
 #' @export
-
-cohensd2r <- function(d, n1 = NULL, n2 = n1, var = FALSE) {
-  if(is.null(n1)) {
+cohend2r <- function(cohend, n1 = NULL, n2 = n1, var = FALSE) {
+  if (is.null(n1)) {
     a <- 4
   } else {
     a <- sum(n1, n2)^2 / prod(n1, n2)
   }
-  if(var) {
-    (a^2 * var(d, na.rm = TRUE)) / ((d^2 + a)^3)
+  if (var) {
+    (a^2 * cohend) / ((cohend^2 + a)^3)
   } else {
-    d / sqrt(d^2 + a)
+    cohend / sqrt(cohend^2 + a)
   }
+}
+
+#' @rdname effect_sizes
+#' @export
+cohend2odds <- function(cohend, var = FALSE) {
+  # log odds
+  if (var) {
+    cohend * pi^2 / 3
+  } else {
+    cohend * pi / sqrt(3)
+  }
+}
+
+cohend2g <- function(d, df) {
+  d * (1 - 3 / (4 * df - 1))
 }

@@ -37,7 +37,7 @@ p_round <- function(x, n = 3, sig = n) {
   }
 
   empty <- out == ""
-  out[empty] <- vapply(x[empty], format, character(1), digits = sig, nsmall = sig, scientific = FALSE, USE.NAMES = FALSE)
+  out[empty] <- vap_chr(x[empty], format, digits = sig, nsmall = sig, scientific = FALSE)
 
   out
 }
@@ -54,11 +54,16 @@ p_value_sig <- function(x, cutoffs = c("***" = 0.001,
   stopifnot("cuttoffs must be numeric" = is.numeric(cutoffs),
             "cuttoffs must be named" = !is.null(nm),
             "x must be 1 or less" = all(x <= 1, na.rm = TRUE))
-  vapply(x,
+  vap_chr(x,
          function(p) {
            nm[min(which(cutoffs >= p),
                   na.rm = TRUE)]
-         },
-         character(1),
-         USE.NAMES = FALSE)
+         })
+}
+
+ndigits <- function(x) {
+  ok <- grep("\\.", x)
+  out <- integer(length(x)) # anything not ok will be 0
+  out[ok] <- nchar(sub("^[0-9]*[.]([0-9]+$)", "\\1", x[ok]))
+  out
 }
