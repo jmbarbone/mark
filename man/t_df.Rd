@@ -4,15 +4,17 @@
 \alias{t_df}
 \title{Data frame transpose}
 \usage{
-t_df(x, id = 1L, name = ".id")
+t_df(x, id = NULL)
 }
 \arguments{
 \item{x}{A data.frame}
 
-\item{id}{The identification column number}
-
-\item{name}{The name of the identification column}
+\item{id}{No longer used}
 }
 \description{
-Transposes a data.frame
+Transposes a data.frame as a data.frame
+}
+\examples{
+x <- data.frame(col_a = Sys.Date() + 1:5, col_b = letters[1:5], col_c = 1:5)
+t_df(x)
 }
