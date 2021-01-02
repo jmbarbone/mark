@@ -17,8 +17,12 @@ round_by(x, by = 1, method = c("round", "ceiling", "floor"))
 Rounds a number or vector of numbers by another
 }
 \examples{
-round_by(sample(100, 100, replace = TRUE), by = 5)
-round_by(seq(1, 20, .6), 2, "ceiling")
-round_by(runif(10), .01, "floor")
-round_by(runif(10) * 100, seq(10))
+x <- seq(1, 13, by = 4/3)
+
+cbind(
+  x,
+  by_1 = round_by(x, 1),
+  by_2 = round_by(x, 2),
+  by_3 = round_by(x, 3)
+)
 }

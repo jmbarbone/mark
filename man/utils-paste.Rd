@@ -5,16 +5,13 @@
 \alias{paste_c}
 \alias{paste_combine}
 \alias{collapse}
-\alias{collapse0}
 \title{Paste combine}
 \usage{
 paste_c(x, y, collate = TRUE, sep = "")
 
 paste_combine(..., collate = TRUE, sep = "")
 
-collapse(..., sep = " ")
-
-collapse0(...)
+collapse(..., sep = "")
 }
 \arguments{
 \item{x, y, ...}{Vectors to paste and/or combine}
@@ -36,4 +33,6 @@ paste_combine(x, y, z)
 paste_combine(x, y, z, sep = ".")
 paste_combine(x, y, sep = "_")
 paste_combine(x, y, collate = FALSE)
+collapse(list(1:3, letters[1:3]), 5:7, letters[5:7])
+collapse(1:3, letters[5:7], sep = "_")
 }

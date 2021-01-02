@@ -3,5 +3,5 @@
 }
 
 .onDetach <- function(libpath) {
-  remove(.na_env)
+  tryCatch(remove(.na_env), warning = function(e) invisible())
 }

@@ -18,6 +18,12 @@ Set Rust engine for knitr
 \details{
 If dependencies are needed they should be defined in a \code{cargo.toml} file in
 the working directory and the code chunk option \code{toml=TRUE} should be set.
+
+Additional options:
+\describe{
+\item{timeout}{Time (in seconds) to wait for program to finish}
+\item{env}{Environment to execute code}
+}
 }
 \references{
 Adapted from

@@ -22,6 +22,6 @@ import <- function(pkg, fun, overwrite = FALSE) {
          call. = FALSE)
   }
   assign(fun,
-         eval(parse(text = sprintf("%s::%s", pkg, fun))),
+         pkg %colons% fun,
          envir = parent.frame())
 }

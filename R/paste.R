@@ -19,6 +19,8 @@
 #' paste_combine(x, y, z, sep = ".")
 #' paste_combine(x, y, sep = "_")
 #' paste_combine(x, y, collate = FALSE)
+#' collapse(list(1:3, letters[1:3]), 5:7, letters[5:7])
+#' collapse(1:3, letters[5:7], sep = "_")
 
 paste_c <- function(x, y, collate = TRUE, sep = "") {
   warning("Use `jordan::paste_combine()` instead", call. = FALSE)
@@ -46,22 +48,18 @@ paste_combine <- function(..., collate = TRUE, sep = "") {
   out
 }
 
+#' @rdname utils-paste
+#' @export
+collapse <- function(..., sep = "") {
+  ls <- list(...)
+  paste0(unlist(ls), collapse = sep)
+}
+
+
 do_paste_combine <- function(x, y, collate = TRUE, sep = "") {
   out <- outer(x, y, FUN = paste, sep = sep)
   if (collate) {
     out <- apply(out, 1, c)
   }
   as.vector(out, "character")
-}
-
-#' @rdname utils-paste
-#' @export
-collapse <- function(..., sep = " ") {
-  paste(..., sep = NULL, collapse = sep)
-}
-
-#' @rdname utils-paste
-#' @export
-collapse0 <- function(...) {
-  collapse(..., sep = "")
 }
