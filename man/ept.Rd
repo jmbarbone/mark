@@ -2,13 +2,15 @@
 % Please edit documentation in R/utils.R
 \name{ept}
 \alias{ept}
-\title{Parse and evaluation text}
+\title{Parse and evaluate text}
 \usage{
-ept(x)
+ept(x, envir = parent.frame())
 }
 \arguments{
 \item{x}{A character string to parse}
+
+\item{envir}{The environment in which to evaluate the code}
 }
 \description{
-A wrapper
+A wrapper for eval(parse(text = .))
 }

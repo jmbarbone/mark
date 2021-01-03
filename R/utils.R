@@ -33,14 +33,15 @@ magrittr::`%>%`
   )
 }
 
-#' Parse and evaluation text
+#' Parse and evaluate text
 #'
-#' A wrapper
+#' A wrapper for eval(parse(text = .))
 #'
 #' @param x A character string to parse
+#' @param envir The environment in which to evaluate the code
 #' @export
-ept <- function(x) {
-  eval(parse(text = x))
+ept <- function(x, envir = parent.frame()) {
+  eval(parse(text = x), envir = envir)
 }
 
 construct_date <- function(date_text, sep = "") {
