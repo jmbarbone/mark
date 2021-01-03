@@ -25,7 +25,7 @@ unique_no_na <- function(x) {
 #' remove_null(x)
 #' @export
 remove_null <- function(x) {
-  stopifnot(is.list(x))
+  stopifnot(is.vector(x, "list"))
   x[!vap_lgl(x, is.null)]
 }
 
@@ -49,7 +49,8 @@ remove_na_cols <- function(x) {
   x[, !is_na_cols(x)]
 }
 
-
-is_na_cols <- function(x) {
-  vap_lgl(x, function(xx) all(is.na(xx)))
+#' @rdname na_cols
+#' @export
+is_na_cols <- function(x, names = TRUE) {
+  vap_lgl(x, function(xx) all(is.na(xx)), .nm = names)
 }

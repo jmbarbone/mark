@@ -4,11 +4,14 @@
 \alias{na_cols}
 \alias{select_na_cols}
 \alias{remove_na_cols}
+\alias{is_na_cols}
 \title{Selecting NA columns}
 \usage{
 select_na_cols(x)
 
 remove_na_cols(x)
+
+is_na_cols(x, names = TRUE)
 }
 \arguments{
 \item{x}{A data.frame}
