@@ -3,14 +3,20 @@
 \name{file_info}
 \alias{file_info}
 \alias{newest_file}
+\alias{newest_dir}
 \alias{oldest_file}
+\alias{oldest_dir}
 \alias{largest_file}
 \alias{smallest_file}
 \title{File information utils}
 \usage{
 newest_file(x)
 
+newest_dir(x)
+
 oldest_file(x)
+
+oldest_dir(x)
 
 largest_file(x)
 

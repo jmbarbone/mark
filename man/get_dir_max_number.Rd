@@ -4,10 +4,10 @@
 \alias{get_dir_max_number}
 \title{Get recent directory by number name}
 \usage{
-get_dir_max_number(dir)
+get_dir_max_number(x)
 }
 \arguments{
-\item{dir}{The directory to look in.}
+\item{x}{The directory to look in}
 }
 \description{
 Finds the directory where the number is the greatest.  This can be useful for when folders are created as run IDs.

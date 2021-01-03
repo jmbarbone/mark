@@ -4,14 +4,12 @@
 \alias{get_recent_dir}
 \title{Get recent directory}
 \usage{
-get_recent_dir(.dir, recursive = FALSE, ...)
+get_recent_dir(x = ".", ...)
 }
 \arguments{
-\item{.dir}{The root directory}
+\item{x}{The root directory}
 
-\item{recursive}{From \code{list.dirs()}}
-
-\item{...}{Further arguments passed to \code{list.dirs()}}
+\item{...}{Additional arguments passed to \code{\link[=list_dirs]{list_dirs()}}}
 }
 \value{
 The full path of the most recent directory

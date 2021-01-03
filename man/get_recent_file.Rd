@@ -4,24 +4,14 @@
 \alias{get_recent_file}
 \title{Get recent file}
 \usage{
-get_recent_file(
-  dir,
-  pattern = NULL,
-  negate = FALSE,
-  exclude_temp = TRUE,
-  recursive = FALSE
-)
+get_recent_file(x, exclude_temp = TRUE, ...)
 }
 \arguments{
-\item{dir}{The directory in which to search the file}
-
-\item{pattern}{The regularly expression to be passed to to the file}
-
-\item{negate}{Logical, if TRUE, files with matching \code{pattern} will be removed}
+\item{x}{The directory in which to search the file}
 
 \item{exclude_temp}{Logical, if TRUE files that begin with "^\\~\\$" are excluded}
 
-\item{recursive}{Logical, passed to \code{list.files(., recursive)}}
+\item{...}{Additional arguments passed to \code{\link[=list_files]{list_files()}}}
 }
 \value{
 The full name of the most recent file from the stated directory

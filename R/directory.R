@@ -2,70 +2,57 @@
 #'
 #' Finds the recent subdirectory in a directory.
 #'
-#' @param .dir The root directory
-#' @param recursive From `list.dirs()`
-#' @param ... Further arguments passed to `list.dirs()`
+#' @param x The root directory
+#' @param ... Additional arguments passed to [jordan::list_dirs()]
 #' @return The full path of the most recent directory
 #' @export
 
-get_recent_dir <- function(.dir, recursive = FALSE, ...) {
-  stopifnot(dir.exists(.dir))
-  df <- Reduce(rbind, lapply(list.dirs(.dir), file.info, recursive = recursive, ...))
-  rownames(df)[which.max(df$mtime)]
+get_recent_dir <- function(x = ".",  ...) {
+  stopifnot(dir.exists(x))
+  dirs <- list_dirs(x, ...)
+  newest_dir(dirs)
 }
 
-
-#' Get recent directory by folder name
-#'
-#' Finds the most recent subdirectory assuming it is a number or date
-#'
-# get_recent_dir_name <- function(.dir, use_format = "numeric") {
-#   mat <- Reduce(rbind, lapply(list.dirs(.dir), file.info, recursive = F))
-#   sapply(rownames(mat), function(x) {
-#     sapply(gsub(paste0("^", pattern = dirname(x), "[/|\\]+"), x = x, replacement = ""), determine_format)
-#     determine_format <- switch(use_format,
-#                                "numeric" = as.numeric(x),
-#                                "date" = as.Date(x, format = format),
-#                                "datetime" = as.POSIXlt(x, format = format))
-#   }, USE.NAMES = FALSE)
-# }
 
 #' Get recent directory by date
 #'
 #' Looks at the directories and assumes the date
 #'
-#' @param dirs A directory.
-#' @param dt_pattern A pattern to be passed to filter for the directory.
-#' @param dt_format A format to be passed for the date.
+#' @param x A directory
+#' @param dt_pattern A pattern to be passed to filter for the directory
+#' @param dt_format One or more formats to try
+#' @param all Logical, if `TRUE` will recursively search for directories
 #' @export
 
-get_dir_recent_date <- function(dirs, dt_pattern = NULL, dt_format = NULL) {
-  if (is.null(dt_pattern)) dt_pattern <- "^[[:digit:]]{4}-[[:digit:]]{2}-[[:digit:]]{2}\\s[[:digit:]]{6}$"
-  if (is.null(dt_format)) dt_format <- "%Y-%m-%d %H%M%S"
-
-  # as.POSIXlt(x, tz = "", format,
-  #            tryFormats = c("%Y-%m-%d %H:%M:%OS",
-  #                           "%Y/%m/%d %H:%M:%OS",
-  #                           "%Y-%m-%d %H:%M",
-  #                           "%Y/%m/%d %H:%M",
-  #                           "%Y-%m-%d",
-  #                           "%Y/%m/%d",
-  #                           "%Y-%b-%d %H%M%S"))
-
-  dir_int <- which.max(suppressWarnings(sapply(list.files(dirs, pattern = dt_pattern), as.POSIXct, dt_format, USE.NAMES = F)))
-  list.files(dirs, pattern = dt_pattern, full.names = T)[dir_int]
+get_dir_recent_date <- function(x = ".", dt_pattern = NULL, dt_format = NULL, all = FALSE) {
+  dt_pattern <- dt_pattern %||% .default_dt_pattern
+  dt_format <- dt_format %||% .default_dt_format
+  dirs <- list_dirs(x, pattern = dt_pattern, basename = TRUE, all = all)
+  dirs[which.max(sapply(basename(dirs), as.POSIXct, tryFormats = dt_format, optional = TRUE))]
 }
+
+.default_dt_pattern <- "^[[:digit:]]{4}.?[[:digit:]]{2}.?[[:digit:]]{2}.?[[:digit:]]{2}.?[[:digit:]]{2}.?[[:digit:]]{2}(.?[PA]M)?$"
+
+.default_dt_format <- c(
+  "%Y-%m-%d %H %M %S",
+  "%Y %m %d %H %M %S",
+  "%Y-%m-%d %H%M%S",
+  "%Y %m %d %H%M%S",
+  "%Y%m%d %H %M %S",
+  "%Y%m%d %H%M%S"
+  )
 
 #' Get recent directory by number name
 #'
 #' Finds the directory where the number is the greatest.  This can be useful for when folders are created as run IDs.
 #'
-#' @param dir The directory to look in.
+#' @param x The directory to look in
 #' @export
 
-get_dir_max_number <- function(dir) {
-  dir_int <- which.max(list.files(dir, pattern = "^[:digit:]+$"))
-  list.files(dir, pattern = "^[:digit:]+$", full.names = T)[dir_int]
+get_dir_max_number <- function(x) {
+  files <- list_dirs(x, pattern = "^[[:digit:]]+$", basename = TRUE)
+  dir_int <- which.max(as.numeric(basename(files)))
+  files[dir_int]
 }
 
 
@@ -73,44 +60,30 @@ get_dir_max_number <- function(dir) {
 #'
 #' A function where you can detect the most recent file from a directory.
 #'
-#' @param dir The directory in which to search the file
-#' @param pattern The regularly expression to be passed to to the file
-#' @param negate Logical, if TRUE, files with matching `pattern` will be removed
+#' @param x The directory in which to search the file
 #' @param exclude_temp Logical, if TRUE files that begin with "^\\~\\$" are excluded
-#' @param recursive Logical, passed to `list.files(., recursive)`
+#' @param ... Additional arguments passed to [jordan::list_files()]
 #' @return The full name of the most recent file from the stated directory
 #'
 #' @export
 
-get_recent_file <- function(dir, pattern = NULL, negate = FALSE, exclude_temp = TRUE, recursive = FALSE) {
-  stopifnot(dir.exists(dir))
-  files <- if (negate) {
-    lf <- list.files(dir, pattern = NULL, recursive = recursive)
-    grep(pattern, lf, value = TRUE, invert = TRUE)
-  } else {
-    list.files(dir, pattern = pattern, recursive)
-  }
+get_recent_file <- function(x, exclude_temp = TRUE, ...) {
+  stopifnot(is_dir(x))
+
+  files <- list_files(x, ...)
 
   if (exclude_temp) {
-    files <- grep("^\\~\\$", files, value = TRUE, invert = TRUE)
+    files <- remove_temp_files(files)
   }
 
-  res <- file_path(dir, files)
+  stopifnot("No files found" = !is_length0(files))
 
-  if (!length(res)) {
-    stop("No files found.", call. = FALSE)
-  } else if (length(res) == 1) {
-  } else {
-    times <- file.mtime(res)
-    res <- res[times == max(times)]
-
-    if (length(res) > 1) {
-      warning("More than one file found.", call. = FALSE)
-    }
-  }
-  res
+  newest_file(files)
 }
 
+remove_temp_files <- function(x) {
+  x[grep("^\\~\\$|\\~$", basename(x), invert = TRUE)]
+}
 
 
 #' Normalize paths
@@ -175,6 +148,15 @@ user_file <- function(..., check = FALSE, remove = check) {
 #' @name file_info
 newest_file <- function(x) {
   x <- norm_path(x, check = TRUE)
+  x <- x[is_file(x)]
+  x[which.max(file.mtime(x))]
+}
+
+#' @export
+#' @rdname file_info
+newest_dir <- function(x) {
+  x <- norm_path(x, check = TRUE)
+  x <- x[is_dir(x)]
   x[which.max(file.mtime(x))]
 }
 
@@ -182,6 +164,15 @@ newest_file <- function(x) {
 #' @rdname file_info
 oldest_file <- function(x) {
   x <- norm_path(x, check = TRUE)
+  x <- x[is_file(x)]
+  x[which.min(file.mtime(x))]
+}
+
+#' @export
+#' @rdname file_info
+oldest_dir <- function(x) {
+  x <- norm_path(x, check = TRUE)
+  x <- x[is_dir(x)]
   x[which.min(file.mtime(x))]
 }
 
@@ -189,6 +180,7 @@ oldest_file <- function(x) {
 #' @rdname file_info
 largest_file <- function(x) {
   x <- norm_path(x, check = TRUE)
+  x <- x[is_file(x)]
   x[which.max(file.size(x))]
 }
 
@@ -196,6 +188,7 @@ largest_file <- function(x) {
 #' @rdname file_info
 smallest_file <- function(x) {
   x <- norm_path(x, check = TRUE)
+  x <- x[is_file(x)]
   x[which.min(file.size(x))]
 }
 
@@ -207,8 +200,9 @@ smallest_file <- function(x) {
 #' @details
 #' `open_file` is an alternative to [base::shell.exec()] that can take take
 #'   multiple files.
-#' `list_files` is mostly a wrapper for [base::list.files()] with preferred
-#'   defaults.
+#' `list_files` and `list_dirs` are mostly wrappers for [base::list.files()] and
+#'   [base::list.dirs()] with preferred defaults and pattern searching on the
+#'   full file path.
 #'
 #' @inheritParams norm_path
 #' @inheritParams base::list.files
@@ -216,6 +210,10 @@ smallest_file <- function(x) {
 #' @param all a logical value. If FALSE, only the names of visible files are
 #'   returned (following Unix-style visibility, that is files whose name does
 #'   not start with a dot). If TRUE, all file names will be returned.
+#' @param basename If `TRUE` only searches pattern on the basename, otherwise on
+#'   the entire path
+#' @param negate Logical, if `TRUE` will inversely select files that do not
+#'   match the provided pattern
 #'
 #' @export
 #' @return A logical vector where TRUE successfully opened, FALSE did not, and
@@ -246,20 +244,104 @@ try_shell_exec <- function(x) {
 
 #' @rdname open_file
 #' @export
-list_files <- function(x = ".", pattern = NULL, ignore_case = FALSE, all = FALSE) {
+list_files <- function(x = ".", pattern = NULL, ignore_case = FALSE, all = FALSE, negate = FALSE, basename = FALSE) {
   path <- norm_path(x, check = TRUE)
-  if (is.na(path)) {
+
+  if (length(path) == 1L && is.na(path)) {
     return(NA_character_)
   }
-  out <- list.files(
-    path = x,
-    pattern = pattern,
-    all.files = all,
-    full.names = TRUE,
-    recursive = all,
-    ignore.case = ignore_case,
-    include.dirs = FALSE,
-    no.. = !all
+
+  files <- norm_path(
+    list.files(
+      path         = path,
+      pattern      = NULL,
+      all.files    = all,
+      full.names   = TRUE,
+      recursive    = all,
+      ignore.case  = FALSE,
+      include.dirs = FALSE,
+      no..         = FALSE
+    )
   )
-  norm_path(out)
+
+  files <- files[is_file(files)]
+
+  if (is.null(pattern)) {
+    return(files)
+  }
+
+  if (basename) {
+    files[grep(pattern, basename(files), ignore.case = ignore_case, invert = negate)]
+  } else {
+    grep(pattern, files, ignore.case = ignore_case, value = TRUE, invert = negate)
+  }
+}
+
+#' @rdname open_file
+#' @export
+list_dirs <- function(x = ".", pattern = NULL, ignore_case = FALSE, all = FALSE, basename = FALSE, negate = FALSE) {
+  path <- norm_path(x, check = TRUE)
+
+  if (length(path) == 1L && is.na(path)) {
+    return(NA_character_)
+  }
+
+  dirs <- norm_path(
+    list.dirs(
+      path         = path,
+      full.names   = TRUE,
+      recursive    = all
+    )
+  )
+
+  if (is.null(pattern)) {
+    return(dirs)
+  }
+
+  if (basename) {
+    dirs[grep(pattern, basename(dirs), ignore.case = ignore_case, invert = negate)]
+  } else {
+    grep(pattern, dirs, ignore.case = ignore_case, value = TRUE, invert = negate)
+  }
+}
+
+is_dir <- function(x) {
+  dir.exists(x)
+}
+
+is_file <- function(x) {
+  file.exists(x) & !is_dir(x)
+}
+
+file_create <- function(x, overwrite = FALSE) {
+  dirs <- is_dir(x)
+
+  if (any(dirs)) {
+    warning("Cannot create files that are directories:",
+            paste0("\n   ", norm_path(x[dirs])),
+            call. = FALSE)
+    x <- x[!dirs]
+  }
+
+  if (overwrite) {
+    file.remove(x[is_file(x)])
+  }
+
+  invisible(file.create(x, showWarnings = TRUE))
+}
+
+dir_create <- function(x, overwrite = FALSE) {
+  if (overwrite) {
+    e <- is_dir(x)
+
+    if (any(e)) {
+      for (i in x[e]) {
+        if (dir.exists(i)) {
+          unlink(i, recursive = TRUE)
+        }
+      }
+    }
+  }
+
+  invisible(dir.create(x, showWarnings = TRUE, recursive = TRUE))
 }

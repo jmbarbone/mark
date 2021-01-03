@@ -41,10 +41,11 @@ Suggests:
     pROC,
     rstudioapi,
     stringi,
+    spelling,
     testthat,
     rmarkdown,
     xfun,
-    spelling
+    withr
 Remotes:
     gaborcsardi/prompt,
     seasmith/AlignAssign
