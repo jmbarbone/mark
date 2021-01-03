@@ -21,8 +21,6 @@ environments <- function() {
   invisible(s)
 }
 
-
-
 #' @export
 #' @rdname list_environments
 ls_all <- function(all.names = FALSE) {

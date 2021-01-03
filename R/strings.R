@@ -1,4 +1,3 @@
-
 #' String Slice
 #'
 #' Slice/split a string into multiple lines by the desired length of the line.
@@ -93,6 +92,7 @@ str_match <- function(x, pattern, perl = FALSE, ignore.case = FALSE) {
   sub(pattern, "\\1", x,  perl = perl, ignore.case = ignore.case)
 }
 
+
 #' Format string to a regular expression
 #'
 #' @param x A date format, assuming
@@ -121,7 +121,6 @@ format_to_regex <- function(x) {
   x <- sub("%Y", "[[:digit:]]{4}", x)
   x
 }
-
 
 month_abbr_regex <- sprintf("(%s)", paste(month.abb,  collapse = "|"))
 month_name_regex <- sprintf("(%s)", paste(month.name, collapse = "|"))

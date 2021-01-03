@@ -97,7 +97,7 @@ get_labels.default <- function(x) {
 #' @export
 #' @rdname labels
 view_labels <- function(x, title) {
-  if(missing(title)) {
+  if (missing(title)) {
     title <- paste0(as.character(substitute(x)), " - Labels")
   }
 
