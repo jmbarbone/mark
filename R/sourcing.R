@@ -83,6 +83,7 @@ try_ksource <- function(file, ..., cd = FALSE) {
 #' ```{r hello label}
 #' text <- "hello, world"
 #' print(text)
+#' print(TRUE)
 #' ```
 #'
 #' ```{r another label}
@@ -92,20 +93,22 @@ try_ksource <- function(file, ..., cd = FALSE) {
 #'
 #' writeLines(text, con = temp_rmd)
 #'
-#' read_named_chunk(temp_rmd, "hello label")
+#' eval_named_chunk(temp_rmd, "hello label")
+#' # [1] "hello, world"
+#' # [1] TRUE
 #' }
 
 eval_named_chunk <- function(rmd_file, label_name, ...) {
-  stopifnot(tolower(tools::file_ext(rmd_file)) == "rmd")
+  stopifnot(grepl("\\.[Rr][Mm][Dd]$", rmd_file))
 
   lines <- readLines(rmd_file)
   label_line <- grep(paste0("\\{r ", label_name), lines)[1]
 
-  stopifnot(!is.na(label_line))
+  stopifnot("label not found in .Rmd file" = !is.na(label_line))
 
   lines <- lines[(label_line + 1):length(lines)]
   exp <- lines[1:(grep("[```]", lines)[1] - 1)]
-  eval(parse(text = exp), ...)
+  ept(exp, envir = new.env())
 }
 
 
@@ -142,13 +145,15 @@ source_r_file <- function(path, echo = FALSE, quiet = FALSE, ...) {
   stopifnot("Must be a .R file" = grepl("\\.[rR]$", path))
 
   if (!file.exists(path)) {
-    stop(sprintf("File << %s >> not found.", path), call. = FALSE)
+    stop(sprintf('File "%s" not found.', path), call. = FALSE)
   }
 
   st <- system.time(
     tryCatch(
       source(path, echo = echo, ..., chdir = FALSE),
-      error = function(e) stop("Error in ", path, "\n", e, call. = FALSE)
+      error = function(e) {
+        stop("Error in ", path, "\n", e, call. = FALSE)
+      }
     )
   )
 

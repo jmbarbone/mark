@@ -28,6 +28,7 @@ print("that is wrong")
 ```{r hello label}
 text <- "hello, world"
 print(text)
+print(TRUE)
 ```
 
 ```{r another label}
@@ -37,6 +38,8 @@ warning("wrong label")
 
 writeLines(text, con = temp_rmd)
 
-read_named_chunk(temp_rmd, "hello label")
+eval_named_chunk(temp_rmd, "hello label")
+# [1] "hello, world"
+# [1] TRUE
 }
 }
