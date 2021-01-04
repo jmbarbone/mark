@@ -67,7 +67,6 @@ try_ksource <- function(file, ..., cd = FALSE) {
 #'
 #' @param rmd_file Absolute path to rmd file
 #' @param label_name Name of label
-#' @param ... Additional arguments passed to [base::eval()]
 #'
 #' @export
 #'
@@ -98,7 +97,7 @@ try_ksource <- function(file, ..., cd = FALSE) {
 #' # [1] TRUE
 #' }
 
-eval_named_chunk <- function(rmd_file, label_name, ...) {
+eval_named_chunk <- function(rmd_file, label_name) {
   stopifnot(grepl("\\.[Rr][Mm][Dd]$", rmd_file))
 
   lines <- readLines(rmd_file)

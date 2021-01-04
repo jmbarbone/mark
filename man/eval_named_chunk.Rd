@@ -4,14 +4,12 @@
 \alias{eval_named_chunk}
 \title{Evaluate a  Named Chunk}
 \usage{
-eval_named_chunk(rmd_file, label_name, ...)
+eval_named_chunk(rmd_file, label_name)
 }
 \arguments{
 \item{rmd_file}{Absolute path to rmd file}
 
 \item{label_name}{Name of label}
-
-\item{...}{Additional arguments passed to \code{\link[base:eval]{base::eval()}}}
 }
 \description{
 Evaluate a named chunk from an Rmd file.
