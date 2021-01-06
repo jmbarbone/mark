@@ -85,17 +85,6 @@ that <- function(x, arr.ind = FALSE, useNames = TRUE) {
 }
 
 
-#' Character split
-#'
-#' Split apart a string by each character
-#'
-#' @param x A vector of strings to split
-#' @export
-chr_split <- function(x) {
-  stopifnot("x must be a single element" = length(x) == 1)
-  strsplit(as.character(x), "")[[1]]
-}
-
 is_length0 <- function(x) {
   length(x) == 0L
 }
