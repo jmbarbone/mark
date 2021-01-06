@@ -2,6 +2,20 @@
 magrittr::`%>%`
 
 # Like rlang::`%||%` but uses base is.null -- same thing
+
+#' Default value for NULL
+#'
+#' Replace if `NULL`
+#'
+#' @details
+#' A mostly copy of `rlang`'s `%||%` except does not use [rlang::is_null()],
+#'   which, currently, calls the same primitive `is.null` function as
+#'   [base::is.null()].
+#'
+#' @param x,y If `x` is `NULL` returns `y`; otherwise `x`
+#'
+#' @export
+#' @name null_default
 `%||%` <- function(x, y) {
   if (is.null(x)) y else x
 }
@@ -84,17 +98,6 @@ that <- function(x, arr.ind = FALSE, useNames = TRUE) {
   which(x, arr.ind = arr.ind, useNames = useNames)
 }
 
-
-#' Character split
-#'
-#' Split apart a string by each character
-#'
-#' @param x A vector of strings to split
-#' @export
-chr_split <- function(x) {
-  stopifnot("x must be a single element" = length(x) == 1)
-  strsplit(as.character(x), "")[[1]]
-}
 
 is_length0 <- function(x) {
   length(x) == 0L

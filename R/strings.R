@@ -124,3 +124,14 @@ format_to_regex <- function(x) {
 
 month_abbr_regex <- sprintf("(%s)", paste(month.abb,  collapse = "|"))
 month_name_regex <- sprintf("(%s)", paste(month.name, collapse = "|"))
+
+#' Character split
+#'
+#' Split apart a string by each character
+#'
+#' @param x A vector of strings to split
+#' @export
+chr_split <- function(x) {
+  stopifnot("x must be a single element" = length(x) == 1)
+  strsplit(as.character(x), "")[[1]]
+}
