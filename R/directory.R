@@ -305,12 +305,27 @@ list_dirs <- function(x = ".", pattern = NULL, ignore_case = FALSE, all = FALSE,
   }
 }
 
+#' Is File/Directory
+#'
+#' Is the path a file/directory?
+#'
+#' @details
+#' These are essentially taken from [utils::file_test()] for `op = '-d'` and
+#'   `op = -f` but separated.
+#'
+#' @param x A vector of file paths
+#' @export
+
 is_dir <- function(x) {
   dir.exists(x)
 }
 
+# slightly faster than `file.exists(x) & !is_dir(x)`
+#' @rdname is_dir
+#' @export
 is_file <- function(x) {
-  file.exists(x) & !is_dir(x)
+  isdir <- file.info(x, extra_cols = FALSE)$isdir
+  !is.na(isdir) & !isdir
 }
 
 file_create <- function(x, overwrite = FALSE) {
