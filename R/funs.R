@@ -1,56 +1,34 @@
-#' Match params
-#'
-#' Param matching for an argument
-#'
-#' @description
-#' Much like [base::match.arg()] with a few key differences:
-#' * Will not perform partial matching
-#' * Will not return error messages with ugly quotation marks
-#'
-#' @param param The parameter
-#' @param choices The available choices
-#'
-#' @export
-match_param <- function(param, choices) {
-  stopifnot(!is.null(param))
-
-  param_c <- as.character(substitute(param))
-
-  if (missing(choices)) {
-    parent <- sys.parent()
-    forms <- formals(sys.function(parent))
-    choices <- eval(forms[[param_c]], envir = parent)
-  }
-
-  res <- choices[match(param[1], choices, nomatch = 0L)[1]]
-
-  if (length(res) == 0) {
-    stop(sprintf(
-      '`match_param(%s)` failed in `%s`:\n  `%s` must be one of the following: "%s"',
-      param_c,
-      within_call(),
-      param_c,
-      paste(choices, collapse = '", "')
-    ),
-    call. = FALSE)
-  }
-
-  res
-}
-
 #' Function within
 #'
 #' Returns the function call you are within
 #'
+#' @param n The number of calls to move out from
+#'
 #' @export
 within_call <- function() {
-  as.character(as.expression(sys.call(2)))
+  s <- sys.call(-1)
+  as.character(as.expression(s))
 }
 
 #' @rdname within_call
 #' @export
 within_fun <- function() {
-  as.character(sys.call(2))
+  s <- sys.call(-1)
+  as.character(s)[1]
+}
+
+#' @rdname within_call
+#' @export
+outer_call <- function(n = 0) {
+  s <- sys.call(-2 - n)
+  as.character(as.expression(s))
+}
+
+#' @rdname within_call
+#' @export
+outer_fun <- function(n = 0) {
+  s <- sys.call(-2 - n)
+  as.character(s)[1]
 }
 
 #' Require namespace

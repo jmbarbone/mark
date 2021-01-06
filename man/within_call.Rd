@@ -3,11 +3,20 @@
 \name{within_call}
 \alias{within_call}
 \alias{within_fun}
+\alias{outer_call}
+\alias{outer_fun}
 \title{Function within}
 \usage{
 within_call()
 
 within_fun()
+
+outer_call(n = 0)
+
+outer_fun(n = 0)
+}
+\arguments{
+\item{n}{The number of calls to move out from}
 }
 \description{
 Returns the function call you are within
