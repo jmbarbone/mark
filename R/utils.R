@@ -99,3 +99,21 @@ chr_split <- function(x) {
 is_length0 <- function(x) {
   length(x) == 0L
 }
+
+
+#' Limit
+#'
+#' Limit a numeric vector by lower and upper bounds
+#'
+#' @param x A numeric vector
+#' @param lower A lower limit (as `x < lower`)
+#' @param upper An upper limit (as `x > higher`)
+#'
+#' @export
+limit <- function(x, lower = min(x), upper = max(x)) {
+  stopifnot(lower <= upper)
+  x[x < lower] <- lower
+  x[x > upper] <- upper
+  x
+}
+
