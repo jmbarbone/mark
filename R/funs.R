@@ -39,8 +39,9 @@ outer_fun <- function(n = 0) {
 #' @export
 #' @references http://r-pkgs.had.co.nz/description.html
 require_namespace <- function(namespace) {
+  of <- outer_fun()
   if (!rn(namespace)) {
-    stop(paste0("Package `", namespace, "`needed for this function to work."),
+    stop("Package `", namespace, "` needed for `", of, "` to work.",
          call. = FALSE)
   }
 }

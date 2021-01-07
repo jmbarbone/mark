@@ -22,3 +22,21 @@ test_that("outer_*()", {
   bar <- function() outer_fun()
   expect_equal(foo(), "foo")
 })
+
+test_that("require_namespace()", {
+  expect_error(require_namespace("fake-package"))
+
+  foo <- function() {
+    require_namespace("not-real")
+  }
+
+  bar <- function() {
+    foo()
+  }
+
+  err <- "Package .not-real. needed for .foo. to work"
+  # Returns function name that calls require_namespace()
+  expect_error(foo(), err)
+  expect_error(bar(), err)
+})
+
