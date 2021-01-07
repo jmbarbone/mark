@@ -1,0 +1,14 @@
+key,field,author,title,journal,year,number,pages,month,note,volume,publisher,series,address,edition,isbn,howpublished,booktitle,editor,organization,chapter,school,institution
+article,article,Peter Adams,The title of the work,The name of the journal,1993,2,201-213,7,An optional note,4,,,,,,,,,,,,
+book,book,Peter Babington,The title of the work,,1993,,,7,An optional note,4,The name of the publisher,10,The address,3,3257227892,,,,,,,
+booklet,booklet,Peter Caxton,The title of the work,,1993,,,7,An optional note,,,,The address of the publisher,,,How it was published,,,,,,
+conference,conference,Peter Draper,The title of the work,,1993,,213,7,An optional note,4,The publisher,5,The address of the publisher,,,,The title of the book,The editor,The organization,,,
+inbook,inbook,Peter Eston,The title of the work,,1993,,201-213,7,An optional note,4,The name of the publisher,5,The address of the publisher,3,,,,,,8,,
+incollection,incollection,Peter Farindon,The title of the work,,1993,,201-213,7,An optional note,4,The name of the publisher,5,The address of the publisher,3,,,The title of the book,The editor,,8,,
+manual,manual,Peter Gainsford,The title of the work,,1993,,,7,An optional note,,,,The address of the publisher,3,,,,,The organization,,,
+mastersthesis,mastersthesis,Peter Harwood,The title of the work,,1993,,,7,An optional note,,,,The address of the publisher,,,,,,,,The school of the thesis,
+misc,misc,Peter Isley,The title of the work,,1993,,,7,An optional note,,,,,,,How it was published,,,,,,
+phdthesis,phdthesis,Peter Joslin,The title of the work,,1993,,,7,An optional note,,,,The address of the publisher,,,,,,,,The school of the thesis,
+proceedings,proceedings,,The title of the work,,1993,,,7,An optional note,4,The name of the publisher,5,The address of the publisher,,,,,Peter Kidwelly,The organization,,,
+techreport,techreport,Peter Lambert,The title of the work,,1993,2,,7,An optional note,,,,The address of the publisher,,,,,,,,,The institution that published
+unpublished,unpublished,Peter Marcheford,The title of the work,,1993,,,7,An optional note,,,,,,,,,,,,,
