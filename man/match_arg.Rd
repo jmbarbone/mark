@@ -44,3 +44,6 @@ tryCatch(
   finally = invisible()
 )
 }
+\seealso{
+\code{\link[=match_param]{match_param()}}
+}

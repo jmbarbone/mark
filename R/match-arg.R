@@ -11,6 +11,8 @@
 #' @param table A table of choices
 #' @export
 #'
+#' @seealso [jordan::match_param()]
+#'
 #' @examples
 #' x <- c("apple", "banana", "orange")
 #' match_arg("b", x)
@@ -37,7 +39,9 @@
 #' )
 
 match_arg <- function(x, table) {
-  if (is.null(x)) return(NULL)
+  if (is.null(x)) {
+    return(NULL)
+  }
 
   char_sub <- as.character(substitute(x))
 
@@ -51,7 +55,52 @@ match_arg <- function(x, table) {
 
   if (!length(out)) {
     stop(as.character(substitute(x)), ": \'", x, "\' did not match any of the following:\n\   '",
-         paste(table, collapse = "\', \'"), "\'", call. = FALSE)
+         paste(table, collapse = "\', \'"), "\'",
+         call. = FALSE)
   }
   out
+}
+
+#' Match params
+#'
+#' Param matching for an argument
+#'
+#' @description
+#' Much like [base::match.arg()] with a few key differences:
+#' * Will not perform partial matching
+#' * Will not return error messages with ugly quotation marks
+#'
+#' @param param The parameter
+#' @param choices The available choices
+#'
+#' @seealso [jordan::match_arg()]
+#'
+#' @export
+match_param <- function(param, choices) {
+  # browser()
+  stopifnot(!is.null(param))
+
+  param_c <- as.character(as.expression(substitute(param)))
+
+  if (missing(choices)) {
+    parent <- sys.parent()
+    forms <- formals(sys.function(parent))
+    choices <- eval(forms[[param_c]], envir = parent)
+  }
+
+  res <- choices[match(param[1], choices, nomatch = 0L)[1]]
+  ocall <- outer_call()
+
+  if (length(res) == 0) {
+    stop(sprintf(
+      '`match_param(%s)` failed in `%s`:\n  `%s` must be one of the following: "%s"',
+      param_c,
+      ocall,
+      param_c,
+      collapse(choices, sep = '", "')
+    ),
+    call. = FALSE)
+  }
+
+  res
 }
