@@ -1,6 +1,9 @@
 test_that("clipboard", {
+  skip_if_not(is_windows(), "Is Windows?")
+
   cb <- read_clipboard()
   on.exit(write_clipboard(cb), add = TRUE)
+  clear_clipboard()
 
   test_clipboard <- function(x) {
     expect_error(write_clipboard(x), NA)

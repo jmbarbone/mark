@@ -39,6 +39,9 @@ write_clipboard.list <- function(x, sep = "\t", show_NA = FALSE, ...) {
 #' @export
 #' @rdname clipboard
 read_clipboard <- function(method = c("default", "data.frame", "tibble"), ...) {
+
+  stopifnot("`jordan::read_clipboard()` is only valid for Windows" = is_windows())
+
   switch(
     match_param(method),
 
@@ -76,6 +79,7 @@ read_clipboard <- function(method = c("default", "data.frame", "tibble"), ...) {
 }
 
 clear_clipboard <- function() {
+  stopifnot("`jordan::write_clipboard()` is only valid for Windows" = is_windows())
   utils::writeClipboard("")
 }
 
@@ -111,3 +115,6 @@ try_vector_formats <- function(x) {
   x
 }
 
+is_windows <- function() {
+  Sys.info()[["sysname"]] == "Windows"
+}
