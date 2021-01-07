@@ -27,31 +27,24 @@ startup_funs
 }
 \description{
 Functions that try to assist with start ups
-
-A collection of startup functions that require no parameters
 }
 \details{
 These functions can be used to create an environment for startup.
 }
+\section{Start up}{
+
+For more information on start up:
+\itemize{
+\item https://rstats.wtf/r-startup.html
+\item \code{?Startup}
+}
+}
+
 \seealso{
 Other startup_utils: 
 \code{\link{.NiceMessage}()},
 \code{\link{Reload}},
-\code{\link{ht}()}
-
-Other startup_utils: 
-\code{\link{.NiceMessage}()},
-\code{\link{Reload}},
-\code{\link{ht}()}
-
-Other startup_utils: 
-\code{\link{.NiceMessage}()},
-\code{\link{Reload}},
-\code{\link{ht}()}
-
-Other startup_utils: 
-\code{\link{.NiceMessage}()},
-\code{\link{Reload}},
+\code{\link{attached_packages}},
 \code{\link{ht}()}
 }
 \concept{startup_utils}

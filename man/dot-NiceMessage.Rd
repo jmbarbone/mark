@@ -16,6 +16,7 @@ Adds a nice message to the start
 \seealso{
 Other startup_utils: 
 \code{\link{Reload}},
+\code{\link{attached_packages}},
 \code{\link{ht}()},
 \code{\link{startup_funs}}
 }

@@ -22,6 +22,7 @@ This contains a separate method for class \code{tbl_df}
 Other startup_utils: 
 \code{\link{.NiceMessage}()},
 \code{\link{Reload}},
+\code{\link{attached_packages}},
 \code{\link{startup_funs}}
 }
 \concept{startup_utils}

@@ -5,6 +5,11 @@
 #' @details
 #' These functions can be used to create an environment for startup.
 #'
+#' @section Start up:
+#' For more information on start up:
+#'   * https://rstats.wtf/r-startup.html
+#'   * `?Startup`
+#'
 #' @param env The environment to save objects
 #' @name startup_funs
 #' @family startup_utils
@@ -12,7 +17,6 @@ NULL
 
 
 #' @export
-#' @family startup_utils
 #' @rdname startup_funs
 .LoadFunctionsFromJordan <- function(env = parent.frame()) {
   e <- new.env()
@@ -20,6 +24,7 @@ NULL
   j <- asNamespace("jordan")
 
   sf <- get("startup_funs", envir = j)
+
   for (f in sf) {
     fun <- get(f, envir = j)
     assign(f, fun, envir = env)
@@ -33,9 +38,11 @@ NULL
     # As far as I can tell, this has to be created inside the function to work
     #   properly.  I mean, I could always be wrong and not be good enough?
     op <- get("op", envir = get(".pe", env))
+
     if (keep_prompt) {
       op$prompt <- getOption("prompt")
     }
+
     on.exit(options(op), add = TRUE)
     invisible()
   }
@@ -86,7 +93,7 @@ startup_funs <- c(
 #' @param attached A character vector of packages - if NULL will find packages
 #'
 #' @export
-#' @family startup_funs
+#' @family startup_utils
 #' @name attached_packages
 .SendAttachedPackagesToREnviron <- function() {
   attached <- grep("^package[:]", search(), value = TRUE)
@@ -112,7 +119,6 @@ startup_funs <- c(
 
 
 #' @export
-#' @family startup_funs
 #' @rdname attached_packages
 .RemoveAttachedPackages <- function(attached = NULL) {
   if (is.null(attached)) {
@@ -168,7 +174,7 @@ names(.default_packages) <- paste0("package:", .default_packages)
 }
 
 #' @export
-#' @name Reload
+#' @rdname Reload
 .Restart <- function() {
   rn_soft("rstudioapi")
   rstudioapi::restartSession()
@@ -176,12 +182,7 @@ names(.default_packages) <- paste0("package:", .default_packages)
 
 
 
-#' Start up functions
-#'
-#' A collection of startup functions that require no parameters
-#'
 #' @rdname startup_funs
-#' @family startup_utils
 #' @export
 .git_branch_prompt <- function() {
   rn_soft("prompt")
@@ -224,7 +225,6 @@ cat_fortune <- function() {
 
 #' @rdname startup_funs
 #' @export
-#' @family startup_utils
 .load_pipe <- function(env = parent.frame()) {
   if (!"%>%" %in% ls(envir = env)) {
     assign("%>%", magrittr::`%>%`, envir = env)
@@ -243,14 +243,7 @@ cat_fortune <- function() {
 #' @param n The number of rows to see (if length 1L, is repeated for head and
 #'   tail)
 #'
-#' @importFrom utils head
-#' @importFrom utils tail
-#'
 #' @family startup_utils
-#'
-#' @importFrom utils head
-#' @importFrom utils tail
-#'
 #' @export
 ht <- function(x, n = 5L) {
   UseMethod("ht", x)
@@ -262,10 +255,10 @@ ht.default <- function(x, n = 5L) {
 
   if (length(n) == 1L) n[2] <- n
 
-  cat(utils::capture.output(head(x, n[1])), sep = "\n")
+  cat(utils::capture.output(utils::head(x, n[1])), sep = "\n")
   cat("\t...\t...\t... \n")
   # rownames don't line up
-  cat(utils::capture.output(tail(x, n[2]))[-1], sep = "\n")
+  cat(utils::capture.output(utils::tail(x, n[2]))[-1], sep = "\n")
 
   invisible(x)
 }
@@ -274,12 +267,12 @@ ht.default <- function(x, n = 5L) {
 ht.tbl_df <- function(x, n = 5L) {
   if (length(n) == 1L) n[2] <- n
 
-  cat(utils::capture.output(head(x, n[1]))[-1], sep = "\n")
+  cat(utils::capture.output(utils::head(x, n[1]))[-1], sep = "\n")
   cat("\t...\t...\t... \n")
   # rownames don't line up
   # need to do this to maintain row numbers
   xx <- as.data.frame(x)
-  cat(utils::capture.output(tail(xx, n[2]))[-1], sep = "\n")
+  cat(utils::capture.output(utils::tail(xx, n[2]))[-1], sep = "\n")
 
   invisible(x)
 }

@@ -21,6 +21,7 @@ Reloads your session
 \seealso{
 Other startup_utils: 
 \code{\link{.NiceMessage}()},
+\code{\link{attached_packages}},
 \code{\link{ht}()},
 \code{\link{startup_funs}}
 }

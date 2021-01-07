@@ -16,4 +16,11 @@
 \description{
 Clears out attached packages and properly loads
 }
-\concept{startup_funs}
+\seealso{
+Other startup_utils: 
+\code{\link{.NiceMessage}()},
+\code{\link{Reload}},
+\code{\link{ht}()},
+\code{\link{startup_funs}}
+}
+\concept{startup_utils}
