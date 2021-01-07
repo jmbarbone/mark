@@ -21,6 +21,7 @@ eval
 http
 https
 insertImage
+jordanExtra
 jpeg
 knitr
 mahalanobis
@@ -32,14 +33,18 @@ param
 params
 pkgs
 png
+purrr's
 readLines
 requireNamespace
+rlang's
 rmd
 roc
+rstats,
 sheetname
 sig
 stackoverflow
 vapply
 Vaps
 writeDataTable
+wtf
 www
