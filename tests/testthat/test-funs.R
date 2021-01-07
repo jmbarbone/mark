@@ -40,3 +40,24 @@ test_that("require_namespace()", {
   expect_error(bar(), err)
 })
 
+test_that("quiet_stop()", {
+  expect_error(quiet_stop(), NULL)
+
+  foo <- function(x) {
+    tryCatch(quiet_stop(),
+             error = function(e) {
+               !is.null(e$message)
+             })
+  }
+
+  bar <- function(x) {
+    tryCatch(quiet_stop(),
+             error = function(e) {
+               warning(e$message)
+             })
+  }
+
+  # Message exists
+  expect_true(foo())
+  expect_warning(bar())
+})
