@@ -53,46 +53,63 @@ Slice strings:
 ``` r
 x <- stringi::stri_rand_lipsum(1)
 str_slice(x, n = 50L)
-#> [1] "Lorem ipsum dolor sit amet, sed efficitur justo nu"
-#> [2] "nc id lectus. Neque, leo, ac amet, mi sociosqu? Ri"
-#> [3] "diculus quis sed luctus orci rhoncus est nulla? Ip"
-#> [4] "sum et integer nostra dolor nisl id potenti ante c"
-#> [5] "urae. Purus sed ac, donec risus fusce praesent. Ul"
-#> [6] "tricies sapien lobortis neque faucibus turpis nec "
-#> [7] "risus. Sed eleifend mi blandit nascetur iaculis."
+#>  [1] "Lorem ipsum dolor sit amet, bibendum ipsum rutrum "
+#>  [2] "primis nisl. Ligula commodo lorem ex laoreet, adip"
+#>  [3] "iscing fermentum turpis, eget. Id, ut eget odio ve"
+#>  [4] "stibulum interdum aptent et. Ac porttitor nostra m"
+#>  [5] "i. Sed habitant, fringilla pellentesque at egestas"
+#>  [6] " lobortis risus pellentesque quisque libero proin."
+#>  [7] " Netus euismod pharetra sed, fusce tristique phase"
+#>  [8] "llus purus, conubia id. Cras iaculis per potenti i"
+#>  [9] "mperdiet auctor non et gravida posuere, leo venena"
+#> [10] "tis! Et eu velit est vestibulum, quis, ac sed ex, "
+#> [11] "lacus, mollis. Tristique in sed fusce et molestie "
+#> [12] "amet mauris! Sapien pellentesque dapibus in velit "
+#> [13] "accumsan. In mauris ligula volutpat nunc nec susci"
+#> [14] "pit eu. Nibh ante, ipsum pulvinar in nulla est et "
+#> [15] "cubilia donec primis enim dapibus ut montes eget. "
+#> [16] "Cum vestibulum nascetur eros ultricies at. Semper "
+#> [17] "augue ipsum hac dui."
 str_slice_by_word(x)
-#> [1] "Lorem ipsum dolor sit amet, sed efficitur justo nunc id lectus. Neque, leo, ac" 
-#> [2] " amet, mi sociosqu? Ridiculus quis sed luctus orci rhoncus est nulla? Ipsum et" 
-#> [3] " integer nostra dolor nisl id potenti ante curae. Purus sed ac, donec risus"    
-#> [4] " fusce praesent. Ultricies sapien lobortis neque faucibus turpis nec risus. Sed"
-#> [5] " eleifend mi blandit nascetur iaculis."
+#>  [1] "Lorem ipsum dolor sit amet, bibendum ipsum rutrum primis nisl. Ligula commodo"   
+#>  [2] " lorem ex laoreet, adipiscing fermentum turpis, eget. Id, ut eget odio"          
+#>  [3] " vestibulum interdum aptent et. Ac porttitor nostra mi. Sed habitant, fringilla" 
+#>  [4] " pellentesque at egestas lobortis risus pellentesque quisque libero proin. Netus"
+#>  [5] " euismod pharetra sed, fusce tristique phasellus purus, conubia id. Cras iaculis"
+#>  [6] " per potenti imperdiet auctor non et gravida posuere, leo venenatis! Et eu velit"
+#>  [7] " est vestibulum, quis, ac sed ex, lacus, mollis. Tristique in sed fusce et"      
+#>  [8] " molestie amet mauris! Sapien pellentesque dapibus in velit accumsan. In mauris" 
+#>  [9] " ligula volutpat nunc nec suscipit eu. Nibh ante, ipsum pulvinar in nulla est et"
+#> [10] " cubilia donec primis enim dapibus ut montes eget. Cum vestibulum nascetur eros" 
+#> [11] " ultricies at. Semper augue ipsum hac dui."
 ```
 
 Read in bibliographies:
 
 ``` r
-file <- "https://raw.githubusercontent.com/jmbarbone/bib-references/master/references.bib"
+file <- system.file("extdata", "example-bib.txt", package = "jordan")
 bib <- read_bib(file)
 tibble::as_tibble(bib)
-#> # A tibble: 137 x 33
-#>    key   field author journal title year  issn  month number pages volume doi  
-#>    <chr> <chr> <chr>  <chr>   <chr> <chr> <chr> <chr> <chr>  <chr> <chr>  <chr>
-#>  1 ames~ arti~ Ames,~ Journa~ "The~ 2006  0092~ aug   4      440-~ 40     10.1~
-#>  2 ande~ arti~ Ander~ Psycho~ "Eff~ 2001  <NA>  <NA>  5      353-~ 12     10.1~
-#>  3 aydu~ arti~ Ayduk~ Journa~ "Reg~ 2000  <NA>  <NA>  5      776   79     10.1~
-#>  4 bake~ arti~ Baker~ Nature~ "1,5~ 2016  <NA>  <NA>  7604   452   533    10.1~
-#>  5 begl~ arti~ Begle~ Circul~ "Rep~ 2015  <NA>  <NA>  1      116-~ 116    10.1~
-#>  6 benj~ arti~ Benja~ Curren~ "RET~ 2018  2352~ <NA>  <NA>   93--~ 19     10.1~
-#>  7 benj~ arti~ Benja~ Person~ "Eff~ 2018  <NA>  <NA>  4      347-~ 22     10.1~
-#>  8 brau~ book  Braud~ <NA>    "ESP~ 2002  <NA>  <NA>  <NA>   <NA>  <NA>   <NA> 
-#>  9 burg~ arti~ Burge~ Motiva~ "The~ 1979  <NA>  <NA>  4      381-~ 3      10.1~
-#> 10 bush~ arti~ Bushm~ Aggres~ "{\\~ 2018  <NA>  sep   1      33--~ 45     10.1~
-#> # ... with 127 more rows, and 21 more variables: publisher <chr>, note <chr>,
-#> #   abstract <chr>, eprint <chr>, isbn <chr>, url <chr>, keywords <chr>,
-#> #   websitetitle <chr>, urldate <chr>, organization <chr>, address <chr>,
-#> #   language <chr>, day <chr>, retraction <chr>, school <chr>,
-#> #   institution <chr>, howpublished <chr>, comment <chr>, event <chr>,
-#> #   booktitle <chr>, conference <chr>
+#> # A tibble: 13 x 23
+#>    key   field author title journal year  number pages month note  volume
+#>    <chr> <chr> <chr>  <chr> <chr>   <chr> <chr>  <chr> <chr> <chr> <chr> 
+#>  1 arti~ arti~ Peter~ The ~ The na~ 1993  2      201-~ 7     An o~ 4     
+#>  2 book  book  Peter~ The ~ <NA>    1993  <NA>   <NA>  7     An o~ 4     
+#>  3 book~ book~ Peter~ The ~ <NA>    1993  <NA>   <NA>  7     An o~ <NA>  
+#>  4 conf~ conf~ Peter~ The ~ <NA>    1993  <NA>   213   7     An o~ 4     
+#>  5 inbo~ inbo~ Peter~ The ~ <NA>    1993  <NA>   201-~ 7     An o~ 4     
+#>  6 inco~ inco~ Peter~ The ~ <NA>    1993  <NA>   201-~ 7     An o~ 4     
+#>  7 manu~ manu~ Peter~ The ~ <NA>    1993  <NA>   <NA>  7     An o~ <NA>  
+#>  8 mast~ mast~ Peter~ The ~ <NA>    1993  <NA>   <NA>  7     An o~ <NA>  
+#>  9 misc  misc  Peter~ The ~ <NA>    1993  <NA>   <NA>  7     An o~ <NA>  
+#> 10 phdt~ phdt~ Peter~ The ~ <NA>    1993  <NA>   <NA>  7     An o~ <NA>  
+#> 11 proc~ proc~ <NA>   The ~ <NA>    1993  <NA>   <NA>  7     An o~ 4     
+#> 12 tech~ tech~ Peter~ The ~ <NA>    1993  2      <NA>  7     An o~ <NA>  
+#> 13 unpu~ unpu~ Peter~ The ~ <NA>    1993  <NA>   <NA>  7     An o~ <NA>  
+#> # ... with 12 more variables: publisher <chr>, series <chr>, address <chr>,
+#> #   edition <chr>, isbn <chr>, howpublished <chr>, booktitle <chr>,
+#> #   editor <chr>, organization <chr>, chapter <chr>, school <chr>,
+#> #   institution <chr>
 ```
 
 More matching:
