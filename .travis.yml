@@ -3,17 +3,14 @@
 language: R
 cache: packages
 
-matrix:
-  include:
-  - r: devel
-    env: _R_CHECK_LENGTH_1_LOGIC2_=true
-    r_build_args: --no-build-vignettes
-    r_check_args: --no-vignettes
-  - r: release
-  - r: oldrel
-  - r: 3.6
-  - r: 4.0
+r:
+  - devel
+  - release
+  - oldrel
+  - 3.6
+  - 4.0
 
- env:
+env:
   global:
-  - _R_CHECK_FORCE_SUGGESTS_=TRUE
+    -_R_CHECK_FORCE_SUGGESTS_=true
+    -_R_CHECK_LENGTH_1_LOGIC2_=true
