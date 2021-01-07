@@ -9,14 +9,15 @@
 #' @export
 #'
 #' @examples
-#' round_by(sample(100, 100, replace = TRUE), by = 5)
-#' round_by(seq(1, 20, .6), 2, "ceiling")
-#' round_by(runif(10), .01, "floor")
-#' round_by(runif(10) * 100, seq(10))
+#' x <- seq(1, 13, by = 4/3)
+#'
+#' cbind(
+#'   x,
+#'   by_1 = round_by(x, 1),
+#'   by_2 = round_by(x, 2),
+#'   by_3 = round_by(x, 3)
+#' )
 
 round_by <- function(x, by = 1, method = c("round", "ceiling", "floor")) {
-  switch(match_param(method),
-         round   = round(x / by) * by,
-         floor   = mapply(function(x, by)   floor(x / by) * by, x = x, by = by, USE.NAMES = FALSE),
-         ceiling = mapply(function(x, by) ceiling(x / by) * by, x = x, by = by, USE.NAMES = FALSE))
+  do.call(match_param(method), list(x / by)) * by
 }

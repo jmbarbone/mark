@@ -63,7 +63,7 @@ str_slice_by_word(x)
 Read in bibliographies:
 
 ```{r bibs}
-file <- "https://raw.githubusercontent.com/jmbarbone/bib-references/master/references.bib"
+file <- system.file("extdata", "example-bib.txt", package = "jordan")
 bib <- read_bib(file)
 tibble::as_tibble(bib)
 ```
