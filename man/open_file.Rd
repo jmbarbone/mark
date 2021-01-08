@@ -55,7 +55,7 @@ NA did not try to open (file not found)
 Opens the given files(s)
 }
 \details{
-\code{open_file} is an alternative to \code{\link[base:shell.exec]{base::shell.exec()}} that can take take
+\code{open_file} is an alternative to \code{shell.exec()} that can take take
 multiple files.
 \code{list_files} and \code{list_dirs} are mostly wrappers for \code{\link[base:list.files]{base::list.files()}} and
 \code{\link[base:list.files]{base::list.dirs()}} with preferred defaults and pattern searching on the

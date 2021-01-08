@@ -198,7 +198,7 @@ smallest_file <- function(x) {
 #' Opens the given files(s)
 #'
 #' @details
-#' `open_file` is an alternative to [base::shell.exec()] that can take take
+#' `open_file` is an alternative to `shell.exec()` that can take take
 #'   multiple files.
 #' `list_files` and `list_dirs` are mostly wrappers for [base::list.files()] and
 #'   [base::list.dirs()] with preferred defaults and pattern searching on the
