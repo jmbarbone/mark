@@ -2,20 +2,26 @@
 % Please edit documentation in R/labels.R
 \name{labels}
 \alias{labels}
+\alias{assign_labels}
+\alias{assign_labels.default}
+\alias{assign_labels.data.frame}
 \alias{assign_label}
-\alias{assign_label.default}
-\alias{assign_label.data.frame}
 \alias{get_labels}
 \alias{get_labels.data.frame}
 \alias{get_labels.default}
 \alias{view_labels}
+\alias{remove_labels}
+\alias{remove_labels.default}
+\alias{remove_labels.data.frame}
 \title{Dataframe labels}
 \usage{
+assign_labels(x, ...)
+
+\method{assign_labels}{default}(x, label, ...)
+
+\method{assign_labels}{data.frame}(x, ...)
+
 assign_label(x, ...)
-
-\method{assign_label}{default}(x, label, ...)
-
-\method{assign_label}{data.frame}(x, ...)
 
 get_labels(x)
 
@@ -24,6 +30,12 @@ get_labels(x)
 \method{get_labels}{default}(x)
 
 view_labels(x, title)
+
+remove_labels(x, ...)
+
+\method{remove_labels}{default}(x, ...)
+
+\method{remove_labels}{data.frame}(x, cols, ...)
 }
 \arguments{
 \item{x}{A vector of data.frame}
@@ -36,6 +48,8 @@ column is the targeted colname and the second is the desired label.}
 
 \item{title}{Title for the viewer window -- if not supplemented will show as
 \code{paste0(as.character(substitute(x)), " - Labels")}}
+
+\item{cols}{A character vector of column names}
 }
 \description{
 Assign labels to a vector or data.frame.
@@ -54,4 +68,7 @@ labs <- assign_label(iris,
 labs$dummy <- ""
 get_labels(labs) # shows label as <NA> for dummy column
 # view_labels(labs)
+
+labs0 <- remove_labels(labs, c("Sepal.Length", "Sepal.Width"))
+get_labels(labs0) # No labels for Sepal.Length and Sepal.Width
 }

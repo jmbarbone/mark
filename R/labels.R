@@ -7,6 +7,7 @@
 #'   to a data.frame, `...` can be replaced with a `data.frame` where the first
 #'   column is the targeted colname and the second is the desired label.
 #' @param label A single length string of a label to be assigned
+#' @param cols A character vector of column names
 #' @param title Title for the viewer window -- if not supplemented will show as
 #'   `paste0(as.character(substitute(x)), " - Labels")`
 #'
@@ -27,14 +28,17 @@
 #' labs$dummy <- ""
 #' get_labels(labs) # shows label as <NA> for dummy column
 #' # view_labels(labs)
+#'
+#' labs0 <- remove_labels(labs, c("Sepal.Length", "Sepal.Width"))
+#' get_labels(labs0) # No labels for Sepal.Length and Sepal.Width
 
-assign_label <- function(x, ...) {
-  UseMethod("assign_label", x)
+assign_labels <- function(x, ...) {
+  UseMethod("assign_labels", x)
 }
 
 #' @export
 #' @rdname labels
-assign_label.default <- function(x, label, ...) {
+assign_labels.default <- function(x, label, ...) {
   stopifnot("`label` is NULL" = !is.null(label),
             "`label` is not of length 1L" = length(label) == 1L)
   attr(x, "label") <- label
@@ -43,10 +47,12 @@ assign_label.default <- function(x, label, ...) {
 
 #' @export
 #' @rdname labels
-assign_label.data.frame <- function(x, ...) {
+assign_labels.data.frame <- function(x, ...) {
   ls <- list(...)
 
-  stopifnot("`...` is NULL" = !is.null(unlist(ls)))
+  if (is.null(ls) || any(vap_lgl(ls, is.null))) {
+    stop("... must not have NULLs", call. = FALSE)
+  }
 
   if (inherits(ls[[1]], "data.frame")) {
     lsx <- as.vector(ls[[1]][[2]], "list")
@@ -58,16 +64,23 @@ assign_label.data.frame <- function(x, ...) {
   ma <- match(nm, colnames(x), nomatch = NA_integer_)
 
   if (anyNA(ma)) {
-    stop("Columns not found: ", paste(nm[is.na(ma)], collapse = ", "), call. = FALSE)
+    stop("Columns not found: ", collapse(nm[is.na(ma)], sep = ", "), call. = FALSE)
   }
 
   for (i in seq_along(nm)) {
     mi <- ma[i]
-    x[[mi]] <- assign_label(x[[mi]], ls[[i]])
+    x[[mi]] <- assign_labels(x[[mi]], ls[[i]])
   }
 
   x
 }
+
+#' @export
+#' @rdname labels
+assign_label <- function(x, ...) {
+  assign_labels(x, ...)
+}
+
 
 #' @export
 #' @rdname labels
@@ -78,8 +91,7 @@ get_labels <- function(x) {
 #' @export
 #' @rdname labels
 get_labels.data.frame <- function(x) {
-  stopifnot("`x` must be a data.frame" = inherits(x, "data.frame"))
-  vector2df(vap_chr(unclass(x), get_labels, .nm = TRUE), "column", "label")
+  vector2df(vap_chr(x, get_labels, .nm = TRUE), "column", "label")
 }
 
 #' @export
@@ -88,10 +100,10 @@ get_labels.default <- function(x) {
   lb <- attr(x, "label")
 
   if (is.null(lb)) {
-    NA_character_
-  } else {
-    lb
+    return(NA_character_)
   }
+
+  lb
 }
 
 #' @export
@@ -103,4 +115,35 @@ view_labels <- function(x, title) {
 
   view_fun <- get("View", envir = as.environment("package:utils"))
   view_fun(x = get_labels(x), title = title)
+}
+
+#' @export
+#' @rdname labels
+remove_labels <- function(x, ...) {
+  UseMethod("remove_labels", x)
+}
+
+#' @export
+#' @rdname labels
+remove_labels.default <- function(x, ...) {
+  attr(x, "label") <- NULL
+  x
+}
+
+#' @export
+#' @rdname labels
+remove_labels.data.frame <- function(x, cols, ...) {
+  bad <- cols %out% colnames(x)
+
+  if (any(bad)) {
+    stop("Column not found in data.frame:\n  ",
+         collapse(cols[bad], sep = ", "),
+         call. = FALSE)
+  }
+
+  for (i in cols) {
+    remove_labels(x[[i]])
+  }
+
+  x
 }

@@ -1,26 +1,39 @@
 test_that("default assignment", {
-  x <- runif(10)
-  x <- assign_label(x, "runs")
+  x0 <- c(0.350, 0.992, 0.112, 0.735, 0.598, 0.178, 0.195, 0.766, 0.816, 0.574)
+  x <- assign_labels(x0, "runs")
+  x1 <- remove_labels(x)
+
   expect_false(inherits(x, "labelled")) # Hmisc::label produces this class
   expect_equal(attr(x, "label"), "runs")
 
-  expect_error(assign_label(x, NULL), "`label` is NULL")
-  expect_error(assign_label(x, 1:2), "`label` is not of length 1L")
+  expect_error(assign_labels(x, NULL), "`label` is NULL")
+  expect_error(assign_labels(x, 1:2), "`label` is not of length 1L")
+
+  expect_equal(x0, x1)
+  expect_true(is.null(attr(x1, "label")))
 })
 
 test_that("data.frame assignment", {
-  x <- assign_label(iris, Sepal.Length = "a", Species = "b")
+  x <- assign_labels(head(iris), Sepal.Length = "a", Species = "b")
+
   exp <- data.frame(
     column = colnames(iris),
     label = c("a", NA, NA, NA, "b"),
     stringsAsFactors = FALSE
   )
 
+  exp0 <- remove_labels(x, "Species")
+  exp1 <- remove_labels(x, c("Sepal.Length", "Species"))
+
   expect_equal(get_labels(x), exp)
-  expect_error(assign_label(iris, a = "x", b = "y", `1` = 2),
+  expect_error(assign_labels(iris, a = "x", b = "y", `1` = 2),
                "Columns not found: a, b, 1")
 
-  expect_error(assign_label(iris, NULL), "`...` is NULL")
+  expect_error(assign_labels(iris, NULL))
+
+  expect_true(is.null(attr(exp0[["Species"]], "label")))
+  expect_equal(attr(exp0[["Sepal.Length"]]), "a")
+  expect_equal(exp, exp1)
 })
 
 test_that("data.frame assign with data.frame", {
@@ -28,7 +41,7 @@ test_that("data.frame assign with data.frame", {
   on.exit(options(op), add = TRUE)
   options(stringsAsFactors = FALSE)
 
-  x <- assign_label(iris, Sepal.Length = "a", Species = "b")
+  x <- assign_labels(iris, Sepal.Length = "a", Species = "b")
 
   labels <- data.frame(
     name = c("Sepal.Length", "Species"),
@@ -36,7 +49,7 @@ test_that("data.frame assign with data.frame", {
     stringsAsFactors = FALSE
   )
 
-  y <- assign_label(iris, labels)
+  y <- assign_labels(iris, labels)
 
   exp <- data.frame(
     column = colnames(iris),
@@ -51,6 +64,6 @@ test_that("data.frame assign with data.frame", {
     v2 = c("x", "y", 2),
     stringsAsFactors = FALSE
   )
-  expect_error(assign_label(iris, bad_labels),
+  expect_error(assign_labels(iris, bad_labels),
                "Columns not found: a, b, 1")
 })
