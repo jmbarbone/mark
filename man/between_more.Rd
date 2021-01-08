@@ -31,5 +31,5 @@ between_more(10, 2, 10, "gl")
 between_more(10, 2, 10, "gle")
 }
 \seealso{
-\code{\link[dplyr:case_when]{dplyr::case_when()}}
+\code{dplyr::case_when()}
 }

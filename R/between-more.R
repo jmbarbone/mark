@@ -18,7 +18,7 @@
 #'
 #' @export
 #'
-#' @seealso [dplyr::case_when()]
+#' @seealso `dplyr::case_when()`
 #' @examples
 #' between_more(10, 2, 10, "gl")
 #' between_more(10, 2, 10, "gle")
