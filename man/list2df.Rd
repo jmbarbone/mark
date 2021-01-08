@@ -28,3 +28,13 @@ Unlike \code{base::list2DF()}, \code{list2df()} tries to format the data.frame b
 the names of the list as values rather than variables.  This creates a
 longer form list that may be more tidy.
 }
+\examples{
+\dontrun{
+x <- list(a = 1, b = 2:4, c = letters[10:20])
+list2df(x, "col1", "col2", force = TRUE)
+# contrast with `base::list2DF()`
+}
+if (packageVersion("base") >= as.package_version('4.0')) {
+  list2DF(x)
+}
+}

@@ -97,14 +97,15 @@ vector2df <- function(x, name = "name", value = "value", show_NA = FALSE) {
 #' @return a `data.frame` object with columns "name" and "value" for the names
 #' of the `list` and the values in each
 #' @export
+#'
 #' @examples
 #' \dontrun{
 #' x <- list(a = 1, b = 2:4, c = letters[10:20])
 #' list2df(x, "col1", "col2", force = TRUE)
 #' # contrast with `base::list2DF()`
-#' if (packageVersion("base") >= as.package_version('4.0')) }
-#'   list2DF(x)
 #' }
+#' if (packageVersion("base") >= as.package_version('4.0')) {
+#'   list2DF(x)
 #' }
 
 list2df <- function(x, name = "name", value = "value", show_NA = FALSE, warn = TRUE) {
