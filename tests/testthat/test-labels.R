@@ -6,8 +6,8 @@ test_that("default assignment", {
   expect_false(inherits(x, "labelled")) # Hmisc::label produces this class
   expect_equal(attr(x, "label"), "runs")
 
-  expect_error(assign_labels(x, NULL), "`label` is NULL")
-  expect_error(assign_labels(x, 1:2), "`label` is not of length 1L")
+  expect_error(assign_labels(x, NULL))
+  expect_error(assign_labels(x, 1:2))
 
   expect_equal(x0, x1)
   expect_true(is.null(attr(x1, "label")))
