@@ -24,15 +24,7 @@ of the \code{list} and the values in each
 Converts a list object into a data.frame
 }
 \details{
-Unlike \code{\link[base:list2DF]{base::list2DF()}}, \code{list2df()} tries to format the data.frame by using
+Unlike \code{base::list2DF()}, \code{list2df()} tries to format the data.frame by using
 the names of the list as values rather than variables.  This creates a
 longer form list that may be more tidy.
-}
-\examples{
-\dontrun{
-x <- list(a = 1, b = 2:4, c = letters[10:20])
-list2df(x, "col1", "col2", force = TRUE)
-# contrast with `base::list2DF()` w
-list2DF(x)
-}
 }

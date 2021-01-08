@@ -84,7 +84,7 @@ vector2df <- function(x, name = "name", value = "value", show_NA = FALSE) {
 #' Converts a list object into a data.frame
 #'
 #' @details
-#' Unlike [base::list2DF()], `list2df()` tries to format the data.frame by using
+#' Unlike `base::list2DF()`, `list2df()` tries to format the data.frame by using
 #'   the names of the list as values rather than variables.  This creates a
 #'   longer form list that may be more tidy.
 #'
@@ -101,8 +101,10 @@ vector2df <- function(x, name = "name", value = "value", show_NA = FALSE) {
 #' \dontrun{
 #' x <- list(a = 1, b = 2:4, c = letters[10:20])
 #' list2df(x, "col1", "col2", force = TRUE)
-#' # contrast with `base::list2DF()` w
-#' list2DF(x)
+#' # contrast with `base::list2DF()`
+#' if (packageVersion("base") >= as.package_version('4.0')) }
+#'   list2DF(x)
+#' }
 #' }
 
 list2df <- function(x, name = "name", value = "value", show_NA = FALSE, warn = TRUE) {
@@ -139,6 +141,24 @@ list2df <- function(x, name = "name", value = "value", show_NA = FALSE, warn = T
   )
 }
 
+# base::list2DF() -- but this wasn't introduced until 4.0.0
+list2df2 <- function(x = list(), nrow = NULL) {
+  stopifnot(is.list(x), is.null(nrow) || nrow >= 0L)
+  if (n <- length(x)) {
+    if (is.null(nrow))
+      nrow <- max(lengths(x), 0L)
+    x <- lapply(x, rep_len, nrow)
+  }
+  else {
+    if (is.null(nrow))
+      nrow <- 0L
+  }
+  if (is.null(names(x)))
+    names(x) <- character(n)
+  class(x) <- "data.frame"
+  attr(x, "row.names") <- .set_row_names(nrow)
+  x
+}
 
 #' Data frame transpose
 #'

@@ -180,7 +180,7 @@ process_bib_dataframe <- function(categories, values, fields, keys) {
       }
 
       # Transpose to prep for reduce rbinding
-      new <- list2DF(as.list(data[[2]]))
+      new <- list2df2(as.list(data[[2]]))
       colnames(new) <- as.list(data[[1]])
 
       new
