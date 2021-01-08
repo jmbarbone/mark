@@ -1,6 +1,15 @@
 # unlink(tempdir(), recursive = TRUE)
 
 test_that("tests with temp dir", {
+  expect_equal_path <- function(x, y) {
+    x_short <- file.path(basename(dirname(x)), basename(x))
+    y_short <- file.path(basename(dirname(y)), basename(y))
+
+    testthat::expect_true(file.exists(y), info = "Expected path does not exist")
+    testthat::expect_equal(x_short, y_short)
+  }
+
+
   td <- tempdir(check = TRUE)
 
   withr::with_tempdir({
@@ -39,11 +48,11 @@ test_that("tests with temp dir", {
     # Should be able to create a file with the same name as a directory
     file_create(most_recent_file)
 
-    expect_equal(get_recent_dir(td), most_recent_dir)
-    expect_equal(get_dir_recent_date(td), file_path(td, dates[3]))
-    expect_equal(get_dir_max_number(td), file_path(td, 300))
+    expect_equal_path(get_recent_dir(td), most_recent_dir)
+    expect_equal_path(get_dir_recent_date(td), file_path(td, dates[3]))
+    expect_equal_path(get_dir_max_number(td), file_path(td, 300))
     expect_false(is_dir(file_path(td, "no_ext")))
-    expect_equal(get_recent_file(td), most_recent_file)
+    expect_equal_path(get_recent_file(td), most_recent_file)
   },
   tmpdir = td
   )
