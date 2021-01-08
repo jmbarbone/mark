@@ -10,8 +10,12 @@ test_that("default assignment", {
 
 test_that("data.frame assignment", {
   x <- assign_label(iris, Sepal.Length = "a", Species = "b")
-  exp <- data.frame(column = colnames(iris),
-                    label = c("a", NA, NA, NA, "b"))
+  exp <- data.frame(
+    column = colnames(iris),
+    label = c("a", NA, NA, NA, "b"),
+    stringsAsFactors = FALSE
+  )
+
   expect_equal(get_labels(x), exp)
   expect_error(assign_label(iris, a = "x", b = "y", `1` = 2),
                "Columns not found: a, b, 1")
@@ -20,25 +24,32 @@ test_that("data.frame assignment", {
 })
 
 test_that("data.frame assign with data.frame", {
+  op <- options()
+  on.exit(options(op), add = TRUE)
+  options(stringsAsFactors = FALSE)
+
   x <- assign_label(iris, Sepal.Length = "a", Species = "b")
 
   labels <- data.frame(
     name = c("Sepal.Length", "Species"),
-    label = c("a", "b")
+    label = c("a", "b"),
+    stringsAsFactors = FALSE
   )
 
   y <- assign_label(iris, labels)
 
   exp <- data.frame(
     column = colnames(iris),
-    label = c("a", NA, NA, NA, "b")
+    label = c("a", NA, NA, NA, "b"),
+    stringsAsFactors = FALSE
   )
 
   expect_equal(get_labels(y), get_labels(y))
 
   bad_labels <- data.frame(
     v1 = c("a", "b", 1),
-    v2 = c("x", "y", 2)
+    v2 = c("x", "y", 2),
+    stringsAsFactors = FALSE
   )
   expect_error(assign_label(iris, bad_labels),
                "Columns not found: a, b, 1")

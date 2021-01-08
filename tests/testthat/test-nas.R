@@ -20,7 +20,8 @@ test_that("na cols", {
     second = c(1, NA, 3, 4),
     all = not_available(length = 4),
     last = c(1, 2, 3, NA),
-    all2 = not_available(length = 4)
+    all2 = not_available(length = 4),
+    stringsAsFactors = FALSE
   )
 
   expect_equal(

@@ -20,7 +20,8 @@ test_that("clipboard", {
     var1 = 1:3,
     var2 = letters[1:3],
     var3 = as.Date("2020-01-03") + 1:3,
-    var4 = c(TRUE, FALSE, NA)
+    var4 = c(TRUE, FALSE, NA),
+    stringsAsFactors = FALSE
   )
 
   expect_error(write_clipboard(x), NA)

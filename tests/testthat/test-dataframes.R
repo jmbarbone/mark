@@ -1,4 +1,8 @@
 test_that("to_row_names()", {
+  op <- options()
+  on.exit(options(op), add = TRUE)
+  options(stringsAsFactors = FALSE)
+
   x <- data.frame(
    a = 1:4,
    b = letters[1:4]
@@ -37,6 +41,10 @@ test_that("to_row_names()", {
 
 
 test_that("vector2df()", {
+  op <- options()
+  on.exit(options(op), add = TRUE)
+  options(stringsAsFactors = FALSE)
+
   x <- c(1.0, 3.1, 8.2)
   df <- data.frame(name = character(3),
                     value = x)
@@ -51,6 +59,10 @@ test_that("vector2df()", {
 })
 
 test_that("list2df()", {
+  op <- options()
+  on.exit(options(op), add = TRUE)
+  options(stringsAsFactors = FALSE)
+
   x <- list(a = 1, b = 2:4, c = letters[10:20])
   exp <- data.frame(name = letters[c(1, rep(2, 3), rep(3, 11))],
                     value = c(1, 2:4, letters[10:20]))
@@ -68,6 +80,10 @@ test_that("list2df()", {
 })
 
 test_that("t_df()", {
+  op <- options()
+  on.exit(options(op), add = TRUE)
+  options(stringsAsFactors = FALSE)
+
   x <- data.frame(
     a = 1:5,
     b = letters[1:5]
