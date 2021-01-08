@@ -14,26 +14,30 @@ test_that("default assignment", {
 })
 
 test_that("data.frame assignment", {
-  x <- assign_labels(head(iris), Sepal.Length = "a", Species = "b")
+  x0 <- head(iris)
+  x <- assign_labels(x0, Sepal.Length = "a", Species = "b")
 
   exp <- data.frame(
-    column = colnames(iris),
+    column = colnames(x0),
     label = c("a", NA, NA, NA, "b"),
     stringsAsFactors = FALSE
   )
 
   exp0 <- remove_labels(x, "Species")
   exp1 <- remove_labels(x, c("Sepal.Length", "Species"))
+  # removes all columns -- shouldn't throw an error
+  exp2 <- remove_labels(x)
 
   expect_equal(get_labels(x), exp)
-  expect_error(assign_labels(iris, a = "x", b = "y", `1` = 2),
+  expect_error(assign_labels(x0, a = "x", b = "y", `1` = 2),
                "Columns not found: a, b, 1")
 
-  expect_error(assign_labels(iris, NULL))
+  expect_error(assign_labels(x0, NULL))
 
   expect_true(is.null(attr(exp0[["Species"]], "label")))
-  expect_equal(attr(exp0[["Sepal.Length"]]), "a")
-  expect_equal(exp, exp1)
+  expect_equal(attr(exp0[["Sepal.Length"]], "label"), "a")
+  expect_equal(x0, exp2)
+  expect_equal(exp1, exp2)
 })
 
 test_that("data.frame assign with data.frame", {

@@ -7,7 +7,8 @@
 #'   to a data.frame, `...` can be replaced with a `data.frame` where the first
 #'   column is the targeted colname and the second is the desired label.
 #' @param label A single length string of a label to be assigned
-#' @param cols A character vector of column names
+#' @param cols A character vector of column names; if missing will remove the
+#'   label attribute across all columns
 #' @param title Title for the viewer window -- if not supplemented will show as
 #'   `paste0(as.character(substitute(x)), " - Labels")`
 #'
@@ -133,16 +134,20 @@ remove_labels.default <- function(x, ...) {
 #' @export
 #' @rdname labels
 remove_labels.data.frame <- function(x, cols, ...) {
-  bad <- cols %out% colnames(x)
+  if (missing(cols)) {
+    cols <- seq_along(x)
+  } else {
+    bad <- cols %out% colnames(x)
 
-  if (any(bad)) {
-    stop("Column not found in data.frame:\n  ",
-         collapse(cols[bad], sep = ", "),
-         call. = FALSE)
+    if (any(bad)) {
+      stop("Column not found in data.frame:\n  ",
+           collapse(cols[bad], sep = ", "),
+           call. = FALSE)
+    }
   }
 
   for (i in cols) {
-    remove_labels(x[[i]])
+    x[[i]] <- remove_labels(x[[i]])
   }
 
   x

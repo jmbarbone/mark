@@ -49,7 +49,8 @@ column is the targeted colname and the second is the desired label.}
 \item{title}{Title for the viewer window -- if not supplemented will show as
 \code{paste0(as.character(substitute(x)), " - Labels")}}
 
-\item{cols}{A character vector of column names}
+\item{cols}{A character vector of column names; if missing will remove the
+label attribute across all columns}
 }
 \description{
 Assign labels to a vector or data.frame.
