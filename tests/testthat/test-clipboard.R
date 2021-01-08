@@ -11,7 +11,7 @@ test_that("clipboard", {
   }
 
   test_clipboard(c(TRUE, FALSE, NA))
-  test_clipboard(runif(5))
+  test_clipboard(c(0.1234, -0.1586, 0.0001200))
   test_clipboard(-1:4)
   test_clipboard(as.Date("2020-01-02") + 0:4)
   test_clipboard(runif(1e6))
