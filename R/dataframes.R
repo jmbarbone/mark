@@ -99,11 +99,10 @@ vector2df <- function(x, name = "name", value = "value", show_NA = FALSE) {
 #' @export
 #'
 #' @examples
-#' \dontrun{
 #' x <- list(a = 1, b = 2:4, c = letters[10:20])
-#' list2df(x, "col1", "col2", force = TRUE)
+#' list2df(x, "col1", "col2", warn = FALSE)
+#'
 #' # contrast with `base::list2DF()`
-#' }
 #' if (packageVersion("base") >= as.package_version('4.0')) {
 #'   list2DF(x)
 #' }
