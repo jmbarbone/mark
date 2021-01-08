@@ -100,7 +100,7 @@ that <- function(x, arr.ind = FALSE, useNames = TRUE) {
 
 
 is_length0 <- function(x) {
-  length(x) == 0L
+  !is.null(x) && length(x) == 0L
 }
 
 
