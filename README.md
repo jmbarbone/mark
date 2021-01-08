@@ -7,6 +7,7 @@
 
 [![Travis build
 status](https://travis-ci.com/jmbarbone/jordan.svg?branch=master)](https://travis-ci.com/jmbarbone/jordan)
+[![R-CMD-check](https://github.com/jmbarbone/jordan/workflows/R-CMD-check/badge.svg)](https://github.com/jmbarbone/jordan/actions)
 <!-- badges: end -->
 
 Just Other R Data Analytic Nuggets
@@ -53,35 +54,42 @@ Slice strings:
 ``` r
 x <- stringi::stri_rand_lipsum(1)
 str_slice(x, n = 50L)
-#>  [1] "Lorem ipsum dolor sit amet, bibendum ipsum rutrum "
-#>  [2] "primis nisl. Ligula commodo lorem ex laoreet, adip"
-#>  [3] "iscing fermentum turpis, eget. Id, ut eget odio ve"
-#>  [4] "stibulum interdum aptent et. Ac porttitor nostra m"
-#>  [5] "i. Sed habitant, fringilla pellentesque at egestas"
-#>  [6] " lobortis risus pellentesque quisque libero proin."
-#>  [7] " Netus euismod pharetra sed, fusce tristique phase"
-#>  [8] "llus purus, conubia id. Cras iaculis per potenti i"
-#>  [9] "mperdiet auctor non et gravida posuere, leo venena"
-#> [10] "tis! Et eu velit est vestibulum, quis, ac sed ex, "
-#> [11] "lacus, mollis. Tristique in sed fusce et molestie "
-#> [12] "amet mauris! Sapien pellentesque dapibus in velit "
-#> [13] "accumsan. In mauris ligula volutpat nunc nec susci"
-#> [14] "pit eu. Nibh ante, ipsum pulvinar in nulla est et "
-#> [15] "cubilia donec primis enim dapibus ut montes eget. "
-#> [16] "Cum vestibulum nascetur eros ultricies at. Semper "
-#> [17] "augue ipsum hac dui."
+#>  [1] "Lorem ipsum dolor sit amet, nisl eleifend sed proi"
+#>  [2] "n sed at. Class maximus, ante mi sed ridiculus eni"
+#>  [3] "m mus, sollicitudin. Maecenas penatibus luctus don"
+#>  [4] "ec turpis erat pretium in vulputate accumsan. Amet"
+#>  [5] " quis arcu phasellus facilisi facilisis odio integ"
+#>  [6] "er sit. Nunc venenatis duis vitae in non mauris ri"
+#>  [7] "sus. Vel consectetur sed sapien arcu sed massa nec"
+#>  [8] " egestas, malesuada condimentum felis a? Et ut pel"
+#>  [9] "lentesque consequat sed at torquent, sociosqu. Sod"
+#> [10] "ales donec arcu laoreet luctus auctor mauris mauri"
+#> [11] "s nisl primis nascetur feugiat scelerisque libero."
+#> [12] " Sed maximus vehicula dictum lacus libero pharetra"
+#> [13] " sed. Egestas maximus venenatis egestas leo orci, "
+#> [14] "tellus consectetur velit litora nascetur, a. Ferme"
+#> [15] "ntum aptent lobortis elementum netus integer variu"
+#> [16] "s euismod ac ornare porttitor non ut quam, mollis."
+#> [17] " Scelerisque cursus amet primis. Vestibulum non co"
+#> [18] "nsectetur aliquam mollis velit accumsan. Condiment"
+#> [19] "um sit sed eu dapibus habitant faucibus interdum. "
+#> [20] "Vel libero, amet lacus aliquam ac sit porta, leo l"
+#> [21] "eo."
 str_slice_by_word(x)
-#>  [1] "Lorem ipsum dolor sit amet, bibendum ipsum rutrum primis nisl. Ligula commodo"   
-#>  [2] " lorem ex laoreet, adipiscing fermentum turpis, eget. Id, ut eget odio"          
-#>  [3] " vestibulum interdum aptent et. Ac porttitor nostra mi. Sed habitant, fringilla" 
-#>  [4] " pellentesque at egestas lobortis risus pellentesque quisque libero proin. Netus"
-#>  [5] " euismod pharetra sed, fusce tristique phasellus purus, conubia id. Cras iaculis"
-#>  [6] " per potenti imperdiet auctor non et gravida posuere, leo venenatis! Et eu velit"
-#>  [7] " est vestibulum, quis, ac sed ex, lacus, mollis. Tristique in sed fusce et"      
-#>  [8] " molestie amet mauris! Sapien pellentesque dapibus in velit accumsan. In mauris" 
-#>  [9] " ligula volutpat nunc nec suscipit eu. Nibh ante, ipsum pulvinar in nulla est et"
-#> [10] " cubilia donec primis enim dapibus ut montes eget. Cum vestibulum nascetur eros" 
-#> [11] " ultricies at. Semper augue ipsum hac dui."
+#>  [1] "Lorem ipsum dolor sit amet, nisl eleifend sed proin sed at. Class maximus, ante" 
+#>  [2] " mi sed ridiculus enim mus, sollicitudin. Maecenas penatibus luctus donec turpis"
+#>  [3] " erat pretium in vulputate accumsan. Amet quis arcu phasellus facilisi facilisis"
+#>  [4] " odio integer sit. Nunc venenatis duis vitae in non mauris risus. Vel"           
+#>  [5] " consectetur sed sapien arcu sed massa nec egestas, malesuada condimentum felis" 
+#>  [6] " a? Et ut pellentesque consequat sed at torquent, sociosqu. Sodales donec arcu"  
+#>  [7] " laoreet luctus auctor mauris mauris nisl primis nascetur feugiat scelerisque"   
+#>  [8] " libero. Sed maximus vehicula dictum lacus libero pharetra sed. Egestas maximus" 
+#>  [9] " venenatis egestas leo orci, tellus consectetur velit litora nascetur, a."       
+#> [10] " Fermentum aptent lobortis elementum netus integer varius euismod ac ornare"     
+#> [11] " porttitor non ut quam, mollis. Scelerisque cursus amet primis. Vestibulum non"  
+#> [12] " consectetur aliquam mollis velit accumsan. Condimentum sit sed eu dapibus"      
+#> [13] " habitant faucibus interdum. Vel libero, amet lacus aliquam ac sit porta, leo"   
+#> [14] " leo."
 ```
 
 Read in bibliographies:

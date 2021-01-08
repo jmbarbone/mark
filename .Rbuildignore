@@ -6,3 +6,4 @@
 test-docs/
 ^bench$
 ^\.travis\.yml$
+^\.github$
