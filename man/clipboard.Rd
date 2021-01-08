@@ -20,3 +20,7 @@ read_clipboard(method = c("default", "data.frame", "tibble"), ...)
 \description{
 Wrappers for working with the clipboard
 }
+\details{
+As these functions rely on \code{utils::readClipboard()} and
+\code{utils::writeClipboard} they are only available for Windows 10.
+}

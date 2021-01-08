@@ -2,6 +2,10 @@
 #'
 #' Wrappers for working with the clipboard
 #'
+#' @details
+#' As these functions rely on `utils::readClipboard()` and
+#'   `utils::writeClipboard` they are only available for Windows 10.
+#'
 #' @param x An object
 #' @param method Method switch for loading the clipboard
 #' @param ... Additional arguments sent to methods
@@ -45,7 +49,10 @@ read_clipboard <- function(method = c("default", "data.frame", "tibble"), ...) {
   switch(
     match_param(method),
 
-    default = try_vector_formats(utils::readClipboard()),
+    default = {
+      x <- utils::readClipboard()
+      try_vector_formats(x)
+    },
 
     # Specifications I prefer -- mostly copying from Excel
     data.frame = {
