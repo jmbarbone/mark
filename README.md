@@ -6,7 +6,7 @@
 <!-- badges: start -->
 
 [![Travis build
-status](https://travis-ci.com/jmbarbone/jordan.svg?branch=master)](https://travis-ci.com/jmbarbone/jordan)
+status](https://travis-ci.com/jmbarbone/jordan.svg?branch=main)](https://travis-ci.com/jmbarbone/jordan)
 [![R-CMD-check](https://github.com/jmbarbone/jordan/workflows/R-CMD-check/badge.svg)](https://github.com/jmbarbone/jordan/actions)
 <!-- badges: end -->
 
