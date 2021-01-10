@@ -42,8 +42,7 @@ Suggests:
     xfun,
     withr
 Remotes:
-    gaborcsardi/prompt,
-    seasmith/AlignAssign
+    gaborcsardi/prompt
 RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
