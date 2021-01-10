@@ -106,11 +106,8 @@ try_vector_formats <- function(x) {
     return(as.integer(x))
   }
 
-  if (all(grepl("^-?[[:digit:]]+\\.?([[:digit:]]+)?$", x0))) {
-    return(as.double(x))
-  }
-
-  if (all(grepl("^-?\\.[[:digit:]]+$", x0))) {
+  if (all(grepl("^-?[[:digit:]]+\\.?([[:digit:]]+)?$", x0) |
+          grepl("^-?\\.[[:digit:]]+$", x0))) {
     return(as.double(x))
   }
 

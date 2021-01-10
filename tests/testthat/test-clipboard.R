@@ -31,3 +31,22 @@ test_that("clipboard", {
   expect_error(clear_clipboard(), NA)
   expect_equal(read_clipboard(), "")
 })
+
+test_that("try_vectors_formats()", {
+  xchr <- c("this", "that", "121", "them", ".011", "2020")
+  xdbl <- c("-0.10", "  .10123", "-.102010000  ")
+  xint <- c("121021", "-12191", "121001")
+  xdat <- c("2020-05-01", "1900-10-10", "1655-06-07")
+  rchr <- xchr
+  rdbl <- as.double(xdbl)
+  rint <- as.integer(xint)
+  rdat <- as.Date(xdat)
+
+  expect_equal(try_vector_formats(xchr), rchr)
+  expect_equal(try_vector_formats(xdbl), rdbl)
+  expect_equal(try_vector_formats(rdbl), rdbl)
+  expect_equal(try_vector_formats(xint), rint)
+  expect_equal(try_vector_formats(rint), rint)
+  expect_equal(try_vector_formats(xdat), rdat)
+  expect_equal(try_vector_formats(rdat), rdat)
+})
