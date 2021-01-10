@@ -61,10 +61,11 @@ do_vap <- function(.x, .f, .value, ..., .nm) {
 
 # This can take multiple elements, so can be a little dangerous
 capply <- function(.x, .f, ..., .nm = FALSE) {
+  res <- do.call("c", lapply(X = .x, FUN = .f, ...))
+
   if (.nm) {
-    # Sets names if missing
-    .x <- set_names(.x, names(.x) %||% .x)
+    names(res) <- names(.x) %||% x
   }
 
-  do.call("c", sapply(X = .x, FUN = .f, ..., simplify = FALSE, USE.NAMES = .nm))
+  res
 }
