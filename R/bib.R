@@ -3,7 +3,7 @@
 #' Read a bib file into a data.frame
 #'
 #' @details
-#' Inspired and partially credited to [bib2df::bib2df()] although this has no
+#' Inspired and partially credited to `bib2df::bib2df()` although this has no
 #'   dependencies outside of base functions and much quicker.  This speed seems
 #'   to come from removing `stringr` functions and simplifying a few *apply
 #'   functions.
@@ -14,7 +14,7 @@
 #' @param max_lines The maximum number of lines to read
 #' @param encoding Assumed encoding of file (passed to readLines)
 #'
-#' @seealso [bib2df::bib2df()]
+#' @seealso `bib2df::bib2df()`
 #'
 #' @export
 #'
