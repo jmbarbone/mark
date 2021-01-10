@@ -5,9 +5,9 @@ test_that("clipboard", {
   on.exit(write_clipboard(cb), add = TRUE)
   clear_clipboard()
 
-  test_clipboard <- function(x) {
+  test_clipboard <- function(x, ...) {
     expect_error(write_clipboard(x), NA)
-    expect_equal(read_clipboard(), x)
+    expect_equal(read_clipboard(), x, ...)
   }
 
   test_clipboard(c(TRUE, FALSE, NA))
@@ -33,14 +33,16 @@ test_that("clipboard", {
 })
 
 test_that("try_vectors_formats()", {
-  xchr <- c("this", "that", "121", "them", ".011", "2020")
-  xdbl <- c("-0.10", "  .10123", "-.102010000  ")
+  xchr <- c("this", "that", "121", "them", ".011", "2020", "NA")
+  xdbl <- c("-0.10", "  .10123", "-.102010000  ", "NaN")
   xint <- c("121021", "-12191", "121001")
   xdat <- c("2020-05-01", "1900-10-10", "1655-06-07")
+  xlgl <- c("TRUE", "true", "FALSE", "fALSE", "na", "NA")
   rchr <- xchr
   rdbl <- as.double(xdbl)
   rint <- as.integer(xint)
   rdat <- as.Date(xdat)
+  rlgl <- as.logical(toupper(xlgl))
 
   expect_equal(try_vector_formats(xchr), rchr)
   expect_equal(try_vector_formats(xdbl), rdbl)
@@ -49,4 +51,6 @@ test_that("try_vectors_formats()", {
   expect_equal(try_vector_formats(rint), rint)
   expect_equal(try_vector_formats(xdat), rdat)
   expect_equal(try_vector_formats(rdat), rdat)
+  expect_equal(try_vector_formats(xlgl), rlgl)
+  expect_equal(try_vector_formats(rlgl), rlgl)
 })

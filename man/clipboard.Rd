@@ -6,7 +6,7 @@
 \alias{read_clipboard}
 \title{Write to and read from the clipboard}
 \usage{
-write_clipboard(x = .Last.value, ...)
+write_clipboard(x, ...)
 
 read_clipboard(method = c("default", "data.frame", "tibble"), ...)
 }
@@ -23,4 +23,28 @@ Wrappers for working with the clipboard
 \details{
 As these functions rely on \code{utils::readClipboard()} and
 \code{utils::writeClipboard} they are only available for Windows 10.
+For copying and pasting floats, there may be some rounding that can occur.
+}
+\examples{
+\dontrun{
+
+foo <- function(x) {
+  write_clipboard(x)
+  y <- read_clipboard()
+  res <- all.equal(x, y)
+  if (isTRUE(res)) return("All equal")
+  print(x)
+  print(y)
+}
+foo(1:4)
+foo(seq(-1, 1, .02))
+foo(Sys.Date() + 1:4)
+
+# May have some rounding issues
+x <- "0.316362437326461129"
+write_clipboard(x)
+res <- as.character(read_clipboard())
+all.equal(x, res)
+x; res
+}
 }
