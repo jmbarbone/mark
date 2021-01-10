@@ -40,8 +40,14 @@ outer_fun <- function(n = 0) {
 #' @references http://r-pkgs.had.co.nz/description.html
 require_namespace <- function(namespace) {
   of <- outer_fun()
+  of <- if (is.na(of)) {
+    NULL
+  } else {
+    sprintf(" for `%s` to work", of)
+  }
+
   if (!rn(namespace)) {
-    stop("Package `", namespace, "` needed for `", of, "` to work.",
+    stop("Package `", namespace, "` is required", of, ".",
          call. = FALSE)
   }
 }
