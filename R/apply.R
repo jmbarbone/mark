@@ -63,9 +63,11 @@ do_vap <- function(.x, .f, .value, ..., .nm) {
 capply <- function(.x, .f, ..., .nm = FALSE) {
   res <- do.call("c", lapply(X = .x, FUN = .f, ...))
 
-  if (.nm) {
-    names(res) <- names(.x) %||% x
+  use_names <- if (.nm) {
+    names(.x) %||% .x
+  } else {
+    NULL
   }
 
-  res
+  set_names(res, use_names)
 }
