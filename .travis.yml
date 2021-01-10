@@ -4,11 +4,10 @@ language: R
 cache: packages
 
 r:
-  - devel
+  # - devel
   - release
-  - oldrel
-  - 3.6
   - 4.0
+  - 3.6
 
 env:
   global:
