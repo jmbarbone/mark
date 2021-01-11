@@ -3,9 +3,6 @@ test_that("clipboard", {
   skip_if(any(has_warning(integer(1e4), readClipboard)),
           "Failed to access clipboard")
 
-  cb <- utils::readClipboard()
-  on.exit(utils::writeClipboard(cb), add = TRUE)
-
   clear_clipboard()
 
   test_clipboard <- function(x, ...) {
