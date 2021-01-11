@@ -1,8 +1,11 @@
 test_that("clipboard", {
   skip_if_not(is_windows(), "Is Windows?")
+  skip_if(any(has_warning(integer(1e4), readClipboard)),
+          "Failed to access clipboard")
 
-  cb <- read_clipboard()
-  on.exit(write_clipboard(cb), add = TRUE)
+  cb <- utils::readClipboard()
+  on.exit(utils::writeClipboard(cb), add = TRUE)
+
   clear_clipboard()
 
   test_clipboard <- function(x, ...) {

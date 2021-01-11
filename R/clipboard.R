@@ -44,7 +44,7 @@ write_clipboard <- function(x, ...) {
 
 #' @export
 write_clipboard.default <- function(x, ...) {
-  try_write_clipboard(str = as.character(x))
+  utils::writeClipboard(str = as.character(x), format = 1L)
 }
 
 #' @export
@@ -73,9 +73,7 @@ read_clipboard <- function(method = c("default", "data.frame", "tibble"), ...) {
     match_param(method),
 
     default = {
-      x <- try_read_clipboard()
-      x <- try_vector_formats(x)
-      x <- try_vector_formats(x)
+      x <- utils::readClipboard(format = 1L, raw = FALSE)
       try_vector_formats(x)
     },
 
@@ -112,7 +110,7 @@ read_clipboard <- function(method = c("default", "data.frame", "tibble"), ...) {
 
 clear_clipboard <- function() {
   stopifnot("`jordan::write_clipboard()` is only valid for Windows" = is_windows())
-  try_write_clipboard("")
+  utils::writeClipboard("", format = 1L)
 }
 
 try_vector_formats <- function(x) {
@@ -137,7 +135,7 @@ try_vector_formats <- function(x) {
   dbls <- dbls[!is.nan(dbls)]
 
   if (is_length0(dbls)) {
-    return(x)
+    return(as.double(x))
   }
 
   if (!anyNA(dbls)) {
@@ -158,27 +156,4 @@ try_vector_formats <- function(x) {
 
 is_windows <- function() {
   Sys.info()[["sysname"]] == "Windows"
-}
-
-try_read_clipboard <- function(tries = 1L) {
-  tryCatch(utils::readClipboard() %||% warning(),
-  warning = function(e) {
-    if (tries >= 10) {
-      stop("Failure to read clipboard after 10 attempts", call. = FALSE)
-    }
-    try_read_clipboard(tries + 1L)
-  }
-  )
-}
-
-try_write_clipboard <- function(str, tries = 1L) {
-  tryCatch(
-    utils::writeClipboard(str, format = 1L),
-    warning = function(e) {
-      if (tries >= 10) {
-        stop("Failure to write clipboard after 10 attempts", call. = FALSE)
-      }
-      try_write_clipboard(str, tries + 1L)
-    }
-  )
 }
