@@ -1,4 +1,4 @@
-# jordan 0.2.0
+# jordan 0.1.0
 
 Major cleanup for documenting, reviewing, removing, relocating, and testing functions.
 
@@ -41,7 +41,7 @@ Some miscellaneous, less controlled functions have been moved to [jordanExtra](h
 * Statistical functions: `fishers_method()`, `iqrs()`, `p_round()`, `p_value_sig()`, `percentile_rank()`, `proportion()`, `sd_pooled()`, `sterr()`, `tukey_coef()`, `z_score()`
 * Others: `add_euclidean()`, `add_malahanobis()`, `%=+`, `filter_combine()`, `reverse_log_trans()`, 
 
-# jordan 0.1.0
+# Prior development
 
 * Initial commits of functions
 * Quite a mess with no versions
