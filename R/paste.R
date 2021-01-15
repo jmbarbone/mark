@@ -55,11 +55,23 @@ collapse <- function(..., sep = "") {
   paste0(unlist(ls), collapse = sep)
 }
 
-
+# reduces outer function down to key elements
 do_paste_combine <- function(x, y, collate = TRUE, sep = "") {
-  out <- outer(x, y, FUN = paste, sep = sep)
-  if (collate) {
-    out <- apply(out, 1, c)
+  xn <- length(x)
+  yn <- length(y)
+
+  y_reps <- rep(y, rep.int(xn, yn))
+
+  out <- paste(
+    rep(x, times = ceiling(xn / length(y_reps))),
+    y_reps,
+    sep = sep
+  )
+
+  if (!collate) {
+    return(out)
   }
-  as.vector(out, "character")
+
+  dim(out) <- c(xn, yn)
+  as.vector(apply(out, 1, c), "character")
 }

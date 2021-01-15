@@ -3,7 +3,7 @@ test_that("base_alpha() works as expected", {
 
   expect_equal(base_alpha(letters),
                base_alpha(LETTERS))
-
+T
   letter_vec <- paste_combine(c("", letters), letters, collate = TRUE)
   expect_equal(base_alpha(letter_vec), 1:702)
 
