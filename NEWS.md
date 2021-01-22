@@ -1,4 +1,9 @@
-# jordan 0.1.0
+# development
+
+* adds `fizzbizz()`
+
+
+# jordan 0.1.0s
 
 Major cleanup for documenting, reviewing, removing, relocating, and testing functions.
 
