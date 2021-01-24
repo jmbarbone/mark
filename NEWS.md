@@ -2,6 +2,7 @@
 
 * adds `fizzbizz()`
 * adds `quick_df()`
+* adds `complete_cases()`
 
 
 # jordan 0.1.0s

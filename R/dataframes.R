@@ -221,3 +221,29 @@ quick_df <- function(x) {
   x
 }
 
+
+#' Complete cases
+#'
+#' Return completed cases of a data.frame
+#'
+#' @param data A data.frame
+#' @param cols optional, if set will only find completed cases for these columns
+#' @examples
+#' x <- data.frame(
+#'   a = 1:5,
+#'   b = c(1, NA, 3, 4, 5),
+#'   c = c(1, NA, NA, 4, 5)
+#' )
+#'
+#' complete_cases(x)
+#' complete_cases(x, "a")
+#' complete_cases(x, "b")
+#' complete_cases(x, "c")
+#' @export
+complete_cases <- function(data, cols = NULL) {
+  cols <- cols %||% colnames(data)
+  cc <- stats::complete.cases(data[, cols, drop = FALSE])
+  out <- data[cc, , drop = FALSE]
+  attr(out, "row.names") <- .set_row_names(sum(cc))
+  out
+}
