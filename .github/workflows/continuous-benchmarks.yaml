@@ -4,7 +4,7 @@ name: Continuous Benchmarks
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: macOS-latest
     steps:
       - name: Checkout repo
         uses: actions/checkout@master
@@ -16,6 +16,7 @@ jobs:
         run: |
           Rscript -e "install.packages(c('remotes'))" -e "remotes::install_deps(dependencies = TRUE)"
           R CMD INSTALL .
+
       - name: Fetch existing benchmarks
         run: Rscript -e 'bench::cb_fetch()'
 
