@@ -1,6 +1,7 @@
 # development
 
 * adds `fizzbizz()`
+* adds `quick_df()`
 
 
 # jordan 0.1.0s

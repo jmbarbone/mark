@@ -191,3 +191,33 @@ rn_to_col <- function(data, name = "row.name") {
   colnames(data)[n] <- name
   data[c(n, 1:(n - 1))]
 }
+
+#' Quick DF
+#'
+#' This is a speedier implementation of `as.data.frame()` but does not provide
+#'   the same sort of checks. It should be used with caution.
+#'
+#' @param x A list
+#' @export
+quick_df <- function(x) {
+  if (!is.list(x)) {
+    stop("x is not a list", call. = FALSE)
+  }
+
+  n <- unique(vapply(x, length, integer(1)))
+
+  if (length(n) != 1) {
+    stop("List does not have an equal length", call. = FALSE)
+  }
+
+  nm <- names(x)
+
+  attributes(x) <- list(
+    class = "data.frame",
+    names = nm %||% make.names(nm, unique = TRUE),
+    row.names = .set_row_names(n)
+  )
+
+  x
+}
+
