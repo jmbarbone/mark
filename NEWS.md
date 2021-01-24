@@ -3,6 +3,10 @@
 * adds `fizzbizz()`
 * adds `quick_df()`
 * adds `complete_cases()`
+* adds listing shorhands:
+    * `ls_object()` to list all `is.object()`s 
+    * `ls_dataframe()` to list all `is.data.frame()`s 
+    * `ls_function()` to list all `is.function()`s 
 
 
 # jordan 0.1.0s

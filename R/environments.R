@@ -42,3 +42,33 @@ ls_switch <- function(x, all.names = FALSE) {
     ls(as.environment(x), all.names = all.names)
   )
 }
+
+
+#' List Objects - extensions
+#'
+#' @inheritParams base::ls
+#' @export
+#' @name ls_ext
+
+#' @export
+#' @rdname ls_ext
+ls_dataframe <- function(pattern, all.names = FALSE) {
+  do_ls(is.data.frame, pattern = pattern, all.names = all.names)
+}
+
+#' @export
+#' @rdname ls_ext
+ls_function <- function(pattern, all.names = FALSE) {
+  do_ls(is.function, pattern = pattern, all.names = all.names)
+}
+
+#' @export
+#' @rdname ls_ext
+ls_object <- function(pattern, all.names = FALSE) {
+  do_ls(is.object, pattern = pattern, all.names = all.names)
+}
+
+do_ls <- function(FUN, pattern, all.names = FALSE) {
+  .ls <- ls(envir = parent.frame(3), pattern = pattern)
+  .ls[vap_lgl(.ls, function(x) FUN(get0(x)))]
+}
