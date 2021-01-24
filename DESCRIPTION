@@ -20,12 +20,12 @@ Depends:
 Imports:
     magrittr,
     methods,
-    rlang,
     stats,
     tibble,
     tools,
     utils
 Suggests:
+    bench,
     crayon,
     fortunes,
     future,
