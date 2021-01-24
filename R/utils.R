@@ -11,10 +11,11 @@ magrittr::`%>%`
 #' A mostly copy of `rlang`'s `%||%` except does not use [rlang::is_null()],
 #'   which, currently, calls the same primitive `is.null` function as
 #'   [base::is.null()].
+#' This is not to be exported due to conflicts with `purrr`
 #'
 #' @param x,y If `x` is `NULL` returns `y`; otherwise `x`
 #'
-#' @export
+#
 #' @name null_default
 `%||%` <- function(x, y) {
   if (is.null(x)) y else x
@@ -59,7 +60,7 @@ ept <- function(x, envir = parent.frame()) {
 }
 
 construct_date <- function(date_text, sep = "") {
-  collapse(vap_chr(unlist(strsplit(date_text, "")), date_switch), sep = sep)
+  collapse0(vap_chr(unlist(strsplit(date_text, "")), date_switch), sep = sep)
 }
 
 date_switch <- function(x) {

@@ -50,7 +50,7 @@ test_that("vector2df()", {
                     value = x)
   expect_equal(vector2df(x), df)
   df$name <- as.character(x)
-  expect_equal(vector2df(set_names(x)), df)
+  expect_equal(vector2df(set_names0(x)), df)
   expect_named(vector2df(x, "one", "two"), c("one", "two"))
 
   df <- data.frame(name = rep(NA_character_, 3),

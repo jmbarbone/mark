@@ -52,7 +52,7 @@ vap_date <- function(.x, .f, ..., .nm = FALSE) {
 # Mostly sets up the names
 do_vap <- function(.x, .f, .value, ..., .nm) {
   if (.nm) {
-    .x <- set_names(.x, names(.x) %||% .x)
+    .x <- set_names0(.x, names(.x) %||% .x)
   }
 
   vapply(X = .x, FUN = .f, FUN.VALUE = .value, ..., USE.NAMES = .nm)
@@ -69,5 +69,5 @@ capply <- function(.x, .f, ..., .nm = FALSE) {
     NULL
   }
 
-  set_names(res, use_names)
+  set_names0(res, use_names)
 }

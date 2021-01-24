@@ -66,13 +66,13 @@ get_error <- function(x, FUN, .null = TRUE) {
 has_catch <- function(x, FUN, type) {
   res <- lapply(x, catch(FUN))
   out <- vap_lgl(res, function(.x) !is.null(.x[[type]]))
-  set_names(out, x)
+  set_names0(out, x)
 }
 
 get_catch <- function(x, FUN, type, null = TRUE) {
   res <- lapply(x, catch(FUN))
   out <- lapply(res, function(.x) .x[[type]])
-  out <- set_names(out, x)
+  out <- set_names0(out, x)
 
   if (!null) {
     out <- remove_null(out)

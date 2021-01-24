@@ -114,7 +114,7 @@ norm_path <- function(x = ".", check = FALSE, remove = check) {
 
   if (check && any(ind)) {
     warning("Paths not found:\n  '",
-            paste(paths[ind], collapse = "'\n  '"),
+            collapse0(paths[ind], sep = "'\n  '"),
             "'",
             call. = FALSE)
   }

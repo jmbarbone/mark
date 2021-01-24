@@ -45,14 +45,14 @@ test_that("paste_combine()", {
 
 })
 
-test_that("collapse()", {
+test_that("collapse0()", {
   expect_equal(
-    collapse(list(1:3, letters[1:3]), 5:7, letters[5:7]),
+    collapse0(list(1:3, letters[1:3]), 5:7, letters[5:7]),
     "123abc567efg"
   )
 
   expect_equal(
-    collapse(1:3, letters[5:7], sep = "_"),
+    collapse0(1:3, letters[5:7], sep = "_"),
     "1_2_3_e_f_g"
   )
 })

@@ -55,7 +55,7 @@ match_arg <- function(x, table) {
 
   if (!length(out)) {
     stop(as.character(substitute(x)), ": \'", x, "\' did not match any of the following:\n\   '",
-         paste(table, collapse = "\', \'"), "\'",
+         collapse0(table, sep = "\', \'"), "\'",
          call. = FALSE)
   }
   out
@@ -97,7 +97,7 @@ match_param <- function(param, choices) {
       param_c,
       ocall,
       param_c,
-      collapse(choices, sep = '", "')
+      collapse0(choices, sep = '", "')
     ),
     call. = FALSE)
   }

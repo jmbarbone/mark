@@ -39,7 +39,7 @@ array_extract <- function(arr, ..., default = "1") {
   text <- sprintf(
     "%s[%s]",
     as.character(substitute(arr)),
-    paste(setup, collapse = ", ")
+    collapse0(setup, sep = ", ")
   )
 
   eval(parse(text = text), envir = parent.frame())

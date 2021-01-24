@@ -4,12 +4,15 @@
 \alias{utils-paste}
 \alias{paste_c}
 \alias{paste_combine}
+\alias{collapse0}
 \alias{collapse}
 \title{Paste combine}
 \usage{
 paste_c(x, y, collate = TRUE, sep = "")
 
 paste_combine(..., collate = TRUE, sep = "")
+
+collapse0(..., sep = "")
 
 collapse(..., sep = "")
 }
@@ -33,6 +36,6 @@ paste_combine(x, y, z)
 paste_combine(x, y, z, sep = ".")
 paste_combine(x, y, sep = "_")
 paste_combine(x, y, collate = FALSE)
-collapse(list(1:3, letters[1:3]), 5:7, letters[5:7])
-collapse(1:3, letters[5:7], sep = "_")
+collapse0(list(1:3, letters[1:3]), 5:7, letters[5:7])
+collapse0(1:3, letters[5:7], sep = "_")
 }

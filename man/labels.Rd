@@ -7,8 +7,8 @@
 \alias{assign_labels.data.frame}
 \alias{assign_label}
 \alias{get_labels}
-\alias{get_labels.data.frame}
 \alias{get_labels.default}
+\alias{get_labels.data.frame}
 \alias{view_labels}
 \alias{remove_labels}
 \alias{remove_labels.default}
@@ -25,9 +25,9 @@ assign_label(x, ...)
 
 get_labels(x)
 
-\method{get_labels}{data.frame}(x)
-
 \method{get_labels}{default}(x)
+
+\method{get_labels}{data.frame}(x)
 
 view_labels(x, title)
 

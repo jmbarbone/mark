@@ -7,6 +7,11 @@
     * `ls_object()` to list all `is.object()`s 
     * `ls_dataframe()` to list all `is.data.frame()`s 
     * `ls_function()` to list all `is.function()`s 
+* Updates to prevent conflicts with popular packages
+  * `%||%` is no longer exported
+  * `collapse()` is now `collapse0()` -- although `glue::collapse()` is meant to be deprecated
+  * `set_names()` is now `set_names0()`
+* `do_paste_combine()` (used inside `paste_combine()`) simplified to remove use of `outer()`
 
 
 # jordan 0.1.0s

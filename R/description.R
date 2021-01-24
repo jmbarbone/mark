@@ -59,9 +59,6 @@ author_info_to_text <- function(x) {
 
   ind <- !comment & len
   x[ind] <- paste0('"', x[ind], '"')
-  # ind <- !comment & !len
-  # x[ind] <- paste0("c(", paste0('"', x[ind], '"', collapse = ","), ")")
-  # I don't think this will work with multiple items...
   x[comment] <-  paste0("c(", names(x[comment][[1]]), " = ",  paste0('"', x[comment][1], '"'), ")")
 
   paste0(format(nm, width = width), " = ", x, ",")
@@ -145,7 +142,7 @@ do_bump_date_version <- function(version, add = FALSE) {
     x[n] <- x[n] + 1
   }
 
-  package_version(collapse(x, sep = "."))
+  package_version(collapse0(x, sep = "."))
 }
 
 
