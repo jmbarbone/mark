@@ -2,8 +2,6 @@
 #'
 #' Converts a column to row names
 #'
-#'
-#'
 #' @param data A data.frame
 #' @param row_names The numeric position of the column.
 #' @examples
@@ -74,7 +72,7 @@ vector2df <- function(x, name = "name", value = "value", show_NA = FALSE) {
          v2 = unname(x)),
     class = "data.frame",
     row.names = c(NA_integer_, ln),
-    .Names = c(name, value)
+    names = c(name, value)
   )
 }
 

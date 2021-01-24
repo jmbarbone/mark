@@ -91,21 +91,16 @@ get_labels <- function(x) {
 
 #' @export
 #' @rdname labels
-get_labels.data.frame <- function(x) {
-  vector2df(vap_chr(x, get_labels, .nm = TRUE), "column", "label")
+get_labels.default <- function(x) {
+  attr(x, "label") %||% NA_character_
 }
 
 #' @export
 #' @rdname labels
-get_labels.default <- function(x) {
-  lb <- attr(x, "label")
-
-  if (is.null(lb)) {
-    return(NA_character_)
-  }
-
-  lb
+get_labels.data.frame <- function(x) {
+  vector2df(vap_chr(x, get_labels, .nm = TRUE), "column", "label")
 }
+
 
 #' @export
 #' @rdname labels
