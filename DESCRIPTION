@@ -1,7 +1,7 @@
 Package: jordan
 Type: Package
 Title: Just Other R Data Analytic Nuggets
-Version: 0.1.0
+Version: 0.1.0.1
 Authors@R:
     person(given   = "Jordan Mark",
            family  = "Barbone",
