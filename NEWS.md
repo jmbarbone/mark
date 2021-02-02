@@ -1,8 +1,9 @@
 # development
 
 * adds `fizzbizz()`
-* adds `quick_df()`
-* adds `complete_cases()`
+* adds data.frame functions
+  * adds `quick_df()` to turn a list into a data.frame
+  * adds `complete_cases()` to select rows without `NA` values
 * adds listing wrapper:
   * `ls_object()` to list all `is.object()`s 
   * `ls_dataframe()` to list all `is.data.frame()`s 

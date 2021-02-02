@@ -13,3 +13,14 @@ quick_df(x)
 This is a speedier implementation of \code{as.data.frame()} but does not provide
 the same sort of checks. It should be used with caution.
 }
+\examples{
+
+# unnamed will use make.names()
+x <- list(1:10, letters[1:10])
+quick_df(x)
+
+# named is preferred
+names(x) <- c("numbers", "letters")
+quick_df(x)
+
+}

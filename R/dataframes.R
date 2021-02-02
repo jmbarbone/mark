@@ -196,23 +196,31 @@ rn_to_col <- function(data, name = "row.name") {
 #'   the same sort of checks. It should be used with caution.
 #'
 #' @param x A list
+#' @examples
+#'
+#' # unnamed will use make.names()
+#' x <- list(1:10, letters[1:10])
+#' quick_df(x)
+#'
+#' # named is preferred
+#' names(x) <- c("numbers", "letters")
+#' quick_df(x)
+#'
 #' @export
 quick_df <- function(x) {
   if (!is.list(x)) {
     stop("x is not a list", call. = FALSE)
   }
 
-  n <- unique(vapply(x, length, integer(1)))
+  n <- unique(vap_int(x, length))
 
-  if (length(n) != 1) {
+  if (length(n) != 1L) {
     stop("List does not have an equal length", call. = FALSE)
   }
 
-  nm <- names(x)
-
   attributes(x) <- list(
     class = "data.frame",
-    names = nm %||% make.names(nm, unique = TRUE),
+    names = names(x) %||% make.names(1:length(x), unique = TRUE),
     row.names = .set_row_names(n)
   )
 
