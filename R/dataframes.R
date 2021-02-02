@@ -225,7 +225,8 @@ quick_df <- function(x) {
 #' Return completed cases of a data.frame
 #'
 #' @param data A data.frame
-#' @param cols optional, if set will only find completed cases for these columns
+#' @param cols Colnames or numbers to remove `NA` values from; `NULL` (default)
+#'   will use all columns
 #' @examples
 #' x <- data.frame(
 #'   a = 1:5,
@@ -239,8 +240,23 @@ quick_df <- function(x) {
 #' complete_cases(x, "c")
 #' @export
 complete_cases <- function(data, cols = NULL) {
-  cols <- cols %||% colnames(data)
-  cc <- stats::complete.cases(data[, cols, drop = FALSE])
+  if (!inherits(data, "data.frame")) {
+    stop("`data` must be a data.frame", call. = FALSE)
+  }
+
+  ds <- dim(data)
+
+  if (ds[1L] == 0L) {
+    stop("`data` must have at least 1 row", call. = FALSE)
+  }
+
+  if (ds[2L] == 0L) {
+    stop("`data` must have at least 1 column", call. = FALSE)
+  }
+
+  cols <- cols %||% 1:ds[2L]
+  x <- data[, cols, drop = FALSE]
+  cc <- stats::complete.cases(x[, vap_lgl(x, anyNA), drop = FALSE])
   out <- data[cc, , drop = FALSE]
   attr(out, "row.names") <- .set_row_names(sum(cc))
   out

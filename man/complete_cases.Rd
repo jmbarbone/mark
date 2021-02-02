@@ -9,7 +9,8 @@ complete_cases(data, cols = NULL)
 \arguments{
 \item{data}{A data.frame}
 
-\item{cols}{optional, if set will only find completed cases for these columns}
+\item{cols}{Colnames or numbers to remove \code{NA} values from; \code{NULL} (default)
+will use all columns}
 }
 \description{
 Return completed cases of a data.frame
