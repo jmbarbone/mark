@@ -16,29 +16,25 @@ for (i in seq_along(x)) {
   x[[i]][sample(len, ceiling(len * runif(1)))] <- NA
 }
 
-bench::mark(                #  k iters/second
-  as.data.frame(x),         #  3
-  plyr::quickdf(x),         # 25
-  jordan::quick_df(x)       # 70
-)
-
 df <- quick_df(x)
-
-bench::mark(
-  jordan::complete_cases(df), # 26
-  tidyr::drop_na(df)          # 18
-)
-
-bench::mark(
-  jordan::complete_cases(df, c("a", "e", "d")), # 29
-  tidyr::drop_na(df, a, e, d)                   # 21
-)
-
 df$bad <- NA
 
-bench::mark(
-  jordan::complete_cases(df),        # 23
-  jordan::complete_cases(df, "bad"), # 92
-  tidyr::drop_na(df),                # 18
-  tidyr::drop_na(df, bad)            # 45
+bench::mark(                                    # median
+  as.data.frame(x),                             #  305us
+  plyr::quickdf(x),                             #   37us
+  jordan::quick_df(x),                          #   21us
+
+  jordan::complete_cases(df),                   #   42ms
+  tidyr::drop_na(df),                           #   86ms
+
+  jordan::complete_cases(df, c("a", "e", "d")), #   26ms
+  tidyr::drop_na(df, a, e, d),                  #   50ms
+
+  jordan::complete_cases(df),                   #   53ms
+  jordan::complete_cases(df, "bad"),            #   12ms
+  tidyr::drop_na(df),                           #   79ms
+  tidyr::drop_na(df, bad),                      #   31ms
+
+  iterations = 20,
+  check = FALSE
 )
