@@ -1,25 +1,22 @@
 test_that("to_row_names()", {
-  op <- options()
-  on.exit(options(op), add = TRUE)
-  options(stringsAsFactors = FALSE)
-
-  x <- data.frame(
+  x <- quick_df(list(
    a = 1:4,
    b = letters[1:4]
-  )
+  ))
 
   expect_equal(
     to_row_names(x),
-    data.frame(
+    quick_df(list(
       b = letters[1:4]
-    )
+    ))
   )
 
   expect_equal(
     to_row_names(x, "b"),
     data.frame(
       a = 1:4,
-      row.names = letters[1:4]
+      row.names = letters[1:4],
+      stringsAsFactors = FALSE
     )
   )
 
@@ -30,7 +27,7 @@ test_that("to_row_names()", {
 
   # non-integers to character
   foo <- function(x) {
-    out <- to_row_names(data.frame(a = 1, b = x), "b")
+    out <- to_row_names(quick_df(list(a = 1, b = x)), "b")
     class(attr(out, "row.names"))
   }
 
@@ -41,33 +38,28 @@ test_that("to_row_names()", {
 
 
 test_that("vector2df()", {
-  op <- options()
-  on.exit(options(op), add = TRUE)
-  options(stringsAsFactors = FALSE)
-
   x <- c(1.0, 3.1, 8.2)
-  df <- data.frame(name = character(3),
-                    value = x)
+  df <- quick_df(list(
+    name = c(NA, NA, NA),
+    value = x
+  ))
+
   expect_equal(vector2df(x), df)
   df$name <- as.character(x)
   expect_equal(vector2df(set_names0(x)), df)
   expect_named(vector2df(x, "one", "two"), c("one", "two"))
 
-  df <- data.frame(name = rep(NA_character_, 3),
-                   value = x)
-  expect_equal(vector2df(x, show_NA = TRUE), df)
+  expect_warning(vector2df(x, show_NA = NULL), info = "show_NA should not be set")
 })
 
 test_that("list2df()", {
-  op <- options()
-  on.exit(options(op), add = TRUE)
-  options(stringsAsFactors = FALSE)
-
   x <- list(a = 1, b = 2:4, c = letters[10:20])
-  exp <- data.frame(name = letters[c(1, rep(2, 3), rep(3, 11))],
-                    value = c(1, 2:4, letters[10:20]))
+  exp <- quick_df(list(
+    name = letters[c(1, rep(2, 3), rep(3, 11))],
+    value = c(1, 2:4, letters[10:20])
+  ))
 
-  expect_warning(expect_warning(list2df(x)))
+  expect_warning(list2df(x))
   expect_warning(list2df(x, warn = FALSE), NA)
   expect_equal(list2df(x, warn = FALSE), exp)
 
@@ -77,26 +69,31 @@ test_that("list2df()", {
   expect_warning(list2df(x), NA)
   expect_equal(list2df(x), exp)
   expect_named(list2df(x, "hello", "world"), c("hello", "world"))
+  expect_warning(list2df(x, show_NA = NULL), info = "show_NA should not be set")
+
+  # Unnamed
+  x <- list(a = 1, 0, 2)
+  res <- quick_df(list(
+    name = c("a", 2, 3),
+    value = c(1, 0, 2)
+  ))
+  expect_equal(list2df(x), res)
 })
 
 test_that("t_df()", {
-  op <- options()
-  on.exit(options(op), add = TRUE)
-  options(stringsAsFactors = FALSE)
-
-  x <- data.frame(
+  x <- quick_df(list(
     a = 1:5,
     b = letters[1:5]
-  )
+  ))
 
-  y <- data.frame(
+  y <- quick_df(list(
     colname = c("a", "b"),
-    row_1 = c(1,   "a"),
-    row_2 = c(2,   "b"),
-    row_3 = c(3,   "c"),
-    row_4 = c(4,   "d"),
-    row_5 = c(5,   "e")
-  )
+    row_1   = c(  1, "a"),
+    row_2   = c(  2, "b"),
+    row_3   = c(  3, "c"),
+    row_4   = c(  4, "d"),
+    row_5   = c(  5, "e")
+  ))
 
   expect_equal(t_df(x), y)
 })

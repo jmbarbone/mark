@@ -4,14 +4,14 @@
 \alias{vector2df}
 \title{Vector to data.frame}
 \usage{
-vector2df(x, name = "name", value = "value", show_NA = FALSE)
+vector2df(x, name = "name", value = "value", show_NA)
 }
 \arguments{
 \item{x}{A vector of values.}
 
 \item{name, value}{Character strings for the name and value columns}
 
-\item{show_NA}{Logical}
+\item{show_NA}{Ignored; will trigger a warning if set}
 }
 \description{
 Transforms a vector (named) to a data.frame

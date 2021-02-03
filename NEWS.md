@@ -1,9 +1,12 @@
 # development
 
-* adds `fizzbizz()`
+* adds `fizzbuzz()`
 * adds data.frame functions
-  * adds `quick_df()` to turn a list into a data.frame
+  * adds `quick_df()` to turn a list into a data.frame (used internally, too)
   * adds `complete_cases()` to select rows without `NA` values
+  * removes `show_NA` parameter from `vector2df()` and `list2df()`
+    * for vectors this will now produce an NA value for the first column
+    * for lists `make.unique()` is utilized for empty name named to retain the position of the list element
 * adds listing wrapper:
   * `ls_object()` to list all `is.object()`s 
   * `ls_dataframe()` to list all `is.data.frame()`s 

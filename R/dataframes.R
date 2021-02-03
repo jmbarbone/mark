@@ -51,29 +51,22 @@ col_to_rn <- function(data, row_names = 1L) {
 #'
 #' @param x A vector of values.
 #' @param name,value Character strings for the name and value columns
-#' @param show_NA Logical
+#' @param show_NA Ignored; will trigger a warning if set
 #' @export
 
-vector2df <- function(x, name = "name", value = "value", show_NA = FALSE) {
-  stopifnot("`x` must be a vector" = is.vector(x))
-  nm <- names(x)
-  ln <- length(x)
-
-  if (is.null(nm)) {
-    nm <- character(ln)
+vector2df <- function(x, name = "name", value = "value", show_NA) {
+  if (!missing(show_NA)) {
+    warning("`show_NA` is no longer in use", call. = FALSE)
   }
 
-  if (show_NA) {
-    nm[nm == ""] <- NA_character_
+  if (!is.vector(x) || is.list(x)) {
+    stop("`x` must be a vector", call. = FALSE)
   }
 
-  structure(
-    list(v1 = nm,
-         v2 = unname(x)),
-    class = "data.frame",
-    row.names = c(NA_integer_, ln),
-    names = c(name, value)
-  )
+  nm <- names(x) %||% rep(NA, length(x))
+  out <- quick_df(list(v1 = nm, v2 = unname(x)))
+  names(out) <- c(name, value)
+  out
 }
 
 
@@ -88,8 +81,7 @@ vector2df <- function(x, name = "name", value = "value", show_NA = FALSE) {
 #'
 #' @param x A (preferably) named `list` with any number of values
 #' @param name,value Names of the new key and value columns, respectively
-#' @param show_NA Logical; if FALSE elements without names will be listed as "";
-#'   otherwise as NA
+#' @param show_NA Ignored; if set will trigger a warning
 #' @param warn Logical; if TRUE will show a warning when
 #'
 #' @return a `data.frame` object with columns "name" and "value" for the names
@@ -97,7 +89,7 @@ vector2df <- function(x, name = "name", value = "value", show_NA = FALSE) {
 #' @export
 #'
 #' @examples
-#' x <- list(a = 1, b = 2:4, c = letters[10:20])
+#' x <- list(a = 1, b = 2:4, c = letters[10:20], "unnamed", "unnamed2")
 #' list2df(x, "col1", "col2", warn = FALSE)
 #'
 #' # contrast with `base::list2DF()`
@@ -105,38 +97,38 @@ vector2df <- function(x, name = "name", value = "value", show_NA = FALSE) {
 #'   list2DF(x)
 #' }
 
-list2df <- function(x, name = "name", value = "value", show_NA = FALSE, warn = TRUE) {
-  stopifnot("`x` must be a list" = is.list(x))
+list2df <- function(x, name = "name", value = "value", show_NA, warn = TRUE) {
+  if (!is.list(x)) {
+    stop("`x` must be a list", call. = FALSE)
+  }
+
+  if (!missing(show_NA)) {
+    warning("`show_NA` is no longer in use", call. = FALSE)
+  }
 
   cl <- lapply(x, class)
   n_cl <- length(unique(cl))
 
   if (n_cl > 1 & warn) {
-    warning("Not all values are the same class", call. = FALSE)
-    if (any(c("character", "factor") %in% cl)) {
-      warning("Values converted to character", call. = FALSE)
-    }
+    warning(
+      ngettext(
+        any(c("character", "factor") %in% cl),
+        "Not all values are the same class: converting to character",
+        "Not all values are the same class"
+      ),
+      call. = FALSE
+    )
   }
 
   ulist <- unlist(x, use.names = FALSE)
-  ln <- length(ulist)
-  nm <- rep(names(x), vap_int(x, length))
+  nm <- names(x)
+  blanks <- nm == ""
+  nm[blanks] <- which(blanks)
 
-  if (is.null(nm)) {
-    nm <- character(ln)
-  }
-
-  if (show_NA) {
-    nm[nm == ""] <- NA_character_
-  }
-
-  structure(
-    list(name = nm,
-         value = unname(ulist)),
-    class = "data.frame",
-    row.names = c(NA_integer_, ln),
-    .Names = c(name, value)
-  )
+  out <- quick_df(list(name = rep(make.unique(nm), vap_int(x, length)),
+                       value = unname(ulist)))
+  names(out) <- c(name, value)
+  out
 }
 
 # base::list2DF() -- but this wasn't introduced until 4.0.0
@@ -187,7 +179,7 @@ rn_to_col <- function(data, name = "row.name") {
   data[[n]] <- attr(data, "row.names")
   attr(data, "row.names") <- 1:nrow(data)
   colnames(data)[n] <- name
-  data[c(n, 1:(n - 1))]
+  data[, c(n, 1:(n - 1)), drop = FALSE]
 }
 
 #' Quick DF
