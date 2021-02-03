@@ -121,3 +121,6 @@ limit <- function(x, lower = min(x), upper = max(x)) {
   x
 }
 
+is_unique <- function(x) {
+  all(!duplicated(x))
+}
