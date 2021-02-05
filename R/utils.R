@@ -122,7 +122,9 @@ limit <- function(x, lower = min(x), upper = max(x)) {
 
 #' Median (Q 50)
 #'
-#' Median as the 50th quantile with an option to select quantile algorithm.
+#' Median as the 50th quantile with an option to select quantile algorithm
+#'
+#' @details
 #' `q50` is an alias for `median2`
 #'
 #' @inheritParams stats::quantile
@@ -137,7 +139,7 @@ limit <- function(x, lower = min(x), upper = max(x)) {
 #' @seealso [stats::quantile()]
 
 median2 <- function(x, type = 7, na.rm = FALSE) {
-  quantile(x, probs = .5, type = type, na.rm = na.rm, names = FALSE)
+  stats::quantile(x, probs = .5, type = type, na.rm = na.rm, names = FALSE)
 }
 
 #' @export

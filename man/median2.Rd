@@ -22,7 +22,9 @@ q50(x, type = 7, na.rm = FALSE)
     are removed from \code{x} before the quantiles are computed.}
 }
 \description{
-Median as the 50th quantile with an option to select quantile algorithm.
+Median as the 50th quantile with an option to select quantile algorithm
+}
+\details{
 \code{q50} is an alias for \code{median2}
 }
 \examples{
