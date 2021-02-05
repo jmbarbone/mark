@@ -7,7 +7,8 @@
 format_to_regex(x)
 }
 \arguments{
-\item{x}{A date format, assuming}
+\item{x}{A date or datetime format, assuming that entries follow the formats
+described in \link[base:strptime]{base::strptime}}
 }
 \description{
 Format string to a regular expression

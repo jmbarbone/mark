@@ -360,3 +360,13 @@ dir_create <- function(x, overwrite = FALSE) {
 
   invisible(dir.create(x, showWarnings = TRUE, recursive = TRUE))
 }
+
+#' File name
+#'
+#' Basename of file without extension
+#'
+#' @inheritParams tools::file_path_sans_ext
+#' @export
+file_name <- function(x, compression = FALSE) {
+  tools::file_path_sans_ext(basename(x), compression = compression)
+}

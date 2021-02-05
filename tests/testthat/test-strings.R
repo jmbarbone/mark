@@ -28,11 +28,27 @@ expect_my_date <- function(res, exp_char, ...) {
   )
 }
 
+expect_my_datetime <- function(res, exp_char, ...) {
+  expect_equal(
+    str_extract_datetime(res, ...),
+    capply(exp_char, strptime, format = "%Y-%m-%d %H%M%S", tz = ""),
+    label = as.character(res),
+    expected.label = exp_char
+  )
+}
+
 test_that("Extract dates", {
   expect_my_date("This is a file name 2020-02-21.csv", "2020-02-21")
   expect_my_date(
-    c("This is a file name 2020-02-21.csv", "No date"),
-    c("2020-02-21", NA)
+    c("This is a file name 2020-02-21.csv", "No date", "2014-09-15 is a good date"),
+    c("2020-02-21", NA, "2014-09-15")
   )
   expect_my_date("Last saved 17 December 2019", "2019-12-17", format = "%d %B %Y")
+
+  expect_my_datetime(
+    c("file date ending 2020-05-09 121212.xlsasdf",
+      "1960-04-07 233044 is the time",
+      "aaa 1984-12-14 001000"),
+    c("2020-05-09 121212", "1960-04-07 233044", "1984-12-14 001000")
+  )
 })
