@@ -12,17 +12,21 @@ date_from_partial(
 )
 }
 \arguments{
-\item{x}{A vector of character dates}
+\item{x}{A vector of dates written as characters}
 
-\item{format}{Format order of the date (accepts only combinations of 'y',
-'m', and 'd')}
+\item{format}{Format order of the date (accepts only combinations of \code{'y'},
+\code{'m'}, and \code{'d'})}
 
-\item{method}{Method for reporting partial dates -- "min" or "max"}
+\item{method}{Method for reporting partial dates as either the earliest
+possible date (\code{"min"}) or the latest possible date (\code{"max"}); dates with
+missing days will be adjusted accordingly to the month and, if needed, the
+leap year}
 
-\item{year_replacement}{If set, will use a year}
+\item{year_replacement}{(Default: \code{NA}) If set, will use this as a
+replacement for dates that contain missing years}
 }
 \description{
-Derive a date object from a partial date
+Derive a date vector from a partial date string
 }
 \details{
 Takes a character as an argument and attempts to create a date object when
@@ -32,7 +36,10 @@ part of the date string is missing.
 x <- c("2020-12-17", NA_character_, "", "2020-12-UN", "2020-12-UN",
        "2019-Unknown-00", "UNK-UNK-UNK", "1991-02-UN", "    ",
        "2020January20")
-data.frame(x = x,
-           min = date_from_partial(x),
-           max = date_from_partial(x, method = "max"))
+data.frame(
+  x = x,
+  min = date_from_partial(x),
+  max = date_from_partial(x, method = "max"),
+  year = date_from_partial(x, year_replacement = 1900)
+)
 }

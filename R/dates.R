@@ -1,23 +1,30 @@
 #' Partial dates
 #'
-#' Derive a date object from a partial date
+#' Derive a date vector from a partial date string
 #'
 #' @details
 #' Takes a character as an argument and attempts to create a date object when
 #'   part of the date string is missing.
 #'
-#' @param x A vector of character dates
-#' @param format Format order of the date (accepts only combinations of 'y',
-#'   'm', and 'd')
-#' @param method Method for reporting partial dates -- "min" or "max"
-#' @param year_replacement If set, will use a year
+#' @param x A vector of dates written as characters
+#' @param format Format order of the date (accepts only combinations of `'y'`,
+#'   `'m'`, and `'d'`)
+#' @param method Method for reporting partial dates as either the earliest
+#'   possible date (`"min"`) or the latest possible date (`"max"`); dates with
+#'   missing days will be adjusted accordingly to the month and, if needed, the
+#'   leap year
+#' @param year_replacement (Default: `NA`) If set, will use this as a
+#'   replacement for dates that contain missing years
 #' @examples
 #' x <- c("2020-12-17", NA_character_, "", "2020-12-UN", "2020-12-UN",
 #'        "2019-Unknown-00", "UNK-UNK-UNK", "1991-02-UN", "    ",
 #'        "2020January20")
-#' data.frame(x = x,
-#'            min = date_from_partial(x),
-#'            max = date_from_partial(x, method = "max"))
+#' data.frame(
+#'   x = x,
+#'   min = date_from_partial(x),
+#'   max = date_from_partial(x, method = "max"),
+#'   year = date_from_partial(x, year_replacement = 1900)
+#')
 #' @export
 
 
