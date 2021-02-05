@@ -91,11 +91,12 @@ vector2df(x[["b"]])
 Counting and proportions;
 
 ```{r}
-x <- rep(1:4, 4:1 * 2)
+set.seed(42)
+x <- sample(1:5, 20, TRUE, 5:1/2)
 counts(x)
 props(x)
 
-df <- as.data.frame(matrix(rep(1:5, 6), byrow = TRUE, ncol = 3))
+df <- as.data.frame(matrix(sample(1:2, 60, TRUE), byrow = TRUE, ncol = 3))
 counts(df, c("V1", "V2"))
 props(df, 1:3)
 ```
