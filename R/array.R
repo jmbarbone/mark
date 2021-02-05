@@ -15,12 +15,17 @@
 
 
 array_extract <- function(arr, ..., default = "1") {
-  stopifnot(is.array(arr))
+  if (!is.array(arr)) {
+    stop("`arr` must be an array", call. = FALSE)
+  }
+
   ls <- dotlist(...)
 
   nm <- as.integer(names(ls))
 
-  stopifnot("List must be named by numbers" = !anyNA(nm))
+  if (anyNA(nm)) {
+    stop("List must be named by numbers", call. = FALSE)
+  }
 
   ds <- dim(arr)
   dn <- length(ds)
@@ -30,7 +35,7 @@ array_extract <- function(arr, ..., default = "1") {
     val <- ls[[i]]
 
     if (is.character(val) || is.factor(val)) {
-      val <- paste0("'", val, "'")
+      val <- sprintf("'%s'", val)
     }
 
     setup[nm[i]] <- val
@@ -39,7 +44,7 @@ array_extract <- function(arr, ..., default = "1") {
   text <- sprintf(
     "%s[%s]",
     as.character(substitute(arr)),
-    paste(setup, collapse = ", ")
+    collapse0(setup, sep = ", ")
   )
 
   eval(parse(text = text), envir = parent.frame())

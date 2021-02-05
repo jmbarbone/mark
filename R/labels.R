@@ -65,7 +65,7 @@ assign_labels.data.frame <- function(x, ...) {
   ma <- match(nm, colnames(x), nomatch = NA_integer_)
 
   if (anyNA(ma)) {
-    stop("Columns not found: ", collapse(nm[is.na(ma)], sep = ", "), call. = FALSE)
+    stop("Columns not found: ", collapse0(nm[is.na(ma)], sep = ", "), call. = FALSE)
   }
 
   for (i in seq_along(nm)) {
@@ -91,21 +91,16 @@ get_labels <- function(x) {
 
 #' @export
 #' @rdname labels
-get_labels.data.frame <- function(x) {
-  vector2df(vap_chr(x, get_labels, .nm = TRUE), "column", "label")
+get_labels.default <- function(x) {
+  attr(x, "label") %||% NA_character_
 }
 
 #' @export
 #' @rdname labels
-get_labels.default <- function(x) {
-  lb <- attr(x, "label")
-
-  if (is.null(lb)) {
-    return(NA_character_)
-  }
-
-  lb
+get_labels.data.frame <- function(x) {
+  vector2df(vap_chr(x, get_labels, .nm = TRUE), "column", "label")
 }
+
 
 #' @export
 #' @rdname labels
@@ -141,7 +136,7 @@ remove_labels.data.frame <- function(x, cols, ...) {
 
     if (any(bad)) {
       stop("Column not found in data.frame:\n  ",
-           collapse(cols[bad], sep = ", "),
+           collapse0(cols[bad], sep = ", "),
            call. = FALSE)
     }
   }

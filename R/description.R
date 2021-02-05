@@ -59,9 +59,6 @@ author_info_to_text <- function(x) {
 
   ind <- !comment & len
   x[ind] <- paste0('"', x[ind], '"')
-  # ind <- !comment & !len
-  # x[ind] <- paste0("c(", paste0('"', x[ind], '"', collapse = ","), ")")
-  # I don't think this will work with multiple items...
   x[comment] <-  paste0("c(", names(x[comment][[1]]), " = ",  paste0('"', x[comment][1], '"'), ")")
 
   paste0(format(nm, width = width), " = ", x, ",")
@@ -81,76 +78,124 @@ find_author <- function() {
   )
 }
 
-#' Bump version (date)
+
+# Version -----------------------------------------------------------------
+
+
+#' Get and bump version
 #'
-#' Bump package version for dates
+#' Get and bump package version for dates
 #'
 #' @description
-#' Will read the DESCRIPTION file and adjust the version
-#' Assumes that the version is written with major releases of 0 and appending
-#'   the date.
+#' Will read the `DESCRIPTION` file and to get and adjust the version
 #'
-#' When the current version is the same as today's date, it will append a `.1`.
+#' `bump_date_version()` will not check if the version is actually a date.  When
+#'  the current version is the same as today's date(equal by character strings)
+#'  it will append a `.1`.
+#'
+#' @param version A new version to be added; default of `NULL` will
+#'   automatically update.
+#' @param date If `TRUE` will use a date as a version.
 #' @export
-bump_date_version <- function() {
+get_version <- function() {
   description <- readLines("DESCRIPTION")
   line <- grep("^[Vv]ersion.*[[:punct:][:digit:]]+$", description)
-
   stopifnot(length(line) == 1L)
-
-  v <- gsub("[Vv]ersion|[:]|[[:space:]]", "", description[line])
-  version <- package_version(v)
-  today <- today_as_version()
-
-
-  new <- if (version == today) {
-    do_bump_date_version(version, add = TRUE)
-  } else if (version > today) {
-    do_bump_date_version(version)
-  } else {
-    today
-  }
-
-  message(sprintf("Version updated: %s to %s", version, new))
-
-  description[line] <- sprintf("Version: %s", new)
-  writeLines(description, "DESCRIPTION", sep = "\n")
+  as.package_version(gsub("[Vv]ersion|[:]|[[:space:]]", "", description[line]))
 }
 
-# Some redundancy here
-# What about just packageVersion() ?
+#' @export
+#' @rdname get_version
+bump_version <- function(version = NULL) {
+  update_version(version)
+}
 
-version_update <- function(version) {
+#' @export
+#' @rdname get_version
+bump_date_version <- function(version = NULL) {
+  update_version(version, date = TRUE)
+}
+
+#' @export
+#' @rdname get_version
+update_version <- function(version = NULL, date = FALSE) {
+  # Get the DESCRIPTION
   description <- readLines("DESCRIPTION")
-  line <- grep("^[Vv]ersion.*[[:punct:][:digit:]]+$", description)
 
+  # Identify the correct line
+  line <- grep("^[Vv]ersion.*[[:punct:][:digit:]]+$", description)
   stopifnot(length(line) == 1L)
 
+  # Get the old version
   old <- gsub("[Vv]ersion|[:]|[[:space:]]", "", description[line])
 
-  message(sprintf("Version updated: %s to %s", old, version))
-  description[line] <- sprintf("Version: %s", version)
-  writeLines(description, "DESCRIPTION", sep = "\n")
+  # If new isn't passed update by date or by version
+  version <- if (!is.null(version)) {
+    version
+  } else if (date) {
+    do_bump_date_version(old)
+  } else {
+    do_bump_version(old)
+  }
+
+  if (!inherits(version, "package_version")) {
+    version <- as.package_version(collapse0(version, sep = "."))
+  }
+
+  # Use menu to check if updates are fine
+  switch(
+    utils::menu(
+      title = sprintf("Update version from %s to %s?", old, version),
+      choices = c("yes", "no")
+    ),
+    yes = {
+      description[line] <- sprintf("Version: %s", version)
+      invisible(writeLines(description, "DESCRIPTION", sep = "\n"))
+    },
+    no = invisible(FALSE)
+  )
 }
 
-do_bump_date_version <- function(version, add = FALSE) {
-  stopifnot(is.package_version(version))
+do_bump_version <- function(version) {
+  x <- unclass(as.package_version(version))[[1]]
+  n <- length(x)
+  x[n] <- x[n] + 1
+  x
+}
+
+do_bump_date_version <- function(version) {
+  today <- today_as_version(chr_split(version)[1] == "0")
+
+  if (version < today) {
+    return(today)
+  }
+
+  version <- as.package_version(version)
 
   x <- unclass(version)[[1]]
   n <- length(x)
 
-  if (add) {
+  if (version == today) {
     x[n + 1] <- 1
   } else {
     x[n] <- x[n] + 1
   }
 
-  package_version(collapse(x, sep = "."))
+
+  package_version(collapse0(x, sep = "."))
 }
 
 
-today_as_version <- function() {
+# Some redundancy here
+# What about just packageVersion() ?
+
+today_as_version <- function(zero = FALSE) {
   x <- unclass(as.POSIXlt(Sys.Date()))
-  char <- paste(0, x[["year"]] + 1900, x[["mon"]] + 1, x[["mday"]], sep = ".")
+
+  char <- if (zero) {
+    paste(0, x[["year"]] + 1900, x[["mon"]] + 1, x[["mday"]], sep = ".")
+  } else {
+    paste( x[["year"]] + 1900, x[["mon"]] + 1, x[["mday"]], sep = ".")
+  }
   as.package_version(char)
 }

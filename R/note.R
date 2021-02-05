@@ -54,7 +54,7 @@ note <- function(x) {
 print.jordan_note <- function(x, ...) {
   width <- getOption("jordan.note.width", getOption("width"))
   out <- lapply(x, str_slice_by_word, width)
-  out <- paste(unlist(out), collapse = "\n")
+  out <- collapse0(unlist(out), sep = "\n")
   fun <- getOption("jordan.note.fun", message)
 
   if (!is.function(fun)) {

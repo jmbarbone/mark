@@ -237,7 +237,7 @@ print.jordan_bib_list <- function(x, ...) {
     nmi <- nm[i]
     bordern <- getOption("width") - nchar(nmi) - 1
     header <- if (bordern > 0) {
-      paste0(" ", collapse(rep("-", bordern), sep = ""))
+      paste0(" ", collapse0(rep("-", bordern), sep = ""))
     } else {
       ""
     }
@@ -245,7 +245,7 @@ print.jordan_bib_list <- function(x, ...) {
     co <- utils::capture.output(print(out[[i]]))[-1]
 
     cat(paste0(ifelse(i == 1, "", "\n"), nmi, header),
-        collapse(paste0("  ", co), sep = "\n"),
+        collapse0(paste0("  ", co), sep = "\n"),
         sep = "\n"
     )
   }
@@ -265,7 +265,7 @@ print.jordan_bib_entry <- function(x, ...) {
   blanks <- vap_chr(
     chars_max - chars + 2,
     function(x) {
-      collapse(rep(" ", x), sep = "")
+      collapse0(rep(" ", x), sep = "")
     }
   )
 

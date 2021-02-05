@@ -17,4 +17,5 @@ Replace if \code{NULL}
 A mostly copy of \code{rlang}'s \verb{\%||\%} except does not use \code{\link[rlang:type-predicates]{rlang::is_null()}},
 which, currently, calls the same primitive \code{is.null} function as
 \code{\link[base:NULL]{base::is.null()}}.
+This is not to be exported due to conflicts with \code{purrr}
 }

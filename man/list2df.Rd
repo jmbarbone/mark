@@ -4,15 +4,14 @@
 \alias{list2df}
 \title{List to data.frame}
 \usage{
-list2df(x, name = "name", value = "value", show_NA = FALSE, warn = TRUE)
+list2df(x, name = "name", value = "value", show_NA, warn = TRUE)
 }
 \arguments{
 \item{x}{A (preferably) named \code{list} with any number of values}
 
 \item{name, value}{Names of the new key and value columns, respectively}
 
-\item{show_NA}{Logical; if FALSE elements without names will be listed as "";
-otherwise as NA}
+\item{show_NA}{Ignored; if set will trigger a warning}
 
 \item{warn}{Logical; if TRUE will show a warning when}
 }
@@ -29,7 +28,7 @@ the names of the list as values rather than variables.  This creates a
 longer form list that may be more tidy.
 }
 \examples{
-x <- list(a = 1, b = 2:4, c = letters[10:20])
+x <- list(a = 1, b = 2:4, c = letters[10:20], "unnamed", "unnamed2")
 list2df(x, "col1", "col2", warn = FALSE)
 
 # contrast with `base::list2DF()`

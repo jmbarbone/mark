@@ -25,7 +25,7 @@ str_slice <- function(x, n = 80L) {
       if (end > n_chars) {
         end <- n_chars
       }
-      paste(ss[.x:end], collapse = "")
+      collapse0(ss[.x:end], sep = "")
     })
 }
 
@@ -61,7 +61,7 @@ str_slice_by_word <- function(x, n = 80L) {
   }
 
   mapply(function(xx, y) {
-    paste(ss[xx:y], collapse = "")
+    collapse0(ss[xx:y], sep = "")
   },
   xx = starts,
   y = ends)
@@ -141,7 +141,6 @@ format_to_regex <- function(x) {
   x <- sub("%S", "([0-5][0-9]|60)", x)
   x
 }
-
 
 month_abbr_regex <- sprintf("(%s)", paste(month.abb,  collapse = "|"))
 month_name_regex <- sprintf("(%s)", paste(month.name, collapse = "|"))

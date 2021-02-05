@@ -11,10 +11,10 @@ magrittr::`%>%`
 #' A mostly copy of `rlang`'s `%||%` except does not use [rlang::is_null()],
 #'   which, currently, calls the same primitive `is.null` function as
 #'   [base::is.null()].
+#' This is not to be exported due to conflicts with `purrr`
 #'
 #' @param x,y If `x` is `NULL` returns `y`; otherwise `x`
 #'
-#' @export
 #' @name null_default
 `%||%` <- function(x, y) {
   if (is.null(x)) y else x
@@ -59,7 +59,7 @@ ept <- function(x, envir = parent.frame()) {
 }
 
 construct_date <- function(date_text, sep = "") {
-  collapse(vap_chr(unlist(strsplit(date_text, "")), date_switch), sep = sep)
+  collapse0(vap_chr(unlist(strsplit(date_text, "")), date_switch), sep = sep)
 }
 
 date_switch <- function(x) {
@@ -114,11 +114,15 @@ is_length0 <- function(x) {
 #'
 #' @export
 limit <- function(x, lower = min(x), upper = max(x)) {
-  stopifnot(lower <= upper)
+  if (lower > upper) {
+    stop("`lower` cannot be more than `upper`", call. = FALSE)
+  }
+
   x[x < lower] <- lower
   x[x > upper] <- upper
   x
 }
+
 
 #' Median (Q 50)
 #'
@@ -169,4 +173,20 @@ q50 <- median2
 #' @export
 range2 <- function(x, na.rm = FALSE) {
   c(min(x, na.rm = na.rm), max(x, na.rm = na.rm))
+}
+
+is_unique <- function(x) {
+  all(!duplicated(x))
+}
+
+as_character <- function(x) {
+  if (is.factor(x)) {
+    return(levels(x)[x])
+  }
+
+  as.character(x)
+}
+
+pseudo_id <- function(x) {
+  match(x, unique(x))
 }

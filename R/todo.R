@@ -40,7 +40,7 @@ clean_todo_split <- function(x) {
   stopifnot(n >= 3)
 
   if (n > 3) {
-    x[3] <- paste(x[3:n], collapse = ":")
+    x[3] <- collapse0(x[3:n], sep = ":")
     x <- x[1:3]
   }
 

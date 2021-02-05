@@ -110,7 +110,7 @@ startup_funs <- c(
     remove_tag_and_save(file, tag, warn = FALSE)
   }
 
-  pkgs <- paste(c(.default_packages, attached2), collapse = ",")
+  pkgs <- collapse0(c(.default_packages, attached2), sep = ",")
   line <- sprintf("%s\nR_DEFAULT_PACKAGES='%s'\n", tag, pkgs)
   cat(line, sep = "", file = file, append = fe)
 
@@ -165,7 +165,7 @@ names(.default_packages) <- paste0("package:", .default_packages)
   if (remove_objects) {
     if (loud & length(objs) > 0L) {
       message("Removing all objects in the Global Environment:\n",
-              paste(objs, collapse = " ... "))
+              collapse0(objs, sep = " ... "))
     }
     rm(list = objs, envir = .GlobalEnv)
   }
@@ -300,7 +300,7 @@ ht.tbl_df <- function(x, n = 5L) {
     }
 
     nm <- chr_split(x)
-    set_names(1:length(nm), nm)
+    set_names0(1:length(nm), nm)
   })
 }
 
@@ -364,7 +364,7 @@ remove_tag_and_save <- function(file, tag, warn = TRUE) {
 
   # Remove line of tag and next line
   out <- x[-c(line, line + 1L)]
-  out <- paste(out, collapse = "\n")
+  out <- collapse0(out, sep = "\n")
   out <- gsub("\n?$", "\n", out)
   writeLines(out, file)
 }

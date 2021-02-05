@@ -132,7 +132,7 @@ unique_name_check <- function(x) {
 
   if (any(int)) {
     warning("These names are duplicated: ",
-            paste0(names(lens[int]), collapse = ", "),
+            collapse0(names(lens[int]), sep = ", "),
             call. = FALSE)
     invisible(FALSE)
   } else {

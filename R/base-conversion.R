@@ -20,7 +20,7 @@ base_alpha <- function(x, base = 26)  {
 }
 
 alpha_base <- function(x, base = 26) {
-  warning("Use jordan::base_alpha() instead", call. = FALSE)
+  .Deprecated("base_alpha")
   base_alpha(x, base = base)
 }
 

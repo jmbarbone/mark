@@ -141,9 +141,9 @@ test_that("vap_lgl()", {
 
 test_that("capply()", {
   nm <- c("one", "two", "three")
-  x <- set_names(1:3, nm)
+  x <- set_names0(1:3, nm)
   res0 <- c(1, 4, 9)
-  res1 <- set_names(res0, nm)
+  res1 <- set_names0(res0, nm)
   foo <- function(x) x^2
 
   # Should appropriately set names

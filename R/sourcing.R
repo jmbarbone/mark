@@ -136,7 +136,7 @@ source_r_dir <- function(dir, echo = FALSE, quiet = FALSE, ...) {
 #' @export %>%
 #' @rdname source_files
 source_dir_r <- function(dir, echo = FALSE, quiet = FALSE, ...) {
-  warning("Use `jordan::source_r_dir()` instead.",  call. = FALSE)
+  .Deprecated("source_r_dir")
   source_r_dir(dir, echo, quiet, ...)
 }
 
