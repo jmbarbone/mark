@@ -204,6 +204,10 @@ quick_df <- function(x) {
     stop("x is not a list", call. = FALSE)
   }
 
+  op <- options()
+  options(stringsAsFactors = FALSE)
+  on.exit(options(op), add = TRUE)
+
   n <- unique(vap_int(x, length))
 
   if (length(n) != 1L) {
