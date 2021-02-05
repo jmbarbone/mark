@@ -22,16 +22,16 @@ df$bad <- NA
 bench::mark(                                    # median
   as.data.frame(x),                             #  305us
   plyr::quickdf(x),                             #   37us
-  jordan::quick_df(x),                          #   21us
+  quick_df(x),                          #   21us
 
-  jordan::complete_cases(df),                   #   42ms
+  complete_cases(df),                   #   42ms
   tidyr::drop_na(df),                           #   86ms
 
-  jordan::complete_cases(df, c("a", "e", "d")), #   26ms
+  complete_cases(df, c("a", "e", "d")), #   26ms
   tidyr::drop_na(df, a, e, d),                  #   50ms
 
-  jordan::complete_cases(df),                   #   53ms
-  jordan::complete_cases(df, "bad"),            #   12ms
+  complete_cases(df),                   #   53ms
+  complete_cases(df, "bad"),            #   12ms
   tidyr::drop_na(df),                           #   79ms
   tidyr::drop_na(df, bad),                      #   31ms
 

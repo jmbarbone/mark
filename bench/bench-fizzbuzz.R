@@ -140,13 +140,3 @@ bench::mark(
   foo4.0(x),
   iterations = 10
 )
-
-# y <- sample(x, n, replace = TRUE)
-# bench::mark(
-#   foo1.1(y),
-#   foo1.2(y),
-#   foo2.1(y),
-#   foo2.2(y),
-#   foo3.1(y),
-#   foo3.2(y)
-# )
