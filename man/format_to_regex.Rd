@@ -7,18 +7,18 @@
 format_to_regex(x)
 }
 \arguments{
-\item{x}{A date format, assuming}
+\item{x}{A date or datetime format, assuming that entries follow the formats
+described in \link[base:strptime]{base::strptime}}
 }
 \description{
 Format string to a regular expression
 }
 \examples{
-\dontrun{
+
 format_to_regex("\%Y-\%m-\%d")
 format_to_regex("\%b/\%d/\%y")
 format_to_regex("\%d \%B \%Y")
 
 pattern <- format_to_regex("\%Y-\%m-\%d")
 grepl(pattern, Sys.Date())
-}
 }

@@ -78,49 +78,69 @@ str_slice_by_word <- function(x, n = 80L) {
 #' @export
 #' @examples
 #' str_extract_date("This is a file name 2020-02-21.csv")
+#' str_extract_date(c("This is a file name 2020-02-21.csv",
+#'                    "Date of 2012-06-15 here"))
 #' str_extract_date(c("This is a file name 2020-02-21.csv", "No date"))
 #' str_extract_date("Last saved 17 December 2019", format = "%d %B %Y")
+#'
+#' str_extract_datetime(c("2020-02-21 235033", "2012-12-12 121212"))
+#' str_extract_datetime("This is a file name 2020-02-21 235033.csv")
+#'
 str_extract_date <- function(x, format = "%Y-%m-%d") {
   frex <- format_to_regex(format)
   text <- str_match(x, frex, ignore.case = TRUE)
   as.Date.character(text, format = format, optional = TRUE)
 }
 
+#' @rdname str_extract_date
+#' @export
+str_extract_datetime <- function(x, format = "%Y-%m-%d %H%M%S") {
+  frex <- format_to_regex(format)
+  text <- str_match(x, frex, ignore.case = TRUE)
+  capply(text, strptime, format = format, tz = "")
+}
+
 # Wrapper for sub()
 str_match <- function(x, pattern, perl = FALSE, ignore.case = FALSE) {
-  pattern <- sprintf("^.*(%s).*$", pattern)
-  sub(pattern, "\\1", x,  perl = perl, ignore.case = ignore.case)
+  pat <- sprintf("^.*(%s).*$", pattern)
+  sub(pat, "\\1", x,  perl = perl, ignore.case = ignore.case)
 }
+
 
 
 #' Format string to a regular expression
 #'
-#' @param x A date format, assuming
+#' @param x A date or datetime format, assuming that entries follow the formats
+#'  described in [base::strptime]
+#'
 #' @examples
-#' \dontrun{
+#'
 #' format_to_regex("%Y-%m-%d")
 #' format_to_regex("%b/%d/%y")
 #' format_to_regex("%d %B %Y")
 #'
 #' pattern <- format_to_regex("%Y-%m-%d")
 #' grepl(pattern, Sys.Date())
-#' }
 format_to_regex <- function(x) {
   # may not need to be so comprehensive because a bad date will fail with the
   #   date parsing anyway
-  x <- gsub("[[:space:](-/_)]", ".", x)
-  x <- sub("%Y", "[[:digit:]]{4}", x)
+  x <- gsub("[[:space:](-/_:)]", ".", x)
+  x <- sub("%Y", "([[:digit:]]{4})", x)
+  # TODO maybe change this to use just the numbers?
   x <- sub("%b", month_abbr_regex, x)
   x <- sub("%B", month_name_regex, x)
-  # TODO more comprehensive with (0)-31
-  x <- sub("%d", "[[:digit:]]{2}", x)
-  x <- sub("%e", "[[:digit:]]{1}", x)
-  # TODO more comprehensive with (0)1-12
-  x <- sub("%[em]", "[[:digit:]]{1,2}", x)
-  x <- sub("%y", "[[:digit:]]{2}", x)
-  x <- sub("%Y", "[[:digit:]]{4}", x)
+  # These require leading 0s
+  x <- sub("%d", "(0[1-9]|[12][0-9]|3[01])", x)
+  x <- sub("%e", "(0[1-9]|1[0-9]|1[0-2])", x)
+  x <- sub("%m", "(0[1-9]|1[0-9]|1[0-2])", x)
+  x <- sub("%y", "([[:digit:]]{2})", x)
+  x <- sub("%Y", "([[:digit:]]{4})", x)
+  x <- sub("%H", "([01][0-9]|[2][0-4])", x)
+  x <- sub("%M", "([0-5][0-9]|60)", x)
+  x <- sub("%S", "([0-5][0-9]|60)", x)
   x
 }
+
 
 month_abbr_regex <- sprintf("(%s)", paste(month.abb,  collapse = "|"))
 month_name_regex <- sprintf("(%s)", paste(month.name, collapse = "|"))

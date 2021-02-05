@@ -2,9 +2,12 @@
 % Please edit documentation in R/strings.R
 \name{str_extract_date}
 \alias{str_extract_date}
+\alias{str_extract_datetime}
 \title{Extract date from string}
 \usage{
 str_extract_date(x, format = "\%Y-\%m-\%d")
+
+str_extract_datetime(x, format = "\%Y-\%m-\%d \%H\%M\%S")
 }
 \arguments{
 \item{x}{A character vector}
@@ -19,6 +22,12 @@ Extract date from string
 }
 \examples{
 str_extract_date("This is a file name 2020-02-21.csv")
+str_extract_date(c("This is a file name 2020-02-21.csv",
+                   "Date of 2012-06-15 here"))
 str_extract_date(c("This is a file name 2020-02-21.csv", "No date"))
 str_extract_date("Last saved 17 December 2019", format = "\%d \%B \%Y")
+
+str_extract_datetime(c("2020-02-21 235033", "2012-12-12 121212"))
+str_extract_datetime("This is a file name 2020-02-21 235033.csv")
+
 }
