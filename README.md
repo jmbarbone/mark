@@ -25,7 +25,7 @@ Some parts happily ripped from and (hopefully) credited to others.
 You can the development version from
 [GitHub](https://github.com/jmbarbone/jordan) with:
 
-    devtools::install_github("jmbarbone/jordan")
+    remotes::install_github("jmbarbone/jordan")
 
 ## Select examples
 
@@ -129,4 +129,53 @@ letters[1:5] %wo% letters[3:7]
 #> [1] "a" "b"
 letters[1:5] %wi% letters[3:7]
 #> [1] "c" "d" "e"
+```
+
+Small functions for working with data.frames:
+
+``` r
+x <- list(a = 1:5, b = letters[1:5])
+quick_df(x)
+#>   a b
+#> 1 1 a
+#> 2 2 b
+#> 3 3 c
+#> 4 4 d
+#> 5 5 e
+
+vector2df(x[["b"]])
+#>   name value
+#> 1   NA     a
+#> 2   NA     b
+#> 3   NA     c
+#> 4   NA     d
+#> 5   NA     e
+```
+
+Counting and proportions;
+
+``` r
+x <- rep(1:4, 4:1 * 2)
+counts(x)
+#> 1 2 3 4 
+#> 8 6 4 2
+props(x)
+#>   1   2   3   4 
+#> 0.4 0.3 0.2 0.1
+
+df <- as.data.frame(matrix(rep(1:5, 6), byrow = TRUE, ncol = 3))
+counts(df, c("V1", "V2"))
+#>   V1 V2 freq
+#> 1  1  2    2
+#> 2  4  5    2
+#> 3  2  3    2
+#> 4  5  1    2
+#> 5  3  4    2
+props(df, 1:3)
+#>   V1 V2 V3 prop
+#> 1  1  2  3  0.2
+#> 2  4  5  1  0.2
+#> 3  2  3  4  0.2
+#> 4  5  1  2  0.2
+#> 5  3  4  5  0.2
 ```

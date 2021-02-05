@@ -1,5 +1,7 @@
 # development
 
+## New features
+
 * adds `fizzbuzz()`
 * adds data.frame functions
   * adds `quick_df()` to turn a list into a data.frame (used internally, too)
@@ -11,6 +13,10 @@
   * `ls_object()` to list all `is.object()`s 
   * `ls_dataframe()` to list all `is.data.frame()`s 
   * `ls_function()` to list all `is.function()`s 
+* adds `counts()` and `props()` for counting unique elements in vectors and data.frames
+
+## Changes
+
 * Updates to prevent conflicts with popular packages
   * `%||%` is no longer exported
   * `collapse()` is now `collapse0()` -- although `glue::collapse()` is meant to be deprecated
