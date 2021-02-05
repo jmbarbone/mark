@@ -12,6 +12,12 @@ t_df(x, id = NULL)
 \item{id}{No longer used}
 }
 \description{
+This transposes a data.frame with \code{t()} but transforms back into a data.frame
+with column and row names cleaned up.  Because the data types may be mixed
+and reduced to characters, this may only be useful for a visual viewing of
+the data.frame.
+}
+\details{
 Transposes a data.frame as a data.frame
 }
 \examples{

@@ -154,6 +154,12 @@ list2df2 <- function(x = list(), nrow = NULL) {
 #'
 #' Transposes a data.frame as a data.frame
 #'
+#' @description
+#' This transposes a data.frame with `t()` but transforms back into a data.frame
+#'   with column and row names cleaned up.  Because the data types may be mixed
+#'   and reduced to characters, this may only be useful for a visual viewing of
+#'   the data.frame.
+#'
 #' @param x A data.frame
 #' @param id No longer used
 #'
@@ -167,8 +173,17 @@ t_df <- function(x, id = NULL) {
     warning("Argument `id` is no longer valid")
   }
 
-  stopifnot(is.data.frame(x))
-  out <- as.data.frame(t(x))
+  if (!is.data.frame(x)) {
+    stop("`x` must be a data.frame", call. = FALSE)
+  }
+
+  out <- as.data.frame(
+    t(x),
+    stringsAsFactors = FALSE,
+    optional = TRUE,
+    make.names = FALSE
+  )
+
   colnames(out) <- paste0("row_", 1:nrow(x))
   rn_to_col(out, "colname")
 }
