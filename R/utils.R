@@ -126,3 +126,15 @@ limit <- function(x, lower = min(x), upper = max(x)) {
 is_unique <- function(x) {
   all(!duplicated(x))
 }
+
+as_character <- function(x) {
+  if (is.factor(x)) {
+    return(levels(x)[x])
+  }
+
+  as.character(x)
+}
+
+pseudo_id <- function(x) {
+  match(x, unique(x))
+}
