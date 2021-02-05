@@ -15,7 +15,6 @@ magrittr::`%>%`
 #'
 #' @param x,y If `x` is `NULL` returns `y`; otherwise `x`
 #'
-#
 #' @name null_default
 `%||%` <- function(x, y) {
   if (is.null(x)) y else x
@@ -115,7 +114,10 @@ is_length0 <- function(x) {
 #'
 #' @export
 limit <- function(x, lower = min(x), upper = max(x)) {
-  stopifnot(lower <= upper)
+  if (lower > upper) {
+    stop("`lower` cannot be more than `upper`", call. = FALSE)
+  }
+
   x[x < lower] <- lower
   x[x > upper] <- upper
   x
