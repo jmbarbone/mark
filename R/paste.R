@@ -55,14 +55,6 @@ collapse0 <- function(..., sep = "") {
   paste0(unlist(ls), collapse = sep)
 }
 
-#' @rdname utils-paste
-#' @export
-collapse <- function(..., sep = "") {
-  .Deprecated("collapse0")
-  collapse0(..., sep = sep)
-}
-
-
 # reduces outer function down to key elements
 do_paste_combine <- function(x, y, collate = TRUE, sep = "") {
   xn <- length(x)

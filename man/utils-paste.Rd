@@ -5,7 +5,6 @@
 \alias{paste_c}
 \alias{paste_combine}
 \alias{collapse0}
-\alias{collapse}
 \title{Paste combine}
 \usage{
 paste_c(x, y, collate = TRUE, sep = "")
@@ -13,8 +12,6 @@ paste_c(x, y, collate = TRUE, sep = "")
 paste_combine(..., collate = TRUE, sep = "")
 
 collapse0(..., sep = "")
-
-collapse(..., sep = "")
 }
 \arguments{
 \item{x, y, ...}{Vectors to paste and/or combine}

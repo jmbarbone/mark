@@ -21,17 +21,10 @@ sort_names <- function(x) {
 #'
 #' @param x A vector of values
 #' @param nm A vector of names
+#'
 #' @export
 set_names0 <- function(x, nm = x) {
-  names(x) <- nm
-  x
-}
-
-#' @rdname set_names0
-#' @export
-set_names <- function(x, nm = x) {
-  .Deprecated("set_names0")
-  set_names0(x, nm)
+  `names<-`(x, nm)
 }
 
 #' @rdname set_names0

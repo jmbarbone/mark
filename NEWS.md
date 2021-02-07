@@ -1,4 +1,4 @@
-# development
+# jordan 0.1.1
 
 ## New features
 
@@ -17,10 +17,14 @@
 
 ## Changes
 
-* Updates to prevent conflicts with popular packages
-  * `%||%` is no longer exported
-  * `collapse()` is now `collapse0()` -- although `glue::collapse()` is meant to be deprecated
-  * `set_names()` is now `set_names0()`
+Some exported functions and names have been changed to prevent conflicts with other popular packages
+
+* `%||%` is no longer exported; it is exported in `rlang` (and reexported in `purrr`) and is a relatively simply function anyway
+* `collapse()` is now `collapse0()` to avoid conflicts with `glue`; although `glue::collapse()` is meant to be deprecated, `collapse0()` is mostly a wrapper for `paste0()`, so this may be a better name
+* `set_names()` is now `set_names0()` to avoid conflicts with `rlang` (reexported from `purrr`) and `magrittr`
+
+## Fixes/updates
+
 * `do_paste_combine()` (used inside `paste_combine()`) simplified to remove use of `outer()`
 * improves version bumping/updating
   * added `get_version()` to retrieve the current package version (assuming you're in the directory)

@@ -2,13 +2,10 @@
 % Please edit documentation in R/names.R
 \name{set_names0}
 \alias{set_names0}
-\alias{set_names}
 \alias{remove_names}
 \title{Set names}
 \usage{
 set_names0(x, nm = x)
-
-set_names(x, nm = x)
 
 remove_names(x)
 }
