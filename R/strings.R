@@ -88,7 +88,7 @@ str_slice_by_word <- function(x, n = 80L) {
 #'
 str_extract_date <- function(x, format = "%Y-%m-%d") {
   frex <- format_to_regex(format)
-  text <- str_match(x, frex, ignore.case = TRUE)
+  text <- string_extract(x, frex, ignore.case = TRUE)
   as.Date.character(text, format = format, optional = TRUE)
 }
 
@@ -96,16 +96,31 @@ str_extract_date <- function(x, format = "%Y-%m-%d") {
 #' @export
 str_extract_datetime <- function(x, format = "%Y-%m-%d %H%M%S") {
   frex <- format_to_regex(format)
-  text <- str_match(x, frex, ignore.case = TRUE)
+  text <- string_extract(x, frex, ignore.case = TRUE)
   capply(text, strptime, format = format, tz = "")
 }
 
-# Wrapper for sub()
-str_match <- function(x, pattern, perl = FALSE, ignore.case = FALSE) {
-  pat <- sprintf("^.*(%s).*$", pattern)
-  sub(pat, "\\1", x,  perl = perl, ignore.case = ignore.case)
+string_extract <- function(x, pattern, perl = FALSE, ignore.case = FALSE) {
+  re <- regexpr(pattern, x, perl = perl, ignore.case = ignore.case)
+  starts <- as.vector(re, "integer")
+  substr(x, starts, starts + attr(re, "match.length") - 1L)
 }
 
+# Not as quick as stringr but only base, so...
+string_extract_all <- function(x, pattern, perl = FALSE, ignore.case = FALSE) {
+  re <- gregexpr(pattern, x, perl = perl, ignore.case = ignore.case)
+  mapply(
+
+    function(xi, rei, lens) {
+        substring(xi, rei, rei + lens - 1L)
+    },
+    xi = x,
+    rei = re,
+    lens = lapply(re, attr, "match.length"),
+    SIMPLIFY = FALSE,
+    USE.NAMES = FALSE
+  )
+}
 
 
 #' Format string to a regular expression
@@ -152,6 +167,8 @@ month_name_regex <- sprintf("(%s)", paste(month.name, collapse = "|"))
 #' @param x A vector of strings to split
 #' @export
 chr_split <- function(x) {
-  stopifnot("x must be a single element" = length(x) == 1)
+  if (length(x) != 1L) {
+    stop("`x` must be a single element", call. = FALSE)
+  }
   strsplit(as.character(x), "")[[1]]
 }
