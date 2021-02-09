@@ -47,14 +47,13 @@
 #' }
 #' }
 
-read_bib <- function(file, skip = 0, max_lines = NULL, encoding = "UTF-8")
-{
+read_bib <- function(file, skip = 0L, max_lines = NULL, encoding = "UTF-8") {
   # Account for nul values found in encoding?
   # skipNul = TRUE could do this but an error can still be caused later
   bib <- readLines(file, encoding = encoding, skipNul = FALSE)
 
   if (!is.null(max_lines)) {
-    start <- skip + 1
+    start <- skip + 1L
     n_lines <- length(bib)
     bib <- bib[seq.int(start, min(skip + max_lines, n_lines))]
   }
@@ -63,15 +62,18 @@ read_bib <- function(file, skip = 0, max_lines = NULL, encoding = "UTF-8")
 
   # Find start of entries
   from <- grep("[@]", bib)
-  stopifnot("No entries detected" = length(from) > 0)
+
+  if (length(from) == 0L) {
+    stop("No entries detected", call. = FALSE)
+  }
 
   # shift over (may contain white space?)
-  to <- c(from[-1] - 1, length(bib))
+  to <- c(from[-1L] - 1L, length(bib))
 
-  item_list <- Map(function(x, y) bib[x:y], x = from, y = to - 1)
+  item_list <- Map(function(x, y) bib[x:y], x = from, y = to - 1L)
 
   # Extract first line for speediness
-  first_line <- sapply(item_list, function(x) x[1])
+  first_line <- sapply(item_list, `[`, 1L)
 
   keys <- gsub(".*((?<=\\{)[^,]+).*", "\\1", first_line, perl = TRUE)
   fields <- gsub(".*((?<=@)[^\\{]+).*", "\\1", first_line, perl = TRUE)
@@ -93,8 +95,8 @@ read_bib <- function(file, skip = 0, max_lines = NULL, encoding = "UTF-8")
 get_bib_categories <- function(list) {
   lapply(list, function(x) {
     # Assuming categories are to the left of any "="
-    xx <- strsplit(x[-1], "=")
-    xx <- sapply(xx, `[`, 1)
+    xx <- strsplit(x[-1L], "=")
+    xx <- sapply(xx, `[`, 1L)
     xx <- trimws(xx)
     xx[xx %in% c("{", "}")] <- NA_character_
     tolower(xx)
@@ -104,10 +106,10 @@ get_bib_categories <- function(list) {
 get_bib_values <- function(list) {
   lapply(list, function(x) {
     # Assuming values are to the right of any "="
-    xx <- strsplit(x[-1], "=")
-    xx <- sapply(xx, `[`, -1)
+    xx <- strsplit(x[-1L], "=")
+    xx <- sapply(xx, `[`, -1L)
     # remove empty columns
-    xx[vap_lgl(xx, function(y) length(y) == 0)] <- NA_character_
+    xx[lengths(xx) == 0L] <- NA_character_
     # There may be something better than this
     # Would like to maintain the { and }
     # xx <- gsub("\\{|\\}|,?$", "", xx)
@@ -132,14 +134,7 @@ get_bib_values <- function(list) {
 process_bib_dataframe <- function(categories, values, fields, keys) {
   # Determine all categories for missing values inside Map
   ucats <- unique(remove_na(unlist(categories)))
-  ucats_n <- length(ucats)
-  ucats_df <- structure(
-    list(v1 = ucats,
-         v2 = rep(NA_character_, ucats_n)),
-    class = "data.frame",
-    row.names = c(NA_integer_, ucats_n),
-    .Names = c("category", "value")
-  )
+  ucats_df <- quick_df(list(category = ucats, value = rep(NA_character_, length(ucats))))
 
   x <- Map(
     function(cats, vals, field, key) {
@@ -149,7 +144,7 @@ process_bib_dataframe <- function(categories, values, fields, keys) {
       vals <- vals[valids]
 
       # Check for duplicate categories
-      lens <- tapply(cats, cats, length)
+      lens <- lengths(split(cats, cats))
       bad <- lens > 1L
 
       if (any(bad)) {
@@ -164,14 +159,7 @@ process_bib_dataframe <- function(categories, values, fields, keys) {
       vals <- c(key, field, vals)
 
       # Create data.frame
-      n <- length(vals)
-      data <- structure(
-        list(x1 = cats,
-             x2 = vals),
-        class = "data.frame",
-        row.names = c(NA_integer_, n),
-        .Names = c("category", "value")
-      )
+      data <- quick_df(list(category = cats, value = vals))
 
       # Check for missing categories
       toadd <- ucats %out% cats
@@ -180,8 +168,8 @@ process_bib_dataframe <- function(categories, values, fields, keys) {
       }
 
       # Transpose to prep for reduce rbinding
-      new <- list2df2(as.list(data[[2]]))
-      colnames(new) <- as.list(data[[1]])
+      new <- list2df2(as.list(data[[2L]]))
+      colnames(new) <- as.list(data[[1L]])
 
       new
     },
@@ -215,13 +203,20 @@ process_bib_list <- function(keys, fields, categories, values) {
 }
 
 as_bib_list <- function(x, names = NULL) {
-  stopifnot(is.list(x))
-  structure(x, class = c("list", "jordan_bib_list"), names = names)
+  if (!is.list(x)) {
+    stop("`x` must be a list", call. = FALSE)
+  }
+  attr(x, "class") <- c("list", "jordan_bib_list")
+  x
 }
 
 as_bib <- function(x, bib_list = NULL) {
-  stopifnot(inherits(x, "data.frame"))
-  structure(x, bib_list = bib_list, class = c("data.frame", "jordan_bib"))
+  if (!is.data.frame(x)) {
+    stop("`x` must be a data.frame", call. = FALSE)
+  }
+
+  attr(x, "class") <- c("data.frame", "jordan_bib")
+  x
 }
 
 
@@ -235,16 +230,16 @@ print.jordan_bib_list <- function(x, ...) {
 
   for (i in seq_along(out)) {
     nmi <- nm[i]
-    bordern <- getOption("width") - nchar(nmi) - 1
-    header <- if (bordern > 0) {
+    bordern <- getOption("width") - nchar(nmi) - 1L
+    header <- if (bordern > 0L) {
       paste0(" ", collapse0(rep("-", bordern), sep = ""))
     } else {
       ""
     }
 
-    co <- utils::capture.output(print(out[[i]]))[-1]
+    co <- utils::capture.output(print(out[[i]]))[-1L]
 
-    cat(paste0(ifelse(i == 1, "", "\n"), nmi, header),
+    cat(paste0(ifelse(i == 1L, "", "\n"), nmi, header),
         collapse0(paste0("  ", co), sep = "\n"),
         sep = "\n"
     )
@@ -263,7 +258,7 @@ print.jordan_bib_entry <- function(x, ...) {
   chars_max <- max(chars)
 
   blanks <- vap_chr(
-    chars_max - chars + 2,
+    chars_max - chars + 2L,
     function(x) {
       collapse0(rep(" ", x), sep = "")
     }

@@ -55,7 +55,7 @@ author_info_to_text <- function(x) {
   width <- max(sapply(nm, nchar))
 
   comment <- nm == "comment"
-  len <- sapply(x, length) == 1
+  len <- lengths(x) == 1
 
   ind <- !comment & len
   x[ind] <- paste0('"', x[ind], '"')

@@ -89,7 +89,8 @@ expand_by <- function(x, y, expand = c("x","y", "intersect", "both"), sort = FAL
 #' reindex(iris1, "index", seq(2, 8, 2), expand = "both")
 #' @export
 reindex <- function(x, index = NULL, new_index, expand = c("intersect", "both"),  sort = FALSE) {
-  expand <- match.arg(expand)
+  expand <- match_param(expand)
+
   stopifnot("`x` must be a data.frame" = inherits(x, "data.frame"),
             !is.null(new_index),
             length(new_index) != 0L)
@@ -124,18 +125,16 @@ reindex <- function(x, index = NULL, new_index, expand = c("intersect", "both"),
 
 unique_name_check <- function(x) {
   # Checks that names are unique in the vector
-  nm <- names(x)
-  if (is.null(nm)) nm <- x
-
-  lens <- sapply(split(nm, nm), length, USE.NAMES = TRUE)
+  nm <- names(x) %||% x
+  lens <- counts(nm)
   int <- lens > 1
 
   if (any(int)) {
     warning("These names are duplicated: ",
             collapse0(names(lens[int]), sep = ", "),
             call. = FALSE)
-    invisible(FALSE)
-  } else {
-    invisible(TRUE)
+    return(invisible(FALSE))
   }
+
+  invisible(TRUE)
 }

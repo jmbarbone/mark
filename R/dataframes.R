@@ -125,8 +125,11 @@ list2df <- function(x, name = "name", value = "value", show_NA, warn = TRUE) {
   blanks <- nm == ""
   nm[blanks] <- which(blanks)
 
-  out <- quick_df(list(name = rep(make.unique(nm), vap_int(x, length)),
-                       value = unname(ulist)))
+  out <- quick_df(
+    list(name = rep(make.unique(nm), lengths(x)),
+         value = unname(ulist))
+  )
+
   names(out) <- c(name, value)
   out
 }
@@ -189,7 +192,10 @@ t_df <- function(x, id = NULL) {
 }
 
 rn_to_col <- function(data, name = "row.name") {
-  stopifnot(is.data.frame(data))
+  if (!is.data.frame(data)) {
+    stop("`data` must be a data.frame", call. = FALSE)
+  }
+
   n <- length(data) + 1
   data[[n]] <- attr(data, "row.names")
   attr(data, "row.names") <- 1:nrow(data)
@@ -223,7 +229,7 @@ quick_df <- function(x) {
   options(stringsAsFactors = FALSE)
   on.exit(options(op), add = TRUE)
 
-  n <- unique(vap_int(x, length))
+  n <- unique(lengths(x))
 
   if (length(n) != 1L) {
     stop("List does not have an equal length", call. = FALSE)
@@ -231,7 +237,7 @@ quick_df <- function(x) {
 
   attributes(x) <- list(
     class = "data.frame",
-    names = names(x) %||% make.names(1:length(x), unique = TRUE),
+    names = names(x) %||% make.names(1:length(x)),
     row.names = .set_row_names(n)
   )
 

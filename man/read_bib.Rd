@@ -4,7 +4,7 @@
 \alias{read_bib}
 \title{Read Bib file}
 \usage{
-read_bib(file, skip = 0, max_lines = NULL, encoding = "UTF-8")
+read_bib(file, skip = 0L, max_lines = NULL, encoding = "UTF-8")
 }
 \arguments{
 \item{file}{File or connection}
