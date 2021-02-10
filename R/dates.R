@@ -13,7 +13,7 @@
 #'   possible date (`"min"`) or the latest possible date (`"max"`); dates with
 #'   missing days will be adjusted accordingly to the month and, if needed, the
 #'   leap year
-#' @param year_replacement (Default: `NA`) If set, will use this as a
+#' @param year_replacement (Default: `NA_integer_`) If set, will use this as a
 #'   replacement for dates that contain missing years
 #' @examples
 #' x <- c("2020-12-17", NA_character_, "", "2020-12-UN", "2020-12-UN",
@@ -28,7 +28,7 @@
 #' @export
 
 
-date_from_partial <- function(x, format = "ymd", method = c("min", "max"), year_replacement = NA) {
+date_from_partial <- function(x, format = "ymd", method = c("min", "max"), year_replacement = NA_integer_) {
   x <- as.character(x)
   fmt <- verify_format(format)
   method <- match_param(method, c("min", "max"))
@@ -100,78 +100,81 @@ prep_date_string <- function(x) {
 parse_date_strings <- function(.x, fmt, method, year_replacement) {
   splits <- strsplit(.x, "-")
 
-  mat <- sapply(splits, function(x) {
-    x <- switch(
-      length(x),
+  mat <- sapply(
+    splits,
+    function(x) {
+      x <- switch(
+        length(x),
 
-      c(y = x, m = NA_character_, d = NA_character_),
-      c(date_offset_match(x, fmt), d = NA_character_),
-      set_names0(x, fmt)
-    )
+        c(y = x, m = NA_character_, d = NA_character_),
+        c(date_offset_match(x, fmt), d = NA_character_),
+        set_names0(x, fmt)
+      )
 
-    ints <- c(y = NA_integer_, m = NA_integer_, d = NA_integer_)
+      ints <- c(y = NA_integer_, m = NA_integer_, d = NA_integer_)
 
-    if (is.null(x)) {
-      # x will be NULL is length is not 1, 2, or 3
-      return(ints)
-    }
-
-    # (re)set names and (re)arrange
-    x <- set_names0(suppressWarnings(as.integer(x)), names(x))
-    x <- x[c('y', 'm', 'd')]
-    x[is.na(x)] <- 0L
-
-    if (all(x == integer(3))) {
-      out <- if (is.na(year_replacement)) {
-        ints
-      } else {
-        switch(
-          method,
-          min = c(y = year_replacement, m = 1L, d = 1L),
-          max = c(y = year_replacement, m = 12L, d = 31L)
-        )
+      if (is.null(x)) {
+        # x will be NULL is length is not 1, 2, or 3
+        return(ints)
       }
-      return(out)
-    }
 
-    if (method == "min") {
+      # (re)set names and (re)arrange
+      x <- set_names0(suppressWarnings(as.integer(x)), names(x))
+      x <- x[c('y', 'm', 'd')]
+      x[is.na(x)] <- 0L
 
-      if (x['d'] == 0L) {
-        x['d'] <- 1L
+      if (all(x == integer(3))) {
+        out <- if (is.na(year_replacement)) {
+          ints
+        } else {
+          switch(
+            method,
+            min = c(y = year_replacement, m = 1L, d = 1L),
+            max = c(y = year_replacement, m = 12L, d = 31L)
+          )
+        }
+        return(out)
+      }
+
+      if (method == "min") {
+
+        if (x['d'] == 0L) {
+          x['d'] <- 1L
+        }
+
+        if (x['m'] == 0L) {
+          x['m'] <- 1L
+        }
+
+        if (x['y'] == 0L) {
+
+          if (is.na(year_replacement)) {
+            return(ints)
+          }
+
+          x['y'] <- year_replacement
+        }
+
+        return(x)
       }
 
       if (x['m'] == 0L) {
-        x['m'] <- 1L
+        x['m'] <- 12L
       }
 
-      if (x['y'] == 0L) {
+      if (x['d'] == 0L) {
+        x['d'] <- days_in_month[x['m']]
 
-        if (is.na(year_replacement)) {
-          return(ints)
+        if (x['m'] == 2L && is_leap_year(x['y'])) {
+          x['d'] <- 29L
         }
-
-        x['y'] <- year_replacement
       }
 
-      return(x)
-    }
-
-    if (x['m'] == 0L) {
-      x['m'] <- 12L
-    }
-
-    if (x['d'] == 0L) {
-      x['d'] <- days_in_month[x['m']]
-
-      if (x['m'] == 2L && is_leap_year(x['y'])) {
-        x['d'] <- 29L
-      }
-    }
-
-    x
-  },
-  simplify = TRUE,
-  USE.NAMES = FALSE)
+      x
+    },
+    simplify = TRUE,
+    USE.NAMES = FALSE
+  )
 
   res <- sprintf(
     "%s-%s-%s",
@@ -218,8 +221,8 @@ is_leap_year <- function(year = Sys.time()) {
 }
 
 as_date_strptime <- function(x, format = "%Y-%m-%d") {
-  as.Date(strptime(x, format = format, tz = getOption("jordan.tz", "GMT")),
-          format = format, optional = TRUE)
+  text <- strptime(x, format = format, tz = getOption("jordan.tz", "GMT"))
+  as.Date.character(text, format = format, optional = TRUE)
 }
 
 strp_format <- function(fmt) {

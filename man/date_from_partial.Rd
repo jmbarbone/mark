@@ -8,7 +8,7 @@ date_from_partial(
   x,
   format = "ymd",
   method = c("min", "max"),
-  year_replacement = NA
+  year_replacement = NA_integer_
 )
 }
 \arguments{
@@ -22,7 +22,7 @@ possible date (\code{"min"}) or the latest possible date (\code{"max"}); dates w
 missing days will be adjusted accordingly to the month and, if needed, the
 leap year}
 
-\item{year_replacement}{(Default: \code{NA}) If set, will use this as a
+\item{year_replacement}{(Default: \code{NA_integer_}) If set, will use this as a
 replacement for dates that contain missing years}
 }
 \description{
