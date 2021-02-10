@@ -8,23 +8,34 @@ x <- quick_df(list(
 ))
 
 n <- 1e4
-a <- as.data.frame(matrix(stringi::stri_rand_strings(26 * n, 5), ncol = 26))
-names(a) <- letters
-b <- as.data.frame(matrix(stats::rpois(2 * n, 20), ncol = 2))
-c <- as.data.frame(matrix(stats::runif(3 * n), ncol = 3))
+xchars <- stringi::stri_rand_strings(26 * n, 5)
+chars <- as.data.frame(matrix(xchars, ncol = 26))
+names(chars) <- letters
+ints <- as.data.frame(matrix(stats::rpois(2 * n, 20), ncol = 2))
+dbls <- as.data.frame(matrix(stats::runif(3 * n), ncol = 3))
+bools <- as.data.frame(matrix(sample(c(TRUE, FALSE, NA), n, TRUE)))
+facts <- as.data.frame(matrix(factor(xchars, levels = sort(unique(xchars))), ncol = 26))
 
-x <- cbind(a, b, c)
+x <- cbind(chars, ints, dbls, bools, facts)
 names(x) <- make.unique(names(x))
 
 bench::mark(
-  counts(x, "a"),
-  dplyr::count(x, a),
+  `vec characters` = counts(chars[[1]]),
+  `vec factors` = counts(facts[[1]]),
+  `vec factors 2` = counts(facts[[1]]),
+  `vec integers` = counts(ints[[1]]),
+  `vec doubles` = counts(dbls[[1]]),
+  `vec boolean` = counts(bools[[1]]),
 
-  counts(x, 1:3),
-  dplyr::count(x, a, b, c),
+  `df single jordan` = counts(x, "a"),
+  `df single dplyr` = dplyr::count(x, a),
 
-  counts(x, c("z", "V1", "V1.1")),
-  dplyr::count(x, z, V1, V1.1),
+  `df 3 cols jordan` = counts(x, 1:3),
+  `df 3 cols dplyr` = dplyr::count(x, a, b, c),
+
+  `df all cols jordan` = counts(x, seq_along(x)),
+  `df all cols dplyr` = dplyr::count(dplyr::group_by_all(x), name = "N"),
+
   iterations = 10,
   check = FALSE
 )
