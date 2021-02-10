@@ -30,7 +30,7 @@ Some exported functions and names have been changed to prevent conflicts with ot
   * added `get_version()` to retrieve the current package version (assuming you're in the directory)
   * `utils::menu()` is called to confirm that version should be updated
   * can update by either adding a number to the version (`bump_version()` or by date `bump_date_version()`)
-* implements an improved non-exported `string_extrat()` function inside `str_extract_date()` and `str_extract_datettime()`
+* implements an improved non-exported `string_extract()` function inside `str_extract_date()` and `str_extract_datettime()`
 
 # jordan 0.1.0
 
