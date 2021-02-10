@@ -105,11 +105,27 @@ get_labels.data.frame <- function(x) {
 #' @export
 #' @rdname labels
 view_labels <- function(x, title) {
+  cesx <- as.character(as.expression(substitute(x)))
+
   if (missing(title)) {
-    title <- paste0(as.character(substitute(x)), " - Labels")
+    title <- paste0(cesx, " - Labels")
   }
 
-  view_fun <- get("View", envir = as.environment("package:utils"))
+  pf <- parent.frame(2)
+  view_fun <- get0("View", envir = pf)
+  view_fun <- view_fun %||% ("utils" %colons% "View")
+
+  if (!is.function(view_fun)) {
+    stop("Something went wrong trying to use `View()`",
+         "\nThis may be because you are using Rstudio :",
+         "\n  https://community.rstudio.com/t/view-is-causing-an-error/75297/4",
+         "\nYou can try :\n  ",
+         sprintf('`View(get_labels(%s), title = "%s")`',
+                 cesx,
+                 title),
+         call. = FALSE)
+  }
+
   view_fun(x = get_labels(x), title = title)
 }
 
