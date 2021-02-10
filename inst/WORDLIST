@@ -39,6 +39,7 @@ pkgs
 png
 purrr's
 readLines
+recodes
 requireNamespace
 rlang's
 rmd
