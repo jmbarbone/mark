@@ -4,11 +4,22 @@
 #'   data.frame
 #'
 #' @description
-#' Variables will be return by the order in which they appear
+#' Variables will be return by the order in which they appear.  Even factors are
+#'   shown by their order of appearance in the vector.
+#'
+#' There are 4 methods for counting vectors.  The `default` method uses a
+#'   reworked version of `base::rle`.  The `logical` method counts `TRUE`,
+#'   `FALSE` and `NA` values, which should be quicker than the other methods.
+#'   The `character` creates a quick factor with and `split()`s the vector
+#'   before using `lengths()`.  The `factor` method simply recodes the levels
+#'   first.
 #'
 #' @param x A vector or data.frame
-#' @param cols A vector of column names or indexes
 #' @param ... Arguments passed to other methods
+#' @param sort Logical, if `TRUE` will sort values before returning. For factors
+#'   this will sort by factor levels.  This has no effect for logical vectors,
+#'   which already return in the order of `FALSE`, `TRUE`, `NA`.
+#' @param cols A vector of column names or indexes
 #'
 #' @examples
 #' x <- sample(1:5, 10, TRUE)
@@ -30,18 +41,28 @@ counts <- function(x, ...) {
   UseMethod("counts")
 }
 
+
 #' @export
-counts.default <- function(x, ...) {
+counts.default <- function(x, sort = FALSE, ...) {
   n <- length(x)
+
+  if (n == 0L) {
+    return(integer(0L))
+  }
+
   sx <- sort(x, na.last = TRUE)
   y <- sx[-1L] != sx[-n]
   i <- c(which(y | is.na(y)), n)
   out <- diff(c(0L, i))
   names(out) <- sx[i]
+
+  if (sort) {
+    return(out)
+  }
+
   out[match(unique(x), sx[i])]
 }
 
-# Special cases that are much quicker for characters
 
 #' @export
 counts.logical <- function(x, ...) {
@@ -53,8 +74,18 @@ counts.logical <- function(x, ...) {
 }
 
 #' @export
-counts.character <- function(x, ...) {
+counts.character <- function(x, sort = FALSE, ...) {
   ux <- unique(x)
+
+  if (sort) {
+    ux <- sort(ux)
+  }
+
+  n <- length(ux)
+
+  if (n == 0L) {
+    return(integer(0L))
+  }
 
   fact <- factor(
     x,
@@ -62,30 +93,34 @@ counts.character <- function(x, ...) {
     labels = ux,
     exclude = NULL,
     ordered = FALSE,
-    nmax = length(ux)
+    nmax = n
   )
 
   lengths(split(x, fact), use.names = TRUE)
 }
 
 #' @export
-counts.factor <- function(x, ...) {
+counts.factor <- function(x, sort = FALSE, ...) {
+  if (sort) {
+    return(lengths(split(x, x)))
+  }
+
   x <- levels(x)[x]
   counts.character(x)
 }
 
 #' @rdname counts
 #' @export
-counts.data.frame <- function(x, cols, ...) {
+counts.data.frame <- function(x, cols, sort = FALSE, ...) {
   if (!is.character(cols)) {
     cols <- colnames(x)[cols]
   }
 
   if (length(cols) > 1) {
-    return(counts_n(x[, cols]))
+    return(counts_n(x[, cols], sort = sort))
   }
 
-  vector2df(counts(x[[cols]]), cols, "freq")
+  vector2df(counts(x[[cols]], sort = sort), cols, "freq")
 }
 
 #' @rdname counts
@@ -102,16 +137,16 @@ props.default <- function(x, ...) {
 
 #' @rdname counts
 #' @export
-props.data.frame <- function(x, cols, ...) {
+props.data.frame <- function(x, cols, sort = FALSE, ...) {
   if (!is.character(cols)) {
     cols <- colnames(x)[cols]
   }
 
   if (length(cols) > 1) {
-    return(props2(x[, cols]))
+    return(props2(x[, cols], sort = sort))
   }
 
-  vector2df(props(x[[cols]]), cols, "prop")
+  vector2df(props(x[[cols]], sort = sort), cols, "prop")
 }
 
 #' Count N
@@ -121,9 +156,11 @@ props.data.frame <- function(x, cols, ...) {
 #' @param x A data.frame in which the combination of all columns present will
 #'   be counted
 #' @param name A name for the new column
-counts_n <- function(x, name = "freq") {
+#' @param sort Logical, if `TRUE` sorts the output; This will sort based
+counts_n <- function(x, name = "freq", sort = FALSE) {
+  # Can I save the call to unique here?
   ints <- do.call(paste, c(lapply(x, pseudo_id), sep = "."))
-  res <- counts(ints)
+  res <- counts(ints, sort = sort)
   len <- length(res)
   non_dupe <- !duplicated(ints, nmax = len)
   out <- x[non_dupe, ]
@@ -143,8 +180,8 @@ counts_n <- function(x, name = "freq") {
   out
 }
 
-props2 <- function(x) {
-  res <- counts_n(x, "prop")
+props2 <- function(x, sort = FALSE) {
+  res <- counts_n(x, "prop", sort = sort)
   n <- ncol(res)
   res[[n]] <- res[[n]] / nrow(x)
   res

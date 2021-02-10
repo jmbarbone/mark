@@ -4,13 +4,15 @@
 \alias{counts_n}
 \title{Count N}
 \usage{
-counts_n(x, name = "freq")
+counts_n(x, name = "freq", sort = FALSE)
 }
 \arguments{
 \item{x}{A data.frame in which the combination of all columns present will
 be counted}
 
 \item{name}{A name for the new column}
+
+\item{sort}{Logical, if \code{TRUE} sorts the output; This will sort based}
 }
 \description{
 Employs \code{counts()} for combinations of multiple rows

@@ -10,13 +10,13 @@
 \usage{
 counts(x, ...)
 
-\method{counts}{data.frame}(x, cols, ...)
+\method{counts}{data.frame}(x, cols, sort = FALSE, ...)
 
 props(x, ...)
 
 \method{props}{default}(x, ...)
 
-\method{props}{data.frame}(x, cols, ...)
+\method{props}{data.frame}(x, cols, sort = FALSE, ...)
 }
 \arguments{
 \item{x}{A vector or data.frame}
@@ -24,9 +24,21 @@ props(x, ...)
 \item{...}{Arguments passed to other methods}
 
 \item{cols}{A vector of column names or indexes}
+
+\item{sort}{Logical, if \code{TRUE} will sort values before returning. For factors
+this will sort by factor levels.  This has no effect for logical vectors,
+which already return in the order of \code{FALSE}, \code{TRUE}, \code{NA}.}
 }
 \description{
-Variables will be return by the order in which they appear
+Variables will be return by the order in which they appear.  Even factors are
+shown by their order of appearance in the vector.
+
+There are 4 methods for counting vectors.  The \code{default} method uses a
+reworked version of \code{base::rle}.  The \code{logical} method counts \code{TRUE},
+\code{FALSE} and \code{NA} values, which should be quicker than the other methods.
+The \code{character} creates a quick factor with and \code{split()}s the vector
+before using \code{lengths()}.  The \code{factor} method simply recodes the levels
+first.
 }
 \details{
 Get counts or proportions of unique observations in a vector or columns in a
