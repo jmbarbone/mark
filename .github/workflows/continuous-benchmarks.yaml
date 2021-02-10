@@ -14,7 +14,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          install.packages(c("remotes",  "dplyr", "plyr", "tidyr"))
+          install.packages(c("remotes",  "dplyr", "plyr", "tidyr", "bib2df"))
           remotes::install_deps(dependencies = TRUE)
           remotes::install_github("r-lib/bench")
         shell: Rscript {0}
