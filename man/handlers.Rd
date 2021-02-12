@@ -4,7 +4,9 @@
 \alias{handlers}
 \alias{has_warning}
 \alias{has_error}
+\alias{has_message}
 \alias{get_warning}
+\alias{get_message}
 \alias{get_error}
 \title{Handlers}
 \usage{
@@ -12,7 +14,11 @@ has_warning(x, FUN)
 
 has_error(x, FUN)
 
+has_message(x, FUN)
+
 get_warning(x, FUN, .null = TRUE)
+
+get_message(x, FUN, .null = TRUE)
 
 get_error(x, FUN, .null = TRUE)
 }
@@ -57,5 +63,7 @@ get_error(c(1, 0, 2), foo)
 # drop NULLs
 get_error(c(1, 0, 2), foo, .null = FALSE)
 
-
+}
+\references{
+Function for \emph{catching} has been adapted from https://stackoverflow.com/a/4952908/12126576
 }

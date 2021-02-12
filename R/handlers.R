@@ -15,6 +15,9 @@
 #' @param FUN A function
 #' @param .null Logical, if `FALSE` will drop `NULL` results (for `get_*()`)
 #'
+#' @references
+#' Function for _catching_ has been adapted from https://stackoverflow.com/a/4952908/12126576
+#'
 #' @examples
 #' has_warning(c(1, "no"), as.integer)
 #' #     1    no
@@ -37,7 +40,6 @@
 #' # drop NULLs
 #' get_error(c(1, 0, 2), foo, .null = FALSE)
 #'
-#'
 #' @export
 #' @name handlers
 
@@ -53,8 +55,20 @@ has_error <- function(x, FUN) {
 
 #' @export
 #' @rdname handlers
+has_message <- function(x, FUN) {
+  has_catch(x, FUN, type = "message")
+}
+
+#' @export
+#' @rdname handlers
 get_warning <- function(x, FUN, .null = TRUE) {
   get_catch(x, FUN, type = "warning", null = .null)
+}
+
+#' @export
+#' @rdname handlers
+get_message <- function(x, FUN, .null = TRUE) {
+  get_catch(x, FUN, type = "message", null = .null)
 }
 
 #' @export
@@ -63,15 +77,26 @@ get_error <- function(x, FUN, .null = TRUE) {
   get_catch(x, FUN, type = "error", null = .null)
 }
 
-has_catch <- function(x, FUN, type) {
-  res <- lapply(x, catch(FUN))
-  out <- vap_lgl(res, function(.x) !is.null(.x[[type]]))
+has_catch <- function(x, FUN, type = c("error", "warning", "message")) {
+  type <- match_param(type)
+  FUN <- match.fun(FUN)
+  res <- sapply(x, catch(FUN), USE.NAMES = TRUE, simplify = FALSE)
+  out <- vap_lgl(res, function(i) !is.null(i[[type]]))
+  attr(out, "result") <- lapply(res, `[[`, "result")
+  attr(out, "class") <- c("has_catch", "logical")
   set_names0(out, x)
 }
 
+print.has_catch <- function(x, ...) {
+  nm <- names(x)
+  attributes(x) <- NULL
+  names(x) <- nm
+  print(x)
+}
+
 get_catch <- function(x, FUN, type, null = TRUE) {
-  res <- lapply(x, catch(FUN))
-  out <- lapply(res, function(.x) .x[[type]])
+  res <- sapply(x, catch(FUN), USE.NAMES = TRUE, simplify = FALSE)
+  out <- sapply(res, function(i) i[[type]], USE.NAMES = TRUE, simplify = FALSE)
   out <- set_names0(out, x)
 
   if (!null) {
@@ -81,31 +106,35 @@ get_catch <- function(x, FUN, type, null = TRUE) {
   out
 }
 
+# Adapted from https://stackoverflow.com/a/4952908/12126576
 catch <- function(FUN) {
+  FUN <- match.fun(FUN)
+
   function(...) {
-    tryCatch(
-      list(
-        result = FUN(...),
-        warning = NULL,
-        error = NULL
+    env <- list2env(list(error = NULL, warning = NULL, message = NULL))
+    res <- withCallingHandlers(
+      tryCatch(
+        FUN(...),
+        error = function(e) {
+          env$error <- c(env$error, e$message)
+          NULL
+        }
       ),
-      error = function(e) {
-        list(
-          result = NULL,
-          error = e$message,
-          warning = NULL
-        )
-      },
       warning = function(e) {
-        list(
-          result = NULL,
-          error = NULL,
-          warning = e$message
-        )
+        env$warning <- c(env$warning, e$message)
+        invokeRestart("muffleWarning")
       },
-      interrupt = function(e) {
-        stop("catch interrupted", call. = FALSE)
+      message = function(e) {
+        env$message <- c(env$message, e$message)
+        invokeRestart("muffleMessage")
       }
+    )
+
+    list(
+      result = res,
+      error = env$error,
+      warning = env$warning,
+      message = env$message
     )
   }
 }
