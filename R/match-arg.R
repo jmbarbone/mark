@@ -43,8 +43,6 @@ match_arg <- function(x, table) {
     return(NULL)
   }
 
-  char_sub <- as.character(substitute(x))
-
   if (missing(table)) {
     sp <- sys.parent()
     args <- formals(sys.function(sp))
@@ -77,8 +75,9 @@ match_arg <- function(x, table) {
 #'
 #' @export
 match_param <- function(param, choices) {
-  # browser()
-  stopifnot(!is.null(param))
+  if (is.null(param)) {
+    stop("match_param() requires non-NULL params", call. = FALSE)
+  }
 
   param_c <- as.character(as.expression(substitute(param)))
 
@@ -91,12 +90,18 @@ match_param <- function(param, choices) {
   res <- choices[match(param[1], choices, nomatch = 0L)[1]]
   ocall <- outer_call()
 
-  if (length(res) == 0) {
+  if (is_length0(res)) {
+
+    if (is_length0(param)) {
+      param <- deparse(param)
+    }
+
     stop(sprintf(
-      '`match_param(%s)` failed in `%s`:\n  `%s` must be one of the following: "%s"',
+      '`match_param(%s)` failed in `%s`:\n  `%s` [%s] must be one of the following: "%s"',
       param_c,
       ocall,
       param_c,
+      param,
       collapse0(choices, sep = '", "')
     ),
     call. = FALSE)

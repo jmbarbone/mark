@@ -9,7 +9,7 @@ test_that("match-param", {
   expect_error(
     foo(y = 4),
     '`match_param(y)` failed in `foo(y = 4)`:
-  `y` must be one of the following: "1", "2", "3"',
+  `y` [4] must be one of the following: "1", "2", "3"',
     fixed = TRUE
   )
 
@@ -29,7 +29,7 @@ test_that("match-param", {
   expect_error(
     foo(),
     '`match_param(tolower(x))` failed in `foo()`:
-  `tolower(x)` must be one of the following: "a", "b", "c"',
+  `tolower(x)` [character(0)] must be one of the following: "a", "b", "c"',
     fixed = TRUE
   )
 })

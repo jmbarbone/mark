@@ -1,3 +1,10 @@
+# Development
+
+
+## New features
+
+* `match_param()` now reports the value passed to `param` on failure
+
 # jordan 0.1.1
 
 ## New features
