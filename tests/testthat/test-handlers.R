@@ -1,6 +1,6 @@
 test_that("handler examples", {
   has_catch_c <- function(...) {
-    x <- c(list(...))
+    x <- c(...)
     class(x) <- c("has_catch", "logical")
     x
   }
@@ -56,8 +56,8 @@ test_that("handler examples", {
   }
 
   expect_identical(
-    get_message(c(1, 2, 3), message_foo),
-    has_catch_c(`1` = NULL, `2` = NULL, `3` = "This is a message\n"),
+    get_message(c(1, 2, 3), message_foo, .null = FALSE),
+    list(`3` = "This is a message\n"),
     ignore_attr = TRUE
   )
 
