@@ -52,3 +52,20 @@ test_that("Extract dates", {
     c("2020-05-09 121212", "1960-04-07 233044", "1984-12-14 001000")
   )
 })
+
+test_that("print_c()", {
+  expect_equal(
+    capture.output(print_c(1:3)),
+    c("c(", "1,", "2,", "3,", "NULL", ")")
+  )
+
+  expect_equal(
+    capture.output(print_c(c("b", "a", "a", "b"))),
+    c("c(", '\"a\",', '\"b\",', "NULL", ")")
+  )
+
+  expect_equal(
+    capture.output(print_c("a", null = FALSE)),
+    c("c(", '\"a\"', ")")
+  )
+})

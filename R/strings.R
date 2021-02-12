@@ -172,3 +172,52 @@ chr_split <- function(x) {
   }
   strsplit(as.character(x), "")[[1]]
 }
+
+
+#' Print as c
+#'
+#' Prints a vector to paste into an R script
+#'
+#' @details
+#' This sorts (if set) and provides unique values for each element in `x` and
+#'   prints then as a call to `c`.  This can be useful for copying data that you
+#'   want to save as a vector in an R script.
+#' The result is both called in `cat()` as well as copied to the clipboard.
+#'
+#' @param x A vector (defaults to reading the clipboard)
+#' @param sorted If `TRUE` (default) applies `sort()` to `x`
+#' @param null If `TRUE` (default) adds `NULL` at the end of the `c()` print
+#' @examples
+#' print_c(1:10)
+#' print_c(letters[1:3])
+#' print_c(month.abb)
+#'
+#' @export
+print_c <- function(x = read_clipboard(), sorted = TRUE, null = TRUE) {
+  if (!is.vector(x)) {
+    stop("`x` must be a vector", call. = FALSE)
+  }
+
+  x <- unique(unlist(x))
+
+  if (sorted) {
+    x <- sort(x)
+  }
+
+  string <- sprintf('c(\n"%s",\nNULL\n)', collapse0(x, sep = '",\n"'))
+
+  if (!null) {
+    string <- gsub(",\nNULL", "", string)
+  }
+
+  if (is.numeric(x)) {
+    string <- gsub('"', "", string)
+  }
+
+  if (interactive()) {
+    write_clipboard(string)
+  }
+
+  cat(string)
+  invisible(string)
+}

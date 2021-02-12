@@ -2,6 +2,7 @@
 
 * `match_param()` now reports the value passed to `param` on failure
 * removes checks for `stringsAsFactors` option in `quick_df()`
+* adds `print_c()` to print a vector into a `c()` "string"
 
 # jordan 0.1.1
 
