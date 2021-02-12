@@ -19,22 +19,22 @@ for (i in seq_along(x)) {
 df <- quick_df(x)
 df$bad <- NA
 
-bench::mark(                                    # median
-  as.data.frame(x),                             #  305us
-  plyr::quickdf(x),                             #   37us
+bench::mark(                            # median
+  as.data.frame(x),                     #  305us
+  plyr::quickdf(x),                     #   37us
   quick_df(x),                          #   21us
 
   complete_cases(df),                   #   42ms
-  tidyr::drop_na(df),                           #   86ms
+  tidyr::drop_na(df),                   #   86ms
 
   complete_cases(df, c("a", "e", "d")), #   26ms
-  tidyr::drop_na(df, a, e, d),                  #   50ms
+  tidyr::drop_na(df, a, e, d),          #   50ms
 
   complete_cases(df),                   #   53ms
   complete_cases(df, "bad"),            #   12ms
-  tidyr::drop_na(df),                           #   79ms
-  tidyr::drop_na(df, bad),                      #   31ms
+  tidyr::drop_na(df),                   #   79ms
+  tidyr::drop_na(df, bad),              #   31ms
 
-  iterations = 20,
+  iterations = 200,
   check = FALSE
 )

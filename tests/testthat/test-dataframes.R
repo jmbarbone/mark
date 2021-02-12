@@ -1,7 +1,7 @@
 test_that("to_row_names()", {
   x <- quick_df(list(
-   a = 1:4,
-   b = letters[1:4]
+    a = 1:4,
+    b = letters[1:4]
   ))
 
   expect_equal(
@@ -96,4 +96,17 @@ test_that("t_df()", {
   ))
 
   expect_equal(t_df(x), y)
+})
+
+test_that("quick_df()", {
+  expect_identical(
+    quick_df(list(a = NULL)),
+    structure(list(a = NULL), class = "data.frame", row.names = integer())
+  )
+
+  expect_identical(
+    quick_df(list(a = integer())),
+    data.frame(a = integer(), stringsAsFactors = FALSE)
+  )
+
 })

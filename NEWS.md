@@ -1,9 +1,7 @@
 # Development
 
-
-## New features
-
 * `match_param()` now reports the value passed to `param` on failure
+* removes checks for `stringsAsFactors` option in `quick_df()`
 
 # jordan 0.1.1
 

@@ -225,10 +225,6 @@ quick_df <- function(x) {
     stop("x is not a list", call. = FALSE)
   }
 
-  op <- options()
-  options(stringsAsFactors = FALSE)
-  on.exit(options(op), add = TRUE)
-
   n <- unique(lengths(x))
 
   if (length(n) != 1L) {
@@ -238,12 +234,11 @@ quick_df <- function(x) {
   attributes(x) <- list(
     class = "data.frame",
     names = names(x) %||% make.names(1:length(x)),
-    row.names = .set_row_names(n)
+    row.names = c(NA_integer_, -n)
   )
 
   x
 }
-
 
 #' Complete cases
 #'
