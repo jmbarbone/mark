@@ -127,14 +127,20 @@ null_check <- function(x) {
 }
 
 apply_logical_matrix <- function(mat, FUN, na.rm) {
-  stopifnot("Not a matrix" = is.matrix(mat),
-            "Not logical" = is_boolean(mat))
-
-  na_val <- if (na.rm) {
-    switch(FUN, `|` = FALSE, `&` = TRUE)
-  } else {
-    NA
+  if (!is.matrix(mat)) {
+    stop("`mat` must be a matrix", call. = FALSE)
   }
+
+  if (!is_boolean(mat)) {
+    stop("`mat` must be boolean", call. = FALSE)
+  }
+
+  na_val <-
+    if (na.rm) {
+      switch(FUN, `|` = FALSE, `&` = TRUE)
+    } else {
+      NA
+    }
 
   use_fun <- match.fun(FUN)
 
@@ -143,7 +149,7 @@ apply_logical_matrix <- function(mat, FUN, na.rm) {
     1,
     function(x) {
       if (na.rm) {
-        x <- x[!is.na(x)]
+        x <- remove_na(x)
       }
 
       len <- length(x)
