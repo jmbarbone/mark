@@ -152,7 +152,7 @@ vector2df(x[["b"]])
 #> 5   NA     e
 ```
 
-Counting and proportions;
+Counts and proportions:
 
 ``` r
 set.seed(42)
@@ -180,4 +180,30 @@ props(df, 1:3)
 #> 5  2  1  2 0.15
 #> 6  2  2  2 0.15
 #> 7  1  2  1 0.05
+```
+
+Date time differences:
+
+``` r
+x <- as.POSIXlt("2021-02-13 05:02:30", tz = "US/Eastern") + c(0, -1, 2) * 3600
+y <- as.POSIXlt("2020-02-13 05:02:30", tz = "US/Eastern") + c(0, -1, 2) * 3600
+
+# Year (by days, months, etc)
+diff_time_years(x, y)
+#> Time differences in years (365 days)
+#> [1] -1.00274 -1.00274 -1.00274
+diff_time_myears(x, y)
+#> Time differences in years (30-day months)
+#> [1] -1.016667 -1.016667 -1.016667
+
+# Set time zones
+diff_time_hours(x, y, "GMT", "US/Eastern")                         
+#> Time differences in hours
+#> [1] -8789 -8789 -8789
+diff_time_hours(x, x, "GMT", c("US/Pacific", "US/Eastern", "GB"))
+#> Time differences in hours
+#> [1] -8 -5  0
+diff_time_days(x, y, NULL, 31536000) 
+#> Time differences in days
+#> [1] -1 -1 -1
 ```

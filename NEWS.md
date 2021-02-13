@@ -8,6 +8,13 @@
   * internal rework of `catch()` for catching errors, messages, and warnings
   * `has_*()` now returns the result in the `result` attribute
   * `print.has_catch()` will hide attributes in print
+* adds `diff_time` functions
+  * functions include `diff_time()` along with shortcuts for specific methods: `diff_time_secs()`, `diff_time_days()`, `diff_time_years()`, and others (see `?jordan::diff_time`)
+  * these are much like the `base::difftime()` but...
+    * have more methods/units for computing differences, which may need to be the case for when a unit of time has to be _standardized_ (e.g., 1 year needs to be 365 days, or 1 month needs to be 30 days)
+    * are class `diff_time` and `numeric`
+    * have a slightly different print method (will note appropriately how units of time are measures)
+    * can account for timezone differences (must be set with a the `tza` and `tzb` parameters)
 
 # jordan 0.1.1
 
