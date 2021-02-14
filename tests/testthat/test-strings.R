@@ -10,7 +10,7 @@ test_that("string slices", {
 
   # By length and word
   res <- str_slice_by_word(x, n = len)
-  expect_equal(collapse0(res, sep = ""), x, info = "By word:  Collapsed res")
+  expect_equal(collapse0(res, sep = " "), x, info = "By word:  Collapsed res")
   lengths <- vapply(res, nchar, integer(1))
   expect_true(all(lengths <= len), info = "By word:  All lines within desired length")
 

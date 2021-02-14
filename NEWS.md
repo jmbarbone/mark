@@ -24,6 +24,7 @@
   * adds new print method for `todos_df` for viewing tasks
   * the result of `todos()` still has class `data.frame` but will now also have class `todos_df`
   * the `print.todos_df()` method should be make more sense for task management
+* `str_slice_by_word()` no longer has a leading `" "` for each element after the first (this was not the intention of the split)
 
 # jordan 0.1.1
 

@@ -26,7 +26,8 @@ str_slice <- function(x, n = 80L) {
         end <- n_chars
       }
       collapse0(ss[.x:end], sep = "")
-    })
+    }
+  )
 }
 
 #' @export
@@ -57,15 +58,17 @@ str_slice_by_word <- function(x, n = 80L) {
 
     starts <- c(starts, st)
     ends <- c(ends, end)
-    st <- end + 1L
+    st <- end + 2L
+
   }
 
-  mapply(function(xx, y) {
-    collapse0(ss[xx:y], sep = "")
-  },
-  xx = starts,
-  y = ends)
-
+  mapply(
+    function(xx, y) {
+      collapse0(ss[xx:y], sep = "")
+    },
+    xx = starts,
+    y = ends
+  )
 }
 
 
