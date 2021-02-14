@@ -55,8 +55,8 @@ str_slice_by_word <- function(x, n = 80L) {
       ahead <- ss[end + 1L]
     }
 
-    starts <- append(starts, st)
-    ends <- append(ends, end)
+    starts <- c(starts, st)
+    ends <- c(ends, end)
     st <- end + 1L
   }
 
