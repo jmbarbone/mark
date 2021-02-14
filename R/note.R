@@ -4,67 +4,87 @@
 #'
 #' @details
 #' When the note is assigned to an object a new class will be added,
-#'   `jordan_note`, so that a `print` function can call an S3 method.  The print
-#'   for this can be adjusted for it's width by using the option
+#'   `note`, so that a `print` function can call an S3 method.  The print for
+#'    this can be adjusted for it's width by using the option
 #'   `jordan.note.width` which defaults to the option `width` when not set.
-#'
-#' The method of _printing_ can also be adjusted with the `jordan.note.fun`
-#'   option in which a function can be assigned.  This function will then be
-#'   applied to the note at print.
 #'
 #' The type of object assigned to the note is not restricted, so user beware
 #'   of odd prints or additional features added to the notes fun.
 #'
+#' When assigning a note (with `note<-`) the `noted` class is added to the
+#'   object.  This allows the `print.noted` class to be distracted and for the
+#'   note to be printed (with the `print.note` method) every time the object is
+#'   called/printed.  However, it will not be called when not `interactive()`
+#'
 #' @param x An object
-#' @param value The note to attach
+#' @param value The note to attach; if `NULL` will remove the note and the
+#'   class `noted` from the object.
 #' @param ... Additional arguments passed from methods (not used)
 #'
-#' @importFrom methods getFunction
+#' @examples
+#' x <- c("x", "k", "c", "d")
+#' comment(x) <- "This is just a comment"
+#' comment(x)
+#' # Comment is intentionally hidden
+#' x
+#' note(x) <- "Just some random letters"
+#' note(x)
+#' # Note is now present every time
+#' x
 #'
-#' @export
+#' # Assinging `NULL` will remove note (and class)
+#' note(x) <- NULL
+#' note(x) # NULL
+#' x       # No more note
+#'
 #' @name note
+#' @export
 
-"note<-" <- function(x, value) {
-  if (!is.null(value)) {
-    cls <- append("jordan_note", class(value))
-    class(value) <- cls
+`note<-` <- function(x, value) {
+  if (is.null(value)) {
+    attr(x, "note") <- NULL
+    class(x) <- setdiff(class(x), "noted")
+    return(x)
   }
-  attr(x, "jordan_note") <- value
+
+  # TODO test that class "note" or "noted" is not continuously appended
+  if (!inherits(value, "note")) {
+    class(value) <- c("note", class(value))
+  }
+
+  if (!inherits(x, "noted")) {
+    class(x) <- c("noted", class(x))
+  }
+
+  attr(x, "note") <- value
   x
 }
 
 #' @export
 #' @rdname note
 note <- function(x) {
-  a <- attr(x, "jordan_note")
-
-  if (is.null(a)) {
-    return(NULL)
-  }
-
-  if (!inherits(a, "jordan_note")) {
-    class(a) <- append("jordan_note", class(a))
-  }
-
-  print(a)
+  attr(x, "note")
 }
 
-#' @export
+#' @exportS3Method
 #' @rdname note
-print.jordan_note <- function(x, ...) {
-  width <- getOption("jordan.note.width", getOption("width"))
-  out <- lapply(x, str_slice_by_word, width)
-  out <- collapse0(unlist(out), sep = "\n")
-  fun <- getOption("jordan.note.fun", message)
-
-  if (!is.function(fun)) {
-    fun <- tryCatch(
-      getFunction(fun),
-      error = function(e) {
-        stop(e, "Review option `jordan.note.fun`", call. = FALSE)
-      })
+print.note <- function(x, ...) {
+  if (!interactive()) {
+    return(invisible(x))
   }
+  width <- getOption("jordan.note.width", getOption("width"))
+  out <- vap_chr(paste0("Note :  ", x), str_slice_by_word, width)
+  cat(crayon::blue(out), sep = "\n")
+  invisible(x)
+}
 
-  fun(out)
+#' @exportS3Method
+print.noted <- function(x, ...) {
+  n <- attr(x, "note")
+  y <- x
+  class(y) <- setdiff(class(x), "noted")
+  attr(y, "note") <- NULL
+  print(n)
+  print(y)
   invisible(x)
 }

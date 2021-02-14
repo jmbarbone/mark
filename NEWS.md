@@ -15,6 +15,10 @@
     * are class `diff_time` and `numeric`
     * have a slightly different print method (will note appropriately how units of time are measures)
     * can account for timezone differences (must be set with a the `tza` and `tzb` parameters)
+* improves functionality of `note`
+  * removes `jordan.note.fun` option for printing -- this was too complicated and doesn't seem to work too well without too many adjustments
+  * `note<-` now appends the class `noted` to the object so that a `print.noted` method is dispatched so the note will be printed when called
+  * `print.note` note defaults to a colorful _message_ called with `cat()`
 
 # jordan 0.1.1
 

@@ -3,19 +3,20 @@
 \name{note}
 \alias{note}
 \alias{note<-}
-\alias{print.jordan_note}
+\alias{print.note}
 \title{Append a note to an object}
 \usage{
 note(x) <- value
 
 note(x)
 
-\method{print}{jordan_note}(x, ...)
+\method{print}{note}(x, ...)
 }
 \arguments{
 \item{x}{An object}
 
-\item{value}{The note to attach}
+\item{value}{The note to attach; if \code{NULL} will remove the note and the
+class \code{noted} from the object.}
 
 \item{...}{Additional arguments passed from methods (not used)}
 }
@@ -24,14 +25,32 @@ An alternative to the \code{\link[base:comment]{base::comment()}}.
 }
 \details{
 When the note is assigned to an object a new class will be added,
-\code{jordan_note}, so that a \code{print} function can call an S3 method.  The print
-for this can be adjusted for it's width by using the option
+\code{note}, so that a \code{print} function can call an S3 method.  The print for
+this can be adjusted for it's width by using the option
 \code{jordan.note.width} which defaults to the option \code{width} when not set.
-
-The method of \emph{printing} can also be adjusted with the \code{jordan.note.fun}
-option in which a function can be assigned.  This function will then be
-applied to the note at print.
 
 The type of object assigned to the note is not restricted, so user beware
 of odd prints or additional features added to the notes fun.
+
+When assigning a note (with \verb{note<-}) the \code{noted} class is added to the
+object.  This allows the \code{print.noted} class to be distracted and for the
+note to be printed (with the \code{print.note} method) every time the object is
+called/printed.  However, it will not be called when not \code{interactive()}
+}
+\examples{
+x <- c("x", "k", "c", "d")
+comment(x) <- "This is just a comment"
+comment(x)
+# Comment is intentionally hidden
+x
+note(x) <- "Just some random letters"
+note(x)
+# Note is now present every time
+x
+
+# Assinging `NULL` will remove note (and class)
+note(x) <- NULL
+note(x) # NULL
+x       # No more note
+
 }
