@@ -19,6 +19,11 @@
   * removes `jordan.note.fun` option for printing -- this was too complicated and doesn't seem to work too well without too many adjustments
   * `note<-` now appends the class `noted` to the object so that a `print.noted` method is dispatched so the note will be printed when called
   * `print.note` note defaults to a colorful _message_ called with `cat()`
+* improvements/updates to `todos()`
+  * allows text filtering by passing arguments to `grep()`
+  * adds new print method for `todos_df` for viewing tasks
+  * the result of `todos()` still has class `data.frame` but will now also have class `todos_df`
+  * the `print.todos_df()` method should be make more sense for task management
 
 # jordan 0.1.1
 

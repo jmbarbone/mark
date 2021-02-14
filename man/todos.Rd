@@ -4,14 +4,21 @@
 \alias{todos}
 \title{Get TODOs}
 \usage{
-todos()
+todos(pattern = NULL, ...)
+}
+\arguments{
+\item{pattern}{A character string containing a regular expression to filter
+for comments after tags; default \code{NULL} does not filter}
+
+\item{...}{Additional parameters passed to \code{grep} (Except for \code{pattern}, \code{x},
+and \code{value})}
 }
 \value{
 \code{NULL} if none are found, otherwise a data.frame with the line
 number, file name, and TODO comment.
 }
 \description{
-Search for # TODO tags
+Search for \verb{#`` TODO} tags
 }
 \details{
 Calls \verb{git grep -in "[#] TODO"} to find any lines with a comment.
