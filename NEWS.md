@@ -25,6 +25,7 @@
   * the result of `todos()` still has class `data.frame` but will now also have class `todos_df`
   * the `print.todos_df()` method should be make more sense for task management
 * `str_slice_by_word()` no longer has a leading `" "` for each element after the first (this was not the intention of the split)
+* `is_file()` and `is_dir()` now returns and error when passed `NULL` or a vector of length 0
 
 # jordan 0.1.1
 

@@ -317,6 +317,10 @@ list_dirs <- function(x = ".", pattern = NULL, ignore_case = FALSE, all = FALSE,
 #' @export
 
 is_dir <- function(x) {
+  if (is_length0(x) || !is.character(x)) {
+    stop("x must be a character vector with at least 1 element", call. = FALSE)
+  }
+
   dir.exists(x)
 }
 
@@ -324,13 +328,16 @@ is_dir <- function(x) {
 #' @rdname is_dir
 #' @export
 is_file <- function(x) {
+  if (is.null(x) || is_length0(x) || !is.character(x)) {
+    stop("x must be a character vector with at least 1 element", call. = FALSE)
+  }
+
   isdir <- file.info(x, extra_cols = FALSE)$isdir
   !is.na(isdir) & !isdir
 }
 
 file_create <- function(x, overwrite = FALSE) {
   dirs <- is_dir(x)
-
   if (any(dirs)) {
     warning("Cannot create files that are directories:",
             paste0("\n   ", norm_path(x[dirs])),

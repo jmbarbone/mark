@@ -57,3 +57,12 @@ test_that("tests with temp dir", {
   tmpdir = td
   )
 })
+
+test_that("errors", {
+  expect_error(is_file(NULL))
+  expect_error(is_file(character()))
+  expect_error(is_file(TRUE))
+  expect_error(is_dir(NULL))
+  expect_error(is_dir(character()))
+  expect_error(is_dir(TRUE))
+})
