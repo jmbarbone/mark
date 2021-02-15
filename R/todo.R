@@ -46,7 +46,9 @@ todos <- function(pattern = NULL, ...) {
 
 clean_todo_split <- function(x) {
   n <- length(x)
-  stopifnot(n >= 3)
+  if (n < 3) {
+    stop("x must have at least 3 elements", call. = FALSE)
+  }
 
   if (n > 3) {
     x[3] <- collapse0(x[3:n], sep = ":")

@@ -64,10 +64,13 @@ verify_format <- function(format) {
   s <- chr_split(format)
   m <- match(c("y", "m", "d"), s)
 
-  stopifnot(
-    "format must be 3 characters" = length(unique(s)) == 3L,
-    'format must contain "y", "m", and "d"' = !anyNA(m)
-  )
+  if (length(unique(s)) != 3L) {
+    stop("format must be 3 characters", call. = FALSE)
+  }
+
+  if (anyNA(m)) {
+    stop('format must contain "y", "m", and "d"', call. = FALSE)
+  }
 
   s
 }

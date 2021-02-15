@@ -21,7 +21,6 @@ test_that("handler examples", {
     list(no = "NAs introduced by coercion")
   )
 
-
   foo <- function(x) {
     stopifnot(x > 0)
     x

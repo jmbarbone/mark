@@ -14,7 +14,10 @@
 #' sum(base_alpha(c("x", "k", "c", "d")))
 
 base_alpha <- function(x, base = 26)  {
-  stopifnot(is.character(x))
+  if (!is.character(x)) {
+    stop("x must be a character", call. = FALSE)
+  }
+
   check_base_alpha(base, high = 26)
   vap_int(x, base_alpha_single, base = base)
 }
@@ -53,7 +56,9 @@ base_alpha_single <- function(x, base) {
 #'
 #' @export
 base_n <- function(x, base = 10) {
-  stopifnot(is.numeric(x))
+  if (!is.numeric(x)) {
+    stop("x must be numeric", call. = FALSE)
+  }
 
   if (base == 10) {
     return(x)
@@ -78,7 +83,11 @@ base_n_single <- function(x, base) {
 check_base_alpha <- function(b, high = 26) {
   if (is.character(b)) {
     b <- chr_split(b)
-    stopifnot(length(b) == 1)
+
+    if (length(b) != 1) {
+      stop("base must be of length 1")
+    }
+
     b <- match(tolower(b), letters)
   }
 
@@ -86,7 +95,9 @@ check_base_alpha <- function(b, high = 26) {
 }
 
 check_base <- function(b, high = 9) {
-  stopifnot("base must be an integer" = b %% 1 == 0)
+  if (b %% 1 != 0) {
+    stop("base must be an integer", call. = FALSE)
+  }
 
   if (b > high | b <= 1) {
     stop("base must be between 1 and ", high, call. = FALSE)

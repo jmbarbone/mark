@@ -8,7 +8,10 @@
 #' @export
 
 get_recent_dir <- function(x = ".",  ...) {
-  stopifnot(dir.exists(x))
+  if (!dir.exists(x)) {
+    stop("Directory not found", call. = FALSE)
+  }
+
   dirs <- list_dirs(x, ...)
   newest_dir(dirs)
 }
@@ -68,7 +71,9 @@ get_dir_max_number <- function(x) {
 #' @export
 
 get_recent_file <- function(x, exclude_temp = TRUE, ...) {
-  stopifnot(is_dir(x))
+  if (!is_dir(x)) {
+    stop("Directory not found", call. = FALSE)
+  }
 
   files <- list_files(x, ...)
 
@@ -76,7 +81,9 @@ get_recent_file <- function(x, exclude_temp = TRUE, ...) {
     files <- remove_temp_files(files)
   }
 
-  stopifnot("No files found" = !is_length0(files))
+  if (is_length0(files)) {
+    stop("No files found", call. = FALSE)
+  }
 
   newest_file(files)
 }
@@ -107,7 +114,9 @@ remove_temp_files <- function(x) {
 #'
 
 norm_path <- function(x = ".", check = FALSE, remove = check) {
-  stopifnot("x (path) must be a character vector" = is.character(x))
+  if (!is.character(x)) {
+    stop("x (path) must be a character vector", call. = FALSE)
+  }
 
   paths <- normalizePath(x, winslash = .Platform$file.sep, mustWork = FALSE)
   ind <- !file.exists(paths)

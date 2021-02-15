@@ -33,7 +33,9 @@ paste_c <- function(x, y, collate = TRUE, sep = "") {
 paste_combine <- function(..., collate = TRUE, sep = "") {
   ls <- list(...)
   n <- length(ls)
-  stopifnot("length of ... must be at least 2" = n >= 2)
+  if (n < 2) {
+    stop("length of ... must be at least 2", call. = FALSE)
+  }
 
   out <- do_paste_combine(ls[[1]], ls[[2]], collate = collate, sep = sep)
 

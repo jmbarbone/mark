@@ -23,7 +23,14 @@ expand_by <- function(x, y, expand = c("x","y", "intersect", "both"), sort = FAL
   nx <- names(x)
   ny <- names(y)
 
-  stopifnot(unique_name_check(x), unique_name_check(y))
+
+  if (!unique_name_check(x)) {
+    stop("unique name check failed for x", call. = FALSE)
+  }
+
+  if (!unique_name_check(y)) {
+    stop("unique name check failed for y", call. = FALSE)
+  }
 
   out <- switch(
     expand,
@@ -91,9 +98,13 @@ expand_by <- function(x, y, expand = c("x","y", "intersect", "both"), sort = FAL
 reindex <- function(x, index = NULL, new_index, expand = c("intersect", "both"),  sort = FALSE) {
   expand <- match_param(expand)
 
-  stopifnot("`x` must be a data.frame" = inherits(x, "data.frame"),
-            !is.null(new_index),
-            length(new_index) != 0L)
+  if (inherits(x, "data.frame")) {
+    stop("`x` must be a data.frame", call. = FALSE)
+  }
+
+  if (is.null(new_index) || is_length0(new_index)) {
+    stop("new_index must not be NULL or 0 length", call. = FALSE)
+  }
 
   xi <- if (is.null(index)) {
     x[[1L]]

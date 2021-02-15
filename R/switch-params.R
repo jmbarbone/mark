@@ -11,6 +11,9 @@
 #' @export
 
 switch_params <- function(x, params) {
-  stopifnot(is.list(params), length(x) == 1L)
+  if (!is.list(params) || length(x) != 1L) {
+    stop("params must be a list of a single length", call. = FALSE)
+  }
+
   do.call(switch, c(x, params))
 }

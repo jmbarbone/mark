@@ -22,7 +22,9 @@
 #' @export
 
 ksource <- function(file, ..., quiet = TRUE, cd = FALSE, env = parent.frame()) {
-  stopifnot(is.environment(env))
+  if (!is.environment(env)) {
+    stop("env is not an environment", call. = FALSE)
+  }
 
   require_namespace("knitr")
   source(
@@ -101,12 +103,16 @@ try_ksource <- function(file, ...) {
 #' }
 
 eval_named_chunk <- function(rmd_file, label_name) {
-  stopifnot(grepl("\\.[Rr][Mm][Dd]$", rmd_file))
+  if (!grepl("\\.[Rr][Mm][Dd]$", rmd_file)) {
+    stop("rmd_file does not appear to be an rmd file", call. = FALSE)
+  }
 
   lines <- readLines(rmd_file)
   label_line <- grep(paste0("\\{r ", label_name), lines)[1]
 
-  stopifnot("label not found in .Rmd file" = !is.na(label_line))
+  if (is.na(label_line)) {
+    stop("label not found in .Rmd file", call. = FALSE)
+  }
 
   lines <- lines[(label_line + 1):length(lines)]
   exp <- lines[1:(grep("[```]", lines)[1] - 1)]
@@ -144,7 +150,9 @@ source_dir_r <- function(dir, echo = FALSE, quiet = FALSE, ...) {
 #' @rdname source_files
 #' @inheritParams source_files
 source_r_file <- function(path, echo = FALSE, quiet = FALSE, ...) {
-  stopifnot("Must be a .R file" = grepl("\\.[rR]$", path))
+  if (!grepl("\\.[rR]$", path)) {
+    stop("Must be a .R file", call. = FALSE)
+  }
 
   if (!file.exists(path)) {
     stop(sprintf('File "%s" not found.', path), call. = FALSE)

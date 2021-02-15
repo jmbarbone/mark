@@ -40,8 +40,14 @@ assign_labels <- function(x, ...) {
 #' @export
 #' @rdname labels
 assign_labels.default <- function(x, label, ...) {
-  stopifnot("`label` is NULL" = !is.null(label),
-            "`label` is not of length 1L" = length(label) == 1L)
+  if (is.null(label)) {
+    stop("`label` is NULL", call. = FALSE)
+  }
+
+  if (length(label) != 1L) {
+    stop("`label` is not of length 1L", call. = FALSE)
+  }
+
   attr(x, "label") <- label
   x
 }

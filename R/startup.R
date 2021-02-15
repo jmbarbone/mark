@@ -251,7 +251,9 @@ ht <- function(x, n = 5L) {
 
 #' @export
 ht.default <- function(x, n = 5L) {
-  stopifnot(is.data.frame(x) | is.matrix(x))
+  if (!is.data.frame(x) || !is.matrix(x)) {
+    stop("x must be a data.frame or matrix", call. = FALSE)
+  }
 
   if (length(n) == 1L) n[2] <- n
 
@@ -292,7 +294,9 @@ ht.tbl_df <- function(x, n = 5L) {
 #'
 #' @export
 .CharacterIndex <- function(x = read_clipboard()) {
-  stopifnot(is.vector(x))
+  if (!is.vector(x)) {
+    stop("x must be a vector", call. = FALSE)
+  }
   x <- as.character(x)
   lapply(x, function(x) {
     if (length(x) == 0) {
@@ -375,10 +379,15 @@ jtag <- function(x = NULL) {
     x <- as.character(sys.call(1L))
     # Remove package name
     x <- sub("^.*[:]", "", x)
-    stopifnot(length(x) > 0L)
+
+    if (is_length0(x)) {
+      stop("x has a length of 0", call. = FALSE)
+    }
   }
 
-  stopifnot("x must be a character" = is.character(x))
+  if (!is.character(x)) {
+    stop("x must be a character", call. = FALSE)
+  }
 
   if (!grepl("^# @jordan ", x)) {
     x <- paste0("# @jordan ", x)

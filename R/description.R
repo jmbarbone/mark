@@ -9,10 +9,13 @@
 #' @export
 
 use_author <- function(author_info = find_author()) {
-  stopifnot(
-    "author_info must be a list" = is.list(author_info),
-    "author_info should not be a person object" = !inherits(author_info, "person")
-  )
+  if (!is.list(author_info)) {
+    stop("author_info must be a list", call. = FALSE)
+  }
+
+  if (inherits(author_info, "person")) {
+    stop("author_info should not be a person object", call. = FALSE)
+  }
 
   lines <- readLines("DESCRIPTION")
   start <- grep("^[Aa]uthor", lines)
@@ -100,7 +103,9 @@ find_author <- function() {
 get_version <- function() {
   description <- readLines("DESCRIPTION")
   line <- grep("^[Vv]ersion.*[[:punct:][:digit:]]+$", description)
-  stopifnot(length(line) == 1L)
+  if (length(line) != 1L) {
+    stop("multiple version found", call. = FALSE)
+  }
   as.package_version(gsub("[Vv]ersion|[:]|[[:space:]]", "", description[line]))
 }
 
@@ -124,7 +129,10 @@ update_version <- function(version = NULL, date = FALSE) {
 
   # Identify the correct line
   line <- grep("^[Vv]ersion.*[[:punct:][:digit:]]+$", description)
-  stopifnot(length(line) == 1L)
+
+  if (length(line) != 1L) {
+    stop("multiple version found", call. = FALSE)
+  }
 
   # Get the old version
   old <- gsub("[Vv]ersion|[:]|[[:space:]]", "", description[line])

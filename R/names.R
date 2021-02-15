@@ -11,7 +11,10 @@ is_named <- function(x) {
 #'
 #' @export
 sort_names <- function(x) {
-  stopifnot(is_named(x), is.vector(x))
+  if (!is_named(x) || !is.vector(x)) {
+    stop("x must be a named vector", call. = FALSE)
+  }
+
   x[sort(names(x))]
 }
 
