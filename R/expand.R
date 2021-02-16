@@ -98,7 +98,7 @@ expand_by <- function(x, y, expand = c("x","y", "intersect", "both"), sort = FAL
 reindex <- function(x, index = NULL, new_index, expand = c("intersect", "both"),  sort = FALSE) {
   expand <- match_param(expand)
 
-  if (inherits(x, "data.frame")) {
+  if (!inherits(x, "data.frame")) {
     stop("`x` must be a data.frame", call. = FALSE)
   }
 

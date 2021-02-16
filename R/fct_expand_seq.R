@@ -41,11 +41,11 @@ fct_expand_seq <- function(x,
   }
 
   if (is.na(min_lvl)) {
-    stop("<< min_level >> cannot be `NA`", call. = FALSE)
+    stop("<< min_lvl >> cannot be `NA`", call. = FALSE)
   }
 
-  if (is.na(max_level)) {
-    stop("<< max_level >> cannot be `NA`", call. = FALSE)
+  if (is.na(max_lvl)) {
+    stop("<< min_lvl >> cannot be `NA`", call. = FALSE)
   }
 
   int <- seq(from = min_lvl, to = max_lvl, by = by)
