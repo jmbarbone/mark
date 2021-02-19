@@ -81,7 +81,7 @@ get_recent_file <- function(x, exclude_temp = TRUE, ...) {
     files <- remove_temp_files(files)
   }
 
-  if (is_length0(files)) {
+  if (no_length(files)) {
     stop("No files found", call. = FALSE)
   }
 
@@ -326,7 +326,7 @@ list_dirs <- function(x = ".", pattern = NULL, ignore_case = FALSE, all = FALSE,
 #' @export
 
 is_dir <- function(x) {
-  if (is_length0(x) || !is.character(x)) {
+  if (no_length(x) || !is.character(x)) {
     stop("x must be a character vector with at least 1 element", call. = FALSE)
   }
 
@@ -337,7 +337,7 @@ is_dir <- function(x) {
 #' @rdname is_dir
 #' @export
 is_file <- function(x) {
-  if (is.null(x) || is_length0(x) || !is.character(x)) {
+  if (no_length(x) || !is.character(x)) {
     stop("x must be a character vector with at least 1 element", call. = FALSE)
   }
 

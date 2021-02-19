@@ -36,7 +36,7 @@ depth.default <- function(x, ...) {
 #' @export
 #' @rdname depth
 depth.list <- function(x, ...) {
-  if (is_length0(x)) {
+  if (no_length(x)) {
     # Empty list -- don't count
     return(0L)
   } else if (length(x) == 1L & !is.list(x[[1]])) {

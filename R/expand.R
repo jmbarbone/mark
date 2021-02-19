@@ -102,7 +102,7 @@ reindex <- function(x, index = NULL, new_index, expand = c("intersect", "both"),
     stop("`x` must be a data.frame", call. = FALSE)
   }
 
-  if (is.null(new_index) || is_length0(new_index)) {
+  if (no_length(new_index)) {
     stop("new_index must not be NULL or 0 length", call. = FALSE)
   }
 

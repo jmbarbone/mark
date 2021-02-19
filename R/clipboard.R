@@ -138,7 +138,7 @@ try_vector_formats <- function(x) {
   dbls <- wuffle(as.double(x0))
   dbls <- dbls[!is.nan(dbls)]
 
-  if (is_length0(dbls)) {
+  if (no_length(dbls)) {
     return(as.double(x))
   }
 

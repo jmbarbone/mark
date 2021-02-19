@@ -49,7 +49,7 @@ multi_grepl <- function(x, patterns, ..., simplify = TRUE) {
 which_no_0 <- function(x, simplify = TRUE) {
   res <- names(which(x))
 
-  if (is_length0(res)) {
+  if (no_length(res)) {
     return(NA)
   }
 

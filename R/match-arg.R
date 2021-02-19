@@ -90,7 +90,7 @@ match_param <- function(param, choices) {
   res <- choices[match(param[1], choices, nomatch = 0L)[1]]
   ocall <- outer_call()
 
-  if (is_length0(res)) {
+  if (no_length(res)) {
 
     if (is_length0(param)) {
       param <- deparse(param)

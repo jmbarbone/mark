@@ -120,7 +120,7 @@ none <- function(..., na.rm = FALSE) {
 # FUNS --------------------------------------------------------------------
 
 null_check <- function(x) {
-  if (is.null(x) || is_length0(x)) {
+  if (no_length(x)) {
     stop("Cannot accept `NULL` or 0 length values",
          call. = FALSE)
   }

@@ -380,7 +380,7 @@ jtag <- function(x = NULL) {
     # Remove package name
     x <- sub("^.*[:]", "", x)
 
-    if (is_length0(x)) {
+    if (no_length(x)) {
       stop("x has a length of 0", call. = FALSE)
     }
   }

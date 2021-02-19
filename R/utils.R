@@ -80,9 +80,31 @@ that <- function(x, arr.ind = FALSE, useNames = TRUE) {
   which(x, arr.ind = arr.ind, useNames = useNames)
 }
 
-
+#' Length checkers
+#'
+#' Checks lengths
+#'
+#' @description
+#' \details{
+#'   \item{`is_length0`}{Not NULL but is length 0}
+#'   \item{`no_length`}{NULL or length 0}
+#'   \item{`has_length`}{Neither NULL or length 0}
+#' }
+#'
+#' @param x A vector
+#' @name length_check
 is_length0 <- function(x) {
-  !is.null(x) && length(x) == 0L
+  !is.null(x) && no_length(x)
+}
+
+#' @rdname length_check
+no_length <- function(x) {
+  length(x) == 0L
+}
+
+#' @rdname length_check
+has_length <- function(x) {
+  !no_length(x)
 }
 
 
