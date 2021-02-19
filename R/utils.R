@@ -210,3 +210,14 @@ pseudo_id <- function(x) {
   attr(m, "uniques") <- ux
   m
 }
+
+is_atomic0 <- function(x) {
+  is.atomic(x) && !is.null(x)
+}
+
+which_unwrap <- function(w, n = max(w)) {
+  n <- max(n, max(w)) # protective
+  x <- logical(n)
+  x[w] <- TRUE
+  x
+}
