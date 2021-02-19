@@ -1,24 +1,21 @@
 # Development
 
-* `match_param()` now reports the value passed to `param` on failure
+## Changes
+
 * removes checks for `stringsAsFactors` option in `quick_df()`
-* adds `print_c()` to print a vector into a `c()` "string"
+* improves functionality of `note`
+  * removes `jordan.note.fun` option for printing -- this was too complicated and doesn't seem to work too well without too many adjustments
+  * `note<-` now appends the class `noted` to the object so that a `print.noted` method is dispatched so the note will be printed when called
+  * `print.note` note defaults to a colorful _message_ called with `cat()`
+
+## Improvements
+
+* `match_param()` now reports the value passed to `param` on failure
 * improvements to handlers
   * adds `has_message()` and `get_message()`
   * internal rework of `catch()` for catching errors, messages, and warnings
   * `has_*()` now returns the result in the `result` attribute
   * `print.has_catch()` will hide attributes in print
-* adds `diff_time` functions
-  * functions include `diff_time()` along with shortcuts for specific methods: `diff_time_secs()`, `diff_time_days()`, `diff_time_years()`, and others (see `?jordan::diff_time`)
-  * these are much like the `base::difftime()` but...
-    * have more methods/units for computing differences, which may need to be the case for when a unit of time has to be _standardized_ (e.g., 1 year needs to be 365 days, or 1 month needs to be 30 days)
-    * are class `diff_time` and `numeric`
-    * have a slightly different print method (will note appropriately how units of time are measures)
-    * can account for timezone differences (must be set with a the `tza` and `tzb` parameters)
-* improves functionality of `note`
-  * removes `jordan.note.fun` option for printing -- this was too complicated and doesn't seem to work too well without too many adjustments
-  * `note<-` now appends the class `noted` to the object so that a `print.noted` method is dispatched so the note will be printed when called
-  * `print.note` note defaults to a colorful _message_ called with `cat()`
 * improvements/updates to `todos()`
   * allows text filtering by passing arguments to `grep()`
   * adds new print method for `todos_df` for viewing tasks
@@ -26,6 +23,20 @@
   * the `print.todos_df()` method should be make more sense for task management
 * `str_slice_by_word()` no longer has a leading `" "` for each element after the first (this was not the intention of the split)
 * `is_file()` and `is_dir()` now returns and error when passed `NULL` or a vector of length 0
+
+## New features
+
+* adds `print_c()` to print a vector into a `c()` "string"
+* adds `diff_time` functions
+  * functions include `diff_time()` along with shortcuts for specific methods: `diff_time_secs()`, `diff_time_days()`, `diff_time_years()`, and others (see `?jordan::diff_time`)
+  * these are much like the `base::difftime()` but...
+    * have more methods/units for computing differences, which may need to be the case for when a unit of time has to be _standardized_ (e.g., 1 year needs to be 365 days, or 1 month needs to be 30 days)
+    * are class `diff_time` and `numeric`
+    * have a slightly different print method (will note appropriately how units of time are measures)
+    * can account for timezone differences (must be set with a the `tza` and `tzb` parameters)
+* adds `sort_by()`
+* adds `NA_if()` and `NA_at()`
+
 
 # jordan 0.1.1
 
