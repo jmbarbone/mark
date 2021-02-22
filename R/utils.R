@@ -85,11 +85,13 @@ that <- function(x, arr.ind = FALSE, useNames = TRUE) {
 #' Checks lengths
 #'
 #' @description
-#' \details{
-#'   \item{`is_length0`}{Not NULL but is length 0}
-#'   \item{`no_length`}{NULL or length 0}
-#'   \item{`has_length`}{Neither NULL or length 0}
-#' }
+#' Several length checks exist:
+#'
+#' * `is_length0`: Not `NULL` but is length `0`
+#' * `no_length`: Length of `0`
+#' * `has_length`: Length is not `0`
+#'
+#' _NB_: `length(NULL)` is `0`
 #'
 #' @param x A vector
 #' @name length_check

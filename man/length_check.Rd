@@ -17,11 +17,14 @@ has_length(x)
 \item{x}{A vector}
 }
 \description{
-\details{
-\item{\code{is_length0}}{Not NULL but is length 0}
-\item{\code{no_length}}{NULL or length 0}
-\item{\code{has_length}}{Neither NULL or length 0}
+Several length checks exist:
+\itemize{
+\item \code{is_length0}: Not \code{NULL} but is length \code{0}
+\item \code{no_length}: Length of \code{0}
+\item \code{has_length}: Length is not \code{0}
 }
+
+\emph{NB}: \code{length(NULL)} is \code{0}
 }
 \details{
 Checks lengths
