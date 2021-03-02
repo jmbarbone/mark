@@ -8,3 +8,4 @@ test-docs/
 ^\.travis\.yml$
 ^\.github$
 temp/*
+.*\.Rds$

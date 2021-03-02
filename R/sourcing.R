@@ -176,4 +176,141 @@ source_r_file <- function(path, echo = FALSE, quiet = FALSE, ...) {
   invisible()
 }
 
+
+# Rscript -----------------------------------------------------------------
+
+# Functions for "safe" sourcing, which can be used to launch a stand-alone
+#   script which may require the R objects created to be reused.
+#
+
+
+#' Source to environment
+#'
+#' Source an R script to an environment
+#'
+#' @param x An R script
+#' @param ops Options to be passed to [jordan::rscript]
+#' @export
+source_to_env <- function(x, ops = NULL) {
+  rds_file <- jordan_temp(".Rds")
+  r_temp <- jordan_temp(".R")
+  std_out <- jordan_temp(".md")
+  std_err <- jordan_temp(".md")
+
+  file.copy(x, r_temp)
+
+  line_end <- sprintf(
+    '\njordan::save_source(file = "%s", name = "%s")\n',
+    rds_file,
+    basename(x)
+  )
+
+  cat(line_end, sep = "", file = r_temp, append = TRUE)
+  rscript(r_temp, ops, wait = TRUE, stdout = std_out, stderr = std_err)
+
+  if (!file.exists(rds_file)) {
+    stop(
+      "RDS file not succesfully saved here:\n  ", rds_file,
+      "\n",
+      "\nRscript stderr:\n",
+      collapse0(readLines(std_err), sep = "\n"),
+      "\n",
+      "\nRscript stdout:\n",
+      collapse0(readLines(std_out), sep = "\n"),
+      "\n",
+      call. = FALSE
+    )
+  }
+
+  con <- file(rds_file)
+  res <- readRDS(con)
+
+  on.exit({
+    close(con)
+    file.remove(r_temp)
+    file.remove(rds_file)
+  }, add = TRUE)
+
+  invisible(res)
+}
+
+#' Rscript
+#'
+#' Implements `Rscript` with `system2`
+#'
+#' @param x An R file to run
+#' @param ops A character vector of options (`"--"` is added to each)
+#' @param args A character vector of other arguments to pass
+#' @param ... Additional arguments passed to `system2`
+#'
+#' @seealso [jordan::source_to_env]
+#' @export
+rscript <- function(x, ops = NULL, args = NULL, ...) {
+  if (length(ops) > 0) {
+    ops <- paste0("--", ops)
+  }
+  system2(command = "Rscript", args = c(ops, x, args), ...)
+}
+
+#' Save source
+#'
+#' Source a file and save as file
+#'
+#' @param env The parent environment
+#' @param file The file to save the environment to
+#' @param name An optional name for the environment (mostly cosmetic)
+#'
+#' @export
+save_source <- function(env = parent.frame(), file = jordan_temp(".Rds"), name = NULL) {
+  ls <- ls(envir = env, all.name = TRUE)
+  out <- lapply(ls, get, envir = env)
+  names(out) <- ls
+
+  res <- structure(
+    list2env(out, parent = baseenv()),
+    class = c("source_env", "environment"),
+    sessionInfo = utils::sessionInfo(),
+    search = search(),
+    options = options(),
+    file = file,
+    env = env,
+    name = name %||% tools::file_path_sans_ext(basename(file))
+  )
+
+  if (!is.null(file)) {
+
+    if (!dir.exists(dirname(file))) {
+      dir.create(dirname(file), recursive = TRUE)
+    }
+
+    con <- file(file)
+    on.exit(close(con), add = TRUE)
+    saveRDS(res, file = con, version = 2)
+  }
+
+  res
+}
+
+#' @export
+print.source_env <- function(x, ...) {
+  a <- attributes(x)
+  cat(
+    "<", crayon::green("sourced env: "), a$name, ">\n",
+    "<", crayon::green("parent env: "), environmentName(a$env), ">\n",
+    sep = ""
+  )
+  invisible(x)
+}
+
+jordan_temp <- function(ext = "") {
+  file <- basename(tempfile("", fileext = ext))
+  path <- file_path(tempdir(), "_jordan_temp_files")
+
+  if (!dir.exists(path)) {
+    dir.create(path, recursive = TRUE)
+  }
+
+  file_path(path, file)
+}
+
 utils::globalVariables(c("source_file_r", "quiet"))

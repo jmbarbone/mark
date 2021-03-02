@@ -36,6 +36,7 @@
     * can account for timezone differences (must be set with a the `tza` and `tzb` parameters)
 * adds `sort_by()`
 * adds `NA_if()` and `NA_at()`
+* adds functions for sourcing scripts into environments for later use (`rscript()`, `save_source()`, and `source_to_env()`)
 
 
 # jordan 0.1.1

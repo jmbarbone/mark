@@ -24,3 +24,14 @@ test_that("eval_named_chunk()", {
     '\\[1\\] "hello, world"\n\\[1\\] TRUE'
   )
 })
+
+test_that("Rscript", {
+  x <- test_path("scripts", "rscript-test.R")
+  rscript(x, "vanilla", stdout = FALSE, stderr = FALSE)
+  expect_false("dplyr" %in% search())
+
+  e <- source_to_env(x)
+  expect_s3_class(e, c("source_env", "environment"))
+  expect_identical(e$a_litte_note, "You're doing okay")
+  expect_s3_class(e$out, "tbl_df")
+})

@@ -42,6 +42,8 @@ readLines
 recodes
 requireNamespace
 rlang's
+Rscript
+rscript
 rmd
 roc
 rstats
