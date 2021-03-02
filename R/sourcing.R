@@ -249,7 +249,10 @@ rscript <- function(x, ops = NULL, args = NULL, ...) {
   if (length(ops) > 0) {
     ops <- paste0("--", ops)
   }
-  system2(command = "Rscript", args = c(ops, x, args), ...)
+
+  rs <- file.path(R.home("bin"), "Rscript.exe")
+  rs <- normalizePath(rs, mustWork = TRUE)
+  system2(command = rs, args = c(ops, x, args), ...)
 }
 
 #' Save source
