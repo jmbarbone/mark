@@ -250,8 +250,13 @@ rscript <- function(x, ops = NULL, args = NULL, ...) {
     ops <- paste0("--", ops)
   }
 
-  rs <- file.path(R.home("bin"), "Rscript.exe")
-  rs <- normalizePath(rs, mustWork = TRUE)
+  rs <- if (.Platform$OS.type == "windows") {
+    file.path(R.home("bin"), "Rscript.exe")
+  } else {
+    file.path(R.home("bin"), "Rscript")
+  }
+
+  rs <- normalizePath(rs, winslash = "/", mustWork = TRUE)
   system2(command = rs, args = c(ops, x, args), ...)
 }
 
