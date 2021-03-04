@@ -35,7 +35,11 @@
     * have a slightly different print method (will note appropriately how units of time are measures)
     * can account for timezone differences (must be set with a the `tza` and `tzb` parameters)
 * adds `sort_by()`
-* adds `NA_if()` and `NA_at()`
+* adds `NA` assignments:
+    * `NA_at()` for position assignments
+    * `NA_if()` for logical/conditional assignments
+    * `NA_in()` for inclusive matching assignments
+    * `NA_out()` for exclusive matching assignments
 * adds functions for sourcing scripts into environments for later use (`rscript()`, `save_source()`, and `source_to_env()`)
 
 
