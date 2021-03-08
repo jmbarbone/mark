@@ -26,8 +26,13 @@ test_that("eval_named_chunk()", {
 })
 
 test_that("Rscript", {
+  # skip_if_not(.Platform$OS.type == "windows")
+
   x <- test_path("scripts", "rscript-test.R")
   rscript(x, "vanilla", stdout = FALSE, stderr = FALSE)
+  expect_false("dplyr" %in% search())
+
+  rscript(x, stdout = FALSE, stderr = FALSE)
   expect_false("dplyr" %in% search())
 
   e <- source_to_env(x)

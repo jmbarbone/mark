@@ -256,7 +256,7 @@ rscript <- function(x, ops = NULL, args = NULL, ...) {
     file.path(R.home("bin"), "Rscript")
   }
 
-  rs <- normalizePath(rs, winslash = "/", mustWork = TRUE)
+  rs <- norm_path(rs, check = TRUE)
   system2(command = rs, args = c(ops, x, args), ...)
 }
 
@@ -318,6 +318,7 @@ jordan_temp <- function(ext = "") {
     dir.create(path, recursive = TRUE)
   }
 
+  path <- norm_path(path)
   file_path(path, file)
 }
 
