@@ -7,6 +7,7 @@
   * removes `jordan.note.fun` option for printing -- this was too complicated and doesn't seem to work too well without too many adjustments
   * `note<-` now appends the class `noted` to the object so that a `print.noted` method is dispatched so the note will be printed when called
   * `print.note` note defaults to a colorful _message_ called with `cat()`
+  * Startup related functions moved to [`jordanExtra`](github.com/jmbarbone/jordanExtra); these were a bit _wild_, dynamic, and not well tested.  The **.Rprofile** template also exists in the separate package.
 
 ## Improvements
 
@@ -41,6 +42,7 @@
     * `NA_in()` for inclusive matching assignments
     * `NA_out()` for exclusive matching assignments
 * adds functions for sourcing scripts into environments for later use (`rscript()`, `save_source()`, and `source_to_env()`)
+
 
 
 # jordan 0.1.1
