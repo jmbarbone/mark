@@ -1,13 +1,14 @@
 library(bench)
 library(jordan, warn.conflicts = TRUE)
 
+n <- 1e4
+
 x <- quick_df(list(
-  a = sample(letters, 1e4, TRUE),
-  b = sample(letters, 1e4, TRUE),
-  c = sample(letters, 1e4, TRUE)
+  a = sample(letters, n, TRUE),
+  b = sample(letters, n, TRUE),
+  c = sample(letters, n, TRUE)
 ))
 
-n <- 1e4
 xchars <- stringi::stri_rand_strings(26 * n, 5)
 chars <- as.data.frame(matrix(xchars, ncol = 26))
 names(chars) <- letters
@@ -22,7 +23,6 @@ names(x) <- make.unique(names(x))
 bench::mark(
   `vec characters` = counts(chars[[1]]),
   `vec factors` = counts(facts[[1]]),
-  `vec factors 2` = counts(facts[[1]]),
   `vec integers` = counts(ints[[1]]),
   `vec doubles` = counts(dbls[[1]]),
   `vec boolean` = counts(bools[[1]]),
