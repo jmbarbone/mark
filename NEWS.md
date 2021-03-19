@@ -24,6 +24,8 @@
   * the `print.todos_df()` method should be make more sense for task management
 * `str_slice_by_word()` no longer has a leading `" "` for each element after the first (this was not the intention of the split)
 * `is_file()` and `is_dir()` now returns and error when passed `NULL` or a vector of length 0
+* `switch_params()` now accepts a vector for `x`
+  * `...` examples updated
 
 ## New features
 
@@ -42,6 +44,9 @@
     * `NA_in()` for inclusive matching assignments
     * `NA_out()` for exclusive matching assignments
 * adds functions for sourcing scripts into environments for later use (`rscript()`, `save_source()`, and `source_to_env()`)
+* adds `switch_case()` to return a values based on a left hand statement
+  returning `TRUE` and `switch_in_case()` for evaluating `x` `%in%` left hand side
+  * these functions are much like `dplyr::case_when()` but for specific cases
 
 
 
