@@ -26,9 +26,9 @@ switch_case(..., .default = NULL, .envir = parent.frame())
 }
 \description{
 \code{switch_params()} is a vectorized version of \code{switch}
-\code{switch_case()} uses a formula syntax to reutnr the value to the right of the
+\code{switch_case()} uses a formula syntax to return the value to the right of the
 tilde (\code{~}) when \code{x} is \code{TRUE}
-\code{switch_in_case()} is a special case of \code{switch_case()} for \code{match()}ing \code{x}
+\code{switch_in_case()} is a special case of \code{switch_case()} for \code{match()}-ing \code{x}
 in the values on the left to return the value on the right.
 }
 \details{

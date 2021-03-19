@@ -7,12 +7,14 @@
 #' @param envir The environment from which to evaluate the `expr`
 #'
 #' @examples
+#' \dontrun{
 #' simpleTimeReport("example", {
 #'   print("1")
 #'   Sys.sleep(1)
 #'   warning("this is a warning")
 #'   sample(1e6, 1e6, TRUE)
 #' })
+#' }
 
 simpleTimeReport <- function(title = NULL, expr, envir = parent.frame()) {
   # browser()
@@ -39,7 +41,9 @@ simpleTimeReport <- function(title = NULL, expr, envir = parent.frame()) {
       cat0(calls[i], rep(" ", len_add[i]))
       withCallingHandlers(
         # capture any outputs separately than the results
-        outputs[[i]] <<- capture.output(results[[i]] <<- eval(exprs[i], envir)),
+        outputs[[i]] <<-
+          utils::capture.output(results[[i]] <<-
+              eval(exprs[i], envir)),
         error = function(e)
           stop("\n", e$message, call. = FALSE),
         warning = function(e) {
@@ -143,6 +147,7 @@ formatTimeDiff <- function(start, stop = Sys.time(), threshold = .1) {
 #'
 #' @param expr An expression to split
 #' @examples
+#' \dontrun{
 #' ss <- split_expression({
 #'   mean(1:10)
 #'   sample(
@@ -156,6 +161,7 @@ formatTimeDiff <- function(start, stop = Sys.time(), threshold = .1) {
 #'
 #' for (i in ss) {
 #'   str(as.character(as.expression(i)))
+#' }
 #' }
 split_expression <- function(expr) {
   if (!is.expression(expr)) {

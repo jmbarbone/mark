@@ -4,6 +4,7 @@ datetime
 devtools
 DF
 Diggs
+dplyr,
 Param
 Quartile
 Reindex
@@ -21,9 +22,11 @@ dev
 diggs
 funs
 ggplot
+github
 eval
 http
 https
+ing
 insertImage
 jordanExtra
 jpeg
@@ -51,8 +54,10 @@ rstats
 sheetname
 sig
 stackoverflow
+tidyverse
 vapply
 Vaps
+vectorized
 writeDataTable
 wtf
 www

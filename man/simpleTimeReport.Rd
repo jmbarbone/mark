@@ -17,10 +17,12 @@ simpleTimeReport(title = NULL, expr, envir = parent.frame())
 Evaluate code and report on the time difference
 }
 \examples{
+\dontrun{
 simpleTimeReport("example", {
   print("1")
   Sys.sleep(1)
   warning("this is a warning")
   sample(1e6, 1e6, TRUE)
 })
+}
 }

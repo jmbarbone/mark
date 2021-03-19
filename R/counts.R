@@ -185,8 +185,8 @@ counts_n <- function(x, name = "freq", sort = FALSE) {
 }
 
 #' @rdname counts_n
-props_n <- function(x, sort = FALSE) {
-  res <- counts_n(x, "prop", sort = sort)
+props_n <- function(x, sort = FALSE, name = "props") {
+  res <- counts_n(x, name %||% "prop", sort = sort)
   n <- ncol(res)
   res[[n]] <- res[[n]] / nrow(x)
   res

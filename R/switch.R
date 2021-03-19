@@ -4,9 +4,9 @@
 #'
 #' @description
 #' `switch_params()` is a vectorized version of `switch`
-#' `switch_case()` uses a formula syntax to reutnr the value to the right of the
+#' `switch_case()` uses a formula syntax to return the value to the right of the
 #'   tilde (`~`) when `x` is `TRUE`
-#' `switch_in_case()` is a special case of `switch_case()` for `match()`ing `x`
+#' `switch_in_case()` is a special case of `switch_case()` for `match()`-ing `x`
 #'   in the values on the left to return the value on the right.
 #'
 #' @references
@@ -107,10 +107,10 @@ switch_in_case <- function(x, ..., .default = NULL, .envir = parent.frame()) {
     )
   }
 
-  rhs <- lapply(splits, function(i) eval(parse(text = i[2L]), env = .envir))
+  rhs <- lapply(splits, function(i) eval(parse(text = i[2L]), envir = .envir))
   lhs <- lapply(splits, function(i) {
     # A bit more intensive to deal with "1:Inf" and what not
-    res <- try_catch_inf(eval(parse(text = i[1L]), env = .envir))
+    res <- try_catch_inf(eval(parse(text = i[1L]), envir = .envir))
     if (!is.call(res)) {
       return(res)
     }
@@ -171,8 +171,8 @@ switch_case <- function(..., .default = NULL, .envir = parent.frame()) {
 
   # split by the tilde
   splits <- strsplit(as.character(ls), "\\s?~\\s?")
-  lhs <- lapply(splits, function(i) eval(parse(text = i[1L]), env = .envir))
-  rhs <- lapply(splits, function(i) eval(parse(text = i[2L]), env = .envir))
+  lhs <- lapply(splits, function(i) eval(parse(text = i[1L]), envir = .envir))
+  rhs <- lapply(splits, function(i) eval(parse(text = i[2L]), envir = .envir))
 
   lhs <- switch_length_check(lhs)
   rhs <- switch_length_check(rhs)

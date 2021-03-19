@@ -7,7 +7,7 @@
 \usage{
 counts_n(x, name = "freq", sort = FALSE)
 
-props_n(x, sort = FALSE)
+props_n(x, sort = FALSE, name = "props")
 }
 \arguments{
 \item{x}{A data.frame in which the combination of all columns present will
