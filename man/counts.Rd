@@ -10,13 +10,13 @@
 \usage{
 counts(x, ...)
 
-\method{counts}{data.frame}(x, cols, sort = FALSE, ...)
+\method{counts}{data.frame}(x, cols, sort = FALSE, ..., .name = "freq")
 
 props(x, ...)
 
 \method{props}{default}(x, ...)
 
-\method{props}{data.frame}(x, cols, sort = FALSE, ...)
+\method{props}{data.frame}(x, cols, sort = FALSE, ..., .name = "prop")
 }
 \arguments{
 \item{x}{A vector or data.frame}
@@ -28,6 +28,8 @@ props(x, ...)
 \item{sort}{Logical, if \code{TRUE} will sort values before returning. For factors
 this will sort by factor levels.  This has no effect for logical vectors,
 which already return in the order of \code{FALSE}, \code{TRUE}, \code{NA}.}
+
+\item{.name}{The name of the new column}
 }
 \description{
 Variables will be return by the order in which they appear.  Even factors are
