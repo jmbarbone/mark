@@ -42,7 +42,7 @@
     * `NA_in()` for inclusive matching assignments
     * `NA_out()` for exclusive matching assignments
 * adds functions for sourcing scripts into environments for later use (`rscript()`, `save_source()`, and `source_to_env()`)
-
+* adds function `checkOptions()`
 
 
 # jordan 0.1.1
