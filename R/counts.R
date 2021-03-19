@@ -109,18 +109,19 @@ counts.factor <- function(x, sort = FALSE, ...) {
   counts.character(x)
 }
 
+#' @param .name The name of the new column
 #' @rdname counts
 #' @export
-counts.data.frame <- function(x, cols, sort = FALSE, ...) {
+counts.data.frame <- function(x, cols, sort = FALSE, ..., .name = "freq") {
   if (!is.character(cols)) {
     cols <- colnames(x)[cols]
   }
 
   if (length(cols) > 1) {
-    return(counts_n(x[, cols], sort = sort))
+    return(counts_n(x[, cols], sort = sort, name = .name))
   }
 
-  vector2df(counts(x[[cols]], sort = sort), cols, "freq")
+  vector2df(counts(x[[cols]], sort = sort), cols, .name %||% "freq")
 }
 
 #' @rdname counts
@@ -137,16 +138,16 @@ props.default <- function(x, ...) {
 
 #' @rdname counts
 #' @export
-props.data.frame <- function(x, cols, sort = FALSE, ...) {
+props.data.frame <- function(x, cols, sort = FALSE, ..., .name = "prop") {
   if (!is.character(cols)) {
     cols <- colnames(x)[cols]
   }
 
   if (length(cols) > 1) {
-    return(props2(x[, cols], sort = sort))
+    return(props_n(x[, cols], sort = sort, name = .name))
   }
 
-  vector2df(props(x[[cols]], sort = sort), cols, "prop")
+  vector2df(props(x[[cols]], sort = sort), cols, .name %||% "prop")
 }
 
 #' Count N
@@ -158,6 +159,7 @@ props.data.frame <- function(x, cols, sort = FALSE, ...) {
 #' @param name A name for the new column
 #' @param sort Logical, if `TRUE` sorts the output; This will sort based
 counts_n <- function(x, name = "freq", sort = FALSE) {
+
   # Can I save the call to unique here?
   ints <- do.call(paste, c(lapply(x, pseudo_id), sep = "."))
   res <- counts(ints, sort = sort)
@@ -170,6 +172,8 @@ counts_n <- function(x, name = "freq", sort = FALSE) {
   colnames(out) <- cn
 
   # TODO add warning
+  name <- name %||% "freq"
+
   i <- 0L
   while (name %in% cn) {
     i <- i + 1L
@@ -180,7 +184,8 @@ counts_n <- function(x, name = "freq", sort = FALSE) {
   out
 }
 
-props2 <- function(x, sort = FALSE) {
+#' @rdname counts_n
+props_n <- function(x, sort = FALSE) {
   res <- counts_n(x, "prop", sort = sort)
   n <- ncol(res)
   res[[n]] <- res[[n]] / nrow(x)

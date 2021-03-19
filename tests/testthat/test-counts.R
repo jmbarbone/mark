@@ -23,3 +23,27 @@ test_that("counts work with NAs", {
   res <- set_names0(c(1L, 1L, 1L), x)
   expect_equal(counts(x), res)
 })
+
+
+test_that("can make new column name", {
+  df <- data.frame(a = 1, b = 2)
+  res <- counts(df, 1)
+  expect_equal(colnames(res), c("a", "freq"))
+
+  # Default to "freq"
+  res <- counts(df, 1, .name = NULL)
+  expect_equal(colnames(res), c("a", "freq"))
+
+  res <- counts(df, 1, .name = "new_name")
+  expect_equal(colnames(res), c("a", "new_name"))
+
+  # Default to "prop"
+  res <- props(df, 1, .name = NULL)
+  expect_equal(colnames(res), c("a", "prop"))
+
+  res <- props(df, 1)
+  expect_equal(colnames(res), c("a", "prop"))
+
+  res <- props(df, 1, .name = "new_name")
+  expect_equal(colnames(res), c("a", "new_name"))
+})

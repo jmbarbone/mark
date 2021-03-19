@@ -26,6 +26,7 @@
 * `is_file()` and `is_dir()` now returns and error when passed `NULL` or a vector of length 0
 * `switch_params()` now accepts a vector for `x`
   * `...` examples updated
+* adds param to change default column name from `counts.data.frame()` and `props.data.frame()`
 
 ## New features
 
