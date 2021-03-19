@@ -27,6 +27,7 @@
 * `switch_params()` now accepts a vector for `x`
   * `...` examples updated
 * adds param to change default column name from `counts.data.frame()` and `props.data.frame()`
+* `print()` method called from `todos()` has a new format to group together multiple todos found in a single file
 
 ## New features
 

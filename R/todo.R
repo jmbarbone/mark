@@ -17,75 +17,61 @@
 #' @export
 
 todos <- function(pattern = NULL, ...) {
-  finds <- withCallingHandlers(
-    system2("git", 'grep -in "[#] TODO"', stdout = TRUE, stderr = TRUE),
-    warning = function(e) {
-      if (grepl("had status 1$", e$message)) {
-        invokeRestart("muffleWarning")
-      }
-    }
-  )
-
-  # Don't count TODO in NAMESPACE
-  finds <- grep("^NAMESPACE", finds, value = TRUE, invert = TRUE)
-
-  if (!is.null(pattern)) {
-    finds <- grep(pattern = pattern, x = finds, ..., value = TRUE)
-  }
-
-  if (length(finds) == 0) {
-    message("No TODOs found")
-    return(invisible())
-  }
-
-  splits <- strsplit(finds, ":")
-  out <- Reduce(rbind, lapply(splits, clean_todo_split))
+  files <- list.files(pattern = "\\.[Rr]$", recursive = TRUE)
+  file_list <- lapply(files, readLines, warn = FALSE)
+  finds <- lapply(file_list,
+    function(x)  {
+      ind <- grep(pattern = "[#]\\s+TODO\\s+", x = x)
+      quick_df(list(ind = ind, todo = x[ind]))
+    })
+  names(finds) <- files
+  finds <- finds[vap_lgl(finds, function(x) nrow(x) > 0)]
+  out <- cbind(rep(names(finds), vap_int(finds, nrow)), Reduce(rbind, finds))
+  names(out) <- c("file", "line", "todo")
+  out <- out[, c("line", "file", "todo")]
+  out[["todo"]] <- sub("^\\s{0,}[#]\\s+TODO\\s+", "", out[["todo"]])
   class(out) <- c("todos_df", "data.frame")
   out
-}
-
-clean_todo_split <- function(x) {
-  n <- length(x)
-  if (n < 3) {
-    stop("x must have at least 3 elements", call. = FALSE)
-  }
-
-  if (n > 3) {
-    x[3] <- collapse0(x[3:n], sep = ":")
-    x <- x[1:3]
-  }
-
-  names(x) <- c("file", "line", "todo")
-  x <- as.list(x[c(2, 1, 3)])
-  x["todo"] <- sub(".*[#]\\s{0,}TODO[:]?\\s", "", x["todo"])
-  x["line"] <- as.integer(x["line"])
-
-  quick_df(x)
 }
 
 #' @exportS3Method
 print.todos_df <- function(x, ...) {
   # TODO Add a limit for number of TODOs to show?
-  mat <- as.matrix(x)
-  n <- max(nchar(mat[, 1])) + 3L
+  n <- max(nchar(x[["line"]]))
+  w <- getOption("width") - n - 3 # 4??
+  pad <- collapse0(rep(" ", n + 3))
+  pat <- sprintf("[%%%i.i]", n)
 
-  cat(
-    sprintf("Found %d TODOS :\n\n", nrow(x)),
-    apply(mat, 1, make_todo_line, n = n),
-    sep = ""
-  )
+  splits <- split(x, x[["file"]])
+  nm <- names(splits)
+
+  cat0(sprintf("Found %d TODOS:\n", nrow(x)))
+
+  for (i in seq_along(splits)) {
+    catln(
+      collapse0(pad, crayon::blue(nm[i])),
+      apply(
+        splits[[i]][, c("line", "todo")],
+        1,
+        function(xi) {
+          paste(
+            crayon::blue(sprintf(pat, as.integer(xi[1]))),
+            if (nchar(xi[2]) > w) {
+              # TODO consider wrapping with respect to the line number?
+              collapse0(substr(xi[2], 1, max(1, w - 6)), " [...]")
+            } else {
+              xi[2]
+            }
+          )
+        }
+      )
+    )
+  }
 
   invisible(x)
 }
 
-make_todo_line <- function(x, n) {
-  header <- sprintf("[%s] %s", x["line"], x["file"])
-  text <- str_slice_by_word(x["todo"], getOption("width") - 4L)
-  pad <- collapse0(rep(" ", n))
+# undebug(print.todos_df)
 
-  sprintf(
-    "%s\n%s\n",
-    crayon::blue(header),
-    collapse0(paste0(pad, text), sep = "\n")
-  )
-}
+cat0 <- function(...) cat(..., sep = "")
+catln <- function(...) cat(..., sep = "\n")
