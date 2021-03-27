@@ -186,7 +186,12 @@ switch_case <- function(..., .default = NULL, .envir = parent.frame()) {
   rmat <- Reduce(cbind, rhs, right = TRUE)
   w <- apply(lmat, 1L, function(x) which(x)[1])
   inds <- cbind(seq_along(w), w)
-  out <- rmat[inds]
+  out <-
+    if (nrow(rmat) == nrow(inds)) {
+      rmat[inds]
+    } else {
+      rmat[inds[, 2, drop = FALSE]]
+  }
   out[rowSums(lmat) == 0L] <- res0
   as.vector(out, mode(res0))
 }

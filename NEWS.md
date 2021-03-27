@@ -49,7 +49,6 @@
 * adds `switch_case()` to return a values based on a left hand statement
   returning `TRUE` and `switch_in_case()` for evaluating `x` `%in%` left hand side
   * these functions are much like `dplyr::case_when()` but for specific cases
-
   * adds function `checkOptions()`
 
 
