@@ -122,7 +122,7 @@ test_that("Timezones", {
 
   expect_identical(
     with(dftz, diff_time_hours(a, b, tza, tzb)),
-    c(0, 1, -1, -12),
+    c(0, 1, -1, -11),
     ignore_attr = TRUE
   )
 })
