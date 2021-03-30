@@ -225,3 +225,8 @@ which_unwrap <- function(w, n = max(w)) {
   x[w] <- TRUE
   x
 }
+
+
+cat0 <- function(...) cat(..., sep = "")
+catln <- function(...) cat(..., sep = "\n")
+charexpr <- function(x) as.character(as.expression(x))

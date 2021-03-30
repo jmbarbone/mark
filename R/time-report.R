@@ -28,7 +28,6 @@ simpleTimeReport <- function(title = NULL, expr, envir = parent.frame()) {
   exprs <- split_expression(expr)
 
   # Create empty lists
-  results <- messages <- warnings <- outputs <- list()
 
   calls <- as.vector(exprs, "character")
   lens <- nchar(calls)
@@ -108,9 +107,6 @@ simpleTimeReport <- function(title = NULL, expr, envir = parent.frame()) {
   invisible(res)
 }
 
-cat0 <- function(...) cat(..., sep = "")
-catln <- function(...) cat(..., sep = "\n")
-charexpr <- function(x) as.character(as.expression(x))
 
 #' Format time difference
 #'
