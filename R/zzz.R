@@ -4,4 +4,5 @@
 
 .onDetach <- function(libpath) {
   tryCatch(remove(.na_env), warning = function(e) invisible())
+  unloadNamespace("jordanExtra")
 }
