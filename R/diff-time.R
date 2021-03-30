@@ -72,7 +72,7 @@ diff_time <- function(
   )
 
   attributes(out) <- list(
-    class = c("diff_time", "numeric"),
+    class = c("numeric", "diff_time"),
     units = method
   )
 

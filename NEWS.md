@@ -49,7 +49,7 @@
 * adds `switch_case()` to return a values based on a left hand statement
   returning `TRUE` and `switch_in_case()` for evaluating `x` `%in%` left hand side
   * these functions are much like `dplyr::case_when()` but for specific cases
-
+  * adds function `checkOptions()`
 
 
 # jordan 0.1.1
@@ -64,9 +64,9 @@
     * for vectors this will now produce an NA value for the first column
     * for lists `make.unique()` is utilized for empty name named to retain the position of the list element
 * adds listing wrapper:
-  * `ls_object()` to list all `is.object()`s 
-  * `ls_dataframe()` to list all `is.data.frame()`s 
-  * `ls_function()` to list all `is.function()`s 
+  * `ls_object()` to list all `is.object()`s
+  * `ls_dataframe()` to list all `is.data.frame()`s
+  * `ls_function()` to list all `is.function()`s
 * adds `counts()` and `props()` for counting unique elements in vectors and data.frames
 
 ## Changes
@@ -127,7 +127,7 @@ Some miscellaneous, less controlled functions have been moved to [jordanExtra](h
 * Functions for [pROC](https://github.com/xrobin/pROC): `pROC_optimal_threshold()`, `pROC_quick_plot()`
 * Effect sizes: `cohen2odds()`, `cohend2r()`, `odds_ratio()`, `odds2d()`, `odds2r()`, `r2cohend()`
 * Statistical functions: `fishers_method()`, `iqrs()`, `p_round()`, `p_value_sig()`, `percentile_rank()`, `proportion()`, `sd_pooled()`, `sterr()`, `tukey_coef()`, `z_score()`
-* Others: `add_euclidean()`, `add_malahanobis()`, `%=+`, `filter_combine()`, `reverse_log_trans()`, 
+* Others: `add_euclidean()`, `add_malahanobis()`, `%=+`, `filter_combine()`, `reverse_log_trans()`,
 
 # Prior development
 

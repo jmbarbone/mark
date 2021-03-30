@@ -12,6 +12,14 @@ test_that("switch_case() works as expected", {
   )
 
   expect_equal(res, c(6L, 2L, -1L, NA_integer_, -1L))
+
+  res <- switch_case(
+    1:10 < 3 ~ 1,
+    1:10 < 5 ~ 2,
+    .default = NA_integer_
+  )
+
+  expect_equal(res, c(rep(1, 2), rep(2, 2), rep(NA_integer_, 6)))
 })
 
 test_that("switch_in_case() works as expected", {
