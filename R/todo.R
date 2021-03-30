@@ -21,15 +21,27 @@ todos <- function(pattern = NULL, ...) {
   file_list <- lapply(files, readLines, warn = FALSE)
   finds <- lapply(file_list,
     function(x)  {
-      ind <- grep(pattern = "[#]\\s+TODO\\s+", x = x)
+      ind <- grep(pattern = "[#]\\s+TODO[:]?\\s+", x = x)
       quick_df(list(ind = ind, todo = x[ind]))
     })
-  names(finds) <- files
-  finds <- finds[vap_lgl(finds, function(x) nrow(x) > 0)]
+
+  ind <- vap_lgl(finds, function(x) nrow(x) > 0)
+  finds <- finds[ind]
+
+  if (!is.null(pattern)) {
+    finds <- grep(pattern, finds, value = TRUE, ...)
+  }
+
+  if (identical(finds, list())) {
+    message("No todos found")
+    return(invisible(NULL))
+  }
+
+  names(finds) <- files[ind]
   out <- cbind(rep(names(finds), vap_int(finds, nrow)), Reduce(rbind, finds))
   names(out) <- c("file", "line", "todo")
   out <- out[, c("line", "file", "todo")]
-  out[["todo"]] <- sub("^\\s{0,}[#]\\s+TODO\\s+", "", out[["todo"]])
+  out[["todo"]] <- sub("^\\s{0,}[#]\\s+TODO[:]?\\s+", "", out[["todo"]])
   class(out) <- c("todos_df", "data.frame")
   out
 }
