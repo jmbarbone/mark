@@ -14,6 +14,11 @@ simpleTimeReport(title = NULL, expr, envir = parent.frame())
 \item{envir}{The environment from which to evaluate the \code{expr}}
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+This function can be used to evaluate an expression line-by-line to capture
+outputs, errors, messages, and evaluation time.
+}
+\details{
 Evaluate code and report on the time difference
 }
 \examples{
@@ -22,6 +27,9 @@ simpleTimeReport("example", {
   print("1")
   Sys.sleep(1)
   warning("this is a warning")
+  for (i in 1:5) {
+    Sys.sleep(0.5)
+  }
   sample(1e6, 1e6, TRUE)
 })
 }

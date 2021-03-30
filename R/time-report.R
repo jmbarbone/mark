@@ -2,6 +2,11 @@
 #'
 #' Evaluate code and report on the time difference
 #'
+#' @description
+#' `r lifecycle::badge("experimental")`
+#' This function can be used to evaluate an expression line-by-line to capture
+#'   outputs, errors, messages, and evaluation time.
+#'
 #' @param title The title to be printed
 #' @param expr The expression to run
 #' @param envir The environment from which to evaluate the `expr`
@@ -12,14 +17,16 @@
 #'   print("1")
 #'   Sys.sleep(1)
 #'   warning("this is a warning")
+#'   for (i in 1:5) {
+#'     Sys.sleep(0.5)
+#'   }
 #'   sample(1e6, 1e6, TRUE)
 #' })
 #' }
+#' @export
 
 simpleTimeReport <- function(title = NULL, expr, envir = parent.frame()) {
-  # browser()
   mc <- match.call()
-  # cat0(trimws(title), "\n", rep("-", nchar(title)), "\n")
   cat0(trimws(title), "\n", rep("-", getOption("width")), "\n")
   line <- rep("-", getOption("width"))
 
@@ -27,9 +34,14 @@ simpleTimeReport <- function(title = NULL, expr, envir = parent.frame()) {
   expr <- as.expression(as.vector(sys.call(), "character")[3])
   exprs <- split_expression(expr)
 
-  # Create empty lists
+  results <- messages <- warnings <- list()
 
   calls <- as.vector(exprs, "character")
+  calls <- gsub("\n", "", calls)
+  calls <- gsub("[[:space:]]+", " ", calls)
+  n <- length(calls)
+  outputs <- rep_len(list(), n)
+
   lens <- nchar(calls)
   len_add <- max(lens) - lens + 2L
   ne <- new.env()
@@ -84,7 +96,7 @@ simpleTimeReport <- function(title = NULL, expr, envir = parent.frame()) {
     catln(calls[i])
   }
 
-  if (!identical(outputs, list()) && any(!vap_lgl(outputs, is.null))) {
+  if (!identical(outputs, rep_len(list(), n)) && any(!vap_lgl(outputs, is.null))) {
     cat0("\nOutputs\n", line, "\n")
     for (i in seq_along(outputs)) {
       if (!is.null(outputs[[i]]) && !identical(outputs[[i]], character())) {
