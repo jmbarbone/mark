@@ -38,7 +38,7 @@
 #' props(x, 1:3)
 #' @export
 counts <- function(x, ...) {
-  UseMethod("counts")
+  UseMethod("counts", x)
 }
 
 
@@ -127,7 +127,7 @@ counts.data.frame <- function(x, cols, sort = FALSE, ..., .name = "freq") {
 #' @rdname counts
 #' @export
 props <- function(x, ...) {
-  UseMethod("props")
+  UseMethod("props", x)
 }
 
 #' @rdname counts
