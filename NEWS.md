@@ -50,7 +50,7 @@
   returning `TRUE` and `switch_in_case()` for evaluating `x` `%in%` left hand side
   * these functions are much like `dplyr::case_when()` but for specific cases
   * adds function `checkOptions()`
-* adds `recode_by()` for a simple implementation of recoding a vector
+* adds `recode_by()` and `recode_only()` for a simple implementations of recoding elements in a vector
 
 # jordan 0.1.1
 
