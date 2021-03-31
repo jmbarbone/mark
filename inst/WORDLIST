@@ -42,6 +42,8 @@ pkgs
 png
 purrr's
 readLines
+recode
+recoding
 recodes
 requireNamespace
 rlang's
