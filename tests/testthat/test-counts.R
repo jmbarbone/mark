@@ -19,8 +19,8 @@ test_that("counts work with NAs", {
   res <- set_names0(c(1, 1, 1), x)
   expect_equal(counts(x), res)
 
-  x <- c(1L, 0L, NA_integer_)
-  res <- set_names0(c(1L, 1L, 1L), x)
+  x <- c(1L, 0L, NA_integer_, NA_integer_)
+  res <- set_names0(c(1L, 1L, 2L), c(1, 0, NA))
   expect_equal(counts(x), res)
 })
 
@@ -46,4 +46,11 @@ test_that("can make new column name", {
 
   res <- props(df, 1, .name = "new_name")
   expect_equal(colnames(res), c("a", "new_name"))
+})
+
+test_that("NAs are last", {
+  expect_equal(
+    counts(c(NA, NA, 1, 2)),
+    set_names0(c(1, 1, 2), c(1, 2, NA))
+  )
 })

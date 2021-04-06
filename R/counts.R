@@ -44,23 +44,33 @@ counts <- function(x, ...) {
 
 #' @export
 counts.default <- function(x, sort = FALSE, ...) {
-  n <- length(x)
-
-  if (n == 0L) {
+  if (length(x) == 0) {
     return(integer(0L))
   }
 
-  sx <- sort(x, na.last = TRUE)
-  y <- sx[-1L] != sx[-n]
-  i <- c(which(y | is.na(y)), n)
-  out <- diff(c(0L, i))
-  names(out) <- sx[i]
+  sx <- sort(x)
+  n <- length(sx)
+
+  if (n == 0L) {
+    out <- NULL
+  } else if (n == 1L) {
+    out <- set_names0(1L, x)
+  } else {
+    i <- c(which(sx[-1L] != sx[-n]), n)
+    out <- c(i, 0) - c(0L, i)
+    out <- out[-length(out)]
+    names(out) <- sx[i]
+  }
+
+  if (anyNA(x)) {
+    out <- c(out, set_names0(sum(is.na(x)), NA))
+  }
 
   if (sort) {
     return(out)
   }
 
-  out[match(unique(x), sx[i])]
+  out[match(na_last(unique(x)), names(out))]
 }
 
 
@@ -75,7 +85,7 @@ counts.logical <- function(x, ...) {
 
 #' @export
 counts.character <- function(x, sort = FALSE, ...) {
-  ux <- unique(x)
+  ux <- na_last(unique(x))
 
   if (sort) {
     ux <- sort(ux)

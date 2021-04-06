@@ -209,10 +209,15 @@ as_character <- function(x) {
 #' attr(pid, "uniques")[pid]
 #' }
 pseudo_id <- function(x) {
-  ux <- unique(x)
+  ux <- na_last(unique(x))
   m <- match(x, ux)
   attr(m, "uniques") <- ux
   m
+}
+
+na_last <- function(x) {
+  nas <- is.na(x)
+  c(x[!nas], x[nas])
 }
 
 is_atomic0 <- function(x) {
@@ -225,7 +230,6 @@ which_unwrap <- function(w, n = max(w)) {
   x[w] <- TRUE
   x
 }
-
 
 cat0 <- function(...) cat(..., sep = "")
 catln <- function(...) cat(..., sep = "\n")

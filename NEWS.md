@@ -1,6 +1,7 @@
 # development
 
 * corrects use of  `...` in `todos()` 
+* corrects `NA` counting in `counts()`; `NA` counts are now appended at the end whether or not sort is called
 
 # jordan 0.1.2
 
