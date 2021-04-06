@@ -17,6 +17,7 @@
 #' @export
 
 todos <- function(pattern = NULL, ...) {
+  # fs::dir_ls() would be a lot quicker but would be a new dependency
   files <- list.files(pattern = "\\.[Rr]$", recursive = TRUE)
   file_list <- lapply(files, readLines, warn = FALSE)
   finds <- lapply(file_list,
@@ -24,12 +25,12 @@ todos <- function(pattern = NULL, ...) {
       ind <- grep(pattern = "[#]\\s+TODO[:]?\\s+", x = x)
       quick_df(list(ind = ind, todo = x[ind]))
     })
-
+  names(finds) <- files
   ind <- vap_lgl(finds, function(x) nrow(x) > 0)
   finds <- finds[ind]
 
   if (!is.null(pattern)) {
-    finds <- grep(pattern, finds, value = TRUE, ...)
+    finds <- finds[grep(pattern, finds, value = FALSE, ...)]
   }
 
   if (identical(finds, list())) {
@@ -37,7 +38,6 @@ todos <- function(pattern = NULL, ...) {
     return(invisible(NULL))
   }
 
-  names(finds) <- files[ind]
   out <- cbind(rep(names(finds), vap_int(finds, nrow)), Reduce(rbind, finds))
   names(out) <- c("file", "line", "todo")
   out <- out[, c("line", "file", "todo")]
@@ -82,8 +82,3 @@ print.todos_df <- function(x, ...) {
 
   invisible(x)
 }
-
-# undebug(print.todos_df)
-
-cat0 <- function(...) cat(..., sep = "")
-catln <- function(...) cat(..., sep = "\n")

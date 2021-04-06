@@ -1,3 +1,7 @@
+# development
+
+* corrects use of  `...` in `todos()` 
+
 # jordan 0.1.2
 
 ## Changes
