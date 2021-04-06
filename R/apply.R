@@ -15,31 +15,31 @@
 #' @export
 #' @name vap
 vap_int <- function(.x, .f, ..., .nm = FALSE) {
-  do_vap(.x = .x, .f = .f, .value = integer(1), ..., .nm = .nm)
+  do_vap(.x = .x, .f = .f, .value = NA_integer_, ..., .nm = .nm)
 }
 
 #' @rdname vap
 #' @export
 vap_dbl <- function(.x, .f, ..., .nm = FALSE) {
-  do_vap(.x = .x, .f = .f, .value = double(1), ..., .nm = .nm)
+  do_vap(.x = .x, .f = .f, .value = NA_real_, ..., .nm = .nm)
 }
 
 #' @rdname vap
 #' @export
 vap_chr <- function(.x, .f, ..., .nm = FALSE) {
-  do_vap(.x = .x, .f = .f, .value = character(1), ..., .nm = .nm)
+  do_vap(.x = .x, .f = .f, .value = NA_character_, ..., .nm = .nm)
 }
 
 #' @rdname vap
 #' @export
 vap_lgl <- function(.x, .f, ..., .nm = FALSE) {
-  do_vap(.x = .x, .f = .f, .value = logical(1), ..., .nm = .nm)
+  do_vap(.x = .x, .f = .f, .value = NA, ..., .nm = .nm)
 }
 
 #' @rdname vap
 #' @export
 vap_cplx <- function(.x, .f, ..., .nm = FALSE) {
-  do_vap(.x = .x, .f = .f, .value = complex(1), ..., .nm = .nm)
+  do_vap(.x = .x, .f = .f, .value = NA_complex_, ..., .nm = .nm)
 }
 
 #' @rdname vap
