@@ -54,7 +54,7 @@ counts.default <- function(x, sort = FALSE, ...) {
   if (n == 0L) {
     out <- NULL
   } else if (n == 1L) {
-    out <- set_names0(1L, x)
+    out <- set_names0(1L, sx)
   } else {
     i <- c(which(sx[-1L] != sx[-n]), n)
     out <- c(i, 0) - c(0L, i)

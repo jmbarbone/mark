@@ -53,4 +53,19 @@ test_that("NAs are last", {
     counts(c(NA, NA, 1, 2)),
     set_names0(c(1, 1, 2), c(1, 2, NA))
   )
+
+  expect_equal(
+    counts(c(NA, NA, 1)),
+    set_names0(c(1, 2), c(1, NA))
+  )
+
+  expect_equal(
+    counts(c("a", NA, NA)),
+    set_names0(c(1, 2), c("a", NA))
+  )
+
+  expect_equal(
+    counts(c(NA_real_, NA_real_)),
+    set_names0(2, NA)
+  )
 })
