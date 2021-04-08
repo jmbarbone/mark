@@ -17,14 +17,33 @@
 #' @export
 
 todos <- function(pattern = NULL, ...) {
+  do_todo("todo", pattern = pattern, ...)
+}
+
+#' @rdname todos
+#' @export
+fixmes <- function(pattern = NULL, ...) {
+  do_todo("fixme", pattern = pattern, ...)
+}
+
+do_todo <- function(text, pattern = NULL, ...) {
   # fs::dir_ls() would be a lot quicker but would be a new dependency
+  if (length(text) != 1L) {
+    stop("Length of text must be 1", call. = FALSE)
+  }
+
   files <- list.files(pattern = "\\.[Rr]$", recursive = TRUE)
   file_list <- lapply(files, readLines, warn = FALSE)
-  finds <- lapply(file_list,
+  finds <- lapply(
+    file_list,
     function(x)  {
-      ind <- grep(pattern = "[#]\\s+TODO[:]?\\s+", x = x)
+      ind <- grep(
+        pattern = sprintf("[#]\\s+%s[:]?\\s+", toupper(text)),
+        x = x
+      )
       quick_df(list(ind = ind, todo = x[ind]))
-    })
+    }
+  )
   names(finds) <- files
   ind <- vap_lgl(finds, function(x) nrow(x) > 0)
   finds <- finds[ind]
@@ -33,22 +52,29 @@ todos <- function(pattern = NULL, ...) {
     finds <- finds[grep(pattern, finds, value = FALSE, ...)]
   }
 
-  if (identical(finds, list())) {
+  if (identical(rename_names(finds), list())) {
     message("No todos found")
     return(invisible(NULL))
   }
 
   out <- cbind(rep(names(finds), vap_int(finds, nrow)), Reduce(rbind, finds))
-  names(out) <- c("file", "line", "todo")
-  out <- out[, c("line", "file", "todo")]
-  out[["todo"]] <- sub("^\\s{0,}[#]\\s+TODO[:]?\\s+", "", out[["todo"]])
+  names(out) <- c("file", "line", text)
+  out <- out[, c("line", "file", text)]
+  out[[text]] <- sub(
+    sprintf("^\\s{0,}[#]\\s+%s[:]?\\s+", toupper(text)),
+    "",
+    out[[text]]
+  )
   class(out) <- c("todos_df", "data.frame")
+  attr(out, "todos_type") <- text
   out
 }
 
 #' @exportS3Method
 print.todos_df <- function(x, ...) {
   # TODO Add a limit for number of TODOs to show?
+  type <- attr(x, "todos_type")
+
   n <- max(nchar(x[["line"]]))
   w <- getOption("width") - n - 3 # 4??
   pad <- collapse0(rep(" ", n + 3))
@@ -57,13 +83,13 @@ print.todos_df <- function(x, ...) {
   splits <- split(x, x[["file"]])
   nm <- names(splits)
 
-  cat0(sprintf("Found %d TODOS:\n", nrow(x)))
+  cat0(sprintf("Found %d %s:\n", nrow(x), toupper(type)))
 
   for (i in seq_along(splits)) {
     catln(
       collapse0(pad, crayon::blue(nm[i])),
       apply(
-        splits[[i]][, c("line", "todo")],
+        splits[[i]][, c("line", type)],
         1,
         function(xi) {
           paste(
