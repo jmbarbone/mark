@@ -52,7 +52,7 @@ do_todo <- function(text, pattern = NULL, ...) {
     finds <- finds[grep(pattern, finds, value = FALSE, ...)]
   }
 
-  if (identical(rename_names(finds), list())) {
+  if (identical(remove_names(finds), list())) {
     message("No todos found")
     return(invisible(NULL))
   }

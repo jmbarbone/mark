@@ -121,19 +121,6 @@ counts.data.frame <- function(x, cols, sort = FALSE, ..., .name = "freq") {
   out
 }
 
-counts_df_out <- function(out, ord = FALSE) {
-  if (!is.factor(x)) {
-    return(out)
-  }
-
-  out <- fact(x)
-
-  if (ord) {
-    ordered(out)
-  }
-
-}
-
 #' @rdname counts
 #' @export
 props <- function(x, ...) {
