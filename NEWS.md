@@ -2,6 +2,8 @@
 
 * corrects use of  `...` in `todos()` 
 * corrects `NA` counting in `counts()`; `NA` counts are now appended at the end whether or not sort is called
+* other optimization for `counts()`
+* adds/exports `fact()` and `pseudo_id()`
 
 # jordan 0.1.2
 

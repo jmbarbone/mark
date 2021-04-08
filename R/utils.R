@@ -195,31 +195,6 @@ as_character <- function(x) {
   as.character(x)
 }
 
-#' Create an ID for a vector
-#'
-#' Transforms a vector into an integer of IDs.
-#'
-#' @param x A vector
-#'
-#' @examples
-#'\dontrun{
-#' set.seed(42)
-#' (x <- sample(letters, 10, TRUE))
-#' (pid <- pseudo_id(x))
-#' attr(pid, "uniques")[pid]
-#' }
-pseudo_id <- function(x) {
-  ux <- na_last(unique(x))
-  m <- match(x, ux)
-  attr(m, "uniques") <- ux
-  m
-}
-
-na_last <- function(x) {
-  nas <- is.na(x)
-  c(x[!nas], x[nas])
-}
-
 is_atomic0 <- function(x) {
   is.atomic(x) && !is.null(x)
 }

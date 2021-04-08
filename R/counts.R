@@ -85,38 +85,16 @@ counts.logical <- function(x, ...) {
 
 #' @export
 counts.character <- function(x, sort = FALSE, ...) {
-  ux <- na_last(unique(x))
-
-  if (sort) {
-    ux <- sort(ux)
-  }
-
-  n <- length(ux)
-
-  if (n == 0L) {
-    return(integer(0L))
-  }
-
-  fact <- factor(
-    x,
-    levels = ux,
-    labels = ux,
-    exclude = NULL,
-    ordered = FALSE,
-    nmax = n
-  )
-
-  lengths(split(x, fact), use.names = TRUE)
+  counts(fact(x), sort = sort, ...)
 }
 
 #' @export
 counts.factor <- function(x, sort = FALSE, ...) {
   if (sort) {
-    return(lengths(split(x, x)))
+   levels(x) <- sort(levels(x))
   }
 
-  x <- levels(x)[x]
-  counts.character(x)
+  lengths(split(x, x), use.names = TRUE)
 }
 
 #' @param .name The name of the new column
@@ -131,7 +109,29 @@ counts.data.frame <- function(x, cols, sort = FALSE, ..., .name = "freq") {
     return(counts_n(x[, cols], sort = sort, name = .name))
   }
 
-  vector2df(counts(x[[cols]], sort = sort), cols, .name %||% "freq")
+  out <- vector2df(counts(x[[cols]], sort = sort), cols, .name %||% "freq")
+
+  if (is.factor(x[[cols]])) {
+    out[[1]] <- fact(out[[1]])
+    if (is.ordered(out[[1]])) {
+      class(out[[1]]) <- c("ordered", "factor")
+    }
+  }
+
+  out
+}
+
+counts_df_out <- function(out, ord = FALSE) {
+  if (!is.factor(x)) {
+    return(out)
+  }
+
+  out <- fact(x)
+
+  if (ord) {
+    ordered(out)
+  }
+
 }
 
 #' @rdname counts
