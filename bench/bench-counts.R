@@ -20,7 +20,7 @@ facts <- as.data.frame(matrix(factor(xchars, levels = sort(unique(xchars))), nco
 x <- cbind(chars, ints, dbls, bools, facts)
 names(x) <- make.unique(names(x))
 
-bench::mark(
+benches <- bench::mark(
   `vec characters` = counts(chars[[1]]),
   `vec factors` = counts(facts[[1]]),
   `vec integers` = counts(ints[[1]]),
@@ -40,4 +40,5 @@ bench::mark(
   check = FALSE
 )
 
-# ggplot2::autoplot(.Last.value)
+benches
+# ggplot2::autoplot(benches)

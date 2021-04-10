@@ -7,7 +7,7 @@
 #' @export
 within_call <- function() {
   s <- sys.call(-1)
-  as.character(as.expression(s))
+  charexpr(s)
 }
 
 #' @rdname within_call
@@ -21,7 +21,7 @@ within_fun <- function() {
 #' @export
 outer_call <- function(n = 0) {
   s <- sys.call(-2 - n)
-  as.character(as.expression(s))
+  charexpr(s)
 }
 
 #' @rdname within_call

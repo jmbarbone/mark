@@ -79,7 +79,7 @@ match_param <- function(param, choices) {
     stop("match_param() requires non-NULL params", call. = FALSE)
   }
 
-  param_c <- as.character(as.expression(substitute(param)))
+  param_c <- charexpr(substitute(param))
 
   if (missing(choices)) {
     parent <- sys.parent()

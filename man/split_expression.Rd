@@ -30,7 +30,7 @@ ss <- split_expression({
 })
 
 for (i in ss) {
-  str(as.character(as.expression(i)))
+  str(charexpr(i))
 }
 }
 }

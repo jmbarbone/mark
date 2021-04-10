@@ -2,9 +2,12 @@
 % Please edit documentation in R/todo.R
 \name{todos}
 \alias{todos}
+\alias{fixmes}
 \title{Get TODOs}
 \usage{
 todos(pattern = NULL, ...)
+
+fixmes(pattern = NULL, ...)
 }
 \arguments{
 \item{pattern}{A character string containing a regular expression to filter

@@ -15,15 +15,15 @@ tz1 <- c(
 )
 
 tz2 <- c(
-  2,
-  3,
-  6,
-  8,
+    2,
+    3,
+    6,
+    8,
   -10,
   -11,
-  12,
+   12,
   -13,
-  16,
+   16,
   -17,
   NULL
 )
@@ -70,9 +70,9 @@ test_that("diff_time_*() identical to difftime()", {
 })
 
 test_that("Timezones", {
-  # withr::local_envvar(list(TZ = "US/Pacific"))
 
-  st <- Sys.time()
+  st <- as.POSIXct("2021-04-06 11:12:45", tz = "US/Central")
+
   dftz <- quick_df(list(
     a = rep(st, 4),
     b = rep(st, 4),
@@ -122,7 +122,7 @@ test_that("Timezones", {
 
   expect_identical(
     with(dftz, diff_time_hours(a, b, tza, tzb)),
-    c(0, 1, -1, -11),
+    c(0, 1, -1, -10),
     ignore_attr = TRUE
   )
 })

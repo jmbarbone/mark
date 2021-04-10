@@ -1,3 +1,11 @@
+# development
+
+* corrects use of  `...` in `todos()` [#8](https://github.com/jmbarbone/jordan/issues/8)
+* corrects `NA` counting in `counts()`; `NA` counts are now appended at the end whether or not sort is called
+* other optimization for `counts()`
+* adds/exports `fact()` and `pseudo_id()`
+* adds `fixmes()` [#13](https://github.com/jmbarbone/jordan/issues/13)
+
 # jordan 0.1.2
 
 ## Changes

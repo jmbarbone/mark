@@ -111,7 +111,7 @@ get_labels.data.frame <- function(x) {
 #' @export
 #' @rdname labels
 view_labels <- function(x, title) {
-  cesx <- as.character(as.expression(substitute(x)))
+  cesx <- charexpr(substitute(x))
 
   if (missing(title)) {
     title <- paste0(cesx, " - Labels")

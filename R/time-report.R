@@ -168,7 +168,7 @@ formatTimeDiff <- function(start, stop = Sys.time(), threshold = .1) {
 #' })
 #'
 #' for (i in ss) {
-#'   str(as.character(as.expression(i)))
+#'   str(charexpr(i))
 #' }
 #' }
 split_expression <- function(expr) {
