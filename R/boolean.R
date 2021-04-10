@@ -3,6 +3,7 @@
 #' Convert a vector to boolean/logical
 #'
 #' @param x A vector of values
+#' @param ... Additional arguments passed to methods
 #' @param true A vector of values to convert to `TRUE`
 #' @param false A vector of values to convert to `FALSE`
 to_boolean <- function(x, ...) {
@@ -24,7 +25,7 @@ to_boolean.numeric <- function(x, true = 1L, false = 0L) {
 
 #' @rdname to_boolean
 to_boolean.character <- function(x, true = NULL, false = NULL) {
-  if (is.null(trues) && is.null(falses)) {
+  if (is.null(true) && is.null(false)) {
     x <- fact(x)
     return(to_boolean_default(x))
   }
@@ -32,7 +33,7 @@ to_boolean.character <- function(x, true = NULL, false = NULL) {
 
 #' @rdname to_boolean
 to_boolean.factor <- function(x, true, false) {
-  if (is.null(trues) && is.null(falses)) {
+  if (is.null(true) && is.null(false)) {
     return(to_boolean_default(x))
   }
 }

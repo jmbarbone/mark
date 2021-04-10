@@ -19,9 +19,11 @@ This works similarly to \code{mapply()} expect it can take zero-length variables
 }
 \examples{
 foo <- function(a, b, c) sum(a, b, c)
+\dontrun{
 mapply(foo, a = 1:2, b = NULL, c = 3)
 mapply0(foo, a = 1:2, b = NULL, c = 3)
 # or pass as list
 x <- list(a = 1:2, b = NULL, c = 3)
 mapply0(foo, x)
+}
 }

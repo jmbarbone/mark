@@ -21,6 +21,8 @@ to_boolean(x, ...)
 \arguments{
 \item{x}{A vector of values}
 
+\item{...}{Additional arguments passed to methods}
+
 \item{true}{A vector of values to convert to \code{TRUE}}
 
 \item{false}{A vector of values to convert to \code{FALSE}}
