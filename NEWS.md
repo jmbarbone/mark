@@ -5,6 +5,7 @@
 * other optimization for `counts()`
 * adds/exports `fact()` and `pseudo_id()`
 * adds `fixmes()` [#13](https://github.com/jmbarbone/jordan/issues/13)
+* adds `names_switch()` to switch names and values
 
 # jordan 0.1.2
 
