@@ -35,3 +35,13 @@ set_names0 <- function(x, nm = x) {
 remove_names <- function(x) {
   set_names0(x, NULL)
 }
+
+#' @rdname set_names0
+#' @export
+names_switch <- function(x) {
+  if (!is_named(x)) {
+    stop("x must be named", call. = FALSE)
+  }
+
+  set_names0(names(x), as.vector(x, "character"))
+}
