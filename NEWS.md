@@ -1,6 +1,9 @@
 # development
 
 * corrects use of  `...` in `todos()` [#8](https://github.com/jmbarbone/jordan/issues/8)
+  * `grep()` also now evaluated with _cleaned_ todo text
+  * searches for `todos()` in Rmd files, too
+  * correctly removes additional `#` and spaces in lines (e.g., `#  # TODO text` -> `text`)
 * corrects `NA` counting in `counts()`; `NA` counts are now appended at the end whether or not sort is called
 * other optimization for `counts()`
 * adds/exports `fact()` and `pseudo_id()`

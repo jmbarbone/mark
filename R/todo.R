@@ -32,7 +32,7 @@ do_todo <- function(text, pattern = NULL, ...) {
     stop("Length of text must be 1", call. = FALSE)
   }
 
-  files <- list.files(pattern = "\\.[Rr]$", recursive = TRUE)
+  files <- list.files(pattern = "\\.r(md)?$", recursive = TRUE, ignore.case = TRUE)
   file_list <- lapply(files, readLines, warn = FALSE)
   finds <- lapply(
     file_list,
@@ -48,10 +48,6 @@ do_todo <- function(text, pattern = NULL, ...) {
   ind <- vap_lgl(finds, function(x) nrow(x) > 0)
   finds <- finds[ind]
 
-  if (!is.null(pattern)) {
-    finds <- finds[grep(pattern, finds, value = FALSE, ...)]
-  }
-
   if (identical(remove_names(finds), list())) {
     message("No todos found")
     return(invisible(NULL))
@@ -61,10 +57,20 @@ do_todo <- function(text, pattern = NULL, ...) {
   names(out) <- c("file", "line", text)
   out <- out[, c("line", "file", text)]
   out[[text]] <- sub(
-    sprintf("^\\s{0,}[#]\\s+%s[:]?\\s+", toupper(text)),
+    sprintf("^[ #]*\\s+%s[:]?\\s+", toupper(text)),
     "",
     out[[text]]
   )
+
+  if (!is.null(pattern)) {
+    out <- out[grep(pattern, out[[text]], value = FALSE, ...), ]
+  }
+
+  if (nrow(out) == 0L) {
+    message("No todos found")
+    return(invisible(NULL))
+  }
+
   class(out) <- c("todos_df", "data.frame")
   attr(out, "todos_type") <- text
   out
