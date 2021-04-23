@@ -35,12 +35,10 @@ which already return in the order of \code{FALSE}, \code{TRUE}, \code{NA}.}
 Variables will be return by the order in which they appear.  Even factors are
 shown by their order of appearance in the vector.
 
-There are 4 methods for counting vectors.  The \code{default} method uses a
-reworked version of \code{base::rle}.  The \code{logical} method counts \code{TRUE},
-\code{FALSE} and \code{NA} values, which should be quicker than the other methods.
-The \code{character} creates a quick factor with and \code{split()}s the vector
-before using \code{lengths()}.  The \code{factor} method simply recodes the levels
-first.
+There are 2 methods for counting vectors.  The \code{default} method uses
+\code{base::tabulate()} (the workhorse for \code{base::table()} with a call to
+\code{pseudo_id()} to transform all inputs into integers.  The \code{logical} method
+counts \code{TRUE}, \code{FALSE} and \code{NA} values, which is much quicker.
 }
 \details{
 Get counts or proportions of unique observations in a vector or columns in a

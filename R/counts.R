@@ -7,12 +7,10 @@
 #' Variables will be return by the order in which they appear.  Even factors are
 #'   shown by their order of appearance in the vector.
 #'
-#' There are 4 methods for counting vectors.  The `default` method uses a
-#'   reworked version of `base::rle`.  The `logical` method counts `TRUE`,
-#'   `FALSE` and `NA` values, which should be quicker than the other methods.
-#'   The `character` creates a quick factor with and `split()`s the vector
-#'   before using `lengths()`.  The `factor` method simply recodes the levels
-#'   first.
+#' There are 2 methods for counting vectors.  The `default` method uses
+#'   `base::tabulate()` (the workhorse for `base::table()` with a call to
+#'   `pseudo_id()` to transform all inputs into integers.  The `logical` method
+#'    counts `TRUE`, `FALSE` and `NA` values, which is much quicker.
 #'
 #' @param x A vector or data.frame
 #' @param ... Arguments passed to other methods
@@ -41,36 +39,18 @@ counts <- function(x, ...) {
   UseMethod("counts", x)
 }
 
-
 #' @export
 counts.default <- function(x, sort = FALSE, ...) {
-  if (length(x) == 0) {
-    return(integer(0L))
-  }
-
-  sx <- sort(x)
-  n <- length(sx)
-
-  if (n == 0L) {
-    out <- NULL
-  } else if (n == 1L) {
-    out <- set_names0(1L, sx)
-  } else {
-    i <- c(which(sx[-1L] != sx[-n]), n)
-    out <- c(i, 0) - c(0L, i)
-    out <- out[-length(out)]
-    names(out) <- sx[i]
-  }
-
-  if (anyNA(x)) {
-    out <- c(out, set_names0(sum(is.na(x)), NA))
-  }
+  id <- pseudo_id(x)
+  out <- tabulate(id)
+  u <- attr(id, "uniques")
+  names(out) <- na_last(u)
 
   if (sort) {
-    return(out)
+    return(sort_by(out, names(out)))
   }
 
-  out[match(na_last(unique(x)), names(out))]
+  out
 }
 
 
@@ -81,20 +61,6 @@ counts.logical <- function(x, ...) {
   ns <- sum(is.na(x), na.rm = TRUE)
   out <- set_names0(c(fs, ts, ns), c(FALSE, TRUE, NA))
   out[out != 0L]
-}
-
-#' @export
-counts.character <- function(x, sort = FALSE, ...) {
-  counts(fact(x), sort = sort, ...)
-}
-
-#' @export
-counts.factor <- function(x, sort = FALSE, ...) {
-  if (sort) {
-   levels(x) <- sort(levels(x))
-  }
-
-  lengths(split(x, x), use.names = TRUE)
 }
 
 #' @param .name The name of the new column

@@ -2,10 +2,8 @@
 
 S3method(assign_labels,data.frame)
 S3method(assign_labels,default)
-S3method(counts,character)
 S3method(counts,data.frame)
 S3method(counts,default)
-S3method(counts,factor)
 S3method(counts,logical)
 S3method(depth,default)
 S3method(depth,list)

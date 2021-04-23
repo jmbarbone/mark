@@ -28,17 +28,18 @@ benches <- bench::mark(
   `vec boolean` = counts(bools[[1]]),
 
   `df single jordan` = counts(x, "a"),
-  `df single dplyr` = dplyr::count(x, a),
+  # `df single dplyr` = dplyr::count(x, a),
 
   `df 3 cols jordan` = counts(x, 1:3),
-  `df 3 cols dplyr` = dplyr::count(x, a, b, c),
+  # `df 3 cols dplyr` = dplyr::count(x, a, b, c),
 
   `df all cols jordan` = counts(x, seq_along(x)),
-  `df all cols dplyr` = dplyr::count(dplyr::group_by_all(x), name = "N"),
+  # `df all cols dplyr` = dplyr::count(dplyr::group_by_all(x), name = "N"),
 
   iterations = 10,
   check = FALSE
 )
 
 benches
+
 # ggplot2::autoplot(benches)
