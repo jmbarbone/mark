@@ -4,13 +4,15 @@
 \alias{complete_cases}
 \title{Complete cases}
 \usage{
-complete_cases(data, cols = NULL)
+complete_cases(data, cols = NULL, invert = FALSE)
 }
 \arguments{
 \item{data}{A data.frame}
 
 \item{cols}{Colnames or numbers to remove \code{NA} values from; \code{NULL} (default)
 will use all columns}
+
+\item{invert}{Logical, if \code{TRUE} will return incomplete cases}
 }
 \description{
 Return completed cases of a data.frame
@@ -23,6 +25,7 @@ x <- data.frame(
 )
 
 complete_cases(x)
+complete_cases(x, invert = TRUE) # returns the incomplete rows
 complete_cases(x, "a")
 complete_cases(x, "b")
 complete_cases(x, "c")

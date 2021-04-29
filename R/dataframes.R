@@ -247,6 +247,7 @@ quick_df <- function(x) {
 #' @param data A data.frame
 #' @param cols Colnames or numbers to remove `NA` values from; `NULL` (default)
 #'   will use all columns
+#' @param invert Logical, if `TRUE` will return incomplete cases
 #' @examples
 #' x <- data.frame(
 #'   a = 1:5,
@@ -255,28 +256,29 @@ quick_df <- function(x) {
 #' )
 #'
 #' complete_cases(x)
+#' complete_cases(x, invert = TRUE) # returns the incomplete rows
 #' complete_cases(x, "a")
 #' complete_cases(x, "b")
 #' complete_cases(x, "c")
 #' @export
-complete_cases <- function(data, cols = NULL) {
+complete_cases <- function(data, cols = NULL, invert = FALSE) {
   if (!inherits(data, "data.frame")) {
     stop("`data` must be a data.frame", call. = FALSE)
   }
 
   ds <- dim(data)
 
-  if (ds[1L] == 0L) {
-    stop("`data` must have at least 1 row", call. = FALSE)
+  if (ds[1L] == 0L || ds[2L] == 0L) {
+    stop("`data` must have at least 1 row and 1 column", call. = FALSE)
   }
 
-  if (ds[2L] == 0L) {
-    stop("`data` must have at least 1 column", call. = FALSE)
-  }
-
-  cols <- cols %||% 1:ds[2L]
-  x <- data[, cols, drop = FALSE]
+  x <- data[, cols %||% 1:ds[2L], drop = FALSE]
   cc <- stats::complete.cases(x[, vap_lgl(x, anyNA), drop = FALSE])
+
+  if (invert) {
+    cc <- !cc
+  }
+
   out <- data[cc, , drop = FALSE]
   attr(out, "row.names") <- .set_row_names(sum(cc))
   out
