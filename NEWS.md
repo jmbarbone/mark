@@ -11,6 +11,9 @@
 * adds `fixmes()` [#13](https://github.com/jmbarbone/jordan/issues/13)
 * adds `names_switch()` to switch names and values
 * adds an `invert` parameter to `complete_cases()` to filter for incomplete cases
+* `vector2df()`
+  * can now output a 1 column data.frame if `name = NULL`
+  * corrects error message when passed a list
 
 # jordan 0.1.2
 

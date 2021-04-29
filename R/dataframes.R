@@ -60,15 +60,13 @@ vector2df <- function(x, name = "name", value = "value", show_NA) {
   }
 
   if (!is.vector(x) || is.list(x)) {
-    stop("`x` must be a vector", call. = FALSE)
+    stop("`x` must be a non-list vector", call. = FALSE)
   }
 
-  nm <- names(x) %||% rep(NA, length(x))
-  out <- quick_df(list(v1 = nm, v2 = unname(x)))
-  names(out) <- c(name, value)
-  out
+  out <- quick_df(list(v1 = names(x) %||% rep(NA, length(x)), v2 = unname(x)))
+  names(out) <- c(name %||% paste0(value, "_"), value)
+  out[c(!is.null(name), 2L)]
 }
-
 
 #' List to data.frame
 #'
