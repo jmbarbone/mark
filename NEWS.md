@@ -6,6 +6,7 @@
   * correctly removes additional `#` and spaces in lines (e.g., `#  # TODO text` -> `text`)
 * corrects `NA` counting in `counts()`; `NA` counts are now appended at the end whether or not sort is called
 * other optimization for `counts()`
+  * core functions previously on `base::rle()` now use a combination of `pseudo_id()` and `base::tabulate()`
 * adds/exports `fact()` and `pseudo_id()`
 * adds `fixmes()` [#13](https://github.com/jmbarbone/jordan/issues/13)
 * adds `names_switch()` to switch names and values
