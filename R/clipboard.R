@@ -80,23 +80,7 @@ read_clipboard <- function(method = c("default", "data.frame", "tibble"), ...) {
 
     # Specifications I prefer -- mostly copying from Excel
     data.frame = {
-      tab <- utils::read.table(
-        file = "clipboard-128",
-        header = TRUE,
-        # Copying form Excel produces tab separations
-        sep = "\t",
-        row.names = NULL,
-        # Excel formula for NA produces #N/A -- sometimes people use N/A...
-        na.strings = c("", "NA", "N/A", "#N/A"),
-        check.names = FALSE,
-        stringsAsFactors = FALSE,
-        encoding = "UTF-8",
-        # occasionally "#' is used as a column name -- may cause issues
-        comment.char = "",
-        blank.lines.skip = FALSE,
-        fill = TRUE,
-        ...
-      )
+      tab <- do_read_table_clipboard(...)
 
       for (i in seq_along(tab)) {
         tab[[i]] <- try_vector_formats(tab[[i]])
@@ -107,6 +91,43 @@ read_clipboard <- function(method = c("default", "data.frame", "tibble"), ...) {
 
     tibble = tibble::as_tibble(read_clipboard("data.frame", ...))
     )
+}
+
+#' Read table from clipboard
+#'
+#' A wrapper for reading a table
+#'
+#' @inheritParams utils::read.table
+do_read_table_clipboard <- function(
+  header           = TRUE,
+  # Copying form Excel produces tab separations
+  sep              = "\t",
+  row.names        = NULL,
+  # Excel formula for NA produces #N/A -- sometimes people use N/A...
+  na.strings       = c("", "NA", "N/A", "#N/A"),
+  check.names      = FALSE,
+  stringsAsFactors = FALSE,
+  encoding         = "UTF-8",
+  # occasionally "#' is used as a column name -- may cause issues
+  comment.char     = "",
+  blank.lines.skip = FALSE,
+  fill             = TRUE,
+  ...
+) {
+  utils::read.table(
+    file             = "clipboard-128",
+    header           = header,
+    sep              = sep,
+    row.names        = row.names,
+    na.strings       = na.strings,
+    check.names      = check.names,
+    stringsAsFactors = stringsAsFactors,
+    encoding         = encoding,
+    comment.char     = comment.char,
+    blank.lines.skip = blank.lines.skip,
+    fill             = fill,
+    ...
+  )
 }
 
 clear_clipboard <- function() {
