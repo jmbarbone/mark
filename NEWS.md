@@ -14,6 +14,7 @@
 * `vector2df()`
   * can now output a 1 column data.frame if `name = NULL`
   * corrects error message when passed a list
+* adds `are_identical()` for comparing 2 or more vectors as `identical()`, element-wise
 
 # jordan 0.1.2
 
