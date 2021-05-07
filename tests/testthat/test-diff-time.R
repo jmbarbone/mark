@@ -1,4 +1,5 @@
-st <- Sys.time()
+# Set time to current time GMT
+st <- as.POSIXct(format(Sys.time(), "%Y-%m-%d %H:%M:%S"), "GMT")
 n <- 10
 tz1 <- c(
   "Africa/Gaborone",
@@ -105,18 +106,21 @@ test_that("Timezones", {
 
   # Off sets are by the hour
   expect_identical(
-    with(dftz, diff_time_hours(a, b, tzn, NULL)), c(0, -1, 1, -6),
+    with(dftz, diff_time_hours(a, b, tzn, NULL)),
+    c(0, -1, 1, -6),
     ignore_attr = TRUE
   )
 
   expect_identical(
-    with(dftz, diff_time_hours(a, b, 0:3 * 3600, NULL)), -c(0, 1, 2, 3),
+    with(dftz, diff_time_hours(a, b, 0:3 * 3600, NULL)),
+    -c(0, 1, 2, 3),
     ignore_attr = TRUE
   )
 
   # Reversed -- skipping tza
   expect_identical(
-    with(dftz, diff_time_hours(a, b, NULL, 0:3 * 3600)), c(0, 1, 2, 3),
+    with(dftz, diff_time_hours(a, b, NULL, 0:3 * 3600)),
+    c(0, 1, 2, 3),
     ignore_attr = TRUE
   )
 

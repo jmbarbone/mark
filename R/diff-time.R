@@ -97,10 +97,16 @@ extract_numeric_time <- function(x, tz) {
 
     if (!is_POSIXlt(x)) {
       x <- as.POSIXlt(x)
-      gmt <- x$mgtoff
+      gmt <- x$gmtoff
     }
 
-    return(unclass(as.POSIXct(x)) + gmt %||% 0.0)
+    if (is.null(gmt)) {
+      gmt <- 0.0
+    } else {
+      gmt[is.na(gmt)] <- 0.0
+    }
+
+    return(unclass(as.POSIXct(x)) + gmt)
   }
 
   to_numeric_with_tz(x, tz)
