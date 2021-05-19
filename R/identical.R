@@ -2,7 +2,7 @@
 #'
 #' Extensions for the use of `base::identical()`
 #'
-#' @param x,y,... Vector of values to compare, element-wise
+#' @param ... Vectors of values to compare, element-wise
 #' @param params Additional params (as a named list of arguments for[base::identical])
 #'
 #' @examples

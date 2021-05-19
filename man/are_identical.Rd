@@ -7,9 +7,9 @@
 are_identical(..., params = NULL)
 }
 \arguments{
-\item{params}{Additional params (as a named list of arguments for\link[base:identical]{base::identical})}
+\item{...}{Vectors of values to compare, element-wise}
 
-\item{x, y, ...}{Vector of values to compare, element-wise}
+\item{params}{Additional params (as a named list of arguments for\link[base:identical]{base::identical})}
 }
 \description{
 Extensions for the use of \code{base::identical()}
