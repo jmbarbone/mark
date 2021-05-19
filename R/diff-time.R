@@ -93,9 +93,7 @@ extract_numeric_time <- function(x, tz) {
 
     if (is_POSIXct(x)) {
       gmt <- as.double(format(x, "%z"))
-    }
-
-    if (!is_POSIXlt(x)) {
+    } else if (!is_POSIXlt(x)) {
       x <- as.POSIXlt(x)
       gmt <- x$gmtoff
     }

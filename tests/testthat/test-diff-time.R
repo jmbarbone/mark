@@ -105,22 +105,25 @@ test_that("Timezones", {
   )
 
   # Off sets are by the hour
-  expect_identical(
+  expect_equal(
     with(dftz, diff_time_hours(a, b, tzn, NULL)),
-    c(0, -1, 1, -6),
+    c(0.14, -1.14, 0.86, -6.14),
+    tolerance = 0.035,
     ignore_attr = TRUE
   )
 
-  expect_identical(
+  expect_equal(
     with(dftz, diff_time_hours(a, b, 0:3 * 3600, NULL)),
-    -c(0, 1, 2, 3),
+    -c(0.14, 1.14, 2.14, 3.14),
+    tolerance = 0.01,
     ignore_attr = TRUE
   )
 
   # Reversed -- skipping tza
-  expect_identical(
+  expect_equal(
     with(dftz, diff_time_hours(a, b, NULL, 0:3 * 3600)),
-    c(0, 1, 2, 3),
+    c(0.14, 1.14, 2.14, 3.14),
+    tolerance = 0.01,
     ignore_attr = TRUE
   )
 
