@@ -4,9 +4,11 @@
   * `grep()` also now evaluated with _cleaned_ todo text
   * searches for `todos()` in Rmd files, too
   * correctly removes additional `#` and spaces in lines (e.g., `#  # TODO text` -> `text`)
-* corrects `NA` counting in `counts()`; `NA` counts are now appended at the end whether or not sort is called
-* other optimization for `counts()`
+* updates for `counts()`
+  * corrects `NA` counting in `counts()`; `NA` counts are now appended at the end whether or not sort is called
+  * other optimization for `counts()`
   * core functions previously on `base::rle()` now use a combination of `pseudo_id()` and `base::tabulate()`
+  * corrects counts for factor data when higher levels are not present [#16](https://github.com/jmbarbone/jordan/issues/17)
 * adds/exports `fact()` and `pseudo_id()`
 * adds `fixmes()` [#13](https://github.com/jmbarbone/jordan/issues/13)
 * adds `names_switch()` to switch names and values
