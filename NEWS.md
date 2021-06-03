@@ -18,6 +18,7 @@
   * corrects error message when passed a list
 * adds `are_identical()` for comparing 2 or more vectors as `identical()`, element-wise
 * adds `add_file_timestamp()`
+* `diff_time()` and related functions will try to convert `y` to a `Date` object if `x` is passed as date (e.g., `diff_time_days(Sys.Date(), "2021-06-03")` will not show decimals)
 
 # jordan 0.1.2
 

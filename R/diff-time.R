@@ -53,6 +53,11 @@ diff_time <- function(
 ) {
   method <- match_param(method)
   ux <- extract_numeric_time(x, tzx)
+
+  if (inherits(x, "Date")) {
+    y <- as.Date(y, optional = TRUE)
+  }
+
   uy <- extract_numeric_time(y, tzy)
   # NB: This is time from X to Y
   z <- uy - ux
