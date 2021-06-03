@@ -386,3 +386,25 @@ dir_create <- function(x, overwrite = FALSE) {
 file_name <- function(x, compression = FALSE) {
   tools::file_path_sans_ext(basename(x), compression = compression)
 }
+
+
+
+#' Add file timestamp
+#'
+#' Adds a timestamp to a file
+#'
+#' @param x A vector of files
+#' @param ts A single timestamp or vector of timestamps (default: `Sys.time()`)
+#' @param format A format to be applied to the times; set to `NULL` to skip formatting
+#' @export
+#' @examples
+#' add_file_timestamp(tempfile(fileext = ".txt"))
+#' add_file_timestamp(tempfile())
+add_file_timestamp <- function(x, ts = Sys.time(), format = "%Y-%m-%d %H%M%S") {
+  if (!is.null(format)) {
+    ts <- format(ts, format = format)
+  }
+  bn <- file_name(x)
+  ext <- tools::file_ext(x)
+  file.path(dirname(x), paste0(bn, " ", ts, if (ext != "") ".", ext))
+}
