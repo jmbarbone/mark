@@ -47,6 +47,7 @@ has_warning(c(1, "no"), as.integer)
 # FALSE  TRUE
 
 get_warning(c(1, "no"), as.integer)
+
 # drop NULLs
 get_warning(c(1, "no"), as.integer, .null = FALSE)
 
@@ -60,9 +61,9 @@ has_error(c(1, 0, 2), foo)
 # FALSE  TRUE FALSE
 
 get_error(c(1, 0, 2), foo)
+
 # drop NULLs
 get_error(c(1, 0, 2), foo, .null = FALSE)
-
 }
 \references{
 Function for \emph{catching} has been adapted from https://stackoverflow.com/a/4952908/12126576

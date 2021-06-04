@@ -12,6 +12,18 @@ require_namespace(namespace)
 \description{
 A wrapped requireNamespace
 }
+\examples{
+foo <- function() {
+  require_namespace("bad_package")
+  1
+}
+
+\dontrun{
+require_namespace("bad_package")
+foo()
+}
+
+}
 \references{
 http://r-pkgs.had.co.nz/description.html
 }

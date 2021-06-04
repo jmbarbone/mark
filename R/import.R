@@ -15,13 +15,14 @@
 #' }
 
 import <- function(pkg, fun, overwrite = FALSE) {
+  e <- parent.frame()
   require_namespace(pkg)
-  if (fun %in% ls()) {
-    stop("<<", fun, ">> has already been assigned.",
+
+  if (fun %in% ls(envir = e)) {
+    stop("`", fun, "` has already been assigned.",
          " Use `overwite = TRUE` to overwrite assignment.",
          call. = FALSE)
   }
-  assign(fun,
-         pkg %colons% fun,
-         envir = parent.frame())
+
+  assign(fun, pkg %colons% fun, envir = e)
 }

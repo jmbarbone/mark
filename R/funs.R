@@ -37,12 +37,21 @@ outer_fun <- function(n = 0) {
 #'
 #' @param namespace The name of a package/namespace
 #' @export
+#' @examples
+#' foo <- function() {
+#'   require_namespace("bad_package")
+#'   1
+#' }
+#'
+#' \dontrun{
+#' require_namespace("bad_package")
+#' foo()
+#' }
+#'
 #' @references http://r-pkgs.had.co.nz/description.html
 require_namespace <- function(namespace) {
   of <- outer_fun()
-  of <- if (is.na(of)) {
-    NULL
-  } else {
+  of <- if (!is.na(of)) {
     sprintf(" for `%s` to work", of)
   }
 

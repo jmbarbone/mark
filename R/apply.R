@@ -65,8 +65,6 @@ capply <- function(.x, .f, ..., .nm = FALSE) {
 
   use_names <- if (.nm) {
     names(.x) %||% .x
-  } else {
-    NULL
   }
 
   set_names0(res, use_names)

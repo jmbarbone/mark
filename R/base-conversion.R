@@ -72,7 +72,7 @@ base_n_single <- function(x, base) {
   ints <- as.integer(chr_split(x))
 
   if (any(ints >= base)) {
-    stop("Cannot caluclate base \'", base, "\' for \'", x, "\' which has ",
+    stop('Cannot caluclate base "', base, '" for "', x, '" which has ',
          "numbers greater than or equal to the base value", call. = FALSE )
   }
 

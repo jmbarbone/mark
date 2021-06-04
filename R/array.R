@@ -11,6 +11,7 @@
 #' x <- array(rep(NA, 27), dim = c(3, 3, 3))
 #' x[1, 2, 3] <- TRUE
 #' x[1, 2, 3]
+#' x
 #' array_extract(x, `2` = 2, `3` = 3)
 
 
@@ -20,11 +21,10 @@ array_extract <- function(arr, ..., default = "1") {
   }
 
   ls <- dotlist(...)
-
-  nm <- as.integer(names(ls))
+  nm <- wuffle(as.integer(names(ls)))
 
   if (anyNA(nm)) {
-    stop("List must be named by numbers", call. = FALSE)
+    stop("List must be named by integers", call. = FALSE)
   }
 
   ds <- dim(arr)
@@ -47,7 +47,7 @@ array_extract <- function(arr, ..., default = "1") {
     collapse0(setup, sep = ", ")
   )
 
-  eval(parse(text = text), envir = parent.frame())
+  eval(str2expression(text), envir = parent.frame())
 }
 
 dotlist <- function(...) {

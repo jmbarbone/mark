@@ -20,5 +20,6 @@ Extract dimensions from an array
 x <- array(rep(NA, 27), dim = c(3, 3, 3))
 x[1, 2, 3] <- TRUE
 x[1, 2, 3]
+x
 array_extract(x, `2` = 2, `3` = 3)
 }

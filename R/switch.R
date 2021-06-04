@@ -138,10 +138,6 @@ switch_in_case <- function(x, ..., .default = NULL, .envir = parent.frame()) {
     )
   })
 
-  # lhs <- switch_length_check(lhs)
-  # rhs <- switch_length_check(rhs)
-  # switch_lengths_check(lhs, rhs)
-
   # set the default NA value
   res0 <- .default %||% rhs[[1L]][0L][NA]
   res <- vapply(

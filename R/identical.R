@@ -3,7 +3,8 @@
 #' Extensions for the use of `base::identical()`
 #'
 #' @param ... Vectors of values to compare, element-wise
-#' @param params Additional params (as a named list of arguments for[base::identical])
+#' @param params Additional params (as a named list of arguments for
+#'   [base::identical])
 #'
 #' @examples
 #' x <- y <- z <- 1:5

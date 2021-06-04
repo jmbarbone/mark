@@ -110,7 +110,7 @@ has_length <- function(x) {
 }
 
 is_unique <- function(x) {
-  all(!duplicated(x))
+  anyDuplicated(x) == 0L
 }
 
 as_character <- function(x) {

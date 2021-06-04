@@ -24,6 +24,7 @@
 #' # FALSE  TRUE
 #'
 #' get_warning(c(1, "no"), as.integer)
+#'
 #' # drop NULLs
 #' get_warning(c(1, "no"), as.integer, .null = FALSE)
 #'
@@ -37,12 +38,14 @@
 #' # FALSE  TRUE FALSE
 #'
 #' get_error(c(1, 0, 2), foo)
+#'
 #' # drop NULLs
 #' get_error(c(1, 0, 2), foo, .null = FALSE)
-#'
-#' @export
 #' @name handlers
+NULL
 
+#' @export
+#' @rdname handlers
 has_warning <- function(x, FUN) {
   has_catch(x, FUN, type = "warning")
 }
@@ -87,6 +90,7 @@ has_catch <- function(x, FUN, type = c("error", "warning", "message")) {
   set_names0(out, x)
 }
 
+#' @export
 print.has_catch <- function(x, ...) {
   nm <- names(x)
   attributes(x) <- NULL

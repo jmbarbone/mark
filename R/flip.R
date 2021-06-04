@@ -11,7 +11,7 @@
 #' flip(letters[1:3])
 #' flip(seq.int(9, -9, by = -3))
 #' flip(head(iris))
-#' flip(head(iris), rownames = TRUE)
+#' flip(head(iris), keep_rownames = TRUE)
 #' flip(head(iris), by_row = FALSE)
 #'
 #' @export
@@ -103,7 +103,6 @@ flip.data.frame <- function(x, by_row = TRUE, keep_rownames = NULL, ...) {
 #' @export
 #' @rdname flip
 reverse <- function(x, ...) {
-  warning("Whoops, this should be `jordan::flip()`",
-          call. = FALSE)
+  .Deprecated("flip()")
   flip(x, ...)
 }
