@@ -1,4 +1,4 @@
 library(testthat)
-library(jordan, warn.conflicts = FALSE)
+library(mark, warn.conflicts = FALSE)
 
-test_check("jordan")
+test_check("mark")

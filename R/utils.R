@@ -47,6 +47,16 @@ magrittr::`%>%`
   )
 }
 
+# modified from https://github.com/tidyverse/purrr/blob/5aca9df41452f272fcef792dbc6d584be8be7167/R/utils.R
+
+use_color <- function() {
+  rn("crayon") && crayon::has_color()
+}
+
+crayon_blue  <- function(x) if (use_color()) crayon::blue(x)  else x
+crayon_green <- function(x) if (use_color()) crayon::green(x) else x
+crayon_cyan  <- function(x) if (use_color()) crayon::cyan(x)  else x
+
 #' Parse and evaluate text
 #'
 #' A wrapper for eval(parse(text = .))

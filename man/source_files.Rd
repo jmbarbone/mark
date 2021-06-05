@@ -3,13 +3,10 @@
 \name{source_files}
 \alias{source_files}
 \alias{source_r_dir}
-\alias{source_dir_r}
 \alias{source_r_file}
 \title{Source file from directory}
 \usage{
 source_r_dir(dir, echo = FALSE, quiet = FALSE, ...)
-
-source_dir_r(dir, echo = FALSE, quiet = FALSE, ...)
 
 source_r_file(path, echo = FALSE, quiet = FALSE, ...)
 }

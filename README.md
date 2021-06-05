@@ -1,14 +1,16 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# jordan
+# mark
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/jmbarbone/jordan/workflows/R-CMD-check/badge.svg)](https://github.com/jmbarbone/jordan/actions)
+[![R-CMD-check](https://github.com/jmbarbone/mark/workflows/R-CMD-check/badge.svg)](https://github.com/jmbarbone/mark/actions)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/mark)](https://CRAN.R-project.org/package=mark)
 <!-- badges: end -->
 
-Just Other R Data Analytic Nuggets
+Miscellaneous, Analytic R Kode
 
 An R package with a set of general use functions for data analytics.
 This is developed mostly for personal use and has no real *goal* other
@@ -21,9 +23,9 @@ Some parts happily ripped from and (hopefully) credited to others.
 ## Installation
 
 You can the development version from
-[GitHub](https://github.com/jmbarbone/jordan) with:
+[GitHub](https://github.com/jmbarbone/mark) with:
 
-    remotes::install_github("jmbarbone/jordan")
+    remotes::install_github("jmbarbone/mark")
 
 ## Select examples
 
@@ -32,7 +34,7 @@ so much. Below are a selection of a few functions that could potential
 be useful for others:
 
 ``` r
-library(jordan)
+library(mark)
 ```
 
 Get dates from sloppy entries:
@@ -92,7 +94,7 @@ str_slice_by_word(x)
 Read in bibliographies:
 
 ``` r
-file <- system.file("extdata", "example-bib.txt", package = "jordan")
+file <- system.file("extdata", "example-bib.txt", package = "mark")
 bib <- read_bib(file)
 tibble::as_tibble(bib)
 #> # A tibble: 13 x 23
@@ -217,5 +219,5 @@ diff_time_hours(x, x, "GMT", c("US/Pacific", "US/Eastern", "GB")) # note x, x
 #> [1] -8 -5  0
 diff_time_days(x, y, NULL, 31536000) 
 #> Time differences in days
-#> [1] -0.7916667 -1.7916667  1.2083333
+#> [1] -0.994213 -1.994213  1.005787
 ```

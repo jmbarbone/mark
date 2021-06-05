@@ -68,14 +68,14 @@ author_info_to_text <- function(x) {
 }
 
 find_author <- function() {
-  author <- getOption("jordan.author")
+  author <- getOption("mark.author")
   if (!is.null(author)) {
     return(author)
   }
 
   stop(
     "Author information not found in options.\n",
-    "You can set the author information with options(jordan.author = ...)\n",
+    "You can set the author information with options(mark.author = ...)\n",
     "  probably within an .Rprofile",
     call. = FALSE
   )

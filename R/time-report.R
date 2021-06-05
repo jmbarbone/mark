@@ -66,13 +66,13 @@ simpleTimeReport <- function(title = NULL, expr, envir = parent.frame()) {
           messages[[i]] <<- e$message
           invokeRestart("muffleMessage")
         })
-      cat0(crayon::cyan(formatTimeDiff(.st)), "\n")
+      cat0(crayon_cyan(formatTimeDiff(.st)), "\n")
     }
   }, ne)
 
   cat0(line, "\n")
 
-  cat0("Finished ", crayon::cyan(formatTimeDiff(.start_time)), "\n")
+  cat0("Finished ", crayon_cyan(formatTimeDiff(.start_time)), "\n")
 
   # Maybe add these to the print method?
   if (!identical(warnings, list()) && any(!vap_lgl(warnings, is.null))) {

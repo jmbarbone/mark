@@ -1,4 +1,9 @@
-# development
+# mark 0.1.3
+
+New name!
+The previous name `jordan` was conflicting with recent package on CRAN.
+
+## Changes
 
 * corrects use of  `...` in `todos()` [#8](https://github.com/jmbarbone/jordan/issues/8)
   * `grep()` also now evaluated with _cleaned_ todo text
@@ -9,17 +14,19 @@
   * other optimization for `counts()`
   * core functions previously on `base::rle()` now use a combination of `pseudo_id()` and `base::tabulate()`
   * corrects counts for factor data when higher levels are not present [#16](https://github.com/jmbarbone/jordan/issues/17)
+* update to `multi_grepl()` internal functions to prevent conflicts with `R 4.1.0`
+* corrects error message in `vector2df()` when passed a list
+
+## New features
+
 * adds/exports `fact()` and `pseudo_id()`
 * adds `fixmes()` [#13](https://github.com/jmbarbone/jordan/issues/13)
 * adds `names_switch()` to switch names and values
+* `vector2df()` can now output a 1 column data.frame if `name = NULL`
 * adds an `invert` parameter to `complete_cases()` to filter for incomplete cases
-* `vector2df()`
-  * can now output a 1 column data.frame if `name = NULL`
-  * corrects error message when passed a list
 * adds `are_identical()` for comparing 2 or more vectors as `identical()`, element-wise
 * adds `add_file_timestamp()`
 * `diff_time()` and related functions will try to convert `y` to a `Date` object if `x` is passed as date (e.g., `diff_time_days(Sys.Date(), "2021-06-03")` will not show decimals)
-* update to `multi_grepl()` internal functions to prevent conflicts with `R 4.1.0`
 
 # jordan 0.1.2
 

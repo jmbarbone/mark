@@ -11,14 +11,14 @@
 #'   * `NA_if` expects `y` (or the result of function `y`) to be `logical`
 #' * `NA_in` and `NA_out` expect some values to match on
 #'   * `NA_in` checks `x[x %in% y] <- NA`
-#'   * `NA_out` checks `x[x %out% y] <- NA` (see [jordan::match_ext])
+#'   * `NA_out` checks `x[x %out% y] <- NA` (see [mark::match_ext])
 #'
 #' @param x A vector of values
 #' @param y Either a suitable value (see `Details`) or a function which accepts
 #'   `x` as its first parameter and can return suitable values
 #' @param ... Additional values passed to `y` (if `y` is a function)
 #'
-#' @seealso Inspired by `dplyr::na_if`
+#' @seealso Inspired by [dplyr::na_if()]
 #'
 #' @examples
 #' let <- ordered(letters[1:5])

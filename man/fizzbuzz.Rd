@@ -42,7 +42,7 @@ cat(fizzbuzz(30), sep = "\n")
 
 \dontrun{
   # show them how fast your solution is:
-  bench::mark(fizzbuzz(1e5), fizzbuzz_lazy(1e5))
+  if (require_package("bench")) bench::mark(fizzbuzz(1e5), fizzbuzz_lazy(1e5))
 }
 }
 \keyword{datasets}

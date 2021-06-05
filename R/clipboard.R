@@ -67,7 +67,7 @@ write_clipboard.list <- function(x, sep = "\t", show_NA = FALSE, ...) {
 #' @rdname clipboard
 read_clipboard <- function(method = c("default", "data.frame", "tibble"), ...) {
   if (!is_windows()) {
-    stop("`jordan::read_clipboard()` is only valid for Windows", call. = FALSE)
+    stop("`mark::read_clipboard()` is only valid for Windows", call. = FALSE)
   }
 
   switch(
@@ -132,7 +132,7 @@ do_read_table_clipboard <- function(
 
 clear_clipboard <- function() {
   if (!is_windows()) {
-    stop("`jordan::write_clipboard()` is only valid for Windows", call. = FALSE)
+    stop("`mark::write_clipboard()` is only valid for Windows", call. = FALSE)
   }
 
   utils::writeClipboard("", format = 1L)

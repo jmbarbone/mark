@@ -1,7 +1,7 @@
-Package: jordan
+Package: mark
 Type: Package
-Title: Just Other R Data Analytic Nuggets
-Version: 0.1.2
+Title: Miscellaneous, Analytic R Kode
+Version: 0.1.3
 Authors@R:
     person(given   = "Jordan Mark",
            family  = "Barbone",
@@ -11,8 +11,8 @@ Authors@R:
 Maintainer: Jordan Mark Barbone <jmbarbone@gmail.com>
 Description: Contains a variety of functions and wrappers developed for personally and professional use.
 License: MIT + file LICENSE
-URL: https://github.com/jmbarbone/jordan
-BugReports: https://github.com/jmbarbone/jordan/issues
+URL: https://github.com/jmbarbone/mark
+BugReports: https://github.com/jmbarbone/mark/issues
 Encoding: UTF-8
 LazyData: true
 Depends:
@@ -26,18 +26,15 @@ Imports:
     utils (>= 3.6)
 Suggests:
     bench (>= 1.1.1),
+    bib2df (>= 1.1.1),
     crayon (>= 1.3.4),
-    dplyr,
-    future (>= 1.20.1),
+    dplyr (>= 1.0.6),
     graphics (>= 4.0.3),
-    Hmisc (>= 4.4.1),
     knitr (>= 1.30),
-    rcmdcheck,
+    rcmdcheck (>= 1.3.3),
     stringi (>= 1.5.3),
     spelling (>= 2.2),
     testthat (>= 3.0.0),
-    rmarkdown (>= 2.5),
-    xfun (>= 0.19),
     withr (>= 2.3.0)
 RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)

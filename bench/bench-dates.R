@@ -1,4 +1,4 @@
-library(jordan, warn.conflicts = FALSE)
+library(mark, warn.conflicts = FALSE)
 library(bench)
 
 n <- 1e4

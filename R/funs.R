@@ -65,6 +65,8 @@ rn <- function(namespace) {
   requireNamespace(namespace, quietly = TRUE)
 }
 
+package_available <- rn
+
 rn_soft <- function(namespace) {
   if (!rn(namespace)) {
     quiet_stop()

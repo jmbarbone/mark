@@ -81,11 +81,11 @@ class will print out with these specifications into the console for less
 potential confusion.
 
 \describe{
-\item{months}{Months by number of days \code{jordan.days_in_month} (defaults: \code{30})}
-\item{years}{Years by number of days \code{jordan.days_in_year} (defaults: \code{365})}
-\item{dyears}{Years by number of days \code{jordan.days_in_year} (defaults: \code{365}) (same as \code{years})}
-\item{myears}{Years by number of days in a month \code{jordan.days_in_month} (defaults: \code{30})}
-\item{wyears}{Years by number of weeks in a year \code{jordan.weeks_in_year} (defaults: \code{52})}
+\item{months}{Months by number of days \code{mark.days_in_month} (defaults: \code{30})}
+\item{years}{Years by number of days \code{mark.days_in_year} (defaults: \code{365})}
+\item{dyears}{Years by number of days \code{mark.days_in_year} (defaults: \code{365}) (same as \code{years})}
+\item{myears}{Years by number of days in a month \code{mark.days_in_month} (defaults: \code{30})}
+\item{wyears}{Years by number of weeks in a year \code{mark.weeks_in_year} (defaults: \code{52})}
 }
 }
 

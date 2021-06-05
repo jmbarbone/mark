@@ -22,11 +22,11 @@
 #'   potential confusion.
 #'
 #' \describe{
-#'   \item{months}{Months by number of days `jordan.days_in_month` (defaults: `30`)}
-#'   \item{years}{Years by number of days `jordan.days_in_year` (defaults: `365`)}
-#'   \item{dyears}{Years by number of days `jordan.days_in_year` (defaults: `365`) (same as `years`)}
-#'   \item{myears}{Years by number of days in a month `jordan.days_in_month` (defaults: `30`)}
-#'   \item{wyears}{Years by number of weeks in a year `jordan.weeks_in_year` (defaults: `52`)}
+#'   \item{months}{Months by number of days `mark.days_in_month` (defaults: `30`)}
+#'   \item{years}{Years by number of days `mark.days_in_year` (defaults: `365`)}
+#'   \item{dyears}{Years by number of days `mark.days_in_year` (defaults: `365`) (same as `years`)}
+#'   \item{myears}{Years by number of days in a month `mark.days_in_month` (defaults: `30`)}
+#'   \item{wyears}{Years by number of weeks in a year `mark.weeks_in_year` (defaults: `52`)}
 #' }
 #'
 #' @section Time zones:
@@ -40,7 +40,7 @@
 #' @param tzx,tzy time zones (see **Time zones** section)
 #' @param ... Additional arguments passed to `diff_time()`
 #'
-#' @seealso [jordan::time_inherits]
+#' @seealso [mark::time_inherits]
 #'
 #' @export
 #' @name diff_time
@@ -69,11 +69,11 @@ diff_time <- function(
     hours  = z / 3600,
     days   = z / 86400,
     weeks  = z / 604800,
-    months = z / getOption("jordan.days_in_month", 30) / 86400,
-    years  = z / getOption("jordan.days_in_year", 365) / 86400,
-    dyears = z / getOption("jordan.days_in_year", 365) / 86400,
-    myears = z / getOption("jordan.days_in_month", 30) / 1036800,
-    wyears = z / getOption("jordan.weeks_in_year", 52) / 604800
+    months = z / getOption("mark.days_in_month", 30) / 86400,
+    years  = z / getOption("mark.days_in_year", 365) / 86400,
+    dyears = z / getOption("mark.days_in_year", 365) / 86400,
+    myears = z / getOption("mark.days_in_month", 30) / 1036800,
+    wyears = z / getOption("mark.weeks_in_year", 52) / 604800
   )
 
   attributes(out) <- list(
@@ -164,11 +164,11 @@ print.diff_time <- function(x, digits = getOption("digits"), ...) {
     xu,
     secs = "seconds",
     mins = "minutes",
-    months = sprintf("months (%s days)", getOption("jordan.days_in_month", 30)),
-    years = sprintf("years (%s days)", getOption("jordan.days_in_year", 365)),
-    dyears = sprintf("years (%s days)", getOption("jordan.days_in_year", 365)),
-    myears = sprintf("years (%s-day months)", getOption("jordan.days_in_month", 30)),
-    wyears = sprintf("years (%s weeks)", getOption("jordan.weeks_in_year", 52)),
+    months = sprintf("months (%s days)", getOption("mark.days_in_month", 30)),
+    years = sprintf("years (%s days)", getOption("mark.days_in_year", 365)),
+    dyears = sprintf("years (%s days)", getOption("mark.days_in_year", 365)),
+    myears = sprintf("years (%s-day months)", getOption("mark.days_in_month", 30)),
+    wyears = sprintf("years (%s weeks)", getOption("mark.weeks_in_year", 52)),
     xu
   )
   cat("Time differences in ", u, "\n", sep = "")
@@ -256,7 +256,7 @@ diff_time_myears <- function(x, y, ...) {
 #'
 #' @param x An object
 #'
-#' @seealso [jordan::diff_time]
+#' @seealso [mark::diff_time]
 #' @name time_inherits
 is_POSIXlt <- function(x) {
   inherits(x, "POSIXlt")

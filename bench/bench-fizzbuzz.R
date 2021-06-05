@@ -1,4 +1,4 @@
-library(jordan, warn.conflicts = FALSE)
+library(mark, warn.conflicts = FALSE)
 library(bench)
 
 x <- 1:1e5
