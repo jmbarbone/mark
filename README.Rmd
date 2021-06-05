@@ -21,7 +21,7 @@ set.seed(42)
 [![R-CMD-check](https://github.com/jmbarbone/mark/workflows/R-CMD-check/badge.svg)](https://github.com/jmbarbone/mark/actions)
 <!-- badges: end -->
 
-Just Other R Data Analytic Nuggets
+Miscellaneous, Analytic R Kode
 
 An R package with a set of general use functions for data analytics.
 This is developed mostly for personal use and has no real _goal_ other than to limit the time I spend searching where I did that thing that I think I could use again because it worked well but this problem might be slightly different and I know I had to change it before.

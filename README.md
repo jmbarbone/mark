@@ -8,7 +8,7 @@
 [![R-CMD-check](https://github.com/jmbarbone/mark/workflows/R-CMD-check/badge.svg)](https://github.com/jmbarbone/mark/actions)
 <!-- badges: end -->
 
-Just Other R Data Analytic Nuggets
+Miscellaneous, Analytic R Kode
 
 An R package with a set of general use functions for data analytics.
 This is developed mostly for personal use and has no real *goal* other
@@ -217,5 +217,5 @@ diff_time_hours(x, x, "GMT", c("US/Pacific", "US/Eastern", "GB")) # note x, x
 #> [1] -8 -5  0
 diff_time_days(x, y, NULL, 31536000) 
 #> Time differences in days
-#> [1] -0.7916667 -1.7916667  1.2083333
+#> [1] -0.994213 -1.994213  1.005787
 ```
