@@ -321,7 +321,16 @@ mark_temp <- function(ext = "") {
 }
 
 mark_dir <- function() {
-  tools::R_user_dir("mark")
+  # Not not available in prior editions
+  rud <- get0("R_user_dir", envir = asNamespace("tools"), mode = "function")
+
+  if (is.null(rud)) {
+    dm <- file_path(tempdir(), "_R_mark")
+    if (!is_dir(dm)) dir.create(dm)
+    return(dm)
+  }
+
+  ("tools" %colons% "R_user_dir")("mark")
 }
 
 utils::globalVariables(c("source_file_r", "quiet"))
