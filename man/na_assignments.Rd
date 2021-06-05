@@ -53,5 +53,5 @@ NA_out(let, c("a", "c")) # [1] a    <NA> c    <NA> <NA>
 
 }
 \seealso{
-Inspired by \code{dplyr::na_if}
+Inspired by \code{\link[dplyr:na_if]{dplyr::na_if()}}
 }

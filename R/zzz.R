@@ -1,8 +1,8 @@
 .onAttach <- function(libname, pkgname) {
-  create_na_env()
+
 }
 
 .onDetach <- function(libpath) {
-  tryCatch(remove(.na_env), warning = function(e) invisible())
-  unloadNamespace("jordanExtra")
+  d <- file_path(mark_dir(), "_temp_files")
+  if (is_dir(d)) unlink(d, recursive = TRUE, force = TRUE)
 }

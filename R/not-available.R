@@ -17,60 +17,48 @@
 #' @export
 not_available <- function(type = "logical", length = 0L) {
   if (is.character(type)) {
-      type <- get_not_available(type)
+    type <- get_not_available(type)
   }
 
-  type[0][NA][0:length]
+  rep(type[0][NA], length)
 }
 
 #' @rdname not_available
 #' @export
 set_not_available <- function(type, value) {
-  assign(type, value, envir = .na_env)
+  na_list[[type]] <- value
+  assign("na_list", na_list, pos = "package:mark")
 }
+
 
 get_not_available <- function(type) {
-  if (!exists(".na_env", mode = "environment")) {
-    # Temporarilty creates
-    create_na_env()
+  out <- na_list[[type]]
+
+  if (is.null(out)) {
+    stop(
+      '"', type, '" not found\n',
+      "Can be set with `mark::set_not_available(", type, ", value = .)`",
+      call. = FALSE
+    )
   }
 
-  tryCatch(
-    get(type, envir = .na_env),
-    error = function(e) {
-      msg <- paste0('"', type, '" not found\n',
-                    "Can be set with ",
-                    "`mark::set_not_available(", type, ", value = .)`")
-      stop(msg, call. = FALSE)
-    },
-    finally = function(x) {
-      if (!is.object(x) || is.function(x) || is.call(x)) {
-        stop("type is not valid", call. = FALSE)
-      }
-    }
-  )
+  if (is.function(out) || is.call(out)) {
+    stop("type is not valid", call. = FALSE)
+  }
+
+  out
 }
 
-create_na_env <- function(env = parent.frame()) {
-  .na_env <- new.env()
-
-  list2env(
-    list(logical = logical(),
-         character = character(),
-         integer = integer(),
-         double = double(),
-         numeric = numeric(),
-         Date = as.Date(NA),
-         POSIXct = as.POSIXct(NA),
-         POSIXlt = as.POSIXlt(NA)[[1]]),
-    envir = .na_env
-  )
-
-  assign(".na_env", .na_env, envir = env)
-}
-
-# Create the environment
-create_na_env()
+na_list <- list(
+  logical   = logical(),
+  character = character(),
+  integer   = integer(),
+  double    = double(),
+  numeric   = numeric(),
+  Date      = as.Date(NA),
+  POSIXct   = as.POSIXct(NA),
+  POSIXlt   = as.POSIXlt(NA)[[1]]
+)
 
 #' @export
 #' @rdname not_available
