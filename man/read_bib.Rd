@@ -30,13 +30,13 @@ file <- "https://raw.githubusercontent.com/jmbarbone/bib-references/master/refer
 bibdf <- read_bib(file, max_lines = 51L)
 
 \dontrun{
-if (rn("tibble")) {
+if (require_namespace("tibble")) {
     tibble::as_tibble(bibdf)
   } else {
     head(bibdf)
   }
 
-if (rn("bib2df") & rn("microbenchmark")) {
+if (require_namespace("bib2df") & require_namespace("bench")) {
   file <- system.file("extdata", "bib2df_testfile_3.bib", package = "bib2df")
 
   # Doesn't include the 'tidying' up
@@ -55,5 +55,5 @@ if (rn("bib2df") & rn("microbenchmark")) {
 }
 }
 \seealso{
-\code{bib2df::bib2df()}
+\code{\link[bib2df:bib2df]{bib2df::bib2df()}}
 }

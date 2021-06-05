@@ -12,6 +12,7 @@ test_that("tests with temp dir", {
 
   td <- tempdir(check = TRUE)
 
+  skip_if_not(rn("withr"))
   withr::with_tempdir({
     dates <- as.character(as.POSIXct("2021-01-02 15:57:25") + 1:3)
     dates <- gsub(":", "", dates)

@@ -22,16 +22,17 @@
 #' @export
 
 ksource <- function(file, ..., quiet = TRUE, cd = FALSE, env = parent.frame()) {
+  require_namespace("knitr")
+
   if (!is.environment(env)) {
     stop("env is not an environment", call. = FALSE)
   }
 
-  require_namespace("knitr")
   source(
     knitr::purl(
       file,
       output = tempfile(),
-      quiet = quiet,
+      quiet = quiet
     ),
     chdir = cd,
     local = env

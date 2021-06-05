@@ -18,7 +18,7 @@
 #'   `x` as its first parameter and can return suitable values
 #' @param ... Additional values passed to `y` (if `y` is a function)
 #'
-#' @seealso Inspired by `dplyr::na_if`
+#' @seealso Inspired by [dplyr::na_if()]
 #'
 #' @examples
 #' let <- ordered(letters[1:5])

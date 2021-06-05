@@ -1,4 +1,7 @@
 test_that("string slices", {
+
+  skip_if_not(rn("stringi"))
+
   x <- stringi::stri_rand_lipsum(1)
   len <- 77L
 
