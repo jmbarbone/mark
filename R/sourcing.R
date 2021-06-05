@@ -252,7 +252,8 @@ rscript <- function(x, ops = NULL, args = NULL, ...) {
     check = TRUE
   )
 
-  system2(command = rs, args = c(ops, x, args), ...)
+  x <- norm_path(x, check = TRUE)
+  system2(command = rs, args = c(ops, shQuote(x), args), ...)
 }
 
 #' Save source
