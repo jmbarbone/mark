@@ -303,8 +303,8 @@ save_source <- function(env = parent.frame(), file = mark_temp(".Rds"), name = N
 print.source_env <- function(x, ...) {
   a <- attributes(x)
   cat(
-    "<", crayon::green("sourced env: "), a$name, ">\n",
-    "<", crayon::green("parent env: "), environmentName(a$env), ">\n",
+    "<", crayon_green("sourced env: "), a$name, ">\n",
+    "<", crayon_green("parent env: "), environmentName(a$env), ">\n",
     sep = ""
   )
   invisible(x)

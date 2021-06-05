@@ -74,7 +74,7 @@ print.note <- function(x, ...) {
   }
   width <- getOption("mark.note.width", getOption("width"))
   out <- vap_chr(paste0("Note :  ", x), str_slice_by_word, width)
-  cat(crayon::blue(out), sep = "\n")
+  cat(crayon_blue(out), sep = "\n")
   invisible(x)
 }
 

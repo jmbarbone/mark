@@ -93,13 +93,13 @@ print.todos_df <- function(x, ...) {
 
   for (i in seq_along(splits)) {
     catln(
-      collapse0(pad, crayon::blue(nm[i])),
+      collapse0(pad, crayon_blue(nm[i])),
       apply(
         splits[[i]][, c("line", type)],
         1,
         function(xi) {
           paste(
-            crayon::blue(sprintf(pat, as.integer(xi[1]))),
+            crayon_blue(sprintf(pat, as.integer(xi[1]))),
             if (nchar(xi[2]) > w) {
               # TODO consider wrapping with respect to the line number?
               collapse0(substr(xi[2], 1, max(1, w - 6)), " [...]")
