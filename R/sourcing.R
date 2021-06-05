@@ -140,12 +140,6 @@ source_r_dir <- function(dir, echo = FALSE, quiet = FALSE, ...) {
   invisible(lapply(sort(files), source_r_file, q = quiet, ...))
 }
 
-#' @export %>%
-#' @rdname source_files
-source_dir_r <- function(dir, echo = FALSE, quiet = FALSE, ...) {
-  .Deprecated("source_r_dir")
-  source_r_dir(dir, echo, quiet, ...)
-}
 
 #' @export
 #' @rdname source_files
@@ -155,7 +149,7 @@ source_r_file <- function(path, echo = FALSE, quiet = FALSE, ...) {
     stop("Must be a .R file", call. = FALSE)
   }
 
-  if (!file.exists(path)) {
+  if (!is_file(path)) {
     stop(sprintf('File "%s" not found.', path), call. = FALSE)
   }
 
@@ -169,9 +163,12 @@ source_r_file <- function(path, echo = FALSE, quiet = FALSE, ...) {
   )
 
   if (!quiet) {
-    message(sprintf("Successfully sourced: %s [%s]",
-                    basename(path),
-                    round(st[["elapsed"]], 2)))
+    message(
+      sprintf("Successfully sourced: %s [%s]",
+        basename(path),
+        round(st[["elapsed"]], 2)
+      )
+    )
   }
 
   invisible()
@@ -194,9 +191,9 @@ source_r_file <- function(path, echo = FALSE, quiet = FALSE, ...) {
 #' @export
 source_to_env <- function(x, ops = NULL) {
   rds_file <- mark_temp(".Rds")
-  r_temp <- mark_temp(".R")
-  std_out <- mark_temp(".md")
-  std_err <- mark_temp(".md")
+  r_temp   <- mark_temp(".R")
+  std_out  <- mark_temp(".md")
+  std_err  <- mark_temp(".md")
 
   file.copy(x, r_temp)
 
@@ -209,7 +206,7 @@ source_to_env <- function(x, ops = NULL) {
   cat(line_end, sep = "", file = r_temp, append = TRUE)
   rscript(r_temp, ops, wait = TRUE, stdout = std_out, stderr = std_err)
 
-  if (!file.exists(rds_file)) {
+  if (!is_file(rds_file)) {
     stop(
       "RDS file not succesfully saved here:\n  ", rds_file,
       "\n",
@@ -228,8 +225,7 @@ source_to_env <- function(x, ops = NULL) {
 
   on.exit({
     close(con)
-    file.remove(r_temp)
-    file.remove(rds_file)
+    file.remove(r_temp, rds_file)
   }, add = TRUE)
 
   invisible(res)
@@ -251,13 +247,11 @@ rscript <- function(x, ops = NULL, args = NULL, ...) {
     ops <- paste0("--", ops)
   }
 
-  rs <- if (.Platform$OS.type == "windows") {
-    file.path(R.home("bin"), "Rscript.exe")
-  } else {
-    file.path(R.home("bin"), "Rscript")
-  }
+  rs <- file_path(
+    R.home("bin"), if (is_windows()) "Rscript.exe" else "Rscript",
+    check = TRUE
+  )
 
-  rs <- norm_path(rs, check = TRUE)
   system2(command = rs, args = c(ops, x, args), ...)
 }
 
@@ -270,25 +264,25 @@ rscript <- function(x, ops = NULL, args = NULL, ...) {
 #' @param name An optional name for the environment (mostly cosmetic)
 #'
 #' @export
-save_source <- function(env = parent.frame(), file = mark_temp(".Rds"), name = NULL) {
+save_source <- function(env = parent.frame(), file = mark_temp("Rds"), name = NULL) {
   ls <- ls(envir = env, all.name = TRUE)
   out <- lapply(ls, get, envir = env)
   names(out) <- ls
 
   res <- structure(
     list2env(out, parent = baseenv()),
-    class = c("source_env", "environment"),
+    class       = c("source_env", "environment"),
     sessionInfo = utils::sessionInfo(),
-    search = search(),
-    options = options(),
-    file = file,
-    env = env,
-    name = name %||% tools::file_path_sans_ext(basename(file))
+    search      = search(),
+    options     = options(),
+    file        = file,
+    env         = env,
+    name        = name %||% file_name(file)
   )
 
   if (!is.null(file)) {
 
-    if (!dir.exists(dirname(file))) {
+    if (!is_dir(dirname(file))) {
       dir.create(dirname(file), recursive = TRUE)
     }
 
@@ -312,15 +306,22 @@ print.source_env <- function(x, ...) {
 }
 
 mark_temp <- function(ext = "") {
+  if (!grepl("^[.]", ext) && !identical(ext, "") && !is.na(ext)) {
+    ext <- paste0(".", ext)
+  }
+
   file <- basename(tempfile("", fileext = ext))
-  path <- file_path(tempdir(), "_mark_temp_files")
+  path <- file_path(mark_dir(), "_temp_files")
 
   if (!dir.exists(path)) {
     dir.create(path, recursive = TRUE)
   }
 
-  path <- norm_path(path)
-  file_path(path, file)
+  file_path(norm_path(path), file)
+}
+
+mark_dir <- function() {
+  tools::R_user_dir("mark")
 }
 
 utils::globalVariables(c("source_file_r", "quiet"))
