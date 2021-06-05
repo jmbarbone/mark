@@ -6,7 +6,7 @@
 #' When the note is assigned to an object a new class will be added,
 #'   `note`, so that a `print` function can call an S3 method.  The print for
 #'    this can be adjusted for it's width by using the option
-#'   `jordan.note.width` which defaults to the option `width` when not set.
+#'   `mark.note.width` which defaults to the option `width` when not set.
 #'
 #' The type of object assigned to the note is not restricted, so user beware
 #'   of odd prints or additional features added to the notes fun.
@@ -72,7 +72,7 @@ print.note <- function(x, ...) {
   if (!interactive()) {
     return(invisible(x))
   }
-  width <- getOption("jordan.note.width", getOption("width"))
+  width <- getOption("mark.note.width", getOption("width"))
   out <- vap_chr(paste0("Note :  ", x), str_slice_by_word, width)
   cat(crayon::blue(out), sep = "\n")
   invisible(x)

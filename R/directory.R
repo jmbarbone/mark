@@ -3,7 +3,7 @@
 #' Finds the recent subdirectory in a directory.
 #'
 #' @param x The root directory
-#' @param ... Additional arguments passed to [jordan::list_dirs()]
+#' @param ... Additional arguments passed to [mark::list_dirs()]
 #' @return The full path of the most recent directory
 #' @export
 
@@ -65,7 +65,7 @@ get_dir_max_number <- function(x) {
 #'
 #' @param x The directory in which to search the file
 #' @param exclude_temp Logical, if TRUE files that begin with "^\\~\\$" are excluded
-#' @param ... Additional arguments passed to [jordan::list_files()]
+#' @param ... Additional arguments passed to [mark::list_files()]
 #' @return The full name of the most recent file from the stated directory
 #'
 #' @export

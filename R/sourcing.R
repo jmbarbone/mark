@@ -189,18 +189,18 @@ source_r_file <- function(path, echo = FALSE, quiet = FALSE, ...) {
 #' Source an R script to an environment
 #'
 #' @param x An R script
-#' @param ops Options to be passed to [jordan::rscript]
+#' @param ops Options to be passed to [mark::rscript]
 #' @export
 source_to_env <- function(x, ops = NULL) {
-  rds_file <- jordan_temp(".Rds")
-  r_temp <- jordan_temp(".R")
-  std_out <- jordan_temp(".md")
-  std_err <- jordan_temp(".md")
+  rds_file <- mark_temp(".Rds")
+  r_temp <- mark_temp(".R")
+  std_out <- mark_temp(".md")
+  std_err <- mark_temp(".md")
 
   file.copy(x, r_temp)
 
   line_end <- sprintf(
-    '\njordan::save_source(file = "%s", name = "%s")\n',
+    '\nmark::save_source(file = "%s", name = "%s")\n',
     rds_file,
     basename(x)
   )
@@ -243,7 +243,7 @@ source_to_env <- function(x, ops = NULL) {
 #' @param args A character vector of other arguments to pass
 #' @param ... Additional arguments passed to `system2`
 #'
-#' @seealso [jordan::source_to_env]
+#' @seealso [mark::source_to_env]
 #' @export
 rscript <- function(x, ops = NULL, args = NULL, ...) {
   if (length(ops) > 0) {
@@ -269,7 +269,7 @@ rscript <- function(x, ops = NULL, args = NULL, ...) {
 #' @param name An optional name for the environment (mostly cosmetic)
 #'
 #' @export
-save_source <- function(env = parent.frame(), file = jordan_temp(".Rds"), name = NULL) {
+save_source <- function(env = parent.frame(), file = mark_temp(".Rds"), name = NULL) {
   ls <- ls(envir = env, all.name = TRUE)
   out <- lapply(ls, get, envir = env)
   names(out) <- ls
@@ -310,9 +310,9 @@ print.source_env <- function(x, ...) {
   invisible(x)
 }
 
-jordan_temp <- function(ext = "") {
+mark_temp <- function(ext = "") {
   file <- basename(tempfile("", fileext = ext))
-  path <- file_path(tempdir(), "_jordan_temp_files")
+  path <- file_path(tempdir(), "_mark_temp_files")
 
   if (!dir.exists(path)) {
     dir.create(path, recursive = TRUE)

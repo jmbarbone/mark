@@ -15,10 +15,10 @@ knitr::opts_chunk$set(
 set.seed(42)
 ```
 
-# jordan
+# mark
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/jmbarbone/jordan/workflows/R-CMD-check/badge.svg)](https://github.com/jmbarbone/jordan/actions)
+[![R-CMD-check](https://github.com/jmbarbone/mark/workflows/R-CMD-check/badge.svg)](https://github.com/jmbarbone/mark/actions)
 <!-- badges: end -->
 
 Just Other R Data Analytic Nuggets
@@ -30,10 +30,10 @@ Some parts happily ripped from and (hopefully) credited to others.
 
 ## Installation
 
-You can the development version from [GitHub](https://github.com/jmbarbone/jordan) with:
+You can the development version from [GitHub](https://github.com/jmbarbone/mark) with:
 
 ```
-remotes::install_github("jmbarbone/jordan")
+remotes::install_github("jmbarbone/mark")
 ```
 
 ## Select examples
@@ -42,7 +42,7 @@ This package contains a many variety of functions, some useful, some not so much
 Below are a selection of a few functions that could potential be useful for others:
 
 ```{r library}
-library(jordan)
+library(mark)
 ```
 
 Get dates from sloppy entries:
@@ -65,7 +65,7 @@ str_slice_by_word(x)
 Read in bibliographies:
 
 ```{r bibs}
-file <- system.file("extdata", "example-bib.txt", package = "jordan")
+file <- system.file("extdata", "example-bib.txt", package = "mark")
 bib <- read_bib(file)
 tibble::as_tibble(bib)
 ```

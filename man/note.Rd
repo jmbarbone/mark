@@ -27,7 +27,7 @@ An alternative to the \code{\link[base:comment]{base::comment()}}.
 When the note is assigned to an object a new class will be added,
 \code{note}, so that a \code{print} function can call an S3 method.  The print for
 this can be adjusted for it's width by using the option
-\code{jordan.note.width} which defaults to the option \code{width} when not set.
+\code{mark.note.width} which defaults to the option \code{width} when not set.
 
 The type of object assigned to the note is not restricted, so user beware
 of odd prints or additional features added to the notes fun.

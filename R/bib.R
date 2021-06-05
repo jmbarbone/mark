@@ -190,7 +190,7 @@ process_bib_list <- function(keys, fields, categories, values) {
       # vals[is.na(vals)] <- ""
       new <- c(key, field, vals)
       names(new) <- c("key", "field", cats)
-      class(new) <- c("character", "jordan_bib_entry", .Names = key)
+      class(new) <- c("character", "mark_bib_entry", .Names = key)
       new
     },
     key = keys[valid],
@@ -206,7 +206,7 @@ as_bib_list <- function(x, names = NULL) {
   if (!is.list(x)) {
     stop("`x` must be a list", call. = FALSE)
   }
-  attr(x, "class") <- c("list", "jordan_bib_list")
+  attr(x, "class") <- c("list", "mark_bib_list")
   x
 }
 
@@ -215,7 +215,7 @@ as_bib <- function(x, bib_list = NULL) {
     stop("`x` must be a data.frame", call. = FALSE)
   }
 
-  attr(x, "class") <- c("data.frame", "jordan_bib")
+  attr(x, "class") <- c("data.frame", "mark_bib")
   x
 }
 
@@ -223,7 +223,7 @@ as_bib <- function(x, bib_list = NULL) {
 # Prints ------------------------------------------------------------------
 
 #' @export
-print.jordan_bib_list <- function(x, ...) {
+print.mark_bib_list <- function(x, ...) {
   nm <- names(x)
   out <- x
   names(out) <- NULL
@@ -250,7 +250,7 @@ print.jordan_bib_list <- function(x, ...) {
 
 
 #' @export
-print.jordan_bib_entry <- function(x, ...) {
+print.mark_bib_entry <- function(x, ...) {
   out <- x[!(is.na(x) | x == "")]
   nm <- names(out)
   chars <- nchar(nm)

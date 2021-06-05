@@ -1,11 +1,11 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# jordan
+# mark
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/jmbarbone/jordan/workflows/R-CMD-check/badge.svg)](https://github.com/jmbarbone/jordan/actions)
+[![R-CMD-check](https://github.com/jmbarbone/mark/workflows/R-CMD-check/badge.svg)](https://github.com/jmbarbone/mark/actions)
 <!-- badges: end -->
 
 Just Other R Data Analytic Nuggets
@@ -21,9 +21,9 @@ Some parts happily ripped from and (hopefully) credited to others.
 ## Installation
 
 You can the development version from
-[GitHub](https://github.com/jmbarbone/jordan) with:
+[GitHub](https://github.com/jmbarbone/mark) with:
 
-    remotes::install_github("jmbarbone/jordan")
+    remotes::install_github("jmbarbone/mark")
 
 ## Select examples
 
@@ -32,7 +32,7 @@ so much. Below are a selection of a few functions that could potential
 be useful for others:
 
 ``` r
-library(jordan)
+library(mark)
 ```
 
 Get dates from sloppy entries:
@@ -92,7 +92,7 @@ str_slice_by_word(x)
 Read in bibliographies:
 
 ``` r
-file <- system.file("extdata", "example-bib.txt", package = "jordan")
+file <- system.file("extdata", "example-bib.txt", package = "mark")
 bib <- read_bib(file)
 tibble::as_tibble(bib)
 #> # A tibble: 13 x 23

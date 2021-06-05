@@ -4,7 +4,7 @@
 \alias{save_source}
 \title{Save source}
 \usage{
-save_source(env = parent.frame(), file = jordan_temp(".Rds"), name = NULL)
+save_source(env = parent.frame(), file = mark_temp(".Rds"), name = NULL)
 }
 \arguments{
 \item{env}{The parent environment}

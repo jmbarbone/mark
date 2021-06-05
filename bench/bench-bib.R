@@ -1,4 +1,4 @@
-library(jordan, warn.conflicts = FALSE)
+library(mark, warn.conflicts = FALSE)
 library(bench)
 library(bib2df)
 
@@ -12,11 +12,11 @@ foo <- function(file) {
 }
 
 bench::mark(
-  `read_bib` = jordan::read_bib(file),
+  `read_bib` = mark::read_bib(file),
   `bib2df` = bib2df::bib2df(file),
   `foo` = foo(file),
 
-  `read_bib` = jordan::read_bib(file0),
+  `read_bib` = mark::read_bib(file0),
   `bib2df` = bib2df::bib2df(file0),
   `foo` = foo(file0),
 

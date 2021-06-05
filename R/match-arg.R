@@ -11,7 +11,7 @@
 #' @param table A table of choices
 #' @export
 #'
-#' @seealso [jordan::match_param()]
+#' @seealso [mark::match_param()]
 #'
 #' @examples
 #' x <- c("apple", "banana", "orange")
@@ -71,7 +71,7 @@ match_arg <- function(x, table) {
 #' @param param The parameter
 #' @param choices The available choices
 #'
-#' @seealso [jordan::match_arg()]
+#' @seealso [mark::match_arg()]
 #'
 #' @export
 match_param <- function(param, choices) {

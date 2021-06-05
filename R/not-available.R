@@ -40,7 +40,7 @@ get_not_available <- function(type) {
     error = function(e) {
       msg <- paste0('"', type, '" not found\n',
                     "Can be set with ",
-                    "`jordan::set_not_available(", type, ", value = .)`")
+                    "`mark::set_not_available(", type, ", value = .)`")
       stop(msg, call. = FALSE)
     },
     finally = function(x) {
