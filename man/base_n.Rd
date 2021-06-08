@@ -4,13 +4,20 @@
 \alias{base_n}
 \title{Base N conversion}
 \usage{
-base_n(x, base = 10)
+base_n(x, from = 10, to = 10)
 }
 \arguments{
 \item{x}{A vector of integers}
 
-\item{base}{An integer base (valid 1 through 10)}
+\item{from, to}{An integer base to convert to and from; \code{from} must be an
+integer from \code{1} to \code{10} and \code{to} can currently only be \code{10}.}
+}
+\value{
+The A vector of integers converted from base \code{from} to base \code{to}
 }
 \description{
-Convert between base numbers (1 through 10)
+Convert between base numbers
+}
+\examples{
+base_n(c(24, 22, 16), from = 7)
 }

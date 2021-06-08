@@ -13,6 +13,9 @@ add_file_timestamp(x, ts = Sys.time(), format = "\%Y-\%m-\%d \%H\%M\%S")
 
 \item{format}{A format to be applied to the times; set to \code{NULL} to skip formatting}
 }
+\value{
+The full name paths with the appended time stamp
+}
 \description{
 Adds a timestamp to a file
 }

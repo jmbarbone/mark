@@ -15,6 +15,10 @@ pseudo_id(x)
 \arguments{
 \item{x}{A vector}
 }
+\value{
+A vector of integers corresponding to the unique values in the
+attribute \code{"uniques"}.
+}
 \description{
 Transforms a vector into an integer of IDs.
 }

@@ -11,10 +11,14 @@
 #' @param method Method switch for loading the clipboard
 #' @param ... Additional arguments sent to methods
 #'
+#' @return
+#' `write_clipboard()` \code{None}
+#' `read_clipboard()` Either a vector, data.frame, or tibble depending on the
+#'   `method` chosen
+#'
 #' @name clipboard
 #' @examples
 #' \dontrun{
-#'
 #' foo <- function(x) {
 #'   write_clipboard(x)
 #'   y <- read_clipboard()

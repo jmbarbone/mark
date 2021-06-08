@@ -12,6 +12,9 @@ file_name(x, compression = FALSE)
 \item{compression}{logical: should compression extension \file{.gz},
     \file{.bz2} or \file{.xz} be removed first?}
 }
+\value{
+The file name of the path without the extension
+}
 \description{
 Basename of file without extension
 }

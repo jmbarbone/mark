@@ -190,6 +190,7 @@ chr_split <- function(x) {
 #' @param x A vector (defaults to reading the clipboard)
 #' @param sorted If `TRUE` (default) applies `sort()` to `x`
 #' @param null If `TRUE` (default) adds `NULL` at the end of the `c()` print
+#' @return Invisibly the character object printed to the console
 #' @examples
 #' print_c(1:10)
 #' print_c(letters[1:3])

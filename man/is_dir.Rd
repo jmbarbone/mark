@@ -12,6 +12,9 @@ is_file(x)
 \arguments{
 \item{x}{A vector of file paths}
 }
+\value{
+A logical vector
+}
 \description{
 Is the path a file/directory?
 }

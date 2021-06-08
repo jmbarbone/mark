@@ -17,6 +17,11 @@ read_clipboard(method = c("default", "data.frame", "tibble"), ...)
 
 \item{method}{Method switch for loading the clipboard}
 }
+\value{
+\code{write_clipboard()} \code{None}
+\code{read_clipboard()} Either a vector, data.frame, or tibble depending on the
+\code{method} chosen
+}
 \description{
 Wrappers for working with the clipboard
 }
@@ -27,7 +32,6 @@ For copying and pasting floats, there may be some rounding that can occur.
 }
 \examples{
 \dontrun{
-
 foo <- function(x) {
   write_clipboard(x)
   y <- read_clipboard()

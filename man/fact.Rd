@@ -22,7 +22,10 @@ fact(x)
 \method{fact}{factor}(x)
 }
 \arguments{
-\item{x}{A vector}
+\item{x}{A factor vector}
+}
+\value{
+A
 }
 \description{
 Quickly create a factor

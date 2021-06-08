@@ -4,6 +4,7 @@
 #'
 #' @param data A data.frame
 #' @param row_names The numeric position of the column.
+#' @return A data.frame
 #' @examples
 #'
 #' x <- data.frame(
@@ -52,6 +53,7 @@ col_to_rn <- function(data, row_names = 1L) {
 #' @param x A vector of values.
 #' @param name,value Character strings for the name and value columns
 #' @param show_NA Ignored; will trigger a warning if set
+#' @return A data.frame with `name` (optional) and `value` columns
 #' @export
 
 vector2df <- function(x, name = "name", value = "value", show_NA) {
@@ -165,6 +167,7 @@ list2df2 <- function(x = list(), nrow = NULL) {
 #'
 #' @param x A data.frame
 #' @param id No longer used
+#' @return A transposed data.frame
 #'
 #' @examples
 #' x <- data.frame(col_a = Sys.Date() + 1:5, col_b = letters[1:5], col_c = 1:5)
@@ -209,6 +212,7 @@ rn_to_col <- function(data, name = "row.name") {
 #'   the same sort of checks. It should be used with caution.
 #'
 #' @param x A list
+#' @return A data.frame
 #' @examples
 #'
 #' # unnamed will use make.names()
@@ -248,6 +252,8 @@ quick_df <- function(x) {
 #' @param cols Colnames or numbers to remove `NA` values from; `NULL` (default)
 #'   will use all columns
 #' @param invert Logical, if `TRUE` will return incomplete cases
+#' @return A data.frame
+#'
 #' @examples
 #' x <- data.frame(
 #'   a = 1:5,

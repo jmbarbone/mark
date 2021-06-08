@@ -9,3 +9,5 @@ test-docs/
 ^\.github$
 temp/*
 .*\.Rds$
+^CRAN-RELEASE$
+^cran-comments\.md$

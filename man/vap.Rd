@@ -32,9 +32,26 @@ vap_date(.x, .f, ..., .nm = FALSE)
 \item{.nm}{Logical, if \code{TRUE} returns names of \code{.x} (Note: If \code{.x} does not
 have any names, they will be set to the values)}
 }
+\value{
+A vector of type matching the intended value in the function name.
+}
 \description{
 Wrappers for vapply
 }
 \details{
-These are simply wrappers for \code{\link[=vapply]{vapply()}} to shorten lines.
+These are simply wrappers for \code{\link[base:lapply]{base::vapply()}} to shorten lines.
+
+Each function is designed to use specific vector types:
+
+\describe{
+\item{vap_int}{integer}
+\item{vap_dbl}{double}
+\item{vap_chr}{character}
+\item{vap_lgl}{logical}
+\item{vap_cplx}{complex}
+\item{vap_date}{Date}
+}
+}
+\seealso{
+\code{\link[base:lapply]{base::vapply()}}
 }

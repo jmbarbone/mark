@@ -11,6 +11,9 @@ t_df(x, id = NULL)
 
 \item{id}{No longer used}
 }
+\value{
+A transposed data.frame
+}
 \description{
 This transposes a data.frame with \code{t()} but transforms back into a data.frame
 with column and row names cleaned up.  Because the data types may be mixed

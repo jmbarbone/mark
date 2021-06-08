@@ -12,6 +12,7 @@
 #' @param title Title for the viewer window -- if not supplemented will show as
 #'   `paste0(as.character(substitute(x)), " - Labels")`
 #'
+#' @return A labelled vector or data.frame
 #' @name labels
 #' @export
 #'

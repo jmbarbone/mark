@@ -7,9 +7,9 @@
 #'   error or warning without raising.
 #'
 #' @returns
-#' The has_* functions will return TRUE/FALSE for if the handler is found in
-#'   the execution of the code.
-#' The get_* functions provide the text of the message
+#' The `has_*()` functions will return `TRUE`/`FALSE` for if the handler is
+#'   found in the execution of the code.
+#' The `get_*()` functions provide the text of the message
 #'
 #' @param x A vector
 #' @param FUN A function

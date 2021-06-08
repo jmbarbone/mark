@@ -52,6 +52,9 @@ column is the targeted colname and the second is the desired label.}
 \item{cols}{A character vector of column names; if missing will remove the
 label attribute across all columns}
 }
+\value{
+A labelled vector or data.frame
+}
 \description{
 Assign labels to a vector or data.frame.
 }

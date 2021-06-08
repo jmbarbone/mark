@@ -12,6 +12,9 @@ are_identical(..., params = NULL)
 \item{params}{Additional params (as a named list of arguments for
 \link[base:identical]{base::identical})}
 }
+\value{
+A logical vector of \code{TRUE}/\code{FALSE}
+}
 \description{
 Extensions for the use of \code{base::identical()}
 }

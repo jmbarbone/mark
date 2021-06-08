@@ -6,6 +6,7 @@
 #' @param ... A named list by array dimension number and the value
 #' @param default The default dimension index
 #'
+#' @return An array
 #' @export
 #' @examples
 #' x <- array(rep(NA, 27), dim = c(3, 3, 3))

@@ -13,6 +13,10 @@ limit(x, lower = min(x), upper = max(x))
 
 \item{upper}{An upper limit (as \code{x > higher})}
 }
+\value{
+The vector \code{x} with \code{lower} and \code{upper} as the minimum, maximum
+values
+}
 \description{
 Limit a numeric vector by lower and upper bounds
 }

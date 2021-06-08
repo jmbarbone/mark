@@ -5,7 +5,7 @@ The previous name `jordan` was conflicting with recent package on CRAN.
 
 ## Changes
 
-* corrects use of  `...` in `todos()` [#8](https://github.com/jmbarbone/jordan/issues/8)
+* corrects use of  `...` in `todos()` [#8](https://github.com/jmbarbone/mark/issues/8)
   * `grep()` also now evaluated with _cleaned_ todo text
   * searches for `todos()` in Rmd files, too
   * correctly removes additional `#` and spaces in lines (e.g., `#  # TODO text` -> `text`)
@@ -13,14 +13,14 @@ The previous name `jordan` was conflicting with recent package on CRAN.
   * corrects `NA` counting in `counts()`; `NA` counts are now appended at the end whether or not sort is called
   * other optimization for `counts()`
   * core functions previously on `base::rle()` now use a combination of `pseudo_id()` and `base::tabulate()`
-  * corrects counts for factor data when higher levels are not present [#16](https://github.com/jmbarbone/jordan/issues/17)
+  * corrects counts for factor data when higher levels are not present [#16](https://github.com/jmbarbone/mark/issues/17)
 * update to `multi_grepl()` internal functions to prevent conflicts with `R 4.1.0`
 * corrects error message in `vector2df()` when passed a list
 
 ## New features
 
 * adds/exports `fact()` and `pseudo_id()`
-* adds `fixmes()` [#13](https://github.com/jmbarbone/jordan/issues/13)
+* adds `fixmes()` [#13](https://github.com/jmbarbone/mark/issues/13)
 * adds `names_switch()` to switch names and values
 * `vector2df()` can now output a 1 column data.frame if `name = NULL`
 * adds an `invert` parameter to `complete_cases()` to filter for incomplete cases
@@ -37,7 +37,7 @@ The previous name `jordan` was conflicting with recent package on CRAN.
   * removes `jordan.note.fun` option for printing -- this was too complicated and doesn't seem to work too well without too many adjustments
   * `note<-` now appends the class `noted` to the object so that a `print.noted` method is dispatched so the note will be printed when called
   * `print.note` note defaults to a colorful _message_ called with `cat()`
-  * Startup related functions moved to [`jordanExtra`](github.com/jmbarbone/jordanExtra); these were a bit _wild_, dynamic, and not well tested.  The **.Rprofile** template also exists in the separate package.
+  * Startup related functions moved to [`jordanExtra`](https://github.com/jmbarbone/jordanExtra); these were a bit _wild_, dynamic, and not well tested.  The **.Rprofile** template also exists in the separate package.
 
 ## Improvements
 

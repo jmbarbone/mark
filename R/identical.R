@@ -6,6 +6,8 @@
 #' @param params Additional params (as a named list of arguments for
 #'   [base::identical])
 #'
+#' @return A logical vector of `TRUE`/`FALSE`
+#'
 #' @examples
 #' x <- y <- z <- 1:5
 #' y[2] <- 3L

@@ -55,6 +55,9 @@ diff_time_myears(x, y, ...)
 
 \item{...}{Additional arguments passed to \code{diff_time()}}
 }
+\value{
+A \code{diff_time} object
+}
 \description{
 Wrappers for computing diff times
 }

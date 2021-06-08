@@ -31,6 +31,11 @@ which already return in the order of \code{FALSE}, \code{TRUE}, \code{NA}.}
 
 \item{.name}{The name of the new column}
 }
+\value{
+A named vector of integers or doubles (for \code{counts}, and \code{props},
+respectively) or data.frame with columns for each column chosen and the
+\code{.name} chosen for the summary.
+}
 \description{
 Variables will be return by the order in which they appear.  Even factors are
 shown by their order of appearance in the vector.

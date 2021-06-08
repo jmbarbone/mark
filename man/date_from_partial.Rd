@@ -25,6 +25,9 @@ leap year}
 \item{year_replacement}{(Default: \code{NA_integer_}) If set, will use this as a
 replacement for dates that contain missing years}
 }
+\value{
+A vector of dates
+}
 \description{
 Derive a date vector from a partial date string
 }

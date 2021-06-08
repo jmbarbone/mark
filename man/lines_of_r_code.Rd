@@ -12,6 +12,9 @@ lines_of_r_code(x = ".", skip_empty = TRUE)
 \item{skip_empty}{Logical, if TRUE will not count lines that are empty or
 only contain a bracket or quotation mark.}
 }
+\value{
+An integer for the number of lines in all applicable files
+}
 \description{
 Find the total number of lines of R code
 }

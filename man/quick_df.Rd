@@ -9,6 +9,9 @@ quick_df(x)
 \arguments{
 \item{x}{A list}
 }
+\value{
+A data.frame
+}
 \description{
 This is a speedier implementation of \code{as.data.frame()} but does not provide
 the same sort of checks. It should be used with caution.

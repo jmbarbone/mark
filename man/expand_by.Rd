@@ -14,6 +14,9 @@ intersect, all values in x or y, or retain all values found.}
 
 \item{sort}{Logical, if \code{TRUE} will sort by names in output}
 }
+\value{
+A vector with expanded
+}
 \description{
 Expands vector x by y
 }

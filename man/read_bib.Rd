@@ -15,6 +15,9 @@ read_bib(file, skip = 0L, max_lines = NULL, encoding = "UTF-8")
 
 \item{encoding}{Assumed encoding of file (passed to readLines)}
 }
+\value{
+A data.frame
+}
 \description{
 Read a bib file into a data.frame
 }

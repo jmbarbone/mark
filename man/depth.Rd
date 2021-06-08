@@ -17,6 +17,9 @@ depth(x, ...)
 
 \item{...}{Possible additional arguments passed to methods (not in use)}
 }
+\value{
+A single integer
+}
 \description{
 Functions to extract the 'depth' of an object
 }

@@ -39,6 +39,7 @@
 #'   **Units** section)
 #' @param tzx,tzy time zones (see **Time zones** section)
 #' @param ... Additional arguments passed to `diff_time()`
+#' @return A `diff_time` object
 #'
 #' @seealso [mark::time_inherits]
 #'

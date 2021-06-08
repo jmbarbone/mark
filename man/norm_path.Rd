@@ -22,6 +22,9 @@ warning if it does not.}
 
 \item{...}{Character vectors for creating a path}
 }
+\value{
+A vector of full file paths
+}
 \description{
 Normalize and check a vector of paths
 }

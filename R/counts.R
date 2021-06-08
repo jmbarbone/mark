@@ -19,6 +19,10 @@
 #'   which already return in the order of `FALSE`, `TRUE`, `NA`.
 #' @param cols A vector of column names or indexes
 #'
+#' @return A named vector of integers or doubles (for `counts`, and `props`,
+#'   respectively) or data.frame with columns for each column chosen and the
+#'   `.name` chosen for the summary.
+#'
 #' @examples
 #' x <- sample(1:5, 10, TRUE)
 #' counts(x)

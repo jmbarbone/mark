@@ -15,6 +15,8 @@
 #'   leap year
 #' @param year_replacement (Default: `NA_integer_`) If set, will use this as a
 #'   replacement for dates that contain missing years
+#'
+#' @return A vector of dates
 #' @examples
 #' x <- c("2020-12-17", NA_character_, "", "2020-12-UN", "2020-12-UN",
 #'        "2019-Unknown-00", "UNK-UNK-UNK", "1991-02-UN", "    ",
@@ -26,7 +28,6 @@
 #'   year = date_from_partial(x, year_replacement = 1900)
 #')
 #' @export
-
 
 date_from_partial <- function(x, format = "ymd", method = c("min", "max"), year_replacement = NA_integer_) {
   x <- as.character(x)

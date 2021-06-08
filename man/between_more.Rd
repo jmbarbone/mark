@@ -13,6 +13,9 @@ between_more(x, left, right, type = c("gele", "gel", "gle", "gl"))
 
 \item{type}{Abbreviation for the evaluation of \code{left} on \code{right} (see details)}
 }
+\value{
+A logical vector
+}
 \description{
 Additional functionality and expansion of \code{dplyr::between}
 }

@@ -14,6 +14,7 @@
 #' @param max_lines The maximum number of lines to read
 #' @param encoding Assumed encoding of file (passed to readLines)
 #'
+#' @return A data.frame
 #' @seealso [bib2df::bib2df()]
 #'
 #' @export

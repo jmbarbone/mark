@@ -13,6 +13,9 @@ print_c(x = read_clipboard(), sorted = TRUE, null = TRUE)
 
 \item{null}{If \code{TRUE} (default) adds \code{NULL} at the end of the \code{c()} print}
 }
+\value{
+Invisibly the character object printed to the console
+}
 \description{
 Prints a vector to paste into an R script
 }

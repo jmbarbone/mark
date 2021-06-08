@@ -4,6 +4,8 @@
 #'
 #' @param x A vector
 #'
+#' @return A vector of integers corresponding to the unique values in the
+#'   attribute `"uniques"`.
 #' @examples
 #'\dontrun{
 #' set.seed(42)

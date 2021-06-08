@@ -20,6 +20,9 @@ fct_expand_seq(
 
 \item{by}{Integer, number of steps in between}
 }
+\value{
+An ordered vector
+}
 \description{
 Expands an ordered factor from one level to another
 }

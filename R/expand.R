@@ -7,6 +7,8 @@
 #'   intersect, all values in x or y, or retain all values found.
 #' @param sort Logical, if `TRUE` will sort by names in output
 #'
+#' @return A vector with expanded
+#'
 #' @examples
 #' x <- letters[c(3:2, 5, 9)]
 #' y <- letters[c(1:4, 8)]

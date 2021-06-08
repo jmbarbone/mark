@@ -11,6 +11,9 @@ to_row_names(data, row_names = 1L)
 
 \item{row_names}{The numeric position of the column.}
 }
+\value{
+A data.frame
+}
 \description{
 Converts a column to row names
 }

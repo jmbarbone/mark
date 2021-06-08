@@ -22,6 +22,9 @@ ls_object(pattern, all.names = FALSE)
     object names are returned.  If \code{FALSE}, names which begin with a
     \samp{.} are omitted.}
 }
+\value{
+A character vector of names
+}
 \description{
 List Objects - extensions
 }

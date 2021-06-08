@@ -25,6 +25,9 @@ smallest_file(x)
 \arguments{
 \item{x}{A vector of file paths}
 }
+\value{
+A full file path
+}
 \description{
 Other utility functions for dealing with files
 }

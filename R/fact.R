@@ -8,7 +8,8 @@
 #'   other checks or features.  It simply converts a vector to a factor with all
 #'   unique values as levels with `NA`s included.
 #'
-#' @param x A vector
+#' @param x A factor vector
+#' @return A
 #' @export
 fact <- function(x) {
   UseMethod("fact", x)

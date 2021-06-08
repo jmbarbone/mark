@@ -47,6 +47,7 @@ ls_switch <- function(x, all.names = FALSE) {
 #' List Objects - extensions
 #'
 #' @inheritParams base::ls
+#' @return A character vector of names
 #' @export
 #' @name ls_ext
 

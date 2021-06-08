@@ -8,6 +8,7 @@
 #'
 #' @param x An object
 #' @param ... Possible additional arguments passed to methods (not in use)
+#' @return A single integer
 #'
 #' @export
 #'

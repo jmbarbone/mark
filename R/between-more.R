@@ -16,8 +16,9 @@
 #'  \item{ls}{less than or equal to (<=)}
 #' }
 #'
-#' @export
+#' @returns A logical vector
 #'
+#' @export
 #' @seealso `dplyr::case_when()`
 #' @examples
 #' between_more(10, 2, 10, "gl")

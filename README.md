@@ -6,11 +6,9 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/jmbarbone/mark/workflows/R-CMD-check/badge.svg)](https://github.com/jmbarbone/mark/actions)
-[![CRAN
-status](https://www.r-pkg.org/badges/version/mark)](https://CRAN.R-project.org/package=mark)
 <!-- badges: end -->
 
-Miscellaneous, Analytic R Kode
+Miscellaneous, Analytic R Kernels
 
 An R package with a set of general use functions for data analytics.
 This is developed mostly for personal use and has no real *goal* other

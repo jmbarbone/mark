@@ -49,23 +49,31 @@ base_alpha_single <- function(x, base) {
 
 #' Base N conversion
 #'
-#' Convert between base numbers (1 through 10)
+#' Convert between base numbers
 #'
 #' @param x A vector of integers
-#' @param base An integer base (valid 1 through 10)
+#' @param from,to An integer base to convert to and from; `from` must be an
+#'   integer from `1` to `10` and `to` can currently only be `10`.
 #'
+#' @returns The A vector of integers converted from base `from` to base `to`
 #' @export
-base_n <- function(x, base = 10) {
+#' @examples
+#' base_n(c(24, 22, 16), from = 7)
+base_n <- function(x, from = 10, to = 10) {
   if (!is.numeric(x)) {
     stop("x must be numeric", call. = FALSE)
   }
 
-  if (base == 10) {
+  if (from == to) {
     return(x)
   }
 
-  check_base(base)
-  vap_int(x, base_n_single, base = base)
+  if (to != 10) {
+    stop("base_n() is crrently only valid for conversions to base 10", call. = FALSE)
+  }
+
+  check_base(from)
+  vap_int(x, base_n_single, base = from)
 }
 
 base_n_single <- function(x, base) {

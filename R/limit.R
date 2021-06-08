@@ -6,6 +6,9 @@
 #' @param lower A lower limit (as `x < lower`)
 #' @param upper An upper limit (as `x > higher`)
 #'
+#' @return The vector `x` with `lower` and `upper` as the minimum, maximum
+#'   values
+#'
 #' @export
 limit <- function(x, lower = min(x), upper = max(x)) {
   stopifnot(

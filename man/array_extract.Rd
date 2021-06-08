@@ -13,6 +13,9 @@ array_extract(arr, ..., default = "1")
 
 \item{default}{The default dimension index}
 }
+\value{
+An array
+}
 \description{
 Extract dimensions from an array
 }

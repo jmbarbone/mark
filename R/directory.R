@@ -102,6 +102,7 @@ remove_temp_files <- function(x) {
 #'   warning if it does not.
 #' @param remove Logical, if TRUE will remove paths that are not found
 #' @param ... Character vectors for creating a path
+#' @return A vector of full file paths
 #'
 #' @export
 #'
@@ -153,6 +154,7 @@ user_file <- function(..., check = FALSE, remove = check) {
 #' Other utility functions for dealing with files
 #'
 #' @param x A vector of file paths
+#' @return A full file path
 #' @export
 #' @name file_info
 newest_file <- function(x) {
@@ -225,8 +227,8 @@ smallest_file <- function(x) {
 #'   match the provided pattern
 #'
 #' @export
-#' @return A logical vector where TRUE successfully opened, FALSE did not, and
-#'   NA did not try to open (file not found)
+#' @return A logical vector where `TRUE` successfully opened, `FALSE` did not,
+#'   and `NA` did not try to open (file not found)
 open_file <- function(x) {
   x <- norm_path(x, check = TRUE)
   out <- rep(NA, length(x))
@@ -323,6 +325,7 @@ list_dirs <- function(x = ".", pattern = NULL, ignore_case = FALSE, all = FALSE,
 #'   `op = -f` but separated.
 #'
 #' @param x A vector of file paths
+#' @return A logical vector
 #' @export
 
 is_dir <- function(x) {
@@ -382,6 +385,7 @@ dir_create <- function(x, overwrite = FALSE) {
 #' Basename of file without extension
 #'
 #' @inheritParams tools::file_path_sans_ext
+#' @return The file name of the path without the extension
 #' @export
 file_name <- function(x, compression = FALSE) {
   tools::file_path_sans_ext(basename(x), compression = compression)
@@ -396,6 +400,7 @@ file_name <- function(x, compression = FALSE) {
 #' @param x A vector of files
 #' @param ts A single timestamp or vector of timestamps (default: `Sys.time()`)
 #' @param format A format to be applied to the times; set to `NULL` to skip formatting
+#' @return The full name paths with the appended time stamp
 #' @export
 #' @examples
 #' add_file_timestamp(tempfile(fileext = ".txt"))

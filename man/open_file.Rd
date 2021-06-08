@@ -48,8 +48,8 @@ match the provided pattern}
 the entire path}
 }
 \value{
-A logical vector where TRUE successfully opened, FALSE did not, and
-NA did not try to open (file not found)
+A logical vector where \code{TRUE} successfully opened, \code{FALSE} did not,
+and \code{NA} did not try to open (file not found)
 }
 \description{
 Opens the given files(s)
