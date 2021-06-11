@@ -17,6 +17,7 @@
 #' @param vals An optional vector of values to use in lieu of a names in the
 #'   vector; this takes priority over `names(by)`
 #' @param mode passed to `as.vector()`
+#' @return A vector of values from `x`
 #'
 #' @examples
 #' recode_by(1:3, c(a = 1, b = 2))
@@ -26,9 +27,7 @@
 #'
 #' recode_only(letters[1:3], c("zzz" = "a"))
 #' recode_only(letters[1:3], c(`1` = "a")) # returns as "1"
-#' \dontrun{
-#' recode_only(1:3, c("a" = 1))   # coerced to NA
-#' }
+#' recode_only(1:3, c("a" = 1))            # coerced to NA
 #'
 #' @seealso [dplyr::recode()]
 #' @export

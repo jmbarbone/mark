@@ -14,7 +14,8 @@
 #' @param max_lines The maximum number of lines to read
 #' @param encoding Assumed encoding of file (passed to readLines)
 #'
-#' @return A data.frame
+#' @return A `data.frame` with each row as a bib entry and each column as a
+#'   field
 #' @seealso [bib2df::bib2df()]
 #'
 #' @export
@@ -23,14 +24,13 @@
 #' file <- "https://raw.githubusercontent.com/jmbarbone/bib-references/master/references.bib"
 #' bibdf <- read_bib(file, max_lines = 51L)
 #'
-#' \dontrun{
-#' if (require_namespace("tibble")) {
-#'     tibble::as_tibble(bibdf)
-#'   } else {
-#'     head(bibdf)
-#'   }
+#' if (package_available("tibble")) {
+#'   tibble::as_tibble(bibdf)
+#' } else {
+#'   head(bibdf)
+#' }
 #'
-#' if (require_namespace("bib2df") & require_namespace("bench")) {
+#' if (package_available("bib2df") & package_available("bench")) {
 #'   file <- system.file("extdata", "bib2df_testfile_3.bib", package = "bib2df")
 #'
 #'   # Doesn't include the 'tidying' up
@@ -39,11 +39,12 @@
 #'     ("bib2df" %colons% "bib2df_gather")(bib)
 #'   }
 #'
+#' \donttest{
 #'   bench::mark(
-#'     `read_bib` = read_bib(file1),
-#'     `bib2df` = bib2df::bib2df(file1),
-#'     `foo` = foo(file1),
-#'     check = FALSEread
+#'     `read_bib` = read_bib(file),
+#'     `bib2df` = bib2df::bib2df(file),
+#'     `foo` = foo(file),
+#'     check = FALSE
 #'   )[1:9]
 #' }
 #' }
@@ -130,7 +131,7 @@ get_bib_values <- function(list) {
 #' @param fields a Vector of fields
 #' @param keys a Vector of keys
 #'
-#' @return A wide data.frame with explicit NAs
+#' @return A wide `data.frame` with explicit `NA`s
 
 process_bib_dataframe <- function(categories, values, fields, keys) {
   # Determine all categories for missing values inside Map

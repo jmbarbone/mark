@@ -4,6 +4,7 @@
 #'
 #' @param x A string of letters.  Non characters are removed.
 #' @param base A numeric
+#' @return A vector of integers
 #'
 #' @export
 #'

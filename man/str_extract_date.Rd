@@ -15,7 +15,7 @@ str_extract_datetime(x, format = "\%Y-\%m-\%d \%H\%M\%S")
 \item{format}{A date format to find}
 }
 \value{
-A date (if found) or NA
+A \code{Date} (if found) or \code{NA}
 }
 \description{
 Extract date from string

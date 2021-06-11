@@ -14,7 +14,7 @@ vector2df(x, name = "name", value = "value", show_NA)
 \item{show_NA}{Ignored; will trigger a warning if set}
 }
 \value{
-A data.frame with \code{name} (optional) and \code{value} columns
+A \code{data.frame} with \code{name} (optional) and \code{value} columns
 }
 \description{
 Transforms a vector (named) to a data.frame

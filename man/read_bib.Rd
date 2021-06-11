@@ -16,7 +16,8 @@ read_bib(file, skip = 0L, max_lines = NULL, encoding = "UTF-8")
 \item{encoding}{Assumed encoding of file (passed to readLines)}
 }
 \value{
-A data.frame
+A \code{data.frame} with each row as a bib entry and each column as a
+field
 }
 \description{
 Read a bib file into a data.frame
@@ -32,14 +33,13 @@ This will also include as many categories as possible from the entry.
 file <- "https://raw.githubusercontent.com/jmbarbone/bib-references/master/references.bib"
 bibdf <- read_bib(file, max_lines = 51L)
 
-\dontrun{
-if (require_namespace("tibble")) {
-    tibble::as_tibble(bibdf)
-  } else {
-    head(bibdf)
-  }
+if (package_available("tibble")) {
+  tibble::as_tibble(bibdf)
+} else {
+  head(bibdf)
+}
 
-if (require_namespace("bib2df") & require_namespace("bench")) {
+if (package_available("bib2df") & package_available("bench")) {
   file <- system.file("extdata", "bib2df_testfile_3.bib", package = "bib2df")
 
   # Doesn't include the 'tidying' up
@@ -48,11 +48,12 @@ if (require_namespace("bib2df") & require_namespace("bench")) {
     ("bib2df" \%colons\% "bib2df_gather")(bib)
   }
 
+\donttest{
   bench::mark(
-    `read_bib` = read_bib(file1),
-    `bib2df` = bib2df::bib2df(file1),
-    `foo` = foo(file1),
-    check = FALSEread
+    `read_bib` = read_bib(file),
+    `bib2df` = bib2df::bib2df(file),
+    `foo` = foo(file),
+    check = FALSE
   )[1:9]
 }
 }

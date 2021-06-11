@@ -5,6 +5,7 @@
 #' @param x A vector
 #' @param by Another vector
 #' @param ... Additional arguments passed to `base::order()`
+#' @return The values of `x`, resorted
 #'
 #' @examples
 #' l3 <- letters[1:3]

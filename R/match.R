@@ -9,6 +9,11 @@
 #'   unique values, which may not be a desired behavior.
 #'
 #' @inheritParams base::`%in%`
+#' @return
+#' * `%out%`: A `logical` vector of equal length of `x`, `table`
+#' * `%wo%`, `%wi%`: A vector of values of `x`
+#' * `any_match()`, `no_match()`: `TRUE` or `FALSE`
+#'
 #' @export
 #' @examples
 #' 1:10 %in% c(1,3,5,9)

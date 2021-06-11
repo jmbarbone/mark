@@ -23,7 +23,7 @@ ls_object(pattern, all.names = FALSE)
     \samp{.} are omitted.}
 }
 \value{
-A character vector of names
+A \code{character} vector of names
 }
 \description{
 List Objects - extensions

@@ -13,20 +13,19 @@ pseudo_id(x)
 \method{pseudo_id}{factor}(x)
 }
 \arguments{
-\item{x}{A vector}
+\item{x}{A vector of values}
 }
 \value{
-A vector of integers corresponding to the unique values in the
+A vector of \code{integers} corresponding to the unique values in the
 attribute \code{"uniques"}.
 }
 \description{
 Transforms a vector into an integer of IDs.
 }
 \examples{
-\dontrun{
 set.seed(42)
 (x <- sample(letters, 10, TRUE))
 (pid <- pseudo_id(x))
 attr(pid, "uniques")[pid]
-}
+
 }

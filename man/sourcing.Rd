@@ -26,6 +26,12 @@ changed to the directory containing file for evaluating}
 \item{env}{An environment determining where the parsed expressions are
 evaluated}
 }
+\value{
+\itemize{
+\item \code{ksource()}: Invisibly, the result of calling \code{source()} on the \code{.R} file conversion of \code{file}
+\item \code{try_source()}, \code{try_ksource()}: attempts of \code{source()} and \code{ksource()} but converts errors to warnings
+}
+}
 \description{
 Functions for extending sourcing features
 }

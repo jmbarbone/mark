@@ -9,7 +9,9 @@
 #' `switch_in_case()` is a special case of `switch_case()` for `match()`-ing `x`
 #'   in the values on the left to return the value on the right.
 #'
-#' @references
+#' @return A named vector of values of same length `x`; or for `switch_case`,
+#'   an unnamed vector of values matching the rhs of `...`
+#'
 #' Inspired from:
 #' * https://stackoverflow.com/a/32835930/12126576
 #' * https://github.com/tidyverse/dplyr/issues/5811
@@ -51,13 +53,11 @@
 #'
 #' ne <- new.env()
 #' ne$use_these2 <- use_these
-#' \dontrun{
 #' # error
-#' switch_in_case(
+#' try(switch_in_case(
 #'   1:10,
 #'   use_these2 ~ TRUE
-#' )
-#' }
+#' ))
 #' switch_in_case(
 #'   1:10,
 #'   use_these2 ~ TRUE,

@@ -3,7 +3,7 @@
 #' Remove NAs from a vector
 #'
 #' @param x A vector
-#'
+#' @return `x` without values where `is.na(x)` is `TRUE`
 #' @export
 remove_na <- function(x) {
   if (!is.vector(x)) {
@@ -22,6 +22,7 @@ unique_no_na <- function(x) {
 #' Remove NULL results from a list
 #'
 #' @param x A list
+#' @return The list `x` without `NULL`
 #' @examples
 #' x <- list(a = letters[1:5], b = NULL, c = complex(3))
 #' x

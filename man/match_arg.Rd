@@ -11,6 +11,9 @@ match_arg(x, table)
 
 \item{table}{A table of choices}
 }
+\value{
+A single value from \code{x} matched on \code{table}
+}
 \description{
 This function is essentially a clear version of \code{\link[base:match.arg]{base::match.arg()}} which
 produces a cleaner warning message and does not restrict the \code{table} param
@@ -24,11 +27,7 @@ x <- c("apple", "banana", "orange")
 match_arg("b", x)
 
 # Produces error
-tryCatch(
-  match_arg("pear", x),
-  error = function(e) e,
-  finally = invisible()
-)
+try(match_arg("pear", x))
 
 foo <- function(x, op = c(1, 2, 3)) {
   op <- match_arg(op)
@@ -38,11 +37,7 @@ foo <- function(x, op = c(1, 2, 3)) {
 foo(10, 3)
 
 # Error
-tryCatch(
-  foo(1, 0),
-  error = function(e) e,
-  finally = invisible()
-)
+try(foo(1, 0))
 }
 \seealso{
 \code{\link[=match_param]{match_param()}}

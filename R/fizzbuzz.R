@@ -13,16 +13,18 @@
 #' @param n The number of numbers
 #' @param show_numbers If `TRUE` shows no
 #' @export
-#' @return A character vector of `1, 2, Fizz, 3, Buzz`, etc
+#' @return A `character` vector of `1, 2, Fizz, 3, Buzz`, etc
 #'
 #' @examples
 #' fizzbuzz(15)
 #' fizzbuzz(30, show_numbers = FALSE)
 #' cat(fizzbuzz(30), sep = "\n")
 #'
-#' \dontrun{
-#'   # show them how fast your solution is:
-#'   if (require_package("bench")) bench::mark(fizzbuzz(1e5), fizzbuzz_lazy(1e5))
+#' \donttest{
+#' # show them how fast your solution is:
+#' if (package_available("bench")) {
+#'   bench::mark(fizzbuzz(1e5), fizzbuzz_lazy(1e5))
+#' }
 #' }
 
 fizzbuzz <- function(n, show_numbers = TRUE) {

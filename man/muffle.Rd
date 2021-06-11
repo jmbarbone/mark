@@ -15,6 +15,9 @@ wuffle(expr, ...)
 \item{...}{Additional arguments passed to \code{\link[base:message]{base::suppressMessages()}} or
 \code{\link[base:warning]{base::suppressWarnings()}}}
 }
+\value{
+The result of \code{expr}
+}
 \description{
 Suppress messages and warnings
 }

@@ -26,6 +26,13 @@ any_match(x, table)
 \item{table}{vector or \code{NULL}: the values to be matched against.
     \link[base]{Long vectors} are not supported.}
 }
+\value{
+\itemize{
+\item \verb{\%out\%}: A \code{logical} vector of equal length of \code{x}, \code{table}
+\item \verb{\%wo\%}, \verb{\%wi\%}: A vector of values of \code{x}
+\item \code{any_match()}, \code{no_match()}: \code{TRUE} or \code{FALSE}
+}
+}
 \description{
 Non matching alternatives and supplementary functions.
 }

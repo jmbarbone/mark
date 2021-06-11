@@ -16,6 +16,9 @@ that(x, arr.ind = FALSE, useNames = TRUE)
 \item{useNames}{logical indicating if the value of \code{arrayInd()}
    should have (non-null) dimnames at all.}
 }
+\value{
+see \code{\link[base:which]{base::which()}}
+}
 \description{
 Grammatical correctness
 }

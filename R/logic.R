@@ -21,10 +21,8 @@
 #'   not a logical value, will return `NA` equal to the vector length
 #' @param ... Vectors or a list of logical values
 #' @param na.rm Logical, if `TRUE` will ignore `NA`
-#' @export
-#' @name logic_ext
-#' @examples
 #'
+#' @examples
 #' x <- c(TRUE, FALSE, NA)
 #' y <- c(FALSE, FALSE, TRUE)
 #' z <- c(TRUE, NA, TRUE)
@@ -32,6 +30,7 @@
 #' is_true(x)
 #' isFALSE(x)
 #' is_false(x)
+#' x %xor% TRUE
 #' TRUE %xor% TRUE
 #' TRUE %xor% FALSE
 #' NA %xor% FALSE
@@ -39,12 +38,22 @@
 #' OR(x, y, z, na.rm = TRUE)
 #' AND(x, y, z)
 #' AND(x, y, z, na.rm = TRUE)
+#' either(x, FALSE)
 #' either(TRUE, FALSE)
 #' either(FALSE, NA)
 #' either(TRUE, NA)
+#' none(x)
+#' none(x & y, na.rm = TRUE)
 #' is_boolean(x)
 #' is_boolean(c(1L, NA_integer_, 0L))
 #' is_boolean(c(1.01, 0, -1))
+#' @return
+#' * `is_true()`, `is_false()`, `either()`, `%or%`, `AND()`, `OR()`: A `logical` vector, equal length of `x` (or `y` or of all `...` lengths)
+#' * `is_boolean()`: `TRUE` or `FALSE`
+#' * `none()`: `TRUE`, `FALSE`, or `NA`
+#'
+#' @export
+#' @name logic_ext
 
 is_true <- function(x) {
   null_check(x)
@@ -112,6 +121,8 @@ is_boolean <- function(x) {
   }
 }
 
+#' @export
+#' @rdname logic_ext
 none <- function(..., na.rm = FALSE) {
   !any(..., na.rm = na.rm)
 }

@@ -22,10 +22,10 @@ fact(x)
 \method{fact}{factor}(x)
 }
 \arguments{
-\item{x}{A factor vector}
+\item{x}{A vector of values}
 }
 \value{
-A
+A \code{factor} vector of equal length of \code{x}
 }
 \description{
 Quickly create a factor

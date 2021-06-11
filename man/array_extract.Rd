@@ -14,7 +14,7 @@ array_extract(arr, ..., default = "1")
 \item{default}{The default dimension index}
 }
 \value{
-An array
+A value from the array \code{arr}
 }
 \description{
 Extract dimensions from an array

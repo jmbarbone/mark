@@ -22,7 +22,7 @@ fizzbuzz_lazy(n)
 \item{show_numbers}{If \code{TRUE} shows no}
 }
 \value{
-A character vector of \verb{1, 2, Fizz, 3, Buzz}, etc
+A \code{character} vector of \verb{1, 2, Fizz, 3, Buzz}, etc
 }
 \description{
 For when someone asked you to do something you've done before, you can argue
@@ -40,9 +40,11 @@ fizzbuzz(15)
 fizzbuzz(30, show_numbers = FALSE)
 cat(fizzbuzz(30), sep = "\n")
 
-\dontrun{
-  # show them how fast your solution is:
-  if (require_package("bench")) bench::mark(fizzbuzz(1e5), fizzbuzz_lazy(1e5))
+\donttest{
+# show them how fast your solution is:
+if (package_available("bench")) {
+  bench::mark(fizzbuzz(1e5), fizzbuzz_lazy(1e5))
+}
 }
 }
 \keyword{datasets}

@@ -18,7 +18,7 @@ depth(x, ...)
 \item{...}{Possible additional arguments passed to methods (not in use)}
 }
 \value{
-A single integer
+A single \code{integer}
 }
 \description{
 Functions to extract the 'depth' of an object
@@ -28,7 +28,6 @@ This function does not count an empty lists (\code{list()}) as a level or \code{
 objects.
 }
 \examples{
-
 a <- c(1, 2, 3)
 depth(a) # Vectors are 1L
 

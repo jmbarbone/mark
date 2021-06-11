@@ -3,6 +3,7 @@
 #' Returns the function call you are within
 #'
 #' @param n The number of calls to move out from
+#' @return The string of the call/function
 #'
 #' @export
 within_call <- function() {
@@ -37,18 +38,18 @@ outer_fun <- function(n = 0) {
 #'
 #' @param namespace The name of a package/namespace
 #' @export
+#' @return
+#' * `require_namespace()`: None, called for side effects
+#' * `package_available()`: Invisibly, `TRUE` or `FALSE`
+#'
 #' @examples
 #' foo <- function() {
 #'   require_namespace("bad_package")
 #'   1
 #' }
 #'
-#' \dontrun{
-#' require_namespace("bad_package")
-#' foo()
-#' }
-#'
-#' @references http://r-pkgs.had.co.nz/description.html
+#' try(require_namespace("bad_package"))
+#' try(foo())
 require_namespace <- function(namespace) {
   of <- outer_fun()
   of <- if (!is.na(of)) {
@@ -65,6 +66,8 @@ rn <- function(namespace) {
   requireNamespace(namespace, quietly = TRUE)
 }
 
+#' @export
+#' @rdname require_namespace
 package_available <- rn
 
 rn_soft <- function(namespace) {
@@ -77,6 +80,7 @@ rn_soft <- function(namespace) {
 #'
 #' Quietly calls stop
 #'
+#' @return None, called for side effects
 #' @export
 quiet_stop <- function() {
   op <- options()

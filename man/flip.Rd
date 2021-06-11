@@ -27,6 +27,10 @@ reverse(x, ...)
 
 \item{keep_rownames}{Logical, if \code{TRUE} will not reset rownames; \code{NULL}}
 }
+\value{
+A vector of values, equal length of \code{x} that is reversed or a
+\verb{data frame} with flipped rows/columns
+}
 \description{
 Flip an object.
 }

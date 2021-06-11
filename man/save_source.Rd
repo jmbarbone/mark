@@ -13,6 +13,9 @@ save_source(env = parent.frame(), file = mark_temp("Rds"), name = NULL)
 
 \item{name}{An optional name for the environment (mostly cosmetic)}
 }
+\value{
+A \code{source_env}/\code{environment} object, created from \code{env}
+}
 \description{
 Source a file and save as file
 }

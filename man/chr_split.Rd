@@ -9,6 +9,12 @@ chr_split(x)
 \arguments{
 \item{x}{A vector of strings to split}
 }
+\value{
+A \code{character} vector of length \code{nchar(x)}
+}
 \description{
 Split apart a string by each character
+}
+\examples{
+chr_split("split this")
 }

@@ -11,15 +11,16 @@ with_par(..., ops = NULL)
 
 \item{ops}{A named list to be passed to \code{\link[graphics:par]{graphics::par()}}}
 }
+\value{
+Invisibly, the result of \code{...}
+}
 \description{
 Reset par() after running
 }
 \examples{
-\dontrun{
 with_par(
   plot(lm(Sepal.Length ~ Sepal.Width, data = iris)),
   plot(lm(Petal.Length ~ Petal.Width, data = iris)),
   ops = list(mfrow = c(2, 4))
 )
-}
 }

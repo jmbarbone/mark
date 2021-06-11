@@ -10,7 +10,7 @@ quick_df(x)
 \item{x}{A list}
 }
 \value{
-A data.frame
+A \code{data.frame}
 }
 \description{
 This is a speedier implementation of \code{as.data.frame()} but does not provide

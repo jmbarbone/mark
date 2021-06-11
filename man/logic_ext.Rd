@@ -9,6 +9,7 @@
 \alias{AND}
 \alias{either}
 \alias{is_boolean}
+\alias{none}
 \title{Logic - Extension'}
 \usage{
 is_true(x)
@@ -24,6 +25,8 @@ AND(..., na.rm = FALSE)
 either(x, y)
 
 is_boolean(x)
+
+none(..., na.rm = FALSE)
 }
 \arguments{
 \item{x, y}{A vector of logical values.  If \code{NULL} will generate a warning.  If
@@ -32,6 +35,13 @@ not a logical value, will return \code{NA} equal to the vector length}
 \item{...}{Vectors or a list of logical values}
 
 \item{na.rm}{Logical, if \code{TRUE} will ignore \code{NA}}
+}
+\value{
+\itemize{
+\item \code{is_true()}, \code{is_false()}, \code{either()}, \verb{\%or\%}, \code{AND()}, \code{OR()}: A \code{logical} vector, equal length of \code{x} (or \code{y} or of all \code{...} lengths)
+\item \code{is_boolean()}: \code{TRUE} or \code{FALSE}
+\item \code{none()}: \code{TRUE}, \code{FALSE}, or \code{NA}
+}
 }
 \description{
 All functions take logical or logical-like (i.e., 1, 0, or NA as integer or
@@ -52,7 +62,6 @@ is not logical.
 Logical operations, extended
 }
 \examples{
-
 x <- c(TRUE, FALSE, NA)
 y <- c(FALSE, FALSE, TRUE)
 z <- c(TRUE, NA, TRUE)
@@ -60,6 +69,7 @@ isTRUE(x)
 is_true(x)
 isFALSE(x)
 is_false(x)
+x \%xor\% TRUE
 TRUE \%xor\% TRUE
 TRUE \%xor\% FALSE
 NA \%xor\% FALSE
@@ -67,9 +77,12 @@ OR(x, y, z)
 OR(x, y, z, na.rm = TRUE)
 AND(x, y, z)
 AND(x, y, z, na.rm = TRUE)
+either(x, FALSE)
 either(TRUE, FALSE)
 either(FALSE, NA)
 either(TRUE, NA)
+none(x)
+none(x & y, na.rm = TRUE)
 is_boolean(x)
 is_boolean(c(1L, NA_integer_, 0L))
 is_boolean(c(1.01, 0, -1))

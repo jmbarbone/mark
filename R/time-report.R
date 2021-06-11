@@ -10,9 +10,10 @@
 #' @param title The title to be printed
 #' @param expr The expression to run
 #' @param envir The environment from which to evaluate the `expr`
+#' @return A `reported_results`/`list` object containing results, outputs,
+#'   messages, warnings, and errors
 #'
 #' @examples
-#' \dontrun{
 #' simpleTimeReport("example", {
 #'   print("1")
 #'   Sys.sleep(1)
@@ -22,7 +23,6 @@
 #'   }
 #'   sample(1e6, 1e6, TRUE)
 #' })
-#' }
 #' @export
 
 simpleTimeReport <- function(title = NULL, expr, envir = parent.frame()) {
@@ -155,8 +155,7 @@ formatTimeDiff <- function(start, stop = Sys.time(), threshold = .1) {
 #'
 #' @param expr An expression to split
 #' @examples
-#' \dontrun{
-#' ss <- split_expression({
+#' ss <- mark:::split_expression({
 #'   mean(1:10)
 #'   sample(
 #'     letters,
@@ -168,8 +167,7 @@ formatTimeDiff <- function(start, stop = Sys.time(), threshold = .1) {
 #' })
 #'
 #' for (i in ss) {
-#'   str(charexpr(i))
-#' }
+#'   str(mark:::charexpr(i))
 #' }
 split_expression <- function(expr) {
   if (!is.expression(expr)) {

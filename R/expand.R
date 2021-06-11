@@ -85,6 +85,7 @@ expand_by <- function(x, y, expand = c("x","y", "intersect", "both"), sort = FAL
 #'   intersect (none), all values in x or index, or retain all values found.
 #' @param sort Logical, if `TRUE` will sort the rows in output
 #'
+#' @return A `data.frame` with rows of `index`
 #' @examples
 #' iris1 <- head(iris, 5)
 #' iris1$index <- 1:5

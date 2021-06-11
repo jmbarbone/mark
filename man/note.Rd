@@ -20,6 +20,12 @@ class \code{noted} from the object.}
 
 \item{...}{Additional arguments passed from methods (not used)}
 }
+\value{
+\itemize{
+\item \verb{note<-} will return \code{x} (with the \code{"note"} attribute assigned)
+\item \code{note()} will retrieve the \code{"note"} attribute
+}
+}
 \description{
 An alternative to the \code{\link[base:comment]{base::comment()}}.
 }
@@ -41,14 +47,16 @@ called/printed.  However, it will not be called when not \code{interactive()}
 x <- c("x", "k", "c", "d")
 comment(x) <- "This is just a comment"
 comment(x)
+
 # Comment is intentionally hidden
 x
 note(x) <- "Just some random letters"
 note(x)
+
 # Note is now present every time
 x
 
-# Assinging `NULL` will remove note (and class)
+# Assigning `NULL` will remove note (and class)
 note(x) <- NULL
 note(x) # NULL
 x       # No more note

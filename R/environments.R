@@ -5,16 +5,21 @@
 #' @details
 #' `environments()` is basically a printing wrapper for `base::search()`
 #'
-#' `ls_all()` and `objects_all()` print out way too much text
+#' `ls_all()` and `objects_all()` can be used retrieved all objects from all
+#'   environments in the `search()` path, which may print out a large result
+#'   into the console.
 #'
 #' @inheritParams base::ls
 #'
 #' @export
+#' @return
+#' * `environments()`: Invisibly, a `character` vector of environment names
 #' @name list_environments
 environments <- function() {
   s <- search()
 
   for (e in s) {
+    # TODO update to a print.*() method
     cat(utils::str(parent.env(as.environment(e)), give.attr = FALSE))
   }
 
@@ -23,15 +28,15 @@ environments <- function() {
 
 #' @export
 #' @rdname list_environments
+#' @return
+#' * `ls_all()`, `objects_all()`: A named list for each of the environments in the `search()` path with all the objects found in that environment
 ls_all <- function(all.names = FALSE) {
   sapply(search(), ls_switch, all.names = all.names)
 }
 
 #'@export
 #'@rdname list_environments
-objects_all <- function(all.names = FALSE) {
-  ls_all(all.names = all.names)
-}
+objects_all <- ls_all
 
 ls_switch <- function(x, all.names = FALSE) {
   switch(
@@ -47,7 +52,7 @@ ls_switch <- function(x, all.names = FALSE) {
 #' List Objects - extensions
 #'
 #' @inheritParams base::ls
-#' @return A character vector of names
+#' @return A `character` vector of names
 #' @export
 #' @name ls_ext
 

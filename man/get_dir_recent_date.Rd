@@ -15,6 +15,9 @@ get_dir_recent_date(x = ".", dt_pattern = NULL, dt_format = NULL, all = FALSE)
 
 \item{all}{Logical, if \code{TRUE} will recursively search for directories}
 }
+\value{
+A full path to a directory
+}
 \description{
 Looks at the directories and assumes the date
 }

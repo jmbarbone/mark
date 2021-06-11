@@ -6,6 +6,8 @@
 #' @param by_row `TRUE`, flips by row, otherwise by column
 #' @param keep_rownames Logical, if `TRUE` will not reset rownames; `NULL`
 #' @param ... Additional arguments passed to methods
+#' @return A vector of values, equal length of `x` that is reversed or a
+#'   `data frame` with flipped rows/columns
 #'
 #' @examples
 #' flip(letters[1:3])

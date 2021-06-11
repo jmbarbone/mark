@@ -21,6 +21,12 @@ automatically update.}
 
 \item{date}{If \code{TRUE} will use a date as a version.}
 }
+\value{
+\itemize{
+\item \code{get_version()}: A package_version
+\item \code{bump_version()}, \code{bump_date_version()}, \code{update_version()}: None, called for its side-effects
+}
+}
 \description{
 Will read the \code{DESCRIPTION} file and to get and adjust the version
 

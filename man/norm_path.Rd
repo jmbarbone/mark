@@ -28,11 +28,3 @@ A vector of full file paths
 \description{
 Normalize and check a vector of paths
 }
-\examples{
-\dontrun{
-data(iris)
-file_path <- user_file("outputs/tests.csv")
-write.csv(iris, file = file_path)
-}
-
-}

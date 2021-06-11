@@ -14,6 +14,9 @@ str_slice_by_word(x, n = 80L)
 
 \item{n}{Integer, the length of the line split}
 }
+\value{
+A \code{character} vector
+}
 \description{
 Slice/split a string into multiple lines by the desired length of the line.
 }

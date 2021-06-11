@@ -20,6 +20,9 @@ vector; this takes priority over \code{names(by)}}
 
 \item{mode}{passed to \code{as.vector()}}
 }
+\value{
+A vector of values from \code{x}
+}
 \description{
 A simple implementation of recoding
 }
@@ -40,9 +43,7 @@ recode_by(letters[1:3], c("a", "b"), vals = 1:2)                   # or pass to 
 
 recode_only(letters[1:3], c("zzz" = "a"))
 recode_only(letters[1:3], c(`1` = "a")) # returns as "1"
-\dontrun{
-recode_only(1:3, c("a" = 1))   # coerced to NA
-}
+recode_only(1:3, c("a" = 1))            # coerced to NA
 
 }
 \seealso{

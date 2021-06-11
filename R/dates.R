@@ -16,7 +16,7 @@
 #' @param year_replacement (Default: `NA_integer_`) If set, will use this as a
 #'   replacement for dates that contain missing years
 #'
-#' @return A vector of dates
+#' @return A vector of `Dates`
 #' @examples
 #' x <- c("2020-12-17", NA_character_, "", "2020-12-UN", "2020-12-UN",
 #'        "2019-Unknown-00", "UNK-UNK-UNK", "1991-02-UN", "    ",

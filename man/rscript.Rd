@@ -15,6 +15,10 @@ rscript(x, ops = NULL, args = NULL, ...)
 
 \item{...}{Additional arguments passed to \code{system2}}
 }
+\value{
+A \code{character} vector of the result from calling \code{Rscript} via
+\code{system2()}
+}
 \description{
 Implements \code{Rscript} with \code{system2}
 }

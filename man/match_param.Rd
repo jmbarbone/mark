@@ -11,6 +11,9 @@ match_param(param, choices)
 
 \item{choices}{The available choices}
 }
+\value{
+A single value from \code{param} matched on \code{choices}
+}
 \description{
 Much like \code{\link[base:match.arg]{base::match.arg()}} with a few key differences:
 \itemize{

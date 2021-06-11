@@ -21,14 +21,13 @@ fct_expand_seq(
 \item{by}{Integer, number of steps in between}
 }
 \value{
-An ordered vector
+An \code{ordered} vector
 }
 \description{
 Expands an ordered factor from one level to another
 }
 \details{
 Defaults for \code{min_lvl} and \code{max_lvl} are the minimum and maximum levels in the ordered vector \code{x}.
-This can be adjusted if we
 }
 \examples{
 x <- ordered(letters[c(5:15, 2)], levels = letters)

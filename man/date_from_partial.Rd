@@ -26,7 +26,7 @@ leap year}
 replacement for dates that contain missing years}
 }
 \value{
-A vector of dates
+A vector of \code{Dates}
 }
 \description{
 Derive a date vector from a partial date string

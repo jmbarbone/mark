@@ -9,6 +9,9 @@ get_dir_max_number(x)
 \arguments{
 \item{x}{The directory to look in}
 }
+\value{
+A full patht to a directory
+}
 \description{
 Finds the directory where the number is the greatest.  This can be useful for when folders are created as run IDs.
 }

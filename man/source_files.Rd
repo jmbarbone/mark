@@ -22,6 +22,9 @@ source_r_file(path, echo = FALSE, quiet = FALSE, ...)
 
 \item{path}{The location of the R file.}
 }
+\value{
+None, called for side effects
+}
 \description{
 Walk through files in a directory and output them.
 Files are sources in order of names

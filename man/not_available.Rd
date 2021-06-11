@@ -33,6 +33,9 @@ NA_POSIXlt_
 
 \item{value}{A value to return in \code{not_available()}}
 }
+\value{
+A vector of \code{NA} values
+}
 \description{
 Create NA vectors
 }

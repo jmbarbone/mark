@@ -4,6 +4,7 @@
 #'
 #' @param x A character vector
 #' @param n Integer, the length of the line split
+#' @return A `character` vector
 #'
 #' @export
 #' @examples
@@ -77,7 +78,7 @@ str_slice_by_word <- function(x, n = 80L) {
 #' @param x A character vector
 #' @param format A date format to find
 #'
-#' @return A date (if found) or NA
+#' @return A `Date` (if found) or `NA`
 #' @export
 #' @examples
 #' str_extract_date("This is a file name 2020-02-21.csv")
@@ -132,14 +133,12 @@ string_extract_all <- function(x, pattern, perl = FALSE, ignore.case = FALSE) {
 #'  described in [base::strptime]
 #'
 #' @examples
-#' \dontrun{
-#' format_to_regex("%Y-%m-%d")
-#' format_to_regex("%b/%d/%y")
-#' format_to_regex("%d %B %Y")
+#' mark:::format_to_regex("%Y-%m-%d")
+#' mark:::format_to_regex("%b/%d/%y")
+#' mark:::format_to_regex("%d %B %Y")
 #'
-#' pattern <- format_to_regex("%Y-%m-%d")
+#' pattern <- mark:::format_to_regex("%Y-%m-%d")
 #' grepl(pattern, Sys.Date())
-#' }
 format_to_regex <- function(x) {
   # may not need to be so comprehensive because a bad date will fail with the
   #   date parsing anyway
@@ -168,6 +167,10 @@ month_name_regex <- sprintf("(%s)", paste(month.name, collapse = "|"))
 #' Split apart a string by each character
 #'
 #' @param x A vector of strings to split
+#' @return A `character` vector of length `nchar(x)`
+#'
+#' @examples
+#' chr_split("split this")
 #' @export
 chr_split <- function(x) {
   if (length(x) != 1L) {
@@ -190,7 +193,7 @@ chr_split <- function(x) {
 #' @param x A vector (defaults to reading the clipboard)
 #' @param sorted If `TRUE` (default) applies `sort()` to `x`
 #' @param null If `TRUE` (default) adds `NULL` at the end of the `c()` print
-#' @return Invisibly the character object printed to the console
+#' @return Invisibly, as a `character` vector, the objet printed to the console
 #' @examples
 #' print_c(1:10)
 #' print_c(letters[1:3])

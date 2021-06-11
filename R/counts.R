@@ -1,7 +1,7 @@
 #' Count observations by unique values
 #'
 #' Get counts or proportions of unique observations in a vector or columns in a
-#'   data.frame
+#'   `data.frame`
 #'
 #' @description
 #' Variables will be return by the order in which they appear.  Even factors are
@@ -12,16 +12,16 @@
 #'   `pseudo_id()` to transform all inputs into integers.  The `logical` method
 #'    counts `TRUE`, `FALSE` and `NA` values, which is much quicker.
 #'
-#' @param x A vector or data.frame
+#' @param x A vector or `data.frame`
 #' @param ... Arguments passed to other methods
 #' @param sort Logical, if `TRUE` will sort values before returning. For factors
 #'   this will sort by factor levels.  This has no effect for logical vectors,
 #'   which already return in the order of `FALSE`, `TRUE`, `NA`.
 #' @param cols A vector of column names or indexes
 #'
-#' @return A named vector of integers or doubles (for `counts`, and `props`,
-#'   respectively) or data.frame with columns for each column chosen and the
-#'   `.name` chosen for the summary.
+#' @return A named vector of `integer`s or `double`s (for `counts`, and `props`,
+#'   respectively) or `data.frame` with columns for each column chosen and the
+#'   `.name` chosen for the summary
 #'
 #' @examples
 #' x <- sample(1:5, 10, TRUE)
@@ -58,7 +58,6 @@ counts.default <- function(x, sort = FALSE, ...) {
 
   out
 }
-
 
 #' @export
 counts.logical <- function(x, ...) {

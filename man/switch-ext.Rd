@@ -24,6 +24,16 @@ switch_case(..., .default = NULL, .envir = parent.frame())
 \item{.envir}{The environment in which to evaluate the LHS of \code{...} (default:
 \code{parent.frame()})}
 }
+\value{
+A named vector of values of same length \code{x}; or for \code{switch_case},
+an unnamed vector of values matching the rhs of \code{...}
+
+Inspired from:
+\itemize{
+\item https://stackoverflow.com/a/32835930/12126576
+\item https://github.com/tidyverse/dplyr/issues/5811
+}
+}
 \description{
 \code{switch_params()} is a vectorized version of \code{switch}
 \code{switch_case()} uses a formula syntax to return the value to the right of the
@@ -71,13 +81,11 @@ switch_in_case(
 
 ne <- new.env()
 ne$use_these2 <- use_these
-\dontrun{
 # error
-switch_in_case(
+try(switch_in_case(
   1:10,
   use_these2 ~ TRUE
-)
-}
+))
 switch_in_case(
   1:10,
   use_these2 ~ TRUE,
@@ -91,11 +99,4 @@ switch_in_case(
   c(22, 24, 26) ~ "c",
   30:Inf        ~ "d"
 )
-}
-\references{
-Inspired from:
-\itemize{
-\item https://stackoverflow.com/a/32835930/12126576
-\item https://github.com/tidyverse/dplyr/issues/5811
-}
 }

@@ -34,6 +34,7 @@ magrittr::`%>%`
 #'
 #' @param package Name of the package
 #' @param name Name to retrieve
+#' @return The variable `name` from package `package`
 #'
 #' @export
 `%colons%` <- function(package, name) {
@@ -63,6 +64,7 @@ crayon_cyan  <- function(x) if (use_color()) crayon::cyan(x)  else x
 #'
 #' @param x A character string to parse
 #' @param envir The environment in which to evaluate the code
+#' @return The evaluation of `x` after parsing
 #' @export
 ept <- function(x, envir = parent.frame()) {
   eval(parse(text = x), envir = envir)
@@ -83,6 +85,7 @@ print_no_attr <- function(x, ...) {
 #' See `fortunes::fortune(175)`.
 #'
 #' @inheritParams base::which
+#' @return see [base::which()]
 #'
 #' @export
 #' @seealso [base::which()]

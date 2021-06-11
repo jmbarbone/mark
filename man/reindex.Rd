@@ -25,6 +25,9 @@ intersect (none), all values in x or index, or retain all values found.}
 
 \item{sort}{Logical, if \code{TRUE} will sort the rows in output}
 }
+\value{
+A \code{data.frame} with rows of \code{index}
+}
 \description{
 Reindexes a data.frame with a reference
 }

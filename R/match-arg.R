@@ -9,6 +9,7 @@
 #'
 #' @param x An argument
 #' @param table A table of choices
+#' @return A single value from `x` matched on `table`
 #' @export
 #'
 #' @seealso [mark::match_param()]
@@ -18,11 +19,7 @@
 #' match_arg("b", x)
 #'
 #' # Produces error
-#' tryCatch(
-#'   match_arg("pear", x),
-#'   error = function(e) e,
-#'   finally = invisible()
-#' )
+#' try(match_arg("pear", x))
 #'
 #' foo <- function(x, op = c(1, 2, 3)) {
 #'   op <- match_arg(op)
@@ -32,11 +29,7 @@
 #' foo(10, 3)
 #'
 #' # Error
-#' tryCatch(
-#'   foo(1, 0),
-#'   error = function(e) e,
-#'   finally = invisible()
-#' )
+#' try(foo(1, 0))
 
 match_arg <- function(x, table) {
   if (is.null(x)) {
@@ -70,6 +63,7 @@ match_arg <- function(x, table) {
 #'
 #' @param param The parameter
 #' @param choices The available choices
+#' @return A single value from `param` matched on `choices`
 #'
 #' @seealso [mark::match_arg()]
 #'

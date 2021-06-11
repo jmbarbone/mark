@@ -10,7 +10,7 @@
 #' @param skip_empty Logical, if TRUE will not count lines that are empty or
 #'   only contain a bracket or quotation mark.
 #'
-#' @returns An integer for the number of lines in all applicable files
+#' @returns An `integer` for the number of lines in all applicable files
 #' @export
 #'
 #' @examples

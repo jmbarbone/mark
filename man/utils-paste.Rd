@@ -21,6 +21,9 @@ vector elements then the next; otherwise reversed (see examples)}
 
 \item{sep}{A character string to separate terms}
 }
+\value{
+A \code{character} vector
+}
 \description{
 Paste and combine
 }

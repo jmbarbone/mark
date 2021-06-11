@@ -6,6 +6,7 @@
 #' Only valid for a single author.
 #'
 #' @param author_info Author information as a named list
+#' @return None, called for side effects
 #' @export
 
 use_author <- function(author_info = find_author()) {
@@ -99,6 +100,10 @@ find_author <- function() {
 #' @param version A new version to be added; default of `NULL` will
 #'   automatically update.
 #' @param date If `TRUE` will use a date as a version.
+#' @return
+#' * `get_version()`: A package_version
+#' * `bump_version()`, `bump_date_version()`, `update_version()`: None, called for its side-effects
+#'
 #' @export
 get_version <- function() {
   description <- readLines("DESCRIPTION")
@@ -160,7 +165,7 @@ update_version <- function(version = NULL, date = FALSE) {
       description[line] <- sprintf("Version: %s", version)
       invisible(writeLines(description, "DESCRIPTION", sep = "\n"))
     },
-    no = invisible(FALSE)
+    no = invisible(NULL)
   )
 }
 

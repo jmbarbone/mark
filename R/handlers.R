@@ -6,7 +6,7 @@
 #' These functions can be used to catch whether an evaluation will return an
 #'   error or warning without raising.
 #'
-#' @returns
+#' @return
 #' The `has_*()` functions will return `TRUE`/`FALSE` for if the handler is
 #'   found in the execution of the code.
 #' The `get_*()` functions provide the text of the message
@@ -156,6 +156,8 @@ catch <- function(FUN) {
 #' @param expr An expression to be evaluated
 #' @param ... Additional arguments passed to [base::suppressMessages()] or
 #'   [base::suppressWarnings()]
+#' @return The result of `expr`
+#'
 #' @export
 muffle <- function(expr, ...) {
   suppressMessages(expr, ...)

@@ -2,12 +2,21 @@
 % Please edit documentation in R/funs.R
 \name{require_namespace}
 \alias{require_namespace}
+\alias{package_available}
 \title{Require namespace}
 \usage{
 require_namespace(namespace)
+
+package_available(namespace)
 }
 \arguments{
 \item{namespace}{The name of a package/namespace}
+}
+\value{
+\itemize{
+\item \code{require_namespace()}: None, called for side effects
+\item \code{package_available()}: Invisibly, \code{TRUE} or \code{FALSE}
+}
 }
 \description{
 A wrapped requireNamespace
@@ -18,12 +27,6 @@ foo <- function() {
   1
 }
 
-\dontrun{
-require_namespace("bad_package")
-foo()
-}
-
-}
-\references{
-http://r-pkgs.had.co.nz/description.html
+try(require_namespace("bad_package"))
+try(foo())
 }

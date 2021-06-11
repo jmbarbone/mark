@@ -25,6 +25,7 @@ get_recent_dir <- function(x = ".",  ...) {
 #' @param dt_pattern A pattern to be passed to filter for the directory
 #' @param dt_format One or more formats to try
 #' @param all Logical, if `TRUE` will recursively search for directories
+#' @return A full path to a directory
 #' @export
 
 get_dir_recent_date <- function(x = ".", dt_pattern = NULL, dt_format = NULL, all = FALSE) {
@@ -50,6 +51,7 @@ get_dir_recent_date <- function(x = ".", dt_pattern = NULL, dt_format = NULL, al
 #' Finds the directory where the number is the greatest.  This can be useful for when folders are created as run IDs.
 #'
 #' @param x The directory to look in
+#' @return A full patht to a directory
 #' @export
 
 get_dir_max_number <- function(x) {
@@ -105,14 +107,6 @@ remove_temp_files <- function(x) {
 #' @return A vector of full file paths
 #'
 #' @export
-#'
-#' @examples
-#' \dontrun{
-#' data(iris)
-#' file_path <- user_file("outputs/tests.csv")
-#' write.csv(iris, file = file_path)
-#' }
-#'
 
 norm_path <- function(x = ".", check = FALSE, remove = check) {
   if (!is.character(x)) {
@@ -227,8 +221,10 @@ smallest_file <- function(x) {
 #'   match the provided pattern
 #'
 #' @export
-#' @return A logical vector where `TRUE` successfully opened, `FALSE` did not,
-#'   and `NA` did not try to open (file not found)
+#' @return
+#' * `open_file()`, `shell_exec()`: A logical vector where `TRUE` successfully opened, `FALSE` did not and `NA` did not try to open (file not found)
+#' * `list_files()`, `list_dirs()`: A vector of full paths
+#' @name file_utils
 open_file <- function(x) {
   x <- norm_path(x, check = TRUE)
   out <- rep(NA, length(x))
@@ -236,7 +232,7 @@ open_file <- function(x) {
   out
 }
 
-#' @rdname open_file
+#' @rdname file_utils
 #' @export
 shell_exec <- function(x) {
   invisible(vapply(x, try_shell_exec, logical(1), USE.NAMES = FALSE))
@@ -253,7 +249,7 @@ try_shell_exec <- function(x) {
   })
 }
 
-#' @rdname open_file
+#' @rdname file_utils
 #' @export
 list_files <- function(x = ".", pattern = NULL, ignore_case = FALSE, all = FALSE, negate = FALSE, basename = FALSE) {
   path <- norm_path(x, check = TRUE)
@@ -288,7 +284,7 @@ list_files <- function(x = ".", pattern = NULL, ignore_case = FALSE, all = FALSE
   }
 }
 
-#' @rdname open_file
+#' @rdname file_utils
 #' @export
 list_dirs <- function(x = ".", pattern = NULL, ignore_case = FALSE, all = FALSE, basename = FALSE, negate = FALSE) {
   path <- norm_path(x, check = TRUE)
@@ -325,7 +321,7 @@ list_dirs <- function(x = ".", pattern = NULL, ignore_case = FALSE, all = FALSE,
 #'   `op = -f` but separated.
 #'
 #' @param x A vector of file paths
-#' @return A logical vector
+#' @return A `logical` vector
 #' @export
 
 is_dir <- function(x) {

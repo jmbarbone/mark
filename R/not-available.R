@@ -9,6 +9,7 @@
 #' @param length Length of the vector
 #' @param value A value to return in `not_available()`
 #'
+#' @return A vector of `NA` values
 #' @examples
 #' x <- not_available("Date", 3)
 #' x

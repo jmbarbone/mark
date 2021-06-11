@@ -14,11 +14,13 @@ import(pkg, fun, overwrite = FALSE)
 \item{overwrite}{Logical, if TRUE and \code{fun} is also found in the current
 environment, will overwrite assignment}
 }
+\value{
+None, called for side effects
+}
 \description{
 Import a single function from a package
 }
 \examples{
-\dontrun{
+# assigns `add` -- test with caution
 import("magrittr", "add")
-}
 }

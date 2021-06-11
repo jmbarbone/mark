@@ -11,11 +11,13 @@ eval_named_chunk(rmd_file, label_name)
 
 \item{label_name}{Name of label}
 }
+\value{
+The value from the evaluated code chunk
+}
 \description{
 Evaluate a named chunk from an Rmd file.
 }
 \examples{
-\dontrun{
 temp_rmd <- tempfile(fileext = ".rmd")
 
 text <- '
@@ -39,5 +41,4 @@ writeLines(text, con = temp_rmd)
 eval_named_chunk(temp_rmd, "hello label")
 # [1] "hello, world"
 # [1] TRUE
-}
 }

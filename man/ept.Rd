@@ -11,6 +11,9 @@ ept(x, envir = parent.frame())
 
 \item{envir}{The environment in which to evaluate the code}
 }
+\value{
+The evaluation of \code{x} after parsing
+}
 \description{
 A wrapper for eval(parse(text = .))
 }

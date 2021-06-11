@@ -6,6 +6,7 @@
 #' @param collate Logical; `TRUE` prints out combinations in order of the first
 #'   vector elements then the next; otherwise reversed (see examples)
 #' @param sep A character string to separate terms
+#' @return A `character` vector
 #' @export
 #'
 #' @name utils-paste

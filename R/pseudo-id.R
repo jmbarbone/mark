@@ -2,17 +2,16 @@
 #'
 #' Transforms a vector into an integer of IDs.
 #'
-#' @param x A vector
+#' @param x A vector of values
 #'
-#' @return A vector of integers corresponding to the unique values in the
+#' @return A vector of `integers` corresponding to the unique values in the
 #'   attribute `"uniques"`.
 #' @examples
-#'\dontrun{
 #' set.seed(42)
 #' (x <- sample(letters, 10, TRUE))
 #' (pid <- pseudo_id(x))
 #' attr(pid, "uniques")[pid]
-#' }
+#'
 #' @export
 pseudo_id <- function(x) {
   UseMethod("pseudo_id", x)

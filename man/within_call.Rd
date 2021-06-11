@@ -18,6 +18,9 @@ outer_fun(n = 0)
 \arguments{
 \item{n}{The number of calls to move out from}
 }
+\value{
+The string of the call/function
+}
 \description{
 Returns the function call you are within
 }

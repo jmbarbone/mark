@@ -5,6 +5,7 @@
 #' @param x A number or vector to round.
 #' @param by The number by which to round
 #' @param method An option to explicitly specify automatic rounding, ceiling, or floor
+#' @return A vector of `doubles` of the same length of `x`
 #'
 #' @export
 #'

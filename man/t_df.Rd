@@ -12,7 +12,8 @@ t_df(x, id = NULL)
 \item{id}{No longer used}
 }
 \value{
-A transposed data.frame
+A transposed \code{data.frame} with columns (\code{"colname"}, \code{"row_1"}, ...,
+for each row in \code{x}.
 }
 \description{
 This transposes a data.frame with \code{t()} but transforms back into a data.frame

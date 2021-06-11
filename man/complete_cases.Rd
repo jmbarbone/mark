@@ -15,7 +15,7 @@ will use all columns}
 \item{invert}{Logical, if \code{TRUE} will return incomplete cases}
 }
 \value{
-A data.frame
+A \code{data.frame}
 }
 \description{
 Return completed cases of a data.frame

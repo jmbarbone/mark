@@ -16,7 +16,7 @@ process_bib_dataframe(categories, values, fields, keys)
 \item{keys}{a Vector of keys}
 }
 \value{
-A wide data.frame with explicit NAs
+A wide \code{data.frame} with explicit \code{NA}s
 }
 \description{
 Generates a data frame of values from bibs

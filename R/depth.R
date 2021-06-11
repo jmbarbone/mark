@@ -8,12 +8,11 @@
 #'
 #' @param x An object
 #' @param ... Possible additional arguments passed to methods (not in use)
-#' @return A single integer
+#' @return A single `integer`
 #'
 #' @export
 #'
 #' @examples
-#'
 #' a <- c(1, 2, 3)
 #' depth(a) # Vectors are 1L
 #'

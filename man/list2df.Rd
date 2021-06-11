@@ -16,8 +16,8 @@ list2df(x, name = "name", value = "value", show_NA, warn = TRUE)
 \item{warn}{Logical; if TRUE will show a warning when}
 }
 \value{
-a \code{data.frame} object with columns "name" and "value" for the names
-of the \code{list} and the values in each
+a \code{data.frame} object with columns \code{"name"} and \code{"value"} for the
+names of the \code{list} and the values in each
 }
 \description{
 Converts a list object into a data.frame

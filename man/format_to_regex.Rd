@@ -14,12 +14,10 @@ described in \link[base:strptime]{base::strptime}}
 Format string to a regular expression
 }
 \examples{
-\dontrun{
-format_to_regex("\%Y-\%m-\%d")
-format_to_regex("\%b/\%d/\%y")
-format_to_regex("\%d \%B \%Y")
+mark:::format_to_regex("\%Y-\%m-\%d")
+mark:::format_to_regex("\%b/\%d/\%y")
+mark:::format_to_regex("\%d \%B \%Y")
 
-pattern <- format_to_regex("\%Y-\%m-\%d")
+pattern <- mark:::format_to_regex("\%Y-\%m-\%d")
 grepl(pattern, Sys.Date())
-}
 }

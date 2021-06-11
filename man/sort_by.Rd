@@ -13,6 +13,9 @@ sort_by(x, by, ...)
 
 \item{...}{Additional arguments passed to \code{base::order()}}
 }
+\value{
+The values of \code{x}, resorted
+}
 \description{
 Sort an object by another object
 }

@@ -6,7 +6,7 @@
 #' @param ... A named list by array dimension number and the value
 #' @param default The default dimension index
 #'
-#' @return An array
+#' @return A value from the array `arr`
 #' @export
 #' @examples
 #' x <- array(rep(NA, 27), dim = c(3, 3, 3))
@@ -14,7 +14,6 @@
 #' x[1, 2, 3]
 #' x
 #' array_extract(x, `2` = 2, `3` = 3)
-
 
 array_extract <- function(arr, ..., default = "1") {
   if (!is.array(arr)) {

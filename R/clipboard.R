@@ -12,31 +12,32 @@
 #' @param ... Additional arguments sent to methods
 #'
 #' @return
-#' `write_clipboard()` \code{None}
-#' `read_clipboard()` Either a vector, data.frame, or tibble depending on the
-#'   `method` chosen
+#' `write_clipboard()` None, called for side effects
+#' `read_clipboard()` Either a vector, `data.frame`, or `tibble` depending on
+#'   the `method` chosen
 #'
 #' @name clipboard
 #' @examples
-#' \dontrun{
-#' foo <- function(x) {
-#'   write_clipboard(x)
-#'   y <- read_clipboard()
-#'   res <- all.equal(x, y)
-#'   if (isTRUE(res)) return("All equal")
-#'   print(x)
-#'   print(y)
-#' }
-#' foo(1:4)
-#' foo(seq(-1, 1, .02))
-#' foo(Sys.Date() + 1:4)
+#' # Will only run on windows
+#' if (Sys.info()[["sysname"]] == "Windows") {
+#'   foo <- function(x) {
+#'     write_clipboard(x)
+#'     y <- read_clipboard()
+#'     res <- all.equal(x, y)
+#'     if (isTRUE(res)) return("All equal")
+#'     print(x)
+#'     print(y)
+#'   }
+#'   foo(1:4)
+#'   foo(seq(-1, 1, .02))
+#'   foo(Sys.Date() + 1:4)
 #'
-#' # May have some rounding issues
-#' x <- "0.316362437326461129"
-#' write_clipboard(x)
-#' res <- as.character(read_clipboard())
-#' all.equal(x, res)
-#' x; res
+#'   # May have some rounding issues
+#'   x <- "0.316362437326461129"
+#'   write_clipboard(x)
+#'   res <- as.character(read_clipboard())
+#'   all.equal(x, res)
+#'   x; res
 #' }
 
 #' @export

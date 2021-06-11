@@ -11,6 +11,9 @@ base_alpha(x, base = 26)
 
 \item{base}{A numeric}
 }
+\value{
+A vector of integers
+}
 \description{
 Base 26 conversion with letters
 }

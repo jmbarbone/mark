@@ -11,6 +11,9 @@ package \%colons\% name
 
 \item{name}{Name to retrieve}
 }
+\value{
+The variable \code{name} from package \code{package}
+}
 \description{
 Get an object from a package
 }

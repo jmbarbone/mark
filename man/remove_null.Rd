@@ -9,6 +9,9 @@ remove_null(x)
 \arguments{
 \item{x}{A list}
 }
+\value{
+The list \code{x} without \code{NULL}
+}
 \description{
 Remove NULL results from a list
 }

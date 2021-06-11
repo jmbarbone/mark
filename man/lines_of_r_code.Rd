@@ -13,7 +13,7 @@ lines_of_r_code(x = ".", skip_empty = TRUE)
 only contain a bracket or quotation mark.}
 }
 \value{
-An integer for the number of lines in all applicable files
+An \code{integer} for the number of lines in all applicable files
 }
 \description{
 Find the total number of lines of R code

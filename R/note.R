@@ -20,19 +20,24 @@
 #' @param value The note to attach; if `NULL` will remove the note and the
 #'   class `noted` from the object.
 #' @param ... Additional arguments passed from methods (not used)
+#' @return
+#' * `note<-` will return `x` (with the `"note"` attribute assigned)
+#' * `note()` will retrieve the `"note"` attribute
 #'
 #' @examples
 #' x <- c("x", "k", "c", "d")
 #' comment(x) <- "This is just a comment"
 #' comment(x)
+#'
 #' # Comment is intentionally hidden
 #' x
 #' note(x) <- "Just some random letters"
 #' note(x)
+#'
 #' # Note is now present every time
 #' x
 #'
-#' # Assinging `NULL` will remove note (and class)
+#' # Assigning `NULL` will remove note (and class)
 #' note(x) <- NULL
 #' note(x) # NULL
 #' x       # No more note

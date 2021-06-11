@@ -53,25 +53,27 @@ column is the targeted colname and the second is the desired label.}
 label attribute across all columns}
 }
 \value{
-A labelled vector or data.frame
+A labelled vector or \code{data.frame}
 }
 \description{
 Assign labels to a vector or data.frame.
 }
+\details{
+When labels are assigned to a data.frame they can make viewing the object
+(with \code{View()} inside Rstudio).  The \code{view_labels()} has a call to \code{View()}
+inside and will retrieve the labels and show them in the viewer as a
+data.frame.
+}
 \examples{
-## Best when run with RStudio
-
 labs <- assign_label(iris,
                      Sepal.Length = "cms",
                      Sepal.Width  = "cms",
                      Petal.Length = "cms",
                      Petal.Width  = "cms",
                      Species      = "Iris ...")
-# View(labs)
 
 labs$dummy <- ""
 get_labels(labs) # shows label as <NA> for dummy column
-# view_labels(labs)
 
 labs0 <- remove_labels(labs, c("Sepal.Length", "Sepal.Width"))
 get_labels(labs0) # No labels for Sepal.Length and Sepal.Width

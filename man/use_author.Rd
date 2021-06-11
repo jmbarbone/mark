@@ -9,6 +9,9 @@ use_author(author_info = find_author())
 \arguments{
 \item{author_info}{Author information as a named list}
 }
+\value{
+None, called for side effects
+}
 \description{
 Adds author to description
 }

@@ -13,7 +13,7 @@ is_file(x)
 \item{x}{A vector of file paths}
 }
 \value{
-A logical vector
+A \code{logical} vector
 }
 \description{
 Is the path a file/directory?

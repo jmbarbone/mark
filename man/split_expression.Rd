@@ -17,8 +17,7 @@ separate expressions to evaluate (and report) out one by one
 Split an expression into multiple expressions
 }
 \examples{
-\dontrun{
-ss <- split_expression({
+ss <- mark:::split_expression({
   mean(1:10)
   sample(
     letters,
@@ -30,7 +29,6 @@ ss <- split_expression({
 })
 
 for (i in ss) {
-  str(charexpr(i))
-}
+  str(mark:::charexpr(i))
 }
 }

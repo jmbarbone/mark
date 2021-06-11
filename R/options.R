@@ -10,13 +10,14 @@
 #' @returns Invisible, a list of the current options from `options()`
 #'
 #' @examples
-#' \dontrun{
+#' op <- options()
+#'
 #' x <- list(width = -20, warning.length = 2, probably_not_a_real_option = 2)
 #' checkOptions(x)
 #' # pointless, but shows that no messages are given
 #' identical(options(), checkOptions(options()))
-#' }
 #'
+#' options(op)
 #' @export
 checkOptions <- function(x) {
   if (!is.list(x)) {

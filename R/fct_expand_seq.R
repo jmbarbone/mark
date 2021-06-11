@@ -4,13 +4,12 @@
 #'
 #' @details
 #' Defaults for `min_lvl` and `max_lvl` are the minimum and maximum levels in the ordered vector `x`.
-#' This can be adjusted if we
 #'
 #' @param x An ordered factor
 #' @param min_lvl The start of the level sequence
 #' @param max_lvl The end of the level sequence
 #' @param by Integer, number of steps in between
-#' @return An ordered vector
+#' @return An `ordered` vector
 #'
 #' @examples
 #' x <- ordered(letters[c(5:15, 2)], levels = letters)

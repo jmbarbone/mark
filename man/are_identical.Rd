@@ -7,13 +7,14 @@
 are_identical(..., params = NULL)
 }
 \arguments{
-\item{...}{Vectors of values to compare, element-wise}
+\item{...}{Vectors of values to compare, element-wise of equal length}
 
 \item{params}{Additional params (as a named list of arguments for
 \link[base:identical]{base::identical})}
 }
 \value{
-A logical vector of \code{TRUE}/\code{FALSE}
+A \code{logical} vector of \code{TRUE}/\code{FALSE} of equal length of each \code{...}
+vector
 }
 \description{
 Extensions for the use of \code{base::identical()}

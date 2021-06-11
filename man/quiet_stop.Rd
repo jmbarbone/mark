@@ -6,6 +6,9 @@
 \usage{
 quiet_stop()
 }
+\value{
+None, called for side effects
+}
 \description{
 Quietly calls stop
 }

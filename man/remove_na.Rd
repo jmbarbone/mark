@@ -9,6 +9,9 @@ remove_na(x)
 \arguments{
 \item{x}{A vector}
 }
+\value{
+\code{x} without values where \code{is.na(x)} is \code{TRUE}
+}
 \description{
 Remove NAs from a vector
 }

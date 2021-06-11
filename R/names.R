@@ -8,7 +8,7 @@ is_named <- function(x) {
 #' Sort a vector by it's name
 #'
 #' @param x A vector
-#'
+#' @return `x`. sorted by its `names()`
 #' @export
 sort_names <- function(x) {
   if (!is_named(x) || !is.vector(x)) {
@@ -24,6 +24,10 @@ sort_names <- function(x) {
 #'
 #' @param x A vector of values
 #' @param nm A vector of names
+#' @return
+#' * `set_names0()`: `x` with `nm` values assigned to names
+#' * `remove_names()`: `x` without names
+#' * `names_switch()`: `character` vector of equal length `x` where names and values are switched
 #'
 #' @export
 set_names0 <- function(x, nm = x) {

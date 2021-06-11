@@ -19,7 +19,7 @@ props(x, ...)
 \method{props}{data.frame}(x, cols, sort = FALSE, ..., .name = "prop")
 }
 \arguments{
-\item{x}{A vector or data.frame}
+\item{x}{A vector or \code{data.frame}}
 
 \item{...}{Arguments passed to other methods}
 
@@ -32,9 +32,9 @@ which already return in the order of \code{FALSE}, \code{TRUE}, \code{NA}.}
 \item{.name}{The name of the new column}
 }
 \value{
-A named vector of integers or doubles (for \code{counts}, and \code{props},
-respectively) or data.frame with columns for each column chosen and the
-\code{.name} chosen for the summary.
+A named vector of \code{integer}s or \code{double}s (for \code{counts}, and \code{props},
+respectively) or \code{data.frame} with columns for each column chosen and the
+\code{.name} chosen for the summary
 }
 \description{
 Variables will be return by the order in which they appear.  Even factors are
@@ -47,7 +47,7 @@ counts \code{TRUE}, \code{FALSE} and \code{NA} values, which is much quicker.
 }
 \details{
 Get counts or proportions of unique observations in a vector or columns in a
-data.frame
+\code{data.frame}
 }
 \examples{
 x <- sample(1:5, 10, TRUE)

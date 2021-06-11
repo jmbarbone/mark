@@ -17,6 +17,7 @@
 #' @param y Either a suitable value (see `Details`) or a function which accepts
 #'   `x` as its first parameter and can return suitable values
 #' @param ... Additional values passed to `y` (if `y` is a function)
+#' @return `x` with assigned `NA` values
 #'
 #' @seealso Inspired by [dplyr::na_if()]
 #'

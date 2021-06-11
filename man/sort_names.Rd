@@ -9,6 +9,9 @@ sort_names(x)
 \arguments{
 \item{x}{A vector}
 }
+\value{
+\code{x}. sorted by its \code{names()}
+}
 \description{
 Sort a vector by it's name
 }

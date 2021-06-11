@@ -24,6 +24,9 @@ NA_out(x, y, ...)
 
 \item{...}{Additional values passed to \code{y} (if \code{y} is a function)}
 }
+\value{
+\code{x} with assigned \code{NA} values
+}
 \description{
 Converts select elements of a vector into \code{NA}s
 

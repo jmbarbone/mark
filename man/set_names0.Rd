@@ -17,6 +17,13 @@ names_switch(x)
 
 \item{nm}{A vector of names}
 }
+\value{
+\itemize{
+\item \code{set_names0()}: \code{x} with \code{nm} values assigned to names
+\item \code{remove_names()}: \code{x} without names
+\item \code{names_switch()}: \code{character} vector of equal length \code{x} where names and values are switched
+}
+}
 \description{
 Sets or removes names
 }

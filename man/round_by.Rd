@@ -13,6 +13,9 @@ round_by(x, by = 1, method = c("round", "ceiling", "floor"))
 
 \item{method}{An option to explicitly specify automatic rounding, ceiling, or floor}
 }
+\value{
+A vector of \code{doubles} of the same length of \code{x}
+}
 \description{
 Rounds a number or vector of numbers by another
 }

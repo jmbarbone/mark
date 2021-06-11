@@ -11,7 +11,6 @@
 #' @param ... Additional arguments passed to [base::source()]
 #'
 #' @details
-#'
 #' `try_source()` will output an error message rather than completely preventing
 #'   the execution.
 #' This can be useful for when a script calls on multiple, independent files to
@@ -19,6 +18,9 @@
 #'   well.
 #'
 #' @name sourcing
+#' @return
+#' * `ksource()`: Invisibly, the result of calling `source()` on the `.R` file conversion of `file`
+#' * `try_source()`, `try_ksource()`: attempts of `source()` and `ksource()` but converts errors to warnings
 #' @export
 
 ksource <- function(file, ..., quiet = TRUE, cd = FALSE, env = parent.frame()) {
@@ -73,11 +75,11 @@ try_ksource <- function(file, ...) {
 #'
 #' @param rmd_file Absolute path to rmd file
 #' @param label_name Name of label
+#' @return The value from the evaluated code chunk
 #'
 #' @export
 #'
 #' @examples
-#' \dontrun{
 #' temp_rmd <- tempfile(fileext = ".rmd")
 #'
 #' text <- '
@@ -101,7 +103,6 @@ try_ksource <- function(file, ...) {
 #' eval_named_chunk(temp_rmd, "hello label")
 #' # [1] "hello, world"
 #' # [1] TRUE
-#' }
 
 eval_named_chunk <- function(rmd_file, label_name) {
   if (!grepl("\\.[Rr][Mm][Dd]$", rmd_file)) {
@@ -131,6 +132,7 @@ eval_named_chunk <- function(rmd_file, label_name) {
 #' @param path The location of the R file.
 #' @inheritParams base::source
 #' @param ... Additional arguments passed to [base::source()]
+#' @return None, called for side effects
 #'
 #' @export
 #' @name source_files
@@ -188,6 +190,7 @@ source_r_file <- function(path, echo = FALSE, quiet = FALSE, ...) {
 #'
 #' @param x An R script
 #' @param ops Options to be passed to [mark::rscript]
+#' @return Invisibly, and environment variable of the objects/results created from `x`
 #' @export
 source_to_env <- function(x, ops = NULL) {
   rds_file <- mark_temp(".Rds")
@@ -239,6 +242,8 @@ source_to_env <- function(x, ops = NULL) {
 #' @param ops A character vector of options (`"--"` is added to each)
 #' @param args A character vector of other arguments to pass
 #' @param ... Additional arguments passed to `system2`
+#' @return A `character` vector of the result from calling `Rscript` via
+#'   `system2()`
 #'
 #' @seealso [mark::source_to_env]
 #' @export
@@ -263,6 +268,7 @@ rscript <- function(x, ops = NULL, args = NULL, ...) {
 #' @param env The parent environment
 #' @param file The file to save the environment to
 #' @param name An optional name for the environment (mostly cosmetic)
+#' @return A `source_env`/`environment` object, created from `env`
 #'
 #' @export
 save_source <- function(env = parent.frame(), file = mark_temp("Rds"), name = NULL) {

@@ -2,11 +2,12 @@
 #'
 #' Extensions for the use of `base::identical()`
 #'
-#' @param ... Vectors of values to compare, element-wise
+#' @param ... Vectors of values to compare, element-wise of equal length
 #' @param params Additional params (as a named list of arguments for
 #'   [base::identical])
 #'
-#' @return A logical vector of `TRUE`/`FALSE`
+#' @return A `logical` vector of `TRUE`/`FALSE` of equal length of each `...`
+#'   vector
 #'
 #' @examples
 #' x <- y <- z <- 1:5
@@ -21,6 +22,10 @@
 are_identical <- function(..., params = NULL) {
   x <- list(...)
   n <- length(x)
+
+  if (length(unique(lengths(x))) != 1L) {
+    stop("... must have equal length vectors", call. = FALSE)
+  }
 
   if (n < 2L) {
     stop("... must have length of 2 or more", call. = FALSE)
