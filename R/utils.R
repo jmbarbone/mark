@@ -16,6 +16,7 @@ magrittr::`%>%`
 #' @param x,y If `x` is `NULL` returns `y`; otherwise `x`
 #'
 #' @name null_default
+#' @noRd
 `%||%` <- function(x, y) {
   if (is.null(x)) y else x
 }
@@ -108,16 +109,19 @@ that <- function(x, arr.ind = FALSE, useNames = TRUE) {
 #'
 #' @param x A vector
 #' @name length_check
+#' @noRd
 is_length0 <- function(x) {
   !is.null(x) && no_length(x)
 }
 
 #' @rdname length_check
+#' @noRd
 no_length <- function(x) {
   length(x) == 0L
 }
 
 #' @rdname length_check
+#' @noRd
 has_length <- function(x) {
   !no_length(x)
 }

@@ -126,6 +126,7 @@ props.data.frame <- function(x, cols, sort = FALSE, ..., .name = "prop") {
 #'   be counted
 #' @param name A name for the new column
 #' @param sort Logical, if `TRUE` sorts the output; This will sort based
+#' @noRd
 counts_n <- function(x, name = "freq", sort = FALSE) {
 
   # Can I save the call to unique here?
@@ -153,6 +154,7 @@ counts_n <- function(x, name = "freq", sort = FALSE) {
 }
 
 #' @rdname counts_n
+#' @noRd
 props_n <- function(x, sort = FALSE, name = "props") {
   res <- counts_n(x, name %||% "prop", sort = sort)
   n <- ncol(res)

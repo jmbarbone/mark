@@ -35,8 +35,6 @@ diff_time_secs(x, y, ...)
 
 diff_time_months(x, y, ...)
 
-diff_time_months(x, y, ...)
-
 diff_time_years(x, y, ...)
 
 diff_time_dyears(x, y, ...)
@@ -99,6 +97,3 @@ number of seconds from GMT) or as a character vector.  If the letter, these
 need to conform with values from \code{base::OlsonNames()}.
 }
 
-\seealso{
-\link{time_inherits}
-}

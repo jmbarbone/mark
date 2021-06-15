@@ -51,7 +51,7 @@ get_dir_recent_date <- function(x = ".", dt_pattern = NULL, dt_format = NULL, al
 #' Finds the directory where the number is the greatest.  This can be useful for when folders are created as run IDs.
 #'
 #' @param x The directory to look in
-#' @return A full patht to a directory
+#' @return A full path to a directory
 #' @export
 
 get_dir_max_number <- function(x) {

@@ -132,6 +132,7 @@ simpleTimeReport <- function(title = NULL, expr, envir = parent.frame()) {
 #' @param stop A stop time (default to `Sys.time()`)
 #' @param threshold A threshold for reporting the difference, if `stop - start`
 #'   is less than this, a empty character vector (`""`) is returned
+#' @noRd
 formatTimeDiff <- function(start, stop = Sys.time(), threshold = .1) {
   difference <- stop - start
 
@@ -169,6 +170,7 @@ formatTimeDiff <- function(start, stop = Sys.time(), threshold = .1) {
 #' for (i in ss) {
 #'   str(mark:::charexpr(i))
 #' }
+#' @noRd
 split_expression <- function(expr) {
   if (!is.expression(expr)) {
     expr <- as.expression(substitute(expr))

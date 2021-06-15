@@ -103,6 +103,7 @@ read_clipboard <- function(method = c("default", "data.frame", "tibble"), ...) {
 #' A wrapper for reading a table
 #'
 #' @inheritParams utils::read.table
+#' @noRd
 do_read_table_clipboard <- function(
   header           = TRUE,
   # Copying form Excel produces tab separations

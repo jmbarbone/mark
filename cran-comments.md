@@ -13,72 +13,22 @@
 ## Resubmission
 This is a resubmission.  In this version I have:
 
-* revises the package description in DESCRIPTION
-* adds build date/time
-* added \value{} tags for functions
-  * base_alpha.Rd
-  * chr_split.Rd
-  * ept.Rd
-  * eval_named_chunk.Rd
-  * file_utils.Rd
-  * flip.Rd
-  * get_dir_max_number.Rd
-  * get_dir_recent_date.Rd
-  * get_version.Rd
-  * grapes-colons-grapes.Rd
-  * import.Rd
-  * list_environments.Rd
-  * logic_ext.Rd
-  * match_arg.Rd
-  * match_ext.Rd
-  * match_param.Rd
-  * median2.Rd
-  * muffle.Rd
-  * na_assignments.Rd
-  * not_available.Rd
-  * note.Rd
-  * quiet_stop.Rd
-  * range2.Rd
-  * recode_by.Rd
-  * reindex.Rd
-  * remove_na.Rd
-  * remove_null.Rd
-  * require_namespace.Rd
-  * round_by.Rd
-  * script.Rd
-  * save_source.Rd
-  * set_names0.Rd
-  * simpleTimeReport.Rd
-  * sort_by.Rd
-  * sort_names.Rd
-  * source_files.Rd
-  * source_to_env.Rd
-  * sourcing.Rd
-  * str_slice.Rd
-  * switch-ext.Rd
-  * that.Rd
-  * to_boolean.Rd
-  * use_author.Rd
-  * utils-paste.Rd
-  * with_par.Rd
-  * within_call.Rd
-* removed \dontrun{}
-  * checkOptions.Rd
-  * clipboard.Rd (runs conditionally on windows)
-  * fizzbuzz.Rd (uses \donttest{})
+* reviewed \value{} tags; removed Rd files for non-exported functions
+  * counts_n.Rd
+  * diff_time.Rd
+  * do_read_table_clipboard.Rd
   * format_to_regex.Rd
-  * import.Rd
-  * mapply0.Rd (uses try())
-  * norm_path.Rd
-  * pseudo_id.Rd
-  * range2.Rd
-  * read_bib.Rd (conditionally runs with available packages; uses \donttest{})
-  * recode_by.Rd
-  * require_namespace.Rd (uses try())
+  * formatTimeDiff.Rd
+  * length_check.Rd
+  * loadAllNamespace.Rd
+  * mapply0.Rd
+  * null_efault.Rd
   * split_expression.Rd
-  * switch-ext.Rd (uses try())
-  * with_par.Rd
-* removed commented out code
-  * lables.Rd
-* references
-  * there are no references to methods
+  * time_inherits.Rd
+* These functions were mistakenly flagged as non-exported functions and do not appear in the Rd files noted.  Rd files are removed as per above:
+  * diff_time_hours() in: format_to_regex.Rd
+  * newest_file() in: mapply0.Rd
+  * get_error() in: split_expression.Rd
+    
+  
+  

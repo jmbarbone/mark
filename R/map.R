@@ -16,6 +16,7 @@
 #' # or pass as list
 #' x <- list(a = 1:2, b = NULL, c = 3)
 #' mark:::mapply0(foo, x)
+#' @noRd
 mapply0 <- function(FUN, params = NULL, ...) {
   params <- c(params,  list(...))
 

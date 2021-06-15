@@ -41,8 +41,6 @@
 #' @param ... Additional arguments passed to `diff_time()`
 #' @return A `diff_time` vector, object
 #'
-#' @seealso [mark::time_inherits]
-#'
 #' @export
 #' @name diff_time
 diff_time <- function(
@@ -220,12 +218,6 @@ diff_time_months <- function(x, y, ...) {
 
 #' @export
 #' @rdname diff_time
-diff_time_months <- function(x, y, ...) {
-  diff_time(x, y, method = "months", ...)
-}
-
-#' @export
-#' @rdname diff_time
 diff_time_years <- function(x, y, ...) {
   diff_time(x, y, method = "years", ...)
 }
@@ -259,16 +251,19 @@ diff_time_myears <- function(x, y, ...) {
 #'
 #' @seealso [mark::diff_time]
 #' @name time_inherits
+#' @noRd
 is_POSIXlt <- function(x) {
   inherits(x, "POSIXlt")
 }
 
 #' @rdname time_inherits
+#' @noRd
 is_POSIXct <- function(x) {
   inherits(x, "POSIXct")
 }
 
 #' @rdname time_inherits
+#' @noRd
 is_diff_time <- function(x) {
   inherits(x, "diff_time")
 }

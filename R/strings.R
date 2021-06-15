@@ -139,6 +139,7 @@ string_extract_all <- function(x, pattern, perl = FALSE, ignore.case = FALSE) {
 #'
 #' pattern <- mark:::format_to_regex("%Y-%m-%d")
 #' grepl(pattern, Sys.Date())
+#' @noRd
 format_to_regex <- function(x) {
   # may not need to be so comprehensive because a bad date will fail with the
   #   date parsing anyway
@@ -193,7 +194,7 @@ chr_split <- function(x) {
 #' @param x A vector (defaults to reading the clipboard)
 #' @param sorted If `TRUE` (default) applies `sort()` to `x`
 #' @param null If `TRUE` (default) adds `NULL` at the end of the `c()` print
-#' @return Invisibly, as a `character` vector, the objet printed to the console
+#' @return Invisibly, as a `character` vector, the object printed to the console
 #' @examples
 #' print_c(1:10)
 #' print_c(letters[1:3])

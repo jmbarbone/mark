@@ -7,6 +7,7 @@
 #'
 #' @param namespace The name of the namespace
 #' @inheritParams base::attach
+#' @noRd
 
 loadAllNamespace <- function(namespace, warn.conflicts = TRUE) {
   ls <- ls(all.names = TRUE, envir = asNamespace(namespace))
