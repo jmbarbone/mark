@@ -6,6 +6,8 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/jmbarbone/mark/workflows/R-CMD-check/badge.svg)](https://github.com/jmbarbone/mark/actions)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/mark)](https://CRAN.R-project.org/package=mark)
 <!-- badges: end -->
 
 Miscellaneous, Analytic R Kernels
