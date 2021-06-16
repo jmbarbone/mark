@@ -1,7 +1,7 @@
 Package: mark
 Type: Package
 Title: Miscellaneous, Analytic R Kernels
-Version: 0.1.3
+Version: 0.1.3.9000
 Date: 2021-06-08
 Authors@R:
     person(given   = "Jordan Mark",
