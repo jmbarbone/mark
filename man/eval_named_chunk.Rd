@@ -41,4 +41,6 @@ writeLines(text, con = temp_rmd)
 eval_named_chunk(temp_rmd, "hello label")
 # [1] "hello, world"
 # [1] TRUE
+
+file.remove(temp_rmd)
 }

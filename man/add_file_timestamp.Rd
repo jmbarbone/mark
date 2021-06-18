@@ -20,6 +20,11 @@ The full name paths with the appended time stamp
 Adds a timestamp to a file
 }
 \examples{
-add_file_timestamp(tempfile(fileext = ".txt"))
-add_file_timestamp(tempfile())
+file1 <- tempfile(fileext = ".txt")
+file2 <- tempfile()
+
+add_file_timestamp(file1)
+add_file_timestamp(file2)
+
+file.remove(file1, file2)
 }

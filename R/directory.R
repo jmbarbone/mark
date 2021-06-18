@@ -399,8 +399,13 @@ file_name <- function(x, compression = FALSE) {
 #' @return The full name paths with the appended time stamp
 #' @export
 #' @examples
-#' add_file_timestamp(tempfile(fileext = ".txt"))
-#' add_file_timestamp(tempfile())
+#' file1 <- tempfile(fileext = ".txt")
+#' file2 <- tempfile()
+#'
+#' add_file_timestamp(file1)
+#' add_file_timestamp(file2)
+#'
+#' file.remove(file1, file2)
 add_file_timestamp <- function(x, ts = Sys.time(), format = "%Y-%m-%d %H%M%S") {
   if (!is.null(format)) {
     ts <- format(ts, format = format)

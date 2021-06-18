@@ -1,6 +1,5 @@
 test_that("eval_named_chunk()", {
-  temp_rmd <- tempfile(fileext = ".rmd")
-  on.exit(file.remove(temp_rmd), add = TRUE)
+  temp_rmd <- mark_temp(".rmd")
 
   text <- '
   ```{r not this label}
@@ -23,6 +22,7 @@ test_that("eval_named_chunk()", {
     eval_named_chunk(temp_rmd, "hello label"),
     '\\[1\\] "hello, world"\n\\[1\\] TRUE'
   )
+  file.remove(temp_rmd)
 })
 
 test_that("Rscript", {

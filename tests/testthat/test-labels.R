@@ -42,7 +42,6 @@ test_that("data.frame assignment", {
 
 test_that("data.frame assign with data.frame", {
   op <- options()
-  on.exit(options(op), add = TRUE)
   options(stringsAsFactors = FALSE)
 
   x <- assign_labels(iris, Sepal.Length = "a", Species = "b")
@@ -70,4 +69,6 @@ test_that("data.frame assign with data.frame", {
   )
   expect_error(assign_labels(iris, bad_labels),
                "Columns not found: a, b, 1")
+
+  options(op)
 })

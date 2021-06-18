@@ -103,6 +103,8 @@ try_ksource <- function(file, ...) {
 #' eval_named_chunk(temp_rmd, "hello label")
 #' # [1] "hello, world"
 #' # [1] TRUE
+#'
+#' file.remove(temp_rmd)
 
 eval_named_chunk <- function(rmd_file, label_name) {
   if (!grepl("\\.[Rr][Mm][Dd]$", rmd_file)) {
@@ -310,34 +312,6 @@ print.source_env <- function(x, ...) {
     sep = ""
   )
   invisible(x)
-}
-
-mark_temp <- function(ext = "") {
-  if (!grepl("^[.]", ext) && !identical(ext, "") && !is.na(ext)) {
-    ext <- paste0(".", ext)
-  }
-
-  file <- basename(tempfile("", fileext = ext))
-  path <- file_path(mark_dir(), "_temp_files")
-
-  if (!dir.exists(path)) {
-    dir.create(path, recursive = TRUE)
-  }
-
-  file_path(norm_path(path), file)
-}
-
-mark_dir <- function() {
-  # Not not available in prior editions
-  rud <- get0("R_user_dir", envir = asNamespace("tools"), mode = "function")
-
-  if (is.null(rud)) {
-    dm <- file_path(tempdir(), "_R_mark")
-    if (!is_dir(dm)) dir.create(dm)
-    return(dm)
-  }
-
-  ("tools" %colons% "R_user_dir")("mark")
 }
 
 utils::globalVariables(c("source_file_r", "quiet"))

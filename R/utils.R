@@ -152,3 +152,44 @@ which_unwrap <- function(w, n = max(w)) {
 cat0 <- function(...) cat(..., sep = "")
 catln <- function(...) cat(..., sep = "\n")
 charexpr <- function(x) as.character(as.expression(x))
+
+
+mark_temp <- function(ext = "") {
+  if (!grepl("^[.]", ext) && !identical(ext, "") && !is.na(ext)) {
+    ext <- paste0(".", ext)
+  }
+
+  file <- basename(tempfile("", fileext = ext))
+  path <- file_path(mark_dir(), "_temp_files")
+
+  if (!dir.exists(path)) {
+    dir.create(path, recursive = TRUE)
+  }
+
+  file_path(norm_path(path), file)
+}
+
+mark_dir <- function() {
+  if (r_version() >= 4) {
+    dm <- file_path(tempdir(), "_R_mark")
+    if (!is_dir(dm)) dir.create(dm)
+    return(dm)
+  }
+
+  # Not not available in prior editions
+  rud <- get0("R_user_dir", envir = asNamespace("tools"), mode = "function")
+
+  if (is.null(rud)) {
+    stop(
+      "Something went wrong\n",
+      "  tools::R_user_dir() not found with R version ",
+      r_version()
+    )
+  }
+
+  norm_path(rud("mark"), check = TRUE)
+}
+
+r_version <- function() {
+  as.numeric_version(with(R.version, sprintf("%s.%s", major, minor)))
+}
