@@ -1,4 +1,4 @@
-# mark (development version)
+# mark 0.1.4
 
 * no visible user changes
 * removes temporarily created files [#22](https://github.com/jmbarbone/mark/issues/22)
