@@ -33,7 +33,7 @@ ksource <- function(file, ..., quiet = TRUE, cd = FALSE, env = parent.frame()) {
   source(
     knitr::purl(
       file,
-      output = tempfile(),
+      output = mark_temp(),
       quiet = quiet
     ),
     chdir = cd,
@@ -195,10 +195,10 @@ source_r_file <- function(path, echo = FALSE, quiet = FALSE, ...) {
 #' @return Invisibly, and environment variable of the objects/results created from `x`
 #' @export
 source_to_env <- function(x, ops = NULL) {
-  rds_file <- mark_temp(".Rds")
-  r_temp   <- mark_temp(".R")
-  std_out  <- mark_temp(".md")
-  std_err  <- mark_temp(".md")
+  rds_file <- mark_temp("Rds")
+  r_temp   <- mark_temp("R")
+  std_out  <- mark_temp("md")
+  std_err  <- mark_temp("md")
 
   file.copy(x, r_temp)
 
@@ -230,7 +230,7 @@ source_to_env <- function(x, ops = NULL) {
 
   on.exit({
     close(con)
-    file.remove(r_temp, rds_file)
+    file.remove(r_temp, rds_file, std_out, std_err)
   }, add = TRUE)
 
   invisible(res)

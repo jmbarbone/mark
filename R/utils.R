@@ -160,19 +160,15 @@ mark_temp <- function(ext = "") {
   }
 
   file <- basename(tempfile("", fileext = ext))
-  path <- file_path(mark_dir(), "_temp_files")
-
-  if (!dir.exists(path)) {
-    dir.create(path, recursive = TRUE)
-  }
-
-  file_path(norm_path(path), file)
+  path <- file_path(mark_dir())
+  dir.create(path, recursive = TRUE, showWarnings = FALSE)
+  file_path(path, file)
 }
 
 mark_dir <- function() {
-  if (r_version() >= 4) {
-    dm <- file_path(tempdir(), "_R_mark")
-    if (!is_dir(dm)) dir.create(dm)
+  if (r_version() < 4) {
+    dm <- file_path(tempdir(), "_R_mark_temp_files")
+    dir.create(dm, recursive = TRUE, showWarnings = FALSE)
     return(dm)
   }
 
@@ -187,7 +183,9 @@ mark_dir <- function() {
     )
   }
 
-  norm_path(rud("mark"), check = TRUE)
+  res <- rud("mark")
+  dir.create(res, recursive = TRUE, showWarnings = FALSE)
+  res
 }
 
 r_version <- function() {

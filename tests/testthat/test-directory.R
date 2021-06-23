@@ -1,4 +1,3 @@
-# unlink(tempdir(), recursive = TRUE)
 
 test_that("tests with temp dir", {
   expect_equal_path <- function(x, y) {
