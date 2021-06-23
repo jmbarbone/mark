@@ -166,7 +166,8 @@ mark_temp <- function(ext = "") {
 }
 
 mark_dir <- function() {
-  if (r_version() < 4) {
+  R <- getRversion()
+  if (R < 4) {
     dm <- file_path(tempdir(), "_R_mark_temp_files")
     dir.create(dm, recursive = TRUE, showWarnings = FALSE)
     return(dm)
@@ -176,18 +177,10 @@ mark_dir <- function() {
   rud <- get0("R_user_dir", envir = asNamespace("tools"), mode = "function")
 
   if (is.null(rud)) {
-    stop(
-      "Something went wrong\n",
-      "  tools::R_user_dir() not found with R version ",
-      r_version()
-    )
+    stop("tools::R_user_dir() not found with R ", R)
   }
 
   res <- rud("mark")
   dir.create(res, recursive = TRUE, showWarnings = FALSE)
   res
-}
-
-r_version <- function() {
-  as.numeric_version(with(R.version, sprintf("%s.%s", major, minor)))
 }
