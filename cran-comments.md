@@ -11,3 +11,4 @@
 * This is a patch release
 
 * Removes files saved in mark_temp() on detach
+* Updated Date in Description
