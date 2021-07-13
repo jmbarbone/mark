@@ -30,15 +30,9 @@ ksource <- function(file, ..., quiet = TRUE, cd = FALSE, env = parent.frame()) {
     stop("env is not an environment", call. = FALSE)
   }
 
-  source(
-    knitr::purl(
-      file,
-      output = mark_temp(),
-      quiet = quiet
-    ),
-    chdir = cd,
-    local = env
-  )
+  o <- mark_temp("R")
+  on.exit(file.remove(o), add = TRUE)
+  source(knitr::purl(file, output = o, quiet = quiet), chdir = cd, local = env)
 }
 
 

@@ -10,10 +10,4 @@
 
 * This is a patch release
 
-* Removes created temp files:
-  * Example in: add_file_timestamp.Rd
-  * Example in: eval_named_chunk.Rd
-  * In test: test-sourcing.Rmd
-  * Removes temporary files when running source_to_env()
-  * Simplified temp files/directories using tools::R_user_home() and tempdir()
-  
+* Removes files saved in mark_temp() on detach
