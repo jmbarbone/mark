@@ -91,6 +91,7 @@ print_no_attr <- function(x, ...) {
 #' @export
 #' @seealso [base::which()]
 that <- function(x, arr.ind = FALSE, useNames = TRUE) {
+  # TODO consider that() as #seq_along(x)[x]?
   which(x, arr.ind = arr.ind, useNames = useNames)
 }
 
@@ -183,4 +184,15 @@ mark_dir <- function() {
   res <- rud("mark")
   dir.create(res, recursive = TRUE, showWarnings = FALSE)
   res
+}
+
+check_is_vector <- function(x, mode = "any") {
+  if (is.object(x) | !is.vector(remove_attributes(x), mode)) {
+    stop(deparse(substitute(x)), " must be a vector of mode ", mode, call. = FALSE)
+  }
+}
+
+remove_attributes <- function(x) {
+  attributes(x) <- NULL
+  x
 }

@@ -4,6 +4,7 @@
 ## Changes
 
 * `fact.character()` correctly labels `NA`s [#24](https://github.com/jmbarbone/mark/issues/24)
+* functions that check if an argument is a vector no long use `is.vector()` directly; arguments passed with attributes that when removed fulfill `is.vector()` are accepted
 
 ## New features
 

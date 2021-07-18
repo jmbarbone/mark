@@ -202,9 +202,7 @@ chr_split <- function(x) {
 #'
 #' @export
 print_c <- function(x = read_clipboard(), sorted = TRUE, null = TRUE) {
-  if (!is.vector(x)) {
-    stop("`x` must be a vector", call. = FALSE)
-  }
+  check_is_vector(x)
 
   x <- unique(unlist(x))
 
