@@ -13,6 +13,7 @@
 * `fact.pseudo_id()` and `pseudo_id.pseudo_id()` methods added
 * adds `as_ordered()` to quickly create `ordered` factors using `fact()`
 * adds `char2fact()` to convert `character` vectors (or columns in a `data.frame`) to `factors` based on the number unique values
+* adds `tableNA()` to make a table from `NA` values
 
 # mark 0.1.4
 

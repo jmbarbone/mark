@@ -79,3 +79,41 @@ is_na_cols <- function(x, names = TRUE) {
 
   vap_lgl(x, function(xx) all(is.na(xx)), .nm = names)
 }
+
+#' Table NA values
+#'
+#' Tables out whether data are NAs are not
+#'
+#' @details
+#' All data are checked with `is.na()` and the resulting `TRUE` or `FALSE` is
+#'   are tabulated.
+#'
+#' @inherit base::table
+#' @param .list Logical, if `TRUE` and `...` is a `list`, will c
+#' @export
+#' @examples
+#' x <- list(a = c(1, 2, NA, 3), b = c("A", NA, "B", "C"), c = as.Date(c("2020-01-02", NA, NA, "2020-03-02")))
+#' tableNA(x) # entire list
+#' tableNA(x, .list = TRUE) # counts for each
+#' tableNA(x[1], x[2])
+#' tableNA(x[1], x[2], x[3]) # equivalent ot tableNA(x, .list = TRUE)
+
+# TODO add tests for tableNA()
+# TODO add tableNA() to NEWS.md
+
+tableNA <- function(..., .list = FALSE) {
+  # browser()
+  # This is from table():
+  # ls <- as.list(substitute(list(...)))[-1L]
+  # nm <- names(ls)
+  # fixup <- if (is.null(nm))
+  #   seq_along(ls)
+  # else nm == ""
+  ls <- if (.list)
+    as.list(...)
+  else
+    list(...)
+  if (is.null(names(ls)))
+    names(ls) <- as.character(sys.call())[-1]
+  table(lapply(ls, function(x) mark::fact(is.na(x))))
+}
