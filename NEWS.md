@@ -7,6 +7,7 @@
 * functions that check if an argument is a vector no long use `is.vector()` directly; arguments passed with attributes that when removed fulfill `is.vector()` are accepted
 * `package_available()` now visibly returns `TRUE`/`FALSE`
 * `todos()` and `fixmes()` now correctly show tags for `.Rmd` files
+* `remove_na()` now has methods for `list`s and `factor`s
 
 ## New features
 

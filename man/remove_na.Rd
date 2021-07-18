@@ -2,16 +2,45 @@
 % Please edit documentation in R/nas.R
 \name{remove_na}
 \alias{remove_na}
+\alias{remove_na.default}
+\alias{remove_na.list}
+\alias{remove_na.factor}
 \title{Remove NA}
 \usage{
 remove_na(x)
+
+\method{remove_na}{default}(x)
+
+\method{remove_na}{list}(x)
+
+\method{remove_na}{factor}(x)
 }
 \arguments{
-\item{x}{A vector}
+\item{x}{A vector of values}
 }
 \value{
 \code{x} without values where \code{is.na(x)} is \code{TRUE}
+For factors, a new factor (\code{ordered} if \code{is.ordered(x)})
 }
 \description{
 Remove NAs from a vector
+}
+\details{
+\code{remove_na.factor} will remove \code{NA} values as identified by the \code{levels()}
+or by the integer value of the level.  \code{factors} are recreated with all
+\code{NA} values and, if present, the \code{NA} \code{level} removed.
+}
+\examples{
+x <- c(4L, 1L, 2L, 1L, 4L, 1L, 3L, 2L)
+remove_na(x)
+
+# removes based on levels
+x <- structure(x, levels = c("b", NA, "a", "c"), class = "factor")
+remove_na(x)
+
+# removes based on values
+levels(x) <- c("b", "d", "a", "c")
+class(x) <- c("ordered", "factor")
+x[2:3] <- NA
+str(remove_na(x))
 }

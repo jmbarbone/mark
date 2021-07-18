@@ -2,15 +2,67 @@
 #'
 #' Remove NAs from a vector
 #'
-#' @param x A vector
-#' @return `x` without values where `is.na(x)` is `TRUE`
+#' @details
+#' `remove_na.factor` will remove `NA` values as identified by the `levels()`
+#'   or by the integer value of the level.  `factors` are recreated with all
+#'   `NA` values and, if present, the `NA` `level` removed.
+#'
+#' @param x A vector of values
+#' @returns
+#'   `x` without values where `is.na(x)` is `TRUE`
+#'   For factors, a new factor (`ordered` if `is.ordered(x)`)
 #' @export
+#' @examples
+#' x <- c(4L, 1L, 2L, 1L, 4L, 1L, 3L, 2L)
+#' remove_na(x)
+#'
+#' # removes based on levels
+#' x <- structure(x, levels = c("b", NA, "a", "c"), class = "factor")
+#' remove_na(x)
+#'
+#' # removes based on values
+#' levels(x) <- c("b", "d", "a", "c")
+#' class(x) <- c("ordered", "factor")
+#' x[2:3] <- NA
+#' str(remove_na(x))
 remove_na <- function(x) {
-  if (!is.vector(x)) {
-    stop("x must be a vector", call. = FALSE)
+  check_is_vector(x, "any")
+  UseMethod("remove_na", x)
+}
+
+#' @rdname remove_na
+#' @export
+remove_na.default <- function(x) {
+  x[!is.na(x)]
+}
+
+#' @rdname remove_na
+#' @export
+remove_na.list <- function(x) {
+  lapply(x, remove_na)
+}
+
+#' @rdname remove_na
+#' @export
+remove_na.factor <- function(x) {
+  lvls <- levels(x)
+  na_levels <- is.na(lvls)
+
+  out <- x[!is.na(x)]
+  out <- as.integer(out)
+
+  if (any(na_levels)) {
+    which_na_level <- which(na_levels)
+    out <- out[out != which_na_level]
+
+    if (which_na_level != length(lvls)) {
+      out <- match(out, unique(out))
+    }
   }
 
-  x[!is.na(x)]
+  levels(out) <- lvls[!na_levels]
+  class(out) <- c(if (is.ordered(x)) "ordered", "factor")
+  out
 }
 
 unique_no_na <- function(x) {
@@ -29,7 +81,7 @@ unique_no_na <- function(x) {
 #' remove_null(x)
 #' @export
 remove_null <- function(x) {
-  if (!is.vector(x, "list")) {
+  if (!inherits(x, "list")) {
     stop("x must be a list", call. = FALSE)
   }
 
