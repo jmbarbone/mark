@@ -17,13 +17,13 @@ for comments after tags; default \code{NULL} does not filter}
 and \code{value})}
 }
 \value{
-\code{NULL} if none are found, otherwise a data.frame with the line
+\code{NULL} if none are found, otherwise a \code{data.frame} with the line
 number, file name, and TODO comment.
 }
 \description{
 Search for \verb{#`` TODO} tags
 }
 \details{
-Calls \verb{git grep -in "[#] TODO"} to find any lines with a comment.
-Removes any finds in the NAMESPACE
+Calls \verb{git grep -in "[#] TODO"} to find any lines of a \code{.R} or \code{.Rmd} file
+with a comment.
 }

@@ -3,15 +3,15 @@
 #' Search for `#`` TODO` tags
 #'
 #' @details
-#' Calls `git grep -in "[#] TODO"` to find any lines with a comment.
-#' Removes any finds in the NAMESPACE
+#' Calls `git grep -in "[#] TODO"` to find any lines of a `.R` or `.Rmd` file
+#'   with a comment.
 #'
 #' @param pattern A character string containing a regular expression to filter
 #'  for comments after tags; default `NULL` does not filter
 #' @param ... Additional parameters passed to `grep` (Except for `pattern`, `x`,
 #'   and `value`)
 #'
-#' @return `NULL` if none are found, otherwise a data.frame with the line
+#' @return `NULL` if none are found, otherwise a `data.frame` with the line
 #'   number, file name, and TODO comment.
 #'
 #' @export
@@ -36,7 +36,7 @@ do_todo <- function(text, pattern = NULL, ...) {
   file_list <- lapply(files, readLines, warn = FALSE)
   finds <- lapply(
     file_list,
-    function(x)  {
+    function(x) {
       ind <- grep(
         pattern = sprintf("[#]\\s+%s[:]?\\s+", toupper(text)),
         x = x
@@ -56,6 +56,13 @@ do_todo <- function(text, pattern = NULL, ...) {
   out <- cbind(rep(names(finds), vap_int(finds, nrow)), Reduce(rbind, finds))
   names(out) <- c("file", "line", text)
   out <- out[, c("line", "file", text)]
+  ind <- grepl("\\.rmd$", out[["file"]], ignore.case = TRUE)
+
+  if (any(ind)) {
+    # quick fix for Rmd files
+    out[[text]][ind] <- gsub("^(<!--)\\s?|\\s?(-->)$", "", out[[text]][ind])
+  }
+
   out[[text]] <- sub(
     sprintf("^[ #]*\\s+%s[:]?\\s+", toupper(text)),
     "",
