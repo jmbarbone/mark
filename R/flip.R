@@ -19,7 +19,7 @@
 #' @export
 
 flip <- function(x, ...) {
-  UseMethod("flip")
+  UseMethod("flip", x)
 }
 
 #' @export
