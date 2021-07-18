@@ -40,7 +40,7 @@ outer_fun <- function(n = 0) {
 #' @export
 #' @return
 #' * `require_namespace()`: None, called for side effects
-#' * `package_available()`: Invisibly, `TRUE` or `FALSE`
+#' * `package_available()`: Visibly, `TRUE` or `FALSE`
 #'
 #' @examples
 #' foo <- function() {
@@ -68,7 +68,9 @@ rn <- function(namespace) {
 
 #' @export
 #' @rdname require_namespace
-package_available <- rn
+package_available <- function(namespace) {
+  withVisible(rn(namespace))[["value"]]
+}
 
 rn_soft <- function(namespace) {
   if (!rn(namespace)) {

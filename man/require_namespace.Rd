@@ -15,7 +15,7 @@ package_available(namespace)
 \value{
 \itemize{
 \item \code{require_namespace()}: None, called for side effects
-\item \code{package_available()}: Invisibly, \code{TRUE} or \code{FALSE}
+\item \code{package_available()}: Visibly, \code{TRUE} or \code{FALSE}
 }
 }
 \description{
