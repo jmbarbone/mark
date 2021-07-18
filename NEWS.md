@@ -14,6 +14,7 @@
 * adds `as_ordered()` to quickly create `ordered` factors using `fact()`
 * adds `char2fact()` to convert `character` vectors (or columns in a `data.frame`) to `factors` based on the number unique values
 * adds `tableNA()` to make a table from `NA` values
+* `round_by()` gains an additional argument `include0` which if `FALSE` will replace `0` values with `by`
 
 # mark 0.1.4
 

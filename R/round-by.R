@@ -5,6 +5,7 @@
 #' @param x A number or vector to round.
 #' @param by The number by which to round
 #' @param method An option to explicitly specify automatic rounding, ceiling, or floor
+#' @param include0 If `FALSE` replaces `0` with `by`
 #' @return A vector of `doubles` of the same length of `x`
 #'
 #' @export
@@ -19,6 +20,14 @@
 #'   by_3 = round_by(x, 3)
 #' )
 
-round_by <- function(x, by = 1, method = c("round", "ceiling", "floor")) {
-  do.call(match_param(method), list(x / by)) * by
+# TODO add test-round-by.R
+
+round_by <- function(x, by = 1, method = c("round", "ceiling", "floor"), include0 = TRUE) {
+  res <- do.call(match_param(method), list(x / by)) * by
+
+  if (!include0) {
+    res[res == 0] <- by
+  }
+
+  res
 }
