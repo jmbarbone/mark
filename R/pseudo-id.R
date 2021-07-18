@@ -4,7 +4,7 @@
 #'
 #' @param x A vector of values
 #'
-#' @return A vector of `integers` corresponding to the unique values in the
+#' @return A `pseudo_id`/`integer` vector corresponding to the unique values in the
 #'   attribute `"uniques"`.
 #' @examples
 #' set.seed(42)
@@ -19,10 +19,17 @@ pseudo_id <- function(x) {
 
 #' @export
 #' @rdname pseudo_id
+pseudo_id.pseudo_id <- function(x) {
+  x
+}
+
+#' @export
+#' @rdname pseudo_id
 pseudo_id.default <- function(x) {
-  ux <- unique(x)
-  m <- match(x, na_last(as.character(ux)))
-  attr(m, "uniques") <- ux
+  ux <- na_last(unique(x))
+  m <- match(x, ux)
+  .uniques(m) <- ux
+  class(m) <- c("pseudo_id", "integer")
   m
 }
 
@@ -32,11 +39,12 @@ pseudo_id.factor <- function(x) {
   lvl <- levels(x)
   m <- seq_along(lvl)[x]
 
-  if (anyNA(m) && !anyNA(lvl)) {
+  if (anyNA(m) & !anyNA(lvl)) {
     lvl <- c(lvl, NA)
   }
 
-  attr(m, "uniques") <- lvl
+  .uniques(x) <- lvl
+  class(m) <- c("pseudo_id", "integer")
   m
 }
 
@@ -47,4 +55,13 @@ na_last <- function(x) {
   } else {
     x
   }
+}
+
+.uniques <- function(x) {
+  attr(x, "uniques")
+}
+
+`.uniques<-` <- function(x, value) {
+  attr(x, "uniques") <- value
+  x
 }

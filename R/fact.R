@@ -26,7 +26,7 @@ fact.default <- function(x) {
 #' @export
 fact.character <- function(x) {
   out <- pseudo_id(x)
-  attributes(out) <- list(levels = attr(out, "uniques"))
+  attributes(out) <- list(levels = .uniques(out))
   class(out) <- "factor"
   out
 }
@@ -44,8 +44,10 @@ fact.numeric <- function(x) {
 #' @rdname fact
 #' @export
 fact.logical <- function(x) {
-  out <- as.integer(x)
-  levels(out) <- c("TRUE", "FALSE", if (anyNA(x)) NA else NULL)
+  out <- as.integer(x) + 1L
+  nas <- is.na(x)
+  out[nas] <- 3L
+  levels(out) <- c("TRUE", "FALSE", if (any(nas)) NA)
   class(out) <- "factor"
   out
 }
@@ -53,6 +55,14 @@ fact.logical <- function(x) {
 #' @rdname fact
 #' @export
 fact.factor <- function(x) {
+  x
+}
+
+#' @rdname fact
+#' @export
+fact.pseudo_id <- function(x) {
+  attributes(x) <- list(levels = as.character(.uniques(x)))
+  class(x) <- "factor"
   x
 }
 

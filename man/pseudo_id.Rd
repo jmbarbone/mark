@@ -2,11 +2,14 @@
 % Please edit documentation in R/pseudo-id.R
 \name{pseudo_id}
 \alias{pseudo_id}
+\alias{pseudo_id.pseudo_id}
 \alias{pseudo_id.default}
 \alias{pseudo_id.factor}
 \title{Create an ID for a vector}
 \usage{
 pseudo_id(x)
+
+\method{pseudo_id}{pseudo_id}(x)
 
 \method{pseudo_id}{default}(x)
 
@@ -16,7 +19,7 @@ pseudo_id(x)
 \item{x}{A vector of values}
 }
 \value{
-A vector of \code{integers} corresponding to the unique values in the
+A \code{pseudo_id}/\code{integer} vector corresponding to the unique values in the
 attribute \code{"uniques"}.
 }
 \description{

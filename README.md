@@ -141,7 +141,6 @@ quick_df(x)
 #> 3 3 c
 #> 4 4 d
 #> 5 5 e
-
 vector2df(x[["b"]])
 #>   name value
 #> 1   NA     a
@@ -220,4 +219,18 @@ diff_time_hours(x, x, "GMT", c("US/Pacific", "US/Eastern", "GB")) # note x, x
 diff_time_days(x, y, NULL, 31536000) 
 #> Time differences in days
 #> [1] -0.994213 -1.994213  1.005787
+```
+
+Simple factors:
+
+``` r
+fact(c("a", "c", NA, "a", "b", NA, "a", "c")) # no sorting
+#> [1] a    c    <NA> a    b    <NA> a    c   
+#> Levels: a c b <NA>
+fact(c(-1, 5, 2, NA, 3))                      # sorting
+#> [1] -1   5    2    <NA> 3   
+#> Levels: -1 2 3 5 <NA>
+fact(c(NA, FALSE, TRUE, FALSE, TRUE, NA))     # fixed
+#> [1] <NA>  TRUE  FALSE TRUE  FALSE <NA> 
+#> Levels: TRUE FALSE <NA>
 ```

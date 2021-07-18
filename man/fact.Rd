@@ -7,6 +7,7 @@
 \alias{fact.numeric}
 \alias{fact.logical}
 \alias{fact.factor}
+\alias{fact.pseudo_id}
 \title{Factor}
 \usage{
 fact(x)
@@ -20,6 +21,8 @@ fact(x)
 \method{fact}{logical}(x)
 
 \method{fact}{factor}(x)
+
+\method{fact}{pseudo_id}(x)
 }
 \arguments{
 \item{x}{A vector of values}

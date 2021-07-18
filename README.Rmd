@@ -84,7 +84,6 @@ Small functions for working with data.frames:
 ```{r dataframes}
 x <- list(a = 1:5, b = letters[1:5])
 quick_df(x)
-
 vector2df(x[["b"]])
 ```
 
@@ -122,5 +121,13 @@ diff_time_myears(x, y)
 diff_time_hours(x, y, "GMT", "US/Eastern")                         
 diff_time_hours(x, x, "GMT", c("US/Pacific", "US/Eastern", "GB")) # note x, x
 diff_time_days(x, y, NULL, 31536000) 
+```
+
+Simple factors:
+
+```{r}
+fact(c("a", "c", NA, "a", "b", NA, "a", "c")) # no sorting
+fact(c(-1, 5, 2, NA, 3))                      # sorting
+fact(c(NA, FALSE, TRUE, FALSE, TRUE, NA))     # fixed
 ```
 

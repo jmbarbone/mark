@@ -1,5 +1,14 @@
 # mark (development version)
 
+
+## Changes
+
+* `fact.character()` correctly labels `NA`s [#24](https://github.com/jmbarbone/mark/issues/24)
+
+## New features
+
+* `fact.pseudo_id()` and `pseudo_id.pseudo_id()` methods added
+
 # mark 0.1.4
 
 * no visible user changes
