@@ -66,6 +66,43 @@ fact.pseudo_id <- function(x) {
   x
 }
 
+#' Ordered
+#'
+#' As ordered
+#'
+#' @details
+#' Simple implementation of `ordered`.  If `x` is `ordered` it is simply
+#'   returned.  If `x` is a `factor` the `ordered` class is added.  Otherwise,
+#'   `x` is made into a `factor` with [mark::fact()] and then the `ordered`
+#'   class is added.
+#'
+#' @inheritParams fact
+#' @export
+#' @returns An `ordered` vector
+as_ordered <- function(x) {
+  UseMethod("as_ordered", x)
+}
+
+#' @rdname as_ordered
+#' @export
+as_ordered.default <- function(x) {
+  as_ordered(fact(x))
+}
+
+#' @rdname as_ordered
+#' @export
+as_ordered.factor <- function(x) {
+  class(x) <- c("ordered", "factor")
+  x
+}
+
+#' @rdname as_ordered
+#' @export
+as_ordered.ordered <- function(x) {
+  x
+}
+
+
 fact_remove_na <- function(x) {
   if (!is.factor(x)) {
     stop("x must be a factor", call. = FALSE)

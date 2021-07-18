@@ -8,6 +8,7 @@
 ## New features
 
 * `fact.pseudo_id()` and `pseudo_id.pseudo_id()` methods added
+* adds `as_ordered()` to quickly create `ordered` factors using `fact()`
 
 # mark 0.1.4
 
