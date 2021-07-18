@@ -15,6 +15,9 @@
 #' @param label A single length string of a label to be assigned
 #' @param cols A character vector of column names; if missing will remove the
 #'   label attribute across all columns
+#' @param .missing A control setting for dealing missing columns in a list;
+#'   can be set to `error` to `stop()` the call, `warn` to provide a warning, or
+#'   `skip` to silently skip those labels.
 #' @param title Title for the viewer window -- if not supplemented will show as
 #'   `paste0(as.character(substitute(x)), " - Labels")`
 #'
@@ -57,8 +60,10 @@ assign_labels.default <- function(x, label, ...) {
 
 #' @export
 #' @rdname labels
-assign_labels.data.frame <- function(x, ...) {
+assign_labels.data.frame <- function(x, ..., .missing = c("error", "warn", "skip")) {
+  # TODO add test for implementing assign_labels.data.frame(.missing = )
   ls <- list(...)
+  .missing <- match_param(.missing)
 
   if (is.null(ls) || any(vap_lgl(ls, is.null))) {
     stop("... must not have NULLs", call. = FALSE)
@@ -74,7 +79,19 @@ assign_labels.data.frame <- function(x, ...) {
   ma <- match(nm, colnames(x), nomatch = NA_integer_)
 
   if (anyNA(ma)) {
-    stop("Columns not found: ", collapse0(nm[is.na(ma)], sep = ", "), call. = FALSE)
+    nas <- is.na(ma)
+    text <- paste0("Columns not found: ", collapse0(nm[is.na(ma)], sep = ", "))
+    switch(
+      .missing,
+      error = stop(text, call. = FALSE),
+      warn = warning(text, call. = FALSE),
+      skip = {
+        nm <- nm[!nas]
+        ma <- ma[!nas]
+        ls <- ls[!nas]
+      }
+    )
+
   }
 
   for (i in seq_along(nm)) {

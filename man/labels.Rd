@@ -19,7 +19,7 @@ assign_labels(x, ...)
 
 \method{assign_labels}{default}(x, label, ...)
 
-\method{assign_labels}{data.frame}(x, ...)
+\method{assign_labels}{data.frame}(x, ..., .missing = c("error", "warn", "skip"))
 
 assign_label(x, ...)
 
@@ -45,6 +45,10 @@ to a data.frame, \code{...} can be replaced with a \code{data.frame} where the f
 column is the targeted colname and the second is the desired label.}
 
 \item{label}{A single length string of a label to be assigned}
+
+\item{.missing}{A control setting for dealing missing columns in a list;
+can be set to \code{error} to \code{stop()} the call, \code{warn} to provide a warning, or
+\code{skip} to silently skip those labels.}
 
 \item{title}{Title for the viewer window -- if not supplemented will show as
 \code{paste0(as.character(substitute(x)), " - Labels")}}

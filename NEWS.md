@@ -16,6 +16,7 @@
 * adds `char2fact()` to convert `character` vectors (or columns in a `data.frame`) to `factors` based on the number unique values
 * adds `tableNA()` to make a table from `NA` values
 * `round_by()` gains an additional argument `include0` which if `FALSE` will replace `0` values with `by`
+* `assign_labels.data.frame()` gains an additional argument `.missing` to set how to control for missing labels: you can now use a `warning` for a missing label (instead of an error) or silently ignore any missing labels
 
 # mark 0.1.4
 
