@@ -75,10 +75,8 @@ diff_time <- function(
     wyears = z / getOption("mark.weeks_in_year", 52) / 604800
   )
 
-  attributes(out) <- list(
-    class = c("numeric", "diff_time"),
-    units = method
-  )
+  class(out) <- c("numeric", "diff_time")
+  attributes(out) <- list(units = method)
 
   out
 }

@@ -208,7 +208,8 @@ as_bib_list <- function(x, names = NULL) {
   if (!is.list(x)) {
     stop("`x` must be a list", call. = FALSE)
   }
-  attr(x, "class") <- c("list", "mark_bib_list")
+  # attr(x, "class") <- c("list", "mark_bib_list")
+  class(x) <- c("list", "mark_bib_list")
   x
 }
 
@@ -217,7 +218,8 @@ as_bib <- function(x, bib_list = NULL) {
     stop("`x` must be a data.frame", call. = FALSE)
   }
 
-  attr(x, "class") <- c("data.frame", "mark_bib")
+  # attr(x, "class") <- c("data.frame", "mark_bib")
+  class(x) <- c("data.frame", "mark_bib")
   x
 }
 
