@@ -13,16 +13,13 @@
 #'   For factors, a new factor (`ordered` if `is.ordered(x)`)
 #' @export
 #' @examples
-#' x <- c(4L, 1L, 2L, 1L, 4L, 1L, 3L, 2L)
-#' remove_na(x)
+#' remove_na(c(4, 1, 2, NA, 4, NA, 3, 2))
 #'
 #' # removes based on levels
-#' x <- structure(x, levels = c("b", NA, "a", "c"), class = "factor")
-#' remove_na(x)
+#' remove_na(fact(c("b", NA, "a", "c")))
 #'
 #' # removes based on values
-#' levels(x) <- c("b", "d", "a", "c")
-#' class(x) <- c("ordered", "factor")
+#' x <- as_ordered(c("b", "d", "a", "c"))
 #' x[2:3] <- NA
 #' str(remove_na(x))
 remove_na <- function(x) {
