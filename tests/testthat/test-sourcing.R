@@ -29,10 +29,10 @@ test_that("Rscript", {
   # skip_if_not(.Platform$OS.type == "windows")
 
   x <- test_path("scripts", "rscript-test.R")
-  rscript(x, "vanilla", stdout = FALSE, stderr = FALSE)
+  expect_error(rscript(x, "vanilla", stdout = FALSE, stderr = FALSE), NA)
   expect_false("dplyr" %in% search())
 
-  rscript(x, stdout = FALSE, stderr = FALSE)
+  expect_error(rscript(x, stdout = FALSE, stderr = FALSE), NA)
   expect_false("dplyr" %in% search())
 
   e <- source_to_env(x)
