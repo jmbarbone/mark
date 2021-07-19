@@ -20,13 +20,13 @@ to_boolean.logical <- function(x, ...) {
 
 #' @rdname to_boolean
 #' @export
-to_boolean.numeric <- function(x, true = 1L, false = 0L) {
+to_boolean.numeric <- function(x, true = 1L, false = 0L, ...) {
   to_boolean_numeric(x, true = true, false = false)
 }
 
 #' @rdname to_boolean
 #' @export
-to_boolean.character <- function(x, true = NULL, false = NULL) {
+to_boolean.character <- function(x, true = NULL, false = NULL, ...) {
   if (is.null(true) && is.null(false)) {
     return(to_boolean_default(x))
   }
@@ -35,7 +35,7 @@ to_boolean.character <- function(x, true = NULL, false = NULL) {
 
 #' @rdname to_boolean
 #' @export
-to_boolean.factor <- function(x, true, false) {
+to_boolean.factor <- function(x, true = NULL, false = NULL, ...) {
   if (is.null(true) && is.null(false)) {
     return(to_boolean_default(x))
   }
