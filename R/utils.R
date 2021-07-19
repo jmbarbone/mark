@@ -187,7 +187,7 @@ mark_dir <- function() {
 }
 
 check_is_vector <- function(x, mode = "any") {
-  if (is.object(x) | !is.vector(remove_attributes(x), mode)) {
+  if (isS4(x) | inherits(x, c("data.frame", "matrix", "array")) | !is.vector(remove_attributes(x), mode)) {
     stop(deparse(substitute(x)), " must be a vector of mode ", mode, call. = FALSE)
   }
 }
