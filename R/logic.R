@@ -57,8 +57,8 @@
 
 is_true <- function(x) {
   null_check(x)
+  out <- to_boolean(x)
 
-  out <- as.logical(x)
   if (!is_boolean(x)) {
     return(out)
   }
@@ -71,8 +71,8 @@ is_true <- function(x) {
 #' @rdname logic_ext
 is_false <- function(x) {
   null_check(x)
+  out <- to_boolean(x)
 
-  out <- as.logical(x)
   if (!is_boolean(x)) {
     return(out)
   }
@@ -90,15 +90,13 @@ is_false <- function(x) {
 #' @export
 #' @rdname logic_ext
 OR <- function(..., na.rm = FALSE) {
-  mat <- cbind(...)
-  apply_logical_matrix(mat, "|", na.rm = na.rm)
+  apply_logical_matrix(cbind(...), "|", na.rm = na.rm)
 }
 
 #' @export
 #' @rdname logic_ext
 AND <- function(..., na.rm = FALSE) {
-  mat <- cbind(...)
-  apply_logical_matrix(mat, "&", na.rm = na.rm)
+  apply_logical_matrix(cbind(...), "&", na.rm = na.rm)
 }
 
 #' @export
@@ -112,13 +110,7 @@ either <- function(x, y) {
 #' @export
 #' @rdname logic_ext
 is_boolean <- function(x) {
-  if (is.logical(x)) {
-    TRUE
-  } else if (is.numeric(x)) {
-    all(x %in% c(1, 0) | is.na(x), na.rm = TRUE)
-  } else {
-    FALSE
-  }
+  is.logical(x) | (is.numeric(x) & !anyNA(match(x, c(NA, 0, 1))))
 }
 
 #' @export
