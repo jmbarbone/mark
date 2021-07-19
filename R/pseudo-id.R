@@ -43,7 +43,7 @@ pseudo_id.factor <- function(x) {
     lvl <- c(lvl, NA)
   }
 
-  .uniques(x) <- lvl
+  .uniques(m) <- lvl
   class(m) <- c("pseudo_id", "integer")
   m
 }

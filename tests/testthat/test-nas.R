@@ -1,7 +1,7 @@
 test_that("remove_na()", {
   x <- c(1, 2, NA, 3, NaN)
   expect_equal(remove_na(x), c(1, 2, 3))
-  expect_equal(remove_na(as.list(x)), list(1, 2, 3))
+  expect_equal(remove_na(as.list(x)), list(1, 2, numeric(), 3, numeric()))
   expect_error(remove_na(data.frame(x = 1)))
 })
 
