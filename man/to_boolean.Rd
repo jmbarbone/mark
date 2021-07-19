@@ -28,7 +28,7 @@ to_boolean(x, ...)
 \item{false}{A vector of values to convert to \code{FALSE}}
 }
 \value{
-A logical vector
+A \code{logical} vector of equan lenth as \code{x}
 }
 \description{
 Convert a vector to boolean/logical
