@@ -82,8 +82,9 @@ counts.data.frame <- function(x, cols, sort = FALSE, ..., .name = "freq") {
 
   if (is.factor(x[[cols]])) {
     out[[1]] <- fact(out[[1]])
-    if (is.ordered(out[[1]])) {
-      class(out[[1]]) <- c("ordered", "factor")
+
+    if (is.ordered(x[[cols]])) {
+      out[[1]] <- as_ordered(out[[1]])
     }
   }
 
