@@ -46,10 +46,8 @@ counts <- function(x, ...) {
 #' @export
 counts.default <- function(x, sort = FALSE, ...) {
   id <- pseudo_id(x)
-  tab <- tabulate(id)
-  u <- attr(id, "uniques")
-  out <- integer(length(u))
-  out[seq_along(tab)] <- tab
+  u <- .uniques(id)
+  out <- tabulate(id, length(u))
   names(out) <- na_last(u)
 
   if (sort) {
