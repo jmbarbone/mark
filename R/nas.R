@@ -141,7 +141,11 @@ is_na_cols <- function(x, names = TRUE) {
 #' @param .list Logical, if `TRUE` and `...` is a `list`, will c
 #' @export
 #' @examples
-#' x <- list(a = c(1, 2, NA, 3), b = c("A", NA, "B", "C"), c = as.Date(c("2020-01-02", NA, NA, "2020-03-02")))
+#' x <- list(
+#'   a = c(1, 2, NA, 3),
+#'   b = c("A", NA, "B", "C"),
+#'   c = as.Date(c("2020-01-02", NA, NA, "2020-03-02"))
+#' )
 #' tableNA(x) # entire list
 #' tableNA(x, .list = TRUE) # counts for each
 #' tableNA(x[1], x[2])

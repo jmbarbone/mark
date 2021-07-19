@@ -37,7 +37,11 @@ All data are checked with \code{is.na()} and the resulting \code{TRUE} or \code{
 are tabulated.
 }
 \examples{
-x <- list(a = c(1, 2, NA, 3), b = c("A", NA, "B", "C"), c = as.Date(c("2020-01-02", NA, NA, "2020-03-02")))
+x <- list(
+  a = c(1, 2, NA, 3),
+  b = c("A", NA, "B", "C"),
+  c = as.Date(c("2020-01-02", NA, NA, "2020-03-02"))
+)
 tableNA(x) # entire list
 tableNA(x, .list = TRUE) # counts for each
 tableNA(x[1], x[2])
