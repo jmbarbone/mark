@@ -8,6 +8,7 @@
 * `package_available()` now visibly returns `TRUE`/`FALSE`
 * `todos()` and `fixmes()` now correctly show tags for `.Rmd` files
 * `remove_na()` now has methods for `list`s and `factor`s
+* `environments()` now has it's own `print.mark_environments()` method rather than calling `cat()` within the function itself
 
 ## New features
 

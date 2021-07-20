@@ -3,11 +3,14 @@
 \name{list_environments}
 \alias{list_environments}
 \alias{environments}
+\alias{print.mark_environments}
 \alias{ls_all}
 \alias{objects_all}
 \title{List all environments and objects}
 \usage{
 environments()
+
+\method{print}{mark_environments}(x, ...)
 
 ls_all(all.names = FALSE)
 
