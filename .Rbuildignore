@@ -11,3 +11,4 @@ temp/*
 .*\.Rds$
 ^CRAN-RELEASE$
 ^cran-comments\.md$
+^codecov\.yml$

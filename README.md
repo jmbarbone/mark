@@ -8,6 +8,8 @@
 [![R-CMD-check](https://github.com/jmbarbone/mark/workflows/R-CMD-check/badge.svg)](https://github.com/jmbarbone/mark/actions)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/mark)](https://CRAN.R-project.org/package=mark)
+[![Codecov test
+coverage](https://codecov.io/gh/jmbarbone/mark/branch/master/graph/badge.svg)](https://codecov.io/gh/jmbarbone/mark?branch=master)
 <!-- badges: end -->
 
 Miscellaneous, Analytic R Kernels
@@ -191,34 +193,41 @@ difftime(y, x, units = "days")
 #> Time differences in days
 #> [1] -366 -367 -364
 diff_time_days(x, y)
-#> Time differences in days
 #> [1] -366 -367 -364
+#> attr(,"units")
+#> [1] "days"
 
 difftime(y, x, units = "secs")
 #> Time differences in secs
 #> [1] -31622400 -31708800 -31449600
 diff_time_secs(x, y)
-#> Time differences in seconds
 #> [1] -31622400 -31708800 -31449600
+#> attr(,"units")
+#> [1] "secs"
 
 # Year (by days, months, etc)
 diff_time_years(x, y)
-#> Time differences in years (365 days)
 #> [1] -1.0027397 -1.0054795 -0.9972603
+#> attr(,"units")
+#> [1] "years"
 diff_time_myears(x, y)
-#> Time differences in years (30-day months)
 #> [1] -1.016667 -1.019444 -1.011111
+#> attr(,"units")
+#> [1] "myears"
 
 # Set time zones
 diff_time_hours(x, y, "GMT", "US/Eastern")                         
-#> Time differences in hours
 #> [1] -8789 -8813 -8741
+#> attr(,"units")
+#> [1] "hours"
 diff_time_hours(x, x, "GMT", c("US/Pacific", "US/Eastern", "GB")) # note x, x
-#> Time differences in hours
 #> [1] -8 -5  0
+#> attr(,"units")
+#> [1] "hours"
 diff_time_days(x, y, NULL, 31536000) 
-#> Time differences in days
 #> [1] -0.994213 -1.994213  1.005787
+#> attr(,"units")
+#> [1] "days"
 ```
 
 Simple factors:
