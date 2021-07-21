@@ -17,6 +17,10 @@ ls_all(all.names = FALSE)
 objects_all(all.names = FALSE)
 }
 \arguments{
+\item{x}{A mark_environments object}
+
+\item{...}{Not currently used}
+
 \item{all.names}{a logical value.  If \code{TRUE}, all
     object names are returned.  If \code{FALSE}, names which begin with a
     \samp{.} are omitted.}
