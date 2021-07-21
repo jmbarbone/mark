@@ -4,10 +4,10 @@
 \alias{array_extract}
 \title{Array extract}
 \usage{
-array_extract(arr, ..., default = "1")
+array_extract(.arr, ..., default = "1")
 }
 \arguments{
-\item{arr}{An array}
+\item{.arr}{An array}
 
 \item{...}{A named list by array dimension number and the value}
 
