@@ -2,7 +2,7 @@
 #'
 #' Extract dimensions from an array
 #'
-#' @param arr An array
+#' @param .arr An array
 #' @param ... A named list by array dimension number and the value
 #' @param default The default dimension index
 #'
@@ -15,26 +15,31 @@
 #' x
 #' array_extract(x, `2` = 2, `3` = 3)
 
-array_extract <- function(arr, ..., default = "1") {
-  if (!is.array(arr)) {
-    stop("`arr` must be an array", call. = FALSE)
+array_extract <- function(.arr, ..., default = "1") {
+  ls <- dotlist(...)
+
+  if (!is.array(.arr)) {
+    stop(".arr must be an array", call. = FALSE)
   }
 
-  ls <- dotlist(...)
-  nm <- wuffle(as.integer(names(ls)))
+  nm <- wuffle(as.integer(names(ls) %||% seq_along(ls)))
 
   if (anyNA(nm)) {
-    stop("List must be named by integers", call. = FALSE)
+    stop("... must be fully named by integers or have no names", call. = FALSE)
   }
 
-  ds <- dim(arr)
+  ds <- dim(.arr)
   dn <- length(ds)
   setup <- rep(default, dn)
 
   for (i in seq_along(ls)) {
     val <- ls[[i]]
 
-    if (is.character(val) || is.factor(val)) {
+    if (is.factor(val)) {
+      val <- as.character(val)
+    }
+
+    if (is.character(val)) {
       val <- sprintf("'%s'", val)
     }
 
@@ -43,7 +48,7 @@ array_extract <- function(arr, ..., default = "1") {
 
   text <- sprintf(
     "%s[%s]",
-    as.character(substitute(arr)),
+    as.character(substitute(.arr)),
     collapse0(setup, sep = ", ")
   )
 

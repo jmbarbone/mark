@@ -9,6 +9,7 @@
 * `todos()` and `fixmes()` now correctly show tags for `.Rmd` files
 * `remove_na()` now has methods for `list`s and `factor`s
 * `environments()` now has it's own `print.mark_environments()` method rather than calling `cat()` within the function itself
+* `array_extract()`'s first argument is changed from `arr` to `.arr`
 
 ## New features
 
