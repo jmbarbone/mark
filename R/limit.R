@@ -13,7 +13,7 @@
 limit <- function(x, lower = min(x), upper = max(x)) {
   stopifnot(
     "lower must be a single value" = is.numeric(lower) && length(lower) == 1L,
-    "lower must be a single value" = is.numeric(upper) && length(upper) == 1L,
+    "upper must be a single value" = is.numeric(upper) && length(upper) == 1L,
     "lower cannot be more than upper" = lower < upper
   )
 
