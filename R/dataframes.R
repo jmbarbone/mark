@@ -245,6 +245,7 @@ quick_df <- function(x) {
   x
 }
 
+
 #' Complete cases
 #'
 #' Return completed cases of a data.frame

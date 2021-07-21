@@ -41,31 +41,27 @@ test_that("data.frame assignment", {
 })
 
 test_that("data.frame assign with data.frame", {
-  op <- options()
-  options(stringsAsFactors = FALSE)
+  op <- options(stringsAsFactors = FALSE)
 
   x <- assign_labels(iris, Sepal.Length = "a", Species = "b")
 
   labels <- data.frame(
     name = c("Sepal.Length", "Species"),
-    label = c("a", "b"),
-    stringsAsFactors = FALSE
+    label = c("a", "b")
   )
 
   y <- assign_labels(iris, labels)
 
   exp <- data.frame(
     column = colnames(iris),
-    label = c("a", NA, NA, NA, "b"),
-    stringsAsFactors = FALSE
+    label = c("a", NA, NA, NA, "b")
   )
 
   expect_equal(get_labels(y), get_labels(y))
 
   bad_labels <- data.frame(
     v1 = c("a", "b", 1),
-    v2 = c("x", "y", 2),
-    stringsAsFactors = FALSE
+    v2 = c("x", "y", 2)
   )
   expect_error(assign_labels(iris, bad_labels),
                "Columns not found: a, b, 1")

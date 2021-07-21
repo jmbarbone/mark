@@ -139,7 +139,6 @@ counts_n <- function(x, name = "freq", sort = FALSE) {
   cn <- colnames(x)
   colnames(out) <- cn
 
-  # TODO add warning
   name <- name %||% "freq"
 
   i <- 0L

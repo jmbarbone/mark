@@ -108,5 +108,4 @@ test_that("quick_df()", {
     quick_df(list(a = integer())),
     data.frame(a = integer(), stringsAsFactors = FALSE)
   )
-
 })
