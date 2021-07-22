@@ -4,8 +4,8 @@
 #'
 #' @param x A vector of values
 #'
-#' @return A `pseudo_id`/`integer` vector corresponding to the unique values in the
-#'   attribute `"uniques"`.
+#' @returns A `pseudo_id` object where the `integer` value of the vector
+#' correspond to the position of the unique values in the attribute `"uniques"`.
 #' @examples
 #' set.seed(42)
 #' (x <- sample(letters, 10, TRUE))
@@ -39,8 +39,11 @@ pseudo_id.factor <- function(x) {
   lvl <- levels(x)
   m <- seq_along(lvl)[x]
 
-  if (anyNA(m) & !anyNA(lvl)) {
-    lvl <- c(lvl, NA)
+  if (anyNA(m)) {
+    if (!anyNA(lvl)) {
+      lvl <- c(lvl, NA)
+    }
+    m[is.na(m)] <- length(lvl)
   }
 
   .uniques(m) <- lvl

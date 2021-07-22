@@ -9,12 +9,13 @@
 * `environments()` now has it's own `print.mark_environments()` method rather than calling `cat()` within the function itself
 * `array_extract()`'s first argument is changed from `arr` to `.arr`
 
-## Corrections
+## Fixes
 
 * functions that check if an argument is a vector no long use `is.vector()` directly; arguments passed with attributes that when removed fulfill `is.vector()` are accepted
 * `todos()` and `fixmes()` now correctly show tags for `.Rmd` files
 * correction to error message in `limit()`
 * adds missing `sort` argument to `props()`
+* `pseudo_id.factor()` no longer returns `NA_integer` when a value is `NA` or a level is `NA`
 
 ## New features
 

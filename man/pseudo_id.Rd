@@ -19,8 +19,8 @@ pseudo_id(x)
 \item{x}{A vector of values}
 }
 \value{
-A \code{pseudo_id}/\code{integer} vector corresponding to the unique values in the
-attribute \code{"uniques"}.
+A \code{pseudo_id} object where the \code{integer} value of the vector
+correspond to the position of the unique values in the attribute \code{"uniques"}.
 }
 \description{
 Transforms a vector into an integer of IDs.
