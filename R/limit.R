@@ -11,11 +11,17 @@
 #'
 #' @export
 limit <- function(x, lower = min(x), upper = max(x)) {
-  stopifnot(
-    "lower must be a single value" = is.numeric(lower) && length(lower) == 1L,
-    "upper must be a single value" = is.numeric(upper) && length(upper) == 1L,
-    "lower cannot be more than upper" = lower < upper
-  )
+  if (!is.numeric(lower) || length(lower) != 1L) {
+    stop("lower must be a single numeric value", call. = FALSE)
+  }
+
+  if (!is.numeric(upper) || length(upper) != 1L) {
+    stop("upper must be a single numeric value", call. = FALSE)
+  }
+
+  if (lower > upper) {
+    stop("lower cannot be more than upper", call. = FALSE)
+  }
 
   x[x < lower] <- lower
   x[x > upper] <- upper
