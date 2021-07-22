@@ -1,5 +1,6 @@
 50th
 CMD
+Codecov
 datetime
 devtools
 DF
@@ -71,3 +72,5 @@ todo
 labelled
 tibble
 rstudio
+Wadsworth
+Wilks

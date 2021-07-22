@@ -6,7 +6,7 @@
 #' @param ... Additional arguments passed to methods
 #' @param true A vector of values to convert to `TRUE`
 #' @param false A vector of values to convert to `FALSE`
-#' @return A `logical` vector of equan lenth as `x`
+#' @return A `logical` vector of equal length as `x`
 #' @export
 to_boolean <- function(x, ...) {
   UseMethod("to_boolean", x)
