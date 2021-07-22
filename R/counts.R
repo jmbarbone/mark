@@ -14,9 +14,10 @@
 #'
 #' @param x A vector or `data.frame`
 #' @param ... Arguments passed to other methods
-#' @param sort Logical, if `TRUE` will sort values before returning. For factors
-#'   this will sort by factor levels.  This has no effect for logical vectors,
-#'   which already return in the order of `FALSE`, `TRUE`, `NA`.
+#' @param sort Logical, if `TRUE` will sort values (not counts) before
+#'   returning. For factors this will sort by factor levels.  This has no effect
+#'   for logical vectors, which already return in the order of `FALSE`, `TRUE`,
+#'   `NA`.
 #' @param cols A vector of column names or indexes
 #'
 #' @return A named vector of `integer`s or `double`s (for `counts`, and `props`,
@@ -51,7 +52,7 @@ counts.default <- function(x, sort = FALSE, ...) {
   names(out) <- na_last(u)
 
   if (sort) {
-    return(sort_by(out, names(out)))
+    return(sort_names(out, numeric = is.numeric(x)))
   }
 
   out
@@ -99,8 +100,8 @@ props <- function(x, ...) {
 
 #' @rdname counts
 #' @export
-props.default <- function(x, ...) {
-  counts(x) / length(x)
+props.default <- function(x, sort = FALSE, ...) {
+  counts(x, sort = sort) / length(x)
 }
 
 #' @rdname counts

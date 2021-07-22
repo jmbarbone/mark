@@ -1,15 +1,24 @@
 
-test_that("vector counts work", {
+
+# counts() ----------------------------------------------------------------
+
+test_that("counts.default() work", {
   x <- rep(c("a", "b", "c"), c(3, 1, 4))
   res <- set_names0(c(3, 1, 4), c("a", "b", "c"))
-  expect_equal(counts(x), res)
+  ans <- counts(x)
+  expect_equal(ans, res)
+
+  expect_equal(props(x), ans / sum(ans))
 
   x <- rep(c(2, 3, -1), c(3, 1, 4))
   res <- set_names0(c(3, 1, 4), c(2, 3, -1))
   expect_equal(counts(x), res)
+
+  res <- sort_names(res)
+  expect_equal(counts(x, sort = TRUE), res)
 })
 
-test_that("counts work with NAs", {
+test_that("counts() works with NAs", {
 
   # Correct sort
   x <- c(FALSE, TRUE, NA)
@@ -26,8 +35,8 @@ test_that("counts work with NAs", {
 })
 
 
-test_that("can make new column name", {
-  df <- data.frame(a = 1, b = 2)
+test_that("counts.data.frame() adds new name", {
+  df <- quick_dfl(a = 1, b = 2)
   res <- counts(df, 1)
   expect_equal(colnames(res), c("a", "freq"))
 
@@ -49,7 +58,7 @@ test_that("can make new column name", {
   expect_equal(colnames(res), c("a", "new_name"))
 })
 
-test_that("NAs are last", {
+test_that("counts() NAs are last", {
   expect_equal(
     counts(c(NA, NA, 1, 2)),
     set_names0(c(1, 1, 2), c(1, 2, NA))
@@ -71,28 +80,25 @@ test_that("NAs are last", {
   )
 })
 
-test_that("data.frame", {
-  df <- data.frame(a = rep("x", 3), b = factor(c("a", "a", "b")))
+test_that("counts.data.frame() works", {
+  df <- quick_dfl(a = rep("x", 3), b = fact(c("a", "a", "b")))
 
-  expect_equal(
-    counts(df, 1),
-    data.frame(a = "x", freq = 3)
-  )
+  res <- counts(df, 1)
+  exp <- quick_dfl(a = "x", freq = 3)
+  expect_equal(res, exp)
 
-  expect_equal(
-    # TODO this needs to be remade as a factor
-    counts(df, 2),
-    data.frame(b = factor(c("a", "b")), freq = 2:1)
-  )
+  res <- counts(df, 2)
+  exp <- quick_dfl(b = fact(c("a", "b")), freq = 2:1)
+  expect_equal(res, exp)
 
-  expect_equal(
-    counts(df, 1:2),
-    data.frame(
-      a = rep("x", 2),
-      b = factor(c("a", "b")),
-      freq = 2:1
-    )
-  )
+  res <- counts(df, 1:2)
+  exp <- quick_dfl(a = rep("x", 2), b = fact(c("a", "b")), freq = 2:1)
+  expect_equal(res, exp)
+
+  df[["b"]] <- as_ordered(df[["b"]])
+  res <- counts(df, 1:2)
+  exp <- quick_dfl(a = rep("x", 2), b = as_ordered(c("a", "b")), freq = 2:1)
+  expect_equal(res, exp)
 })
 
 test_that("missing upper levels", {
@@ -100,3 +106,8 @@ test_that("missing upper levels", {
   exp <- c(a = 1L, b = 1L, c = 0L, d = 0L)
   expect_equal(counts(x), exp)
 })
+
+
+# props() -----------------------------------------------------------------
+
+

@@ -14,7 +14,7 @@ counts(x, ...)
 
 props(x, ...)
 
-\method{props}{default}(x, ...)
+\method{props}{default}(x, sort = FALSE, ...)
 
 \method{props}{data.frame}(x, cols, sort = FALSE, ..., .name = "prop")
 }
@@ -25,9 +25,10 @@ props(x, ...)
 
 \item{cols}{A vector of column names or indexes}
 
-\item{sort}{Logical, if \code{TRUE} will sort values before returning. For factors
-this will sort by factor levels.  This has no effect for logical vectors,
-which already return in the order of \code{FALSE}, \code{TRUE}, \code{NA}.}
+\item{sort}{Logical, if \code{TRUE} will sort values (not counts) before
+returning. For factors this will sort by factor levels.  This has no effect
+for logical vectors, which already return in the order of \code{FALSE}, \code{TRUE},
+\code{NA}.}
 
 \item{.name}{The name of the new column}
 }
