@@ -4,13 +4,15 @@
 \alias{sort_names}
 \title{Sort by names}
 \usage{
-sort_names(x)
+sort_names(x, numeric = FALSE)
 }
 \arguments{
-\item{x}{A vector}
+\item{x}{A named vector of values}
+
+\item{numeric}{If \code{TRUE} will try to coerce to numeric}
 }
 \value{
-\code{x}. sorted by its \code{names()}
+\code{x} sorted by its \code{names()}
 }
 \description{
 Sort a vector by it's name

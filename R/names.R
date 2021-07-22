@@ -7,17 +7,19 @@ is_named <- function(x) {
 #'
 #' Sort a vector by it's name
 #'
-#' @param x A vector
-#' @return `x`. sorted by its `names()`
+#' @param x A named vector of values
+#' @param numeric If `TRUE` will try to coerce to numeric
+#' @return `x` sorted by its `names()`
 #' @export
-sort_names <- function(x) {
+sort_names <- function(x, numeric = FALSE) {
   check_is_vector(x)
+  nm <- names(x) %||% stop("x must be a named vector", call. = FALSE)
 
-  if (!is_named(x)) {
-    stop("x must be a named vector", call. = FALSE)
+  if (numeric) {
+    nm <- as.numeric(nm)
   }
 
-  x[sort(names(x))]
+  sort_by(x, nm)
 }
 
 #' Set names
@@ -45,9 +47,6 @@ remove_names <- function(x) {
 #' @rdname set_names0
 #' @export
 names_switch <- function(x) {
-  if (!is_named(x)) {
-    stop("x must be named", call. = FALSE)
-  }
-
-  set_names0(names(x), as.vector(x, "character"))
+  nm <- names(x) %||% stop("x must be named", call. = FALSE)
+  set_names0(nm, as.vector(x, "character"))
 }
