@@ -4,12 +4,15 @@
 ## Changes
 
 * `fact.character()` correctly labels `NA`s [#24](https://github.com/jmbarbone/mark/issues/24)
-* functions that check if an argument is a vector no long use `is.vector()` directly; arguments passed with attributes that when removed fulfill `is.vector()` are accepted
 * `package_available()` now visibly returns `TRUE`/`FALSE`
-* `todos()` and `fixmes()` now correctly show tags for `.Rmd` files
 * `remove_na()` now has methods for `list`s and `factor`s
 * `environments()` now has it's own `print.mark_environments()` method rather than calling `cat()` within the function itself
 * `array_extract()`'s first argument is changed from `arr` to `.arr`
+
+## Corrections
+
+* functions that check if an argument is a vector no long use `is.vector()` directly; arguments passed with attributes that when removed fulfill `is.vector()` are accepted
+* `todos()` and `fixmes()` now correctly show tags for `.Rmd` files
 * correction to error message in `limit()`
 * adds missing `sort` argument to `props()`
 
@@ -21,7 +24,12 @@
 * adds `tableNA()` to make a table from `NA` values
 * `round_by()` gains an additional argument `include0` which if `FALSE` will replace `0` values with `by`
 * `assign_labels.data.frame()` gains an additional argument `.missing` to set how to control for missing labels: you can now use a `warning` for a missing label (instead of an error) or silently ignore any missing labels
-* `sort_names()` gains a new argument `numeric` to try to sort names of `x` by their numeric value
+* `sort_names()` gains a new argument `numeric` to try to sort names of `x` by their numeric value [#26](https://github.com/jmbarbone/mark/issues/26)
+
+## Non visible changes
+
+* code coverage added
+* additional tests added
 
 # mark 0.1.4
 
