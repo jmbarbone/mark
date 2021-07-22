@@ -74,13 +74,13 @@ test_that("Timezones", {
 
   st <- as.POSIXct("2021-04-06 11:12:45", tz = "US/Central")
 
-  dftz <- quick_df(list(
+  dftz <- quick_dfl(
     a = rep(st, 4),
     b = rep(st, 4),
     tza = c("GMT", "UTC", "US/Eastern", "NZ"),
     tzb = c("GMT", "Africa/Casablanca", "US/Central", "CET"),
     tzn = c(0, 1, -1, 6) * 3600
-  ))
+  )
 
   # No difference
   expect_identical(

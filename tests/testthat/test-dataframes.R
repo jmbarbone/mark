@@ -1,23 +1,14 @@
 test_that("to_row_names()", {
-  x <- quick_df(list(
-    a = 1:4,
-    b = letters[1:4]
-  ))
+  x <- quick_dfl(a = 1:4, b = letters[1:4])
 
   expect_equal(
     to_row_names(x),
-    quick_df(list(
-      b = letters[1:4]
-    ))
+    quick_dfl(b = letters[1:4])
   )
 
   expect_equal(
     to_row_names(x, "b"),
-    data.frame(
-      a = 1:4,
-      row.names = letters[1:4],
-      stringsAsFactors = FALSE
-    )
+    data.frame(a = 1:4, row.names = letters[1:4])
   )
 
   expect_equal(
@@ -27,7 +18,7 @@ test_that("to_row_names()", {
 
   # non-integers to character
   foo <- function(x) {
-    out <- to_row_names(quick_df(list(a = 1, b = x)), "b")
+    out <- to_row_names(quick_dfl(a = 1, b = x), "b")
     class(attr(out, "row.names"))
   }
 
@@ -39,10 +30,7 @@ test_that("to_row_names()", {
 
 test_that("vector2df()", {
   x <- c(1.0, 3.1, 8.2)
-  df <- quick_df(list(
-    name = c(NA, NA, NA),
-    value = x
-  ))
+  df <- quick_dfl(name = c(NA, NA, NA), value = x)
 
   expect_equal(vector2df(x), df)
   df$name <- as.character(x)
@@ -54,10 +42,10 @@ test_that("vector2df()", {
 
 test_that("list2df()", {
   x <- list(a = 1, b = 2:4, c = letters[10:20])
-  exp <- quick_df(list(
+  exp <- quick_dfl(
     name = letters[c(1, rep(2, 3), rep(3, 11))],
     value = c(1, 2:4, letters[10:20])
-  ))
+  )
 
   expect_warning(list2df(x))
   expect_warning(list2df(x, warn = FALSE), NA)
@@ -73,27 +61,21 @@ test_that("list2df()", {
 
   # Unnamed
   x <- list(a = 1, 0, 2)
-  res <- quick_df(list(
-    name = c("a", 2, 3),
-    value = c(1, 0, 2)
-  ))
+  res <- quick_dfl(name = c("a", 2, 3), value = c(1, 0, 2))
   expect_equal(list2df(x), res)
 })
 
 test_that("t_df()", {
-  x <- quick_df(list(
-    a = 1:5,
-    b = letters[1:5]
-  ))
+  x <- quick_dfl(a = 1:5, b = letters[1:5])
 
-  y <- quick_df(list(
+  y <- quick_dfl(
     colname = c("a", "b"),
     row_1   = c(  1, "a"),
     row_2   = c(  2, "b"),
     row_3   = c(  3, "c"),
     row_4   = c(  4, "d"),
     row_5   = c(  5, "e")
-  ))
+  )
 
   expect_equal(t_df(x), y)
 })
@@ -107,5 +89,10 @@ test_that("quick_df()", {
   expect_identical(
     quick_df(list(a = integer())),
     data.frame(a = integer(), stringsAsFactors = FALSE)
+  )
+
+  expect_equal(
+    quick_df(list(a = integer())),
+    quick_dfl(a = integer())
   )
 })

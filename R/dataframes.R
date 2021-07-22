@@ -245,6 +245,9 @@ quick_df <- function(x) {
   x
 }
 
+quick_dfl <- function(...) {
+  quick_df(list(...))
+}
 
 #' Complete cases
 #'

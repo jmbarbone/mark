@@ -16,12 +16,11 @@ test_that("clipboard", {
   test_clipboard(as.Date("2020-01-02") + 0:4)
   test_clipboard(runif(1e6))
 
-  x <- data.frame(
+  x <- quick_dfl(
     var1 = 1:3,
     var2 = letters[1:3],
     var3 = as.Date("2020-01-03") + 1:3,
-    var4 = c(TRUE, FALSE, NA),
-    stringsAsFactors = FALSE
+    var4 = c(TRUE, FALSE, NA)
   )
 
   expect_error(write_clipboard(x), NA)
