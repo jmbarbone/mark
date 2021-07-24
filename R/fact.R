@@ -26,19 +26,14 @@ fact.default <- function(x) {
 #' @export
 fact.character <- function(x) {
   out <- pseudo_id(x)
-  attributes(out) <- list(levels = .uniques(out))
-  class(out) <- "factor"
-  out
+  struct(out, "factor", levels = .uniques(out))
 }
 
 #' @rdname fact
 #' @export
 fact.numeric <- function(x) {
   u <- sort.int(unique(x), method = "radix", na.last = TRUE)
-  out <- match(x, u)
-  attributes(out) <- list(levels = as.character(u))
-  class(out) <- "factor"
-  out
+  struct(match(x, u), "factor", levels = as.character(u))
 }
 
 #' @rdname fact
@@ -47,9 +42,7 @@ fact.logical <- function(x) {
   out <- as.integer(x) + 1L
   nas <- is.na(x)
   out[nas] <- 3L
-  levels(out) <- c("TRUE", "FALSE", if (any(nas)) NA)
-  class(out) <- "factor"
-  out
+  struct(out, "factor", levels = c("TRUE", "FALSE", if (any(nas)) NA))
 }
 
 #' @rdname fact
@@ -61,9 +54,7 @@ fact.factor <- function(x) {
 #' @rdname fact
 #' @export
 fact.pseudo_id <- function(x) {
-  attributes(x) <- list(levels = as.character(.uniques(x)))
-  class(x) <- "factor"
-  x
+  struct(x, "factor", levels = as.character(.uniques(x)))
 }
 
 #' Ordered

@@ -106,14 +106,14 @@ simpleTimeReport <- function(title = NULL, expr, envir = parent.frame()) {
     }
   }
 
-  res <- structure(
+  res <- struct(
     results,
-    names = calls,
-    class = c("reported_results", "list"),
-    call = mc,
+    class    = c("reported_results", "list"),
+    names    = calls,
+    call     = mc,
     messages = messages,
     warnings = warnings,
-    outputs = outputs
+    outputs  = outputs
   )
 
   invisible(res)

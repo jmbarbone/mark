@@ -102,7 +102,7 @@ test_that("counts.data.frame() works", {
 })
 
 test_that("missing upper levels", {
-  x <- structure(1:2, class = "factor", levels = c(letters[1:4]))
+  x <- struct(1:2, class = "factor", levels = c(letters[1:4]))
   exp <- c(a = 1L, b = 1L, c = 0L, d = 0L)
   expect_equal(counts(x), exp)
 })

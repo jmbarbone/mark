@@ -236,13 +236,10 @@ quick_df <- function(x) {
     stop("List does not have an equal length", call. = FALSE)
   }
 
-  attributes(x) <- list(
-    class = "data.frame",
+  struct(x, "data.frame",
     names = names(x) %||% make.names(1:length(x)),
     row.names = c(NA_integer_, -n)
   )
-
-  x
 }
 
 quick_dfl <- function(...) {

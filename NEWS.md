@@ -1,6 +1,5 @@
 # mark (development version)
 
-
 ## Changes
 
 * `fact.character()` correctly labels `NA`s [#24](https://github.com/jmbarbone/mark/issues/24)
@@ -26,6 +25,7 @@
 * `round_by()` gains an additional argument `include0` which if `FALSE` will replace `0` values with `by`
 * `assign_labels.data.frame()` gains an additional argument `.missing` to set how to control for missing labels: you can now use a `warning` for a missing label (instead of an error) or silently ignore any missing labels
 * `sort_names()` gains a new argument `numeric` to try to sort names of `x` by their numeric value [#26](https://github.com/jmbarbone/mark/issues/26)
+* adds `struct()`, a simplified version of `struct()`
 
 ## Non visible changes
 

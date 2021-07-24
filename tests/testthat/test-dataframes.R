@@ -83,7 +83,7 @@ test_that("t_df()", {
 test_that("quick_df()", {
   expect_identical(
     quick_df(list(a = NULL)),
-    structure(list(a = NULL), class = "data.frame", row.names = integer())
+    struct(list(a = NULL), "data.frame", names = "a", row.names = integer())
   )
 
   expect_identical(

@@ -272,7 +272,7 @@ save_source <- function(env = parent.frame(), file = mark_temp("Rds"), name = NU
   out <- lapply(ls, get, envir = env)
   names(out) <- ls
 
-  res <- structure(
+  res <- struct(
     list2env(out, parent = baseenv()),
     class       = c("source_env", "environment"),
     sessionInfo = utils::sessionInfo(),
