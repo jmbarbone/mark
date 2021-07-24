@@ -23,6 +23,8 @@ Tries to read each file in the directory that ends in .R or .r and sums
 together.  Files that fail to read are not counted.
 }
 \examples{
+\donttest{
 lines_of_r_code(system.file())
 lines_of_r_code(system.file(), skip_empty = FALSE)
+}
 }

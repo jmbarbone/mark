@@ -154,7 +154,7 @@ check_tz <- function(x) {
   invisible(NULL)
 }
 
-#' @exportS3Method
+#' @export
 print.diff_time <- function(x, digits = getOption("digits"), ...) {
   xu <- attr(x, "units")
   u <- switch(

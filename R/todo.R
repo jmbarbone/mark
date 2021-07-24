@@ -83,7 +83,7 @@ do_todo <- function(text, pattern = NULL, ...) {
   out
 }
 
-#' @exportS3Method
+#' @export
 print.todos_df <- function(x, ...) {
   # TODO Add a limit for number of TODOs to show?
   type <- attr(x, "todos_type")

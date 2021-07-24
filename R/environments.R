@@ -21,7 +21,7 @@ environments <- function() {
   x
 }
 
-#' @exportS3Method
+#' @export
 #' @rdname list_environments
 #' @param x A mark_environments object
 #' @param ... Not currently used

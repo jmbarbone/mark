@@ -14,8 +14,10 @@
 #' @export
 #'
 #' @examples
+#' \donttest{
 #' lines_of_r_code(system.file())
 #' lines_of_r_code(system.file(), skip_empty = FALSE)
+#' }
 
 lines_of_r_code <- function(x = ".", skip_empty = TRUE) {
   if (dir.exists(x)) {

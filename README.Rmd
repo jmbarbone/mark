@@ -32,6 +32,12 @@ Some parts happily ripped from and (hopefully) credited to others.
 
 ## Installation
 
+You can download the current CRAN version with:
+
+```
+install.packages("mark")
+```
+
 You can the development version from [GitHub](https://github.com/jmbarbone/mark) with:
 
 ```

@@ -74,8 +74,7 @@ ept <- function(x, envir = parent.frame()) {
 
 # Removes object's attributes before printing
 print_no_attr <- function(x, ...) {
-  attributes(x) <- NULL
-  print(x)
+  print(remove_attributes(x))
 }
 
 #' That

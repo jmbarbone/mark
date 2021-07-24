@@ -71,7 +71,7 @@ note <- function(x) {
   attr(x, "note")
 }
 
-#' @exportS3Method
+#' @export
 #' @rdname note
 print.note <- function(x, ...) {
   if (!interactive()) {
@@ -83,7 +83,7 @@ print.note <- function(x, ...) {
   invisible(x)
 }
 
-#' @exportS3Method
+#' @export
 print.noted <- function(x, ...) {
   n <- attr(x, "note")
   y <- x
