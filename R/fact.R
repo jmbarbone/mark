@@ -38,6 +38,10 @@ fact.numeric <- function(x) {
 
 #' @rdname fact
 #' @export
+fact.integer <- fact.numeric
+
+#' @rdname fact
+#' @export
 fact.logical <- function(x) {
   out <- as.integer(x) + 1L
   nas <- is.na(x)
@@ -55,6 +59,30 @@ fact.factor <- function(x) {
 #' @export
 fact.pseudo_id <- function(x) {
   struct(x, "factor", levels = as.character(.uniques(x)))
+}
+
+#' @rdname fact
+#' @export
+fact.haven_labelled <- function(x) {
+  require_namespace("haven")
+  labels <- sort(attr(x, "labels", exact = TRUE))
+  u <- unique(unclass(x))
+  m <- match(u, labels)
+  nas <- is.na(m)
+
+  if (any(nas)) {
+    # Done to match haven::as_factor.haven_labelled()
+    labels <- labels[m]
+    labels[nas] <- u[nas]
+    names(labels)[nas] <- u[nas]
+  }
+
+  struct(
+    match(x, labels),
+    class = "factor",
+    levels = names(labels),
+    label = attr(x, "label", exact = TRUE)
+  )
 }
 
 #' Ordered

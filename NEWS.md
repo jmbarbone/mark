@@ -26,6 +26,9 @@
 * `assign_labels.data.frame()` gains an additional argument `.missing` to set how to control for missing labels: you can now use a `warning` for a missing label (instead of an error) or silently ignore any missing labels
 * `sort_names()` gains a new argument `numeric` to try to sort names of `x` by their numeric value [#26](https://github.com/jmbarbone/mark/issues/26)
 * adds `struct()`, a simplified version of `struct()`
+* adds more `fact()` methods
+  * `fact.integer()` [#30](https://github.com/jmbarbone/mark/issues/30)
+  * `fact.haven_labelled()` [#31](https://github.com/jmbarbone/mark/issues/31)
 
 ## Non visible changes
 
