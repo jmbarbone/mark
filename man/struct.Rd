@@ -7,11 +7,11 @@
 struct(x, class, ...)
 }
 \arguments{
-\item{x}{A list of data}
+\item{x}{An object; if \code{NULL}, coerced to \code{list()}}
 
-\item{class}{A vector of classes}
+\item{class}{A vector of classes; can also be \code{NULL}}
 
-\item{...}{Additional attributes; named}
+\item{...}{Named attributes to set to \code{x}}
 }
 \value{
 An object with class defined as \code{class} and attributes \code{...}
@@ -28,6 +28,10 @@ assigned after \code{\link[base:attributes]{base::attributes()}} is called.
 
 Essentially, this is just a wrapper for calling \code{\link[base:attributes]{base::attributes()}} then
 \code{\link[base:class]{base::class()}}.
+
+Note that \code{\link[base:structure]{base::structure()}} provides a warning when the first argument is
+\code{NULL}.  \code{struct()} does not.  The coercion from \code{NULL} to \code{list()} is
+done, and documented, in \code{\link[base:attributes]{base::attributes()}}.
 }
 \examples{
 x <- list(a = 1, b = 2)
@@ -41,6 +45,15 @@ struct(x, "data.frame", row.names = 1L, names = names(x))
 structure(1, class = "factor", levels = "a")
 try(struct(1, "factor", levels = "a"))
 struct(1L, "factor", levels = "a")
+
+# When first argument is NULL -- attributes() coerces
+try(structure(NULL))    # NULL, no call to attributes()
+struct(NULL, NULL)      # list(), without warning
+x <- NULL
+attributes(x) <- NULL
+x                       # NULL
+attributes(x) <- list() # struct() always grabs ... into a list
+x                       # list()
 
 # Due to the use of class() to assign class, you may experience some
 # other differences between structure() and struct()

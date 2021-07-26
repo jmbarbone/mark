@@ -16,9 +16,7 @@
 #' * `environments()`: Invisibly, a `character` vector of environment names
 #' @name list_environments
 environments <- function() {
-  x <- search()
-  class(x) <- c("character", "mark_environments")
-  x
+  struct(search(), c("character", "mark_environments"))
 }
 
 #' @export

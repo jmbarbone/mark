@@ -151,9 +151,6 @@ is_na_cols <- function(x, names = TRUE) {
 #' tableNA(x[1], x[2])
 #' tableNA(x[1], x[2], x[3]) # equivalent ot tableNA(x, .list = TRUE)
 
-# TODO add tests for tableNA()
-# TODO add tableNA() to NEWS.md
-
 tableNA <- function(..., .list = FALSE) {
   # browser()
   # This is from table():

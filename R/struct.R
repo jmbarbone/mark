@@ -11,9 +11,13 @@
 #'   Essentially, this is just a wrapper for calling [base::attributes()] then
 #'   [base::class()].
 #'
-#' @param x A list of data
-#' @param class A vector of classes
-#' @param ... Additional attributes; named
+#'   Note that [base::structure()] provides a warning when the first argument is
+#'   `NULL`.  `struct()` does not.  The coercion from `NULL` to `list()` is
+#'   done, and documented, in [base::attributes()].
+#'
+#' @param x An object; if `NULL`, coerced to `list()`
+#' @param class A vector of classes; can also be `NULL`
+#' @param ... Named attributes to set to `x`
 #' @return An object with class defined as `class` and attributes `...`
 #'
 #' @export
@@ -29,6 +33,15 @@
 #' structure(1, class = "factor", levels = "a")
 #' try(struct(1, "factor", levels = "a"))
 #' struct(1L, "factor", levels = "a")
+#'
+#' # When first argument is NULL -- attributes() coerces
+#' try(structure(NULL))    # NULL, no call to attributes()
+#' struct(NULL, NULL)      # list(), without warning
+#' x <- NULL
+#' attributes(x) <- NULL
+#' x                       # NULL
+#' attributes(x) <- list() # struct() always grabs ... into a list
+#' x                       # list()
 #'
 #' # Due to the use of class() to assign class, you may experience some
 #' # other differences between structure() and struct()

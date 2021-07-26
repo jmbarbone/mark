@@ -1,8 +1,6 @@
 test_that("handler examples", {
   has_catch_c <- function(...) {
-    x <- c(...)
-    class(x) <- c("has_catch", "logical")
-    x
+    struct(c(...), c("has_catch", "logical"))
   }
 
   expect_identical(

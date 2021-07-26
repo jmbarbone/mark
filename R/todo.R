@@ -78,9 +78,7 @@ do_todo <- function(text, pattern = NULL, ...) {
     return(invisible(NULL))
   }
 
-  class(out) <- c("todos_df", "data.frame")
-  attr(out, "todos_type") <- text
-  out
+  struct(out, c("todos_df", "data.frame"), todos_type = text)
 }
 
 #' @export

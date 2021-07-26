@@ -20,8 +20,6 @@
 #'   by_3 = round_by(x, 3)
 #' )
 
-# TODO add test-round-by.R
-
 round_by <- function(x, by = 1, method = c("round", "ceiling", "floor"), include0 = TRUE) {
   res <- do.call(match_param(method), list(x / by)) * by
 

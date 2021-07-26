@@ -24,3 +24,20 @@ test_that("struct() works for factors", {
     structure(1, class = "factor", levels = c("a", "b"))
   )
 })
+
+test_that("NULL handling", {
+  expect_identical(struct(NULL, NULL), list())
+  expect_identical(struct(NULL, "foo"), structure(list(), class = "foo"))
+})
+
+test_that("examples", {
+  expect_warning(structure(NULL))
+  expect_identical(wuffle(structure(NULL)), NULL)
+  expect_identical(struct(NULL, NULL), list())
+
+  x <- NULL
+  attributes(x) <- NULL
+  expect_null(x)
+  attributes(x) <- list()
+  expect_identical(x, list())
+})

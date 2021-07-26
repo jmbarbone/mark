@@ -27,10 +27,7 @@ pseudo_id.pseudo_id <- function(x) {
 #' @rdname pseudo_id
 pseudo_id.default <- function(x) {
   ux <- na_last(unique(x))
-  m <- match(x, ux)
-  .uniques(m) <- ux
-  class(m) <- c("pseudo_id", "integer")
-  m
+  make_pseudo_id(match(x, ux), ux)
 }
 
 #' @export
@@ -46,9 +43,11 @@ pseudo_id.factor <- function(x) {
     m[is.na(m)] <- length(lvl)
   }
 
-  .uniques(m) <- lvl
-  class(m) <- c("pseudo_id", "integer")
-  m
+  make_pseudo_id(m, lvl)
+}
+
+make_pseudo_id <- function(x, u) {
+  struct(x, class = c("pseudo_id", "integer"), uniques = u)
 }
 
 na_last <- function(x) {
