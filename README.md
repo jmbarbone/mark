@@ -9,7 +9,7 @@
 [![CRAN
 status](https://www.r-pkg.org/badges/version/mark)](https://CRAN.R-project.org/package=mark)
 [![Codecov test
-coverage](https://codecov.io/gh/jmbarbone/mark/branch/master/graph/badge.svg)](https://codecov.io/gh/jmbarbone/mark?branch=master)
+coverage](https://codecov.io/gh/jmbarbone/mark/branch/main/graph/badge.svg)](https://codecov.io/gh/jmbarbone/mark?branch=main)
 <!-- badges: end -->
 
 Miscellaneous, Analytic R Kernels
