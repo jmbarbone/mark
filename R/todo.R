@@ -78,7 +78,7 @@ do_todo <- function(text, pattern = NULL, ...) {
     return(invisible(NULL))
   }
 
-  struct(out, c("todos_df", "data.frame"), todos_type = text)
+  struct(out, c("todos_df", "data.frame"), todos_type = text, .keep_attr = TRUE)
 }
 
 #' @export
@@ -86,7 +86,7 @@ print.todos_df <- function(x, ...) {
   # TODO Add a limit for number of TODOs to show?
   type <- attr(x, "todos_type")
 
-  n <- max(nchar(x[["line"]]))
+  n <- max(nchar(x[["line"]]), 0)
   w <- getOption("width") - n - 3 # 4??
   pad <- collapse0(rep(" ", n + 3))
   pat <- sprintf("[%%%i.i]", n)

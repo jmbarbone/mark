@@ -18,6 +18,10 @@
 #' @param x An object; if `NULL`, coerced to `list()`
 #' @param class A vector of classes; can also be `NULL`
 #' @param ... Named attributes to set to `x`
+#' @param .keep_attr Control for keeping attributes from `x`: `TRUE` will retain
+#'   all attributes from `x`; a character vector will pick out specifically
+#'   defined attributes to retain; otherwise only attributes defined in `...`
+#'   will be used
 #' @return An object with class defined as `class` and attributes `...`
 #'
 #' @export
@@ -55,9 +59,23 @@
 #' } else {
 #'   all.equal(x, y)
 #' }
+#'
+#' # Be careful about carrying over attributes
+#' x <- quick_df(list(a = 1:2, b = 3:4))
+#' struct(x, "data.frame", new = 1)
+#' struct(x, "data.frame", new = 1, .keep_attr = TRUE)
+#' struct(x, "data.frame", new = 1, .keep_attr = "names")
+#' struct(x, "data.frame", new = 1, .keep_attr = c("names", "row.names"))
 
-struct <- function(x, class, ...) {
-  attributes(x) <- list(...)
+struct <- function(x, class, ..., .keep_attr = FALSE) {
+  attributes(x) <- if (isTRUE(.keep_attr)) {
+    c(attributes(x), list(...))
+  } else if (is.character(.keep_attr)) {
+    c(attributes(x)[.keep_attr], list(...))
+  } else {
+    list(...)
+  }
   class(x) <- class
   x
 }
+

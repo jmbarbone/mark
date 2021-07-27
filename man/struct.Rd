@@ -4,7 +4,7 @@
 \alias{struct}
 \title{Simple structures}
 \usage{
-struct(x, class, ...)
+struct(x, class, ..., .keep_attr = FALSE)
 }
 \arguments{
 \item{x}{An object; if \code{NULL}, coerced to \code{list()}}
@@ -12,6 +12,11 @@ struct(x, class, ...)
 \item{class}{A vector of classes; can also be \code{NULL}}
 
 \item{...}{Named attributes to set to \code{x}}
+
+\item{.keep_attr}{Control for keeping attributes from \code{x}: \code{TRUE} will retain
+all attributes from \code{x}; a character vector will pick out specifically
+defined attributes to retain; otherwise only attributes defined in \code{...}
+will be used}
 }
 \value{
 An object with class defined as \code{class} and attributes \code{...}
@@ -67,4 +72,11 @@ if (package_available("waldo")) {
 } else {
   all.equal(x, y)
 }
+
+# Be careful about carrying over attributes
+x <- quick_df(list(a = 1:2, b = 3:4))
+struct(x, "data.frame", new = 1)
+struct(x, "data.frame", new = 1, .keep_attr = TRUE)
+struct(x, "data.frame", new = 1, .keep_attr = "names")
+struct(x, "data.frame", new = 1, .keep_attr = c("names", "row.names"))
 }
