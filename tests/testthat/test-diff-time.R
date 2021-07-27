@@ -100,8 +100,38 @@ test_that("Timezones", {
   )
 
   expect_equal(
+    as.double(with(dftz, diff_time_years(a, b, tza, tzb))),
+    as.double(with(dftz, diff_time_dyears(a, b, tza, tzb)))
+  )
+
+  expect_equal(
+    as.double(with(dftz, diff_time_dyears(a, b, tza, tzb))),
+    as.double(with(dftz, diff_time_days(a, b, tza, tzb)) / 365)
+  )
+
+  expect_equal(
+    as.double(with(dftz, diff_time_wyears(a, b, tza, tzb))),
+    as.double(with(dftz, diff_time_weeks(a, b, tza, tzb)) / 52)
+  )
+
+  expect_equal(
+    as.double(with(dftz, diff_time_myears(a, b, tza, tzb))),
+    as.double(with(dftz, diff_time_months(a, b, tza, tzb)) / 12)
+  )
+
+  expect_equal(
+    as.double(with(dftz, diff_time_years(a, b))),
+    as.double(with(dftz, diff_time_dyears(a, b)))
+  )
+
+  expect_equal(
     with(dftz, diff_time_hours(a, b)),
     with(dftz, diff_time_hours(a, b, -3600, -3600))
+  )
+
+  expect_equal(
+    as.double(with(dftz, diff_time_months(a, b, tza, tzb))),
+    as.double(with(dftz, diff_time_days(a, b, tza, tzb)) / 30)
   )
 
   # Off sets are by the hour
@@ -132,6 +162,11 @@ test_that("Timezones", {
     c(0, 1, -1, -10),
     ignore_attr = TRUE
   )
+
+  expect_warning(
+    diff_time(Sys.Date(), Sys.Date(), tzx = NA, tzy = "GMT"),
+    "NA found in timezones"
+  )
 })
 
 test_that("Error checking", {
@@ -144,4 +179,64 @@ test_that("Error checking", {
     c(0, NA, 0, 0),
     ignore_attr = TRUE
   )
+})
+
+test_that("class coehersion", {
+  expect_identical(
+    diff_time(as.Date("2021-07-26"), "2021-07-26"),
+    diff_time(as.Date("2021-07-26"), as.Date("2021-07-26"))
+  )
+
+  expect_identical(
+    diff_time(as.Date("2021-07-26"), "2021-07-26"),
+    # setting to date instead
+    diff_time(as.Date("2021-07-26"), as.POSIXct("2021-07-26 02:02:02"))
+  )
+
+  expect_identical(
+    extract_numeric_time("2021-01-01", NULL),
+    struct(1609477200, "double", tzone = "")
+  )
+
+  expect_warning(
+    to_numeric_with_tz("2021-01-01", NA),
+    "NA found in timezones"
+  )
+
+  expect_identical(
+    extract_numeric_time(as.POSIXlt("2021-01-01"), NULL),
+    struct(1609477200, "double", tzone = "")
+  )
+
+  expect_identical(check_tz(NULL), NULL)
+  expect_identical(check_tz(c("", "")), NULL)
+})
+
+
+# helpers -----------------------------------------------------------------
+
+test_that("helpers", {
+  expect_true(is_POSIXct(as.POSIXct("2021-08-24")))
+  expect_true(is_POSIXlt(as.POSIXlt("2021-08-24")))
+  expect_true(is_diff_time(diff_time(Sys.time(), Sys.time() + 1)))
+})
+
+
+# printing ----------------------------------------------------------------
+
+test_that("snaps", {
+  x <- Sys.Date()
+  y <- x + 100
+
+  expect_snapshot_output(diff_time(x, y), cran = TRUE)
+  expect_snapshot_output(diff_time_days(x, y), cran = TRUE)
+  expect_snapshot_output(diff_time_dyears(x, y), cran = TRUE)
+  expect_snapshot_output(diff_time_hours(x, y), cran = TRUE)
+  expect_snapshot_output(diff_time_mins(x, y), cran = TRUE)
+  expect_snapshot_output(diff_time_months(x, y), cran = TRUE)
+  expect_snapshot_output(diff_time_myears(x, y), cran = TRUE)
+  expect_snapshot_output(diff_time_secs(x, y), cran = TRUE)
+  expect_snapshot_output(diff_time_weeks(x, y), cran = TRUE)
+  expect_snapshot_output(diff_time_wyears(x, y), cran = TRUE)
+  expect_snapshot_output(diff_time_years(x, y), cran = TRUE)
 })
