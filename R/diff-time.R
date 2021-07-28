@@ -2,24 +2,21 @@
 #'
 #' Wrappers for computing diff times
 #'
-#' @details
-#' A few significant differences exist with these functions
-#'   * The class of the object returned is no longer `difftime` (but does print)
-#'     with the `difftime` method.  This makes the exporting process easier as
-#'     the data will not have to be converted back to `numeric`
-#'   * `difftime()` computes the difference of `time1` - `time2`, but the
-#'     inverse feels a bit more nature: time difference from `x` to `y`
-#'   * Additional units can be used (detailed below)
-#'   * Differences can be sensitive to time zones if time zones are passed to
-#'     the `tz` parameter as a character vector
+#' @details A few significant differences exist with these functions * The class
+#' of the object returned is no longer `difftime` (but does print) with the
+#' `difftime` method.  This makes the exporting process easier as the data will
+#' not have to be converted back to `numeric` * `difftime()` computes the
+#' difference of `time1` - `time2`, but the inverse feels a bit more nature:
+#' time difference from `x` to `y` * Additional units can be used (detailed
+#' below) * Differences can be sensitive to time zones if time zones are passed
+#' to the `tz` parameter as a character vector
 #'
-#' @section Units:
-#' Units can be used beyond those available in `base::difftime()`.  Some of
-#'   these use assumptions in how units of time should be standardized and can
-#'   be changed in the corresponding options.  Any of these can be calculated
-#'   with `base::difftime()` through using `units = "days"` but the `dtime`
-#'   class will print out with these specifications into the console for less
-#'   potential confusion.
+#' @section Units: Units can be used beyond those available in
+#'   `base::difftime()`.  Some of these use assumptions in how units of time
+#'   should be standardized and can be changed in the corresponding options.
+#'   Any of these can be calculated with `base::difftime()` through using `units
+#'   = "days"` but the `dtime` class will print out with these specifications
+#'   into the console for less potential confusion.
 #'
 #' \describe{
 #'   \item{months}{Months by number of days `mark.days_in_month` (defaults: `30`)}
@@ -29,10 +26,11 @@
 #'   \item{wyears}{Years by number of weeks in a year `mark.weeks_in_year` (defaults: `52`)}
 #' }
 #'
-#' @section Time zones:
-#' Time zones can be passed as either a numeric vector of GMT/UTC offsets (the
-#'   number of seconds from GMT) or as a character vector.  If the letter, these
-#'   need to conform with values from `base::OlsonNames()`.
+#' @section Time zones: Time zones can be passed as either a numeric vector of
+#'   GMT/UTC offsets (the number of seconds from GMT) or as a character vector.
+#'   If the letter, these need to conform with values from `base::OlsonNames()`.
+#'
+#'   A default timezone can be set with `options(mark.default_tz = .)`.  The value can either be a numeric
 #'
 #' @param x,y Vectors of times
 #' @param method A method to report the difference in units of time (see
@@ -92,18 +90,24 @@ extract_numeric_time <- function(x, tz) {
 
     if (is_POSIXct(x)) {
       gmt <- as.double(format(x, "%z"))
-    } else if (!is_POSIXlt(x)) {
-      x <- as.POSIXlt(x)
+    } else {
+      if (!is_POSIXlt(x)) {
+        # Default to UTC when NULL
+        # TODO consider options(mark.default_timezone = "UTC"))
+        x <- as.POSIXlt(x)
+        x$zone <- default_tz()
+      }
       gmt <- x$gmtoff
     }
 
     if (is.null(gmt)) {
       gmt <- 0.0
+      x$zone <- default_tz()
     } else {
       gmt[is.na(gmt)] <- 0.0
     }
 
-    return(unclass(as.POSIXct(x)) + gmt)
+    return(unclass(as.POSIXct(x, x$zone)) + gmt)
   }
 
   to_numeric_with_tz(x, tz)
@@ -113,8 +117,8 @@ to_numeric_with_tz <- function(x, tz) {
   nas <- is.na(tz)
 
   if (any(nas)) {
-    warning('NA found in timezones; setting to ""', call. = FALSE)
-    tz[nas] <- ""
+    warning('NA found in timezones; setting to ', default_tz(), call. = FALSE)
+    tz[nas] <- default_tz()
   }
 
   check_tz(tz)
@@ -262,3 +266,56 @@ is_POSIXct <- function(x) {
 is_diff_time <- function(x) {
   inherits(x, "diff_time")
 }
+
+
+# helpers -----------------------------------------------------------------
+
+default_tz <- function() {
+  tz <- getOption("mark.default_tz")
+
+  if (is.null(tz)) {
+    return("UTC")
+  }
+
+  if (identical(tz, "system")) {
+    return(sys_tz(4))
+  }
+
+  if (is.function(tz)) {
+    tz <- match.fun(tz)
+    tz <- tz()
+  }
+
+  if (!is.character(tz) || length(tz) != 1L) {
+    stop(
+      "option(mark.default_tz) must be",
+      " a character vector of length 1L,",
+      " a function that returns a character vector of length 1L,",
+      " NULL (defaults to UTC),",
+      ' or "system" to set to system timezone',
+      call. = FALSE)
+  }
+
+  tz
+}
+
+# easy time zones
+# lapply(1:7, sys_tz)
+# bench::press(x = 1:7, bench::mark(sys_tz(x), check = FALSE))
+
+sys_tz <- function(method = 1) {
+  switch(
+    method,
+
+    format(Sys.time(), "%Z"),
+    format(Sys.time(), "%z"),
+    as.integer(sys_tz(2)),
+
+    # I don't think these really need to be used
+    Sys.timezone(),
+    format(strptime(Sys.timezone(), format = "%t"), "%Z"),
+    format(as.POSIXct(Sys.Date(), tz = Sys.timezone()), "%z"),
+    as.integer(sys_tz(6))
+  )
+}
+
