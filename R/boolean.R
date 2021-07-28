@@ -49,7 +49,7 @@ to_boolean_default <- function(x) {
   res <- rep_len(NA, length(u))
   res[lu %in% c("true", "t", "yes", "y")] <- TRUE
   res[lu %in% c("false", "f", "no", "n")] <- FALSE
-  res[match(x, u)]
+  res[x]
 }
 
 to_boolean_numeric <- function(x, true, false) {
