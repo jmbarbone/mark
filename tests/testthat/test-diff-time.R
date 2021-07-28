@@ -182,6 +182,7 @@ test_that("Error checking", {
 })
 
 test_that("class coehersion", {
+
   expect_identical(
     diff_time(as.Date("2021-07-26"), "2021-07-26"),
     diff_time(as.Date("2021-07-26"), as.Date("2021-07-26"))
@@ -193,9 +194,12 @@ test_that("class coehersion", {
     diff_time(as.Date("2021-07-26"), as.POSIXct("2021-07-26 02:02:02"))
   )
 
+  # skip_if_not_installed("withr")
+  # withr::local_timezone("UTC")
+
   expect_identical(
     extract_numeric_time("2021-01-01", NULL),
-    struct(1609477200, "double", tzone = "")
+    struct(1609459200, "double", tzone = "UTC")
   )
 
   expect_warning(
@@ -204,12 +208,12 @@ test_that("class coehersion", {
   )
 
   expect_identical(
-    extract_numeric_time(as.POSIXlt("2021-01-01"), NULL),
-    struct(1609477200, "double", tzone = "")
+    extract_numeric_time(as.POSIXlt("2021-01-01", tz = "UTC"), NULL),
+    struct(1609459200, "double", tzone = "UTC")
   )
 
   expect_identical(check_tz(NULL), NULL)
-  expect_identical(check_tz(c("", "")), NULL)
+  expect_identical(check_tz(c("UTC", "UTC")), NULL)
 })
 
 
