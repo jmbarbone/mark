@@ -7,6 +7,7 @@
 * `remove_na()` now has methods for `list`s and `factor`s
 * `environments()` now has it's own `print.mark_environments()` method rather than calling `cat()` within the function itself
 * `array_extract()`'s first argument is changed from `arr` to `.arr`
+* `diff_time()` now defaults to using UTC (Related to [#32](https://github.com/jmbarbone/mark/issues/32))
 
 ## Fixes
 
