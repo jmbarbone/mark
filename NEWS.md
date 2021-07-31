@@ -30,6 +30,7 @@
 * adds more `fact()` methods
   * `fact.integer()` [#30](https://github.com/jmbarbone/mark/issues/30)
   * `fact.haven_labelled()` [#31](https://github.com/jmbarbone/mark/issues/31)
+* `todos()` and `fixmes()` gain an additional argument `path` to specify a directory or file to search within [#25](https://github.com/jmbarbone/mark/issues/25)
 
 ## Non visible changes
 
