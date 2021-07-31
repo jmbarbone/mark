@@ -62,8 +62,3 @@ na_last <- function(x) {
 .uniques <- function(x) {
   attr(x, "uniques")
 }
-
-`.uniques<-` <- function(x, value) {
-  attr(x, "uniques") <- value
-  x
-}
