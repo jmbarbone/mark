@@ -44,6 +44,8 @@
 #' @name handlers
 NULL
 
+# TODO add `...` for `has_warning()`, `has_error()`, `has_message()`, etc
+
 #' @export
 #' @rdname handlers
 has_warning <- function(x, FUN) {
@@ -92,10 +94,7 @@ has_catch <- function(x, FUN, type = c("error", "warning", "message")) {
 
 #' @export
 print.has_catch <- function(x, ...) {
-  nm <- names(x)
-  attributes(x) <- NULL
-  names(x) <- nm
-  print(x)
+  set_names0(remove_attributes(x), names(x))
 }
 
 get_catch <- function(x, FUN, type, null = TRUE) {
