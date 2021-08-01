@@ -19,7 +19,6 @@
 #' @param x An object
 #' @param value The note to attach; if `NULL` will remove the note and the
 #'   class `noted` from the object.
-#' @param ... Additional arguments passed from methods (not used)
 #' @return
 #' * `note<-` will return `x` (with the `"note"` attribute assigned)
 #' * `note()` will retrieve the `"note"` attribute

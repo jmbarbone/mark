@@ -14,8 +14,6 @@ note(x)
 
 \item{value}{The note to attach; if \code{NULL} will remove the note and the
 class \code{noted} from the object.}
-
-\item{...}{Additional arguments passed from methods (not used)}
 }
 \value{
 \itemize{

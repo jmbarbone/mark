@@ -20,9 +20,6 @@ environments <- function() {
 }
 
 #' @export
-#' @rdname list_environments
-#' @param x A mark_environments object
-#' @param ... Not currently used
 print.mark_environments <- function(x, ...) {
   for (e in x) {
     cat(utils::str(parent.env(as.environment(e)), give.attr = FALSE))
