@@ -35,7 +35,7 @@ test_that("Rscript", {
   expect_error(rscript(x, stdout = FALSE, stderr = FALSE), NA)
   expect_false("dplyr" %in% search())
 
-  e <- source_to_env(x)
+  e <- source_to_env(x, ops = "vanilla")
   expect_s3_class(e, c("source_env", "environment"))
   expect_identical(e$a_litte_note, "You're doing okay")
   expect_s3_class(e$out, "tbl_df")
