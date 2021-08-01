@@ -16,15 +16,15 @@ tz1 <- c(
 )
 
 tz2 <- c(
-    2,
-    3,
-    6,
-    8,
+  2,
+  3,
+  6,
+  8,
   -10,
   -11,
-   12,
+  12,
   -13,
-   16,
+  16,
   -17,
   NULL
 )
@@ -51,7 +51,7 @@ test_that("diff_time_*() identical to difftime()", {
     ignore_attr = TRUE
   )
 
-   expect_identical(
+  expect_identical(
     with(df, difftime(b, a, units = "hours")),
     with(df, diff_time_hours(a, b)),
     ignore_attr = TRUE

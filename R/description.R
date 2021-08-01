@@ -39,13 +39,13 @@ use_author <- function(author_info = find_author()) {
   body <- author_info_to_text(author_info)
   n <- length(body)
   new_body <- c("Authors@R:",
-                paste0("    person(", trimws(body[1], "left")),
-                if (n > 2) paste0("           ", body[2:(n - 1)]) else NULL,
-                paste0("           ", sub("[,]$", "", body[n]), ")"))
+    paste0("    person(", trimws(body[1], "left")),
+    if (n > 2) paste0("           ", body[2:(n - 1)]) else NULL,
+    paste0("           ", sub("[,]$", "", body[n]), ")"))
 
   out <- c(lines[1:(start - 1)],
-           new_body,
-           lines[(end + 1):length(lines)])
+    new_body,
+    lines[(end + 1):length(lines)])
 
   writeLines(out, "DESCRIPTION")
 }
@@ -69,16 +69,14 @@ author_info_to_text <- function(x) {
 }
 
 find_author <- function() {
-  author <- getOption("mark.author")
-  if (!is.null(author)) {
-    return(author)
-  }
-
-  stop(
-    "Author information not found in options.\n",
-    "You can set the author information with options(mark.author = ...)\n",
-    "  probably within an .Rprofile",
-    call. = FALSE
+  getOption(
+    "mark.author",
+    stop(
+      "Author information not found in options.\n",
+      "You can set the author information with options(mark.author = .)\n",
+      "  probably within an .Rprofile",
+      call. = FALSE
+    )
   )
 }
 

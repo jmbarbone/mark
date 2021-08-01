@@ -64,7 +64,7 @@ do_todo <- function(text, pattern = NULL, path = path, ...) {
         pattern = sprintf("[#]\\s+%s[:]?\\s+", toupper(text)),
         x = x
       )
-      quick_df(list(ind = ind, todo = x[ind]))
+      quick_dfl(ind = ind, todo = x[ind])
     }
   )
 

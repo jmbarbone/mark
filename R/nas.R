@@ -152,18 +152,15 @@ is_na_cols <- function(x, names = TRUE) {
 #' tableNA(x[1], x[2], x[3]) # equivalent ot tableNA(x, .list = TRUE)
 
 tableNA <- function(..., .list = FALSE) {
-  # browser()
-  # This is from table():
-  # ls <- as.list(substitute(list(...)))[-1L]
-  # nm <- names(ls)
-  # fixup <- if (is.null(nm))
-  #   seq_along(ls)
-  # else nm == ""
-  ls <- if (.list)
+  ls <- if (.list) {
     as.list(...)
-  else
+  } else {
     list(...)
-  if (is.null(names(ls)))
+  }
+
+  if (is.null(names(ls))) {
     names(ls) <- as.character(sys.call())[-1]
+  }
+
   table(lapply(ls, function(x) mark::fact(is.na(x))))
 }
