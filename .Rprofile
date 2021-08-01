@@ -7,5 +7,5 @@ if (file.exists("~/.Rprofile")) {
 }
 
 # Don't need anymore
-Sys.setenv(TESTTHAT_CPUS = 2)
-options(Ncpus = 2)
+Sys.setenv(TESTTHAT_CPUS = 3)
+options(Ncpus = 3)
