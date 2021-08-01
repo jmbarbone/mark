@@ -3,24 +3,17 @@
 \name{list_environments}
 \alias{list_environments}
 \alias{environments}
-\alias{print.mark_environments}
 \alias{ls_all}
 \alias{objects_all}
 \title{List all environments and objects}
 \usage{
 environments()
 
-\method{print}{mark_environments}(x, ...)
-
 ls_all(all.names = FALSE)
 
 objects_all(all.names = FALSE)
 }
 \arguments{
-\item{x}{A mark_environments object}
-
-\item{...}{Not currently used}
-
 \item{all.names}{a logical value.  If \code{TRUE}, all
     object names are returned.  If \code{FALSE}, names which begin with a
     \samp{.} are omitted.}
