@@ -6,8 +6,11 @@
 \alias{fact.character}
 \alias{fact.numeric}
 \alias{fact.integer}
+\alias{fact.Date}
+\alias{fact.POSIXt}
 \alias{fact.logical}
 \alias{fact.factor}
+\alias{fact.fact}
 \alias{fact.pseudo_id}
 \alias{fact.haven_labelled}
 \title{Factor}
@@ -22,9 +25,15 @@ fact(x)
 
 \method{fact}{integer}(x)
 
+\method{fact}{Date}(x)
+
+\method{fact}{POSIXt}(x)
+
 \method{fact}{logical}(x)
 
 \method{fact}{factor}(x)
+
+\method{fact}{fact}(x)
 
 \method{fact}{pseudo_id}(x)
 
@@ -34,14 +43,28 @@ fact(x)
 \item{x}{A vector of values}
 }
 \value{
-A \code{factor} vector of equal length of \code{x}
+A vector of equal length of \code{x} with class \code{fact} and \code{factor}.  If
+\code{x} was \code{ordered}, that class is added in between.
 }
 \description{
 Quickly create a factor
 }
 \details{
-\code{fact()} can be about 5 times quicker than \code{factor()} or \code{as.factor()}
-as it doesn't bother sorting the levels for non-numeric data or have
-other checks or features.  It simply converts a vector to a factor with all
-unique values as levels with \code{NA}s included.
+\code{fact()} can be about 5 times quicker than \code{factor()} or
+\code{as.factor()} as it doesn't bother sorting the levels for non-numeric data
+or have other checks or features.  It simply converts a vector to a factor
+with all unique values as levels with \code{NA}s included.
+
+\code{fact.factor()} will perform several checks on a factor to include \code{NA}
+levels and to check if the levels should be reordered to conform with the
+other methods.  The \code{fact.fact()} method simple returns \code{x}.
+
+@section level ordered:
+The order of the levels may be adjusted to these rules depending on the class of \code{x}:
+\describe{
+\item{character}{The order of apperance}
+\item{numeric/integer/Date/POSIXt}{By the numeric order}
+\item{logical}{As \code{TRUE}, \code{FALSE}, then \code{NA} if present}
+\item{factor}{Numeric if levels can be safely converted, otherwise as they are}
+}
 }
