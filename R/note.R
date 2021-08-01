@@ -13,7 +13,7 @@
 #'
 #' When assigning a note (with `note<-`) the `noted` class is added to the
 #'   object.  This allows the `print.noted` class to be distracted and for the
-#'   note to be printed (with the `print.note` method) every time the object is
+#'   note to be printed every time the object is
 #'   called/printed.  However, it will not be called when not `interactive()`
 #'
 #' @param x An object
@@ -47,20 +47,20 @@
 
 `note<-` <- function(x, value) {
   if (is.null(value)) {
-    attr(x, "note") <- NULL
-    class(x) <- setdiff(class(x), "noted")
+    x <- remove_attributes(x, "note")
+    x <- remove_class(x, "noted")
     return(x)
   }
 
-  # TODO test that class "note" or "noted" is not continuously appended
   if (!inherits(value, "note")) {
-    class(value) <- c("note", class(value))
+    value <- add_class(value, "note", pos = 1L)
   }
 
   if (!inherits(x, "noted")) {
-    class(x) <- c("noted", class(x))
+    x <- add_class(x, "noted", pos = 1L)
   }
 
+  add_attributes(x, note = value)
   attr(x, "note") <- value
   x
 }
@@ -72,24 +72,48 @@ note <- function(x) {
 }
 
 #' @export
-#' @rdname note
 print.note <- function(x, ...) {
-  if (!interactive()) {
+  print(remove_class(x, "note"))
+  invisible(x)
+}
+
+print_note <- function(x, ...) {
+  if (!inherits(x, "noted")) {
+    stop("x must be class noted")
+  }
+
+  the_note <- note(x)
+
+  if (is.null(the_note)) {
+    stop("note(x) cannot be NULL")
+  }
+
+  if (!inherits(the_note, "note")) {
+    stop("note(x) must be class note")
+  }
+
+  if (!check_interactive()) {
     return(invisible(x))
   }
+
   width <- getOption("mark.note.width", getOption("width"))
-  out <- vap_chr(paste0("Note :  ", x), str_slice_by_word, width)
+  out <- vap_chr(paste0("Note : ", x), str_slice_by_word, width)
   cat(crayon_blue(out), sep = "\n")
   invisible(x)
 }
 
 #' @export
 print.noted <- function(x, ...) {
-  n <- attr(x, "note")
+  print_note(x)
   y <- x
-  class(y) <- setdiff(class(x), "noted")
-  attr(y, "note") <- NULL
-  print(n)
+  note(y) <- NULL
   print(y)
   invisible(x)
 }
+
+int_err <- function(msg) {
+  msg <- paste0("internal error from package:mark\n  ", msg)
+  struct(list(msg), c("mark_int_err", "error", "condition"), names = "message")
+}
+
+# stop(int_err("this is an //error"))

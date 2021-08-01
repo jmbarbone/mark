@@ -191,7 +191,15 @@ check_is_vector <- function(x, mode = "any") {
   }
 }
 
-remove_attributes <- function(x) {
-  attributes(x) <- NULL
   x
 }
+remove_attributes <- function(x, attr = NULL) {
+  if (is.null(attr)) {
+    attributes(x) <- NULL
+  } else {
+    a <- attributes(x)
+    attributes(x) <- a[names(a) %wo% attr]
+  }
+  x
+}
+
