@@ -43,8 +43,8 @@ magrittr::`%>%`
     get(name, envir = asNamespace(package)),
     error = function(e) {
       stop(sprintf("`%s` not found in package `%s`",
-                   name, package),
-           call. = FALSE)
+        name, package),
+        call. = FALSE)
     }
   )
 }
@@ -196,8 +196,11 @@ check_is_vector <- function(x, mode = "any") {
   }
 }
 
+add_attributes <- function(x, ...) {
+  attributes(x) <- c(attributes(x), list(...))
   x
 }
+
 remove_attributes <- function(x, attr = NULL) {
   if (is.null(attr)) {
     attributes(x) <- NULL
@@ -208,3 +211,34 @@ remove_attributes <- function(x, attr = NULL) {
   x
 }
 
+add_class <- function(x, cl, pos = 1L) {
+  class(x) <- append0(class(x), cl, pos = pos)
+  x
+}
+
+remove_class <- function(x, cl = NULL) {
+  if (is.null(cl)) {
+    class(x) <- NULL
+  } else {
+    class(x) <- class(x) %wo% cl
+  }
+  x
+}
+
+append0 <- function(x, values, pos = NULL) {
+  if (is.null(pos)) {
+    c(x, values)
+  } else if (pos == 1L) {
+    c(values, x)
+  } else {
+    c(x[1L:(pos - 1L)], values, x[pos:length(x)])
+  }
+}
+
+check_interactive <- function() {
+  if (!isFALSE(getOption("mark.check_interactive"))) {
+    return(interactive())
+  }
+
+  TRUE
+}
