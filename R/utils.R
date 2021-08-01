@@ -165,11 +165,12 @@ mark_temp <- function(ext = "") {
   file_path(path, file)
 }
 
-mark_dir <- function() {
+mark_dir <- function(create = TRUE) {
   R <- getRversion()
+
   if (R < 4) {
     dm <- file_path(tempdir(), "_R_mark_temp_files")
-    dir.create(dm, recursive = TRUE, showWarnings = FALSE)
+    if (create) dir.create(dm, recursive = TRUE, showWarnings = FALSE)
     return(dm)
   }
 
@@ -181,8 +182,12 @@ mark_dir <- function() {
   }
 
   res <- rud("mark")
-  dir.create(res, recursive = TRUE, showWarnings = FALSE)
+  if (create) dir.create(res, recursive = TRUE, showWarnings = FALSE)
   res
+}
+
+mark_dir_remove <- function() {
+  try(unlink(dirname(mark_dir(FALSE)), recursive = TRUE, force = TRUE))
 }
 
 check_is_vector <- function(x, mode = "any") {
