@@ -77,9 +77,11 @@ do_todo <- function(text, pattern = NULL, path = path, ...) {
     return(invisible(NULL))
   }
 
-  out <- cbind(rep(names(finds), vap_int(finds, nrow)), Reduce(rbind, finds))
-  names(out) <- c("file", "line", text)
-  out <- out[, c("line", "file", text)]
+  out <- quick_df(c(
+    file = list(rep(names(finds), vap_int(finds, nrow))),
+    set_names0(as.list(Reduce(rbind, finds)), c("line", text))
+  ))[, c("line", "file", text)]
+
   ind <- grepl("\\.rmd$", out[["file"]], ignore.case = TRUE)
 
   if (any(ind)) {
