@@ -23,11 +23,12 @@
 #' @examples
 #' between_more(10, 2, 10, "gl")
 #' between_more(10, 2, 10, "gle")
+#' between_more(1:5, c(3, 3, 2, 2, 1), 5)
 
 between_more <- function(x, left, right, type = c("gele", "gel", "gle", "gl")) {
   type <- match_param(type)
 
-  if (left > right) {
+  if (any(left > right)) {
     warning("`left` > `right`", call. = FALSE)
   }
 

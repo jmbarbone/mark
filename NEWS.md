@@ -26,7 +26,7 @@
 * `todos()` and `fixmes()` now correctly show tags for `.Rmd` files
 * correction to error message in `limit()`
 * adds missing `sort` argument to `props()`
-* `pseudo_id.factor()` no longer returns `NA_integer` when a value is `NA` or a level is `NA` and correctly resets the order of the levels from the factor to their order of appearnace
+* `pseudo_id.factor()` no longer returns `NA_integer` when a value is `NA` or a level is `NA` and correctly resets the order of the levels from the factor to their order of appearance
 
 ## New features
 
@@ -43,6 +43,7 @@
   * `fact.haven_labelled()` [#31](https://github.com/jmbarbone/mark/issues/31)
 * `todos()` and `fixmes()` gain an additional argument `path` to specify a directory or file to search within [#25](https://github.com/jmbarbone/mark/issues/25)
 * `print.pseudo_id()` added for a cleaner print
+* `between_more()` accepts vectors for `left` and `right` params
 
 ## Non visible changes
 
