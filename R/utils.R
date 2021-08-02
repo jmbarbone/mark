@@ -187,7 +187,25 @@ mark_dir <- function(create = TRUE) {
 }
 
 mark_dir_remove <- function() {
-  try(unlink(dirname(mark_dir(FALSE)), recursive = TRUE, force = TRUE))
+  # NULL: Not deleted
+  # NA: unlink() failed
+  # TRUE: delete success
+  # FALSE: delete fail
+
+  dir <- dirname(mark_dir(FALSE))
+
+  if (!dir.exists(dir)) {
+    return(invisible(NULL))
+  }
+
+  res <- try(unlink(dir,  recursive = TRUE, force = TRUE))
+
+  if (inherits(res, "try-error")) {
+    return(invisible(NA))
+  }
+
+  # 0 = success, 1 = failure
+  invisible(res == 0L)
 }
 
 check_is_vector <- function(x, mode = "any") {
