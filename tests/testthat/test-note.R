@@ -18,10 +18,10 @@ test_that("note() work", {
 test_that("note() snapshots", {
   x <- 1L
   note(x) <- "snapshot vector"
-  expect_snapshot_output(x, cran = TRUE)
-  expect_snapshot_output(note(x), cran = TRUE)
+  expect_snapshot_output(x)
+  expect_snapshot_output(note(x))
 
   x <- quick_dfl(a = 1.0)
   note(x) <- "snapshot data.frame"
-  expect_snapshot_output(x, cran = TRUE)
+  expect_snapshot_output(x)
 })
