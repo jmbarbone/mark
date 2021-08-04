@@ -3,22 +3,17 @@
 \name{note}
 \alias{note}
 \alias{note<-}
-\alias{print.note}
 \title{Append a note to an object}
 \usage{
 note(x) <- value
 
 note(x)
-
-\method{print}{note}(x, ...)
 }
 \arguments{
 \item{x}{An object}
 
 \item{value}{The note to attach; if \code{NULL} will remove the note and the
 class \code{noted} from the object.}
-
-\item{...}{Additional arguments passed from methods (not used)}
 }
 \value{
 \itemize{
@@ -40,7 +35,7 @@ of odd prints or additional features added to the notes fun.
 
 When assigning a note (with \verb{note<-}) the \code{noted} class is added to the
 object.  This allows the \code{print.noted} class to be distracted and for the
-note to be printed (with the \code{print.note} method) every time the object is
+note to be printed every time the object is
 called/printed.  However, it will not be called when not \code{interactive()}
 }
 \examples{

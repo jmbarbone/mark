@@ -43,8 +43,8 @@ magrittr::`%>%`
     get(name, envir = asNamespace(package)),
     error = function(e) {
       stop(sprintf("`%s` not found in package `%s`",
-                   name, package),
-           call. = FALSE)
+        name, package),
+        call. = FALSE)
     }
   )
 }
@@ -165,11 +165,12 @@ mark_temp <- function(ext = "") {
   file_path(path, file)
 }
 
-mark_dir <- function() {
+mark_dir <- function(create = TRUE) {
   R <- getRversion()
+
   if (R < 4) {
     dm <- file_path(tempdir(), "_R_mark_temp_files")
-    dir.create(dm, recursive = TRUE, showWarnings = FALSE)
+    if (create) dir.create(dm, recursive = TRUE, showWarnings = FALSE)
     return(dm)
   }
 
@@ -181,8 +182,30 @@ mark_dir <- function() {
   }
 
   res <- rud("mark")
-  dir.create(res, recursive = TRUE, showWarnings = FALSE)
+  if (create) dir.create(res, recursive = TRUE, showWarnings = FALSE)
   res
+}
+
+mark_dir_remove <- function() {
+  # NULL: Not deleted
+  # NA: unlink() failed
+  # TRUE: delete success
+  # FALSE: delete fail
+
+  dir <- dirname(mark_dir(FALSE))
+
+  if (!dir.exists(dir)) {
+    return(invisible(NULL))
+  }
+
+  res <- try(unlink(dir,  recursive = TRUE, force = TRUE))
+
+  if (inherits(res, "try-error")) {
+    return(invisible(NA))
+  }
+
+  # 0 = success, 1 = failure
+  invisible(res == 0L)
 }
 
 check_is_vector <- function(x, mode = "any") {
@@ -191,7 +214,49 @@ check_is_vector <- function(x, mode = "any") {
   }
 }
 
-remove_attributes <- function(x) {
-  attributes(x) <- NULL
+add_attributes <- function(x, ...) {
+  attributes(x) <- c(attributes(x), list(...))
   x
+}
+
+remove_attributes <- function(x, attr = NULL) {
+  if (is.null(attr)) {
+    attributes(x) <- NULL
+  } else {
+    a <- attributes(x)
+    attributes(x) <- a[names(a) %wo% attr]
+  }
+  x
+}
+
+add_class <- function(x, cl, pos = 1L) {
+  class(x) <- append0(class(x), cl, pos = pos)
+  x
+}
+
+remove_class <- function(x, cl = NULL) {
+  if (is.null(cl)) {
+    class(x) <- NULL
+  } else {
+    class(x) <- class(x) %wo% cl
+  }
+  x
+}
+
+append0 <- function(x, values, pos = NULL) {
+  if (is.null(pos)) {
+    c(x, values)
+  } else if (pos == 1L) {
+    c(values, x)
+  } else {
+    c(x[1L:(pos - 1L)], values, x[pos:length(x)])
+  }
+}
+
+check_interactive <- function() {
+  if (!isFALSE(getOption("mark.check_interactive"))) {
+    return(interactive())
+  }
+
+  TRUE
 }

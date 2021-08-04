@@ -1,8 +1,8 @@
 .onAttach <- function(libname, pkgname) {
-
+  options(op.mark[names(op.mark) %out% names(options())])
+  mark_dir_remove()
 }
 
 .onDetach <- function(libpath) {
-  # clear out directory
-  unlink(mark_dir(), recursive = TRUE)
+  mark_dir_remove()
 }

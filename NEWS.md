@@ -2,11 +2,23 @@
 
 ## Changes
 
-* `fact.character()` correctly labels `NA`s [#24](https://github.com/jmbarbone/mark/issues/24)
 * `package_available()` now visibly returns `TRUE`/`FALSE`
 * `remove_na()` now has methods for `list`s and `factor`s
 * `environments()` now has it's own `print.mark_environments()` method rather than calling `cat()` within the function itself
 * `array_extract()`'s first argument is changed from `arr` to `.arr`
+* `diff_time()` now defaults to using UTC (Related to [#32](https://github.com/jmbarbone/mark/issues/32))
+* `print.note()` method has been updated (Related to: [#33](https://github.com/jmbarbone/mark/issues/33)):
+  * to print `x` _normally_, without the `note class` when just the note has to be seen
+  * an internal function now handles the note formatted for class `noted`
+* changes to `fact()`
+  * `fact()` now returns a vector with a `fact` element
+  * `fact.character()` correctly labels `NA`s [#24](https://github.com/jmbarbone/mark/issues/24)
+  * `fact.factor()` not longer simply returns `x` but rather updates the levels and integer values to confirm with other `fact()` methods.  `fact.factor()` will retain all levels of the original value, reorder the levels, and append `NA` if necessary
+  * `fact.fact()` added to return a correctly formatted `fact()`
+  * `fact.logical()` now orders levels as `TRUE` then `FALSE`, and `NA` if present
+  * `fact.Date()` and `fact.POSIXt()` added, which simply call `fact.numeric()`
+  * `print.fact()` method added to print a `fact` vector as a `factor`
+  * `as_ordered.factor()` and `as_ordered.ordered()` now call `fact()` to check levels 
 
 ## Fixes
 
@@ -14,7 +26,7 @@
 * `todos()` and `fixmes()` now correctly show tags for `.Rmd` files
 * correction to error message in `limit()`
 * adds missing `sort` argument to `props()`
-* `pseudo_id.factor()` no longer returns `NA_integer` when a value is `NA` or a level is `NA`
+* `pseudo_id.factor()` no longer returns `NA_integer` when a value is `NA` or a level is `NA` and correctly resets the order of the levels from the factor to their order of appearance
 
 ## New features
 
@@ -29,6 +41,9 @@
 * adds more `fact()` methods
   * `fact.integer()` [#30](https://github.com/jmbarbone/mark/issues/30)
   * `fact.haven_labelled()` [#31](https://github.com/jmbarbone/mark/issues/31)
+* `todos()` and `fixmes()` gain an additional argument `path` to specify a directory or file to search within [#25](https://github.com/jmbarbone/mark/issues/25)
+* `print.pseudo_id()` added for a cleaner print
+* `between_more()` accepts vectors for `left` and `right` params
 
 ## Non visible changes
 

@@ -55,7 +55,7 @@ test_that("tableNA() works", {
   expect_identical(
     tableNA(x),
     struct(
-      c(`TRUE` = 3L, `FALSE` = 0L),
+      c(`TRUE` = 0L, `FALSE` = 3L),
       dim = 2L,
       dimnames = set_names0(list(c("TRUE", "FALSE")), ""),
       class = "table"
@@ -65,7 +65,7 @@ test_that("tableNA() works", {
   expect_identical(
     tableNA(x, .list = TRUE),
     struct(
-      c(2L, 0L, 0L, 0L, 0L, 1L, 1L, 0L),
+      c(0L, 1L, 1L, 0L, 0L, 0L, 0L, 2L),
       dim = c(2L, 2L, 2L),
       dimnames = list(
         a = c("TRUE", "FALSE"),

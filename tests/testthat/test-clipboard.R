@@ -1,7 +1,9 @@
 test_that("clipboard", {
   skip_if_not(is_windows(), "Is Windows?")
-  skip_if(any(has_warning(integer(1e4), readClipboard)),
-          "Failed to access clipboard")
+  skip_if(
+    any(has_warning(integer(1e4), readClipboard)),
+    "Failed to access clipboard"
+  )
 
   clear_clipboard()
 

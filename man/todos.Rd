@@ -5,13 +5,15 @@
 \alias{fixmes}
 \title{Get TODOs}
 \usage{
-todos(pattern = NULL, ...)
+todos(pattern = NULL, path = ".", ...)
 
-fixmes(pattern = NULL, ...)
+fixmes(pattern = NULL, path = ".", ...)
 }
 \arguments{
 \item{pattern}{A character string containing a regular expression to filter
 for comments after tags; default \code{NULL} does not filter}
+
+\item{path}{The file directory to search for the tags}
 
 \item{...}{Additional parameters passed to \code{grep} (Except for \code{pattern}, \code{x},
 and \code{value})}

@@ -46,9 +46,9 @@ counts <- function(x, ...) {
 
 #' @export
 counts.default <- function(x, sort = FALSE, ...) {
-  id <- pseudo_id(x)
-  u <- .uniques(id)
-  out <- tabulate(id, length(u))
+  x <- pseudo_id(x)
+  u <- .uniques(x)
+  out <- tabulate(x, length(u))
   names(out) <- na_last(u)
 
   if (sort) {
@@ -56,6 +56,19 @@ counts.default <- function(x, sort = FALSE, ...) {
   }
 
   out
+}
+
+
+# x <- structure(c(2L, NA, 3L, NA, NA, 3L, NA, NA, 1L, 1L), .Label = c("2", "4", "1", "0"), class = "factor")
+
+#' @export
+counts.factor <- function(x, ...) {
+  x <- fact(x)
+  lvl <- levels(x)
+  x <- seq_along(lvl)[x]
+  n <- length(lvl)
+  x[is.na(x)] <- n
+  set_names0(tabulate(x, n), lvl)
 }
 
 #' @export

@@ -225,7 +225,7 @@ is_leap_year <- function(year = Sys.time()) {
 }
 
 as_date_strptime <- function(x, format = "%Y-%m-%d") {
-  text <- strptime(x, format = format, tz = getOption("mark.tz", "GMT"))
+  text <- strptime(x, format = format, tz = getOption("mark.default_tz", "GMT"))
   as.Date.character(text, format = format, optional = TRUE)
 }
 

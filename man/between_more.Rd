@@ -32,6 +32,7 @@ Type can be one of the below:
 \examples{
 between_more(10, 2, 10, "gl")
 between_more(10, 2, 10, "gle")
+between_more(1:5, c(3, 3, 2, 2, 1), 5)
 }
 \seealso{
 \code{dplyr::case_when()}

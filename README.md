@@ -5,9 +5,9 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/jmbarbone/mark/workflows/R-CMD-check/badge.svg)](https://github.com/jmbarbone/mark/actions)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/mark)](https://CRAN.R-project.org/package=mark)
+[![R-CMD-check](https://github.com/jmbarbone/mark/workflows/R-CMD-check/badge.svg)](https://github.com/jmbarbone/mark/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/jmbarbone/mark/branch/main/graph/badge.svg)](https://codecov.io/gh/jmbarbone/mark?branch=main)
 <!-- badges: end -->
@@ -237,6 +237,6 @@ fact(c(-1, 5, 2, NA, 3))                      # sorting
 #> [1] -1   5    2    <NA> 3   
 #> Levels: -1 2 3 5 <NA>
 fact(c(NA, FALSE, TRUE, FALSE, TRUE, NA))     # fixed
-#> [1] <NA>  TRUE  FALSE TRUE  FALSE <NA> 
+#> [1] <NA>  FALSE TRUE  FALSE TRUE  <NA> 
 #> Levels: TRUE FALSE <NA>
 ```
