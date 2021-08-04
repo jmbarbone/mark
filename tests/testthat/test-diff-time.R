@@ -229,7 +229,7 @@ test_that("helpers", {
 # printing ----------------------------------------------------------------
 
 test_that("snaps", {
-  skip_if(testthat::edition_get() < 3)
+  skip("not currently testing snaps")
 
   x <- struct(18842L, "Date")
   y <- x + 100L

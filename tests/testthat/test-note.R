@@ -16,7 +16,7 @@ test_that("note() work", {
 })
 
 test_that("note() snapshots", {
-  skip_if(testthat::edition_get() < 3)
+  skip("not currently testing snaps")
 
   x <- 1L
   note(x) <- "snapshot vector"

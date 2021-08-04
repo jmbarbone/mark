@@ -60,6 +60,6 @@ test_that("todo() errors and messages", {
   expect_message(res <- todos("zzzzzz", path = path), "No todos found")
   expect_null(res)
 
-  skip_if(edition_get() < 3)
+  skip("not currently testing snaps")
   expect_snapshot(todos(path = path))
 })
