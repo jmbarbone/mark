@@ -35,7 +35,7 @@ print(TRUE)
 warning("wrong label")
 ```
 '
-
+\dontrun{
 writeLines(text, con = temp_rmd)
 
 eval_named_chunk(temp_rmd, "hello label")
@@ -43,4 +43,5 @@ eval_named_chunk(temp_rmd, "hello label")
 # [1] TRUE
 
 file.remove(temp_rmd)
+}
 }

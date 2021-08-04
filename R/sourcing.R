@@ -91,7 +91,7 @@ try_ksource <- function(file, ...) {
 #' warning("wrong label")
 #' ```
 #' '
-#'
+#' \dontrun{
 #' writeLines(text, con = temp_rmd)
 #'
 #' eval_named_chunk(temp_rmd, "hello label")
@@ -99,6 +99,7 @@ try_ksource <- function(file, ...) {
 #' # [1] TRUE
 #'
 #' file.remove(temp_rmd)
+#' }
 
 eval_named_chunk <- function(rmd_file, label_name) {
   if (!grepl("\\.[Rr][Mm][Dd]$", rmd_file)) {
