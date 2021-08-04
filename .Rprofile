@@ -11,4 +11,4 @@ Sys.setenv(TESTTHAT_CPUS = 3)
 options(Ncpus = 3)
 
 # Some issue where this was failing in tests
-Sys.setenv(TESTTHAT_PARALLEL = if (getRversion() < 4) "FALSE" else "")
+Sys.setenv(TESTTHAT_PARALLEL = if (getRversion() < 4) "FALSE" else "TRUE")
