@@ -16,12 +16,14 @@ test_that("note() work", {
 })
 
 test_that("note() snapshots", {
+  skip_if(testthat::edition_get() < 3)
+
   x <- 1L
   note(x) <- "snapshot vector"
-  expect_snapshot_output(x)
-  expect_snapshot_output(note(x))
+  expect_snapshot(x)
+  expect_snapshot(note(x))
 
   x <- quick_dfl(a = 1.0)
   note(x) <- "snapshot data.frame"
-  expect_snapshot_output(x)
+  expect_snapshot(x)
 })

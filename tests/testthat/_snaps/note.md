@@ -1,13 +1,22 @@
 # note() snapshots
 
-    [1] 1
+    Code
+      x
+    Output
+      [1] 1
 
 ---
 
-    [1] "snapshot vector"
+    Code
+      note(x)
+    Output
+      [1] "snapshot vector"
 
 ---
 
-      a
-    1 1
+    Code
+      x
+    Output
+        a
+      1 1
 

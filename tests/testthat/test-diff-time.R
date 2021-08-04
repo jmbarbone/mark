@@ -229,18 +229,20 @@ test_that("helpers", {
 # printing ----------------------------------------------------------------
 
 test_that("snaps", {
-  x <- Sys.Date()
-  y <- x + 100
+  skip_if(testthat::edition_get() < 3)
 
-  expect_snapshot_output(diff_time(x, y))
-  expect_snapshot_output(diff_time_days(x, y))
-  expect_snapshot_output(diff_time_dyears(x, y))
-  expect_snapshot_output(diff_time_hours(x, y))
-  expect_snapshot_output(diff_time_mins(x, y))
-  expect_snapshot_output(diff_time_months(x, y))
-  expect_snapshot_output(diff_time_myears(x, y))
-  expect_snapshot_output(diff_time_secs(x, y))
-  expect_snapshot_output(diff_time_weeks(x, y))
-  expect_snapshot_output(diff_time_wyears(x, y))
-  expect_snapshot_output(diff_time_years(x, y))
+  x <- struct(18842L, "Date")
+  y <- x + 100L
+
+  expect_snapshot(diff_time(x, y))
+  expect_snapshot(diff_time_days(x, y))
+  expect_snapshot(diff_time_dyears(x, y))
+  expect_snapshot(diff_time_hours(x, y))
+  expect_snapshot(diff_time_mins(x, y))
+  expect_snapshot(diff_time_months(x, y))
+  expect_snapshot(diff_time_myears(x, y))
+  expect_snapshot(diff_time_secs(x, y))
+  expect_snapshot(diff_time_weeks(x, y))
+  expect_snapshot(diff_time_wyears(x, y))
+  expect_snapshot(diff_time_years(x, y))
 })
