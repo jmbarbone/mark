@@ -153,7 +153,7 @@ try_vector_formats <- function(x) {
   }
 
   # Take subset to determine
-  x0 <- x[x != ""]
+  x0 <- x[trimws(x) != "" & !is.na(x)]
   n <- length(x0)
 
   if (n == 0L) {
@@ -182,7 +182,7 @@ try_vector_formats <- function(x) {
 
   dates <- as_date_strptime(x0)
   if (isTRUE(all.equal(as.character(dates), x0))) {
-    return(dates)
+    return(as_date_strptime(x))
   }
 
   x
