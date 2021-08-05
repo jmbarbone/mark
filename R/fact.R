@@ -17,7 +17,7 @@
 #'   @section level ordered:
 #'   The order of the levels may be adjusted to these rules depending on the class of `x`:
 #'   \describe{
-#'     \item{character}{The order of apperance}
+#'     \item{character}{The order of appearance}
 #'     \item{numeric/integer/Date/POSIXt}{By the numeric order}
 #'     \item{logical}{As `TRUE`, `FALSE`, then `NA` if present}
 #'     \item{factor}{Numeric if levels can be safely converted, otherwise as they are}
