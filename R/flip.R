@@ -45,7 +45,7 @@ flip.matrix <- function(x, by_row = TRUE, keep_rownames = NULL, ...) {
       return(x)
     }
 
-    out <- x[rows:1, ]
+    out <- x[rows:1, , drop = FALSE]
     rn <- dims[[1]]
 
     if (is.null(keep_rownames)) {
@@ -63,7 +63,7 @@ flip.matrix <- function(x, by_row = TRUE, keep_rownames = NULL, ...) {
       return(x)
     }
 
-    out <- x[, cols:1L]
+    out <- x[, cols:1L, drop = FALSE]
   }
 
   out
@@ -79,7 +79,7 @@ flip.data.frame <- function(x, by_row = TRUE, keep_rownames = NULL, ...) {
       return(x)
     }
 
-    out <- x[rows:1, ]
+    out <- x[rows:1, , drop = FALSE]
     rn <- attr(x, "row.names")
 
     if (is.null(keep_rownames)) {
@@ -96,7 +96,7 @@ flip.data.frame <- function(x, by_row = TRUE, keep_rownames = NULL, ...) {
       return(x)
     }
 
-    out <- x[, cols:1L]
+    out <- x[, cols:1L, drop = FALSE]
   }
 
   out

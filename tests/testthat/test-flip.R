@@ -32,3 +32,13 @@ test_that("flip.matrix", {
   res3 <- mat2[5:1, ]
   expect_equal(flip(mat2), res3)
 })
+
+test_that("flip doesn't coerce into lower object [36]", {
+  x <- data.frame(x = 1)
+  expect_identical(x, flip(x))
+  expect_identical(x, flip(x, by_row = FALSE))
+
+  x <- matrix(1:4, nrow = 2)
+  expect_identical(dim(flip(x)), c(2L, 2L))
+  expect_identical(dim(flip(x, by_row = FALSE)), c(2L, 2L))
+})

@@ -27,6 +27,7 @@
 * correction to error message in `limit()`
 * adds missing `sort` argument to `props()`
 * `pseudo_id.factor()` no longer returns `NA_integer` when a value is `NA` or a level is `NA` and correctly resets the order of the levels from the factor to their order of appearance
+* `flip.data.frame()` no longer coerces single column data.frames [#36](https://github.com/jmbarbone/mark/issues/36)
 
 ## New features
 
@@ -94,7 +95,7 @@ The previous name `jordan` was conflicting with recent package on CRAN.
   * removes `jordan.note.fun` option for printing -- this was too complicated and doesn't seem to work too well without too many adjustments
   * `note<-` now appends the class `noted` to the object so that a `print.noted` method is dispatched so the note will be printed when called
   * `print.note` note defaults to a colorful _message_ called with `cat()`
-  * Startup related functions moved to [`jordanExtra`](https://github.com/jmbarbone/jordanExtra); these were a bit _wild_, dynamic, and not well tested.  The **.Rprofile** template also exists in the separate package.
+  * Startup related functions moved to [`jordanExtra`](https://github.com/jmbarbone/markExtra); these were a bit _wild_, dynamic, and not well tested.  The **.Rprofile** template also exists in the separate package.
 
 ## Improvements
 
@@ -207,7 +208,7 @@ Major cleanup for documenting, reviewing, removing, relocating, and testing func
 
 ## Moved to `jordanExtra`
 
-Some miscellaneous, less controlled functions have been moved to [jordanExtra](https://github.com/jmbarbone/jordanExtra).
+Some miscellaneous, less controlled functions have been moved to [jordanExtra](https://github.com/jmbarbone/markExtra).
 
 * Functions for Rust `set_rust_engine()`, `engine_rust()`
 * Functions for [openxlsx](https://github.com/ycphs/openxlsx): `add_data_sheet()`, `add_image_sheet()`
