@@ -39,3 +39,8 @@ inst/doc
 # Temporary files and such
 test-docs/
 temp/
+
+# revdep files
+revdep/library/
+revdep/checks/libraries.csv
+revdep/data.sqlite
