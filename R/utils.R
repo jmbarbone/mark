@@ -159,54 +159,33 @@ mark_temp <- function(ext = "") {
     ext <- paste0(".", ext)
   }
 
-  file <- basename(tempfile("", fileext = ext))
-  path <- file_path(mark_dir())
-  dir.create(path, recursive = TRUE, showWarnings = FALSE)
-  file_path(path, file)
+  # Retrieves the outer most function this was called in and save the raw
+  # components to be converted when needed
+  sn <- sys.nframe()
+  oc <- outer_call(sn - 2L)
+  oc <- substr(oc, 1, 40)
+  oc <- collapse0(iconv(oc, toRaw = TRUE)[[1]])
+  oc <- paste0(oc, "__")
+  norm_path(tempfile(oc, fileext = ext))
 }
 
-mark_dir <- function(create = TRUE) {
-  R <- getRversion()
 
-  if (R < 4) {
-    dm <- file_path(tempdir(), "_R_mark_temp_files")
-    if (create) dir.create(dm, recursive = TRUE, showWarnings = FALSE)
-    return(dm)
-  }
-
-  # Not not available in prior editions
-  rud <- get0("R_user_dir", envir = asNamespace("tools"), mode = "function")
-
-  if (is.null(rud)) {
-    stop("tools::R_user_dir() not found with R ", R)
-  }
-
-  res <- rud("mark")
-  if (create) dir.create(res, recursive = TRUE, showWarnings = FALSE)
-  res
+mark_temp_from_raw <- function(x) {
+  splits <- strsplit(x, "/")[[1]]
+  y <- splits[length(splits)]
+  y <- gsub("__.*$", "", y)
+  s <- seq(1, nchar(y) - 1, by = 2)
+  raws <- mapply(substr, x = y, start = s, stop = s + 1L, USE.NAMES = FALSE)
+  wuffle(rawToChar(as.raw(strtoi(raws, base = 16L))))
 }
 
-mark_dir_remove <- function() {
-  # NULL: Not deleted
-  # NA: unlink() failed
-  # TRUE: delete success
-  # FALSE: delete fail
-
-  dir <- dirname(mark_dir(FALSE))
-
-  if (!dir.exists(dir)) {
-    return(invisible(NULL))
-  }
-
-  res <- try(unlink(dir,  recursive = TRUE, force = TRUE))
-
-  if (inherits(res, "try-error")) {
-    return(invisible(NA))
-  }
-
-  # 0 = success, 1 = failure
-  invisible(res == 0L)
-}
+# foo <- function(...) mark_temp()
+# foobar <- function(...) foo(...)
+# # returns where the function was called from
+# foo(a = 1)
+# x <- foobar(what = this, those = 1)
+# # can retrieve the function from the file name
+# mark_temp_from_raw(x)
 
 check_is_vector <- function(x, mode = "any") {
   if (isS4(x) | inherits(x, c("data.frame", "matrix", "array")) | !is.vector(remove_attributes(x), mode)) {
