@@ -49,7 +49,7 @@ fact.character <- function(x) {
 #' @export
 fact.numeric <- function(x) {
   u <- sort.int(unique(x), method = "radix", na.last = TRUE)
-  make_fact(match(x, u), as.character(u))
+  make_fact(match(x, u), u)
 }
 
 #' @rdname fact
@@ -128,12 +128,16 @@ fact.fact <- function(x) {
 fact.pseudo_id <- function(x) {
   u <- .uniques(x)
 
-  if (is.numeric(u) && !identical(order(u), seq_along(u))) {
-    u <- sort.int(u, method = "radix", na.last = TRUE)
-    x <- match(u, .uniques(x))[x]
+  # check if numeric and already ordered
+  if (is.numeric(u)) {
+    o <- order(u)
+    if (!identical(o, u)) {
+      x <- match(u[o], u)[x]
+      u <- u[o]
+    }
   }
 
-  make_fact(x, levels = as.character(u))
+  make_fact(x, levels = u)
 }
 
 #' @rdname fact
@@ -210,7 +214,11 @@ as_ordered.ordered <- function(x) {
 # helpers -----------------------------------------------------------------
 
 make_fact <- function(x, levels, ordered = FALSE) {
-  struct(x, c("fact", if (ordered) "ordered", "factor"), levels = levels)
+  struct(
+    x,
+    class = c("fact", if (ordered) "ordered", "factor"),
+    levels = as.character(levels)
+  )
 }
 
 fact_remove_na <- function(x) {
