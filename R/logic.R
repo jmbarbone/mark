@@ -59,6 +59,7 @@ is_true <- function(x) {
   null_check(x)
   out <- to_boolean(x)
 
+  # TODO is !is_boolean(x) needed?
   if (!is_boolean(x)) {
     return(out)
   }
@@ -73,12 +74,26 @@ is_false <- function(x) {
   null_check(x)
   out <- to_boolean(x)
 
+  # TODO is !is_boolean(x) needed?
   if (!is_boolean(x)) {
     return(out)
   }
 
   out[is.na(out)] <- TRUE
   !out
+}
+
+# TODO consider is_true.logical() and is_false.logical()
+is_true.logical <- function(x) {
+  out <- logical(length(x))
+  out[which(x)] <- TRUE
+  out
+}
+
+is_false.logical <- function(x) {
+  out <- logical(length(x))
+  out[which(!x)] <- TRUE
+  out
 }
 
 #' @export
