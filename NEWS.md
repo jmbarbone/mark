@@ -1,4 +1,4 @@
-# mark (development version)
+# mark 0.2.0
 
 ## Changes
 
