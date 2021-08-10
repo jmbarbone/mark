@@ -116,7 +116,6 @@ fact.factor <- function(x) {
   make_fact(m, new_levels, is.ordered(x))
 }
 
-
 #' @rdname fact
 #' @export
 fact.fact <- function(x) {
@@ -180,10 +179,26 @@ print.fact <- function(x, ...) {
 #'   returned.  If `x` is a `factor` the `ordered` class is added.  Otherwise,
 #'   `x` is made into a `factor` with [mark::fact()] and then the `ordered`
 #'   class is added.
+#'   Unlike just `fact`, `ordered` will replace the `NA` levels with `NA_integer_` to work appropriately with other functions.
 #'
 #' @inheritParams fact
 #' @export
 #' @returns An `ordered` vector
+#' @examples
+#' x <- c("a", NA, "b")
+#' x <- fact(x)
+#' str(x) # NA is 3L
+#'
+#' y <- x
+#' class(y) <- c("ordered", class(y))
+#' max(y)
+#' max(y, na.rm = TRUE) # returns NA -- bad
+#'
+#' # as_ordered() removes the NA level
+#' x <- as_ordered(x)
+#' str(x)
+#' max(x, na.rm = TRUE) # returns b -- correct
+
 as_ordered <- function(x) {
   UseMethod("as_ordered", x)
 }
@@ -191,19 +206,19 @@ as_ordered <- function(x) {
 #' @rdname as_ordered
 #' @export
 as_ordered.default <- function(x) {
-  as_ordered(fact(x))
+  as_ordered(fact_remove_na(x))
 }
 
 #' @rdname as_ordered
 #' @export
 as_ordered.factor <- function(x) {
-  add_class(fact(x), "ordered", 2L)
+  add_class(fact_remove_na(x), "ordered", 2L)
 }
 
 #' @rdname as_ordered
 #' @export
 as_ordered.ordered <- function(x) {
-  fact(x) # fact retains ordered
+  fact_remove_na(x)
 }
 
 
@@ -214,11 +229,16 @@ make_fact <- function(x, levels, ordered = FALSE) {
 }
 
 fact_remove_na <- function(x) {
-  if (!is.factor(x)) {
-    stop("x must be a factor")
+  x <- fact(x)
+  x <- unclass(x)
+  lvl <- levels(x)
+  w <- which(is.na(lvl))
+
+  if (length(w)) {
+    x[x == w] <- NA_integer_
   }
 
-  make_fact(x, remove_na(levels(x)))
+  make_fact(x, levels = lvl[-w])
 }
 
 try_numeric <- function(x) {

@@ -29,4 +29,20 @@ Simple implementation of \code{ordered}.  If \code{x} is \code{ordered} it is si
 returned.  If \code{x} is a \code{factor} the \code{ordered} class is added.  Otherwise,
 \code{x} is made into a \code{factor} with \code{\link[=fact]{fact()}} and then the \code{ordered}
 class is added.
+Unlike just \code{fact}, \code{ordered} will replace the \code{NA} levels with \code{NA_integer_} to work appropriately with other functions.
+}
+\examples{
+x <- c("a", NA, "b")
+x <- fact(x)
+str(x) # NA is 3L
+
+y <- x
+class(y) <- c("ordered", class(y))
+max(y)
+max(y, na.rm = TRUE) # returns NA -- bad
+
+# as_ordered() removes the NA level
+x <- as_ordered(x)
+str(x)
+max(x, na.rm = TRUE) # returns b -- correct
 }
