@@ -238,15 +238,16 @@ make_fact <- function(x, levels, ordered = FALSE) {
 
 fact_remove_na <- function(x) {
   x <- fact(x)
-  x <- unclass(x)
-  lvl <- levels(x)
+  out <- unclass(x)
+  lvl <- levels(out)
   w <- which(is.na(lvl))
 
-  if (length(w)) {
-    x[x == w] <- NA_integer_
+  if (!length(w)) {
+    return(x)
   }
 
-  make_fact(x, levels = lvl[-w])
+  out[out == w] <- NA_integer_
+  make_fact(out, levels = lvl[-w])
 }
 
 try_numeric <- function(x) {
