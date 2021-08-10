@@ -12,3 +12,4 @@ temp/*
 ^CRAN-RELEASE$
 ^cran-comments\.md$
 ^codecov\.yml$
+revdep
