@@ -50,3 +50,9 @@ names_switch <- function(x) {
   nm <- names(x) %||% stop("x must be named", call. = FALSE)
   set_names0(nm, as.vector(x, "character"))
 }
+
+#' @rdname set_names0
+#' @export
+`%names%` <- function(x, nm) {
+  set_names0(x, nm)
+}
