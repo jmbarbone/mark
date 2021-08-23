@@ -1,5 +1,7 @@
 # mark (development version)
 
+* adds `unlist0()` to retain original names of lists
+
 # mark 0.2.0
 
 ## Changes
