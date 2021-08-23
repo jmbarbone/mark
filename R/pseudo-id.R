@@ -38,6 +38,17 @@ pseudo_id.factor <- function(x) {
   pseudo_id(fact_coerce_levels(levels(x))[x])
 }
 
+
+#' @export
+print.pseudo_id <- function(x, ...) {
+  print(as.integer(x))
+  cat("Uniques: ", paste0(unique(x), sep = " "), "\n", sep = "")
+  invisible(x)
+}
+
+
+# helpers -----------------------------------------------------------------
+
 pseudo_id_factor <- function(x) {
   # This should be used for when the the levels all need to be retained
   # pseudo_id() only returns values present in x
@@ -71,9 +82,3 @@ na_last <- function(x) {
   attr(x, "uniques")
 }
 
-#' @export
-print.pseudo_id <- function(x, ...) {
-  print(as.integer(x))
-  cat("Uniques: ", paste0(.uniques(x), sep = " "), "\n", sep = "")
-  invisible(x)
-}
