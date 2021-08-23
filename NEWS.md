@@ -5,6 +5,7 @@
 * adds `file_open()` as alias for `open_file()`
 * `fact.haven_labelled()` now returns an object with class `fact` [#39](https://github.com/jmbarbone/mark/issues/39); performance enhancements
 * `add_file_timestampe()` gains a new parameter: `sep` to separate the file name (sans ext) and the timestamp
+* adds `detail()` to return a `data.frame` of details for a vector of columns of a `data.frame`
 
 # mark 0.2.0
 
