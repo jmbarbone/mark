@@ -4,14 +4,23 @@
 \alias{add_file_timestamp}
 \title{Add file timestamp}
 \usage{
-add_file_timestamp(x, ts = Sys.time(), format = "\%Y-\%m-\%d \%H\%M\%S")
+add_file_timestamp(
+  x,
+  ts = Sys.time(),
+  format = "\%Y-\%m-\%d \%H\%M\%S",
+  sep = " "
+)
 }
 \arguments{
 \item{x}{A vector of files}
 
 \item{ts}{A single timestamp or vector of timestamps (default: \code{Sys.time()})}
 
-\item{format}{A format to be applied to the times; set to \code{NULL} to skip formatting}
+\item{format}{A format to be applied to the times; set to \code{NULL} to skip
+formatting}
+
+\item{sep}{A \code{character} vector of length 1 to separate the timestamp from
+the file name}
 }
 \value{
 The full name paths with the appended time stamp

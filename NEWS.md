@@ -4,6 +4,7 @@
 * adds `%names%` for a fun way to set names
 * adds `file_open()` as alias for `open_file()`
 * `fact.haven_labelled()` now returns an object with class `fact` [#39](https://github.com/jmbarbone/mark/issues/39); performance enhancements
+* `add_file_timestampe()` gains a new parameter: `sep` to separate the file name (sans ext) and the timestamp
 
 # mark 0.2.0
 
