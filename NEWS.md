@@ -6,6 +6,7 @@
 * `fact.haven_labelled()` now returns an object with class `fact` [#39](https://github.com/jmbarbone/mark/issues/39); performance enhancements
 * `add_file_timestampe()` gains a new parameter: `sep` to separate the file name (sans ext) and the timestamp
 * adds `detail()` to return a `data.frame` of details for a vector of columns of a `data.frame`
+* updates to file path finding functions (e.g., `list_files()`) to try to not search every file depending on desired searches (e.g., by full file paths or just base names)
 
 # mark 0.2.0
 

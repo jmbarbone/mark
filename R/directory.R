@@ -209,6 +209,8 @@ smallest_file <- function(x) {
 #'   [base::list.dirs()] with preferred defaults and pattern searching on the
 #'   full file path.
 #'
+#' `file_open` is simply an alias.
+#'
 #' @inheritParams norm_path
 #' @inheritParams base::list.files
 #' @param ignore_case logical. Should pattern-matching be case-insensitive?
@@ -239,7 +241,7 @@ file_open <- open_file
 #' @rdname file_utils
 #' @export
 shell_exec <- function(x) {
-  invisible(vapply(x, try_shell_exec, logical(1), USE.NAMES = FALSE))
+  invisible(vap_lgl(x, try_shell_exec))
 }
 
 try_shell_exec <- function(x) {
@@ -255,14 +257,36 @@ try_shell_exec <- function(x) {
 
 #' @rdname file_utils
 #' @export
-list_files <- function(x = ".", pattern = NULL, ignore_case = FALSE, all = FALSE, negate = FALSE, basename = FALSE) {
+list_files <- function(
+  x = ".",
+  pattern = NULL,
+  ignore_case = FALSE,
+  all = FALSE,
+  negate = FALSE,
+  basename = FALSE
+) {
+
   path <- norm_path(x, check = TRUE)
 
   if (length(path) == 1L && is.na(path)) {
     return(NA_character_)
   }
 
-  files <- norm_path(
+  files <- if (basename && !negate) {
+    # default behavior
+    list.files(
+      path         = path,
+      pattern      = pattern,
+      all.files    = all,
+      full.names   = TRUE,
+      recursive    = all,
+      ignore.case  = ignore.case,
+      include.dirs = FALSE,
+      no..         = TRUE
+    )
+  } else {
+    # If we want the regular expression applied to the entire file
+    # Or if we want to negate the expression
     list.files(
       path         = path,
       pattern      = NULL,
@@ -273,8 +297,9 @@ list_files <- function(x = ".", pattern = NULL, ignore_case = FALSE, all = FALSE
       include.dirs = FALSE,
       no..         = FALSE
     )
-  )
+  }
 
+  files <- norm_path(files)
   files <- files[is_file(files)]
 
   if (is.null(pattern)) {
