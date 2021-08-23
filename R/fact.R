@@ -144,7 +144,8 @@ fact.pseudo_id <- function(x) {
 fact.haven_labelled <- function(x) {
   require_namespace("haven")
   labels <- sort(attr(x, "labels", exact = TRUE))
-  u <- unique(unclass(x))
+  uc <- unclass(x)
+  u <- unique(uc)
   m <- match(u, labels)
   nas <- is.na(m)
 
@@ -153,11 +154,14 @@ fact.haven_labelled <- function(x) {
     labels <- labels[m]
     labels[nas] <- u[nas]
     names(labels)[nas] <- u[nas]
+    mx <- match(x, labels)
+  } else {
+    mx <- as.integer(x)
   }
 
   struct(
-    match(x, labels),
-    class = "factor",
+    mx,
+    class = c("fact", "factor"),
     levels = names(labels),
     label = attr(x, "label", exact = TRUE)
   )

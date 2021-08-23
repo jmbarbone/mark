@@ -66,7 +66,8 @@ test_that("fact.factor() works", {
 
 test_that("fact.haven_labelled() works", {
   skip_if_not_installed("haven")
-  haven_as_factor <- "haven" %colons% "as_factor.haven_labelled"
+  .haven_as_factor <- "haven" %colons% "as_factor.haven_labelled"
+  haven_as_factor <- function(...) add_class(.haven_as_factor(...), "fact", 1L)
 
   # Integers
   r <- rep(1:3, 2)
