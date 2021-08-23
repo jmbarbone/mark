@@ -3,12 +3,15 @@
 \name{file_utils}
 \alias{file_utils}
 \alias{open_file}
+\alias{file_open}
 \alias{shell_exec}
 \alias{list_files}
 \alias{list_dirs}
 \title{Open a file using windows file associations}
 \usage{
 open_file(x)
+
+file_open(x)
 
 shell_exec(x)
 
@@ -63,4 +66,6 @@ multiple files.
 \code{list_files} and \code{list_dirs} are mostly wrappers for \code{\link[base:list.files]{base::list.files()}} and
 \code{\link[base:list.files]{base::list.dirs()}} with preferred defaults and pattern searching on the
 full file path.
+
+\code{file_open} is simply an alias.
 }
