@@ -3,7 +3,7 @@
 * adds `unlist0()` to retain original names of lists
 * adds `%names%` for a fun way to set names
 * adds `file_open()` as alias for `open_file()`
-* `fact.haven_labelled()` now returns an object with class `fact` [#39](https://github.com/jmbarbone/mark/issues/39); performance enhacements
+* `fact.haven_labelled()` now returns an object with class `fact` [#39](https://github.com/jmbarbone/mark/issues/39); performance enhancements
 
 # mark 0.2.0
 
