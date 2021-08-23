@@ -1,3 +1,5 @@
+
+
 # vaps --------------------------------------------------------------------
 
 #' Vaps!
@@ -81,4 +83,40 @@ capply <- function(.x, .f, ..., .nm = FALSE) {
   }
 
   set_names0(res, use_names)
+}
+
+
+# A simplier implementation of sapply?
+slapply <- function(x, fun, ..., .simplify = TRUE, .names = TRUE) {
+  res <- lapply(x, fun, ...)
+
+  if (.simplify) {
+    res <- simplify2array(res, higher = FALSE)
+  }
+
+  names(res) <- if (.names) {
+    if (is.null(nm <- names(x))) x else nm
+  } else {
+    NULL
+  }
+
+
+  res
+}
+
+if (FALSE) {
+  x <- 1:10
+  y <- setNames(x, x)
+  lapply(x, sqrt)
+  lapply(y, sqrt)
+  sapply(x, sqrt)
+  sapply(y, sqrt)
+  sapply(y, sqrt, USE.NAMES = FALSE)
+  sapply(x, sqrt, USE.NAMES = TRUE)
+  sapply(y, sqrt, USE.NAMES = TRUE)
+  slapply(x, sqrt)
+  slapply(y, sqrt)
+  slapply(y, sqrt, .names = FALSE)
+
+  lapply(setNames(nm = 1:10), sqrt)
 }
