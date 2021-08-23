@@ -1,6 +1,7 @@
 # mark (development version)
 
 * adds `unlist0()` to retain original names of lists
+* adds `%names%` for a fun way to set names
 
 # mark 0.2.0
 
