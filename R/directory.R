@@ -232,6 +232,10 @@ open_file <- function(x) {
   out
 }
 
+#' @export
+#' @rdname file_utils
+file_open <- open_file
+
 #' @rdname file_utils
 #' @export
 shell_exec <- function(x) {
