@@ -2,6 +2,7 @@
 
 * adds `unlist0()` to retain original names of lists
 * adds `%names%` for a fun way to set names
+* adds `file_open()` as alias for `open_file()`
 
 # mark 0.2.0
 
