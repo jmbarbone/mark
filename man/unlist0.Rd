@@ -2,23 +2,41 @@
 % Please edit documentation in R/unlist.R
 \name{unlist0}
 \alias{unlist0}
-\title{Unlist}
+\alias{squash_vec}
+\title{Unlist and squash}
 \usage{
 unlist0(x)
+
+squash_vec(x, sep = ".")
 }
 \arguments{
-\item{x}{A list}
+\item{x}{A vector of values}
+
+\item{sep}{A separation for combining names}
+}
+\value{
+\itemize{
+\item \code{\link[=unlist0]{unlist0()}}: a vector with the possibility of non-unique names
+\item \code{\link[=squash_vec]{squash_vec()}}: A vector of unique values and names
+}
 }
 \description{
-Unlist without unique names
+Unlist without unique names; combine names for unique values
+}
+\details{
+\code{\link[=unlist0]{unlist0()}} is much like \code{\link[=unlist]{unlist()}} expect that name are not made to be unique.
+\code{\link[=squash_vec]{squash_vec()}} works differently
 }
 \examples{
-x <- list(
-  a = 1:3,
-  b = 2,
-  c = 2:4
-)
+x <- list(a = 1:3, b = 2, c = 2:4)
+y <- c(a = 1, b = 1, c = 1, d = 2, e = 3, f = 3)
 
+# unlist0() doesn't force unique names
 unlist(x)   # names: a1 a2 a3  b c1 c2 c3
 unlist0(x)  # names: a a a  b c c c
+unlist0(y)  # no change
+
+# squash_vec() is like the inverse of unlist0() because it works on values
+squash_vec(x)
+squash_vec(y)
 }
