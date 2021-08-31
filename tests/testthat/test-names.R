@@ -1,3 +1,7 @@
+test_that("set_names0() works", {
+  expect_null(set_names0(NULL))
+})
+
 test_that("names_switch() works", {
   x <- c(a = 1, b = 2, c = 3)
   y <- names(x)

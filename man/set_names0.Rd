@@ -22,7 +22,7 @@ x \%names\% nm
 }
 \value{
 \itemize{
-\item \code{set_names0()}: \code{x} with \code{nm} values assigned to names
+\item \code{set_names0()}: \code{x} with \code{nm} values assigned to names (if \code{x} is \code{NULL}, \code{NULL} is returned)
 \item \code{remove_names()}: \code{x} without names
 \item \code{names_switch()}: \code{character} vector of equal length \code{x} where names and values are switched
 }
