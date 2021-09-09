@@ -9,6 +9,7 @@
 * updates to file path finding functions (e.g., `list_files()`) to try to not search every file depending on desired searches (e.g., by full file paths or just base names)
 * adds `squash_vec()` to combined the names of a vector with repeated values
 * `set_names0(NULL)` no longer causes an error and returns `NULL` [#40](https://github.com/jmbarbone/mark/issues/40)
+* `assign_labels.data.frame()` gains new argument `.ls` to explicitly set a `list` (or `data.frame`) of columns
 
 # mark 0.2.0
 

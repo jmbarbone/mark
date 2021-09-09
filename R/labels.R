@@ -15,9 +15,6 @@
 #' @param label A single length string of a label to be assigned
 #' @param cols A character vector of column names; if missing will remove the
 #'   label attribute across all columns
-#' @param .missing A control setting for dealing missing columns in a list;
-#'   can be set to `error` to `stop()` the call, `warn` to provide a warning, or
-#'   `skip` to silently skip those labels.
 #' @param title Title for the viewer window -- if not supplemented will show as
 #'   `paste0(as.character(substitute(x)), " - Labels")`
 #'
@@ -60,35 +57,47 @@ assign_labels.default <- function(x, label, ...) {
 
 #' @export
 #' @rdname labels
-assign_labels.data.frame <- function(x, ..., .missing = c("error", "warn", "skip")) {
+#' @param .missing A control setting for dealing missing columns in a list;
+#'   can be set to `error` to `stop()` the call, `warn` to provide a warning, or
+#'   `skip` to silently skip those labels.
+#' @param .ls A named list of columns and labels to be set if `...` is empty
+assign_labels.data.frame <- function(x, ..., .missing = c("error", "warn", "skip"), .ls = list(...)) {
   # TODO add test for implementing assign_labels.data.frame(.missing = )
-  ls <- list(...)
+
+  if (identical(.ls, list())) {
+    stop(".ls cannot be empty", call. = FALSE)
+  }
+
+  if (...length() & !identical(list(...), .ls)) {
+    stop("... was set separately from `.ls`. Only set one", call. = FALSE)
+  }
+
   .missing <- match_param(.missing)
 
-  if (is.null(ls) || any(vap_lgl(ls, is.null))) {
+  if (is.null(.ls) || any(vap_lgl(.ls, is.null))) {
     stop("... must not have NULLs", call. = FALSE)
   }
 
-  if (inherits(ls[[1]], "data.frame")) {
-    lsx <- as.vector(ls[[1]][[2]], "list")
-    names(lsx) <- ls[[1]][[1]]
-    ls <- lsx
+  if (inherits(.ls[[1]], "data.frame")) {
+    lsx <- as.vector(.ls[[1]][[2]], "list")
+    names(lsx) <- .ls[[1]][[1]]
+    .ls <- lsx
   }
 
-  nm <- names(ls)
+  nm <- names(.ls)
   ma <- match(nm, colnames(x), nomatch = NA_integer_)
 
   if (anyNA(ma)) {
     nas <- is.na(ma)
-    text <- paste0("Columns not found: ", collapse0(nm[is.na(ma)], sep = ", "))
+    text <- paste0("Columns not found: ", collapse0(nm[nas], sep = ", "))
     switch(
       .missing,
       error = stop(text, call. = FALSE),
       warn = warning(text, call. = FALSE),
       skip = {
-        nm <- nm[!nas]
-        ma <- ma[!nas]
-        ls <- ls[!nas]
+        nm  <-  nm[!nas]
+        ma  <-  ma[!nas]
+        .ls <- .ls[!nas]
       }
     )
 
@@ -96,7 +105,7 @@ assign_labels.data.frame <- function(x, ..., .missing = c("error", "warn", "skip
 
   for (i in seq_along(nm)) {
     mi <- ma[i]
-    x[[mi]] <- assign_labels(x[[mi]], ls[[i]])
+    x[[mi]] <- assign_labels(x[[mi]], .ls[[i]])
   }
 
   x
@@ -105,6 +114,7 @@ assign_labels.data.frame <- function(x, ..., .missing = c("error", "warn", "skip
 #' @export
 #' @rdname labels
 assign_label <- function(x, ...) {
+  .Deprecated("assign_label")
   assign_labels(x, ...)
 }
 
