@@ -49,7 +49,7 @@ test_that("fact.integer() works", {
 
 # fact.factor() ----
 
-test_that("fact.factor() works", {/
+test_that("fact.factor() works", {
   # x <- fact(as.character(c(Sys.Date() + 5:1, NA))[sample(1:6, 20, TRUE)])
 
   x <- factor(letters)
