@@ -49,7 +49,7 @@ test_that("fact.integer() works", {
 
 # fact.factor() ----
 
-test_that("fact.factor() works", {
+test_that("fact.factor() works", {/
   # x <- fact(as.character(c(Sys.Date() + 5:1, NA))[sample(1:6, 20, TRUE)])
 
   x <- factor(letters)
@@ -70,6 +70,14 @@ test_that("fact.factor() works", {
   # moves NA to the end and reordered when number
   x <- factor(c(1, NA, 2), levels = c(2, NA, 1), exclude = NULL)
   res <- make_fact(c(1L, 3L, 2L), levels = c("1", "2", NA_character_))
+  expect_identical(fact(x), res)
+
+  x <- factor(c(NA, TRUE, FALSE))
+  res <- make_fact(c(3L, 1L, 2L), levels = c(TRUE, FALSE, NA))
+  expect_identical(fact(x), res)
+
+  x <- factor(c(NA, TRUE, FALSE), exclude = NULL)
+  res <- make_fact(c(3L, 1L, 2L), levels = c(TRUE, FALSE, NA))
   expect_identical(fact(x), res)
 })
 
@@ -126,4 +134,34 @@ test_that("fact() correctly labels NAs [#24]", {
     fact(c(TRUE, TRUE, NA, FALSE, TRUE)),
     make_fact(c(1L, 1L, 3L, 2L, 1L), c("TRUE", "FALSE", NA))
   )
+})
+
+
+# ordering ----
+
+test_that("as_ordered() works", {
+  x <- fact(c(1:3, NA_integer_))
+  res <- struct(
+    c(1:3, NA_integer_),
+    c("fact", "ordered", "factor"),
+    levels = as.character(1:3)
+  )
+  expect_identical(as_ordered(x), res)
+})
+
+
+# other -------------------------------------------------------------------
+
+
+test_that("fact.default() fails", {
+  expect_error(fact(struct(NULL, "foo")))
+})
+
+test_that("fact_coerce_levels() works", {
+  x <- as.Date("2021-09-03") + 0:2
+  expect_equal(fact_coerce_levels(as.character(x)), x)
+
+  debugonce(fact_coerce_levels)
+  x <- as.POSIXlt("2021-09-03") + 0:2
+  expect_equal(fact_coerce_levels(as.character(x)), x)
 })

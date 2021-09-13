@@ -9,6 +9,8 @@ co_note <- function(x) {
 }
 
 inv_co <- function(x) {
+  # note() has a check for interactive
+  withr::local_options(list(mark.check_interactive = FALSE))
   invisible(capture.output(x))
 }
 

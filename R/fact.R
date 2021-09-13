@@ -83,7 +83,7 @@ fact.factor <- function(x) {
 
   if (is.logical(new_levels)) {
     m <- match(new_levels[x], c(TRUE, FALSE, NA))
-    res <- make_fact(m, c("TRUE", "FALSE", if (anyNA(new_levels)) NA_character_))
+    res <- make_fact(m, c("TRUE", "FALSE", if (anyNA(new_levels[x])) NA_character_))
     return(res)
   }
 
@@ -211,22 +211,11 @@ as_ordered <- function(x) {
   UseMethod("as_ordered", x)
 }
 
+
 #' @rdname as_ordered
 #' @export
 as_ordered.default <- function(x) {
-  as_ordered(fact_remove_na(x))
-}
-
-#' @rdname as_ordered
-#' @export
-as_ordered.factor <- function(x) {
   add_class(fact_remove_na(x), "ordered", 2L)
-}
-
-#' @rdname as_ordered
-#' @export
-as_ordered.ordered <- function(x) {
-  fact_remove_na(x)
 }
 
 
@@ -288,12 +277,18 @@ fact_coerce_levels <- function(x) {
 
   n <- length(x)
 
-  if (!anyNA(posix)) {
-    x <- rep(NA_POSIXlt_, n)
-    x[!nas] <- posix
-  } else if (!anyNA(dates)) {
+  if (!anyNA(dates) && all(nchar(x[!nas]) == 10L)) {
     x <- rep(NA_Date_, n)
     x[!nas] <- dates
+  } else if (!anyNA(posix)) {
+    x <- rep(NA, n)
+
+    if (any(nas)) {
+      x[!nas] <- as.double(posix)
+      x <- as.POSIXlt(x, origin = "1970-01-01", tz = getOption("mark.default_tz", "UTC"))
+    } else {
+      x <- posix
+    }
   } else if (!anyNA(numbers)) {
     x <- rep(NA_real_, n)
     x[!nas] <- numbers

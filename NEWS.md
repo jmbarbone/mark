@@ -9,6 +9,7 @@
 * updates to file path finding functions (e.g., `list_files()`) to try to not search every file depending on desired searches (e.g., by full file paths or just base names)
 * adds `squash_vec()` to combined the names of a vector with repeated values
 * `set_names0(NULL)` no longer causes an error and returns `NULL` [#40](https://github.com/jmbarbone/mark/issues/40)
+* `as_ordered()` handles `factors` better; S3 methods removed: `as_ordered.ordered()`, `as_ordered.factor()`
 
 # mark 0.2.0
 

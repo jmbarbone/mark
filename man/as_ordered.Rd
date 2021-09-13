@@ -3,17 +3,11 @@
 \name{as_ordered}
 \alias{as_ordered}
 \alias{as_ordered.default}
-\alias{as_ordered.factor}
-\alias{as_ordered.ordered}
 \title{Ordered}
 \usage{
 as_ordered(x)
 
 \method{as_ordered}{default}(x)
-
-\method{as_ordered}{factor}(x)
-
-\method{as_ordered}{ordered}(x)
 }
 \arguments{
 \item{x}{A vector of values}
