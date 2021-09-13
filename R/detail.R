@@ -8,11 +8,11 @@
 #' x <- sample(letters[1:4], 10, TRUE)
 #' detail(x)
 #'
-#' df <- quick_dfl(
+#' df <- quick_df(list(
 #'   x = x,
 #'   y = round(runif(10), 2),
 #'   z = Sys.Date() + runif(10) * 100
-#' )
+#' ))
 #'
 #' detail(df)
 #' @export
