@@ -17,10 +17,9 @@ test_that("data.frame assignment", {
   x0 <- head(iris)
   x <- assign_labels(x0, Sepal.Length = "a", Species = "b")
 
-  exp <- data.frame(
+  exp <- quick_dfl(
     column = colnames(x0),
-    label = c("a", NA, NA, NA, "b"),
-    stringsAsFactors = FALSE
+    label = c("a", NA, NA, NA, "b")
   )
 
   exp0 <- remove_labels(x, "Species")

@@ -10,6 +10,7 @@
 * adds `squash_vec()` to combined the names of a vector with repeated values
 * `set_names0(NULL)` no longer causes an error and returns `NULL` [#40](https://github.com/jmbarbone/mark/issues/40)
 * `as_ordered()` handles `factors` better; S3 methods removed: `as_ordered.ordered()`, `as_ordered.factor()`
+* `assign_labels.data.frame()` gains new argument `.ls` to explicitly set a `list` (or `data.frame`) of columns
 
 # mark 0.2.0
 
@@ -31,7 +32,7 @@
   * `fact.logical()` now orders levels as `TRUE` then `FALSE`, and `NA` if present
   * `fact.Date()` and `fact.POSIXt()` added, which simply call `fact.numeric()`
   * `print.fact()` method added to print a `fact` vector as a `factor`
-  * `as_ordered.factor()` and `as_ordered.ordered()` now call `fact()` to check levels 
+  * `as_ordered.factor()` and `as_ordered.ordered()` now call `fact()` to check levels
 
 ## Fixes
 
