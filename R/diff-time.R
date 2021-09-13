@@ -52,7 +52,7 @@ diff_time <- function(
   ux <- extract_numeric_time(x, tzx)
 
   if (inherits(x, "Date")) {
-    y <- as.Date(y, optional = TRUE)
+    y <- as.Date(y, optional = TRUE, tz = Sys.timezone())
   }
 
   uy <- extract_numeric_time(y, tzy)

@@ -217,6 +217,16 @@ test_that("class coehersion", {
 })
 
 
+test_that("timezones", {
+  withr::with_timezone("Pacific/Auckland", {
+    expect_identical(
+      diff_time(as.Date("2021-07-26"), "2021-07-26"),
+      # setting to date instead
+      diff_time(as.Date("2021-07-26"), as.POSIXct("2021-07-26 02:02:02"))
+    )
+  })
+})
+
 # helpers -----------------------------------------------------------------
 
 test_that("helpers", {
