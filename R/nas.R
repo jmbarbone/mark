@@ -30,7 +30,7 @@ remove_na <- function(x) {
 #' @rdname remove_na
 #' @export
 remove_na.default <- function(x) {
-  x[!is.na(x)]
+  if (anyNA(x)) x[!is.na(x)] else x
 }
 
 #' @rdname remove_na
