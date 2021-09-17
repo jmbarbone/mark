@@ -15,6 +15,8 @@
 * `remove_na()` has better performance when `x` has no `NA` values
 * `counts.data.frame()` and `props.data.frame()` retain `attributes()` of selected columns
 * `props()` and family gain argument `na.rm` to not count `NA` values for proportions
+* adds `make_sf()` as a simple wrapper for package specific `system.file()`
+* `todos()` and `fixmes()` will not search for `.R` or `.Rmd` files if the `path` is a directory without an `.Rproj`
 
 # mark 0.2.0
 

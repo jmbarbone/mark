@@ -280,7 +280,7 @@ list_files <- function(
       all.files    = all,
       full.names   = TRUE,
       recursive    = all,
-      ignore.case  = ignore.case,
+      ignore.case  = ignore_case,
       include.dirs = FALSE,
       no..         = TRUE
     )
