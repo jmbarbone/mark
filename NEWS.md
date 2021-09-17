@@ -12,6 +12,7 @@
 * `as_ordered()` handles `factors` better; S3 methods removed: `as_ordered.ordered()`, `as_ordered.factor()`
 * `assign_labels.data.frame()` gains new argument `.ls` to explicitly set a `list` (or `data.frame`) of columns
 * `diff_time()` correctly handles timezones when `x` is `Date` and `y` is `POSIXt` [#41](https://github.com/jmbarbone/mark/issues/41)
+* adds `make_sf()` as a simple wrapper for package specific `system.file()`
 
 # mark 0.2.0
 
