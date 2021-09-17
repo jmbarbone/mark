@@ -39,6 +39,9 @@
 #' counts(x, c("a", "b", "c"))
 #' props(x, 2)
 #' props(x, 1:3)
+#'
+#' props(c(1, 1, 3, NA, 4))
+#' props(c(1, 1, 3, NA, 4), na.rm = TRUE)
 #' @export
 counts <- function(x, ...) {
   UseMethod("counts", x)
@@ -93,16 +96,7 @@ counts.data.frame <- function(x, cols, sort = FALSE, ..., .name = "freq") {
   }
 
   out <- vector2df(counts(x[[cols]], sort = sort), cols, .name %||% "freq")
-
-  if (is.factor(x[[cols]])) {
-    out[[1]] <- fact(out[[1]])
-
-    if (is.ordered(x[[cols]])) {
-      out[[1]] <- as_ordered(out[[1]])
-    }
-  }
-
-  out
+  remake_df(out, x[, cols, drop = FALSE])
 }
 
 #' @rdname counts
@@ -113,22 +107,47 @@ props <- function(x, ...) {
 
 #' @rdname counts
 #' @export
-props.default <- function(x, sort = FALSE, ...) {
-  counts(x, sort = sort) / length(x)
+#' @param na.rm If `TRUE` will remove NA values from proportions
+props.default <- function(x, sort = FALSE, na.rm = FALSE, ...) {
+  res <- counts(x, sort = sort)
+
+  n <- length(res)
+
+  if (na.rm && is.na(names(res[n]))) {
+    res[n] <- NA_real_
+    x <- remove_na(x)
+  }
+
+  res / length(x)
 }
 
 #' @rdname counts
 #' @export
-props.data.frame <- function(x, cols, sort = FALSE, ..., .name = "prop") {
+props.data.frame <- function(
+  x,
+  cols,
+  sort = FALSE,
+  na.rm = FALSE,
+  ...,
+  .name = "prop"
+) {
   if (!is.character(cols)) {
     cols <- colnames(x)[cols]
   }
 
   if (length(cols) > 1) {
-    return(props_n(x[, cols], sort = sort, name = .name))
+    values <- x[, cols]
+    na_ind <- if (na.rm) which(!stats::complete.cases(values))
+    return(props_n(values, sort = sort, name = .name, na_ind = na_ind))
   }
 
-  vector2df(props(x[[cols]], sort = sort), cols, .name %||% "prop")
+  out <- vector2df(
+    props(x[[cols]], sort = sort, na.rm = na.rm),
+    cols,
+    .name %||% "prop"
+  )
+
+  remake_df(out, x[, cols, drop = FALSE])
 }
 
 #' Count N
@@ -141,7 +160,6 @@ props.data.frame <- function(x, cols, sort = FALSE, ..., .name = "prop") {
 #' @param sort Logical, if `TRUE` sorts the output; This will sort based
 #' @noRd
 counts_n <- function(x, name = "freq", sort = FALSE) {
-
   # Can I save the call to unique here?
   ints <- do.call(paste, c(lapply(x, pseudo_id), sep = "."))
   res <- counts(ints, sort = sort)
@@ -152,7 +170,6 @@ counts_n <- function(x, name = "freq", sort = FALSE) {
 
   cn <- colnames(x)
   colnames(out) <- cn
-
   name <- name %||% "freq"
 
   i <- 0L
@@ -167,9 +184,50 @@ counts_n <- function(x, name = "freq", sort = FALSE) {
 
 #' @rdname counts_n
 #' @noRd
-props_n <- function(x, sort = FALSE, name = "props") {
+props_n <- function(
+  x,
+  sort = FALSE,
+  na.rm = FALSE,
+  name = "props",
+  na_ind = NULL
+) {
   res <- counts_n(x, name %||% "prop", sort = sort)
-  n <- ncol(res)
-  res[[n]] <- res[[n]] / nrow(x)
+  n <- ncol(res) # maybe could use `name`?
+  if (is.null(na_ind)) {
+    big_n <- length(res[[n]])
+  } else {
+    res[[n]][na_ind] <- NA_real_
+    big_n <- length(res[[n]][-na_ind])
+  }
+  res[[n]] <- res[[n]] / big_n
   res
+}
+
+remake_df <- function(new, old) {
+  stopifnot(is.data.frame(new), is.data.frame(old))
+
+  new_cn <- colnames(new)
+  old_cn <- colnames(old)
+  m <- remove_na(match(new_cn, old_cn))
+
+  for (i in seq_along(m)) {
+    n <- new_cn[i]
+    o <- old_cn[m[i]]
+
+    a <- attributes(old[[o]])
+    a <- a[setdiff(names(a), "class")]
+    attributes(new[[n]]) <- a
+
+    if (is.factor(old[[o]])) {
+      new[[n]] <- factor(
+        new[[n]],
+        levels = levels(old[[o]]),
+        # ordered = is.ordered(old[[o]])
+      )
+    }
+
+    class(new[[n]]) <- class(old[[o]])
+  }
+
+  new
 }

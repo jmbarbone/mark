@@ -14,9 +14,9 @@ counts(x, ...)
 
 props(x, ...)
 
-\method{props}{default}(x, sort = FALSE, ...)
+\method{props}{default}(x, sort = FALSE, na.rm = FALSE, ...)
 
-\method{props}{data.frame}(x, cols, sort = FALSE, ..., .name = "prop")
+\method{props}{data.frame}(x, cols, sort = FALSE, na.rm = FALSE, ..., .name = "prop")
 }
 \arguments{
 \item{x}{A vector or \code{data.frame}}
@@ -31,6 +31,8 @@ for logical vectors, which already return in the order of \code{FALSE}, \code{TR
 \code{NA}.}
 
 \item{.name}{The name of the new column}
+
+\item{na.rm}{If \code{TRUE} will remove NA values from proportions}
 }
 \value{
 A named vector of \code{integer}s or \code{double}s (for \code{counts}, and \code{props},
@@ -65,4 +67,7 @@ counts(x, "a")
 counts(x, c("a", "b", "c"))
 props(x, 2)
 props(x, 1:3)
+
+props(c(1, 1, 3, NA, 4))
+props(c(1, 1, 3, NA, 4), na.rm = TRUE)
 }

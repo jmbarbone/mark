@@ -13,6 +13,8 @@
 * `assign_labels.data.frame()` gains new argument `.ls` to explicitly set a `list` (or `data.frame`) of columns
 * `diff_time()` correctly handles timezones when `x` is `Date` and `y` is `POSIXt` [#41](https://github.com/jmbarbone/mark/issues/41)
 * `remove_na()` has better performance when `x` has no `NA` values
+* `counts.data.frame()` and `props.data.frame()` retain `attributes()` of selected columns
+* `props()` and family gain argument `na.rm` to not count `NA` values for proportions
 
 # mark 0.2.0
 
