@@ -9,3 +9,7 @@
 0 errors | 0 warnings | 0 note
 
 * This is a minor release
+
+## Notes
+
+* Fixes timezone test failure on macOS
