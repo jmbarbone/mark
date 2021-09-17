@@ -13,6 +13,7 @@
 * `assign_labels.data.frame()` gains new argument `.ls` to explicitly set a `list` (or `data.frame`) of columns
 * `diff_time()` correctly handles timezones when `x` is `Date` and `y` is `POSIXt` [#41](https://github.com/jmbarbone/mark/issues/41)
 * adds `make_sf()` as a simple wrapper for package specific `system.file()`
+* `todos()` and `fixmes()` will not search for `.R` or `.Rmd` files if the `path` is a directory without an `.Rproj`
 
 # mark 0.2.0
 
