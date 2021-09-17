@@ -23,12 +23,14 @@
 #' @export
 #'
 #' @examples
-#' labs <- assign_label(iris,
-#'                      Sepal.Length = "cms",
-#'                      Sepal.Width  = "cms",
-#'                      Petal.Length = "cms",
-#'                      Petal.Width  = "cms",
-#'                      Species      = "Iris ...")
+#' labs <- assign_labels(
+#'   iris,
+#'   Sepal.Length = "cms",
+#'   Sepal.Width  = "cms",
+#'   Petal.Length = "cms",
+#'   Petal.Width  = "cms",
+#'   Species      = "Iris ..."
+#' )
 #'
 #' labs$dummy <- ""
 #' get_labels(labs) # shows label as <NA> for dummy column
