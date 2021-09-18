@@ -4,6 +4,7 @@ name: Continuous Benchmarks
 
 jobs:
   build:
+  if: false
     runs-on: macOS-latest
     steps:
       - name: Checkout repo
