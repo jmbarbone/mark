@@ -161,7 +161,6 @@ test_that("fact_coerce_levels() works", {
   x <- as.Date("2021-09-03") + 0:2
   expect_equal(fact_coerce_levels(as.character(x)), x)
 
-  debugonce(fact_coerce_levels)
   x <- as.POSIXlt("2021-09-03") + 0:2
   expect_equal(fact_coerce_levels(as.character(x)), x)
 })

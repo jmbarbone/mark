@@ -91,7 +91,6 @@ test_that("counts.data.frame() works", {
   exp <- quick_dfl(b = fact(c("a", "b")), freq = 2:1)
   expect_equal(res, exp)
 
-  # debugonce(remake_df)
   res <- counts(df, 1:2)
   exp <- quick_dfl(a = rep("x", 2), b = fact(c("a", "b")), freq = 2:1)
   expect_equal(res, exp)
