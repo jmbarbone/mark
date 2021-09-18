@@ -44,7 +44,7 @@ do_todo <- function(text, pattern = NULL, path = path, ...) {
 
   files <- if (is_dir(path)) {
 
-    if (!length(list.files(path, pattern = "\\.Rproj$"))) {
+    if (identical(path, "") && !length(list.files(path, pattern = "\\.Rproj$"))) {
       message("Did not search for TODOS in ", norm_path(path))
       return(invisible(NULL))
     }
