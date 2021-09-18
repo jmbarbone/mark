@@ -161,6 +161,11 @@ test_that("fact_coerce_levels() works", {
   x <- as.Date("2021-09-03") + 0:2
   expect_equal(fact_coerce_levels(as.character(x)), x)
 
-  x <- as.POSIXlt("2021-09-03") + 0:2
+  # Be careful about setting a time zone
+  # Not very good for dealing with local
+  x <- as.POSIXlt("2021-09-03", tz = "UTC") + 0:2
+  expect_equal(fact_coerce_levels(as.character(x)), x)
+
+  x <- as.POSIXlt("2021-09-03", tz = "UTC") + 0:2
   expect_equal(fact_coerce_levels(as.character(x)), x)
 })

@@ -239,3 +239,20 @@ check_interactive <- function() {
 
   TRUE
 }
+
+
+try_formats <- function(date = FALSE) {
+  x <- c(
+    "%Y-%m-%d %H:%M:%OS",
+    "%Y/%m/%d %H:%M:%OS",
+    "%Y-%m-%d %H %M %S",
+    "%Y %m %d %H %M %S",
+    "%Y-%m-%d %H%M%S",
+    "%Y %m %d %H%M%S",
+    "%Y%m%d %H %M %S",
+    "%Y%m%d %H%M%S",
+    NULL
+  )
+
+  c(x, paste(x, "%Z"), if (date) c("%Y-%m-%d", "%Y/%m/%d", "%Y%m%d"))
+}

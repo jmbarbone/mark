@@ -35,7 +35,7 @@ fact <- function(x) {
 #' @export
 fact.default <- function(x) {
   stop("No fact method for class(es) ", collapse0(class(x), sep = ", "),
-       call. = FALSE)
+    call. = FALSE)
 }
 
 #' @rdname fact
@@ -264,6 +264,7 @@ try_numeric <- function(x) {
   nums
 }
 
+
 fact_coerce_levels <- function(x) {
   nas <- is.na(x)
 
@@ -271,9 +272,15 @@ fact_coerce_levels <- function(x) {
     return(as.logical(x))
   }
 
+  tz <- getOption("mark.default_tz", "UTC")
   numbers <- wuffle(as.numeric(x[!nas]))
   dates <- wuffle(as.Date(x[!nas], optional = TRUE))
-  posix <- wuffle(as.POSIXlt(x[!nas], tz = getOption("mark.default_tz", "UTC"), optional = TRUE))
+  posix <- wuffle(as.POSIXct(
+    x          = x[!nas],
+    tryFormats = try_formats(),
+    tz         = tz,
+    optional   = TRUE
+  ))
 
   n <- length(x)
 
@@ -281,14 +288,18 @@ fact_coerce_levels <- function(x) {
     x <- rep(NA_Date_, n)
     x[!nas] <- dates
   } else if (!anyNA(posix)) {
-    x <- rep(NA, n)
+    x <- rep(NA_real_, n)
 
     if (any(nas)) {
       x[!nas] <- as.double(posix)
-      x <- as.POSIXlt(x, origin = "1970-01-01", tz = getOption("mark.default_tz", "UTC"))
     } else {
-      x <- posix
+      x[] <- as.double(posix)
     }
+    x <- as.POSIXct(
+      x          = x,
+      origin     = "1970-01-01",
+      tz         = tz
+    )
   } else if (!anyNA(numbers)) {
     x <- rep(NA_real_, n)
     x[!nas] <- numbers
@@ -296,11 +307,6 @@ fact_coerce_levels <- function(x) {
 
   x
 }
-
-# x <- factor(c("a", NA), levels = c("a", "b"))
-# res <- fact(x)
-# fact_levels(res) <- c("1", "a", "b", "c")
-# res
 
 `fact_levels<-` <- function(x, value) {
   x <- fact(x)
