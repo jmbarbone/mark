@@ -34,13 +34,13 @@ Some parts happily ripped from and (hopefully) credited to others.
 
 You can download the current CRAN version with:
 
-```
+```r
 install.packages("mark")
 ```
 
 You can the development version from [GitHub](https://github.com/jmbarbone/mark) with:
 
-```
+```r
 remotes::install_github("jmbarbone/mark")
 ```
 

@@ -26,12 +26,16 @@ Some parts happily ripped from and (hopefully) credited to others.
 
 You can download the current CRAN version with:
 
-    install.packages("mark")
+``` r
+install.packages("mark")
+```
 
 You can the development version from
 [GitHub](https://github.com/jmbarbone/mark) with:
 
-    remotes::install_github("jmbarbone/mark")
+``` r
+remotes::install_github("jmbarbone/mark")
+```
 
 ## Select examples
 
@@ -167,7 +171,6 @@ counts(x)
 props(x)
 #>    4    5    1    3    2 
 #> 0.10 0.20 0.20 0.25 0.25
-
 df <- as.data.frame(matrix(sample(1:2, 60, TRUE), byrow = TRUE, ncol = 3))
 counts(df, c("V1", "V2"))
 #>   V1 V2 freq
@@ -176,14 +179,14 @@ counts(df, c("V1", "V2"))
 #> 3  2  2    8
 #> 4  2  1    3
 props(df, 1:3)
-#>   V1 V2 V3 prop
-#> 1  1  1  1 0.15
-#> 2  1  1  2 0.10
-#> 3  1  2  2 0.15
-#> 4  2  2  1 0.25
-#> 5  2  1  2 0.15
-#> 6  2  2  2 0.15
-#> 7  1  2  1 0.05
+#>   V1 V2 V3      prop
+#> 1  1  1  1 0.4285714
+#> 2  1  1  2 0.2857143
+#> 3  1  2  2 0.4285714
+#> 4  2  2  1 0.7142857
+#> 5  2  1  2 0.4285714
+#> 6  2  2  2 0.4285714
+#> 7  1  2  1 0.1428571
 ```
 
 Date time differences:
@@ -199,14 +202,12 @@ difftime(y, x, units = "days")
 diff_time_days(x, y)
 #> Time differences in days
 #> [1] -366 -367 -364
-
 difftime(y, x, units = "secs")
 #> Time differences in secs
 #> [1] -31622400 -31708800 -31449600
 diff_time_secs(x, y)
 #> Time differences in seconds
 #> [1] -31622400 -31708800 -31449600
-
 # Year (by days, months, etc)
 diff_time_years(x, y)
 #> Time differences in years (365 days)
@@ -214,7 +215,6 @@ diff_time_years(x, y)
 diff_time_myears(x, y)
 #> Time differences in years (30-day months)
 #> [1] -1.016667 -1.019444 -1.011111
-
 # Set time zones
 diff_time_hours(x, y, "GMT", "US/Eastern")                         
 #> Time differences in hours
