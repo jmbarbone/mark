@@ -1,5 +1,8 @@
 # mark (development version)
 
+* adds `percentile_rank()` to calculate percentile ranks with a vector
+* `pseudo_id()` gains argument `na_last` to change positioning of `NA` values
+
 # mark 0.3.0
 
 ## Fixes

@@ -7,16 +7,18 @@
 \alias{pseudo_id.factor}
 \title{Create an ID for a vector}
 \usage{
-pseudo_id(x)
+pseudo_id(x, ...)
 
-\method{pseudo_id}{pseudo_id}(x)
+\method{pseudo_id}{pseudo_id}(x, ...)
 
-\method{pseudo_id}{default}(x)
+\method{pseudo_id}{default}(x, na_last = TRUE, ...)
 
 \method{pseudo_id}{factor}(x)
 }
 \arguments{
 \item{x}{A vector of values}
+
+\item{na_last}{\code{Logical} if \code{FALSE} will not place \code{NA} at the end}
 }
 \value{
 A \code{pseudo_id} object where the \code{integer} value of the vector
