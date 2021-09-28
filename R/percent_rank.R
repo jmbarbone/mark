@@ -18,9 +18,9 @@
 #'
 #'
 #' @param x A vector of values to rank
-#' @param times A vector of
+#' @param times A vector of the number of times to repeat `x`
 #'
-#' @return A percentile rank between 0 and 1, exclusive
+#' @return The percentile rank of `x` between 0 and 1, exclusive
 #'
 #' @examples
 #' percentile_rank(0:9)

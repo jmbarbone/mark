@@ -8,9 +8,11 @@ percentile_rank(x, times = NULL)
 }
 \arguments{
 \item{x}{A vector of values to rank}
+
+\item{times}{A vector of the number of times to repeat \code{x}}
 }
 \value{
-A percentile rank between 0 and 1, exclusive
+The percentile rank of \code{x} between 0 and 1, exclusive
 }
 \description{
 The bounds of the percentile rank are > 0 and < 1
