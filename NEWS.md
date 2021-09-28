@@ -1,8 +1,14 @@
 # mark (development version)
 
+## New features
+
 * adds `percentile_rank()` to calculate percentile ranks with a vector
-* `pseudo_id()` gains argument `na_last` to change positioning of `NA` values
 * adds `insert()` to insert multiple values into a vector
+* `pseudo_id()` gains argument `na_last` to change positioning of `NA` values
+
+## Fixes
+
+* `squash_vec()` now works correctly when values are not ordered [#43](https://github.com/jmbarbone/mark/issues/43)
 
 # mark 0.3.0
 
