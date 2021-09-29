@@ -7,7 +7,7 @@
 
 make_sf <- function(package) {
   function(..., check = FALSE) {
-    system.file(..., package = package, mustWork = check)
+    match.fun("system.file")(..., package = package, mustWork = check)
   }
 }
 
