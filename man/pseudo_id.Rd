@@ -13,10 +13,12 @@ pseudo_id(x, ...)
 
 \method{pseudo_id}{default}(x, na_last = TRUE, ...)
 
-\method{pseudo_id}{factor}(x)
+\method{pseudo_id}{factor}(x, ...)
 }
 \arguments{
 \item{x}{A vector of values}
+
+\item{...}{Additional arguments passed to methods}
 
 \item{na_last}{\code{Logical} if \code{FALSE} will not place \code{NA} at the end}
 }

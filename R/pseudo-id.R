@@ -3,6 +3,7 @@
 #' Transforms a vector into an integer of IDs.
 #'
 #' @param x A vector of values
+#' @param ... Additional arguments passed to methods
 #'
 #' @returns A `pseudo_id` object where the `integer` value of the vector
 #' correspond to the position of the unique values in the attribute `"uniques"`.
@@ -35,7 +36,7 @@ pseudo_id.default <- function(x, na_last = TRUE, ...) {
 
 #' @export
 #' @rdname pseudo_id
-pseudo_id.factor <- function(x) {
+pseudo_id.factor <- function(x, ...) {
   x <- fact(x)
   pseudo_id(fact_coerce_levels(levels(x))[x])
 }
