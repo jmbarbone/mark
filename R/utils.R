@@ -224,12 +224,16 @@ remove_class <- function(x, cl = NULL) {
 
 append0 <- function(x, values, pos = NULL) {
   if (is.null(pos)) {
-    c(x, values)
-  } else if (pos == 1L) {
-    c(values, x)
-  } else {
-    c(x[1L:(pos - 1L)], values, x[pos:length(x)])
+    return(c(x, values))
   }
+
+  if (pos == 1L) {
+    return(c(values, x))
+  }
+
+  n <- length(x)
+  pos <- min(pos, n)
+  c(x[1L:(pos - 1L)], values, x[pos:n])
 }
 
 check_interactive <- function() {
