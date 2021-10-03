@@ -215,7 +215,13 @@ as_ordered <- function(x) {
 #' @rdname as_ordered
 #' @export
 as_ordered.default <- function(x) {
-  add_class(fact_remove_na(x), "ordered", 2L)
+  res <- fact_remove_na(x)
+
+  if (!is.ordered(x)) {
+    res <- add_class(res, "ordered", 2L)
+  }
+
+  res
 }
 
 

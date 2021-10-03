@@ -149,6 +149,11 @@ test_that("as_ordered() works", {
   expect_identical(as_ordered(x), res)
 })
 
+test_that("as_ordered() doesn't duplicate class", {
+  res <- class(as_ordered(as.ordered(letters[1:3])))
+  expect_identical(res, c("fact", "ordered", "factor"))
+})
+
 
 # other -------------------------------------------------------------------
 
