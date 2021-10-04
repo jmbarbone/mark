@@ -174,3 +174,20 @@ test_that("fact_coerce_levels() works", {
   x <- as.POSIXlt("2021-09-03", tz = "UTC") + 0:2
   expect_equal(fact_coerce_levels(as.character(x)), x)
 })
+
+
+# try_numeric -------------------------------------------------------------
+
+test_that("try_numeric() works", {
+  x <- 1
+  expect_identical(try_numeric(x), x)
+
+  x <- c(NA, NA)
+  expect_identical(try_numeric(x), x)
+
+  x <- c("a", 1)
+  expect_identical(try_numeric(x), x)
+
+  x <- c(1, NA, 2)
+  expect_identical(try_numeric(as.character(x)), x)
+})

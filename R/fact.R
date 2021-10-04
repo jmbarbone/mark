@@ -266,8 +266,9 @@ try_numeric <- function(x) {
     return(x)
   }
 
-  nums[nas] <- NA
-  nums
+  out <- rep.int(NA_real_, length(x))
+  out[!nas] <- nums
+  out
 }
 
 
