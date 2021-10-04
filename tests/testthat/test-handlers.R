@@ -77,3 +77,7 @@ test_that("snapshots", {
   expect_snapshot(has_catch(2, foo))
 })
 
+test_that("muffle and wuffle", {
+  expect_message(muffle(message()), NA)
+  expect_warning(wuffle(warning()), NA)
+})
