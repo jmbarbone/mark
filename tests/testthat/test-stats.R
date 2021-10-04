@@ -9,5 +9,5 @@ test_that("median2() works", {
 
 test_that("range2() works", {
   x <- runif(100)
-  expect_equal(range(x), c(min(x), max(x)))
+  expect_equal(range2(x), c(min(x), max(x)))
 })
