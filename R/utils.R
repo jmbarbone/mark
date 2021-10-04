@@ -153,7 +153,6 @@ cat0 <- function(...) cat(..., sep = "")
 catln <- function(...) cat(..., sep = "\n")
 charexpr <- function(x) as.character(as.expression(x))
 
-
 mark_temp <- function(ext = "") {
   if (!grepl("^[.]", ext) && !identical(ext, "") && !is.na(ext)) {
     ext <- paste0(".", ext)
@@ -169,23 +168,6 @@ mark_temp <- function(ext = "") {
   norm_path(tempfile(oc, fileext = ext))
 }
 
-
-mark_temp_from_raw <- function(x) {
-  splits <- strsplit(x, "/")[[1]]
-  y <- splits[length(splits)]
-  y <- gsub("__.*$", "", y)
-  s <- seq(1, nchar(y) - 1, by = 2)
-  raws <- mapply(substr, x = y, start = s, stop = s + 1L, USE.NAMES = FALSE)
-  wuffle(rawToChar(as.raw(strtoi(raws, base = 16L))))
-}
-
-# foo <- function(...) mark_temp()
-# foobar <- function(...) foo(...)
-# # returns where the function was called from
-# foo(a = 1)
-# x <- foobar(what = this, those = 1)
-# # can retrieve the function from the file name
-# mark_temp_from_raw(x)
 
 check_is_vector <- function(x, mode = "any") {
   if (isS4(x) | inherits(x, c("data.frame", "matrix", "array")) | !is.vector(remove_attributes(x), mode)) {
