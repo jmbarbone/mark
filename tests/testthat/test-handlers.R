@@ -65,3 +65,15 @@ test_that("handler examples", {
   )
 })
 
+test_that("snapshots", {
+  foo <- function(x) {
+    if (x %% 2 == 0) {
+      stop("I don't like that")
+    }
+
+    x
+  }
+
+  expect_snapshot(has_catch(2, foo))
+})
+

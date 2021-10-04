@@ -94,7 +94,8 @@ has_catch <- function(x, FUN, type = c("error", "warning", "message")) {
 
 #' @export
 print.has_catch <- function(x, ...) {
-  set_names0(remove_attributes(x), names(x))
+  print(set_names0(remove_attributes(x), names(x)))
+  invisible(x)
 }
 
 get_catch <- function(x, FUN, type, null = TRUE) {
