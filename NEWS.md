@@ -12,6 +12,10 @@
 * `as_ordered()` no longer duplicates `ordered` class [#44](https://github.com/jmbarbone/mark/issues/44)
 * `counts.data.frame()` and `props.data.frame()` correctly make column names unique
 
+## Non visible changes
+
+* adds more unit tests
+
 # mark 0.3.0
 
 ## Fixes
