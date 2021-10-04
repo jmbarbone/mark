@@ -227,6 +227,7 @@ test_that("timezones", {
   })
 })
 
+
 # helpers -----------------------------------------------------------------
 
 test_that("helpers", {
@@ -235,11 +236,21 @@ test_that("helpers", {
   expect_true(is_diff_time(diff_time(Sys.time(), Sys.time() + 1)))
 })
 
+test_that("sys_tz() does not fail", {
+  expect_error(sys_tz(1), NA)
+  expect_error(sys_tz(2), NA)
+  expect_error(sys_tz(3), NA)
+  expect_error(sys_tz(4), NA)
+  expect_error(sys_tz(5), NA)
+  expect_error(sys_tz(6), NA)
+  expect_error(sys_tz(7), NA)
+})
+
 
 # printing ----------------------------------------------------------------
 
 test_that("snaps", {
-  skip("not currently testing snaps")
+  # skip("not currently testing snaps")
 
   x <- struct(18842L, "Date")
   y <- x + 100L
