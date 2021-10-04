@@ -155,3 +155,20 @@ test_that("capply()", {
   res <- c(1, 4, 9, NA, 16, 25, 36, 49)
   expect_equal(capply(x, foo), res)
 })
+
+test_that("slapply()", {
+  x <- 1:10
+  foo <- function(i) i^i
+
+  res <- slapply(x, foo, .names = FALSE)
+  exp <- foo(x)
+  expect_identical(res, exp)
+
+  res <- slapply(x, foo)
+  exp <- set_names0(x^x, x)
+  expect_identical(res, exp)
+
+  res <- slapply(x, foo, .simplify = TRUE)
+  exp <- simplify2array(exp)
+  expect_identical(res, exp)
+})
