@@ -1,4 +1,4 @@
-test_that("paste_combine()", {
+test_that("paste_combine() works", {
   x <- letters[1:2]
   y <- 1:2
   z <- month.abb[1:2]
@@ -41,8 +41,10 @@ test_that("paste_combine()", {
       "a11Feb", "b11Feb", "a21Feb", "b21Feb",
       "a12Feb", "b12Feb", "a22Feb", "b22Feb")
   )
+})
 
-
+test_that("paste_combine() fails", {
+  expect_error(paste_combine(1))
 })
 
 test_that("collapse0()", {
@@ -55,4 +57,8 @@ test_that("collapse0()", {
     collapse0(1:3, letters[5:7], sep = "_"),
     "1_2_3_e_f_g"
   )
+})
+
+test_that("deprecated", {
+  expect_warning(paste_c(1, 2), "deprecated")
 })
