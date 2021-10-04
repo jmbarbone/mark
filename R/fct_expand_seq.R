@@ -27,7 +27,7 @@ fct_expand_seq <- function(x,
     stop("<< x >> must be a class ordered", call. = FALSE)
   }
 
-  if (!is.integer(by) || by < 1L) {
+  if (!isTRUE(is.integer(by) || by < 1L)) {
     stop("<< by >> must be an integer >= 1L", call. = FALSE)
   }
 
