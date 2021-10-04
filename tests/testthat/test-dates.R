@@ -81,6 +81,7 @@ test_that("'Empty' dates don't cause errors", {
 
 test_that("date errors", {
   expect_error(verify_format("ymda"))
+  expect_error(verify_format("abc"))
   expect_error(verify_format("aaa"))
   expect_error(verify_format("ymd"), NA)
   expect_error(verify_format("dmy"), NA)
