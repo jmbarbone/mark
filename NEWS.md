@@ -10,6 +10,7 @@
 
 * `squash_vec()` now works correctly when values are not ordered [#43](https://github.com/jmbarbone/mark/issues/43)
 * `as_ordered()` no longer duplicates `ordered` class [#44](https://github.com/jmbarbone/mark/issues/44)
+* `counts.data.frame()` and `props.data.frame()` correctly make column names unique
 
 # mark 0.3.0
 

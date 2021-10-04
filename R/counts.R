@@ -171,13 +171,6 @@ counts_n <- function(x, name = "freq", sort = FALSE) {
   cn <- colnames(x)
   colnames(out) <- cn
   name <- name %||% "freq"
-
-  i <- 0L
-  while (name %in% cn) {
-    i <- i + 1L
-    name <- sprintf("%s_%d", name, i)
-  }
-
   out[[name]] <- res
   out
 }
@@ -229,5 +222,6 @@ remake_df <- function(new, old) {
     class(new[[n]]) <- class(old[[o]])
   }
 
+  colnames(new) <- make.unique(colnames(new), sep = "_")
   new
 }
