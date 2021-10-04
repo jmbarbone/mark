@@ -8,6 +8,10 @@ test_that("char2fact() works", {
   y <- c(x, "j")
   expect_equal(y, char2fact(y, 5))
   expect_equal(fact(y), char2fact(y, 6))
+
+  # factors
+  f <- fact(x)
+  expect_identical(char2fact(f), f)
 })
 
 test_that("char2fact.data.frame() works", {
