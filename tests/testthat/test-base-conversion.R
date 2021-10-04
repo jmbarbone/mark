@@ -14,4 +14,14 @@ T
 test_that("base_n() works as expected", {
   expect_equal(base_n(120, 9), 99)
   expect_error(base_n(62, 2))
+
+  x <- c(2L, 1L, 3L, 3L, 6L, 5L, 1L, 4L, 4L, 2L, 2L, 6L, 7L, 4L, 4L, 3L, 1L, 1L)
+  expect_identical(base_n(x, 5, 5), x)
 })
+
+test_that("base_alpha(), base_n() fails", {
+  expect_error(base_alpha(1))
+  expect_error(base_n("a"))
+  expect_error(base_n(1, 10, 12))
+})
+
