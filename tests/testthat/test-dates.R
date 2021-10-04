@@ -26,7 +26,9 @@ test_that("leap years", {
   expect_true( is_leap_year(4000))
   expect_true( is_leap_year(0))
   expect_false(is_leap_year(100))
+  expect_false(is_leap_year(102))
   expect_true( is_leap_year(400))
+  expect_true( is_leap_year(as.POSIXct("2020-01-01")))
 })
 
 # # Waldo prints out dates as days from origin...
@@ -75,4 +77,14 @@ test_that("'Empty' dates don't cause errors", {
   expect_error(date_from_partial("."), NA)
   expect_error(date_from_partial("?.."), NA)
   expect_s3_class(date_from_partial(NA), "Date")
+})
+
+test_that("date errors", {
+  expect_error(verify_format("ymda"))
+  expect_error(verify_format("aaa"))
+  expect_error(verify_format("ymd"), NA)
+  expect_error(verify_format("dmy"), NA)
+  expect_error(verify_format("mdy"), NA)
+  res <- parse_date_strings("y-m-d-a", "ymd")
+  expect_identical(res, NA_Date_)
 })
