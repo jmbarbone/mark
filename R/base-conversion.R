@@ -70,7 +70,7 @@ base_n <- function(x, from = 10, to = 10) {
   }
 
   if (to != 10) {
-    stop("base_n() is crrently only valid for conversions to base 10", call. = FALSE)
+    stop("base_n() is currently only valid for conversions to base 10", call. = FALSE)
   }
 
   check_base(from)
