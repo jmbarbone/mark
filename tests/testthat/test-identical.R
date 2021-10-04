@@ -12,3 +12,8 @@ test_that("are_identical() works", {
   exp <- c(TRUE, FALSE, TRUE, TRUE, FALSE)
   expect_identical(res, exp)
 })
+
+test_that("are_identical() fails", {
+  expect_error(are_identical(1, 1:3))
+  expect_error(are_identical(NULL))
+})
