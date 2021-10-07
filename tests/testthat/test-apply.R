@@ -156,6 +156,9 @@ test_that("capply()", {
   expect_equal(capply(x, foo), res)
 })
 
+
+# slappy ------------------------------------------------------------------
+
 test_that("slapply()", {
   x <- 1:10
   foo <- function(i) i^i
@@ -170,5 +173,10 @@ test_that("slapply()", {
 
   res <- slapply(x, foo, .simplify = TRUE)
   exp <- simplify2array(exp)
+  expect_identical(res, exp)
+
+  x <- set_names0(x)
+  res <- slapply(x, foo)
+  exp <- set_names0(x^x, x)
   expect_identical(res, exp)
 })
