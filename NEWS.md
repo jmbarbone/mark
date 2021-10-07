@@ -13,6 +13,7 @@
 * `counts.data.frame()` and `props.data.frame()` correctly make column names unique
 * internal `try_numeric()` correctly handles `NA`s
 * `flip.matrix(, keep_rownames = FALSE)` now works correctly
+* `any_match()` now works as expected
 
 ## Non visible changes
 

@@ -56,5 +56,5 @@ no_match <- function(x, table) {
 #' @rdname match_ext
 #' @export
 any_match <- function(x, table) {
-  any(match(x, table, nomatch = 0L) == 0L)
+  any(match(x, table, nomatch = 0L) != 0L)
 }
