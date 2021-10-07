@@ -155,12 +155,24 @@ test_that("as_ordered() doesn't duplicate class", {
 })
 
 
-# other -------------------------------------------------------------------
-
+# fact.default() ----------------------------------------------------------
 
 test_that("fact.default() fails", {
   expect_error(fact(struct(NULL, "foo")))
 })
+
+
+# `fact_levels<-`() -------------------------------------------------------
+
+test_that("`fact_levels<-`() works", {
+  x <- fact(1:3)
+  fact_levels(x) <- 1:4
+  exp <- struct(1:3, levels = as.character(1:4), class = c("fact", "factor"))
+  expect_identical(x, exp)
+})
+
+
+# fact_coerce_levels() ----------------------------------------------------
 
 test_that("fact_coerce_levels() works", {
   x <- as.Date("2021-09-03") + 0:2
@@ -176,7 +188,7 @@ test_that("fact_coerce_levels() works", {
 })
 
 
-# try_numeric -------------------------------------------------------------
+# try_numeric() -----------------------------------------------------------
 
 test_that("try_numeric() works", {
   x <- 1
