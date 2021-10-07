@@ -110,22 +110,6 @@ string_extract <- function(x, pattern, perl = FALSE, ignore.case = FALSE) {
   substr(x, starts, starts + attr(re, "match.length") - 1L)
 }
 
-# Not as quick as stringr but only base, so...
-string_extract_all <- function(x, pattern, perl = FALSE, ignore.case = FALSE) {
-  re <- gregexpr(pattern, x, perl = perl, ignore.case = ignore.case)
-  mapply(
-
-    function(xi, rei, lens) {
-        substring(xi, rei, rei + lens - 1L)
-    },
-    xi = x,
-    rei = re,
-    lens = lapply(re, attr, "match.length"),
-    SIMPLIFY = FALSE,
-    USE.NAMES = FALSE
-  )
-}
-
 
 #' Format string to a regular expression
 #'
