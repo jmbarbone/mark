@@ -34,6 +34,10 @@ test_that("Logical extension work", {
 
   expect_equal(is_true(x), sapply(x, isTRUE, USE.NAMES = FALSE))
   expect_equal(is_false(x), sapply(x, isFALSE, USE.NAMES = FALSE))
+
+  expect_identical(is_true(c( TRUE, FALSE, NA)), c(TRUE,  FALSE, FALSE))
+  expect_identical(is_false(c(TRUE, FALSE, NA)), c(FALSE,  TRUE, FALSE))
+
   expect_true(is_boolean(x))
   expect_true(is_boolean(xL))
   expect_true(is_boolean(xD))
@@ -49,4 +53,13 @@ test_that("Logical extension work", {
 
   expect_equal(OR(x, y, na.rm = TRUE), res_xy_or_na)
   expect_equal(OR(x, y, z, na.rm = TRUE), res_xyz_or_na)
+})
+
+test_that("logical helpers", {
+  expect_error(null_check(NULL))
+  expect_error(null_check(integer()))
+
+  expect_error(apply_logical_matrix(1L, mean, TRUE), "must be a matrix")
+  expect_error(apply_logical_matrix(matrix("a"), mean, TRUE), "must be boolean")
+  expect_error(apply_logical_matrix(matrix(3L), mean, TRUE), "must be boolean")
 })
