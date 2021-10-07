@@ -1,7 +1,12 @@
+
+# to_boolean.logical() ----------------------------------------------------
+
 test_that("to_boolean.logical() works", {
   x <- c(TRUE, TRUE, FALSE, FALSE, NA)
   expect_identical(to_boolean(x), x)
 })
+
+# to_boolean.numeric() ----------------------------------------------------
 
 test_that("to_boolean.numeric() works", {
   expect_identical(
@@ -9,6 +14,9 @@ test_that("to_boolean.numeric() works", {
     c(TRUE, NA, NA, FALSE, NA, NA)
   )
 })
+
+
+# to_boolean.character() --------------------------------------------------
 
 wtf <- c("what", "true", "T", "TRUE", "false", "F", "false")
 yn <- c("Y", "yes", "N", "no")
@@ -23,7 +31,12 @@ test_that("to_boolean.character() works", {
     to_boolean(yn),
     c(TRUE, TRUE, FALSE, FALSE)
   )
+
+  expect_error(to_boolean("a", 1, 2), "Not yet finished")
 })
+
+
+# to_boolean.factor() -----------------------------------------------------
 
 test_that("to_boolean.factor() works", {
   expect_identical(
@@ -35,7 +48,12 @@ test_that("to_boolean.factor() works", {
     to_boolean(fact(yn)),
     c(TRUE, TRUE, FALSE, FALSE)
   )
+
+  expect_error(to_boolean(fact("a"), 1, 2), "Not yet finished")
 })
+
+
+# is_true(), is_false() ---------------------------------------------------
 
 test_that("is_true(), is_false() works", {
   x <- c(2, 3, NA)
@@ -58,12 +76,18 @@ test_that("is_true(), is_false() works", {
   expect_identical(res, exp)
 })
 
+
+# %xor% -------------------------------------------------------------------
+
 test_that("%xor% works", {
   x <- TRUE
   y <- FALSE
 
   expect_identical(xor(x, y), x %xor% y)
 })
+
+
+# either() ----------------------------------------------------------------
 
 test_that("either() works", {
   x <- c(TRUE, NA, FALSE, FALSE)
@@ -74,6 +98,8 @@ test_that("either() works", {
   expect_identical(res, exp)
 })
 
+
+# none() ------------------------------------------------------------------
 
 test_that("none() works", {
   x <- c(FALSE, FALSE, NA)
