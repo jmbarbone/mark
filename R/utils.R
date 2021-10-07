@@ -130,24 +130,10 @@ is_unique <- function(x) {
   anyDuplicated(x) == 0L
 }
 
-as_character <- function(x) {
-  if (is.factor(x)) {
-    return(levels(x)[x])
-  }
-
-  as.character(x)
-}
-
 is_atomic0 <- function(x) {
   is.atomic(x) && !is.null(x)
 }
 
-which_unwrap <- function(w, n = max(w)) {
-  n <- max(n, max(w)) # protective
-  x <- logical(n)
-  x[w] <- TRUE
-  x
-}
 
 cat0 <- function(...) cat(..., sep = "")
 catln <- function(...) cat(..., sep = "\n")

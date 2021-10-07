@@ -28,6 +28,11 @@ test_that("to_row_names()", {
 })
 
 
+test_that("col_to_rn()", {
+  expect_error(col_to_rn(data.frame(), 1:2), "must be a single element")
+  expect_error(col_to_rn(data.frame(), NA), "is invalid")
+})
+
 test_that("vector2df()", {
   x <- c(1.0, 3.1, 8.2)
   df <- quick_dfl(name = c(NA, NA, NA), value = x)
@@ -38,6 +43,7 @@ test_that("vector2df()", {
   expect_named(vector2df(x, "one", "two"), c("one", "two"))
 
   expect_warning(vector2df(x, show_NA = NULL), info = "show_NA should not be set")
+  expect_error(vector2df(list(a = 1)), "non-list vector")
 })
 
 test_that("list2df()", {
@@ -63,6 +69,14 @@ test_that("list2df()", {
   x <- list(a = 1, 0, 2)
   res <- quick_dfl(name = c("a", 2, 3), value = c(1, 0, 2))
   expect_equal(list2df(x), res)
+
+  expect_error(list2df(1), "must be a list")
+})
+
+test_that("list2df2()", {
+  res <- list2df2(list())
+  exp <- structure(list(), names = character(0), class = "data.frame", row.names = integer())
+  expect_identical(res, exp)
 })
 
 test_that("t_df()", {
