@@ -12,6 +12,7 @@
 * `as_ordered()` no longer duplicates `ordered` class [#44](https://github.com/jmbarbone/mark/issues/44)
 * `counts.data.frame()` and `props.data.frame()` correctly make column names unique
 * internal `try_numeric()` correctly handles `NA`s
+* `flip.matrix(, keep_rownames = FALSE)` now works correctly
 
 ## Non visible changes
 

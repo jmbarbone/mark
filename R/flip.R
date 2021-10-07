@@ -54,12 +54,13 @@ flip.matrix <- function(x, by_row = TRUE, keep_rownames = NULL, ...) {
 
     if (!keep_rownames) {
       dims[[1]] <- rn
+      dimnames(out) <- dims
     }
 
   } else {
     cols <- ncol(x)
 
-    if (!cols) {
+    if (length(x) == 0L) {
       return(x)
     }
 
