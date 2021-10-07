@@ -40,10 +40,6 @@ NA_at <- function(x, y, ...) {
     return(x)
   }
 
-  if (length(x) == 0L) {
-    return(x)
-  }
-
   if (is.function(y)) {
     FUN <- match.fun(y)
     y <- FUN(x, ...)

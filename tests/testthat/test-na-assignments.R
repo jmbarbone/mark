@@ -15,6 +15,10 @@ test_that("NA_at() and NA_if() work as expected", {
 
   # y cannot be longer than x
   expect_error(NA_at(x, 1:10))
+
+  res <- NA_at(1:4, function(i) which(i %% 2 == 0))
+  exp <- c(1L, NA, 3L, NA)
+  expect_identical(res, exp)
 })
 
 test_that("NA_in() and NA_at() work as expected", {
@@ -41,3 +45,17 @@ test_that("NA_in() and NA_at() work as expected", {
   expect_error(NA_out(x, letters), NA)
 })
 
+test_that("NA_*() 0 length", {
+  expect_identical(NA_at(integer()), integer())
+  expect_identical(NA_at(double()), double())
+  expect_identical(NA_at(character()), character())
+  expect_identical(NA_if(integer()), integer())
+  expect_identical(NA_if(double()), double())
+  expect_identical(NA_if(character()), character())
+  expect_identical(NA_in(integer()), integer())
+  expect_identical(NA_in(double()), double())
+  expect_identical(NA_in(character()), character())
+  expect_identical(NA_out(integer()), integer())
+  expect_identical(NA_out(double()), double())
+  expect_identical(NA_out(character()), character())
+})
