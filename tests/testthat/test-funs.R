@@ -62,3 +62,8 @@ test_that("quiet_stop()", {
   expect_true(foo())
   expect_warning(bar())
 })
+
+test_that("other funs", {
+  expect_error(rn_soft("bad package name"), NULL)
+  expect_true(package_available("methods"))
+})
