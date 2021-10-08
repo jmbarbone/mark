@@ -1,12 +1,12 @@
-# environments() and friends works
+# snapshots
 
     Code
       environments()
     Output
       <environment: package:mark> 
       <environment: package:testthat> 
-      <environment: 0x000001d88e79e2d8> 
-      <environment: 0x000001d88605efd0> 
+      <environment: 0x0000020730af6810> 
+      <environment: 0x000002072c4f8b38> 
       <environment: package:stats> 
       <environment: package:graphics> 
       <environment: package:grDevices> 
@@ -16,7 +16,7 @@
       <environment: package:usethis> 
       <environment: package:Rprofile> 
       <environment: package:methods> 
-      <environment: 0x000001d886031018> 
+      <environment: 0x000002072c270f20> 
       <environment: base> 
       <environment: R_EmptyEnv> 
 

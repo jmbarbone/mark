@@ -7,11 +7,11 @@
 \alias{ls_object}
 \title{List Objects - extensions}
 \usage{
-ls_dataframe(pattern, all.names = FALSE)
+ls_dataframe(pattern, all.names = FALSE, envir = parent.frame())
 
-ls_function(pattern, all.names = FALSE)
+ls_function(pattern, all.names = FALSE, envir = parent.frame())
 
-ls_object(pattern, all.names = FALSE)
+ls_object(pattern, all.names = FALSE, envir = parent.frame())
 }
 \arguments{
 \item{pattern}{an optional \link[base]{regular expression}.  Only names
@@ -21,6 +21,9 @@ ls_object(pattern, all.names = FALSE)
 \item{all.names}{a logical value.  If \code{TRUE}, all
     object names are returned.  If \code{FALSE}, names which begin with a
     \samp{.} are omitted.}
+
+\item{envir}{an alternative argument to \code{name} for specifying the
+    environment.  Mostly there for back compatibility.}
 }
 \value{
 A \code{character} vector of names

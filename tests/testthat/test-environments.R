@@ -1,8 +1,23 @@
 test_that("environments() and friends works", {
   expect_error(environments(), NA)
-  expect_snapshot(environments())
 
-  expect_true(all(vap_lgl(unlist(ls_all()), exists)))
-  expect_true(all(vap_lgl(ls_object(), function(i) is.object(get(i)))))
-  expect_true(all(vap_lgl(ls_function(), is.function)))
+  x <- ls_all()
+  expect_true(all(vap_lgl(unlist(x), exists)))
+
+  ne <- new.env()
+
+  local({
+    foo_obj <- structure(list(), class = "foo")
+    foo_fun <- function() NULL
+    foo_df <- data.frame(a = 1)
+  }, envir = ne)
+
+  # these are failing...?
+  expect_identical(ls_function(envir = ne), "foo_fun")
+  expect_identical(ls_object(envir = ne), c("foo_df", "foo_obj"))
+  expect_identical(ls_dataframe(envir = ne), "foo_df")
+})
+
+test_that("snapshots", {
+  expect_snapshot(environments())
 })
