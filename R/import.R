@@ -17,7 +17,7 @@ import <- function(pkg, fun, overwrite = FALSE) {
   e <- parent.frame()
   require_namespace(pkg)
 
-  if (fun %in% ls(envir = e)) {
+  if (!overwrite && fun %in% ls(envir = e)) {
     stop("`", fun, "` has already been assigned.",
          " Use `overwite = TRUE` to overwrite assignment.",
          call. = FALSE)
