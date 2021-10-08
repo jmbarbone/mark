@@ -14,6 +14,7 @@
 * internal `try_numeric()` correctly handles `NA`s
 * `flip.matrix(, keep_rownames = FALSE)` now works correctly
 * `any_match()` now works as expected
+* `lines_of_r_code()` now works correctly reading a single file
 
 ## Non visible changes
 

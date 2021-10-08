@@ -21,14 +21,14 @@
 
 lines_of_r_code <- function(x = ".", skip_empty = TRUE) {
   if (dir.exists(x)) {
-    files <- list_r_files(x)
+    x <- list_r_files(x)
   }
 
   if (skip_empty) {
-    return(sum(vap_int(files, n_lines_r_file)))
+    return(sum(vap_int(x, n_lines_r_file)))
   }
 
-  sum(vap_int(files, n_lines_r_file_all))
+  sum(vap_int(x, n_lines_r_file_all))
 }
 
 list_r_files <- function(x = ".") {
