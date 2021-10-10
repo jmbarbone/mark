@@ -3,6 +3,10 @@ test_that("remove_na()", {
   expect_equal(remove_na(x), c(1, 2, 3))
   expect_equal(remove_na(as.list(x)), list(1, 2, numeric(), 3, numeric()))
   expect_error(remove_na(data.frame(x = 1)))
+
+  res <- remove_na(fact(x))
+  exp <- struct(1:4, c("fact", "factor"), levels = c("1", "2", "3", "NaN"))
+  expect_identical(res, exp)
 })
 
 test_that("remove_null()", {

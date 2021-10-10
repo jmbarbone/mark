@@ -19,6 +19,7 @@
 * `import(, overwrite = TRUE)` now works
 * `ls_function()`, `ls_object()`, `ls_dataframe()`, and `ls_all()` have improvements for environmental searching
 * `assign_labels.data.frame(.missing = "warning")` correctly removes missing columns
+* `remove_na.factor()` no long drops additional classes other than `ordered` and `factor` 
 
 ## Non visible changes
 

@@ -57,9 +57,7 @@ remove_na.factor <- function(x) {
     }
   }
 
-  levels(out) <- lvls[!na_levels]
-  class(out) <- c(if (is.ordered(x)) "ordered", "factor")
-  out
+  struct(out, class(x), levels = lvls[!na_levels])
 }
 
 unique_no_na <- function(x) {
