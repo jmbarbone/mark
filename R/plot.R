@@ -16,11 +16,7 @@
 #' )
 
 with_par <- function(..., ops = NULL) {
-  if ("package:graphics" %out% search()) {
-    warning("Package `graphics` will be loaded", call. = FALSE)
-    rn("graphics")
-  }
-
+  requireNamespace("graphics")
   par0 <- graphics::par(no.readonly = TRUE)
   on.exit(graphics::par(par0), add = TRUE)
   graphics::par(ops)
