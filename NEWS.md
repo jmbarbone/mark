@@ -6,6 +6,7 @@
 * adds `insert()` to insert multiple values into a vector
 * `pseudo_id()` gains argument `na_last` to change positioning of `NA` values
 * `is_true()` and `is_false()` are now exported as generics with methods for `default` and `logical`
+* adds `omit_na()` for tracking positions of `NA` and non-`NA` values
 
 ## Fixes
 

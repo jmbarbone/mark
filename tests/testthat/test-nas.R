@@ -92,3 +92,14 @@ test_that("tableNA() works", {
     )
   )
 })
+
+test_that("omit_na() works", {
+  x <- letters[1:4]
+  res <- omit_na(x)
+  exp <- struct(x, "character", na = integer(), valid = 1:4)
+  expect_identical(res, exp)
+
+  x[2] <- NA
+  res <- omit_na(x)
+  exp <- struct(x[c(1, 3, 4)], "character", na = 2L, valid = c(1L, 3L, 4L))
+})

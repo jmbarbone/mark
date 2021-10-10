@@ -60,8 +60,27 @@ remove_na.factor <- function(x) {
   struct(out, class(x), levels = lvls[!na_levels])
 }
 
-unique_no_na <- function(x) {
-  unique(remove_na(x))
+#' Omit NA values
+#'
+#' @param x A vector of values
+#' @return `x` which `NA` values removes and two attributes of `integers`: `na`
+#'   which is the position of `NA` values, and `valid` for the position of
+#'   non-`NA` values; empty positions reported as `integer(0)`
+#' @examples
+#' # Like stats::na.omit but always provides
+#' x <- letters[1:5]
+#' omit_na(x)
+#' x[c(3, 5)] <- NA
+#' omit_na(x)
+#'
+#' @keywords internal
+omit_na <- function(x) {
+  if (anyNA(x)) {
+    nas <- is.na(x)
+    struct(x, class = class(x), na = which(nas), valid = which(!nas))
+  } else {
+    struct(x, class = class(x), na = integer(), valid = seq_along(x))
+  }
 }
 
 #' Remove NULL
