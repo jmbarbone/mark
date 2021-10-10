@@ -83,10 +83,6 @@ print_note <- function(x, ...) {
 
   the_note <- note(x)
 
-  if (is.null(the_note)) {
-    stop("note(x) cannot be NULL")
-  }
-
   if (!inherits(the_note, "note")) {
     stop("note(x) must be class note")
   }
@@ -98,7 +94,7 @@ print_note <- function(x, ...) {
   width <- getOption("mark.note.width", getOption("width"))
   out <- vap_chr(paste0("Note : ", the_note), str_slice_by_word, width)
   cat(crayon_blue(out), sep = "\n")
-  invisible(NULL)
+  invisible(x)
 }
 
 #' @export
@@ -109,10 +105,3 @@ print.noted <- function(x, ...) {
   print(y)
   invisible(x)
 }
-
-int_err <- function(msg) {
-  msg <- paste0("internal error from package:mark\n  ", msg)
-  struct(list(msg), c("mark_int_err", "error", "condition"), names = "message")
-}
-
-# stop(int_err("this is an //error"))

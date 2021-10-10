@@ -8,13 +8,9 @@ co_note <- function(x) {
   out
 }
 
-inv_co <- function(x) {
-  # note() has a check for interactive
-  withr::local_options(list(mark.check_interactive = FALSE))
-  invisible(capture.output(x))
-}
-
 test_that("note() work", {
+  withr::local_options(list(mark.check_interactive = NA))
+
   x <- "x"
   nt <- "this is a note"
   note(x) <- nt
@@ -24,7 +20,7 @@ test_that("note() work", {
   expect_s3_class(x, "noted")
   expect_s3_class(out, "note")
   expect_equal(as.character(out), nt)
-  inv_co(expect_null(print_note(x)))
+  expect_identical(print_note(x), x)
 
   # NULL removes note and class noted
   note(x) <- NULL
@@ -33,25 +29,38 @@ test_that("note() work", {
 })
 
 test_that("print_note() works with data.frame", {
+  withr::local_options(list(mark.check_interactive = NA))
+
   x <- data.frame(a = 1:2, b = 1:2)
   note(x) <- "This should work"
-  inv_co(expect_null(print_note(x)))
+  expect_identical(print_note(x), x)
 
   x <- list(a = 1:3, b = 2, c = data.frame(a = 1))
   note(x) <- "This is a list"
-  inv_co(expect_null(print_note(x)))
+  expect_identical(print_note(x), x)
+})
+
+test_that("note() errors", {
+  withr::local_options(list(mark.check_interactive = NA))
+  expect_error(print_note(1L))
+  x <- struct(1L, "noted", note = struct("hi", "note_a_note"))
+  expect_error(print_note(x))
 })
 
 test_that("note() snapshots", {
+  withr::local_options(list(mark.check_interactive = FALSE))
+
   x <- 1L
   note(x) <- "snapshot vector"
-  expect_snapshot(co_note(x))
+  expect_snapshot(x)
 
   x <- quick_dfl(a = 1:2, b = 1:2)
   note(x) <- "snapshot data.frame"
-  expect_snapshot(co_note(x))
+  expect_snapshot(x)
 
   x <- list(a = 1:2, b = 1:2, c = quick_dfl(a = 1, b = 2))
   note(x) <- "snapshot list"
-  expect_snapshot(co_note(x))
+  expect_snapshot(x)
+
+  expect_snapshot(struct(1L, "note"))
 })

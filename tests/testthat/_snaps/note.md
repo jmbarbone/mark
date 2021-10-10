@@ -1,21 +1,42 @@
 # note() snapshots
 
     Code
-      co_note(x)
+      x
     Output
-      [1] "Note : snapshot vector"
+      Note : snapshot vector
+      [1] 1
 
 ---
 
     Code
-      co_note(x)
+      x
     Output
-      [1] "Note : snapshot data.frame"
+      Note : snapshot data.frame
+        a b
+      1 1 1
+      2 2 2
 
 ---
 
     Code
-      co_note(x)
+      x
     Output
-      [1] "Note : snapshot list"
+      Note : snapshot list
+      $a
+      [1] 1 2
+      
+      $b
+      [1] 1 2
+      
+      $c
+        a b
+      1 1 2
+      
+
+---
+
+    Code
+      attr(x, "note")
+    Output
+      [1] "snapshot list"
 
