@@ -16,6 +16,12 @@ test_that("environments() and friends works", {
   expect_identical(ls_function(envir = ne), "foo_fun")
   expect_identical(ls_object(envir = ne), c("foo_df", "foo_obj"))
   expect_identical(ls_dataframe(envir = ne), "foo_df")
+
+  expect_identical(
+    make_do_ls("is.object"),
+    ls_object,
+    ignore_function_env = TRUE
+  )
 })
 
 test_that("snapshots", {

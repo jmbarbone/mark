@@ -32,22 +32,12 @@ print.mark_environments <- function(x, ...) {
 #' @return
 #' * `ls_all()`, `objects_all()`: A named list for each of the environments in the `search()` path with all the objects found in that environment
 ls_all <- function(all.names = FALSE) {
-  sapply(search(), ls_switch, all.names = all.names)
+  sapply(search(), function(s) ls(as.environment(s), all.names = all.names))
 }
 
 #'@export
 #'@rdname list_environments
 objects_all <- ls_all
-
-ls_switch <- function(x, all.names = FALSE) {
-  switch(
-    x,
-    R_GlobalEnv = ls(globalenv(), all.names = all.names),
-    R_EmptyEnv = "",
-    base = ls(baseenv(), all.names = all.names),
-    ls(as.environment(x), all.names = all.names)
-  )
-}
 
 
 #' List Objects - extensions
