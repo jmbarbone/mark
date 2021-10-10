@@ -21,6 +21,11 @@ magrittr::`%>%`
   if (is.null(x)) y else x
 }
 
+# isTRUE, isFALSE, ...
+isNA <- function(x) {
+  is.logical(x) && length(x) == 1L && is.na(x)
+}
+
 #' Colons
 #'
 #' Get an object from a package
@@ -205,11 +210,21 @@ append0 <- function(x, values, pos = NULL) {
 }
 
 check_interactive <- function() {
-  if (!isFALSE(getOption("mark.check_interactive"))) {
+  op <- getOption("mark.check_interactive", TRUE)
+
+  if (isTRUE(op)) {
     return(interactive())
   }
 
-  TRUE
+  if (isFALSE(op)) {
+    return(TRUE)
+  }
+
+  if (isNA(op)) {
+    return(FALSE)
+  }
+
+  stop("mark.check_interactive must be TRUE, FALSE, or NA")
 }
 
 

@@ -23,3 +23,18 @@ test_that("utils", {
 
   expect_identical(append0(1:3, 4L), 1:4)
 })
+
+test_that("check_interactive() works", {
+  op <- options("mark.check_interactive")
+
+  options(mark.check_interactive = TRUE)
+  expect_identical(check_interactive(), interactive())
+
+  options(mark.check_interactive = FALSE)
+  expect_true(check_interactive())
+
+  options(mark.check_interactive = NA)
+  expect_false(check_interactive())
+
+  options(op)
+})
