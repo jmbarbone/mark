@@ -11,6 +11,8 @@ test_that("default assignment", {
 
   expect_equal(x0, x1)
   expect_true(is.null(attr(x1, "label")))
+
+  expect_warning(assign_label(x, "what"), "deprecated")
 })
 
 test_that("data.frame assignment", {
@@ -37,6 +39,15 @@ test_that("data.frame assignment", {
   expect_equal(attr(exp0[["Sepal.Length"]], "label"), "a")
   expect_equal(x0, exp2)
   expect_equal(exp1, exp2)
+
+  expect_error(assign_labels(x0, .ls = list()))
+  expect_error(assign_labels(x0, a = 1, .ls = list(b = 2)))
+
+
+  df <- data.frame(a = 1, b = 2, c = 3)
+  expect_error(assign_labels(df, c = "c", d = "d", .missing = "error"))
+  expect_warning(assign_labels(df, c = "c", d = "d", .missing = "warn"))
+  expect_warning(assign_labels(df, c = "c", d = "d", .missing = "skip"), NA)
 })
 
 test_that("data.frame assign with data.frame", {
@@ -66,4 +77,16 @@ test_that("data.frame assign with data.frame", {
                "Columns not found: a, b, 1")
 
   options(op)
+})
+
+test_that("view_labels() works", {
+  df <- data.frame(a = 1, b = 2)
+  df <- assign_labels(df, a = "a", b = "b")
+
+  # redefine "View"
+  View <- function(x, ...) identity(x)
+  expect_error(view_labels(df), NA)
+
+  View <- NA
+  expect_error(view_labels(df), "Something went wrong")
 })

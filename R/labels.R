@@ -92,17 +92,18 @@ assign_labels.data.frame <- function(x, ..., .missing = c("error", "warn", "skip
   if (anyNA(ma)) {
     nas <- is.na(ma)
     text <- paste0("Columns not found: ", collapse0(nm[nas], sep = ", "))
-    switch(
-      .missing,
-      error = stop(text, call. = FALSE),
-      warn = warning(text, call. = FALSE),
-      skip = {
-        nm  <-  nm[!nas]
-        ma  <-  ma[!nas]
-        .ls <- .ls[!nas]
-      }
-    )
 
+    if (.missing == "error") {
+      stop(text, call. = FALSE)
+    }
+
+    if (.missing == "warn") {
+      warning(text, call. = FALSE)
+    }
+
+    nm  <-  nm[!nas]
+    ma  <-  ma[!nas]
+    .ls <- .ls[!nas]
   }
 
   for (i in seq_along(nm)) {
@@ -149,9 +150,8 @@ view_labels <- function(x, title) {
     title <- paste0(cesx, " - Labels")
   }
 
-  pf <- parent.frame(2)
-  view_fun <- get0("View", envir = pf)
-  view_fun <- view_fun %||% ("utils" %colons% "View")
+  pf <- parent.frame()
+  view_fun <- get0("View", envir = pf, ifnotfound = "utils" %colons% "View")
 
   if (!is.function(view_fun)) {
     stop("Something went wrong trying to use `View()`",
