@@ -18,14 +18,20 @@ insert <- function(x, positions, values) {
   positions <- as.integer(positions)
 
   lv <- length(values)
-  if (lv) {
-    values <- rep.int(values, length(positions))
-  } else if (lv != length(positions)) {
-    stop("length(values) must be equal to length(positions) or 1")
-  } else {
+  lp <- length(positions)
+
+  if (lp == 0L) {
+    stop("positions has no length")
+  }
+
+  if (lv == 1L) {
+    values <- rep.int(values, lp)
+  } else if (lv == lp) {
     o <- order(positions)
     positions <- positions[o]
     values <- values[o]
+  } else {
+    stop("length(values) must be equal to length(positions) or 1")
   }
 
   for (i in seq_along(positions)) {
