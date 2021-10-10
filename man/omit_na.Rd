@@ -25,4 +25,3 @@ x[c(3, 5)] <- NA
 omit_na(x)
 
 }
-\keyword{internal}

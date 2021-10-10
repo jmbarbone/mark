@@ -73,7 +73,7 @@ remove_na.factor <- function(x) {
 #' x[c(3, 5)] <- NA
 #' omit_na(x)
 #'
-#' @keywords internal
+#' @export
 omit_na <- function(x) {
   if (anyNA(x)) {
     nas <- is.na(x)
