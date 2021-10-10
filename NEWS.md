@@ -17,7 +17,7 @@
 * `any_match()` now works as expected
 * `lines_of_r_code()` now works correctly reading a single file
 * `import(, overwrite = TRUE)` now works
-* `ls_function()`, `ls_object()`, `ls_dataframe()`, and `ls_all()` have improvements for enviornmental searching
+* `ls_function()`, `ls_object()`, `ls_dataframe()`, and `ls_all()` have improvements for environmental searching
 
 ## Non visible changes
 
