@@ -36,7 +36,7 @@
 ---
 
     Code
-      attr(x, "note")
+      struct(1L, "note")
     Output
-      [1] "snapshot list"
+      [1] 1
 
