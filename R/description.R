@@ -153,18 +153,26 @@ update_version <- function(version = NULL, date = FALSE) {
     version <- as.package_version(collapse0(version, sep = "."))
   }
 
+  foo <- function() {
+    description[line] <- sprintf("Version: %s", version)
+    invisible(writeLines(description, "DESCRIPTION", sep = "\n"))
+  }
+
   # Use menu to check if updates are fine
-  switch(
+  # nocov start
+  men <- if (check_interactive()) {
     utils::menu(
       title = sprintf("Update version from %s to %s?", old, version),
       choices = c("yes", "no")
-    ),
-    yes = {
-      description[line] <- sprintf("Version: %s", version)
-      invisible(writeLines(description, "DESCRIPTION", sep = "\n"))
-    },
-    no = invisible(NULL)
-  )
+    )
+  }
+  # nocov end
+
+  if (identical(men, "yes") | isNA(getOption("mark.check_interactive"))) {
+    foo()
+  }
+
+  invisible(NULL)
 }
 
 do_bump_version <- function(version) {

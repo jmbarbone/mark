@@ -1,0 +1,19 @@
+Package: testDescriptionFile
+Type: Package
+Title: Cool title
+Version: 0.0.0
+Date: 2021-10-07
+Authors@R:
+    person(given   = "Jordan Mark",
+           family  = "Barbone",
+           role    = c("aut", "cph", "cre"),
+           email   = "jmbarbone@gmail.com",
+           comment = c(orcid = "0000-0001-9788-3628"))
+Maintainer: Jordan Mark Barbone <jmbarbone@gmail.com>
+Description: Description
+URL: https://github.com/jmbarbone/mark
+BugReports: https://github.com/jmbarbone/mark/issues
+Encoding: UTF-8
+LazyData: true
+Depends:
+    R (>= 3.6)
