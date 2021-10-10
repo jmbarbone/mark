@@ -32,4 +32,21 @@ test_that("match-param", {
   `tolower(x)` [character(0)] must be one of the following: "a", "b", "c"',
     fixed = TRUE
   )
+
+  foo <- function(x = c("a", "b")) {
+    match_param(x)
+  }
+
+  expect_error(foo(NULL), "non-NULL")
+})
+
+test_that("match_arg() works", {
+  foo <- function(x = c("a", "b"), table) {
+    match_arg(x, table)
+  }
+
+  expect_null(foo(NULL))
+  expect_identical(foo(), "a")
+  expect_identical(foo(table = "a"), "a")
+  expect_error(foo(table = "c"))
 })
