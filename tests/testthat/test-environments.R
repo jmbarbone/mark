@@ -25,5 +25,6 @@ test_that("environments() and friends works", {
 })
 
 test_that("snapshots", {
+  skip("not static")
   expect_snapshot(environments())
 })
