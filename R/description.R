@@ -31,9 +31,8 @@ use_author <- function(author_info = find_author()) {
   end <- which.max(!spaces[-c(1:start)]) + start - 1
 
   names(author_info) <- tolower(names(author_info))
-  nm <- names(author_info)
   valid_names <- c("given", "family", "middle", "email", "role", "comment")
-  ok <- nm %in% valid_names & sapply(author_info, check_field)
+  ok <- names(author_info) %in% valid_names & vap_lgl(author_info, check_field)
   author_info <- author_info[ok]
 
   body <- author_info_to_text(author_info)
@@ -51,7 +50,7 @@ use_author <- function(author_info = find_author()) {
 }
 
 check_field <- function(x) {
-  is.character(x) && x != ""
+  is.character(x) && length(x) >= 1L && all(nzchar(x), na.rm = TRUE)
 }
 
 author_info_to_text <- function(x) {
