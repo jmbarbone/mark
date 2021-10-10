@@ -4,20 +4,24 @@ test_that("find_author() works", {
 })
 
 test_that("use_author() works", {
+  author_info <- list(
+    given = "Jordan Mark",
+    family = "Barbone",
+    role = c("aut","cph", "cre"),
+    email = "jmbarbone@gmail.com",
+    comment = c(ORCID = "0000-0001-9788-3628")
+  )
   withr::local_options(list(
     mark.check_interactive = NA,
-    mark.author = list(
-      given = "Jordan Mark",
-      family = "Barbone",
-      role = c("aut","cph", "cre"),
-      email = "jmbarbone@gmail.com",
-      comment = c(ORCID = "0000-0001-9788-3628")
-    )
+    mark.author = author_info
   ))
   withr::local_dir(test_path("files"))
+
+  expect_identical(find_author(), author_info)
+
   # get original version
   original <- readLines("DESCRIPTION")
-  use_author()
+  use_author(author_info)
   # restore
 
   expect_identical(get_version(), as.package_version("0.0.0"))
