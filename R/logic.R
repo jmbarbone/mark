@@ -52,10 +52,18 @@
 #' * `is_boolean()`: `TRUE` or `FALSE`
 #' * `none()`: `TRUE`, `FALSE`, or `NA`
 #'
-#' @export
 #' @name logic_ext
+NULL
 
+#' @export
+#' @rdname logic_ext
 is_true <- function(x) {
+  UseMethod("is_true", x)
+}
+
+#' @export
+#' @rdname logic_ext
+is_true.default <- function(x) {
   null_check(x)
   out <- to_boolean(x)
 
@@ -70,7 +78,21 @@ is_true <- function(x) {
 
 #' @export
 #' @rdname logic_ext
+is_true.logical <- function(x) {
+  out <- logical(length(x))
+  out[which(x)] <- TRUE
+  out
+}
+
+#' @export
+#' @rdname logic_ext
 is_false <- function(x) {
+  UseMethod("is_false", x)
+}
+
+#' @export
+#' @rdname logic_ext
+is_false.default <- function(x) {
   null_check(x)
   out <- to_boolean(x)
 
@@ -83,13 +105,8 @@ is_false <- function(x) {
   !out
 }
 
-# TODO consider is_true.logical() and is_false.logical()
-is_true.logical <- function(x) {
-  out <- logical(length(x))
-  out[which(x)] <- TRUE
-  out
-}
-
+#' @export
+#' @rdname logic_ext
 is_false.logical <- function(x) {
   out <- logical(length(x))
   out[which(!x)] <- TRUE

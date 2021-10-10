@@ -3,7 +3,11 @@
 \name{logic_ext}
 \alias{logic_ext}
 \alias{is_true}
+\alias{is_true.default}
+\alias{is_true.logical}
 \alias{is_false}
+\alias{is_false.default}
+\alias{is_false.logical}
 \alias{\%xor\%}
 \alias{OR}
 \alias{AND}
@@ -14,7 +18,15 @@
 \usage{
 is_true(x)
 
+\method{is_true}{default}(x)
+
+\method{is_true}{logical}(x)
+
 is_false(x)
+
+\method{is_false}{default}(x)
+
+\method{is_false}{logical}(x)
 
 x \%xor\% y
 
