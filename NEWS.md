@@ -7,6 +7,8 @@
 * `pseudo_id()` gains argument `na_last` to change positioning of `NA` values
 * `is_true()` and `is_false()` are now exported as generics with methods for `default` and `logical`
 * adds `omit_na()` for tracking positions of `NA` and non-`NA` values
+* `quick_df(NULL)`  now returns an empty `data.frame`
+* `quick_dfl()` exported as a wrapper for `quick_df(list(...))`
 
 ## Fixes
 

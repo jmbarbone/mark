@@ -71,6 +71,9 @@ test_that("list2df()", {
   expect_equal(list2df(x), res)
 
   expect_error(list2df(1), "must be a list")
+
+  # Not sure this will continue to be the case
+  expect_identical(quick_df(NULL), data.frame())
 })
 
 test_that("list2df2()", {

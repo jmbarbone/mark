@@ -2,15 +2,21 @@
 % Please edit documentation in R/dataframes.R
 \name{quick_df}
 \alias{quick_df}
+\alias{quick_dfl}
 \title{Quick DF}
 \usage{
 quick_df(x)
+
+quick_dfl(...)
 }
 \arguments{
-\item{x}{A list}
+\item{x}{A list or \code{NULL} (see return)}
+
+\item{...}{Columns as \code{tag = value} (passed to \code{list()})}
 }
 \value{
-A \code{data.frame}
+A \code{data.frame}; if \code{x} is \code{NULL} a \code{data.frame} with \code{0} rows and \code{0}
+columns is returned (similar to calling \code{data.frame()} but faster)
 }
 \description{
 This is a speedier implementation of \code{as.data.frame()} but does not provide
@@ -25,5 +31,8 @@ quick_df(x)
 # named is preferred
 names(x) <- c("numbers", "letters")
 quick_df(x)
+
+# empty data.frame
+quick_df(NULL)
 
 }

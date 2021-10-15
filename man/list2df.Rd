@@ -31,8 +31,11 @@ longer form list that may be more tidy.
 x <- list(a = 1, b = 2:4, c = letters[10:20], "unnamed", "unnamed2")
 list2df(x, "col1", "col2", warn = FALSE)
 
-# contrast with `base::list2DF()`
-if (packageVersion("base") >= as.package_version('4.0')) {
+if (getRversion() >= as.package_version('4.0')) {
+contrast with `base::list2DF()` and `base::as.data.frame()`
+  x <- list(a = 1:3, b = 2:4, c = letters[10:12])
+  list2df(x, warn = FALSE)
   list2DF(x)
+  as.data.frame(x)
 }
 }

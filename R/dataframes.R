@@ -94,9 +94,12 @@ vector2df <- function(x, name = "name", value = "value", show_NA) {
 #' x <- list(a = 1, b = 2:4, c = letters[10:20], "unnamed", "unnamed2")
 #' list2df(x, "col1", "col2", warn = FALSE)
 #'
-#' # contrast with `base::list2DF()`
-#' if (packageVersion("base") >= as.package_version('4.0')) {
-#'   try(list2DF(x))
+#' if (getRversion() >= as.package_version('4.0')) {
+#' contrast with `base::list2DF()` and `base::as.data.frame()`
+#'   x <- list(a = 1:3, b = 2:4, c = letters[10:12])
+#'   list2df(x, warn = FALSE)
+#'   list2DF(x)
+#'   as.data.frame(x)
 #' }
 
 list2df <- function(x, name = "name", value = "value", show_NA, warn = TRUE) {
@@ -211,10 +214,10 @@ rn_to_col <- function(data, name = "row.name") {
 #' Quick DF
 #'
 #' This is a speedier implementation of `as.data.frame()` but does not provide
-#'   the same sort of checks. It should be used with caution.
+#' the same sort of checks. It should be used with caution.
 #'
-#' @param x A list
-#' @return A `data.frame`
+#' @return A `data.frame`; if `x` is `NULL` a `data.frame` with `0` rows and `0`
+#'   columns is returned (similar to calling `data.frame()` but faster)
 #' @examples
 #'
 #' # unnamed will use make.names()
@@ -225,8 +228,20 @@ rn_to_col <- function(data, name = "row.name") {
 #' names(x) <- c("numbers", "letters")
 #' quick_df(x)
 #'
+#' # empty data.frame
+#' quick_df(NULL)
+#'
+#' @name quick_df
+NULL
+
 #' @export
+#' @rdname quick_df
+#' @param x A list or `NULL` (see return)
 quick_df <- function(x) {
+  if (is.null(x)) {
+    return(struct(list(), "data.frame", row.names = integer(), names = character()))
+  }
+
   if (!is.list(x)) {
     stop("x is not a list", call. = FALSE)
   }
@@ -243,6 +258,9 @@ quick_df <- function(x) {
   )
 }
 
+#' @export
+#' @rdname quick_df
+#' @param ... Columns as `tag = value` (passed to `list()`)
 quick_dfl <- function(...) {
   quick_df(list(...))
 }

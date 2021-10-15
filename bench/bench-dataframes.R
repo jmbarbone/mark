@@ -31,8 +31,8 @@ bench::mark(                            # median
   tidyr::drop_na(df, a, e, d),          #   50ms
 
   complete_cases(df),                   #   53ms
-  complete_cases(df, "bad"),            #   12ms
   tidyr::drop_na(df),                   #   79ms
+  complete_cases(df, "bad"),            #   12ms
   tidyr::drop_na(df, bad),              #   31ms
 
   iterations = 200,
