@@ -46,3 +46,9 @@ test_that("examples", {
   attributes(x) <- list()
   expect_identical(x, list())
 })
+
+test_that("struct() overwrites attributes", {
+  x <- struct(list(), class = "foo", a = 1L)
+  res <- struct(list(), class = "foo", a = 2L, .keep_attr = TRUE)
+  expect_identical(attr(res, "a", exact = TRUE), 2L)
+})

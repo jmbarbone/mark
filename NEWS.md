@@ -24,8 +24,9 @@
 * `assign_labels.data.frame(.missing = "warning")` correctly removes missing columns
 * `remove_na.factor()` no long drops additional classes other than `ordered` and `factor` 
 
-## Non visible changes
+## Others
 
+* documentation of `struct()` overwriting attributes improved and examples
 * adds more unit tests
 
 # mark 0.3.0

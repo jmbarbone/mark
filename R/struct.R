@@ -17,7 +17,8 @@
 #'
 #' @param x An object; if `NULL`, coerced to `list()`
 #' @param class A vector of classes; can also be `NULL`
-#' @param ... Named attributes to set to `x`
+#' @param ... Named attributes to set to `x`; overrwrites any attributes in `x`
+#'   even if defined in `.keep_attr`
 #' @param .keep_attr Control for keeping attributes from `x`: `TRUE` will retain
 #'   all attributes from `x`; a character vector will pick out specifically
 #'   defined attributes to retain; otherwise only attributes defined in `...`
@@ -54,18 +55,24 @@
 #' str(x)
 #' str(y)
 #'
-#' if (package_available("waldo")) {
-#'   waldo::compare(x, y, x_arg = "structure", y_arg = "struct")
-#' } else {
-#'   all.equal(x, y)
-#' }
+#' all.equal(x, y)
 #'
 #' # Be careful about carrying over attributes
 #' x <- quick_df(list(a = 1:2, b = 3:4))
+#' # returns empty data.frame
 #' struct(x, "data.frame", new = 1)
-#' struct(x, "data.frame", new = 1, .keep_attr = TRUE)
-#' struct(x, "data.frame", new = 1, .keep_attr = "names")
-#' struct(x, "data.frame", new = 1, .keep_attr = c("names", "row.names"))
+#'
+#' # safely changing names without breaking rownames
+#' struct(x, "data.frame", names = c("c", "d")) # breaks
+#' struct(x, "data.frame", names = c("c", "d"), .keep_attr = TRUE)
+#' struct(x, "data.frame", names = c("c", "d"), .keep_attr = "row.names")
+#'
+#' # safely adds comments
+#' struct(x, "data.frame", comment = "hi", .keep_attr = TRUE)
+#' struct(x, "data.frame", comment = "hi", .keep_attr = c("names", "row.names"))
+#'
+#' # assignment in ... overwrites attributes
+#' struct(x, "data.frame", names = c("var1", "var2"), .keep_attr = TRUE)
 
 struct <- function(x, class, ..., .keep_attr = FALSE) {
   attributes(x) <- if (isTRUE(.keep_attr)) {
