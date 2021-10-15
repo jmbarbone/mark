@@ -34,8 +34,15 @@ test_that("use_author() works", {
   update_version("0.2021.10.10")
   expect_identical(get_version(), as.package_version("0.2021.10.10"))
 
+  # first time updates to current date
   bump_date_version()
-  expect_identical(get_version(), as.package_version("0.2021.10.10.1"))
+  string <- paste0("0.", format(Sys.Date(), "%Y.%m.%d"))
+  expect_identical(get_version(), as.package_version(string))
+
+  # next run appends another number
+  bump_date_version()
+  string <- paste0("0.", format(Sys.Date(), "%Y.%m.%d"), ".1")
+  expect_identical(get_version(), as.package_version(string))
 
   writeLines(original, "DESCRIPTION")
 
