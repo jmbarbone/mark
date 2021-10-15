@@ -96,7 +96,7 @@ vector2df <- function(x, name = "name", value = "value", show_NA) {
 #'
 #' # contrast with `base::list2DF()`
 #' if (packageVersion("base") >= as.package_version('4.0')) {
-#'   list2DF(x)
+#'   try(list2DF(x))
 #' }
 
 list2df <- function(x, name = "name", value = "value", show_NA, warn = TRUE) {
@@ -137,6 +137,7 @@ list2df <- function(x, name = "name", value = "value", show_NA, warn = TRUE) {
 }
 
 # base::list2DF() -- but this wasn't introduced until 4.0.0
+# And an update prevents recycling
 list2df2 <- function(x = list(), nrow = NULL) {
   stopifnot(is.list(x), is.null(nrow) || nrow >= 0L)
   if (n <- length(x)) {

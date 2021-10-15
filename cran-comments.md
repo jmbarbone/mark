@@ -1,8 +1,9 @@
 ## Test environments
+
 * local R installation, R 4.1.0
 * windows-latest, release 4.0, 3.6
-* macOS-latest, release, 4.0, 3.6
-* ubuntu 20.04, release, 4.0, 3.6
+* macOS-latest, devel, release, 4.0, 3.6
+* ubuntu 20.04, devel, release, 4.0, 3.6
 
 ## R CMD check results
 
@@ -12,4 +13,4 @@
 
 ## Notes
 
-* Fixes timezone test failure on macOS
+* Wraps example of list2DF() with try()
