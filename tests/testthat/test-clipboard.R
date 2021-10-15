@@ -1,5 +1,11 @@
 test_that("clipboard", {
-  skip_if_not(is_windows(), "Is Windows?")
+  skip_if_not(interactive(), "Is not interactive")
+
+  if (!is_windows()) {
+    expect_error(write_clipboard())
+    skip("Not windows")
+  }
+
   skip_if(
     any(has_warning(integer(1e4), readClipboard)),
     "Failed to access clipboard"
