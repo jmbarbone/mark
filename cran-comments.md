@@ -13,4 +13,4 @@
 
 ## Notes
 
-* Wraps example of list2DF() with try()
+* Fixes issues with use of list2DF() in examples
