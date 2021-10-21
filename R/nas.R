@@ -179,5 +179,9 @@ tableNA <- function(..., .list = FALSE) {
     names(ls) <- as.character(sys.call())[-1]
   }
 
-  table(lapply(ls, function(x) mark::fact(is.na(x))))
+  out <- table(lapply(ls, function(x) mark::fact(is.na(x))))
+  dn <- rep(list(c(TRUE, FALSE)), length(ls))
+  names(dn) <- names(ls)
+  dimnames(out) <- dn
+  out
 }
