@@ -14,4 +14,3 @@ if (file.exists("~/.Rprofile")) {
 }
 
 cat("\n")
-try(dang::checkCRANStatus("jmbarbone@gmail.com"))
