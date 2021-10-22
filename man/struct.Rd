@@ -11,7 +11,7 @@ struct(x, class, ..., .keep_attr = FALSE)
 
 \item{class}{A vector of classes; can also be \code{NULL}}
 
-\item{...}{Named attributes to set to \code{x}; overrwrites any attributes in \code{x}
+\item{...}{Named attributes to set to \code{x}; overwrites any attributes in \code{x}
 even if defined in \code{.keep_attr}}
 
 \item{.keep_attr}{Control for keeping attributes from \code{x}: \code{TRUE} will retain

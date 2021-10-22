@@ -17,7 +17,7 @@
 #'
 #' @param x An object; if `NULL`, coerced to `list()`
 #' @param class A vector of classes; can also be `NULL`
-#' @param ... Named attributes to set to `x`; overrwrites any attributes in `x`
+#' @param ... Named attributes to set to `x`; overwrites any attributes in `x`
 #'   even if defined in `.keep_attr`
 #' @param .keep_attr Control for keeping attributes from `x`: `TRUE` will retain
 #'   all attributes from `x`; a character vector will pick out specifically
