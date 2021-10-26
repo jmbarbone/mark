@@ -96,8 +96,8 @@ detail.data.frame <- function(x, factor_n = 5L, ...) {
     stop("x does not have any non-list columns", call. = FALSE)
   }
 
-  details <- lapply(x, detail)
-  reps <- vap_int(details, nrow, factor_n = factor_n)
+  details <- lapply(x, detail, factor_n = factor_n)
+  reps <- vap_int(details, nrow)
 
   cbind(
     quick_dfl(i = rep(seq_along(x), reps)),
