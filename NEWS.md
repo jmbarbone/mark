@@ -1,5 +1,8 @@
 # mark (development version)
 
+* `details(factor)` no longer adds `fact` class to `factors` [#50](https://github.com/jmbarbone/mark/issues/50)
+* `details()` gains new argument `factor_n` to control threshold for making character vectors into factors
+
 # mark 0.4.0
 
 ## New features
