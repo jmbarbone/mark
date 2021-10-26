@@ -8,9 +8,9 @@
 \usage{
 detail(x, ...)
 
-\method{detail}{default}(x, ..., factor_n = 5L)
+\method{detail}{default}(x, factor_n = 5L, ...)
 
-\method{detail}{data.frame}(x, ..., factor_n = 5L)
+\method{detail}{data.frame}(x, factor_n = 5L, ...)
 }
 \arguments{
 \item{x}{An object}

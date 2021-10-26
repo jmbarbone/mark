@@ -26,7 +26,7 @@ detail <- function(x, ...) {
 #'   character vectors with `factor_n` or less unique values into a `fact`;
 #'   setting as `NA` will ignore this
 #' @export
-detail.default <- function(x, ..., factor_n = 5L) {
+detail.default <- function(x, factor_n = 5L, ...) {
   stopifnot(!is.list(x))
 
   op <- options(stringsAsFactors = FALSE)
@@ -85,7 +85,7 @@ detail.default <- function(x, ..., factor_n = 5L) {
 
 #' @rdname detail
 #' @export
-detail.data.frame <- function(x, ..., factor_n = 5L) {
+detail.data.frame <- function(x, factor_n = 5L, ...) {
   op <- options(stringsAsFactors = FALSE)
   on.exit(options(op), add = TRUE)
 
