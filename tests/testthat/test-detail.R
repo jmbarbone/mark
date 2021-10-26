@@ -13,6 +13,7 @@ test_that("details() works", {
 test_that("details() keeps factors [50]", {
   expect_identical(detail(factor("a"))$class, "factor")
   expect_identical(detail(ordered("a"))$class, "ordered; factor")
+})
 
 test_that("details() and tibbles", {
   skip_if_not_installed("tibble")
