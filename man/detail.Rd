@@ -8,14 +8,18 @@
 \usage{
 detail(x, ...)
 
-\method{detail}{default}(x, ...)
+\method{detail}{default}(x, factor_n = 5L, ...)
 
-\method{detail}{data.frame}(x, ...)
+\method{detail}{data.frame}(x, factor_n = 5L, ...)
 }
 \arguments{
 \item{x}{An object}
 
 \item{...}{Additional arguments passed to methods}
+
+\item{factor_n}{An \code{integer} threshold for making factors; will convert any
+character vectors with \code{factor_n} or less unique values into a \code{fact};
+setting as \code{NA} will ignore this}
 }
 \description{
 Provides details about an object

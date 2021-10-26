@@ -22,8 +22,11 @@ detail <- function(x, ...) {
 }
 
 #' @rdname detail
+#' @param factor_n An `integer` threshold for making factors; will convert any
+#'   character vectors with `factor_n` or less unique values into a `fact`;
+#'   setting as `NA` will ignore this
 #' @export
-detail.default <- function(x, ...) {
+detail.default <- function(x, factor_n = 5L, ...) {
   stopifnot(!is.list(x))
 
   op <- options(stringsAsFactors = FALSE)
@@ -32,18 +35,20 @@ detail.default <- function(x, ...) {
   nas <- is.na(x)
   x2 <- x[!nas]
 
-  # If either of these exact, make as factor
-  has_lls <-
-    !is.null(attr(x, "levels", exact = TRUE)) ||
-    !is.null(attr(x, "labels", exact = TRUE))
-
-  if (has_lls) {
-    x <- fact(x)
-  }
-
   facts <- is.factor(x)
   quants <- !is.character(x) && !facts
   nc <- nchar(as.character(x))
+
+  if (!is.na(factor_n) && !facts) {
+    # If either of these exist, make as factor
+    has_lls <-
+      !is.null(attr(x, "levels", exact = TRUE)) ||
+      !is.null(attr(x, "labels", exact = TRUE))
+
+    if (has_lls) {
+      x <- fact(x)
+    }
+  }
 
   if (!facts & !quants) {
     if (length(unique(x)) <= 5) {
@@ -80,7 +85,7 @@ detail.default <- function(x, ...) {
 
 #' @rdname detail
 #' @export
-detail.data.frame <- function(x, ...) {
+detail.data.frame <- function(x, factor_n = 5L, ...) {
   op <- options(stringsAsFactors = FALSE)
   on.exit(options(op), add = TRUE)
 
@@ -91,7 +96,7 @@ detail.data.frame <- function(x, ...) {
     stop("x does not have any non-list columns", call. = FALSE)
   }
 
-  details <- lapply(x, detail)
+  details <- lapply(x, detail, factor_n = factor_n)
   reps <- vap_int(details, nrow)
 
   cbind(
