@@ -13,4 +13,15 @@ test_that("details() works", {
 test_that("details() keeps factors [50]", {
   expect_identical(detail(factor("a"))$class, "factor")
   expect_identical(detail(ordered("a"))$class, "ordered; factor")
+
+test_that("details() and tibbles", {
+  skip_if_not_installed("tibble")
+
+  expect_error(detail(tibble::tibble(a = 1, b = 1:3)), NA)
+  expect_error(detail(tibble::tibble(a = 1, b = list(1:3))), NA)
+  expect_error(detail(tibble::tibble(a = NULL, b = list(1:3))))
+})
+
+test_that("details.data.frame() passes with single column [48]", {
+  expect_error(data.frame(a = 1), NA)
 })

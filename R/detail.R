@@ -90,7 +90,7 @@ detail.data.frame <- function(x, ..., factor_n = 5L) {
   on.exit(options(op), add = TRUE)
 
   # remove list columns
-  x <- x[, !vap_lgl(x, is.list)]
+  x <- x[, !vap_lgl(x, is.list), drop = FALSE]
 
   if (!ncol(x)) {
     stop("x does not have any non-list columns", call. = FALSE)
