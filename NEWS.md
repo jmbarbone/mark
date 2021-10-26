@@ -1,5 +1,7 @@
 # mark (development version)
 
+* `detail.data.frame()` now works with single column data.frames [#48](https://github.com/jmbarbone/mark/issues/48)
+
 # mark 0.4.0
 
 ## New features
