@@ -10,18 +10,14 @@ test_that("paste_combine() works", {
 
   expect_equal(
     paste_combine(x, y, z),
-    c("a11Jan", "a11Feb", "a12Jan", "a12Feb",
-      "a21Jan", "a21Feb", "a22Jan", "a22Feb",
-      "b11Jan", "b11Feb", "b12Jan", "b12Feb",
-      "b21Jan", "b21Feb", "b22Jan", "b22Feb")
+    c("a1Jan", "a1Feb", "a2Jan", "a2Feb",
+      "b1Jan", "b1Feb", "b2Jan", "b2Feb")
   )
 
   expect_equal(
     paste_combine(x, y, z, sep = "."),
-    c("a.1.1.Jan", "a.1.1.Feb", "a.1.2.Jan", "a.1.2.Feb",
-      "a.2.1.Jan", "a.2.1.Feb", "a.2.2.Jan", "a.2.2.Feb",
-      "b.1.1.Jan", "b.1.1.Feb", "b.1.2.Jan", "b.1.2.Feb",
-      "b.2.1.Jan", "b.2.1.Feb", "b.2.2.Jan", "b.2.2.Feb")
+    c("a.1.Jan", "a.1.Feb", "a.2.Jan", "a.2.Feb",
+      "b.1.Jan", "b.1.Feb", "b.2.Jan", "b.2.Feb")
   )
 
   expect_equal(
@@ -36,10 +32,8 @@ test_that("paste_combine() works", {
 
   expect_equal(
     paste_combine(x, y, z, collate = FALSE),
-    c("a11Jan", "b11Jan", "a21Jan", "b21Jan",
-      "a12Jan", "b12Jan", "a22Jan", "b22Jan",
-      "a11Feb", "b11Feb", "a21Feb", "b21Feb",
-      "a12Feb", "b12Feb", "a22Feb", "b22Feb")
+    c("a1Jan", "b1Jan", "a2Jan", "b2Jan",
+      "a1Feb", "b1Feb", "a2Feb", "b2Feb")
   )
 })
 
