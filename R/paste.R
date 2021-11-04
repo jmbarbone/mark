@@ -34,6 +34,7 @@ paste_c <- function(x, y, collate = TRUE, sep = "") {
 paste_combine <- function(..., collate = TRUE, sep = "") {
   ls <- list(...)
   n <- length(ls)
+
   if (n < 2) {
     stop("length of ... must be at least 2", call. = FALSE)
   }
@@ -44,7 +45,7 @@ paste_combine <- function(..., collate = TRUE, sep = "") {
     return(out)
   }
 
-  for (i in 2:n) {
+  for (i in 3:n) {
     out <- do_paste_combine(out, ls[[i]], collate = collate, sep = sep)
   }
 
