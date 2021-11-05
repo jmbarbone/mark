@@ -9,8 +9,8 @@
 
 0 errors | 0 warnings | 0 note
 
-* This is a minor release
+* This is a patch release
 
 ## Notes
 
-* Fixes issues with use of list2DF() in examples
+* None
