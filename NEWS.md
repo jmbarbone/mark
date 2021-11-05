@@ -1,3 +1,5 @@
+# mark (development version)
+
 # mark 0.4.1
 
 * `details(factor)` no longer adds `fact` class to `factors` [#50](https://github.com/jmbarbone/mark/issues/50)
