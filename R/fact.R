@@ -325,3 +325,6 @@ fact_coerce_levels <- function(x) {
   make_fact(match(levels, value)[x], value, is.ordered(x))
 }
 
+is.fact <- function(x) {
+  inherits(x, "fact")
+}
