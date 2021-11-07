@@ -1,0 +1,9 @@
+pandoc: 2.7.3
+pkgdown: 1.6.1
+pkgdown_sha: ~
+articles: {}
+last_built: 2021-11-07T21:45Z
+urls:
+  reference: https://jmbarbone.github.io/mark/reference
+  article: https://jmbarbone.github.io/mark/articles
+
