@@ -45,3 +45,4 @@ revdep/library/
 revdep/checks/libraries.csv
 revdep/data.sqlite
 tests/testthat/Rplots.pdf
+docs

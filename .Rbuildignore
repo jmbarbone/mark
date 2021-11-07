@@ -13,3 +13,6 @@ temp/*
 ^cran-comments\.md$
 ^codecov\.yml$
 revdep
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
