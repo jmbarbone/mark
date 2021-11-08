@@ -1,5 +1,7 @@
 # mark (development version)
 
+* adds `drop_levels()` with `factor` and `data.frame` methods; functions similarly to `base::droplevels()` but is a little faster [#54](https://github.com/jmbarbone/mark/issues/54)
+
 # mark 0.4.1
 
 * `details(factor)` no longer adds `fact` class to `factors` [#50](https://github.com/jmbarbone/mark/issues/50)
