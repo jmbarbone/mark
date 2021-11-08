@@ -1,5 +1,5 @@
 row_bind <- function(...) {
-  ls <- if (...length() == 1) ..1 else list(...)
+  ls <- remove_null(if (...length() == 1) ..1 else list(...))
 
   if (!length(ls)) {
     return(quick_df(NULL))
