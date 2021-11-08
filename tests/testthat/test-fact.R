@@ -203,3 +203,24 @@ test_that("try_numeric() works", {
   x <- c(1, NA, 2)
   expect_identical(try_numeric(as.character(x)), x)
 })
+
+
+# drop_levels -------------------------------------------------------------
+
+debugonce(drop_levels.factor)
+
+test_that("drop_levels() works", {
+  x <- factor(1, 1:2)
+  exp <- factor(1, 1)
+  expect_equal(drop_levels(x), exp)
+
+  df <- quick_dfl(x = x, y = 1)
+  df_exp <- quick_dfl(x = exp, y = 1)
+  expect_equal(drop_levels(df), df_exp)
+
+  # facts and ordered
+  x <- as_ordered(factor(1, 1:2))
+  exp <- struct(1L, class = c("fact", "ordered", "factor"), levels = "1")
+  expect_equal(drop_levels(x), exp)
+})
+

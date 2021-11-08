@@ -225,6 +225,40 @@ as_ordered.default <- function(x) {
 }
 
 
+
+# drop_levels -------------------------------------------------------------
+
+#' Drop levels
+#'
+#' Drop unused levels of a factor
+#'
+#' @param x A `factor` or `data.frame`
+#' @param ... Additional arguments passed to methods (not used)
+#' @seealso [base::droplevels]
+drop_levels <- function(x, ...) {
+  UseMethod("drop_levels", x)
+}
+
+#' @export
+#' @rdname drop_levels
+drop_levels.data.frame <- function(x, ...) {
+  factors <- which(vap_lgl(x, is.factor))
+  x[factors] <- lapply(x[factors], drop_levels)
+  x
+}
+
+#' @export
+#' @rdname drop_levels
+drop_levels.factor <- function(x, ...) {
+  chr <- as.character(x)
+  lvl <- levels(x) %wi% chr
+  struct(
+    match(chr, lvl),
+    class = c(if (is.fact(x)) "fact", if (is.ordered(x)) "ordered", "factor"),
+    levels = lvl
+  )
+}
+
 # helpers -----------------------------------------------------------------
 
 make_fact <- function(x, levels, ordered = FALSE) {
@@ -325,3 +359,6 @@ fact_coerce_levels <- function(x) {
   make_fact(match(levels, value)[x], value, is.ordered(x))
 }
 
+is.fact <- function(x) {
+  inherits(x, "fact")
+}
