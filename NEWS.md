@@ -1,5 +1,6 @@
 # mark (development version)
 
+* adds `row_bind()` to bind a list of `data.frames()` [#46](https://github.com/jmbarbone/mark/issues/46)
 * adds `drop_levels()` with `factor` and `data.frame` methods; functions similarly to `base::droplevels()` but is a little faster [#54](https://github.com/jmbarbone/mark/issues/54)
 
 # mark 0.4.1
