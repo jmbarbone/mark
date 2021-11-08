@@ -1,3 +1,14 @@
+#' Row bind
+#'
+#' Bind a list of `data.frames`
+#'
+#' @param ... A list of `data.frames` to be attached to each other by row
+#'
+#' @returns A `data.frame` combining all the rows from `data.frame`s in `...`
+#'   and all the columns, as they appear. An empty `data.frame` with `0` columns
+#'   and `0` rows is returned if `...` has no length
+#' @seealso [dplyr::bind_rows()] [base::rbind()]
+#' @export
 row_bind <- function(...) {
   ls <- remove_null(if (...length() == 1) ..1 else list(...))
 
@@ -37,6 +48,7 @@ row_bind <- function(...) {
   utils::type.convert(do.call(rbind2, res), as.is = TRUE)
 }
 
+# This may be a little faster than rbind()
 rbind2 <- function(...) {
   ls <- list(...)
   res <- list()
