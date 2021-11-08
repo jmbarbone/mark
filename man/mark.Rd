@@ -12,6 +12,7 @@ Miscellaneous, Analytic R Code
 Useful links:
 \itemize{
   \item \url{https://github.com/jmbarbone/mark}
+  \item \url{https://jmbarbone.github.io/mark}
   \item Report bugs at \url{https://github.com/jmbarbone/mark/issues}
 }
 
