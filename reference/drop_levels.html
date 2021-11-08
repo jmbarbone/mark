@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add file timestamp — add_file_timestamp • mark</title>
+<title>Drop levels — drop_levels • mark</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Add file timestamp — add_file_timestamp" />
-<meta property="og:description" content="Adds a timestamp to a file" />
+<meta property="og:title" content="Drop levels — drop_levels" />
+<meta property="og:description" content="Drop unused levels of a factor" />
 
 
 
@@ -111,63 +111,40 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Add file timestamp</h1>
-    <small class="dont-index">Source: <a href='https://github.com/jmbarbone/mark/blob/master/R/directory.R'><code>R/directory.R</code></a></small>
-    <div class="hidden name"><code>add_file_timestamp.Rd</code></div>
+    <h1>Drop levels</h1>
+    <small class="dont-index">Source: <a href='https://github.com/jmbarbone/mark/blob/master/R/fact.R'><code>R/fact.R</code></a></small>
+    <div class="hidden name"><code>drop_levels.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Adds a timestamp to a file</p>
+    <p>Drop unused levels of a factor</p>
     </div>
 
-    <pre class="usage"><span class='fu'>add_file_timestamp</span><span class='op'>(</span>
-  <span class='va'>x</span>,
-  ts <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.time</a></span><span class='op'>(</span><span class='op'>)</span>,
-  format <span class='op'>=</span> <span class='st'>"%Y-%m-%d %H%M%S"</span>,
-  sep <span class='op'>=</span> <span class='st'>" "</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>drop_levels</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for data.frame</span>
+<span class='fu'>drop_levels</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for factor</span>
+<span class='fu'>drop_levels</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>A vector of files</p></td>
+      <td><p>A <code>factor</code> or <code>data.frame</code></p></td>
     </tr>
     <tr>
-      <th>ts</th>
-      <td><p>A single timestamp or vector of timestamps (default: <code><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.time()</a></code>)</p></td>
-    </tr>
-    <tr>
-      <th>format</th>
-      <td><p>A format to be applied to the times; set to <code>NULL</code> to skip
-formatting</p></td>
-    </tr>
-    <tr>
-      <th>sep</th>
-      <td><p>A <code>character</code> vector of length 1 to separate the timestamp from
-the file name</p></td>
+      <th>...</th>
+      <td><p>Additional arguments passed to methods (not used)</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>The full name paths with the appended time stamp</p>
+    <div class='dont-index'><p><a href='https://rdrr.io/r/base/droplevels.html'>base::droplevels</a></p></div>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='r-in'><span class='va'>file1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span>fileext <span class='op'>=</span> <span class='st'>".txt"</span><span class='op'>)</span></span>
-<span class='r-in'><span class='va'>file2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span><span class='op'>)</span></span>
-<span class='r-in'></span>
-<span class='r-in'><span class='fu'>add_file_timestamp</span><span class='op'>(</span><span class='va'>file1</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "/tmp/RtmpfRoaoz/file2e90c2decd8 2021-11-08 030037.txt"</span>
-<span class='r-in'><span class='fu'>add_file_timestamp</span><span class='op'>(</span><span class='va'>file2</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "/tmp/RtmpfRoaoz/file2e90d0116b3 2021-11-08 030037"</span>
-<span class='r-in'></span>
-<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.remove</a></span><span class='op'>(</span><span class='va'>file1</span>, <span class='va'>file2</span><span class='op'>)</span></span>
-<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>cannot remove file '/tmp/RtmpfRoaoz/file2e90c2decd8.txt', reason 'No such file or directory'</span>
-<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>cannot remove file '/tmp/RtmpfRoaoz/file2e90d0116b3', reason 'No such file or directory'</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] FALSE FALSE</span>
-</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
