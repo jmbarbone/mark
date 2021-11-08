@@ -1,5 +1,7 @@
 # mark (development version)
 
+* adds `row_bind()` to bind a list of `data.frames()` [#46](https://github.com/jmbarbone/mark/issues/46)
+
 # mark 0.4.1
 
 * `details(factor)` no longer adds `fact` class to `factors` [#50](https://github.com/jmbarbone/mark/issues/50)
