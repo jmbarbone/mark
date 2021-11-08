@@ -1,5 +1,4 @@
 row_bind <- function(...) {
-  browser()
   ls <- if (...length() == 1) ..1 else list(...)
 
   if (!length(ls)) {
