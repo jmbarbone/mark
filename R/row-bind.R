@@ -1,7 +1,14 @@
 row_bind <- function(...) {
+  browser()
   ls <- if (...length() == 1) ..1 else list(...)
 
-  stopifnot(all(mark::vap_lgl(ls, is.data.frame)))
+  if (!length(ls)) {
+    return(quick_df(NULL))
+  }
+
+  if (!all(vap_lgl(ls, is.data.frame))) {
+    stop("... must only be data.frames", call. = FALSE)
+  }
 
   names <- lapply(ls, names)
   all_names <- unique(unlist(names))
@@ -17,9 +24,7 @@ row_bind <- function(...) {
       w <- which(is.na(b))
 
       if (length(w)) {
-        a <- mark::insert(a, w, NA)
-        names(a) <- all_names
-        a <- mark::quick_df(a)
+        a <- quick_df(set_names0(insert(a, w, NA), all_names))
       }
 
       a
@@ -35,14 +40,11 @@ row_bind <- function(...) {
 
 rbind2 <- function(...) {
   ls <- list(...)
-
   res <- list()
 
   for (i in seq_along(ls[[1]])) {
-    # res[[i]] <- Reduce(c, lapply(ls, `[[`, i))
     res[[i]] <- Reduce(c, lapply(ls, `[[`, i))
   }
 
-  names(res) <- names(ls[[1]])
-  mark::quick_df(res)
+  quick_df(set_names0(res, names(ls[[1]])))
 }
