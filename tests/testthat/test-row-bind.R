@@ -6,5 +6,5 @@ test_that("row_bind() works", {
   expect_identical(res2, exp)
 
   expect_error(row_bind(1))
-  expect_error(row_bind(list()))
+  expect_identical(row_bind(list()), quick_df(NULL))
 })
