@@ -10,22 +10,24 @@
 \alias{get_error}
 \title{Handlers}
 \usage{
-has_warning(x, FUN)
+has_warning(x, FUN, ...)
 
-has_error(x, FUN)
+has_error(x, FUN, ...)
 
-has_message(x, FUN)
+has_message(x, FUN, ...)
 
-get_warning(x, FUN, .null = TRUE)
+get_warning(x, FUN, ..., .null = TRUE)
 
-get_message(x, FUN, .null = TRUE)
+get_message(x, FUN, ..., .null = TRUE)
 
-get_error(x, FUN, .null = TRUE)
+get_error(x, FUN, ..., .null = TRUE)
 }
 \arguments{
 \item{x}{A vector}
 
 \item{FUN}{A function}
+
+\item{...}{Additional params passed to \code{FUN}}
 
 \item{.null}{Logical, if \code{FALSE} will drop \code{NULL} results (for \verb{get_*()})}
 }
