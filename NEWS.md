@@ -1,6 +1,7 @@
 # mark (development version)
 
 * adds `row_bind()` to bind a list of `data.frames()` [#46](https://github.com/jmbarbone/mark/issues/46)
+* Functions in `?handlers`, all allow for additional params passed through `...` [#34](https://github.com/jmbarbone/mark/issues/34)
 
 # mark 0.4.1
 
