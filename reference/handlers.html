@@ -120,17 +120,17 @@
     <p>Catch and report handlers</p>
     </div>
 
-    <pre class="usage"><span class='fu'>has_warning</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>FUN</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>has_warning</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>FUN</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>has_error</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>FUN</span><span class='op'>)</span>
+<span class='fu'>has_error</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>FUN</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>has_message</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>FUN</span><span class='op'>)</span>
+<span class='fu'>has_message</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>FUN</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>get_warning</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>FUN</span>, .null <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='fu'>get_warning</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>FUN</span>, <span class='va'>...</span>, .null <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
-<span class='fu'>get_message</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>FUN</span>, .null <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='fu'>get_message</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>FUN</span>, <span class='va'>...</span>, .null <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
-<span class='fu'>get_error</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>FUN</span>, .null <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
+<span class='fu'>get_error</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>FUN</span>, <span class='va'>...</span>, .null <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -142,6 +142,10 @@
     <tr>
       <th>FUN</th>
       <td><p>A function</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional params passed to <code>FUN</code></p></td>
     </tr>
     <tr>
       <th>.null</th>
