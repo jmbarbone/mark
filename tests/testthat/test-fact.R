@@ -207,8 +207,6 @@ test_that("try_numeric() works", {
 
 # drop_levels -------------------------------------------------------------
 
-debugonce(drop_levels.factor)
-
 test_that("drop_levels() works", {
   x <- factor(1, 1:2)
   exp <- factor(1, 1)
