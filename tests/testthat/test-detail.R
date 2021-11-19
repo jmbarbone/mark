@@ -8,6 +8,22 @@ test_that("details() works", {
   expect_error(detail(df), NA)
 
   expect_error(detail(data.frame()))
+
+  exp <- quick_dfl(
+    class   = "logical",
+    type    = "logical",
+    label   = NA_character_,
+    n       = 0L,
+    na      = 1L,
+    min_c   = NA_character_,
+    max_c   = NA_character_,
+    level   = NA_character_,
+    level_n = NA_integer_,
+    note    = NA_character_,
+    comment = NA_character_
+  )
+  # also no warnings
+  expect_identical(detail(NA), exp)
 })
 
 test_that("details() keeps factors [50]", {

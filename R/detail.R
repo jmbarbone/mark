@@ -34,10 +34,17 @@ detail.default <- function(x, factor_n = 5L, ...) {
 
   nas <- is.na(x)
   x2 <- x[!nas]
-
   facts <- is.factor(x)
-  quants <- !is.character(x) && !facts
-  nc <- nchar(as.character(x))
+
+  no_length <- length(x2) == 0L
+
+  if (no_length) {
+    quants <- FALSE
+    nc <- NA
+  } else {
+    quants <- !is.character(x) && !facts
+    nc <- nchar(as.character(x))
+  }
 
   if (!is.na(factor_n) && !facts) {
     # If either of these exist, make as factor
@@ -50,11 +57,9 @@ detail.default <- function(x, factor_n = 5L, ...) {
     }
   }
 
-  if (!facts & !quants) {
-    if (length(unique(x)) <= 5) {
-      x <- fact(x)
-      facts <- TRUE
-    }
+  if (!no_length & !facts & !quants & length(unique(x)) <= 5) {
+    x <- fact(x)
+    facts <- TRUE
   }
 
   res <- quick_dfl(
