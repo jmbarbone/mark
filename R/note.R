@@ -2,23 +2,22 @@
 #'
 #' An alternative to the [base::comment()].
 #'
-#' @details
-#' When the note is assigned to an object a new class will be added,
-#'   `note`, so that a `print` function can call an S3 method.  The print for
-#'    this can be adjusted for it's width by using the option
-#'   `mark.note.width` which defaults to the option `width` when not set.
+#' @details When the note is assigned to an object a new class will be added,
+#' `note`, so that a `print` function can call an S3 method.  The print for this
+#' can be adjusted for it's width by using the option `mark.note.width` which
+#' defaults to the option `width` when not set.
 #'
-#' The type of object assigned to the note is not restricted, so user beware
-#'   of odd prints or additional features added to the notes fun.
+#' The type of object assigned to the note is not restricted, so user beware of
+#' odd prints or additional features added to the notes fun.
 #'
 #' When assigning a note (with `note<-`) the `noted` class is added to the
-#'   object.  This allows the `print.noted` class to be distracted and for the
-#'   note to be printed every time the object is
-#'   called/printed.  However, it will not be called when not `interactive()`
+#' object.  This allows the `print.noted` class to be dispatched and for the
+#' note to be printed every time the object is called/printed and the next print
+#' method used.  However, it will not be called when not `interactive()`
 #'
 #' @param x An object
-#' @param value The note to attach; if `NULL` will remove the note and the
-#'   class `noted` from the object.
+#' @param value The note to attach; if `NULL` will remove the note and the class
+#'   `noted` from the object.
 #' @return
 #' * `note<-` will return `x` (with the `"note"` attribute assigned)
 #' * `note()` will retrieve the `"note"` attribute

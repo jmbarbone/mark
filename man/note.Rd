@@ -12,8 +12,8 @@ note(x)
 \arguments{
 \item{x}{An object}
 
-\item{value}{The note to attach; if \code{NULL} will remove the note and the
-class \code{noted} from the object.}
+\item{value}{The note to attach; if \code{NULL} will remove the note and the class
+\code{noted} from the object.}
 }
 \value{
 \itemize{
@@ -26,17 +26,17 @@ An alternative to the \code{\link[base:comment]{base::comment()}}.
 }
 \details{
 When the note is assigned to an object a new class will be added,
-\code{note}, so that a \code{print} function can call an S3 method.  The print for
-this can be adjusted for it's width by using the option
-\code{mark.note.width} which defaults to the option \code{width} when not set.
+\code{note}, so that a \code{print} function can call an S3 method.  The print for this
+can be adjusted for it's width by using the option \code{mark.note.width} which
+defaults to the option \code{width} when not set.
 
-The type of object assigned to the note is not restricted, so user beware
-of odd prints or additional features added to the notes fun.
+The type of object assigned to the note is not restricted, so user beware of
+odd prints or additional features added to the notes fun.
 
 When assigning a note (with \verb{note<-}) the \code{noted} class is added to the
-object.  This allows the \code{print.noted} class to be distracted and for the
-note to be printed every time the object is
-called/printed.  However, it will not be called when not \code{interactive()}
+object.  This allows the \code{print.noted} class to be dispatched and for the
+note to be printed every time the object is called/printed and the next print
+method used.  However, it will not be called when not \code{interactive()}
 }
 \examples{
 x <- c("x", "k", "c", "d")
