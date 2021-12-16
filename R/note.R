@@ -100,8 +100,5 @@ print_note <- function(x, ...) {
 #' @export
 print.noted <- function(x, ...) {
   print_note(x)
-  y <- x
-  note(y) <- NULL
-  print(y)
-  invisible(x)
+  NextMethod("print", x)
 }
