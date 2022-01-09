@@ -5,6 +5,10 @@
 * adds `drop_levels()` with `factor` and `data.frame` methods; functions similarly to `base::droplevels()` but is a little faster [#54](https://github.com/jmbarbone/mark/issues/54)
 * `detail(NA)` (or when `x` has only `NA` values) no longer throws a warning and returns `NA` for `min_c`, `max_c` [#59](https://github.com/jmbarbone/mark/issues/59)
 * `print.noted()` now passes `...` to next methods [#67](https://github.com/jmbarbone/mark/issues/67)
+* `todos()` and `fixmes()` gain a new param `force`
+  * When `TRUE`, forces searches for `.R` files when the given directory does not contain an `.Rproj` file
+  * When `FALSE`, prevents long start ups when these functions are called in a `.Rprofile` file and R is not launches in a project directory
+  * This be toggled with a new options `mark.todos.force`
 
 # mark 0.4.1
 
