@@ -12,6 +12,7 @@ op.mark <- list(
   # control for check_interactive() to return interactive() or TRUE
   mark.check_interactive = TRUE,
   mark.note.width = NULL,
+  mark.todos.force = FALSE,
 
   mark.days_in_month = 30,
   mark.days_in_year = 365,

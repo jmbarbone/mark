@@ -11,23 +11,26 @@
 #' @param path The file directory to search for the tags
 #' @param ... Additional parameters passed to `grep` (Except for `pattern`, `x`,
 #'   and `value`)
+#' @param force If `TRUE` will force searching for files in directories that do
+#'   not contain an `.Rproj` file.  This can be controlled with the option
+#'   `mark.todos.force`
 #'
 #' @return `NULL` if none are found, otherwise a `data.frame` with the line
 #'   number, file name, and TODO comment.
 #'
 #' @export
 
-todos <- function(pattern = NULL, path = ".", ...) {
-  do_todo("todo", pattern = pattern, path = path, ...)
+todos <- function(pattern = NULL, path = ".", force = getOption("mark.todos.force", FALSE), ...) {
+  do_todo("todo", pattern = pattern, path = path, force = force, ...)
 }
 
 #' @rdname todos
 #' @export
-fixmes <- function(pattern = NULL, path = ".", ...) {
-  do_todo("fixme", pattern = pattern, path = path, ...)
+fixmes <- function(pattern = NULL, path = ".", force = getOption("mark.todos.force", FALSE), ...) {
+  do_todo("fixme", pattern = pattern, path = path, force = force, ...)
 }
 
-do_todo <- function(text, pattern = NULL, path = path, ...) {
+do_todo <- function(text, pattern = NULL, path = path, force = FALSE, ...) {
   # fs::dir_ls() would be a lot quicker but would be a new dependency
 
   if (missing(path) || length(path) != 1 || !is.character(path)) {
@@ -43,8 +46,8 @@ do_todo <- function(text, pattern = NULL, path = path, ...) {
   }
 
   files <- if (is_dir(path)) {
-
-    if (identical(path, "") && !length(list.files(path, pattern = "\\.Rproj$"))) {
+    # when will path be "" ?  cusing nzchar() instead
+    if (!has_char(path) | !(force | length(list.files(path, pattern = "\\.Rproj$")))) {
       message("Did not search for TODOS in ", norm_path(path))
       return(invisible(NULL))
     }
