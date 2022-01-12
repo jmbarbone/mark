@@ -5,6 +5,7 @@
 * adds `drop_levels()` with `factor` and `data.frame` methods; functions similarly to `base::droplevels()` but is a little faster [#54](https://github.com/jmbarbone/mark/issues/54)
 * `detail(NA)` (or when `x` has only `NA` values) no longer throws a warning and returns `NA` for `min_c`, `max_c` [#59](https://github.com/jmbarbone/mark/issues/59)
 * `print.noted()` now passes `...` to next methods [#67](https://github.com/jmbarbone/mark/issues/67)
+* github actions updated
 
 # mark 0.4.1
 
