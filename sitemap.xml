@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://jmbarbone.github.io/mark/404.html</loc>
+  </url>
+  <url>
+    <loc>https://jmbarbone.github.io/mark/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>https://jmbarbone.github.io/mark/LICENSE.html</loc>
+  </url>
+  <url>
+    <loc>https://jmbarbone.github.io/mark/authors.html</loc>
+  </url>
+  <url>
     <loc>https://jmbarbone.github.io/mark/index.html</loc>
+  </url>
+  <url>
+    <loc>https://jmbarbone.github.io/mark/news/index.html</loc>
   </url>
   <url>
     <loc>https://jmbarbone.github.io/mark/reference/add_file_timestamp.html</loc>
@@ -110,6 +125,9 @@
   </url>
   <url>
     <loc>https://jmbarbone.github.io/mark/reference/import.html</loc>
+  </url>
+  <url>
+    <loc>https://jmbarbone.github.io/mark/reference/index.html</loc>
   </url>
   <url>
     <loc>https://jmbarbone.github.io/mark/reference/insert.html</loc>

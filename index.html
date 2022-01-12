@@ -20,6 +20,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -32,18 +34,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">mark</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.1.9000</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
@@ -53,7 +49,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/jmbarbone/mark/">
+  <a href="https://github.com/jmbarbone/mark/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -70,42 +66,42 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="mark" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#mark" class="anchor"></a>mark</h1></div>
+<div class="section level1">
+<div class="page-header"><h1 id="mark">mark<a class="anchor" aria-label="anchor" href="#mark"></a>
+</h1></div>
 <!-- badges: start -->
 
 <p>Miscellaneous, Analytic R Kernels</p>
 <p>An R package with a set of general use functions for data analytics. This is developed mostly for personal use and has no real <em>goal</em> other than to limit the time I spend searching where I did that thing that I think I could use again because it worked well but this problem might be slightly different and I know I had to change it before.</p>
 <p>Some parts happily ripped from and (hopefully) credited to others.</p>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
 <p>You can download the current CRAN version with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"mark"</span><span class="op">)</span></code></pre></div>
-<p>You can the development version from <a href="https://github.com/jmbarbone/mark">GitHub</a> with:</p>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"mark"</span><span class="op">)</span></code></pre></div>
+<p>You can the development version from <a href="https://github.com/jmbarbone/mark" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"jmbarbone/mark"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="select-examples" class="section level2">
-<h2 class="hasAnchor">
-<a href="#select-examples" class="anchor"></a>Select examples</h2>
+<div class="section level2">
+<h2 id="select-examples">Select examples<a class="anchor" aria-label="anchor" href="#select-examples"></a>
+</h2>
 <p>This package contains a many variety of functions, some useful, some not so much. Below are a selection of a few functions that could potential be useful for others:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jmbarbone/mark">mark</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jmbarbone/mark" class="external-link">mark</a></span><span class="op">)</span></code></pre></div>
 <p>Get dates from sloppy entries:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">bad_dates</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"2020 Dec 8th"</span>, <span class="st">"1970 May"</span>, <span class="st">"??"</span>, <span class="st">"1984 UNK UN"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">bad_dates</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2020 Dec 8th"</span>, <span class="st">"1970 May"</span>, <span class="st">"??"</span>, <span class="st">"1984 UNK UN"</span><span class="op">)</span>
 <span class="fu"><a href="reference/date_from_partial.html">date_from_partial</a></span><span class="op">(</span><span class="va">bad_dates</span><span class="op">)</span>
 <span class="co">#&gt; [1] "2020-12-08" "1970-05-01" NA           "1984-01-01"</span>
 <span class="fu"><a href="reference/date_from_partial.html">date_from_partial</a></span><span class="op">(</span><span class="va">bad_dates</span>, method <span class="op">=</span> <span class="st">"max"</span><span class="op">)</span>
 <span class="co">#&gt; [1] "2020-12-08" "1970-05-31" NA           "1984-12-31"</span>
-<span class="fu"><a href="reference/date_from_partial.html">date_from_partial</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"May 2000"</span>, <span class="st">"08Dec2020"</span><span class="op">)</span>, format <span class="op">=</span> <span class="st">"dmy"</span><span class="op">)</span>
+<span class="fu"><a href="reference/date_from_partial.html">date_from_partial</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"May 2000"</span>, <span class="st">"08Dec2020"</span><span class="op">)</span>, format <span class="op">=</span> <span class="st">"dmy"</span><span class="op">)</span>
 <span class="co">#&gt; [1] "2000-05-01" "2020-12-08"</span></code></pre></div>
 <p>Slice strings:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">stringi</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/stringi/man/stri_rand_lipsum.html">stri_rand_lipsum</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">stringi</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/stringi/man/stri_rand_lipsum.html" class="external-link">stri_rand_lipsum</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
 <span class="fu"><a href="reference/str_slice.html">str_slice</a></span><span class="op">(</span><span class="va">x</span>, n <span class="op">=</span> <span class="fl">50L</span><span class="op">)</span>
 <span class="co">#&gt;  [1] "Lorem ipsum dolor sit amet, nisl eleifend sed proi"</span>
 <span class="co">#&gt;  [2] "n sed at. Class maximus, ante mi sed ridiculus eni"</span>
@@ -144,9 +140,9 @@
 <span class="co">#&gt; [13] "interdum. Vel libero, amet lacus aliquam ac sit porta, leo leo."</span></code></pre></div>
 <p>Read in bibliographies:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"example-bib.txt"</span>, package <span class="op">=</span> <span class="st">"mark"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"example-bib.txt"</span>, package <span class="op">=</span> <span class="st">"mark"</span><span class="op">)</span>
 <span class="va">bib</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_bib.html">read_bib</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span>
-<span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="va">bib</span><span class="op">)</span>
+<span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="va">bib</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 13 x 23</span>
 <span class="co">#&gt;    key    field  author  title   journal  year  number pages month note   volume</span>
 <span class="co">#&gt;    &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; </span>
@@ -169,7 +165,7 @@
 <span class="co">#&gt; #   institution &lt;chr&gt;</span></code></pre></div>
 <p>More matching:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fl">1</span><span class="op">:</span><span class="fl">10</span> <span class="op"><a href="reference/match_ext.html">%out%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">5</span>, <span class="fl">9</span><span class="op">)</span> <span class="co"># opposite of %in% </span>
+<code class="sourceCode R"><span class="fl">1</span><span class="op">:</span><span class="fl">10</span> <span class="op"><a href="reference/match_ext.html">%out%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">5</span>, <span class="fl">9</span><span class="op">)</span> <span class="co"># opposite of %in% </span>
 <span class="co">#&gt;  [1] FALSE  TRUE FALSE  TRUE FALSE  TRUE  TRUE  TRUE FALSE  TRUE</span>
 <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span> <span class="op"><a href="reference/match_ext.html">%wo%</a></span> <span class="va">letters</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">7</span><span class="op">]</span>
 <span class="co">#&gt; [1] "a" "b"</span>
@@ -177,7 +173,7 @@
 <span class="co">#&gt; [1] "c" "d" "e"</span></code></pre></div>
 <p>Small functions for working with data.frames:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, b <span class="op">=</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, b <span class="op">=</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span>
 <span class="fu"><a href="reference/quick_df.html">quick_df</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
 <span class="co">#&gt;   a b</span>
 <span class="co">#&gt; 1 1 a</span>
@@ -194,8 +190,8 @@
 <span class="co">#&gt; 5   NA     e</span></code></pre></div>
 <p>Counts and proportions:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span>
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">20</span>, <span class="cn">TRUE</span>, <span class="fl">5</span><span class="op">:</span><span class="fl">1</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">20</span>, <span class="cn">TRUE</span>, <span class="fl">5</span><span class="op">:</span><span class="fl">1</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span>
 <span class="fu"><a href="reference/counts.html">counts</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
 <span class="co">#&gt; 4 5 1 3 2 </span>
 <span class="co">#&gt; 2 4 4 5 5</span>
@@ -203,8 +199,8 @@
 <span class="co">#&gt;    4    5    1    3    2 </span>
 <span class="co">#&gt; 0.10 0.20 0.20 0.25 0.25</span>
 
-<span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="fl">60</span>, <span class="cn">TRUE</span><span class="op">)</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="reference/counts.html">counts</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"V1"</span>, <span class="st">"V2"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="fl">60</span>, <span class="cn">TRUE</span><span class="op">)</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="reference/counts.html">counts</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"V1"</span>, <span class="st">"V2"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt;   V1 V2 freq</span>
 <span class="co">#&gt; 1  1  1    5</span>
 <span class="co">#&gt; 2  1  2    4</span>
@@ -221,18 +217,18 @@
 <span class="co">#&gt; 7  1  2  1 0.1428571</span></code></pre></div>
 <p>Date time differences:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html">as.POSIXlt</a></span><span class="op">(</span><span class="st">"2021-02-13 05:02:30"</span>, tz <span class="op">=</span> <span class="st">"US/Eastern"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="op">-</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span> <span class="op">*</span> <span class="fl">3600</span> <span class="op">*</span> <span class="fl">24</span>
-<span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html">as.POSIXlt</a></span><span class="op">(</span><span class="st">"2020-02-13 05:02:30"</span>, tz <span class="op">=</span> <span class="st">"US/Eastern"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="op">-</span><span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span> <span class="op">*</span> <span class="fl">3600</span> <span class="op">*</span> <span class="fl">24</span>
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXlt</a></span><span class="op">(</span><span class="st">"2021-02-13 05:02:30"</span>, tz <span class="op">=</span> <span class="st">"US/Eastern"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="op">-</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span> <span class="op">*</span> <span class="fl">3600</span> <span class="op">*</span> <span class="fl">24</span>
+<span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXlt</a></span><span class="op">(</span><span class="st">"2020-02-13 05:02:30"</span>, tz <span class="op">=</span> <span class="st">"US/Eastern"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="op">-</span><span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span> <span class="op">*</span> <span class="fl">3600</span> <span class="op">*</span> <span class="fl">24</span>
 
 <span class="co"># comparison with base::difftime() (note the order of x and y)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/difftime.html">difftime</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">x</span>, units <span class="op">=</span> <span class="st">"days"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/difftime.html" class="external-link">difftime</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">x</span>, units <span class="op">=</span> <span class="st">"days"</span><span class="op">)</span>
 <span class="co">#&gt; Time differences in days</span>
 <span class="co">#&gt; [1] -366 -367 -364</span>
 <span class="fu"><a href="reference/diff_time.html">diff_time_days</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>
 <span class="co">#&gt; Time differences in days</span>
 <span class="co">#&gt; [1] -366 -367 -364</span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/difftime.html">difftime</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">x</span>, units <span class="op">=</span> <span class="st">"secs"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/difftime.html" class="external-link">difftime</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">x</span>, units <span class="op">=</span> <span class="st">"secs"</span><span class="op">)</span>
 <span class="co">#&gt; Time differences in secs</span>
 <span class="co">#&gt; [1] -31622400 -31708800 -31449600</span>
 <span class="fu"><a href="reference/diff_time.html">diff_time_secs</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>
@@ -251,7 +247,7 @@
 <span class="fu"><a href="reference/diff_time.html">diff_time_hours</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="st">"GMT"</span>, <span class="st">"US/Eastern"</span><span class="op">)</span>                         
 <span class="co">#&gt; Time differences in hours</span>
 <span class="co">#&gt; [1] -8789 -8813 -8741</span>
-<span class="fu"><a href="reference/diff_time.html">diff_time_hours</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">x</span>, <span class="st">"GMT"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"US/Pacific"</span>, <span class="st">"US/Eastern"</span>, <span class="st">"GB"</span><span class="op">)</span><span class="op">)</span> <span class="co"># note x, x</span>
+<span class="fu"><a href="reference/diff_time.html">diff_time_hours</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">x</span>, <span class="st">"GMT"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"US/Pacific"</span>, <span class="st">"US/Eastern"</span>, <span class="st">"GB"</span><span class="op">)</span><span class="op">)</span> <span class="co"># note x, x</span>
 <span class="co">#&gt; Time differences in hours</span>
 <span class="co">#&gt; [1] -8 -5  0</span>
 <span class="fu"><a href="reference/diff_time.html">diff_time_days</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="cn">NULL</span>, <span class="fl">31536000</span><span class="op">)</span> 
@@ -259,13 +255,13 @@
 <span class="co">#&gt; [1] -0.994213 -1.994213  1.005787</span></code></pre></div>
 <p>Simple factors:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/fact.html">fact</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"c"</span>, <span class="cn">NA</span>, <span class="st">"a"</span>, <span class="st">"b"</span>, <span class="cn">NA</span>, <span class="st">"a"</span>, <span class="st">"c"</span><span class="op">)</span><span class="op">)</span> <span class="co"># no sorting</span>
+<code class="sourceCode R"><span class="fu"><a href="reference/fact.html">fact</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"c"</span>, <span class="cn">NA</span>, <span class="st">"a"</span>, <span class="st">"b"</span>, <span class="cn">NA</span>, <span class="st">"a"</span>, <span class="st">"c"</span><span class="op">)</span><span class="op">)</span> <span class="co"># no sorting</span>
 <span class="co">#&gt; [1] a    c    &lt;NA&gt; a    b    &lt;NA&gt; a    c   </span>
 <span class="co">#&gt; Levels: a c b &lt;NA&gt;</span>
-<span class="fu"><a href="reference/fact.html">fact</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">5</span>, <span class="fl">2</span>, <span class="cn">NA</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>                      <span class="co"># sorting</span>
+<span class="fu"><a href="reference/fact.html">fact</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">5</span>, <span class="fl">2</span>, <span class="cn">NA</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>                      <span class="co"># sorting</span>
 <span class="co">#&gt; [1] -1   5    2    &lt;NA&gt; 3   </span>
 <span class="co">#&gt; Levels: -1 2 3 5 &lt;NA&gt;</span>
-<span class="fu"><a href="reference/fact.html">fact</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">NA</span><span class="op">)</span><span class="op">)</span>     <span class="co"># fixed</span>
+<span class="fu"><a href="reference/fact.html">fact</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">NA</span><span class="op">)</span><span class="op">)</span>     <span class="co"># fixed</span>
 <span class="co">#&gt; [1] &lt;NA&gt;  FALSE TRUE  FALSE TRUE  &lt;NA&gt; </span>
 <span class="co">#&gt; Levels: TRUE FALSE &lt;NA&gt;</span></code></pre></div>
 </div>
@@ -274,49 +270,59 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=mark">https://​cloud.r-project.org/​package=mark</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/jmbarbone/mark/">https://​github.com/​jmbarbone/​mark/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/jmbarbone/mark/issues">https://​github.com/​jmbarbone/​mark/​issues</a>
-</li>
-</ul>
-</div>
-<div class="license">
-<h2>License</h2>
-<ul class="list-unstyled">
-<li><a href="LICENSE.html">Full license</a></li>
-<li><small><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
-</ul>
-</div>
-<div class="developers">
-<h2>Developers</h2>
-<ul class="list-unstyled">
-<li>Jordan Mark Barbone <br><small class="roles"> Author, copyright holder, maintainer </small>  <br><small>(0000-0001-9788-3628)</small>
-</li>
+<li><a href="https://cloud.r-project.org/package=mark" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/jmbarbone/mark/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/jmbarbone/mark/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="license">
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li><a href="https://CRAN.R-project.org/package=mark"><img src="https://www.r-pkg.org/badges/version/mark" alt="CRAN status"></a></li>
-<li><a href="https://github.com/jmbarbone/mark/actions"><img src="https://github.com/jmbarbone/mark/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="https://app.codecov.io/gh/jmbarbone/mark?branch=main"><img src="https://codecov.io/gh/jmbarbone/mark/branch/main/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="LICENSE.html">Full license</a></li>
+<li><small><a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
 </ul>
 </div>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html#citation">Citing mark</a></li>
+</ul>
 </div>
+
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
+<ul class="list-unstyled">
+<li>Jordan Mark Barbone <br><small class="roles"> Author, copyright holder, maintainer </small>  </li>
+<li><a href="authors.html">More about authors...</a></li>
+</ul>
+</div>
+
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://CRAN.R-project.org/package=mark" class="external-link"><img src="https://www.r-pkg.org/badges/version/mark" alt="CRAN status"></a></li>
+<li><a href="https://github.com/jmbarbone/mark/actions" class="external-link"><img src="https://github.com/jmbarbone/mark/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://app.codecov.io/gh/jmbarbone/mark?branch=main" class="external-link"><img src="https://codecov.io/gh/jmbarbone/mark/branch/main/graph/badge.svg" alt="Codecov test coverage"></a></li>
+</ul>
+</div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Jordan Mark Barbone.</p>
+  <p></p>
+<p>Developed by Jordan Mark Barbone.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -324,6 +330,8 @@
 
   
 
+
+  
 
   </body>
 </html>
