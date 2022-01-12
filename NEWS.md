@@ -9,6 +9,7 @@
   * When `TRUE`, forces searches for `.R` files when the given directory does not contain an `.Rproj` file
   * When `FALSE`, prevents long start ups when these functions are called in a `.Rprofile` file and R is not launches in a project directory
   * This be toggled with a new options `mark.todos.force`
+* github actions updated
 
 # mark 0.4.1
 
