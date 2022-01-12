@@ -61,6 +61,13 @@
 <li>
 <code>print.noted()</code> now passes <code>...</code> to next methods <a href="https://github.com/jmbarbone/mark/issues/67" class="external-link">#67</a>
 </li>
+<li>
+<code><a href="../reference/todos.html">todos()</a></code> and <code><a href="../reference/todos.html">fixmes()</a></code> gain a new param <code>force</code>
+<ul><li>When <code>TRUE</code>, forces searches for <code>.R</code> files when the given directory does not contain an <code>.Rproj</code> file</li>
+<li>When <code>FALSE</code>, prevents long start ups when these functions are called in a <code>.Rprofile</code> file and R is not launches in a project directory</li>
+<li>This be toggled with a new options <code>mark.todos.force</code>
+</li>
+</ul></li>
 <li>github actions updated</li>
 </ul></div>
     <div class="section level2">
