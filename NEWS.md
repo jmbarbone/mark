@@ -10,6 +10,7 @@
   * When `FALSE`, prevents long start ups when these functions are called in a `.Rprofile` file and R is not launches in a project directory
   * This be toggled with a new options `mark.todos.force`
 * github actions updated
+* adds `set_note()`, a wrapper for `note<-()` [#77](https://github.com/jmbarbone/mark/pull/77)
 
 # mark 0.4.1
 
