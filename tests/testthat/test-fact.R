@@ -222,3 +222,42 @@ test_that("drop_levels() works", {
   expect_equal(drop_levels(x), exp)
 })
 
+
+
+# other methods -----------------------------------------------------------
+
+test_that("is.na.fact(), `is.na<-.fact`(), works", {
+  x <- fact(c(1, 2, NA, 3))
+  res <- is.na(x)
+  exp <- c(FALSE, FALSE, TRUE, FALSE)
+  expect_identical(res, exp)
+
+  x <- fact(c("a", "b", "c"))
+  res <- is.na(x)
+  exp <- c(FALSE, FALSE, FALSE)
+  expect_identical(res, exp)
+
+  # debugonce(`is.na<-.fact`)
+
+  nas <- c(TRUE, FALSE, FALSE)
+  is.na(x) <- nas
+  exp <- fact(c(NA, "b", "c"))
+
+  expect_identical(x, exp)
+  expect_identical(is.na(x), nas)
+})
+
+test_that("as.integer.fact() works", {
+  x <- fact(c(1, 2, NA, 3))
+  res <- as.integer(x)
+  exp <- c(1L, 2L, NA_integer_, 3L)
+  expect_identical(res, exp)
+})
+
+test_that("as.integer.fact() works", {
+  x <- fact(c(1, 2, NA, 3))
+  res <- as.double(x)
+  exp <- c(1, 2, NA_real_, 3)
+  expect_identical(res, exp)
+  expect_identical(as.numeric(x), exp)
+})

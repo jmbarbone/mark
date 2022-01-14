@@ -259,6 +259,40 @@ drop_levels.factor <- function(x, ...) {
   )
 }
 
+
+# other methods -----------------------------------------------------------
+
+#' @export
+is.na.fact <- function(x) {
+  unclass(x) == which0(is.na(attr(x, "levels")))
+}
+
+#' @export
+`is.na<-.fact` <- function(x, value) {
+  u <- fact_coerce_levels(levels(x))
+  x <- unclass(x)
+  x[value] <- NA
+  fact(u[x])
+}
+
+#' @export
+as.integer.fact <- function(x, ...) {
+  levels <- attr(x, "levels")
+  x <- unclass(x)
+  if (getOption("mark.factor.keep_na", TRUE)) {
+    x[x == which0(is.na(levels))] <- NA_integer_
+  }
+
+  attr(x, "levels") <- NULL
+  x
+}
+
+#' @export
+as.double.fact <- function(x, ...) {
+  as.double(as.integer(x))
+}
+
+
 # helpers -----------------------------------------------------------------
 
 make_fact <- function(x, levels, ordered = FALSE) {

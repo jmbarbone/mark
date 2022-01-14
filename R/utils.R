@@ -21,6 +21,10 @@ magrittr::`%>%`
   if (is.null(x)) y else x
 }
 
+`%len%` <- function(x, y) if (length(x)) x else y
+
+which0 <- function(x) which(x) %len% 0L
+
 # isTRUE, isFALSE, ...
 isNA <- function(x) {
   is.logical(x) && length(x) == 1L && is.na(x)
