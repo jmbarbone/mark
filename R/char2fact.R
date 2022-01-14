@@ -42,3 +42,21 @@ char2fact.data.frame <- function(x, n = 5) {
 
   x
 }
+
+#' Factor to character
+#'
+#' Convert factor columns to characters in a `data.frame`
+#'
+#' @param data A `data.frame`
+#' @param threshold A threshold for the number of levels to be met/exceeded for
+#'   transforming into a character
+#' @returns The `data.frame` `data` with factors converted by the rule above
+#' @seealso  char2fact
+#' @export
+fact2char <- function(data, threshold = 10) {
+  stopifnot(is.data.frame(data))
+  # for factors with more than threshold levels, convert back to character
+  bad <- lengths(lapply(data, levels)) >= threshold
+  data[bad] <- lapply(data[bad], as.character)
+  data
+}
