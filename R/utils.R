@@ -243,3 +243,12 @@ try_formats <- function(date = FALSE) {
 
   c(x, paste(x, "%Z"), if (date) c("%Y-%m-%d", "%Y/%m/%d", "%Y%m%d"))
 }
+
+
+has_char <- function(x) {
+  if (!is.character(x)) {
+    return(rep.int(FALSE, length(x)))
+  }
+
+  !is.na(x) & nzchar(x, keepNA = TRUE)
+}
