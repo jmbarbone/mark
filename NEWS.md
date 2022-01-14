@@ -10,6 +10,7 @@
   * When `FALSE`, prevents long start ups when these functions are called in a `.Rprofile` file and R is not launches in a project directory
   * This be toggled with a new options `mark.todos.force`
 * github actions updated
+* adds `fact2char()` to compliment `char2fact()`
 
 # mark 0.4.1
 
