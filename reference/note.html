@@ -55,6 +55,8 @@
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">note</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span>
 
+<span class="fu">set_note</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span><span class="op">)</span>
+
 <span class="fu">note</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
     </div>
 
@@ -68,7 +70,7 @@
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <ul><li><p><code>note&lt;-</code> will return <code>x</code> (with the <code>"note"</code> attribute assigned)</p></li>
+    <ul><li><p><code>note&lt;-</code>, <code>set_note()</code> will return <code>x</code> (with the <code>"note"</code> attribute assigned)</p></li>
 <li><p><code>note()</code> will retrieve the <code>"note"</code> attribute</p></li>
 </ul></div>
     <div id="details">
@@ -79,10 +81,11 @@ can be adjusted for it's width by using the option <code>mark.note.width</code> 
 defaults to the option <code>width</code> when not set.</p>
 <p>The type of object assigned to the note is not restricted, so user beware of
 odd prints or additional features added to the notes fun.</p>
-<p>When assigning a note (with <code>note&lt;-</code>) the <code>noted</code> class is added to the
-object.  This allows the <code>print.noted</code> class to be dispatched and for the
-note to be printed every time the object is called/printed and the next print
-method used.  However, it will not be called when not <code><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive()</a></code></p>
+<p>When assigning a note (with <code>note&lt;-</code>, and its alias <code>set_note()</code>) the <code>noted</code>
+class is added to the object.  This allows the <code>print.noted</code> class to be
+dispatched and for the note to be printed every time the object is
+called/printed and the next print method used.  However, it will not be
+called when not <code><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive()</a></code></p>
     </div>
 
     <div id="ref-examples">
