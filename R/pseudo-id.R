@@ -43,9 +43,19 @@ pseudo_id.factor <- function(x, ...) {
 
 
 #' @export
-print.pseudo_id <- function(x, ...) {
+#' @param all if `TRUE` will print all uniques.  This is not recommend for many
+#'   uniques as it will crowd the console output
+print.pseudo_id <- function(x, ..., all = FALSE) {
   print(as.integer(x))
-  cat("Uniques: ", paste0(attr(x, "uniques"), sep = " "), "\n", sep = "")
+  out <- collapse0("Uniques: ", paste0(attr(x, "uniques"), sep = " "), sep = "")
+  if (!all) {
+    width <- getOption("width", 180)
+    if (nchar(out) > width) {
+      out <- substr(out, 1, width - 4)
+      out <- paste0(out, " ...")
+    }
+  }
+  cat0(out, "\n")
   invisible(x)
 }
 
