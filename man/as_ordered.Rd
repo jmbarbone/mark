@@ -40,3 +40,13 @@ x <- as_ordered(x)
 str(x)
 max(x, na.rm = TRUE) # returns b -- correct
 }
+\seealso{
+\code{\link[=fact]{fact()}}
+
+Other factors: 
+\code{\link{char2fact}()},
+\code{\link{drop_levels}()},
+\code{\link{fact2char}()},
+\code{\link{fact}()}
+}
+\concept{factors}

@@ -26,3 +26,13 @@ char2fact(x, n = 5)
 \description{
 Converts characters to factors
 }
+\seealso{
+#' @seealso \code{\link[=fact2char]{fact2char()}}
+
+Other factors: 
+\code{\link{as_ordered}()},
+\code{\link{drop_levels}()},
+\code{\link{fact2char}()},
+\code{\link{fact}()}
+}
+\concept{factors}

@@ -14,18 +14,22 @@
 #'   levels and to check if the levels should be reordered to conform with the
 #'   other methods.  The `fact.fact()` method simple returns `x`.
 #'
-#'   @section level ordered:
-#'   The order of the levels may be adjusted to these rules depending on the class of `x`:
-#'   \describe{
-#'     \item{character}{The order of appearance}
-#'     \item{numeric/integer/Date/POSIXt}{By the numeric order}
-#'     \item{logical}{As `TRUE`, `FALSE`, then `NA` if present}
-#'     \item{factor}{Numeric if levels can be safely converted, otherwise as they are}
-#'   }
+#' @section level orders:
+#'
+#' The order of the levels may be adjusted to these rules depending on the class of `x`:
+#' \describe{
+#'   \item{`character`}{The order of appearance}
+#'   \item{`numeric`/`integer`/`Date`/`POSIXt`}{By the numeric order}
+#'   \item{`logical`}{As `TRUE`, `FALSE`, then `NA` if present}
+#'   \item{`factor`}{Numeric if levels can be safely converted, otherwise as they are}
+#' }
 #'
 #' @param x A vector of values
 #' @return A vector of equal length of `x` with class `fact` and `factor`.  If
 #'   `x` was `ordered`, that class is added in between.
+#'
+#' @seealso [as_ordered()]
+#' @family factors
 #' @export
 fact <- function(x) {
   UseMethod("fact", x)
@@ -190,6 +194,8 @@ print.fact <- function(x, ...) {
 #'   Unlike just `fact`, `ordered` will replace the `NA` levels with `NA_integer_` to work appropriately with other functions.
 #'
 #' @inheritParams fact
+#' @seealso [fact()]
+#' @family factors
 #' @export
 #' @returns An `ordered` vector
 #' @examples
@@ -235,6 +241,7 @@ as_ordered.default <- function(x) {
 #' @param x A `factor` or `data.frame`
 #' @param ... Additional arguments passed to methods (not used)
 #' @seealso [base::droplevels]
+#' @family factors
 drop_levels <- function(x, ...) {
   UseMethod("drop_levels", x)
 }
