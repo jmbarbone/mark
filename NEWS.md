@@ -12,6 +12,7 @@
 * github actions updated
 * adds `set_note()`, a wrapper for `note<-()` [#77](https://github.com/jmbarbone/mark/pull/77)
 * adds `fact2char()` to compliment `char2fact()` [#75](https://github.com/jmbarbone/mark/pull/75)
+* `print.pseudo_id()` now truncates long uniques to a single line [#70](https://github.com/jmbarbone/mark/pull/70)
 
 # mark 0.4.1
 
