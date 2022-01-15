@@ -108,21 +108,35 @@ with all unique values as levels with <code>NA</code>s included.</p>
 <p><code>fact.factor()</code> will perform several checks on a factor to include <code>NA</code>
 levels and to check if the levels should be reordered to conform with the
 other methods.  The <code>fact.fact()</code> method simple returns <code>x</code>.</p>
-<p>@section level ordered:
-The order of the levels may be adjusted to these rules depending on the class of <code>x</code>:</p><dl><dt>character</dt>
+    </div>
+    <div id="level-orders">
+    <h2>level orders</h2>
+    
+
+
+<p>The order of the levels may be adjusted to these rules depending on the class of <code>x</code>:</p><dl><dt><code>character</code></dt>
 <dd><p>The order of appearance</p></dd>
 
-<dt>numeric/integer/Date/POSIXt</dt>
+<dt><code>numeric</code>/<code>integer</code>/<code>Date</code>/<code>POSIXt</code></dt>
 <dd><p>By the numeric order</p></dd>
 
-<dt>logical</dt>
+<dt><code>logical</code></dt>
 <dd><p>As <code>TRUE</code>, <code>FALSE</code>, then <code>NA</code> if present</p></dd>
 
-<dt>factor</dt>
+<dt><code>factor</code></dt>
 <dd><p>Numeric if levels can be safely converted, otherwise as they are</p></dd>
 
 
 </dl></div>
+    <div id="see-also">
+    <h2>See also</h2>
+    <div class="dont-index"><p><code><a href="as_ordered.html">as_ordered()</a></code></p>
+<p>Other factors: 
+<code><a href="as_ordered.html">as_ordered</a>()</code>,
+<code><a href="char2fact.html">char2fact</a>()</code>,
+<code><a href="drop_levels.html">drop_levels</a>()</code>,
+<code><a href="fact2char.html">fact2char</a>()</code></p></div>
+    </div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
