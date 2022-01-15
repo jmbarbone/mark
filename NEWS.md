@@ -11,6 +11,7 @@
   * This be toggled with a new options `mark.todos.force`
 * github actions updated
 * adds `set_note()`, a wrapper for `note<-()` [#77](https://github.com/jmbarbone/mark/pull/77)
+* adds `fact2char()` to compliment `char2fact()` [#75](https://github.com/jmbarbone/mark/pull/75)
 
 # mark 0.4.1
 
