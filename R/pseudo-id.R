@@ -42,9 +42,14 @@ pseudo_id.factor <- function(x, ...) {
 }
 
 
+#' Print `pseudo_id`
 #' @export
+#' @param x An object of class [pseudo_id]
+#' @param ... Not implemented
 #' @param all if `TRUE` will print all uniques.  This is not recommend for many
 #'   uniques as it will crowd the console output
+#' @returns `x`, invisibly.  Called for its side effects.
+#' @seealso [pseudo_id()]
 print.pseudo_id <- function(x, ..., all = FALSE) {
   print(as.integer(x))
   out <- collapse0("Uniques: ", paste0(attr(x, "uniques"), sep = " "), sep = "")
