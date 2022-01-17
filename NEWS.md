@@ -13,6 +13,8 @@
 * adds `set_note()`, a wrapper for `note<-()` [#77](https://github.com/jmbarbone/mark/pull/77)
 * adds `fact2char()` to compliment `char2fact()` [#75](https://github.com/jmbarbone/mark/pull/75)
 * `print.pseudo_id()` now truncates long uniques to a single line [#70](https://github.com/jmbarbone/mark/pull/70)
+* corrects deprecation warning in `assign_label()` [#74](https://github.com/jmbarbone/mark/issues/74)
+  * `assign_label()` will be removed in `0.4.2`
 
 # mark 0.4.1
 
