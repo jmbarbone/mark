@@ -15,6 +15,8 @@
 * `print.pseudo_id()` now truncates long uniques to a single line [#70](https://github.com/jmbarbone/mark/pull/70)
 * corrects deprecation warning in `assign_label()` [#74](https://github.com/jmbarbone/mark/issues/74)
   * `assign_label()` will be removed in `0.4.2`
+* internal type conversion now heavily relies on `utils::type.convert()` with some additional functionality for logical (e.g., character string using `"true"` and `"false"`) and for guessing dates in a `YYYY-MM-DD` format
+  * as part of this, `read_clipboard()` now returns `NA` when the clipboard is empty, rather than `""`
 
 # mark 0.4.1
 

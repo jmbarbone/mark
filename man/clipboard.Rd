@@ -20,7 +20,8 @@ read_clipboard(method = c("default", "data.frame", "tibble"), ...)
 \value{
 \code{write_clipboard()} None, called for side effects
 \code{read_clipboard()} Either a vector, \code{data.frame}, or \code{tibble} depending on
-the \code{method} chosen
+the \code{method} chosen.  Unlike \code{\link[utils:clipboard]{utils::readClipboard()}}, an empty clipboard
+value returns \code{NA} rather than \code{""}
 }
 \description{
 Wrappers for working with the clipboard
