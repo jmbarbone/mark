@@ -113,3 +113,15 @@ test_that("quick_df()", {
     quick_dfl(a = integer())
   )
 })
+
+test_that("complete_cases()", {
+  expect_error(complete_cases(1L))
+  expect_error(complete_cases(quick_df(NULL)))
+
+  df <- quick_dfl(a = c(1, 2, NA, 4), b = c(NA, 2, 3, NA))
+  res1 <- quick_dfl(a = c(1, 2, 4), b = c(NA, 2, NA))
+  res2 <- quick_dfl(a = 2, b = 2)
+
+  expect_identical(complete_cases(df, "a"), res1)
+  expect_identical(complete_cases(df), res2)
+})
