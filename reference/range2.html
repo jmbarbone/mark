@@ -77,18 +77,18 @@ respectively</p>
 <span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1e5</span>, <span class="fl">100</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,  <span class="fl">100</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    user  system elapsed </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   0.049   0.004   0.054 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   0.053   0.008   0.061 </span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu">range2</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="fl">100</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    user  system elapsed </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   0.017   0.000   0.017 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   0.025   0.000   0.025 </span>
 <span class="r-in"><span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1e5</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="fl">100</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    user  system elapsed </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   0.455   0.088   0.543 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   0.425   0.064   0.490 </span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu">range2</span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="fl">100</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    user  system elapsed </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   0.018   0.000   0.018 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   0.025   0.000   0.025 </span>
 <span class="r-in"><span class="co"># }</span></span>
 </code></pre></div>
     </div>
@@ -104,7 +104,7 @@ respectively</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer></div>
