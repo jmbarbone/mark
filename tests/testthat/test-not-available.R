@@ -15,6 +15,7 @@ test_that("not_available() works", {
   set_not_available("foo_fun", function() NULL)
   expect_error(get_not_available("foo_fun"))
 
-  ls <- options(mark.na_list = NULL)
-  expect_identical(get_na_list(), ls[[1]])
+  # reset list
+  options(mark.na_list = NULL)
+  expect_identical(get_na_list(), na_list)
 })
