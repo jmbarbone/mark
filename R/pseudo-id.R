@@ -67,22 +67,6 @@ print.pseudo_id <- function(x, ..., all = FALSE) {
 
 # helpers -----------------------------------------------------------------
 
-pseudo_id_factor <- function(x) {
-  # This should be used for when the the levels all need to be retained
-  # pseudo_id() only returns values present in x
-  x <- fact(x)
-  lvl <- levels(x)
-
-  # remake to be integers
-  x <- seq_along(lvl)[x]
-  x[is.na(x)] <- length(lvl)
-
-  # clean up order of new lvls
-  ux <- na_last(lvl[order(match(lvl, lvl[x]))])
-  make_pseudo_id(match(lvl, ux)[x], ux)
-}
-
-
 make_pseudo_id <- function(x, u) {
   struct(x, class = c("pseudo_id", "integer"), uniques = u)
 }
