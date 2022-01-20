@@ -1,16 +1,16 @@
 test_that("read_bib()", {
   # need to include
-  bib <- read_bib(test_path("example_bib.txt"))
+  res <- read_bib(test_path("example_bib.txt"))
   exp <- read.csv(
     test_path("bib_result.csv"),
     na.strings = "",
     colClasses = "character"
   )
-  expect_identical(bib, exp, ignore_attr = TRUE)
+  expect_identical(res, exp, ignore_attr = TRUE)
 
-  bib <- read_bib(test_path("example_bib.txt"), max_lines = 148)
+  res <- read_bib(test_path("example_bib.txt"), max_lines = 148)
   exp <- utils::head(exp, -1L)
-  expect_identical(bib, exp, ignore_attr = TRUE)
+  expect_identical(res, exp, ignore_attr = TRUE)
 
   temp <- tempfile()
   writeLines("bad", temp)
