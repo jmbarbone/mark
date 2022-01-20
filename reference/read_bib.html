@@ -115,9 +115,9 @@ This will also include as many categories as possible from the entry.</p>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># \donttest{</span></span>
 <span class="r-in">  <span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="http://bench.r-lib.org/reference/mark.html" class="external-link">mark</a></span><span class="op">(</span></span>
-<span class="r-in">    `read_bib` <span class="op">=</span> <span class="fu">read_bib</span><span class="op">(</span><span class="va">file</span><span class="op">)</span>,</span>
-<span class="r-in">    `bib2df` <span class="op">=</span> <span class="fu">bib2df</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/bib2df/reference/bib2df.html" class="external-link">bib2df</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span>,</span>
-<span class="r-in">    `foo` <span class="op">=</span> <span class="fu">foo</span><span class="op">(</span><span class="va">file</span><span class="op">)</span>,</span>
+<span class="r-in">    read_bib <span class="op">=</span> <span class="fu">read_bib</span><span class="op">(</span><span class="va">file</span><span class="op">)</span>,</span>
+<span class="r-in">    bib2df <span class="op">=</span> <span class="fu">bib2df</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/bib2df/reference/bib2df.html" class="external-link">bib2df</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span>,</span>
+<span class="r-in">    foo <span class="op">=</span> <span class="fu">foo</span><span class="op">(</span><span class="va">file</span><span class="op">)</span>,</span>
 <span class="r-in">    check <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span class="r-in">  <span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">9</span><span class="op">]</span></span>
 <span class="r-in"><span class="co"># }</span></span>
@@ -130,9 +130,9 @@ This will also include as many categories as possible from the entry.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 9</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   expression     min  median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_time</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:t&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:t&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> read_bib    2.69ms  2.94ms     341.     9.39KB     4.40   155     2      455ms</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> bib2df     15.16ms 15.41ms      64.5    3.02MB     4.61    28     2      434ms</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> foo         5.33ms   5.4ms     184.   127.25KB     4.44    83     2      450ms</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> read_bib    2.67ms  2.76ms     360.     9.39KB     4.42   163     2      453ms</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> bib2df     15.62ms  15.8ms      62.7    3.02MB     4.64    27     2      431ms</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> foo         5.46ms  5.57ms     179.   127.25KB     4.49    80     2      446ms</span>
 </code></pre></div>
     </div>
   </div>
