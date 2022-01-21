@@ -19,6 +19,14 @@ test_that("flip.data.frame", {
   expect_equal(flip(head(iris), keep_rownames = TRUE), res2)
   expect_equal(flip(iris2), res3)
   expect_equal(flip(iris2, keep_rownames = TRUE), res3)
+
+  # test with 0 cols
+  df <- quick_df(NULL)
+  expect_identical(flip(df), df)
+
+  df <- quick_df(list(a = 1))
+  df$a <- NULL
+  expect_identical(flip(df), df)
 })
 
 test_that("flip.matrix", {
@@ -56,4 +64,8 @@ test_that("flip doesn't coerce into lower object [36]", {
   expect_identical(dim(flip(x, by_row = FALSE)), c(2L, 2L))
 
   expect_identical(flip(matrix(1)), matrix(1))
+})
+
+test_that("reverse() is deprecated", {
+  expect_warning(reverse(1:10))
 })
