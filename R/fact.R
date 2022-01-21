@@ -266,6 +266,14 @@ drop_levels.factor <- function(x, ...) {
   )
 }
 
+# because unique.factor() remakes factor
+# this won't drop levels
+#' @export
+unique.fact <- function(x, incomparables = FALSE, ...) {
+  x[!duplicated(x, incomparables = FALSE)]
+}
+
+
 # helpers -----------------------------------------------------------------
 
 make_fact <- function(x, levels, ordered = FALSE) {
