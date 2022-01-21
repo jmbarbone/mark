@@ -310,3 +310,64 @@ complete_cases <- function(data, cols = NULL, invert = FALSE) {
   attr(out, "row.names") <- .set_row_names(sum(cc))
   out
 }
+
+
+distinct_rows <- function(data, cols = NULL, keep = c(NA, "first", "last")) {
+  stopifnot(is.data.frame(data))
+  if (is.null(cols)) {
+    # quick return
+    return(unique(data))
+  }
+
+  if (is.character(cols)) {
+    cols <- match(cols, colnames(data))
+  } else if (!is.numeric(cols)) {
+    stop("cols must be NULL, colnames, or positions")
+  } else {
+    cols <- as.integer(cols)
+  }
+
+  stopifnot(!anyNA(cols), length(cols) > 0)
+
+  keep <- mark::match_param(keep) == "last"
+
+  if (is.na(keep)) {
+    return(unique(data[, cols, drop = FALSE]))
+  }
+
+  data[!duplicated(data[, cols, drop = FALSE], fromLast = keep), , drop = FALSE]
+}
+
+# definitely slower
+# x <- Reduce(rbind, rep(list(palmerpenguins::penguins), 100))
+#
+# bench::mark(
+#   dplyr_distinct = dplyr::distinct(x, species, .keep_all = "TRUE"),
+#   distinct_rows = distinct_rows(x, "species", keep = "first")
+# )
+#
+# bench::mark(
+#   dplyr_distinct = dplyr::distinct(x),
+#   distinct_rows = distinct_rows(x)
+# )
+#
+# bench::mark(
+#   dplyr_distinct = dplyr::distinct(x, species, island),
+#   distinct_rows = distinct_rows(x, 1:2)
+# )
+#
+# bench::mark(
+#   dplyr_distinct = dplyr::distinct(x, species, island, .keep_all = TRUE),
+#   distinct_rows = distinct_rows(x, 1:2, keep = "first")
+# )
+#
+# bench::mark(
+#   dplyr_distinct = dplyr::distinct(x, bill_length_mm, year),
+#   distinct_rows = distinct_rows(x, c(3, 8)),
+#   check = FALSE
+# )
+#
+# bench::mark(
+#   dplyr_distinct = dplyr::distinct(x, bill_length_mm, year, .keep_all = TRUE),
+#   distinct_rows = distinct_rows(x, c(3, 8), keep = "first")
+# )

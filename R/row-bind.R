@@ -45,6 +45,7 @@ row_bind <- function(...) {
     USE.NAMES = FALSE
   )
 
+  # TODO use mark:::type_convert2() ?
   utils::type.convert(do.call(rbind2, res), as.is = TRUE)
 }
 
