@@ -1,7 +1,7 @@
 # snapshots()
 
     Code
-      read_bib(test_path("example_bib.txt"))
+      print(bib)
     Output
                    key         field           author                 title
       1        article       article      Peter Adams The title of the work
@@ -87,4 +87,165 @@
       11                           <NA>
       12 The institution that published
       13                           <NA>
+
+---
+
+    Code
+      print(bib, list = TRUE)
+    Output
+      article ------------------------------------------------------------------------
+        field      article
+        author     Peter Adams
+        title      The title of the work
+        journal    The name of the journal
+        year       1993
+        number     2
+        pages      201-213
+        month      7
+        note       An optional note
+        volume     4
+      
+      book ---------------------------------------------------------------------------
+        field        book
+        author       Peter Babington
+        title        The title of the work
+        publisher    The name of the publisher
+        year         1993
+        volume       4
+        series       10
+        address      The address
+        edition      3
+        month        7
+        note         An optional note
+        isbn         3257227892
+      
+      booklet ------------------------------------------------------------------------
+        field           booklet
+        title           The title of the work
+        author          Peter Caxton
+        howpublished    How it was published
+        address         The address of the publisher
+        month           7
+        year            1993
+        note            An optional note
+      
+      conference ---------------------------------------------------------------------
+        field           conference
+        author          Peter Draper
+        title           The title of the work
+        booktitle       The title of the book
+        year            1993
+        editor          The editor
+        volume          4
+        series          5
+        pages           213
+        address         The address of the publisher
+        month           7
+        organization    The organization
+        publisher       The publisher
+        note            An optional note
+      
+      inbook -------------------------------------------------------------------------
+        field        inbook
+        author       Peter Eston
+        title        The title of the work
+        chapter      8
+        pages        201-213
+        publisher    The name of the publisher
+        year         1993
+        volume       4
+        series       5
+        address      The address of the publisher
+        edition      3
+        month        7
+        note         An optional note
+      
+      incollection -------------------------------------------------------------------
+        field        incollection
+        author       Peter Farindon
+        title        The title of the work
+        booktitle    The title of the book
+        publisher    The name of the publisher
+        year         1993
+        editor       The editor
+        volume       4
+        series       5
+        chapter      8
+        pages        201-213
+        address      The address of the publisher
+        edition      3
+        month        7
+        note         An optional note
+      
+      manual -------------------------------------------------------------------------
+        field           manual
+        title           The title of the work
+        author          Peter Gainsford
+        organization    The organization
+        address         The address of the publisher
+        edition         3
+        month           7
+        year            1993
+        note            An optional note
+      
+      mastersthesis ------------------------------------------------------------------
+        field      mastersthesis
+        author     Peter Harwood
+        title      The title of the work
+        school     The school of the thesis
+        year       1993
+        address    The address of the publisher
+        month      7
+        note       An optional note
+      
+      misc ---------------------------------------------------------------------------
+        field           misc
+        author          Peter Isley
+        title           The title of the work
+        howpublished    How it was published
+        month           7
+        year            1993
+        note            An optional note
+      
+      phdthesis ----------------------------------------------------------------------
+        field      phdthesis
+        author     Peter Joslin
+        title      The title of the work
+        school     The school of the thesis
+        year       1993
+        address    The address of the publisher
+        month      7
+        note       An optional note
+      
+      proceedings --------------------------------------------------------------------
+        field           proceedings
+        title           The title of the work
+        year            1993
+        editor          Peter Kidwelly
+        volume          4
+        series          5
+        address         The address of the publisher
+        month           7
+        organization    The organization
+        publisher       The name of the publisher
+        note            An optional note
+      
+      techreport ---------------------------------------------------------------------
+        field          techreport
+        author         Peter Lambert
+        title          The title of the work
+        institution    The institution that published
+        year           1993
+        number         2
+        address        The address of the publisher
+        month          7
+        note           An optional note
+      
+      unpublished --------------------------------------------------------------------
+        field     unpublished
+        author    Peter Marcheford
+        title     The title of the work
+        note      An optional note
+        month     7
+        year      1993
 

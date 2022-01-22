@@ -25,5 +25,8 @@ test_that("read_bib()", {
 })
 
 test_that("snapshots()", {
-  expect_snapshot(read_bib(test_path("example_bib.txt")))
+  bib <- read_bib(test_path("example_bib.txt"))
+
+  expect_snapshot(print(bib))
+  expect_snapshot(print(bib, list = TRUE))
 })
