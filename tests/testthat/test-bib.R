@@ -20,8 +20,14 @@ test_that("read_bib()", {
   expect_error(as_bib(1:3), "data.frame")
   expect_error(as_bib_list(1:3), "list")
 
-  # TODO add bib with duplicate field
-
+  expect_error(
+    process_bib_dataframe(
+      categories = list(c("a", "a", "b")),
+      values = 1,
+      fields = "this",
+      keys = "key"
+    )
+  )
 })
 
 test_that("snapshots()", {
