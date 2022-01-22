@@ -184,7 +184,7 @@ process_bib_dataframe <- function(categories, values, fields, keys) {
 process_bib_list <- function(keys, fields, categories, values) {
   valid <- !is.na(values) & values != ""
 
-  x <- mappply(
+  x <- mapply(
     function(key, field, cats, vals) {
       # # vals[is.na(vals)] <- ""
       # new <- c(key, field, vals)
