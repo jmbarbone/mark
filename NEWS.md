@@ -18,6 +18,7 @@
 * internal type conversion now heavily relies on `utils::type.convert()` with some additional functionality for logical (e.g., character string using `"true"` and `"false"`) and for guessing dates in a `YYYY-MM-DD` format
   * as part of this, `read_clipboard()` now returns `NA` when the clipboard is empty, rather than `""`
 * `set_not_available()` now seems to work correctly -- it probably hasn't actually be working most of the time
+* `match_param(NULL, null = TRUE)` allows `param` to safely return `NULL` [#89](https://github.com/jmbarbone/mark/issues/89)
 
 # mark 0.4.1
 

@@ -33,11 +33,12 @@ test_that("match-param", {
     fixed = TRUE
   )
 
-  foo <- function(x = c("a", "b")) {
-    match_param(x)
+  foo <- function(x = c("a", "b"), null = FALSE) {
+    match_param(x, null = null)
   }
 
   expect_error(foo(NULL), "non-NULL")
+  expect_null(foo(NULL, null = TRUE))
 })
 
 test_that("match_arg() works", {
