@@ -48,19 +48,17 @@ percentile_rank <- function(x, times = NULL) {
 }
 
 percentile_rank_weighted <- function(u, times) {
-  # o <- order(u)
+  dupe_check(u)
   o <- rep(NA_integer_, length(u))
   ok <- !is.na(u)
   o1 <- order(u[ok])
   o[ok] <- o1
   u <- u[ok]
-  p <- props(pseudo_id(rep.int(u, times[ok]), na_last = FALSE))
-  p <- set_names0(p[as.character(u)], u)
+  # protect against rounding?
+  pid <- pseudo_id(rep.int(u, times[ok]), na_last = FALSE)
+  p <- props(pid)
+  p <- set_names0(p[match(u, attr(pid, "uniques"))], u)
   p[is.na(p)] <- 0
   p <- p[o1]
-  # (cumsum(p) - p * 0.5)[o]
   (cumsum(p) - p * 0.5)[o]
 }
-
-# Should be able to handle NAs
-# percentile_rank_weighted(c(1, NA, 2), c(1, 1, 3))
