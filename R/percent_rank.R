@@ -3,7 +3,7 @@
 #' Computes a percentile rank for each score in a set.
 #'
 #' @description
-#' The bounds of the percentile rank are > 0 and < 1
+#' The bounds of the percentile rank are > 0 and < 1 (see Boundaries)
 #'
 #' A percentile rank here is the proportion of scores that are less than the
 #'   current score.
@@ -16,11 +16,21 @@
 #'
 #'   \eqn{f_i} is the frequency of the score of interest
 #'
+#' @section Boundaries:
+#'
+#' While the percentile rank of a score in a set must be exclusively within the
+#' boundaries of `0` and `1`, this function may produce a percentile rank that
+#' is exactly `0` or `1`.  This may occur when the number of values are so large
+#' that the value within the boundaries is too small to be differentiated.
+#'
+#' Additionally, when using the `times` parameter, if the lowest or highest
+#' number has a value of `0`, the number will then have a theoretical `0` or
+#' `1`, as these values are not actually within the set.
 #'
 #' @param x A vector of values to rank
 #' @param times A vector of the number of times to repeat `x`
 #'
-#' @return The percentile rank of `x` between 0 and 1, exclusive
+#' @return The percentile rank of `x` between 0 and 1 (see Boundaries)
 #'
 #' @examples
 #' percentile_rank(0:9)
