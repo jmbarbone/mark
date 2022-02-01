@@ -19,6 +19,7 @@
   * as part of this, `read_clipboard()` now returns `NA` when the clipboard is empty, rather than `""`
 * `set_not_available()` now seems to work correctly -- it probably hasn't actually be working most of the time
 * `match_param(NULL, null = TRUE)` allows `param` to safely return `NULL` [#89](https://github.com/jmbarbone/mark/issues/89)
+* `percentile_rank()` is now more correct when `x` is a decimal by checking for unique values first [#92](https://github.com/jmbarbone/mark/issues/92)
 
 # mark 0.4.1
 
