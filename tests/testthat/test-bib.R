@@ -31,8 +31,11 @@ test_that("read_bib()", {
 })
 
 test_that("snapshots()", {
-  bib <- read_bib(test_path("example_bib.txt"))
+  bib_df <- read_bib(test_path("example_bib.txt"))
+  bib_list <- attr(bib_df, "bib_list")
+  bib_entry <- bib_list[[1]]
 
-  expect_snapshot(print(bib))
-  expect_snapshot(print(bib, list = TRUE))
+  expect_snapshot(print(bib_df))
+  expect_snapshot(print(bib_list))
+  expect_snapshot(print(bib_entry))
 })

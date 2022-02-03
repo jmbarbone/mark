@@ -1,7 +1,7 @@
 # snapshots()
 
     Code
-      print(bib)
+      bib_df
     Output
                    key         field           author                 title
       1        article       article      Peter Adams The title of the work
@@ -91,7 +91,7 @@
 ---
 
     Code
-      print(bib, list = TRUE)
+      bib_list
     Output
       article ------------------------------------------------------------------------
         field      article
@@ -248,4 +248,21 @@
         note      An optional note
         month     7
         year      1993
+
+---
+
+    Code
+      bib_entry
+    Output
+      key        article
+      field      article
+      author     Peter Adams
+      title      The title of the work
+      journal    The name of the journal
+      year       1993
+      number     2
+      pages      201-213
+      month      7
+      note       An optional note
+      volume     4
 
