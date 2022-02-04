@@ -14,7 +14,8 @@
 #' @return
 #' `write_clipboard()` None, called for side effects
 #' `read_clipboard()` Either a vector, `data.frame`, or `tibble` depending on
-#'   the `method` chosen
+#'   the `method` chosen.  Unlike [utils::readClipboard()], an empty clipboard
+#'   value returns `NA` rather than `""`
 #'
 #' @name clipboard
 #' @examples
@@ -39,6 +40,8 @@
 #'   all.equal(x, res)
 #'   x; res
 #' }
+
+# nocov start
 
 #' @export
 #' @rdname clipboard
@@ -80,7 +83,7 @@ read_clipboard <- function(method = c("default", "data.frame", "tibble"), ...) {
 
     default = {
       x <- utils::readClipboard(format = 1L, raw = FALSE)
-      try_vector_formats(x)
+      type_convert2(x)
     },
 
     # Specifications I prefer -- mostly copying from Excel
@@ -88,11 +91,11 @@ read_clipboard <- function(method = c("default", "data.frame", "tibble"), ...) {
       tab <- do_read_table_clipboard(...)
 
       for (i in seq_along(tab)) {
-        tab[[i]] <- try_vector_formats(tab[[i]])
+        tab[[i]] <- type_convert2(tab[[i]])
       }
 
       tab
-      },
+    },
 
     tibble = {
       require_namespace("tibble")
@@ -100,6 +103,9 @@ read_clipboard <- function(method = c("default", "data.frame", "tibble"), ...) {
     }
     )
 }
+
+
+# helpers -----------------------------------------------------------------
 
 #' Read table from clipboard
 #'
@@ -147,45 +153,46 @@ clear_clipboard <- function() {
   utils::writeClipboard("", format = 1L)
 }
 
-try_vector_formats <- function(x) {
+# nocov end
+
+
+# coverage ----------------------------------------------------------------
+
+type_convert2 <- function(x) {
   if (!is.character(x)) {
     return(x)
   }
 
-  # Take subset to determine
-  x0 <- x[trimws(x) != "" & !is.na(x)]
-  n <- length(x0)
+  res <- utils::type.convert(
+    x,
+    as.is = TRUE,
+    numerals = "warn.loss",
+    dec = getOption("OutDec", ".")
+  )
 
-  if (n == 0L) {
-    return(x)
-  }
+  if (is.character(res)) {
+    x0 <- x[trimws(x) != "" & !is.na(x)]
+    n <- length(x0)
 
-  x0 <- trimws(x0[1:min(n, 1000)])
-  if (all(toupper(x0) %in% c("TRUE", "FALSE", "NA"))) {
-    return(as.logical(toupper(x)))
-  }
-
-  dbls <- wuffle(as.double(x0))
-  dbls <- dbls[!is.nan(dbls)]
-
-  if (no_length(dbls)) {
-    return(as.double(x))
-  }
-
-  if (!anyNA(dbls)) {
-    if (isTRUE(all.equal(dbls, as.integer(dbls)))) {
-      return(as.integer(x))
+    if (!n) {
+      return(res)
     }
 
-    return(as.double(x))
+    x0 <- trimws(x0[1:min(n, 1000)])
+
+    if (all(toupper(x0) %in% c("TRUE", "FALSE", "NA"))) {
+      return(as.logical(toupper(x)))
+    }
+
+    dates <- as_date_strptime(x0)
+
+    # if (isTRUE(all.equal(as.character(dates), x0))) {
+    if (!anyNA(dates)) {
+      return(as_date_strptime(x))
+    }
   }
 
-  dates <- as_date_strptime(x0)
-  if (isTRUE(all.equal(as.character(dates), x0))) {
-    return(as_date_strptime(x))
-  }
-
-  x
+  res
 }
 
 is_windows <- function() {

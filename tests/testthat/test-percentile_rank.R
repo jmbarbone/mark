@@ -8,3 +8,9 @@ test_that("percentile_rank() works", {
   names(exp) <- 7:1
   expect_equal(res, exp, tolerance = .0455)
 })
+
+test_that("percentile_rank_weighted() handles decimals [92]", {
+  x <- c(1, 3.120000000001, 3.120000000001, 4)
+  w <- 1:4
+  expect_error(percentile_rank(x, w), "Duplicate")
+})

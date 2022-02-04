@@ -3,9 +3,12 @@
 \name{note}
 \alias{note}
 \alias{note<-}
+\alias{set_note}
 \title{Append a note to an object}
 \usage{
 note(x) <- value
+
+set_note(x, value)
 
 note(x)
 }
@@ -17,7 +20,7 @@ note(x)
 }
 \value{
 \itemize{
-\item \verb{note<-} will return \code{x} (with the \code{"note"} attribute assigned)
+\item \verb{note<-}, \code{set_note()} will return \code{x} (with the \code{"note"} attribute assigned)
 \item \code{note()} will retrieve the \code{"note"} attribute
 }
 }
@@ -33,10 +36,11 @@ defaults to the option \code{width} when not set.
 The type of object assigned to the note is not restricted, so user beware of
 odd prints or additional features added to the notes fun.
 
-When assigning a note (with \verb{note<-}) the \code{noted} class is added to the
-object.  This allows the \code{print.noted} class to be dispatched and for the
-note to be printed every time the object is called/printed and the next print
-method used.  However, it will not be called when not \code{interactive()}
+When assigning a note (with \verb{note<-}, and its alias \code{set_note()}) the \code{noted}
+class is added to the object.  This allows the \code{print.noted} class to be
+dispatched and for the note to be printed every time the object is
+called/printed and the next print method used.  However, it will not be
+called when not \code{interactive()}
 }
 \examples{
 x <- c("x", "k", "c", "d")

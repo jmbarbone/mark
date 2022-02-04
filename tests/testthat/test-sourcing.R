@@ -23,6 +23,12 @@ test_that("eval_named_chunk()", {
     '\\[1\\] "hello, world"\n\\[1\\] TRUE'
   )
   file.remove(temp_rmd)
+
+  expect_error(eval_named_chunk(tempfile()), "rmd file")
+  file <- tempfile(fileext = ".Rmd")
+  file.create(file)
+  expect_error(eval_named_chunk(file), "label")
+  file.remove(file)
 })
 
 test_that("Rscript", {

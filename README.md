@@ -7,7 +7,7 @@
 
 [![CRAN
 status](https://www.r-pkg.org/badges/version/mark)](https://CRAN.R-project.org/package=mark)
-[![R-CMD-check](https://github.com/jmbarbone/mark/workflows/R-CMD-check/badge.svg)](https://github.com/jmbarbone/mark/actions)
+[![R-CMD-check](https://github.com/jmbarbone/mark/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/jmbarbone/mark/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/jmbarbone/mark/branch/main/graph/badge.svg)](https://app.codecov.io/gh/jmbarbone/mark?branch=main)
 <!-- badges: end -->

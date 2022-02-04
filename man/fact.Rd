@@ -58,13 +58,26 @@ with all unique values as levels with \code{NA}s included.
 \code{fact.factor()} will perform several checks on a factor to include \code{NA}
 levels and to check if the levels should be reordered to conform with the
 other methods.  The \code{fact.fact()} method simple returns \code{x}.
+}
+\section{level orders}{
 
-@section level ordered:
+
 The order of the levels may be adjusted to these rules depending on the class of \code{x}:
 \describe{
-\item{character}{The order of appearance}
-\item{numeric/integer/Date/POSIXt}{By the numeric order}
-\item{logical}{As \code{TRUE}, \code{FALSE}, then \code{NA} if present}
-\item{factor}{Numeric if levels can be safely converted, otherwise as they are}
+\item{\code{character}}{The order of appearance}
+\item{\code{numeric}/\code{integer}/\code{Date}/\code{POSIXt}}{By the numeric order}
+\item{\code{logical}}{As \code{TRUE}, \code{FALSE}, then \code{NA} if present}
+\item{\code{factor}}{Numeric if levels can be safely converted, otherwise as they are}
 }
 }
+
+\seealso{
+\code{\link[=as_ordered]{as_ordered()}}
+
+Other factors: 
+\code{\link{as_ordered}()},
+\code{\link{char2fact}()},
+\code{\link{drop_levels}()},
+\code{\link{fact2char}()}
+}
+\concept{factors}

@@ -10,6 +10,16 @@
   * When `FALSE`, prevents long start ups when these functions are called in a `.Rprofile` file and R is not launches in a project directory
   * This be toggled with a new options `mark.todos.force`
 * github actions updated
+* adds `set_note()`, a wrapper for `note<-()` [#77](https://github.com/jmbarbone/mark/pull/77)
+* adds `fact2char()` to compliment `char2fact()` [#75](https://github.com/jmbarbone/mark/pull/75)
+* `print.pseudo_id()` now truncates long uniques to a single line [#70](https://github.com/jmbarbone/mark/pull/70)
+* corrects deprecation warning in `assign_label()` [#74](https://github.com/jmbarbone/mark/issues/74)
+  * `assign_label()` will be removed in `0.4.2`
+* internal type conversion now heavily relies on `utils::type.convert()` with some additional functionality for logical (e.g., character string using `"true"` and `"false"`) and for guessing dates in a `YYYY-MM-DD` format
+  * as part of this, `read_clipboard()` now returns `NA` when the clipboard is empty, rather than `""`
+* `set_not_available()` now seems to work correctly -- it probably hasn't actually be working most of the time
+* `match_param(NULL, null = TRUE)` allows `param` to safely return `NULL` [#89](https://github.com/jmbarbone/mark/issues/89)
+* `percentile_rank()` is now more correct when `x` is a decimal by checking for unique values first [#92](https://github.com/jmbarbone/mark/issues/92)
 
 # mark 0.4.1
 

@@ -43,3 +43,8 @@ test_that("has_char() works", {
   expect_identical(has_char(c(NA, "this", "")), c(FALSE, TRUE,  FALSE))
   expect_identical(has_char(c(1, 2, NA))      , c(FALSE, FALSE, FALSE))
 })
+
+test_that("dupe_check() works", {
+  expect_error(dupe_check(c(1, 1, 2, 3)))
+  expect_error(dupe_check(1:4), NA)
+})

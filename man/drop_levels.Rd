@@ -22,4 +22,11 @@ Drop unused levels of a factor
 }
 \seealso{
 \link[base:droplevels]{base::droplevels}
+
+Other factors: 
+\code{\link{as_ordered}()},
+\code{\link{char2fact}()},
+\code{\link{fact2char}()},
+\code{\link{fact}()}
 }
+\concept{factors}
