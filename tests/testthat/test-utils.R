@@ -20,8 +20,6 @@ test_that("utils", {
 
   res <- remove_class(struct(1, class = "foo"))
   expect_identical(class(res), "numeric")
-
-  expect_identical(append0(1:3, 4L), 1:4)
 })
 
 test_that("check_interactive() works", {
