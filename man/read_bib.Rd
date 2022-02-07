@@ -50,9 +50,9 @@ if (package_available("bib2df") & package_available("bench")) {
 
 \donttest{
   bench::mark(
-    `read_bib` = read_bib(file),
-    `bib2df` = bib2df::bib2df(file),
-    `foo` = foo(file),
+    read_bib = read_bib(file),
+    bib2df = bib2df::bib2df(file),
+    foo = foo(file),
     check = FALSE
   )[1:9]
 }

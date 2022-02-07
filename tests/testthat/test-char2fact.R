@@ -25,3 +25,22 @@ test_that("char2fact.data.frame() works", {
 
   expect_equal(char2fact(x), y)
 })
+
+test_that("fact2char() works", {
+  expect_error(fact2char(letters))
+
+  df <- quick_dfl(
+    a = 1:5,
+    b = factor(1:5),
+    c = letters[1:5],
+    d = factor(c(1, 1, 2, 2, 3)),
+    e = factor(rep(1, 5))
+  )
+
+  res <- fact2char(df, threshold = 3)
+  exp <- df
+  exp$b <- as.character(exp$b)
+  exp$d <- as.character(exp$d)
+
+  expect_identical(res, exp)
+})

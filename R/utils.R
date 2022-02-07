@@ -229,3 +229,33 @@ try_formats <- function(date = FALSE) {
 
   c(x, paste(x, "%Z"), if (date) c("%Y-%m-%d", "%Y/%m/%d", "%Y%m%d"))
 }
+
+
+has_char <- function(x) {
+  if (!is.character(x)) {
+    return(rep.int(FALSE, length(x)))
+  }
+
+  !is.na(x) & nzchar(x, keepNA = TRUE)
+}
+
+
+dupe_check <- function(x, n = getOption("mark.dupe.n", 5)) {
+  n <- as.integer(n)
+
+  dupes <- which(duplicated(x))
+  n_dupes <- length(dupes)
+  dupes <- utils::head(dupes, n)
+
+  if (n_dupes) {
+    stop(
+      "Duplicate values found in ", n_dupes, " location(s) :\n",
+      if (n_dupes > n) sprintf("(first %i)\n", n),
+      paste0("  > ", sprintf("[%s] %s", format(dupes), format(x[dupes])), "\n"),
+      if (n_dupes > n) "... and ", n_dupes - n, " more",
+      call. = FALSE
+    )
+  }
+
+  invisible(NULL)
+}

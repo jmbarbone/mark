@@ -41,9 +41,9 @@
 #'
 #' \donttest{
 #'   bench::mark(
-#'     `read_bib` = read_bib(file),
-#'     `bib2df` = bib2df::bib2df(file),
-#'     `foo` = foo(file),
+#'     read_bib = read_bib(file),
+#'     bib2df = bib2df::bib2df(file),
+#'     foo = foo(file),
 #'     check = FALSE
 #'   )[1:9]
 #' }
@@ -65,7 +65,7 @@ read_bib <- function(file, skip = 0L, max_lines = NULL, encoding = "UTF-8") {
   # Find start of entries
   from <- grep("[@]", bib)
 
-  if (length(from) == 0L) {
+  if (!length(from)) {
     stop("No entries detected", call. = FALSE)
   }
 
@@ -97,28 +97,28 @@ read_bib <- function(file, skip = 0L, max_lines = NULL, encoding = "UTF-8") {
 get_bib_categories <- function(list) {
   lapply(list, function(x) {
     # Assuming categories are to the left of any "="
-    xx <- strsplit(x[-1L], "=")
-    xx <- sapply(xx, `[`, 1L)
-    xx <- trimws(xx)
-    xx[xx %in% c("{", "}")] <- NA_character_
-    tolower(xx)
+    x <- strsplit(x[-1L], "=")
+    x <- sapply(x, `[`, 1L)
+    x <- trimws(x)
+    x[x %in% c("{", "}")] <- NA_character_
+    tolower(x)
   })
 }
 
 get_bib_values <- function(list) {
   lapply(list, function(x) {
     # Assuming values are to the right of any "="
-    xx <- strsplit(x[-1L], "=")
-    xx <- sapply(xx, `[`, -1L)
+    x <- strsplit(x[-1L], "=")
+    x <- sapply(x, `[`, -1L)
     # remove empty columns
-    xx[lengths(xx) == 0L] <- NA_character_
+    x[!lengths(x)] <- NA_character_
     # There may be something better than this
     # Would like to maintain the { and }
-    # xx <- gsub("\\{|\\}|,?$", "", xx)
-    xx <- trimws(xx)
-    xx <- gsub("^(\\{|\")|(\"|\\})[,]?$", "", xx)
-    xx <- gsub(",$", "", xx)
-    xx
+    # x <- gsub("\\{|\\}|,?$", "", x)
+    x <- trimws(x)
+    x <- gsub("^(\\{|\")|(\"|\\})[,]?$", "", x)
+    x <- gsub(",$", "", x)
+    x
   })
 }
 
@@ -136,9 +136,9 @@ get_bib_values <- function(list) {
 process_bib_dataframe <- function(categories, values, fields, keys) {
   # Determine all categories for missing values inside Map
   ucats <- unique(remove_na(unlist(categories)))
-  ucats_df <- quick_df(list(category = ucats, value = rep(NA_character_, length(ucats))))
+  ucats_df <- quick_dfl(category = ucats, value = rep(NA_character_, length(ucats)))
 
-  x <- Map(
+  x <- mapply(
     function(cats, vals, field, key) {
       # Determine valid categories/values
       valids <- !is.na(cats)
@@ -146,14 +146,12 @@ process_bib_dataframe <- function(categories, values, fields, keys) {
       vals <- vals[valids]
 
       # Check for duplicate categories
-      lens <- lengths(split(cats, cats))
+      lens <- counts(cats)
       bad <- lens > 1L
 
       if (any(bad)) {
-        stop("The key `", key, "` has duplicate categories of `",
-             names(lens)[bad], "`",
-             call. = FALSE
-        )
+        msg <- sprintf("The key `%s` has duplicate categories of `%s`", key, names(lens)[bad])
+        stop(simpleError(msg))
       }
 
       # Append vectors
@@ -161,7 +159,7 @@ process_bib_dataframe <- function(categories, values, fields, keys) {
       vals <- c(key, field, vals)
 
       # Create data.frame
-      data <- quick_df(list(category = cats, value = vals))
+      data <- quick_dfl(category = cats, value = vals)
 
       # Check for missing categories
       toadd <- ucats %out% cats
@@ -170,35 +168,41 @@ process_bib_dataframe <- function(categories, values, fields, keys) {
       }
 
       # Transpose to prep for reduce rbinding
-      new <- list2df2(as.list(data[[2L]]))
-      colnames(new) <- as.list(data[[1L]])
-
-      new
+      quick_df(set_names0(as.list(data[[2L]]), data[[1L]]))
     },
     cats = categories,
     vals = values,
     field = fields,
-    key = keys
+    key = keys,
+    SIMPLIFY = FALSE
   )
 
-  Reduce(rbind, x)
+  # TODO consider mark::row_bind(), when ready
+  Reduce(rbind, x)[, c("key", "field", ucats), ]
 }
 
 process_bib_list <- function(keys, fields, categories, values) {
   valid <- !is.na(values) & values != ""
 
-  x <- Map(
+  x <- mapply(
     function(key, field, cats, vals) {
-      # vals[is.na(vals)] <- ""
-      new <- c(key, field, vals)
-      names(new) <- c("key", "field", cats)
-      class(new) <- c("character", "mark_bib_entry", .Names = key)
-      new
+      # # vals[is.na(vals)] <- ""
+      # new <- c(key, field, vals)
+      # names(new) <- c("key", "field", cats)
+      # class(new) <- c("character", "mark_bib_entry", .Names = key)
+      # new
+      struct(
+        c(key, field, vals),
+        class = c("character", "mark_bib_entry"),
+        names = c("key", "field", cats)
+      )
+
     },
     key = keys[valid],
     field = fields[valid],
     cats = categories[valid],
-    vals = values[valid]
+    vals = values[valid],
+    SIMPLIFY = FALSE
   )
 
   as_bib_list(x, keys[valid])
@@ -217,7 +221,8 @@ as_bib <- function(x, bib_list = NULL) {
     stop("`x` must be a data.frame", call. = FALSE)
   }
 
-  class(x) <- c("data.frame", "mark_bib")
+  class(x) <- c("mark_bib_df", "data.frame")
+  attr(x, "bib_list") <- bib_list
   x
 }
 
@@ -233,7 +238,7 @@ print.mark_bib_list <- function(x, ...) {
   for (i in seq_along(out)) {
     nmi <- nm[i]
     bordern <- getOption("width") - nchar(nmi) - 1L
-    header <- if (bordern > 0L) {
+    header <- if (bordern) {
       paste0(" ", collapse0(rep("-", bordern), sep = ""))
     } else {
       ""
@@ -241,9 +246,10 @@ print.mark_bib_list <- function(x, ...) {
 
     co <- utils::capture.output(print(out[[i]]))[-1L]
 
-    cat(paste0(ifelse(i == 1L, "", "\n"), nmi, header),
-        collapse0(paste0("  ", co), sep = "\n"),
-        sep = "\n"
+    cat(
+      paste0(if (i == 1L) "" else "\n", nmi, header),
+      collapse0(paste0("  ", co), sep = "\n"),
+      sep = "\n"
     )
   }
 
@@ -267,5 +273,27 @@ print.mark_bib_entry <- function(x, ...) {
   )
 
   cat(paste(nm, blanks, out), sep = "\n")
+  invisible(x)
+}
+
+#' Print bib data frame
+#'
+#' Print bib dataframe, or as list
+#'
+#' @param x The `mark_bib_df` object
+#' @param list If `TRUE` will print as a list rather than the `data.frame`
+#' @param ... Additional arguments passed to methods
+#' @returns `x`, invisibly, called for its side effects
+#' @export
+print.mark_bib_df <- function(x, list = FALSE, ...) {
+  if (list) {
+    print(attr(x, "bib_list"), ...)
+  } else {
+    y <- x
+    attr(y, "bib_list") <- NULL
+    NextMethod()
+    # print(y, ...)
+  }
+
   invisible(x)
 }

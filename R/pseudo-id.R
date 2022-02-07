@@ -42,31 +42,30 @@ pseudo_id.factor <- function(x, ...) {
 }
 
 
+#' Print `pseudo_id`
 #' @export
-print.pseudo_id <- function(x, ...) {
+#' @param x An object of class [pseudo_id]
+#' @param ... Not implemented
+#' @param all if `TRUE` will print all uniques.  This is not recommend for many
+#'   uniques as it will crowd the console output
+#' @returns `x`, invisibly.  Called for its side effects.
+#' @seealso [pseudo_id()]
+print.pseudo_id <- function(x, ..., all = FALSE) {
   print(as.integer(x))
-  cat("Uniques: ", paste0(attr(x, "uniques"), sep = " "), "\n", sep = "")
+  out <- collapse0("Uniques: ", paste0(attr(x, "uniques"), sep = " "), sep = "")
+  if (!all) {
+    width <- getOption("width", 180)
+    if (nchar(out) > width) {
+      out <- substr(out, 1, width - 4)
+      out <- paste0(out, " ...")
+    }
+  }
+  cat0(out, "\n")
   invisible(x)
 }
 
 
 # helpers -----------------------------------------------------------------
-
-pseudo_id_factor <- function(x) {
-  # This should be used for when the the levels all need to be retained
-  # pseudo_id() only returns values present in x
-  x <- fact(x)
-  lvl <- levels(x)
-
-  # remake to be integers
-  x <- seq_along(lvl)[x]
-  x[is.na(x)] <- length(lvl)
-
-  # clean up order of new lvls
-  ux <- na_last(lvl[order(match(lvl, lvl[x]))])
-  make_pseudo_id(match(lvl, ux)[x], ux)
-}
-
 
 make_pseudo_id <- function(x, u) {
   struct(x, class = c("pseudo_id", "integer"), uniques = u)

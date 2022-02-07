@@ -4,12 +4,14 @@
 \alias{match_param}
 \title{Match params}
 \usage{
-match_param(param, choices)
+match_param(param, choices, null = TRUE)
 }
 \arguments{
 \item{param}{The parameter}
 
 \item{choices}{The available choices}
+
+\item{null}{If \code{TRUE} allows \code{NULL} to be passed a \code{param}}
 }
 \value{
 A single value from \code{param} matched on \code{choices}

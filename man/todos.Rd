@@ -5,15 +5,29 @@
 \alias{fixmes}
 \title{Get TODOs}
 \usage{
-todos(pattern = NULL, path = ".", ...)
+todos(
+  pattern = NULL,
+  path = ".",
+  force = getOption("mark.todos.force", FALSE),
+  ...
+)
 
-fixmes(pattern = NULL, path = ".", ...)
+fixmes(
+  pattern = NULL,
+  path = ".",
+  force = getOption("mark.todos.force", FALSE),
+  ...
+)
 }
 \arguments{
 \item{pattern}{A character string containing a regular expression to filter
 for comments after tags; default \code{NULL} does not filter}
 
 \item{path}{The file directory to search for the tags}
+
+\item{force}{If \code{TRUE} will force searching for files in directories that do
+not contain an \code{.Rproj} file.  This can be controlled with the option
+\code{mark.todos.force}}
 
 \item{...}{Additional parameters passed to \code{grep} (Except for \code{pattern}, \code{x},
 and \code{value})}

@@ -27,13 +27,18 @@ not_available <- function(type = "logical", length = 0L) {
 #' @rdname not_available
 #' @export
 set_not_available <- function(type, value) {
-  na_list[[type]] <- value
-  assign("na_list", na_list, pos = "package:mark")
+  ls <- get_na_list()
+  ls[[type]] <- value
+  options(mark.na_list = ls)
 }
 
+get_not_available <- function(type = NULL) {
 
-get_not_available <- function(type) {
-  out <- na_list[[type]]
+  if (is.null(type)) {
+    return(get_na_list())
+  }
+
+  out <- get_na_list()[[type]]
 
   if (is.null(out)) {
     stop(
@@ -50,16 +55,16 @@ get_not_available <- function(type) {
   out
 }
 
-na_list <- list(
-  logical   = logical(),
-  character = character(),
-  integer   = integer(),
-  double    = double(),
-  numeric   = numeric(),
-  Date      = as.Date(NA),
-  POSIXct   = as.POSIXct(NA),
-  POSIXlt   = as.POSIXlt(NA)[[1]]
-)
+get_na_list <- function() {
+  ls <- getOption("mark.na_list", list())
+
+  if (identical(ls, list())) {
+    options(mark.na_list = na_list)
+    ls <- na_list
+  }
+
+  ls
+}
 
 #' @export
 #' @rdname not_available

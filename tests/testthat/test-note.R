@@ -26,6 +26,11 @@ test_that("note() work", {
   note(x) <- NULL
   expect_null(attr(x, "note"))
   expect_identical(class(x), "character")
+
+  x <- "x"
+  y <- set_note(x, "this note")
+  note(x) <- "this note"
+  expect_identical(x, y)
 })
 
 test_that("print.noted() passes to next methods [67]", {

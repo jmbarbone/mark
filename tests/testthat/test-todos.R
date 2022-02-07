@@ -1,4 +1,6 @@
 test_that("todos() works", {
+  withr::local_options(list(mark.todos.force = TRUE))
+
   path <- test_path("scripts")
   file <- test_path("scripts/todos.R")
 
@@ -49,6 +51,8 @@ test_that("todos() works", {
 })
 
 test_that("todo() errors and messages", {
+  withr::local_options(list(mark.todos.force = TRUE))
+
   path <- test_path("scripts")
 
   err <- "path must be a character vector of length 1L"
@@ -60,6 +64,5 @@ test_that("todo() errors and messages", {
   expect_message(res <- todos("zzzzzz", path = path), "No todos found")
   expect_null(res)
 
-  skip("not currently testing snaps")
   expect_snapshot(todos(path = path))
 })
