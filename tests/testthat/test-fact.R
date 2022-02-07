@@ -6,7 +6,7 @@ test_that("fact.logical() works", {
   expect_message(capture.output(print(x)), NA)
 
   x <- fact(c(FALSE, NA, NA, TRUE, FALSE))
-  res <- make_fact(c(2L, 3L, 3L, 1L, 2L), c("TRUE", "FALSE", NA_character_))
+  res <- make_fact(c(2L, 3L, 3L, 1L, 2L), c(TRUE, FALSE, NA))
   expect_identical(x, res)
 
   expect_false(anyNA(x))
@@ -18,10 +18,10 @@ test_that("fact.pseudo_id() works", {
   expect_message(capture.output(print(fact(pseudo_id(c("a", "a", "b", NA_character_))))), NA)
 
   # Should appropriately order numeric values
-  x <- c(0, 10, 10, NA, 0, 5)
+  x <- c(0L, 10L, 10L, NA, 0L, 5L)
   id <- pseudo_id(x)
   f <- fact(id)
-  res <- make_fact(c(1L, 3L, 3L, 4L, 1L, 2L), levels = c("0", "5", "10", NA))
+  res <- make_fact(c(1L, 3L, 3L, 4L, 1L, 2L), levels = c(0L, 5L, 10L, NA_integer_))
 
   expect_identical(fact(x), f)
   expect_identical(fact(x), res)
@@ -43,7 +43,7 @@ test_that("fact.pseudo_id() works", {
 test_that("fact.integer() works", {
   expect_equal(
     fact(struct(1L, c("foo", "integer"))),
-    make_fact(1L, levels = "1")
+    make_fact(1L, levels = 1L)
   )
 })
 
@@ -69,7 +69,7 @@ test_that("fact.factor() works", {
 
   # moves NA to the end and reordered when number
   x <- factor(c(1, NA, 2), levels = c(2, NA, 1), exclude = NULL)
-  res <- make_fact(c(1L, 3L, 2L), levels = c("1", "2", NA_character_))
+  res <- make_fact(c(1, 3, 2), levels = c(1, 2, NA))
   expect_identical(fact(x), res)
 
   x <- factor(c(NA, TRUE, FALSE))
@@ -122,17 +122,17 @@ test_that("fact() correctly labels NAs [#24]", {
 
   expect_equal(
     fact(c(NA, 1, 3)),
-    make_fact(c(3L, 1L, 2L), c("1", "3", NA))
+    make_fact(c(3L, 1L, 2L), c(1, 3, NA))
   )
 
   expect_equal(
     fact(c(1, NA, NA, 3)),
-    make_fact(c(1L, 3L, 3L, 2L), c("1", "3", NA))
+    make_fact(c(1L, 3L, 3L, 2L), c(1, 3, NA))
   )
 
   expect_equal(
     fact(c(TRUE, TRUE, NA, FALSE, TRUE)),
-    make_fact(c(1L, 1L, 3L, 2L, 1L), c("TRUE", "FALSE", NA))
+    make_fact(c(1L, 1L, 3L, 2L, 1L), c(TRUE, FALSE, NA))
   )
 })
 
@@ -140,13 +140,14 @@ test_that("fact() correctly labels NAs [#24]", {
 # ordering ----
 
 test_that("as_ordered() works", {
-  x <- fact(c(1:3, NA_integer_))
-  res <- struct(
+  res <- fact(c(1:3, NA_integer_))
+  exp <- struct(
     c(1:3, NA_integer_),
     c("fact", "ordered", "factor"),
-    levels = as.character(1:3)
+    levels = as.character(1:3),
+    uniques = 1:3
   )
-  expect_identical(as_ordered(x), res)
+  expect_identical(as_ordered(res), exp)
 })
 
 test_that("as_ordered() doesn't duplicate class", {
@@ -167,7 +168,12 @@ test_that("fact.default() fails", {
 test_that("`fact_levels<-`() works", {
   x <- fact(1:3)
   fact_levels(x) <- 1:4
-  exp <- struct(1:3, levels = as.character(1:4), class = c("fact", "factor"))
+  exp <- struct(
+    1:3,
+    class = c("fact", "factor"),
+    levels = as.character(1:4),
+    uniques = 1:4
+  )
   expect_identical(x, exp)
 })
 
@@ -218,7 +224,7 @@ test_that("drop_levels() works", {
 
   # facts and ordered
   x <- as_ordered(factor(1, 1:2))
-  exp <- struct(1L, class = c("fact", "ordered", "factor"), levels = "1")
+  exp <- struct(1L, class = c("fact", "ordered", "factor"), levels = "1", uniques = 1L)
   expect_equal(drop_levels(x), exp)
 })
 

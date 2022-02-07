@@ -4,6 +4,7 @@
 \alias{drop_levels}
 \alias{drop_levels.data.frame}
 \alias{drop_levels.factor}
+\alias{drop_levels.fact}
 \title{Drop levels}
 \usage{
 drop_levels(x, ...)
@@ -11,6 +12,8 @@ drop_levels(x, ...)
 \method{drop_levels}{data.frame}(x, ...)
 
 \method{drop_levels}{factor}(x, ...)
+
+\method{drop_levels}{fact}(x, ...)
 }
 \arguments{
 \item{x}{A \code{factor} or \code{data.frame}}
