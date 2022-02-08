@@ -16,6 +16,7 @@ append0.list <- function(x, values, pos = NULL, expand = FALSE, ...) {
   if (!is.list(values)) {
     values <- list(values)
   }
+
   if (expand) {
     n <- unique(lengths(x))
     if (length(n) > 1) {
@@ -36,6 +37,7 @@ append0.list <- function(x, values, pos = NULL, expand = FALSE, ...) {
   if (pos == 1L) {
     return(c(values, x))
   }
+
   c(x[0L:(pos - 1L)], values, x[pos:len])
 }
 
@@ -44,9 +46,11 @@ append0.default <- function(x, values, pos = NULL, ...) {
   if (is.null(pos)) {
     return(c(x, values))
   }
+
   if (pos == 1L) {
     return(c(values, x))
   }
+
   n <- length(x)
   pos <- min(pos, n)
   c(x[1L:(pos - 1L)], values, x[pos:n])
