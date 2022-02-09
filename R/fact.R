@@ -233,7 +233,7 @@ as_ordered <- function(x) {
 #' @rdname as_ordered
 #' @export
 as_ordered.default <- function(x) {
-  res <- fact_remove_na(x)
+  res <- fact_na(x, remove = TRUE)
 
   if (!is.ordered(x)) {
     res <- add_class(res, "ordered", 2L)
@@ -354,20 +354,6 @@ new_fact <- function(x, levels, ordered = FALSE) {
     levels = as.character(levels),
     uniques = levels
   )
-}
-
-fact_remove_na <- function(x) {
-  x <- fact(x)
-  out <- unclass(x)
-  uns <- .uniques(x)
-  w <- which(is.na(uns))
-
-  if (!length(w)) {
-    return(x)
-  }
-
-  out[out == w] <- NA_integer_
-  new_fact(out, levels = uns[-w])
 }
 
 try_numeric <- function(x) {
