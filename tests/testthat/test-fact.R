@@ -6,7 +6,7 @@ test_that("fact.logical() works", {
   expect_message(capture.output(print(x)), NA)
 
   x <- fact(c(FALSE, NA, NA, TRUE, FALSE))
-  res <- make_fact(c(2L, 3L, 3L, 1L, 2L), c(TRUE, FALSE, NA))
+  res <- new_fact(c(2L, 3L, 3L, 1L, 2L), c(TRUE, FALSE, NA))
   expect_identical(x, res)
 
   expect_false(anyNA(x))
@@ -21,7 +21,7 @@ test_that("fact.pseudo_id() works", {
   x <- c(0L, 10L, 10L, NA, 0L, 5L)
   id <- pseudo_id(x)
   f <- fact(id)
-  res <- make_fact(c(1L, 3L, 3L, 4L, 1L, 2L), levels = c(0L, 5L, 10L, NA_integer_))
+  res <- new_fact(c(1L, 3L, 3L, 4L, 1L, 2L), levels = c(0L, 5L, 10L, NA_integer_))
 
   expect_identical(fact(x), f)
   expect_identical(fact(x), res)
@@ -43,7 +43,7 @@ test_that("fact.pseudo_id() works", {
 test_that("fact.integer() works", {
   expect_equal(
     fact(struct(1L, c("foo", "integer"))),
-    make_fact(1L, levels = 1L)
+    new_fact(1L, levels = 1L)
   )
 })
 
@@ -69,15 +69,15 @@ test_that("fact.factor() works", {
 
   # moves NA to the end and reordered when number
   x <- factor(c(1, NA, 2), levels = c(2, NA, 1), exclude = NULL)
-  res <- make_fact(c(1, 3, 2), levels = c(1, 2, NA))
+  res <- new_fact(c(1, 3, 2), levels = c(1, 2, NA))
   expect_identical(fact(x), res)
 
   x <- factor(c(NA, TRUE, FALSE))
-  res <- make_fact(c(3L, 1L, 2L), levels = c(TRUE, FALSE, NA))
+  res <- new_fact(c(3L, 1L, 2L), levels = c(TRUE, FALSE, NA))
   expect_identical(fact(x), res)
 
   x <- factor(c(NA, TRUE, FALSE), exclude = NULL)
-  res <- make_fact(c(3L, 1L, 2L), levels = c(TRUE, FALSE, NA))
+  res <- new_fact(c(3L, 1L, 2L), levels = c(TRUE, FALSE, NA))
   expect_identical(fact(x), res)
 })
 
@@ -117,22 +117,22 @@ test_that("fact.haven_labelled() works", {
 test_that("fact() correctly labels NAs [#24]", {
   expect_equal(
     fact(c(NA, "a", "b")),
-    make_fact(c(3L, 1L, 2L), c("a", "b", NA))
+    new_fact(c(3L, 1L, 2L), c("a", "b", NA))
   )
 
   expect_equal(
     fact(c(NA, 1, 3)),
-    make_fact(c(3L, 1L, 2L), c(1, 3, NA))
+    new_fact(c(3L, 1L, 2L), c(1, 3, NA))
   )
 
   expect_equal(
     fact(c(1, NA, NA, 3)),
-    make_fact(c(1L, 3L, 3L, 2L), c(1, 3, NA))
+    new_fact(c(1L, 3L, 3L, 2L), c(1, 3, NA))
   )
 
   expect_equal(
     fact(c(TRUE, TRUE, NA, FALSE, TRUE)),
-    make_fact(c(1L, 1L, 3L, 2L, 1L), c(TRUE, FALSE, NA))
+    new_fact(c(1L, 1L, 3L, 2L, 1L), c(TRUE, FALSE, NA))
   )
 })
 

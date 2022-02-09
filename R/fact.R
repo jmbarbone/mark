@@ -49,14 +49,14 @@ fact.default <- function(x) {
 #' @export
 fact.character <- function(x) {
   out <- pseudo_id(x)
-  make_fact(out, .uniques(out))
+  new_fact(out, .uniques(out))
 }
 
 #' @rdname fact
 #' @export
 fact.numeric <- function(x) {
   u <- sort.int(unique(x), method = "radix", na.last = TRUE)
-  make_fact(match(x, u), u)
+  new_fact(match(x, u), u)
 }
 
 #' @rdname fact
@@ -79,7 +79,7 @@ fact.logical <- function(x) {
   out[w] <- out[w] + 2L
   nas <- is.na(x)
   out[nas] <- 3L
-  make_fact(out, levels = c(TRUE, FALSE, if (any(nas)) NA))
+  new_fact(out, levels = c(TRUE, FALSE, if (any(nas)) NA))
 }
 
 #' @rdname fact
@@ -91,7 +91,7 @@ fact.factor <- function(x) {
 
   if (is.logical(new_levels)) {
     m <- match(new_levels[x], c(TRUE, FALSE, NA))
-    res <- make_fact(m, c(TRUE, FALSE, if (anyNA(new_levels[x])) NA))
+    res <- new_fact(m, c(TRUE, FALSE, if (anyNA(new_levels[x])) NA))
     return(res)
   }
 
@@ -102,12 +102,12 @@ fact.factor <- function(x) {
     levels <- c(ord_levels, if (anyNA(x) && !anyNA(ord_levels)) NA)
 
     if (identical(o, seq_along(o))) {
-      res <- make_fact(x, levels, is.ordered(x))
+      res <- new_fact(x, levels, is.ordered(x))
       return(res)
     }
 
     m <- match(order(old_levels), o)[x]
-    res <- make_fact(m, levels, is.ordered(x))
+    res <- new_fact(m, levels, is.ordered(x))
     return(res)
   }
 
@@ -121,7 +121,7 @@ fact.factor <- function(x) {
   }
 
   m <- match(old_levels, as.character(new_levels))[x]
-  make_fact(m, new_levels, is.ordered(x))
+  new_fact(m, new_levels, is.ordered(x))
 }
 
 #' @rdname fact
@@ -144,7 +144,7 @@ fact.pseudo_id <- function(x) {
     }
   }
 
-  make_fact(x, levels = u)
+  new_fact(x, levels = u)
 }
 
 #' @rdname fact
@@ -320,7 +320,7 @@ as.double.fact <- function(x, ...) {
 
 # helpers -----------------------------------------------------------------
 
-make_fact <- function(x, levels, ordered = FALSE) {
+new_fact <- function(x, levels, ordered = FALSE) {
   struct(
     as.integer(x),
     class = c("fact", if (ordered) "ordered", "factor"),
@@ -340,7 +340,7 @@ fact_remove_na <- function(x) {
   }
 
   out[out == w] <- NA_integer_
-  make_fact(out, levels = uns[-w])
+  new_fact(out, levels = uns[-w])
 }
 
 try_numeric <- function(x) {
@@ -425,7 +425,7 @@ fact_coerce_levels <- function(x) {
   x <- fact(x)
   levels <- levels(x)
   value <- c(value, if (!anyNA(value) & (anyNA(x) | anyNA(levels))) NA)
-  make_fact(match(levels, value)[x], value, is.ordered(x))
+  new_fact(match(levels, value)[x], value, is.ordered(x))
 }
 
 is.fact <- function(x) {
