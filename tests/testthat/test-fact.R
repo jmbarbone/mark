@@ -145,7 +145,8 @@ test_that("as_ordered() works", {
     c(1:3, NA_integer_),
     c("fact", "ordered", "factor"),
     levels = as.character(1:3),
-    uniques = 1:3
+    uniques = 1:3,
+    na = 0L
   )
   expect_identical(as_ordered(res), exp)
 })
@@ -172,7 +173,8 @@ test_that("`fact_levels<-`() works", {
     1:3,
     class = c("fact", "factor"),
     levels = as.character(1:4),
-    uniques = 1:4
+    uniques = 1:4,
+    na = 0L
   )
   expect_identical(x, exp)
 })
@@ -224,7 +226,7 @@ test_that("drop_levels() works", {
 
   # facts and ordered
   x <- as_ordered(factor(1, 1:2))
-  exp <- struct(1L, class = c("fact", "ordered", "factor"), levels = "1", uniques = 1L)
+  exp <- struct(1L, class = c("fact", "ordered", "factor"), levels = "1", uniques = 1L, na = 0L)
   expect_equal(drop_levels(x), exp)
 })
 
@@ -232,25 +234,21 @@ test_that("drop_levels() works", {
 
 # other methods -----------------------------------------------------------
 
-test_that("is.na.fact(), `is.na<-.fact`(), works", {
+test_that("is.na.fact(), works", {
   x <- fact(c(1, 2, NA, 3))
+  res <- is.na(x)
+  exp <- c(FALSE, FALSE, FALSE, FALSE)
+  expect_identical(res, exp)
+
+  x <- fact_na(c(1, 2, NA, 3))
   res <- is.na(x)
   exp <- c(FALSE, FALSE, TRUE, FALSE)
   expect_identical(res, exp)
 
-  x <- fact(c("a", "b", "c"))
+  x <- fact_na(c("a", "b", "c"))
   res <- is.na(x)
   exp <- c(FALSE, FALSE, FALSE)
   expect_identical(res, exp)
-
-  # debugonce(`is.na<-.fact`)
-
-  nas <- c(TRUE, FALSE, FALSE)
-  is.na(x) <- nas
-  exp <- fact(c(NA, "b", "c"))
-
-  expect_identical(x, exp)
-  expect_identical(is.na(x), nas)
 })
 
 test_that("as.integer.fact() works", {
