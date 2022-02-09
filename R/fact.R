@@ -16,12 +16,14 @@
 #'
 #' @section level orders:
 #'
-#' The order of the levels may be adjusted to these rules depending on the class of `x`:
+#' The order of the levels may be adjusted to these rules depending on the class
+#' of `x`:
 #' \describe{
 #'   \item{`character`}{The order of appearance}
 #'   \item{`numeric`/`integer`/`Date`/`POSIXt`}{By the numeric order}
 #'   \item{`logical`}{As `TRUE`, `FALSE`, then `NA` if present}
-#'   \item{`factor`}{Numeric if levels can be safely converted, otherwise as they are}
+#'   \item{`factor`}{Numeric if levels can be safely converted, otherwise as
+#'   they are}
 #' }
 #'
 #' @param x A vector of values
@@ -79,7 +81,12 @@ fact.logical <- function(x) {
   out[w] <- out[w] + 2L
   nas <- is.na(x)
   out[nas] <- 3L
-  new_fact(out, levels = c(TRUE, FALSE, if (any(nas)) NA))
+
+  new_fact(
+    out,
+    levels = c(TRUE, FALSE, if (any(nas)) NA),
+    na = if (any(nas)) 3L else 0L
+  )
 }
 
 #' @rdname fact
@@ -113,11 +120,12 @@ fact.factor <- function(x) {
 
 
   if (anyNA(x) || anyNA(old_levels)) {
-    new_levels <- if (!anyNA(new_levels)) {
-      c(new_levels, NA)
-    } else {
-      na_last(new_levels)
-    }
+    new_levels <-
+      if (!anyNA(new_levels)) {
+        c(new_levels, NA)
+      } else {
+        na_last(new_levels)
+      }
   }
 
   m <- match(old_levels, as.character(new_levels))[x]
@@ -191,12 +199,11 @@ print.fact <- function(x, ...) {
 #'
 #' As ordered
 #'
-#' @details
-#' Simple implementation of `ordered`.  If `x` is `ordered` it is simply
-#'   returned.  If `x` is a `factor` the `ordered` class is added.  Otherwise,
-#'   `x` is made into a `factor` with [mark::fact()] and then the `ordered`
-#'   class is added.
-#'   Unlike just `fact`, `ordered` will replace the `NA` levels with `NA_integer_` to work appropriately with other functions.
+#' @details Simple implementation of `ordered`.  If `x` is `ordered` it is
+#' simply returned.  If `x` is a `factor` the `ordered` class is added.
+#' Otherwise, `x` is made into a `factor` with [mark::fact()] and then the
+#' `ordered` class is added. Unlike just `fact`, `ordered` will replace the `NA`
+#' levels with `NA_integer_` to work appropriately with other functions.
 #'
 #' @inheritParams fact
 #' @seealso [fact()]
