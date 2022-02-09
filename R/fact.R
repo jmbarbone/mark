@@ -187,7 +187,8 @@ fact.haven_labelled <- function(x) {
 print.fact <- function(x, ...) {
   out <- x
   attr(out, "uniques") <- NULL
-  class(out) <- setdiff(class(out), "fact")
+  attr(out, "na") <- NULL
+  class(out) <- class(out) %wo% "fact"
   print(out)
   invisible(x)
 }
@@ -331,9 +332,9 @@ fact_na <- function(x, remove = FALSE) {
 
 #' @export
 as.integer.fact <- function(x, ...) {
+  x <- fact_na(x)
   nas <- is.na(x)
-  attr(x, "levels") <- NULL
-  attr(x, "uniques") <- NULL
+  attributes(x) <- NULL
   class(x) <- "integer"
   x[nas] <- NA_integer_
   x
@@ -347,12 +348,18 @@ as.double.fact <- function(x, ...) {
 
 # helpers -----------------------------------------------------------------
 
-new_fact <- function(x, levels, ordered = FALSE) {
+new_fact <- function(
+  x,
+  levels,
+  ordered = FALSE,
+  na = if (anyNA(levels)) length(levels) else 0L
+) {
   struct(
     as.integer(x),
     class = c("fact", if (ordered) "ordered", "factor"),
     levels = as.character(levels),
-    uniques = levels
+    uniques = levels,
+    na = na
   )
 }
 
