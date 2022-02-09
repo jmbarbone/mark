@@ -282,25 +282,45 @@ drop_levels.fact <- function(x, ...) {
 }
 
 
-# other methods -----------------------------------------------------------
 
-#' @export
-is.na.fact <- function(x) {
-  if (is.ordered(x)) {
-    return(is.na(unclass(x)))
+# fact_na -----------------------------------------------------------------
+
+#' `fact` with `NA`
+#'
+#' Included `NA` values into `fact()`
+#'
+#' @details
+#' This reformats the `x` value so that `NA`s are found immediately within the
+#' object rather than accessed through its attributes.
+#'
+#' @param x A `fact` or object cohered to `fact`
+#' @param remove If `TRUE` removes `NA` value from the `fact` `levels` and
+#'   `uniques` attributes
+#' @returns A `fact` vector
+#' @family factors
+fact_na <- function(x, remove = FALSE) {
+  x <- fact(x)
+  na <- attr(x, "na")
+
+  if (na == 0L) {
+    return(x)
   }
 
-  unclass(x) == which0(is.na(.uniques(x)))
-}
+  if (remove) {
+    attr(x, "levels")  <- attr(x, "levels")[-na]
+    attr(x, "uniques") <- attr(x, "uniques")[-na]
+  }
 
-
-#' @export
-`is.na<-.fact` <- function(x, value) {
-  u <- fact_values(x)
+  a <- attributes(x)
   x <- unclass(x)
-  x[value] <- NA
-  fact(u[x])
+  x[x == na] <- NA_integer_
+  attributes(x) <- a
+  attr(x, "na") <- 0L
+  x
 }
+
+
+# other methods -----------------------------------------------------------
 
 #' @export
 as.integer.fact <- function(x, ...) {
