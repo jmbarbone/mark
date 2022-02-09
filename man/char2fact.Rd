@@ -33,6 +33,7 @@ Other factors:
 \code{\link{as_ordered}()},
 \code{\link{drop_levels}()},
 \code{\link{fact2char}()},
+\code{\link{fact_na}()},
 \code{\link{fact}()}
 }
 \concept{factors}
