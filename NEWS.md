@@ -21,6 +21,10 @@
 * `match_param(NULL, null = TRUE)` allows `param` to safely return `NULL` [#89](https://github.com/jmbarbone/mark/issues/89)
 * `percentile_rank()` is now more correct when `x` is a decimal by checking for unique values first [#92](https://github.com/jmbarbone/mark/issues/92)
 
+## Breaking change
+
+* `fact.numeric()` now treats `NaN` the same as `NA`, no extra level/unique value is retained
+
 # mark 0.4.1
 
 * `details(factor)` no longer adds `fact` class to `factors` [#50](https://github.com/jmbarbone/mark/issues/50)
