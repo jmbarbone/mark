@@ -199,20 +199,6 @@ remove_class <- function(x, cl = NULL) {
   x
 }
 
-append0 <- function(x, values, pos = NULL) {
-  if (is.null(pos)) {
-    return(c(x, values))
-  }
-
-  if (pos == 1L) {
-    return(c(values, x))
-  }
-
-  n <- length(x)
-  pos <- min(pos, n)
-  c(x[1L:(pos - 1L)], values, x[pos:n])
-}
-
 check_interactive <- function() {
   op <- getOption("mark.check_interactive", TRUE)
 
