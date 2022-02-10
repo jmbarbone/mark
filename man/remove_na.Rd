@@ -5,6 +5,7 @@
 \alias{remove_na.default}
 \alias{remove_na.list}
 \alias{remove_na.factor}
+\alias{remove_na.fact}
 \title{Remove NA}
 \usage{
 remove_na(x)
@@ -14,6 +15,8 @@ remove_na(x)
 \method{remove_na}{list}(x)
 
 \method{remove_na}{factor}(x)
+
+\method{remove_na}{fact}(x)
 }
 \arguments{
 \item{x}{A vector of values}

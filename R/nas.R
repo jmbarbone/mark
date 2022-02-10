@@ -60,6 +60,15 @@ remove_na.factor <- function(x) {
   struct(out, class(x), levels = lvls[!na_levels])
 }
 
+#' @rdname remove_na
+#' @export
+remove_na.fact <- function(x) {
+  x <- fact_na(x)
+  attr(x, "levels")  <- remove_na(attr(x, "levels"))
+  attr(x, "uniques") <- remove_na(attr(x, "uniques"))
+  x[!is.na(x)]
+}
+
 #' Omit NA values
 #'
 #' @param x A vector of values
