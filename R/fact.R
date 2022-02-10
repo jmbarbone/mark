@@ -316,6 +316,7 @@ drop_levels.fact <- function(x, ...) {
 #'   `uniques` attributes
 #' @returns A `fact` vector
 #' @family factors
+#' @export
 fact_na <- function(x, remove = FALSE) {
   x <- fact(x)
   na <- attr(x, "na")
