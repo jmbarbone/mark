@@ -21,7 +21,7 @@ test_that("fact.pseudo_id() works", {
   x <- c(0L, 10L, 10L, NA, 0L, 5L)
   id <- pseudo_id(x)
   f <- fact(id)
-  res <- new_fact(c(1L, 3L, 3L, 4L, 1L, 2L), levels = c(0L, 5L, 10L, NA_integer_))
+  res <- new_fact(c(1L, 3L, 3L, 4L, 1L, 2L), c(0L, 5L, 10L, NA_integer_))
 
   expect_identical(fact(x), f)
   expect_identical(fact(x), res)
@@ -134,6 +134,21 @@ test_that("fact() correctly labels NAs [#24]", {
     fact(c(TRUE, TRUE, NA, FALSE, TRUE)),
     new_fact(c(1L, 1L, 3L, 2L, 1L), c(TRUE, FALSE, NA))
   )
+})
+
+
+test_that("fact() ignores NaN", {
+  # ignore NaN
+  res <- fact(c(1, 2, NA, 3, NaN))
+  exp <- struct(
+    c(1L, 2L, 4L, 3L, 4L),
+    class = c("fact", "factor"),
+    levels = c("1", "2", "3", NA),
+    uniques = c(1, 2, 3, NA),
+    na = 4L
+  )
+
+  expect_identical(res, exp)
 })
 
 

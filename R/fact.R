@@ -58,6 +58,16 @@ fact.character <- function(x) {
 #' @export
 fact.numeric <- function(x) {
   u <- sort.int(unique(x), method = "radix", na.last = TRUE)
+
+  # Don't bother NaN
+  nas <- is.na(u)
+  u[nas] <- NA
+
+  if (sum(nas) > 1) {
+    u <- u[-length(u)]
+  }
+
+  x[is.nan(x)] <- NA_real_
   new_fact(match(x, u), u)
 }
 

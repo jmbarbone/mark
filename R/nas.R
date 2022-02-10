@@ -63,10 +63,12 @@ remove_na.factor <- function(x) {
 #' @rdname remove_na
 #' @export
 remove_na.fact <- function(x) {
-  x <- fact_na(x)
-  attr(x, "levels")  <- remove_na(attr(x, "levels"))
-  attr(x, "uniques") <- remove_na(attr(x, "uniques"))
-  x[!is.na(x)]
+  # browser()
+  x <- fact_na(x, remove = TRUE)
+  at <- attributes(x)
+  x <- x[!is.na(x)]
+  attributes(x) <- at
+  x
 }
 
 #' Omit NA values
