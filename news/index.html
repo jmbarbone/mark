@@ -93,7 +93,16 @@
 <li>
 <code><a href="../reference/percentile_rank.html">percentile_rank()</a></code> is now more correct when <code>x</code> is a decimal by checking for unique values first <a href="https://github.com/jmbarbone/mark/issues/92" class="external-link">#92</a>
 </li>
+<li>
+<code><a href="../reference/fact_na.html">fact_na()</a></code> is added to use <code>fact</code> vectors with <code>NA</code> levels that work with <code><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na()</a></code> <a href="https://github.com/jmbarbone/mark/issues/69" class="external-link">#69</a>
+<ul><li>other improvements to <code>NA</code> handling as well</li>
+</ul></li>
+</ul><div class="section level3">
+<h3 id="breaking-change-development-version">Breaking change<a class="anchor" aria-label="anchor" href="#breaking-change-development-version"></a></h3>
+<ul><li>
+<code><a href="../reference/fact.html">fact.numeric()</a></code> now treats <code>NaN</code> the same as <code>NA</code>, no extra level/unique value is retained</li>
 </ul></div>
+</div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.4.1" id="mark-041">mark 0.4.1<small>2021-11-05</small><a class="anchor" aria-label="anchor" href="#mark-041"></a></h2>
 <ul><li>
