@@ -20,6 +20,12 @@
 * `set_not_available()` now seems to work correctly -- it probably hasn't actually be working most of the time
 * `match_param(NULL, null = TRUE)` allows `param` to safely return `NULL` [#89](https://github.com/jmbarbone/mark/issues/89)
 * `percentile_rank()` is now more correct when `x` is a decimal by checking for unique values first [#92](https://github.com/jmbarbone/mark/issues/92)
+* `fact_na()` is added to use `fact` vectors with `NA` levels that work with `is.na()` [#69](https://github.com/jmbarbone/mark/issues/69)
+  * other improvements to `NA` handling as well
+
+## Breaking change
+
+* `fact.numeric()` now treats `NaN` the same as `NA`, no extra level/unique value is retained
 
 # mark 0.4.1
 

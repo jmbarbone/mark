@@ -5,7 +5,14 @@ test_that("remove_na()", {
   expect_error(remove_na(data.frame(x = 1)))
 
   res <- remove_na(fact(x))
-  exp <- struct(1:4, c("fact", "factor"), levels = c("1", "2", "3", "NaN"))
+  exp <- struct(
+    1:3,
+    c("fact", "factor"),
+    levels = c("1", "2", "3"),
+    uniques = c(1, 2, 3),
+    na = 0L
+  )
+
   expect_identical(res, exp)
 })
 
