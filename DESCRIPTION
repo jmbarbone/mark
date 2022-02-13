@@ -14,7 +14,7 @@ Description: Miscellaneous functions and wrappers for development in other
     packages created, maintained by Jordan Mark Barbone.
 License: MIT + file LICENSE
 URL: https://github.com/jmbarbone/mark,
-    https://jmbarbone.github.io/mark
+    https://jmbarbone.github.io/mark/
 BugReports: https://github.com/jmbarbone/mark/issues
 Encoding: UTF-8
 LazyData: true
