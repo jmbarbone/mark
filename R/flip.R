@@ -109,7 +109,7 @@ reverse <- function(x, ...) {
   msg <- collapse0(
     "`mark::reverse()` is deprecated.",
     "Use `mark::flip()` instead.",
-    "This function will be removed in mark 0.4.3",
+    "This function will be removed in mark 0.5.1",
     sep = "\n"
   )
   cond <- warningCondition(
