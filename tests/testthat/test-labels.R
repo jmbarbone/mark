@@ -11,8 +11,6 @@ test_that("default assignment", {
 
   expect_equal(x0, x1)
   expect_true(is.null(attr(x1, "label")))
-
-  expect_warning(assign_label(x, "what"), "deprecated")
 })
 
 test_that("data.frame assignment", {
