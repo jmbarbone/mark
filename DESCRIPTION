@@ -2,7 +2,7 @@ Package: mark
 Type: Package
 Title: Miscellaneous, Analytic R Kernels
 Version: 0.4.1.9000
-Date: 2021-11-04
+Date: 2022-02-12
 Authors@R:
     person(given   = "Jordan Mark",
            family  = "Barbone",
@@ -14,7 +14,7 @@ Description: Miscellaneous functions and wrappers for development in other
     packages created, maintained by Jordan Mark Barbone.
 License: MIT + file LICENSE
 URL: https://github.com/jmbarbone/mark,
-    https://jmbarbone.github.io/mark
+    https://jmbarbone.github.io/mark/
 BugReports: https://github.com/jmbarbone/mark/issues
 Encoding: UTF-8
 LazyData: true

@@ -21,6 +21,10 @@ magrittr::`%>%`
   if (is.null(x)) y else x
 }
 
+`%len%` <- function(x, y) if (length(x)) x else y
+
+which0 <- function(x) which(x) %len% 0L
+
 # isTRUE, isFALSE, ...
 isNA <- function(x) {
   is.logical(x) && length(x) == 1L && is.na(x)
@@ -195,20 +199,6 @@ remove_class <- function(x, cl = NULL) {
   x
 }
 
-append0 <- function(x, values, pos = NULL) {
-  if (is.null(pos)) {
-    return(c(x, values))
-  }
-
-  if (pos == 1L) {
-    return(c(values, x))
-  }
-
-  n <- length(x)
-  pos <- min(pos, n)
-  c(x[1L:(pos - 1L)], values, x[pos:n])
-}
-
 check_interactive <- function() {
   op <- getOption("mark.check_interactive", TRUE)
 
@@ -251,4 +241,25 @@ has_char <- function(x) {
   }
 
   !is.na(x) & nzchar(x, keepNA = TRUE)
+}
+
+
+dupe_check <- function(x, n = getOption("mark.dupe.n", 5)) {
+  n <- as.integer(n)
+
+  dupes <- which(duplicated(x))
+  n_dupes <- length(dupes)
+  dupes <- utils::head(dupes, n)
+
+  if (n_dupes) {
+    stop(
+      "Duplicate values found in ", n_dupes, " location(s) :\n",
+      if (n_dupes > n) sprintf("(first %i)\n", n),
+      paste0("  > ", sprintf("[%s] %s", format(dupes), format(x[dupes])), "\n"),
+      if (n_dupes > n) "... and ", n_dupes - n, " more",
+      call. = FALSE
+    )
+  }
+
+  invisible(NULL)
 }

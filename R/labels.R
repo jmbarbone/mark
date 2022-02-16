@@ -120,7 +120,7 @@ assign_label <- function(x, ...) {
   msg <- collapse0(
     "`mark::assign_label()` is deprecated.",
     "Use `mark::assign_labels()` instead.",
-    "This function will be removed in mark 0.4.3",
+    "This function will be removed in mark 0.5.1",
     sep = "\n"
   )
   cond <- warningCondition(

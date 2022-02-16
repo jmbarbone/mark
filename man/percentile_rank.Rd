@@ -12,10 +12,10 @@ percentile_rank(x, times = NULL)
 \item{times}{A vector of the number of times to repeat \code{x}}
 }
 \value{
-The percentile rank of \code{x} between 0 and 1, exclusive
+The percentile rank of \code{x} between 0 and 1 (see Boundaries)
 }
 \description{
-The bounds of the percentile rank are > 0 and < 1
+The bounds of the percentile rank are > 0 and < 1 (see Boundaries)
 
 A percentile rank here is the proportion of scores that are less than the
 current score.
@@ -31,6 +31,19 @@ Where
 \details{
 Computes a percentile rank for each score in a set.
 }
+\section{Boundaries}{
+
+
+While the percentile rank of a score in a set must be exclusively within the
+boundaries of \code{0} and \code{1}, this function may produce a percentile rank that
+is exactly \code{0} or \code{1}.  This may occur when the number of values are so large
+that the value within the boundaries is too small to be differentiated.
+
+Additionally, when using the \code{times} parameter, if the lowest or highest
+number has a value of \code{0}, the number will then have a theoretical \code{0} or
+\code{1}, as these values are not actually within the set.
+}
+
 \examples{
 percentile_rank(0:9)
 x <- c(1, 2, 1, 7, 5, NA_integer_, 7, 10)

@@ -120,19 +120,19 @@ test_that("props() handles NA", {
   # data frame
   x <- c(1, 2, 2, 3, NA)
   y <- flip(x)
-  df <- data.frame(x = x, y = y)
+  df <- quick_dfl(x = x, y = y)
 
-  res_x1 <- data.frame(x = c(1, 2, 3, NA), prop = c(.2, .4, .2, .2))
-  res_x2 <- data.frame(x = c(1, 2, 3, NA), prop = c(.25, .5, .25, NA))
+  res_x1 <- quick_dfl(x = c(1, 2, 3, NA), prop = c(.20, .40, .20, .20))
+  res_x2 <- quick_dfl(x = c(1, 2, 3, NA), prop = c(.25, .50, .25,  NA))
   expect_identical(props(df, "x"), res_x1)
   expect_identical(props(df, "x", na.rm = TRUE), res_x2)
 
-  res_xy1 <- data.frame(
+  res_xy1 <- quick_dfl(
     x = c(1, 2, 2, 3, NA),
     y = c(NA, 3, 2, 2, 1),
     prop = rep(.2, 5)
   )
-  res_xy2 <- data.frame(
+  res_xy2 <- quick_dfl(
     x = c(1, 2, 2, 3, NA),
     y = c(NA, 3, 2, 2, 1),
     prop = c(NA, 1, 1, 1, NA) / 3

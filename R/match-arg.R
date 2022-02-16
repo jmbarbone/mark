@@ -63,13 +63,15 @@ match_arg <- function(x, table) {
 #'
 #' @param param The parameter
 #' @param choices The available choices
+#' @param null If `TRUE` allows `NULL` to be passed a `param`
 #' @return A single value from `param` matched on `choices`
 #'
 #' @seealso [mark::match_arg()]
 #'
 #' @export
-match_param <- function(param, choices) {
+match_param <- function(param, choices, null = TRUE) {
   if (is.null(param)) {
+    if (null) return(NULL)
     stop("match_param() requires non-NULL params", call. = FALSE)
   }
 

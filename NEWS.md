@@ -1,23 +1,39 @@
 # mark (development version)
 
-* adds `row_bind()` to bind a list of `data.frames()` [#46](https://github.com/jmbarbone/mark/issues/46)
-* Functions in `?handlers`, all allow for additional params passed through `...` [#34](https://github.com/jmbarbone/mark/issues/34)
-* adds `drop_levels()` with `factor` and `data.frame` methods; functions similarly to `base::droplevels()` but is a little faster [#54](https://github.com/jmbarbone/mark/issues/54)
+## Fixes
+
 * `detail(NA)` (or when `x` has only `NA` values) no longer throws a warning and returns `NA` for `min_c`, `max_c` [#59](https://github.com/jmbarbone/mark/issues/59)
 * `print.noted()` now passes `...` to next methods [#67](https://github.com/jmbarbone/mark/issues/67)
+* corrects deprecation warning in `assign_label()` [#74](https://github.com/jmbarbone/mark/issues/74)
+  * `assign_label()` will be removed in `0.4.2`
+* `set_not_available()` now seems to work correctly -- it probably hasn't actually be working most of the time
+* `percentile_rank()` is now more correct when `x` is a decimal by checking for unique values first [#92](https://github.com/jmbarbone/mark/issues/92)
+
+## New features
+
+* Functions in `?handlers`, all allow for additional params passed through `...` [#34](https://github.com/jmbarbone/mark/issues/34)
+* adds `row_bind()` to bind a list of `data.frames()` [#46](https://github.com/jmbarbone/mark/issues/46)
+ * adds `drop_levels()` with `factor` and `data.frame` methods; functions similarly to `base::droplevels()` but is a little faster [#54](https://github.com/jmbarbone/mark/issues/54)
 * `todos()` and `fixmes()` gain a new param `force`
   * When `TRUE`, forces searches for `.R` files when the given directory does not contain an `.Rproj` file
   * When `FALSE`, prevents long start ups when these functions are called in a `.Rprofile` file and R is not launches in a project directory
   * This be toggled with a new options `mark.todos.force`
-* github actions updated
 * adds `set_note()`, a wrapper for `note<-()` [#77](https://github.com/jmbarbone/mark/pull/77)
 * adds `fact2char()` to compliment `char2fact()` [#75](https://github.com/jmbarbone/mark/pull/75)
 * `print.pseudo_id()` now truncates long uniques to a single line [#70](https://github.com/jmbarbone/mark/pull/70)
-* corrects deprecation warning in `assign_label()` [#74](https://github.com/jmbarbone/mark/issues/74)
-  * `assign_label()` will be removed in `0.4.2`
+* `match_param(NULL, null = TRUE)` allows `param` to safely return `NULL` [#89](https://github.com/jmbarbone/mark/issues/89)
+* `fact_na()` is added to use `fact` vectors with `NA` levels that work with `is.na()` [#69](https://github.com/jmbarbone/mark/issues/69) and other `NA` handling improvements
+
+## Breaking change
+
+* `fact.numeric()` now treats `NaN` the same as `NA`, no extra level/unique value is retained
+* `read_clipboard()` now returns `NA` when the clipboard is empty, rather than `""` (improvements with internal type conversions)
+* improvements to `NA` handling as well
+
+## Other, Non-visible
+
+* github actions updated
 * internal type conversion now heavily relies on `utils::type.convert()` with some additional functionality for logical (e.g., character string using `"true"` and `"false"`) and for guessing dates in a `YYYY-MM-DD` format
-  * as part of this, `read_clipboard()` now returns `NA` when the clipboard is empty, rather than `""`
-* `set_not_available()` now seems to work correctly -- it probably hasn't actually be working most of the time
 
 # mark 0.4.1
 

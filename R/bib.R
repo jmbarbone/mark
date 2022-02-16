@@ -184,7 +184,7 @@ process_bib_dataframe <- function(categories, values, fields, keys) {
 process_bib_list <- function(keys, fields, categories, values) {
   valid <- !is.na(values) & values != ""
 
-  x <- mappply(
+  x <- mapply(
     function(key, field, cats, vals) {
       # # vals[is.na(vals)] <- ""
       # new <- c(key, field, vals)
@@ -221,7 +221,8 @@ as_bib <- function(x, bib_list = NULL) {
     stop("`x` must be a data.frame", call. = FALSE)
   }
 
-  class(x) <- c("data.frame", "mark_bib")
+  class(x) <- c("mark_bib_df", "data.frame")
+  attr(x, "bib_list") <- bib_list
   x
 }
 
@@ -272,5 +273,27 @@ print.mark_bib_entry <- function(x, ...) {
   )
 
   cat(paste(nm, blanks, out), sep = "\n")
+  invisible(x)
+}
+
+#' Print bib data frame
+#'
+#' Print bib dataframe, or as list
+#'
+#' @param x The `mark_bib_df` object
+#' @param list If `TRUE` will print as a list rather than the `data.frame`
+#' @param ... Additional arguments passed to methods
+#' @returns `x`, invisibly, called for its side effects
+#' @export
+print.mark_bib_df <- function(x, list = FALSE, ...) {
+  if (list) {
+    print(attr(x, "bib_list"), ...)
+  } else {
+    y <- x
+    attr(y, "bib_list") <- NULL
+    NextMethod()
+    # print(y, ...)
+  }
+
   invisible(x)
 }
