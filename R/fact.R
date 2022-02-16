@@ -287,6 +287,18 @@ drop_levels.fact <- function(x, ...) {
   }
 }
 
+#' @export
+#' @rdname drop_levels
+drop_levels.factor <- function(x, ...) {
+  chr <- as.character(x)
+  lvl <- levels(x) %wi% chr
+  struct(
+    match(chr, lvl),
+    class = c(if (is.fact(x)) "fact", if (is.ordered(x)) "ordered", "factor"),
+    levels = lvl
+  )
+}
+
 
 # fact_na -----------------------------------------------------------------
 
