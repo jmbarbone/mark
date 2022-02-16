@@ -360,7 +360,14 @@ as.double.fact <- function(x, ...) {
 # this won't drop levels
 #' @export
 unique.fact <- function(x, incomparables = FALSE, ...) {
-  x[!duplicated(x, incomparables = FALSE)]
+  att <- attributes(x)
+  struct(
+    unique(unclass(x)),
+    class = att$class,
+    levels = att$levels,
+    uniques = att$uniques,
+    na = att$na
+  )
 }
 
 
