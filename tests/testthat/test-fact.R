@@ -56,7 +56,7 @@ test_that("fact.factor() works", {
   class(x) <- c("fact", "factor")
   expect_identical(fact(x), x)
 
-  x <- ordered(x)
+  x <- ordered(letters)
   class(x) <- c("fact", "ordered", "factor")
   expect_identical(fact(x), x)
 
