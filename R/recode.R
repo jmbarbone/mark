@@ -15,7 +15,8 @@
 #' @param by A names vector (`new = old`); any non-matching values are set to
 #'   the appropriate `NA`
 #' @param vals An optional vector of values to use in lieu of a names in the
-#'   vector; this takes priority over `names(by)`
+#'   vector; this takes priority over `names(by)`.  This can be the same length
+#'   as `by` or a single value.
 #' @param mode passed to `as.vector()`
 #' @return A vector of values from `x`
 #'
@@ -39,6 +40,10 @@ recode_by <- function(x, by, vals = NULL, mode = "any") {
     stop("values to recode by were not properly set", call. = FALSE)
   }
 
+  if (length(vals) == 1) {
+    vals <- rep.int(vals, length(by))
+  }
+
   as.vector(vals[match(x, by)], mode = mode)
 }
 
@@ -49,6 +54,11 @@ recode_only <- function(x, by, vals = NULL) {
 
   if (is.null(vals)) {
     stop("values to recode by were not properly set", call. = FALSE)
+  }
+
+  if (length(vals) == 1) {
+    x[x %in% by] <- vals
+    return(x)
   }
 
   m <- match(x, by, nomatch = 0)
