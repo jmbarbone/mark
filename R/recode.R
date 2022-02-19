@@ -35,8 +35,9 @@
 recode_by <- function(x, by, vals = NULL, mode = "any") {
   vals <- vals %||% names(by)
 
-  if (is.null(vals))
+  if (is.null(vals)) {
     stop("values to recode by were not properly set", call. = FALSE)
+  }
 
   as.vector(vals[match(x, by)], mode = mode)
 }
@@ -46,8 +47,9 @@ recode_by <- function(x, by, vals = NULL, mode = "any") {
 recode_only <- function(x, by, vals = NULL) {
   vals <- vals %||% names(by)
 
-  if (is.null(vals))
+  if (is.null(vals)) {
     stop("values to recode by were not properly set", call. = FALSE)
+  }
 
   m <- match(x, by, nomatch = 0)
   mode <- mode(x)
