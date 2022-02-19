@@ -43,3 +43,13 @@ test_that("errors", {
   expect_error(recode_only(1, 1), txt)
 })
 
+test_that("single value", {
+  x <- letters[c(1, 2, 2, 1, 3)]
+  res <- recode_only(x, c("b", "a"), "d")
+  exp <- c("d", "d", "d", "d", "c")
+  expect_identical(res, exp)
+
+  res <- recode_by(x, c("b", "a"), "d")
+  exp <- c("d", "d", "d", "d", NA_character_)
+  expect_identical(res, exp)
+})
