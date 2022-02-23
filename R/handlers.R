@@ -45,8 +45,6 @@
 #' @name handlers
 NULL
 
-# TODO add `...` for `has_warning()`, `has_error()`, `has_message()`, etc
-
 #' @export
 #' @rdname handlers
 has_warning <- function(x, FUN, ...) {
