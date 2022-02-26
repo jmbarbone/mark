@@ -49,6 +49,7 @@
 
     <div class="section level2">
 <h2 class="page-header" data-toc-text="development version" id="mark-development-version">mark (development version)<a class="anchor" aria-label="anchor" href="#mark-development-version"></a></h2>
+<p>The package website <a href="https://jmbarbone.github.io/mark/" class="uri">https://jmbarbone.github.io/mark/</a> is now available! More references and vignettes will make their way here in future releases.</p>
 <div class="section level3">
 <h3 id="fixes-development-version">Fixes<a class="anchor" aria-label="anchor" href="#fixes-development-version"></a></h3>
 <ul><li>
@@ -67,6 +68,8 @@
 <li>
 <code><a href="../reference/percentile_rank.html">percentile_rank()</a></code> is now more correct when <code>x</code> is a decimal by checking for unique values first <a href="https://github.com/jmbarbone/mark/issues/92" class="external-link">#92</a>
 </li>
+<li>
+<code><a href="../reference/counts.html">counts.data.frame()</a></code> now handle factor columns better</li>
 </ul></div>
 <div class="section level3">
 <h3 id="new-features-development-version">New features<a class="anchor" aria-label="anchor" href="#new-features-development-version"></a></h3>
@@ -95,9 +98,12 @@
 </li>
 <li>
 <code><a href="../reference/fact_na.html">fact_na()</a></code> is added to use <code>fact</code> vectors with <code>NA</code> levels that work with <code><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na()</a></code> <a href="https://github.com/jmbarbone/mark/issues/69" class="external-link">#69</a> and other <code>NA</code> handling improvements</li>
+<li>adds a new <code>print._mark_bib_df()</code> method to supporting printing lists</li>
+<li>adds new methods for <code>facts</code>: <code>as.integer.fact()</code>, <code>as.double.fact()</code>, <code><a href="../reference/remove_na.html">remove_na.fact()</a></code>
+</li>
 </ul></div>
 <div class="section level3">
-<h3 id="breaking-change-development-version">Breaking change<a class="anchor" aria-label="anchor" href="#breaking-change-development-version"></a></h3>
+<h3 id="breaking-changes-development-version">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-development-version"></a></h3>
 <ul><li>
 <code><a href="../reference/fact.html">fact.numeric()</a></code> now treats <code>NaN</code> the same as <code>NA</code>, no extra level/unique value is retained</li>
 <li>
@@ -105,9 +111,10 @@
 <li>improvements to <code>NA</code> handling as well</li>
 </ul></div>
 <div class="section level3">
-<h3 id="other-non-visible-development-version">Other, Non-visible<a class="anchor" aria-label="anchor" href="#other-non-visible-development-version"></a></h3>
+<h3 id="other-non-visible-development-version">Other, non-visible<a class="anchor" aria-label="anchor" href="#other-non-visible-development-version"></a></h3>
 <ul><li>github actions updated</li>
 <li>internal type conversion now heavily relies on <code><a href="https://rdrr.io/r/utils/type.convert.html" class="external-link">utils::type.convert()</a></code> with some additional functionality for logical (e.g., character string using <code>"true"</code> and <code>"false"</code>) and for guessing dates in a <code>YYYY-MM-DD</code> format</li>
+<li>general clean up and formatting</li>
 </ul></div>
 </div>
     <div class="section level2">
