@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">mark</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.1.9000</span>
       </span>
     </div>
 
@@ -48,10 +48,10 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.5.0" id="mark-050">mark 0.5.0<a class="anchor" aria-label="anchor" href="#mark-050"></a></h2>
+<h2 class="page-header" data-toc-text="development version" id="mark-development-version">mark (development version)<a class="anchor" aria-label="anchor" href="#mark-development-version"></a></h2>
 <p>The package website <a href="https://jmbarbone.github.io/mark/" class="uri">https://jmbarbone.github.io/mark/</a> is now available! More references and vignettes will make their way here in future releases.</p>
 <div class="section level3">
-<h3 id="fixes-0-5-0">Fixes<a class="anchor" aria-label="anchor" href="#fixes-0-5-0"></a></h3>
+<h3 id="fixes-development-version">Fixes<a class="anchor" aria-label="anchor" href="#fixes-development-version"></a></h3>
 <ul><li>
 <code>detail(NA)</code> (or when <code>x</code> has only <code>NA</code> values) no longer throws a warning and returns <code>NA</code> for <code>min_c</code>, <code>max_c</code> <a href="https://github.com/jmbarbone/mark/issues/59" class="external-link">#59</a>
 </li>
@@ -72,7 +72,7 @@
 <code><a href="../reference/counts.html">counts.data.frame()</a></code> now handle factor columns better</li>
 </ul></div>
 <div class="section level3">
-<h3 id="new-features-0-5-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-5-0"></a></h3>
+<h3 id="new-features-development-version">New features<a class="anchor" aria-label="anchor" href="#new-features-development-version"></a></h3>
 <ul><li>Functions in <code><a href="../reference/handlers.html">?handlers</a></code>, all allow for additional params passed through <code>...</code> <a href="https://github.com/jmbarbone/mark/issues/34" class="external-link">#34</a>
 </li>
 <li>adds <code><a href="../reference/row_bind.html">row_bind()</a></code> to bind a list of <code>data.frames()</code> <a href="https://github.com/jmbarbone/mark/issues/46" class="external-link">#46</a>
@@ -103,7 +103,7 @@
 </li>
 </ul></div>
 <div class="section level3">
-<h3 id="breaking-changes-0-5-0">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-5-0"></a></h3>
+<h3 id="breaking-changes-development-version">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-development-version"></a></h3>
 <ul><li>
 <code><a href="../reference/fact.html">fact.numeric()</a></code> now treats <code>NaN</code> the same as <code>NA</code>, no extra level/unique value is retained</li>
 <li>
@@ -111,7 +111,7 @@
 <li>improvements to <code>NA</code> handling as well</li>
 </ul></div>
 <div class="section level3">
-<h3 id="other-non-visible-0-5-0">Other, non-visible<a class="anchor" aria-label="anchor" href="#other-non-visible-0-5-0"></a></h3>
+<h3 id="other-non-visible-development-version">Other, non-visible<a class="anchor" aria-label="anchor" href="#other-non-visible-development-version"></a></h3>
 <ul><li>github actions updated</li>
 <li>internal type conversion now heavily relies on <code><a href="https://rdrr.io/r/utils/type.convert.html" class="external-link">utils::type.convert()</a></code> with some additional functionality for logical (e.g., character string using <code>"true"</code> and <code>"false"</code>) and for guessing dates in a <code>YYYY-MM-DD</code> format</li>
 <li>general clean up and formatting</li>
