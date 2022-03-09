@@ -1,4 +1,4 @@
-# mark (development version)
+# mark 0.5.0
 
 The package website https://jmbarbone.github.io/mark/ is now available!
 More references and vignettes will make their way here in future releases.
