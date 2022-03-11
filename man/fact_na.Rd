@@ -19,7 +19,7 @@ A \code{fact} vector
 Included \code{NA} values into \code{fact()}
 }
 \details{
-This reformats the \code{x} value so that \code{NA}s are found immediately within the
+This re-formats the \code{x} value so that \code{NA}s are found immediately within the
 object rather than accessed through its attributes.
 }
 \seealso{
