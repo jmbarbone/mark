@@ -1,5 +1,9 @@
 # mark (development version)
 
+## Breaking changes 
+
+* `reverse()` has been removed
+
 # mark 0.5.0
 
 The package website https://jmbarbone.github.io/mark/ is now available!
