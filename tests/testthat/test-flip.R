@@ -66,6 +66,3 @@ test_that("flip doesn't coerce into lower object [36]", {
   expect_identical(flip(matrix(1)), matrix(1))
 })
 
-test_that("reverse() is deprecated", {
-  expect_warning(reverse(1:10))
-})

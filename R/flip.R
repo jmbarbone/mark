@@ -102,23 +102,3 @@ flip.data.frame <- function(x, by_row = TRUE, keep_rownames = NULL, ...) {
 
   out
 }
-
-#' @export
-#' @rdname flip
-reverse <- function(x, ...) {
-  msg <- collapse0(
-    "`mark::reverse()` is deprecated.",
-    "Use `mark::flip()` instead.",
-    "This function will be removed in mark 0.5.1",
-    sep = "\n"
-  )
-  cond <- warningCondition(
-    message = msg,
-    old = "reverse()",
-    new = "flip()",
-    package = "mark",
-    class = "deprecatedWarning"
-  )
-  warning(cond)
-  flip(x, ...)
-}
