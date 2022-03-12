@@ -2,7 +2,8 @@
 
 ## Breaking changes 
 
-* `reverse()` has been removed
+* `reverse()` has been removed (use `flip()` instead)
+* `assign_label()` has been removed (use `assign_labels()` instead)
 
 # mark 0.5.0
 
