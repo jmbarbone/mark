@@ -5,7 +5,6 @@
 \alias{flip.default}
 \alias{flip.matrix}
 \alias{flip.data.frame}
-\alias{reverse}
 \title{Flip}
 \usage{
 flip(x, ...)
@@ -15,8 +14,6 @@ flip(x, ...)
 \method{flip}{matrix}(x, by_row = TRUE, keep_rownames = NULL, ...)
 
 \method{flip}{data.frame}(x, by_row = TRUE, keep_rownames = NULL, ...)
-
-reverse(x, ...)
 }
 \arguments{
 \item{x}{An object}

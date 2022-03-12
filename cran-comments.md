@@ -9,7 +9,7 @@
 
 0 errors | 0 warnings | 0 note
 
-* This is a patch release
+* This is a minor release
 
 ## Notes
 
