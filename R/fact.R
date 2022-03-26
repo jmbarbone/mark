@@ -264,6 +264,7 @@ as_ordered.default <- function(x) {
 #' @param x A `factor` or `data.frame`
 #' @param ... Additional arguments passed to methods (not used)
 #' @seealso [base::droplevels]
+#' @export
 #' @family factors
 drop_levels <- function(x, ...) {
   UseMethod("drop_levels", x)
