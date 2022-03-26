@@ -1,5 +1,13 @@
 # mark (development version)
 
+## New features
+
+* `unique.fact()` S3 method [#86](https://github.com/jmbarbone/mark/issues/86)
+
+## Fixes
+
+* `drop_levels()` is exported [#105](https://github.com/jmbarbone/mark/issues/105)
+
 ## Breaking changes 
 
 * `reverse()` has been removed (use `flip()` instead)

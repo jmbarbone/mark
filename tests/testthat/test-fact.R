@@ -56,7 +56,7 @@ test_that("fact.factor() works", {
   class(x) <- c("fact", "factor")
   expect_identical(fact(x), x)
 
-  x <- ordered(x)
+  x <- ordered(letters)
   class(x) <- c("fact", "ordered", "factor")
   expect_identical(fact(x), x)
 
@@ -279,4 +279,16 @@ test_that("as.integer.fact() works", {
   exp <- c(1, 2, NA_real_, 3)
   expect_identical(res, exp)
   expect_identical(as.numeric(x), exp)
+})
+
+test_that("unique.fact() works", {
+  x <- fact(c(1, 2, NA, 3, 2))
+  exp <- fact(c(1, 2, NA, 3))
+  res <- unique(x)
+  expect_identical(exp, res)
+
+  x <- as_ordered(x)
+  exp <- as_ordered(exp)
+  res <- unique(x)
+  expect_identical(exp, res)
 })
