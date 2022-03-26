@@ -307,7 +307,7 @@ drop_levels.factor <- function(x, ...) {
 #' Included `NA` values into `fact()`
 #'
 #' @details
-#' This reformats the `x` value so that `NA`s are found immediately within the
+#' This re-formats the `x` value so that `NA`s are found immediately within the
 #' object rather than accessed through its attributes.
 #'
 #' @param x A `fact` or object cohered to `fact`
