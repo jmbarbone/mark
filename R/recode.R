@@ -56,6 +56,8 @@ recode_only <- function(x, by, vals = NULL) {
     stop("values to recode by were not properly set", call. = FALSE)
   }
 
+  vals <- as.vector(vals, if (typeof(x) == "integer") "integer" else mode(x))
+
   if (length(vals) == 1L) {
     x[x %in% by] <- vals
     return(x)
