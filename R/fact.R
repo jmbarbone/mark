@@ -264,6 +264,7 @@ as_ordered.default <- function(x) {
 #' @param x A `factor` or `data.frame`
 #' @param ... Additional arguments passed to methods (not used)
 #' @seealso [base::droplevels]
+#' @export
 #' @family factors
 drop_levels <- function(x, ...) {
   UseMethod("drop_levels", x)
@@ -279,18 +280,6 @@ drop_levels.data.frame <- function(x, ...) {
 
 #' @export
 #' @rdname drop_levels
-drop_levels.factor <- function(x, ...) {
-  chr <- as.character(x)
-  lvl <- levels(x) %wi% chr
-  struct(
-    match(chr, lvl),
-    class = c(if (is.ordered(x)) "ordered", "factor"),
-    levels = lvl
-  )
-}
-
-#' @export
-#' @rdname drop_levels
 drop_levels.fact <- function(x, ...) {
   if (is.ordered(x)) {
     as_ordered(fact_values(x))
@@ -299,6 +288,17 @@ drop_levels.fact <- function(x, ...) {
   }
 }
 
+#' @export
+#' @rdname drop_levels
+drop_levels.factor <- function(x, ...) {
+  chr <- as.character(x)
+  lvl <- levels(x) %wi% chr
+  struct(
+    match(chr, lvl),
+    class = c(if (is.fact(x)) "fact", if (is.ordered(x)) "ordered", "factor"),
+    levels = lvl
+  )
+}
 
 
 # fact_na -----------------------------------------------------------------
@@ -308,7 +308,7 @@ drop_levels.fact <- function(x, ...) {
 #' Included `NA` values into `fact()`
 #'
 #' @details
-#' This reformats the `x` value so that `NA`s are found immediately within the
+#' This re-formats the `x` value so that `NA`s are found immediately within the
 #' object rather than accessed through its attributes.
 #'
 #' @param x A `fact` or object cohered to `fact`
@@ -354,6 +354,21 @@ as.integer.fact <- function(x, ...) {
 #' @export
 as.double.fact <- function(x, ...) {
   as.double(as.integer(x))
+}
+
+
+# because unique.factor() remakes factor
+# this won't drop levels
+#' @export
+unique.fact <- function(x, incomparables = FALSE, ...) {
+  att <- attributes(x)
+  struct(
+    unique(unclass(x)),
+    class = att$class,
+    levels = att$levels,
+    uniques = att$uniques,
+    na = att$na
+  )
 }
 
 

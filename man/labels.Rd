@@ -5,7 +5,6 @@
 \alias{assign_labels}
 \alias{assign_labels.default}
 \alias{assign_labels.data.frame}
-\alias{assign_label}
 \alias{get_labels}
 \alias{get_labels.default}
 \alias{get_labels.data.frame}
@@ -20,8 +19,6 @@ assign_labels(x, ...)
 \method{assign_labels}{default}(x, label, ...)
 
 \method{assign_labels}{data.frame}(x, ..., .missing = c("error", "warn", "skip"), .ls = list(...))
-
-assign_label(x, ...)
 
 get_labels(x)
 
