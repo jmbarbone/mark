@@ -56,14 +56,14 @@ recode_only <- function(x, by, vals = NULL) {
     stop("values to recode by were not properly set", call. = FALSE)
   }
 
-  if (length(vals) == 1) {
+  if (length(vals) == 1L) {
     x[x %in% by] <- vals
     return(x)
   }
 
-  m <- match(x, by, nomatch = 0)
+  m <- match(x, by, nomatch = 0L)
   mode <- mode(x)
-  x[m > 0] <- vals[m]
+  x[m > 0L] <- vals[m]
   clean_na_coercion(as.vector(x, mode = mode))
 }
 
