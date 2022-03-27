@@ -16,7 +16,8 @@ recode_only(x, by, vals = NULL)
 the appropriate \code{NA}}
 
 \item{vals}{An optional vector of values to use in lieu of a names in the
-vector; this takes priority over \code{names(by)}}
+vector; this takes priority over \code{names(by)}.  This can be the same length
+as \code{by} or a single value.}
 
 \item{mode}{passed to \code{as.vector()}}
 }
