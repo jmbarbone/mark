@@ -8,6 +8,7 @@
 ## Fixes
 
 * `drop_levels()` is exported [#105](https://github.com/jmbarbone/mark/issues/105)
+* `recode_by()` and `recode_only()` handle factors better [#81](https://github.com/jmbarbone/mark/issues/81)
 
 ## Breaking changes 
 

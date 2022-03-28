@@ -51,3 +51,21 @@ test_that("single value", {
   exp <- c("d", "d", "d", "d", NA_character_)
   expect_identical(res, exp)
 })
+
+test_that("factors", {
+  x <- factor(c("a", "b", "c"))
+  res <- recode_only(x, c(new = "new"))
+  expect_identical(res, x)
+
+  res <- recode_by(x, c(new = "new"))
+  exp <- factor(c(NA, NA, NA))
+  expect_identical(res, exp)
+
+  res <- recode_only(x, c(A = "a"))
+  exp <- factor(c("A", "b", "c"))
+  expect_identical(exp, res)
+
+  res <- recode_by(x, c(A = "a"))
+  exp <- factor(c("A", NA, NA))
+  expect_identical(res, exp)
+})
