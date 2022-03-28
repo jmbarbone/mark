@@ -56,6 +56,12 @@ recode_by <- function(x, by, vals = NULL, mode = "any") {
 #' @export
 #' @rdname recode_by
 recode_only <- function(x, by, vals = NULL) {
+
+  if (is.factor(x)) {
+    levels(x) <- recode_only(levels(x), by = by, vals = vals)
+    return(x)
+  }
+
   vals <- vals %||% names(by)
 
   if (is.null(vals)) {
