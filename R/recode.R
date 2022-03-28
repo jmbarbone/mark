@@ -34,6 +34,12 @@
 #' @export
 
 recode_by <- function(x, by, vals = NULL, mode = "any") {
+
+  if (is.factor(x)) {
+    levels(x) <- recode_by(levels(x), by = by, vals = vals, mode = mode)
+    return(x)
+  }
+
   vals <- vals %||% names(by)
 
   if (is.null(vals)) {
