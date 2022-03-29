@@ -91,7 +91,10 @@ Small functions for working with data.frames:
 ```{r dataframes}
 x <- list(a = 1:5, b = letters[1:5])
 quick_df(x)
-vector2df(x[["b"]])
+
+vector2df(x[["b"]], name = NULL)
+
+quick_dfl(a = 1:3, b = list(1:5, 6:10, 11:15))
 ```
 
 Counts and proportions:
