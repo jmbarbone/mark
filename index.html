@@ -144,21 +144,21 @@
 <span class="va">bib</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_bib.html">read_bib</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span>
 <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="va">bib</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 13 x 23</span>
-<span class="co">#&gt;    key    field  author  title   journal  year  number pages month note   volume</span>
-<span class="co">#&gt;    &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; </span>
-<span class="co">#&gt;  1 artic~ artic~ Peter ~ The ti~ The nam~ 1993  2      201-~ 7     An op~ 4     </span>
-<span class="co">#&gt;  2 book   book   Peter ~ The ti~ &lt;NA&gt;     1993  &lt;NA&gt;   &lt;NA&gt;  7     An op~ 4     </span>
-<span class="co">#&gt;  3 bookl~ bookl~ Peter ~ The ti~ &lt;NA&gt;     1993  &lt;NA&gt;   &lt;NA&gt;  7     An op~ &lt;NA&gt;  </span>
-<span class="co">#&gt;  4 confe~ confe~ Peter ~ The ti~ &lt;NA&gt;     1993  &lt;NA&gt;   213   7     An op~ 4     </span>
-<span class="co">#&gt;  5 inbook inbook Peter ~ The ti~ &lt;NA&gt;     1993  &lt;NA&gt;   201-~ 7     An op~ 4     </span>
-<span class="co">#&gt;  6 incol~ incol~ Peter ~ The ti~ &lt;NA&gt;     1993  &lt;NA&gt;   201-~ 7     An op~ 4     </span>
-<span class="co">#&gt;  7 manual manual Peter ~ The ti~ &lt;NA&gt;     1993  &lt;NA&gt;   &lt;NA&gt;  7     An op~ &lt;NA&gt;  </span>
-<span class="co">#&gt;  8 maste~ maste~ Peter ~ The ti~ &lt;NA&gt;     1993  &lt;NA&gt;   &lt;NA&gt;  7     An op~ &lt;NA&gt;  </span>
-<span class="co">#&gt;  9 misc   misc   Peter ~ The ti~ &lt;NA&gt;     1993  &lt;NA&gt;   &lt;NA&gt;  7     An op~ &lt;NA&gt;  </span>
-<span class="co">#&gt; 10 phdth~ phdth~ Peter ~ The ti~ &lt;NA&gt;     1993  &lt;NA&gt;   &lt;NA&gt;  7     An op~ &lt;NA&gt;  </span>
-<span class="co">#&gt; 11 proce~ proce~ &lt;NA&gt;    The ti~ &lt;NA&gt;     1993  &lt;NA&gt;   &lt;NA&gt;  7     An op~ 4     </span>
-<span class="co">#&gt; 12 techr~ techr~ Peter ~ The ti~ &lt;NA&gt;     1993  2      &lt;NA&gt;  7     An op~ &lt;NA&gt;  </span>
-<span class="co">#&gt; 13 unpub~ unpub~ Peter ~ The ti~ &lt;NA&gt;     1993  &lt;NA&gt;   &lt;NA&gt;  7     An op~ &lt;NA&gt;  </span>
+<span class="co">#&gt;    key          field author title journal year  number pages month note  volume</span>
+<span class="co">#&gt;    &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; </span>
+<span class="co">#&gt;  1 article      arti~ Peter~ The ~ The na~ 1993  2      201-~ 7     An o~ 4     </span>
+<span class="co">#&gt;  2 book         book  Peter~ The ~ &lt;NA&gt;    1993  &lt;NA&gt;   &lt;NA&gt;  7     An o~ 4     </span>
+<span class="co">#&gt;  3 booklet      book~ Peter~ The ~ &lt;NA&gt;    1993  &lt;NA&gt;   &lt;NA&gt;  7     An o~ &lt;NA&gt;  </span>
+<span class="co">#&gt;  4 conference   conf~ Peter~ The ~ &lt;NA&gt;    1993  &lt;NA&gt;   213   7     An o~ 4     </span>
+<span class="co">#&gt;  5 inbook       inbo~ Peter~ The ~ &lt;NA&gt;    1993  &lt;NA&gt;   201-~ 7     An o~ 4     </span>
+<span class="co">#&gt;  6 incollection inco~ Peter~ The ~ &lt;NA&gt;    1993  &lt;NA&gt;   201-~ 7     An o~ 4     </span>
+<span class="co">#&gt;  7 manual       manu~ Peter~ The ~ &lt;NA&gt;    1993  &lt;NA&gt;   &lt;NA&gt;  7     An o~ &lt;NA&gt;  </span>
+<span class="co">#&gt;  8 mastersthes~ mast~ Peter~ The ~ &lt;NA&gt;    1993  &lt;NA&gt;   &lt;NA&gt;  7     An o~ &lt;NA&gt;  </span>
+<span class="co">#&gt;  9 misc         misc  Peter~ The ~ &lt;NA&gt;    1993  &lt;NA&gt;   &lt;NA&gt;  7     An o~ &lt;NA&gt;  </span>
+<span class="co">#&gt; 10 phdthesis    phdt~ Peter~ The ~ &lt;NA&gt;    1993  &lt;NA&gt;   &lt;NA&gt;  7     An o~ &lt;NA&gt;  </span>
+<span class="co">#&gt; 11 proceedings  proc~ &lt;NA&gt;   The ~ &lt;NA&gt;    1993  &lt;NA&gt;   &lt;NA&gt;  7     An o~ 4     </span>
+<span class="co">#&gt; 12 techreport   tech~ Peter~ The ~ &lt;NA&gt;    1993  2      &lt;NA&gt;  7     An o~ &lt;NA&gt;  </span>
+<span class="co">#&gt; 13 unpublished  unpu~ Peter~ The ~ &lt;NA&gt;    1993  &lt;NA&gt;   &lt;NA&gt;  7     An o~ &lt;NA&gt;  </span>
 <span class="co">#&gt; # ... with 12 more variables: publisher &lt;chr&gt;, series &lt;chr&gt;, address &lt;chr&gt;,</span>
 <span class="co">#&gt; #   edition &lt;chr&gt;, isbn &lt;chr&gt;, howpublished &lt;chr&gt;, booktitle &lt;chr&gt;,</span>
 <span class="co">#&gt; #   editor &lt;chr&gt;, organization &lt;chr&gt;, chapter &lt;chr&gt;, school &lt;chr&gt;,</span>
@@ -181,13 +181,20 @@
 <span class="co">#&gt; 3 3 c</span>
 <span class="co">#&gt; 4 4 d</span>
 <span class="co">#&gt; 5 5 e</span>
-<span class="fu"><a href="reference/vector2df.html">vector2df</a></span><span class="op">(</span><span class="va">x</span><span class="op">[[</span><span class="st">"b"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>
-<span class="co">#&gt;   name value</span>
-<span class="co">#&gt; 1   NA     a</span>
-<span class="co">#&gt; 2   NA     b</span>
-<span class="co">#&gt; 3   NA     c</span>
-<span class="co">#&gt; 4   NA     d</span>
-<span class="co">#&gt; 5   NA     e</span></code></pre></div>
+
+<span class="fu"><a href="reference/vector2df.html">vector2df</a></span><span class="op">(</span><span class="va">x</span><span class="op">[[</span><span class="st">"b"</span><span class="op">]</span><span class="op">]</span>, name <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
+<span class="co">#&gt;   value</span>
+<span class="co">#&gt; 1     a</span>
+<span class="co">#&gt; 2     b</span>
+<span class="co">#&gt; 3     c</span>
+<span class="co">#&gt; 4     d</span>
+<span class="co">#&gt; 5     e</span>
+
+<span class="fu"><a href="reference/quick_df.html">quick_dfl</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, b <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">6</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">11</span><span class="op">:</span><span class="fl">15</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt;   a                  b</span>
+<span class="co">#&gt; 1 1      1, 2, 3, 4, 5</span>
+<span class="co">#&gt; 2 2     6, 7, 8, 9, 10</span>
+<span class="co">#&gt; 3 3 11, 12, 13, 14, 15</span></code></pre></div>
 <p>Counts and proportions:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span>
