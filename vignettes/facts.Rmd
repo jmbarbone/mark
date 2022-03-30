@@ -1,0 +1,42 @@
+---
+title: "Working with `facts`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Working with `facts`}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+bench_mark <- function(x) {
+  b <- bench::mark(fact(x), factor(x), forcats::as_factor(x), iterations = 50, check = FALSE)
+  print(ggplot2::autoplot(b) + ggplot2::labs(title = class(x)))
+  b
+}
+```
+
+```{r setup}
+library(mark)
+```
+
+`fact`s are a special class much like `factors` but with some performance improvements.
+
+```{r}
+x <- apply(matrix(sample(letters, 1e5, TRUE), ncol = 4), 1, collapse0)
+bench_mark(x)
+
+x <- round(runif(1e5), 2)
+bench_mark(x)
+
+x <- order(x)
+bench_mark(x)
+
+x <- x > 1e5 / 2
+x[sample(x, 1e3)] <- NA
+bench_mark(x)
+```
