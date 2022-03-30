@@ -4,6 +4,7 @@
 
 * `unique.fact()` S3 method [#86](https://github.com/jmbarbone/mark/issues/86)
 * `recode_only()` and `recode_by()` can accept a single value for `val` [#72](https://github.com/jmbarbone/mark/issues/72)
+* `fact_reverse()` for reversing `fact` levels [#78](https://github.com/jmbarbone/mark/issues/78)
 
 ## Fixes
 
