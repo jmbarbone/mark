@@ -26,6 +26,13 @@ library(mark)
 
 `fact`s are a special class much like `factors` but with some performance improvements.
 
+| Case    | `factor()` | `fact()` |
+| ------- | ---------- | -------- |
+| Level sorting | When not set, sorts | Sorts numbers, preset sorting for logical, no sorting for character |
+| `NA` | Default levels don't include `NA` | When `NA` is present, is added as the last level |
+| S3 methods | None | S3 methods can extend functionality |
+| Attributes | `levels`, `class`|  `levels`, `a`, `uniques`, `na`, `class` |
+
 ```{r}
 x <- apply(matrix(sample(letters, 1e5, TRUE), ncol = 4), 1, collapse0)
 bench_mark(x)
