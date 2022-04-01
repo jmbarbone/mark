@@ -47,3 +47,11 @@ x <- x > 1e5 / 2
 x[sample(x, 1e3)] <- NA
 bench_mark(x)
 ```
+
+`fact()` takes an S3 approach for factors which allows data to take different sorting and matching processes.
+This allows `fact()` to be most efficient with its labeling and transformations.
+This differs from `factor()` which uses the same process, and always sorts labels in ascending order.
+
+```{r}
+utils::methods("fact")
+```
