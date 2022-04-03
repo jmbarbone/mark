@@ -5,6 +5,7 @@
 * `unique.fact()` S3 method [#86](https://github.com/jmbarbone/mark/issues/86)
 * `recode_only()` and `recode_by()` can accept a single value for `val` [#72](https://github.com/jmbarbone/mark/issues/72)
 * `fact_reverse()` for reversing `fact` levels [#78](https://github.com/jmbarbone/mark/issues/78)
+* `as.character.fact()` added
 
 ## Fixes
 
@@ -15,6 +16,10 @@
 
 * `reverse()` has been removed (use `flip()` instead)
 * `assign_label()` has been removed (use `assign_labels()` instead)
+
+## Non visible changes
+
+* `print.fact()` rewritten as a slightly modified `print.factor()` [#109](https://github.com/jmbarbone/mark/issues/109)
 
 # mark 0.5.0
 
