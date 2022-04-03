@@ -378,6 +378,10 @@ as.double.fact <- function(x, ...) {
   as.double(as.integer(x))
 }
 
+#' @export
+as.character.fact <- function(x, ...) {
+  as.character(attr(x, "uniques")[x])
+}
 
 # because unique.factor() remakes factor
 # this won't drop levels
