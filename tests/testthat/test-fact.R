@@ -319,3 +319,13 @@ test_that("unique.fact() works", {
   res <- unique(x)
   expect_identical(exp, res)
 })
+
+
+# snapshots ---------------------------------------------------------------
+
+test_that("snapshots", {
+  expect_snapshot(fact(character()))
+  expect_snapshot(fact(1:5))
+  expect_snapshot(print(fact(1:100), max_levels = TRUE))
+  expect_snapshot(print(fact(1:100), max_levels = 20))
+})
