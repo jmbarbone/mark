@@ -194,12 +194,54 @@ fact.haven_labelled <- function(x) {
 }
 
 #' @export
-print.fact <- function(x, ...) {
-  out <- x
-  attr(out, "uniques") <- NULL
-  attr(out, "na") <- NULL
-  class(out) <- class(out) %wo% "fact"
-  print(out)
+print.fact <- function(
+  x,
+  max_levels = getOption("mark.fact.max_levels", TRUE),
+  width = getOption("width"),
+  ...
+) {
+  # mostly a reformatted base::print.factor()
+  ord <- is.ordered(x)
+  if (length(x) == 0L) {
+    cat(if (ord) "ordered" else "factor", "(0)\n", sep = "")
+  } else {
+    print(as.character(x), quote = FALSE, ...)
+  }
+
+  if (max_levels) {
+    lev <- encodeString(levels(x), quote = "")
+    n <- length(lev)
+    colsep <- if (ord) " < " else " "
+    T0 <- "Levels: "
+    if (is.logical(max_levels)) {
+      max_levels <- {
+        width <- width - (nchar(T0, "w") + 3L +  1L + 3L)
+        lenl <- cumsum(nchar(lev, "w") + nchar(colsep, "w"))
+
+        if (n <= 1L || lenl[n] <= width) {
+          n
+        } else {
+          max(1L, which.max(lenl > width) - 1L)
+        }
+      }
+    }
+    drop <- n > max_levels
+    cat(
+      if (drop) paste(format(n), ""),
+      T0,
+      paste(
+        if (drop) {
+          c(lev[1L:max(1, max_levels - 1)], "...", if (max_levels >  1) lev[n])
+        } else {
+          lev
+        },
+        collapse = colsep
+      ),
+      "\n",
+      sep = ""
+    )
+  }
+
   invisible(x)
 }
 
