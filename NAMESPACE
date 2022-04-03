@@ -3,6 +3,7 @@
 S3method(append0,data.frame)
 S3method(append0,default)
 S3method(append0,list)
+S3method(as.character,fact)
 S3method(as.double,fact)
 S3method(as.integer,fact)
 S3method(as_ordered,default)
