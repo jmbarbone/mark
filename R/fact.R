@@ -444,6 +444,13 @@ as.Date.fact <- function(x, ...) {
   as.Date(attr(x, "uniques"), ...)[x]
 }
 
+#' @export
+`[.fact` <- function(x, ...)  {
+  y <- NextMethod("[")
+  attributes(y) <- attributes(x)
+  y
+}
+
 
 # helpers -----------------------------------------------------------------
 

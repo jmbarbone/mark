@@ -7,6 +7,7 @@
 * `fact_reverse()` for reversing `fact` levels [#78](https://github.com/jmbarbone/mark/issues/78)
 * `as.Date.fact()` added [#108](https://github.com/jmbarbone/mark/issues/108)
 * `as.character.fact()` added
+* `[.fact` added
 
 ## Fixes
 

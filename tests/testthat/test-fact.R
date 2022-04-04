@@ -276,6 +276,14 @@ test_that("fact_reverse() works", {
 
 # other methods -----------------------------------------------------------
 
+test_that("[.fact() works", {
+  x <- fact(1:3)
+  x1 <- do.call(structure, c(1, attributes(x)))
+  x2 <- do.call(structure, c(2, attributes(x)))
+  expect_identical(x[1], x1)
+  expect_identical(x[2], x2)
+})
+
 test_that("is.na.fact(), works", {
   x <- fact(c(1, 2, NA, 3))
   res <- is.na(x)
