@@ -6,6 +6,7 @@
 * `recode_only()` and `recode_by()` can accept a single value for `val` [#72](https://github.com/jmbarbone/mark/issues/72)
 * `fact_reverse()` for reversing `fact` levels [#78](https://github.com/jmbarbone/mark/issues/78)
 * `as.character.fact()` added
+* `[.fact` added
 
 ## Fixes
 
