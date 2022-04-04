@@ -439,6 +439,13 @@ unique.fact <- function(x, incomparables = FALSE, ...) {
   )
 }
 
+#' @export
+`[.fact` <- function(x, ...)  {
+  y <- NextMethod("[")
+  attributes(y) <- attributes(x)
+  y
+}
+
 
 # helpers -----------------------------------------------------------------
 
