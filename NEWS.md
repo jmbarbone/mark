@@ -6,16 +6,21 @@
 * `recode_only()` and `recode_by()` can accept a single value for `val` [#72](https://github.com/jmbarbone/mark/issues/72)
 * `fact_reverse()` for reversing `fact` levels [#78](https://github.com/jmbarbone/mark/issues/78)
 * `as.Date.fact()` added [#108](https://github.com/jmbarbone/mark/issues/108)
+* `as.character.fact()` added
 
 ## Fixes
 
 * `drop_levels()` is exported [#105](https://github.com/jmbarbone/mark/issues/105)
 * `recode_by()` and `recode_only()` handle factors better [#81](https://github.com/jmbarbone/mark/issues/81)
 
-## Breaking changes 
+## Breaking changes
 
 * `reverse()` has been removed (use `flip()` instead)
 * `assign_label()` has been removed (use `assign_labels()` instead)
+
+## Non visible changes
+
+* `print.fact()` rewritten as a slightly modified `print.factor()` [#109](https://github.com/jmbarbone/mark/issues/109)
 
 # mark 0.5.0
 
