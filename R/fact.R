@@ -67,7 +67,7 @@ fact.numeric <- function(x) {
     u <- u[-length(u)]
   }
 
-  x[is.nan(x)] <- NA_real_
+  x[is.nan(x)] <- NA
   new_fact(match(x, u), u)
 }
 
