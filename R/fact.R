@@ -67,7 +67,7 @@ fact.numeric <- function(x) {
     u <- u[-length(u)]
   }
 
-  x[is.nan(x)] <- NA_real_
+  x[is.nan(x)] <- NA
   new_fact(match(x, u), u)
 }
 
@@ -437,6 +437,11 @@ unique.fact <- function(x, incomparables = FALSE, ...) {
     uniques = att$uniques,
     na = att$na
   )
+}
+
+#' @export
+as.Date.fact <- function(x, ...) {
+  as.Date(attr(x, "uniques"), ...)[x]
 }
 
 #' @export

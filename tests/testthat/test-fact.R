@@ -328,6 +328,16 @@ test_that("unique.fact() works", {
   expect_identical(exp, res)
 })
 
+test_that("as.Date.fact() works", {
+  exp <- as.Date(c("2022-01-02", NA, "1908-12-21"))
+  res <- as.Date(fact(exp))
+  expect_identical(exp, res)
+
+  x <- c("01-01-2022", "01-02-2000")
+  exp <- as.Date(x, "%d-%m-%Y")
+  res <- as.Date(fact(x), "%d-%m-%Y")
+  expect_identical(exp, res)
+})
 
 # snapshots ---------------------------------------------------------------
 
