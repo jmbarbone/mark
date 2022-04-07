@@ -67,7 +67,7 @@ fact.numeric <- function(x) {
     u <- u[-length(u)]
   }
 
-  x[is.nan(x)] <- NA_real_
+  x[is.nan(x)] <- NA
   new_fact(match(x, u), u)
 }
 
@@ -194,12 +194,54 @@ fact.haven_labelled <- function(x) {
 }
 
 #' @export
-print.fact <- function(x, ...) {
-  out <- x
-  attr(out, "uniques") <- NULL
-  attr(out, "na") <- NULL
-  class(out) <- class(out) %wo% "fact"
-  print(out)
+print.fact <- function(
+  x,
+  max_levels = getOption("mark.fact.max_levels", TRUE),
+  width = getOption("width"),
+  ...
+) {
+  # mostly a reformatted base::print.factor()
+  ord <- is.ordered(x)
+  if (length(x) == 0L) {
+    cat(if (ord) "ordered" else "factor", "(0)\n", sep = "")
+  } else {
+    print(as.character(x), quote = FALSE, ...)
+  }
+
+  if (max_levels) {
+    lev <- encodeString(levels(x), quote = "")
+    n <- length(lev)
+    colsep <- if (ord) " < " else " "
+    T0 <- "Levels: "
+    if (is.logical(max_levels)) {
+      max_levels <- {
+        width <- width - (nchar(T0, "w") + 3L +  1L + 3L)
+        lenl <- cumsum(nchar(lev, "w") + nchar(colsep, "w"))
+
+        if (n <= 1L || lenl[n] <= width) {
+          n
+        } else {
+          max(1L, which.max(lenl > width) - 1L)
+        }
+      }
+    }
+    drop <- n > max_levels
+    cat(
+      if (drop) paste(format(n), ""),
+      T0,
+      paste(
+        if (drop) {
+          c(lev[1L:max(1, max_levels - 1)], "...", if (max_levels >  1) lev[n])
+        } else {
+          lev
+        },
+        collapse = colsep
+      ),
+      "\n",
+      sep = ""
+    )
+  }
+
   invisible(x)
 }
 
@@ -339,6 +381,28 @@ fact_na <- function(x, remove = FALSE) {
 }
 
 
+# fact_reverse ------------------------------------------------------------
+
+#' Fact reverse levels
+#'
+#' Reverse the levels of a `fact`
+#'
+#' @param x A `fact` object (or passed to [fact()])
+fact_reverse  <- function(x) {
+  x <- fact(x)
+  lvls <- flip(attr(x, "uniques"))
+  seq <- flip(seq_along(lvls))
+  na <- attr(x, "na")
+
+  if (na > 0) {
+    lvls <- c(lvls[-1L], lvls[1L])
+    seq <- c(seq[-1L], seq[1L])
+  }
+
+  new_fact(seq[x], levels = lvls, ordered = is.ordered(x), na = na)
+}
+
+
 # other methods -----------------------------------------------------------
 
 #' @export
@@ -356,6 +420,10 @@ as.double.fact <- function(x, ...) {
   as.double(as.integer(x))
 }
 
+#' @export
+as.character.fact <- function(x, ...) {
+  as.character(attr(x, "uniques")[x])
+}
 
 # because unique.factor() remakes factor
 # this won't drop levels
@@ -369,6 +437,18 @@ unique.fact <- function(x, incomparables = FALSE, ...) {
     uniques = att$uniques,
     na = att$na
   )
+}
+
+#' @export
+as.Date.fact <- function(x, ...) {
+  as.Date(attr(x, "uniques"), ...)[x]
+}
+
+#' @export
+`[.fact` <- function(x, ...)  {
+  y <- NextMethod("[")
+  attributes(y) <- attributes(x)
+  y
 }
 
 
@@ -445,15 +525,8 @@ fact_coerce_levels <- function(x) {
     x[!nas] <- dates
   } else if (!anyNA(posix)) {
     x <- rep(NA_real_, n)
-
-
-    # Is this needed?
     stopifnot(all(!nas))
-    # if (any(nas)) {
-    #   x[!nas] <- as.double(posix)
-    # } else {
-      x[] <- as.double(posix)
-    # }
+    x[] <- as.double(posix)
     x <- as.POSIXct(
       x          = x,
       origin     = "1970-01-01",

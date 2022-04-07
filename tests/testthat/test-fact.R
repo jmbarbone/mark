@@ -246,8 +246,43 @@ test_that("drop_levels() works", {
 })
 
 
+# fact_reverse() ----------------------------------------------------------
+
+test_that("fact_reverse() works", {
+  res <- fact_reverse(1:4)
+  exp <- new_fact(4:1, 4:1)
+  expect_identical(res, exp)
+
+  res <- fact_reverse(as_ordered(1:4))
+  exp <- new_fact(4:1, 4:1, ordered = TRUE)
+  expect_identical(res, exp)
+
+  res <- fact_reverse(c(1:3, NA))
+  exp <- new_fact(c(3:1, 4L), c(3:1, NA))
+  expect_identical(res, exp)
+
+  res <- fact_reverse(as_ordered(c(1:3, NA)))
+  exp <- struct(
+    c(3:1, NA),
+    class = c("fact", "ordered", "factor"),
+    levels = c("3", "2", "1"),
+    uniques = 3:1,
+    na = 0L
+  )
+
+  expect_identical(res, exp)
+})
+
 
 # other methods -----------------------------------------------------------
+
+test_that("[.fact() works", {
+  x <- fact(1:3)
+  x1 <- do.call(structure, c(1, attributes(x)))
+  x2 <- do.call(structure, c(2, attributes(x)))
+  expect_identical(x[1], x1)
+  expect_identical(x[2], x2)
+})
 
 test_that("is.na.fact(), works", {
   x <- fact(c(1, 2, NA, 3))
@@ -291,4 +326,24 @@ test_that("unique.fact() works", {
   exp <- as_ordered(exp)
   res <- unique(x)
   expect_identical(exp, res)
+})
+
+test_that("as.Date.fact() works", {
+  exp <- as.Date(c("2022-01-02", NA, "1908-12-21"))
+  res <- as.Date(fact(exp))
+  expect_identical(exp, res)
+
+  x <- c("01-01-2022", "01-02-2000")
+  exp <- as.Date(x, "%d-%m-%Y")
+  res <- as.Date(fact(x), "%d-%m-%Y")
+  expect_identical(exp, res)
+})
+
+# snapshots ---------------------------------------------------------------
+
+test_that("snapshots", {
+  expect_snapshot(fact(character()))
+  expect_snapshot(fact(1:5))
+  expect_snapshot(print(fact(1:100), max_levels = TRUE))
+  expect_snapshot(print(fact(1:100), max_levels = 20))
 })
