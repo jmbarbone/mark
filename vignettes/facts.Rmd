@@ -31,13 +31,14 @@ library(mark)
 | Level sorting | When not set, sorts | Sorts numbers, preset sorting for logical, no sorting for character |
 | `NA` | Default levels don't include `NA` | When `NA` is present, is added as the last level |
 | S3 methods | None | S3 methods can extend functionality |
-| Attributes | `levels`, `class`|  `levels`, `a`, `uniques`, `na`, `class` |
+| Parameters | `x = character()`, `levels`, `labels = levels`, `exclude = NA`, `ordered = is.ordered(x)`, `nmax = NA` | `x` | 
+| Attributes | `levels`, `class`|  `levels`, `uniques`, `na`, `class` |
 
-```{r}
-x <- apply(matrix(sample(letters, 1e5, TRUE), ncol = 4), 1, collapse0)
+```{r, fig.width=6}
+x <- apply(matrix(sample(letters, 1e3, TRUE), ncol = 4), 1, collapse0)
 bench_mark(x)
 
-x <- round(runif(1e5), 2)
+x <- round(runif(1e3), 2)
 bench_mark(x)
 
 x <- order(x)
@@ -57,6 +58,8 @@ utils::methods("fact")
 ```
 
 `fact()` currently doesn't have any further arguments than `x`, the object passed to it.
+This makes their utility different than `factor()`, the later of which can be helpful when levels are known a prior.
+Otherwise, `fact()` is better suited for not knowing levels.
 
 ```{r}
 x <- 4:1
@@ -76,6 +79,10 @@ factor(x)
 fact(x)
 ```
 
+There is a divergence here, where `fact` is meant to understand that boolean operations can have 3 possible outcomes and that it might be best to allow at least `TRUE` and `FALSE` regardless of their presence.
+This is also a standout for performance.
+`factor()` runs the same routine for all data, so many of the check are a bit useless if you don't intend to rec
+
 ```{r}
 x <- c(TRUE, NA, FALSE)
 factor(x)
@@ -88,9 +95,8 @@ For `fact()`, `NA` values are always stored as the last `level`.
 ```{r}
 x <- as.Date("2022-03-29") - 0:2
 
-x1 <- factor(x)
+fact1 <- factor(x)
 x2 <- fact(x)
 
-bench::mark(as.Date(x1), foo(x2))
+bench::mark(as.Date(x1), as.Date(x2))
 ```
-
