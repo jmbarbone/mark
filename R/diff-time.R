@@ -92,8 +92,6 @@ extract_numeric_time <- function(x, tz) {
       gmt <- as.double(format(x, "%z"))
     } else {
       if (!is_POSIXlt(x)) {
-        # Default to UTC when NULL
-        # TODO consider options(mark.default_timezone = "UTC"))
         x <- as.POSIXlt(x)
         x$zone <- default_tz()
       }
@@ -271,9 +269,10 @@ is_diff_time <- function(x) {
 # helpers -----------------------------------------------------------------
 
 default_tz <- function() {
-  tz <- getOption("mark.default_tz")
+  # op.mark contains default_tz
+  tz <- getOption("mark.default_tz", "UTC")
 
-  if (is.null(tz)) {
+  if (identical(tz, "UTC")) {
     return("UTC")
   }
 
