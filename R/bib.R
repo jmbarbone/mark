@@ -82,8 +82,11 @@ read_bib <- function(file, skip = 0L, max_lines = NULL, encoding = "UTF-8") {
   fields <- tolower(fields)
 
   # TODO Implement checks for duplicate categories?
-  categories <- get_bib_categories(item_list)
-  values <- get_bib_values(item_list)
+  # categories <- lapply(item_list, get_bib_categories)
+  # values <- lapply(item_list, get_bib_values)
+  out <- lapply(item_list, parse_bib)
+  categories <- lapply(out, "[[", "cat")
+  values <- lapply(out, "[[", "val")
 
   as_bib(
     process_bib_dataframe(categories, values, fields, keys),
@@ -94,33 +97,38 @@ read_bib <- function(file, skip = 0L, max_lines = NULL, encoding = "UTF-8") {
 
 # FUNS --------------------------------------------------------------------
 
-get_bib_categories <- function(list) {
-  lapply(list, function(x) {
-    # Assuming categories are to the left of any "="
-    x <- strsplit(x[-1L], "=")
-    x <- sapply(x, `[`, 1L)
-    x <- trimws(x)
-    x[x %in% c("{", "}")] <- NA_character_
-    tolower(x)
-  })
+parse_bib <- function(x) {
+  x <- x[-1L]
+  m <- regexpr("=", x)
+  ok <- m > 0L
+  m <- m[ok]
+  x <- x[ok]
+  res <- list(
+    cat = substring(x, 1L, m - 1L),
+    val = substring(x, m + 1L, nchar(x))
+  )
+  res$cat <- parse_bib_cat(res$cat)
+  res$val <- parse_bib_val(res$val)
+  res
 }
 
-get_bib_values <- function(list) {
-  lapply(list, function(x) {
-    # Assuming values are to the right of any "="
-    x <- strsplit(x[-1L], "=")
-    x <- sapply(x, `[`, -1L)
-    # remove empty columns
-    x[!lengths(x)] <- NA_character_
-    # There may be something better than this
-    # Would like to maintain the { and }
-    # x <- gsub("\\{|\\}|,?$", "", x)
-    x <- trimws(x)
-    x <- gsub("^(\\{|\")|(\"|\\})[,]?$", "", x)
-    x <- gsub(",$", "", x)
-    x
-  })
+parse_bib_cat <- function(x) {
+  x <- trimws(x)
+  x[x %in% c("{", "}")] <- NA_character_
+  tolower(x)
 }
+
+parse_bib_val <- function(x) {
+  x[!lengths(x)] <- NA_character_
+  # There may be something better than this
+  # Would like to maintain the { and }
+  # x <- gsub("\\{|\\}|,?$", "", x)
+  x <- trimws(x)
+  x <- gsub("^(\\{|\")|(\"|\\})[,]?$", "", x)
+  x <- gsub(",$", "", x)
+  x
+}
+
 
 #' Process bib values
 #'
@@ -235,6 +243,7 @@ print.mark_bib_list <- function(x, ...) {
   out <- x
   names(out) <- NULL
 
+  # TODO run format() on all categories for equal lengths
   for (i in seq_along(out)) {
     nmi <- nm[i]
     bordern <- getOption("width") - nchar(nmi) - 1L
