@@ -8,6 +8,7 @@
 * `as.Date.fact()` added [#108](https://github.com/jmbarbone/mark/issues/108)
 * `as.character.fact()` added
 * `[.fact` added
+* `read_bib()` better handles fields where `=` is present in the text [#117](https://github.com/jmbarbone/mark/issues/117)
 
 ## Fixes
 
