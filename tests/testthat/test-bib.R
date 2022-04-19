@@ -39,3 +39,31 @@ test_that("snapshots()", {
   expect_snapshot(print(bib_list))
   expect_snapshot(print(bib_entry))
 })
+
+test_that("= inside text [#117]", {
+  # debug(get_bib_values)
+  res <- read_bib(textConnection("
+    @article{key,
+    author     = {Barbone, Jordan Mark},
+    title      = {I wrote a cool article},
+    year       = {2020},
+    month      = {Mar},
+    note       = {This has an = and it's bad},
+  }"))
+
+  exp <- structure(
+    list(
+      key = "key",
+      field = "article",
+      author = "Barbone, Jordan Mark",
+      title = "I wrote a cool article",
+      year = "2020",
+      month = "Mar",
+      note = "This has an = and it's bad"
+    ),
+    class = c("mark_bib_df", "data.frame"),
+    row.names = c(NA, -1L)
+  )
+
+  expect_identical(res, exp, ignore_attr = "bib_list")
+})
