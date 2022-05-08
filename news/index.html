@@ -88,8 +88,7 @@
 <h3 id="non-visible-changes-development-version">Non visible changes<a class="anchor" aria-label="anchor" href="#non-visible-changes-development-version"></a></h3>
 <ul><li>
 <code>print.fact()</code> rewritten as a slightly modified <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print.factor()</a></code> <a href="https://github.com/jmbarbone/mark/issues/109" class="external-link">#109</a>
-</li>
-</ul></div>
+</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.5.0" id="mark-050">mark 0.5.0<small>2022-03-09</small><a class="anchor" aria-label="anchor" href="#mark-050"></a></h2>
@@ -102,11 +101,9 @@
 <li>
 <code>print.noted()</code> now passes <code>...</code> to next methods <a href="https://github.com/jmbarbone/mark/issues/67" class="external-link">#67</a>
 </li>
-<li>corrects deprecation warning in <code>assign_label()</code> <a href="https://github.com/jmbarbone/mark/issues/74" class="external-link">#74</a>
-<ul><li>
+<li>corrects deprecation warning in <code>assign_label()</code> <a href="https://github.com/jmbarbone/mark/issues/74" class="external-link">#74</a><ul><li>
 <code>assign_label()</code> will be removed in <code>0.4.2</code>
-</li>
-</ul></li>
+</li></ul></li>
 <li>
 <code><a href="../reference/not_available.html">set_not_available()</a></code> now seems to work correctly – it probably hasn’t actually be working most of the time</li>
 <li>
@@ -124,8 +121,7 @@
 <li>adds <code><a href="../reference/drop_levels.html">drop_levels()</a></code> with <code>factor</code> and <code>data.frame</code> methods; functions similarly to <code><a href="https://rdrr.io/r/base/droplevels.html" class="external-link">base::droplevels()</a></code> but is a little faster <a href="https://github.com/jmbarbone/mark/issues/54" class="external-link">#54</a>
 </li>
 <li>
-<code><a href="../reference/todos.html">todos()</a></code> and <code><a href="../reference/todos.html">fixmes()</a></code> gain a new param <code>force</code>
-<ul><li>When <code>TRUE</code>, forces searches for <code>.R</code> files when the given directory does not contain an <code>.Rproj</code> file</li>
+<code><a href="../reference/todos.html">todos()</a></code> and <code><a href="../reference/todos.html">fixmes()</a></code> gain a new param <code>force</code><ul><li>When <code>TRUE</code>, forces searches for <code>.R</code> files when the given directory does not contain an <code>.Rproj</code> file</li>
 <li>When <code>FALSE</code>, prevents long start ups when these functions are called in a <code>.Rprofile</code> file and R is not launches in a project directory</li>
 <li>This be toggled with a new options <code>mark.todos.force</code>
 </li>
@@ -289,13 +285,11 @@
 <li>
 <code><a href="../reference/diff_time.html">diff_time()</a></code> now defaults to using UTC (Related to <a href="https://github.com/jmbarbone/mark/issues/32" class="external-link">#32</a>)</li>
 <li>
-<code>print.note()</code> method has been updated (Related to: <a href="https://github.com/jmbarbone/mark/issues/33" class="external-link">#33</a>):
-<ul><li>to print <code>x</code> <em>normally</em>, without the <code>note class</code> when just the note has to be seen</li>
+<code>print.note()</code> method has been updated (Related to: <a href="https://github.com/jmbarbone/mark/issues/33" class="external-link">#33</a>):<ul><li>to print <code>x</code> <em>normally</em>, without the <code>note class</code> when just the note has to be seen</li>
 <li>an internal function now handles the note formatted for class <code>noted</code>
 </li>
 </ul></li>
-<li>changes to <code><a href="../reference/fact.html">fact()</a></code>
-<ul><li>
+<li>changes to <code><a href="../reference/fact.html">fact()</a></code><ul><li>
 <code><a href="../reference/fact.html">fact()</a></code> now returns a vector with a <code>fact</code> element</li>
 <li>
 <code><a href="../reference/fact.html">fact.character()</a></code> correctly labels <code>NA</code>s <a href="https://github.com/jmbarbone/mark/issues/24" class="external-link">#24</a>
@@ -350,8 +344,7 @@
 </li>
 <li>adds <code><a href="../reference/struct.html">struct()</a></code>, a simplified version of <code><a href="../reference/struct.html">struct()</a></code>
 </li>
-<li>adds more <code><a href="../reference/fact.html">fact()</a></code> methods
-<ul><li>
+<li>adds more <code><a href="../reference/fact.html">fact()</a></code> methods<ul><li>
 <code><a href="../reference/fact.html">fact.integer()</a></code> <a href="https://github.com/jmbarbone/mark/issues/30" class="external-link">#30</a>
 </li>
 <li>
@@ -383,14 +376,12 @@
 <p>New name! The previous name <code>jordan</code> was conflicting with recent package on CRAN.</p>
 <div class="section level3">
 <h3 id="changes-0-1-3">Changes<a class="anchor" aria-label="anchor" href="#changes-0-1-3"></a></h3>
-<ul><li>corrects use of <code>...</code> in <code><a href="../reference/todos.html">todos()</a></code> <a href="https://github.com/jmbarbone/mark/issues/8" class="external-link">#8</a>
-<ul><li>
+<ul><li>corrects use of <code>...</code> in <code><a href="../reference/todos.html">todos()</a></code> <a href="https://github.com/jmbarbone/mark/issues/8" class="external-link">#8</a><ul><li>
 <code><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep()</a></code> also now evaluated with <em>cleaned</em> todo text</li>
 <li>searches for <code><a href="../reference/todos.html">todos()</a></code> in Rmd files, too</li>
 <li>correctly removes additional <code>#</code> and spaces in lines (e.g., <code>#  # TODO text</code> -&gt; <code>text</code>)</li>
 </ul></li>
-<li>updates for <code><a href="../reference/counts.html">counts()</a></code>
-<ul><li>corrects <code>NA</code> counting in <code><a href="../reference/counts.html">counts()</a></code>; <code>NA</code> counts are now appended at the end whether or not sort is called</li>
+<li>updates for <code><a href="../reference/counts.html">counts()</a></code><ul><li>corrects <code>NA</code> counting in <code><a href="../reference/counts.html">counts()</a></code>; <code>NA</code> counts are now appended at the end whether or not sort is called</li>
 <li>other optimization for <code><a href="../reference/counts.html">counts()</a></code>
 </li>
 <li>core functions previously on <code><a href="https://rdrr.io/r/base/rle.html" class="external-link">base::rle()</a></code> now use a combination of <code><a href="../reference/pseudo_id.html">pseudo_id()</a></code> and <code><a href="https://rdrr.io/r/base/tabulate.html" class="external-link">base::tabulate()</a></code>
@@ -434,7 +425,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer></div>
