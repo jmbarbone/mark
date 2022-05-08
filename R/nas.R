@@ -42,22 +42,9 @@ remove_na.list <- function(x) {
 #' @rdname remove_na
 #' @export
 remove_na.factor <- function(x) {
-  lvls <- levels(x)
-  na_levels <- is.na(lvls)
-
-  out <- x[!is.na(x)]
-  out <- as.integer(out)
-
-  if (any(na_levels)) {
-    which_na_level <- which(na_levels)
-    out <- out[out != which_na_level]
-
-    if (which_na_level != length(lvls)) {
-      out <- match(out, unique(out))
-    }
-  }
-
-  struct(out, class(x), levels = lvls[!na_levels])
+  x <- x[!is.na(x)]
+  levels(x) <- remove_na(levels(x))
+  x
 }
 
 #' @rdname remove_na
