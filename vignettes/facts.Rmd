@@ -14,8 +14,9 @@ knitr::opts_chunk$set(
 )
 
 bench_mark <- function(x) {
+  if (!(requireNamespace("bench") & requireNamespace("forcats"))) return(NULL)
   b <- bench::mark(fact(x), factor(x), forcats::as_factor(x), iterations = 50, check = FALSE)
-  print(ggplot2::autoplot(b) + ggplot2::labs(title = class(x)))
+  if (requireNamespace("ggplot2")) print(ggplot2::autoplot(b) + ggplot2::labs(title = class(x)))
   b
 }
 ```
