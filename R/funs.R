@@ -36,7 +36,7 @@ outer_fun <- function(n = 0) {
 #'
 #' A wrapped requireNamespace
 #'
-#' @param namespace The name of a package/namespace
+#' @param namespace,... One or more packages to to require.
 #' @export
 #' @return
 #' * `require_namespace()`: None, called for side effects
@@ -50,20 +50,29 @@ outer_fun <- function(n = 0) {
 #'
 #' try(require_namespace("bad_package"))
 #' try(foo())
-require_namespace <- function(namespace) {
+require_namespace <- function(namespace, ...) {
   of <- outer_fun()
   of <- if (!is.na(of)) {
     sprintf(" for `%s` to work", of)
   }
 
-  if (!rn(namespace)) {
-    stop("Package `", namespace, "` is required", of, ".",
-         call. = FALSE)
+  namespace <- unlist(list(namespace, ...))
+  bad <- length(which(!rn(namespace)))
+  if (bad) {
+    msg <-
+      if (bad == 1) {
+        paste0(sprintf("Package '%s' is required", namespace), of)
+      } else {
+        paste0(sprintf("Packages '%s' are required", paste(namespace, collapse = "', '")), of)
+      }
+    stop(msg, call. = FALSE)
   }
+
+  invisible()
 }
 
 rn <- function(namespace) {
-  requireNamespace(namespace, quietly = TRUE)
+  vap_lgl(namespace, requireNamespace, quietly = TRUE)
 }
 
 #' @export
