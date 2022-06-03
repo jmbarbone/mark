@@ -53,15 +53,15 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">require_namespace</span><span class="op">(</span><span class="va">namespace</span><span class="op">)</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">require_namespace</span><span class="op">(</span><span class="va">namespace</span>, <span class="va">...</span><span class="op">)</span>
 
 <span class="fu">package_available</span><span class="op">(</span><span class="va">namespace</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>namespace</dt>
-<dd><p>The name of a package/namespace</p></dd>
+    <dl><dt>namespace, ...</dt>
+<dd><p>One or more packages to to require.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -77,9 +77,9 @@
 <span class="r-in"><span class="op">}</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="fu">require_namespace</span><span class="op">(</span><span class="st">"bad_package"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Error : Package `bad_package` is required for `doTryCatch` to work.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Error : Package 'bad_package' is required for `doTryCatch` to work</span>
 <span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="fu">foo</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Error : Package `bad_package` is required for `foo` to work.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Error : Package 'bad_package' is required for `foo` to work</span>
 </code></pre></div>
     </div>
   </div>
