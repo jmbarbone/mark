@@ -5,12 +5,12 @@
 \alias{package_available}
 \title{Require namespace}
 \usage{
-require_namespace(namespace)
+require_namespace(namespace, ...)
 
 package_available(namespace)
 }
 \arguments{
-\item{namespace}{The name of a package/namespace}
+\item{namespace, ...}{One or more packages to to require.}
 }
 \value{
 \itemize{
