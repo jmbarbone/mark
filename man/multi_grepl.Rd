@@ -10,6 +10,8 @@ multi_grepl(x, patterns, ..., simplify = TRUE)
 multi_grep(x, patterns, ..., simplify = TRUE)
 }
 \arguments{
+\item{x}{A vector of of values to search \code{patterns}}
+
 \item{patterns}{A list or vector of patterns to search across \code{x}; if named
 value returned will be the name of the pattern -- otherwise the position.
 Pattern match reported will be the first in the list that is found}
