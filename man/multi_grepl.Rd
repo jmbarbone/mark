@@ -10,10 +10,6 @@ multi_grepl(x, patterns, ..., simplify = TRUE)
 multi_grep(x, patterns, ..., simplify = TRUE)
 }
 \arguments{
-\item{x}{a character vector where matches are sought, or an
-    object which can be coerced by \code{as.character} to a character
-    vector.  \link[base]{Long vectors} are supported.}
-
 \item{patterns}{A list or vector of patterns to search across \code{x}; if named
 value returned will be the name of the pattern -- otherwise the position.
 Pattern match reported will be the first in the list that is found}
