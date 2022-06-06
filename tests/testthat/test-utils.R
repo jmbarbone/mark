@@ -46,3 +46,28 @@ test_that("dupe_check() works", {
   expect_error(dupe_check(c(1, 1, 2, 3)))
   expect_error(dupe_check(1:4), NA)
 })
+
+test_that("%len%", {
+  expect_true(logical() %len% TRUE)
+  expect_false(FALSE %len% TRUE)
+})
+
+test_that("which0()", {
+  expect_identical(which0(c(FALSE, FALSE, TRUE)), 3L)
+  expect_identical(which0(c(FALSE, FALSE, FALSE)), 0L)
+})
+
+test_that("%colons%", {
+  expect_error("bad_package" %colons% "not_a_function")
+})
+
+test_that("that()",{
+  expect_identical(that(c(TRUE, FALSE, TRUE)), which(c(TRUE, FALSE, TRUE)))
+  expect_identical(that(c(FALSE, FALSE)), which(c(FALSE, FALSE)))
+})
+
+test_that("check_interactive()", {
+  op <- options(mark.check_interactive = -1)
+  expect_error(check_interactive())
+  options(op)
+})
