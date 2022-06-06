@@ -205,7 +205,7 @@ print_c <- function(x = read_clipboard(), sorted = TRUE, null = TRUE) {
   }
 
   if (interactive()) {
-    write_clipboard(string)
+    write_clipboard(string) # nocovr
   }
 
   cat(string)
