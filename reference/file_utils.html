@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">mark</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0.9001</span>
       </span>
     </div>
 
@@ -82,25 +82,38 @@
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>A character vector of paths</p></dd>
+
+
 <dt>pattern</dt>
 <dd><p>an optional <a href="https://rdrr.io/r/base/regex.html" class="external-link">regular expression</a>.  Only file names
     which match the regular expression will be returned.</p></dd>
+
+
 <dt>ignore_case</dt>
 <dd><p>logical. Should pattern-matching be case-insensitive?</p></dd>
+
+
 <dt>all</dt>
 <dd><p>a logical value. If FALSE, only the names of visible files are
 returned (following Unix-style visibility, that is files whose name does
 not start with a dot). If TRUE, all file names will be returned.</p></dd>
+
+
 <dt>negate</dt>
 <dd><p>Logical, if <code>TRUE</code> will inversely select files that do not
 match the provided pattern</p></dd>
+
+
 <dt>basename</dt>
 <dd><p>If <code>TRUE</code> only searches pattern on the basename, otherwise on
 the entire path</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <ul><li><p><code>open_file()</code>, <code>shell_exec()</code>: A logical vector where <code>TRUE</code> successfully opened, <code>FALSE</code> did not and <code>NA</code> did not try to open (file not found)</p></li>
+    
+
+<ul><li><p><code>open_file()</code>, <code>shell_exec()</code>: A logical vector where <code>TRUE</code> successfully opened, <code>FALSE</code> did not and <code>NA</code> did not try to open (file not found)</p></li>
 <li><p><code>list_files()</code>, <code>list_dirs()</code>: A vector of full paths</p></li>
 </ul></div>
     <div id="details">
@@ -125,7 +138,7 @@ full file path.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>

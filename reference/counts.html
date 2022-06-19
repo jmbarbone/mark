@@ -22,7 +22,7 @@ counts TRUE, FALSE and NA values, which is much quicker."><!-- mathjax --><scrip
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">mark</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0.9001</span>
       </span>
     </div>
 
@@ -81,23 +81,36 @@ counts <code>TRUE</code>, <code>FALSE</code> and <code>NA</code> values, which i
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>A vector or <code>data.frame</code></p></dd>
+
+
 <dt>...</dt>
 <dd><p>Arguments passed to other methods</p></dd>
+
+
 <dt>cols</dt>
 <dd><p>A vector of column names or indexes</p></dd>
+
+
 <dt>sort</dt>
 <dd><p>Logical, if <code>TRUE</code> will sort values (not counts) before
 returning. For factors this will sort by factor levels.  This has no effect
 for logical vectors, which already return in the order of <code>FALSE</code>, <code>TRUE</code>,
 <code>NA</code>.</p></dd>
+
+
 <dt>.name</dt>
 <dd><p>The name of the new column</p></dd>
+
+
 <dt>na.rm</dt>
 <dd><p>If <code>TRUE</code> will remove NA values from proportions</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A named vector of <code>integer</code>s or <code>double</code>s (for <code>counts</code>, and <code>props</code>,
+    
+
+<p>A named vector of <code>integer</code>s or <code>double</code>s (for <code>counts</code>, and <code>props</code>,
 respectively) or <code>data.frame</code> with columns for each column chosen and the
 <code>.name</code> chosen for the summary</p>
     </div>
@@ -111,11 +124,11 @@ respectively) or <code>data.frame</code> with columns for each column chosen and
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">10</span>, <span class="cn">TRUE</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">counts</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 2 4 1 5 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 2 1 2 1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 1 2 3 4 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1 3 1 4 </span>
 <span class="r-in"><span class="fu">props</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   3   2   4   1   5 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.4 0.2 0.1 0.2 0.1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   5   1   2   3   4 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.1 0.1 0.3 0.1 0.4 </span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="quick_df.html">quick_df</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span class="r-in">  a <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"c"</span>, <span class="st">"a"</span>, <span class="st">"c"</span>, <span class="st">"d"</span>, <span class="st">"b"</span><span class="op">)</span>,</span>
@@ -169,7 +182,7 @@ respectively) or <code>data.frame</code> with columns for each column chosen and
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">mark</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0.9001</span>
       </span>
     </div>
 
@@ -65,18 +65,27 @@
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>A vector of files</p></dd>
+
+
 <dt>ts</dt>
 <dd><p>A single timestamp or vector of timestamps (default: <code><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time()</a></code>)</p></dd>
+
+
 <dt>format</dt>
 <dd><p>A format to be applied to the times; set to <code>NULL</code> to skip
 formatting</p></dd>
+
+
 <dt>sep</dt>
 <dd><p>A <code>character</code> vector of length 1 to separate the timestamp from
 the file name</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The full name paths with the appended time stamp</p>
+    
+
+<p>The full name paths with the appended time stamp</p>
     </div>
 
     <div id="ref-examples">
@@ -85,13 +94,13 @@ the file name</p></dd>
 <span class="r-in"><span class="va">file2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu">add_file_timestamp</span><span class="op">(</span><span class="va">file1</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/RtmpaxVMF4/file27412f0c8f83 2022-06-06 033142.txt"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/RtmpGsKgen/file2d7842b54e85 2022-06-19 140258.txt"</span>
 <span class="r-in"><span class="fu">add_file_timestamp</span><span class="op">(</span><span class="va">file2</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/RtmpaxVMF4/file27415ba2283e 2022-06-06 033142"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/RtmpGsKgen/file2d7830d66da1 2022-06-19 140258"</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.remove</a></span><span class="op">(</span><span class="va">file1</span>, <span class="va">file2</span><span class="op">)</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>cannot remove file '/tmp/RtmpaxVMF4/file27412f0c8f83.txt', reason 'No such file or directory'</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>cannot remove file '/tmp/RtmpaxVMF4/file27415ba2283e', reason 'No such file or directory'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>cannot remove file '/tmp/RtmpGsKgen/file2d7842b54e85.txt', reason 'No such file or directory'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>cannot remove file '/tmp/RtmpGsKgen/file2d7830d66da1', reason 'No such file or directory'</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE FALSE</span>
 </code></pre></div>
     </div>
@@ -107,7 +116,7 @@ the file name</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>

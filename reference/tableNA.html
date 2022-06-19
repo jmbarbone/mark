@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">mark</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0.9001</span>
       </span>
     </div>
 
@@ -64,19 +64,28 @@
     as a data frame) whose
     components can be so interpreted.  (For <code>as.table</code>, arguments
     passed to specific methods; for <code>as.data.frame</code>, unused.)</p></dd>
+
+
 <dt>.list</dt>
 <dd><p>Logical, if <code>TRUE</code> and <code>...</code> is a <code>list</code>, will c</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code><a href="https://rdrr.io/r/base/table.html" class="external-link">table()</a></code> returns a <em>contingency table</em>, an object of
+    
+
+<p><code><a href="https://rdrr.io/r/base/table.html" class="external-link">table()</a></code> returns a <em>contingency table</em>, an object of
   class <code>"table"</code>, an array of integer values.
   Note that unlike S the result is always an <code><a href="https://rdrr.io/r/base/array.html" class="external-link">array</a></code>, a 1D
-  array if one factor is given.
-<code>as.table</code> and <code>is.table</code> coerce to and test for contingency
-  table, respectively.
-  The <code>as.data.frame</code> method for objects inheriting from class
-<code>"table"</code> can be used to convert the array-based representation
+  array if one factor is given.</p>
+<p></p>
+<p><code>as.table</code> and <code>is.table</code> coerce to and test for contingency
+  table, respectively.</p>
+
+
+<p>The <code>as.data.frame</code> method for objects inheriting from class</p>
+<p></p>
+<p><code>"table"</code> can be used to convert the array-based representation
   of a contingency table to a data frame containing the classifying
   factors and the corresponding entries (the latter as component
   named by <code>responseName</code>).  This is the inverse of <code><a href="https://rdrr.io/r/stats/xtabs.html" class="external-link">xtabs</a></code>.</p>
@@ -165,7 +174,7 @@ are tabulated.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>
