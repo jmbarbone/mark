@@ -14,6 +14,10 @@ test_that("remove_na()", {
   )
 
   expect_identical(res, exp)
+
+  res <- remove_na(factor(x))
+  exp <- struct(1:4, "factor", levels = as.character(c(1:3, NaN)))
+  expect_identical(res, exp)
 })
 
 test_that("remove_null()", {

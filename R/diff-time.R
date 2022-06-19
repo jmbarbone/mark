@@ -44,7 +44,9 @@
 diff_time <- function(
   x,
   y,
-  method = c("secs", "mins", "hours", "days", "weeks", "months", "years", "dyears", "wyears", "myears"),
+  method = c("secs", "mins", "hours",
+             "days", "weeks", "months",
+             "years", "dyears", "wyears", "myears"),
   tzx = NULL,
   tzy = tzx
 ) {
@@ -92,8 +94,6 @@ extract_numeric_time <- function(x, tz) {
       gmt <- as.double(format(x, "%z"))
     } else {
       if (!is_POSIXlt(x)) {
-        # Default to UTC when NULL
-        # TODO consider options(mark.default_timezone = "UTC"))
         x <- as.POSIXlt(x)
         x$zone <- default_tz()
       }
@@ -162,11 +162,11 @@ print.diff_time <- function(x, digits = getOption("digits"), ...) {
     xu,
     secs = "seconds",
     mins = "minutes",
-    months = sprintf("months (%s days)", getOption("mark.days_in_month", 30)),
-    years = sprintf("years (%s days)", getOption("mark.days_in_year", 365)),
-    dyears = sprintf("years (%s days)", getOption("mark.days_in_year", 365)),
+    months = sprintf("months (%s days)",      getOption("mark.days_in_month", 30)),
+    years  = sprintf("years (%s days)",       getOption("mark.days_in_year", 365)),
+    dyears = sprintf("years (%s days)",       getOption("mark.days_in_year", 365)),
     myears = sprintf("years (%s-day months)", getOption("mark.days_in_month", 30)),
-    wyears = sprintf("years (%s weeks)", getOption("mark.weeks_in_year", 52)),
+    wyears = sprintf("years (%s weeks)",      getOption("mark.weeks_in_year", 52)),
     xu
   )
   cat("Time differences in ", u, "\n", sep = "")
@@ -271,9 +271,10 @@ is_diff_time <- function(x) {
 # helpers -----------------------------------------------------------------
 
 default_tz <- function() {
-  tz <- getOption("mark.default_tz")
+  # op.mark contains default_tz
+  tz <- getOption("mark.default_tz", "UTC")
 
-  if (is.null(tz)) {
+  if (identical(tz, "UTC")) {
     return("UTC")
   }
 

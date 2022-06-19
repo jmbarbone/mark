@@ -1,7 +1,7 @@
 Package: mark
 Type: Package
 Title: Miscellaneous, Analytic R Kernels
-Version: 0.5.0.9000
+Version: 0.5.0.9001
 Date: 2022-02-26
 Authors@R:
     person(given   = "Jordan Mark",
@@ -10,7 +10,7 @@ Authors@R:
            email   = "jmbarbone@gmail.com",
            comment = c(orcid = "0000-0001-9788-3628"))
 Maintainer: Jordan Mark Barbone <jmbarbone@gmail.com>
-Description: Miscellaneous functions and wrappers for development in other 
+Description: Miscellaneous functions and wrappers for development in other
     packages created, maintained by Jordan Mark Barbone.
 License: MIT + file LICENSE
 URL: https://github.com/jmbarbone/mark,
@@ -43,7 +43,7 @@ Suggests:
     waldo (>= 0.2.5),
     withr (>= 2.3.0),
     rmarkdown
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0
 Roxygen: list(markdown = TRUE)
 Config/testthat/edition: 3
 Config/testthat/parallel: true

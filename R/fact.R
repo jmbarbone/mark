@@ -297,6 +297,7 @@ as_ordered.default <- function(x) {
 
 
 
+
 # drop_levels -------------------------------------------------------------
 
 #' Drop levels
@@ -495,6 +496,7 @@ fact_values <- function(x) {
   if (!is.fact(x)) {
     stop("x must be a fact object", call. = FALSE)
   }
+
   attr(x, "uniques")[as.integer(x)]
 }
 

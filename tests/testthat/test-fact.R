@@ -240,6 +240,9 @@ test_that("drop_levels() works", {
   expect_equal(drop_levels(df), df_exp)
 
   # facts and ordered
+  x <- fact(1:10)
+  expect_identical(drop_levels(x), x)
+
   x <- as_ordered(factor(1, 1:2))
   exp <- struct(1L, class = c("fact", "ordered", "factor"), levels = "1", uniques = 1L, na = 0L)
   expect_equal(drop_levels(x), exp)
@@ -272,6 +275,7 @@ test_that("fact_reverse() works", {
 
   expect_identical(res, exp)
 })
+
 
 
 # other methods -----------------------------------------------------------
@@ -346,4 +350,5 @@ test_that("snapshots", {
   expect_snapshot(fact(1:5))
   expect_snapshot(print(fact(1:100), max_levels = TRUE))
   expect_snapshot(print(fact(1:100), max_levels = 20))
+  expect_snapshot(print(fact(1:100), max_levels = 100))
 })

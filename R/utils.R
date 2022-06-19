@@ -83,7 +83,7 @@ ept <- function(x, envir = parent.frame()) {
 
 # Removes object's attributes before printing
 print_no_attr <- function(x, ...) {
-  print(remove_attributes(x))
+  print(remove_attributes(x)) # nocovr
 }
 
 #' That
