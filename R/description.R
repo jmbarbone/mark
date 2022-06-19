@@ -167,7 +167,7 @@ update_version <- function(version = NULL, date = FALSE) {
   }
   # nocov end
 
-  if (identical(men, "yes") | isNA(getOption("mark.check_interactive"))) {
+  if (identical(men, 1L) | isNA(getOption("mark.check_interactive"))) {
     foo()
   }
 
