@@ -1,3 +1,10 @@
+# fact.default() ----
+
+test_that("fact.default() works", {
+  x <- struct(1, "foo")
+  expect_warning(res <- fact(x))
+  expect_identical(res, fact(as.character(x)))
+})
 
 # fact.logical() ----
 

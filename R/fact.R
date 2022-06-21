@@ -40,11 +40,13 @@ fact <- function(x) {
 #' @rdname fact
 #' @export
 fact.default <- function(x) {
-  stop(
+  warning(
     "No fact method for class(es) ",
     collapse0(class(x), sep = ", "),
+    "\nDefaulting to fact.character()",
     call. = FALSE
   )
+  fact(as.character(x))
 }
 
 #' @rdname fact
