@@ -2,6 +2,7 @@
 
 ## New features
 
+* `switch_in_case()` now handles functions in rhs
 * `update_version()` now correctly checks result of embedded `utils::menu()` call for updating the version [#123](https://github.com/jmbarbone/mark/issues/121)
 * `require_namespace()` now accepts multiple namespaces [#121](https://github.com/jmbarbone/mark/issues/121)
 * `unique.fact()` S3 method [#86](https://github.com/jmbarbone/mark/issues/86)
