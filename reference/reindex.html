@@ -53,13 +53,13 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">reindex</span><span class="op">(</span>
-  <span class="va">x</span>,
-  index <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">new_index</span>,
-  expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"intersect"</span>, <span class="st">"both"</span><span class="op">)</span>,
-  sort <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">reindex</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  index <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">new_index</span>,</span>
+<span>  expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"intersect"</span>, <span class="st">"both"</span><span class="op">)</span>,</span>
+<span>  sort <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -97,13 +97,13 @@ intersect (none), all values in x or index, or retain all values found.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">iris1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fl">5</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">iris1</span><span class="op">$</span><span class="va">index</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span></span>
-<span class="r-in"><span class="fu">reindex</span><span class="op">(</span><span class="va">iris1</span>, <span class="st">"index"</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">8</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">iris1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">iris1</span><span class="op">$</span><span class="va">index</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span></span></span>
+<span class="r-in"><span><span class="fu">reindex</span><span class="op">(</span><span class="va">iris1</span>, <span class="st">"index"</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">8</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Sepal.Length Sepal.Width Petal.Length Petal.Width Species index</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2          4.9         3.0          1.4         0.2  setosa     2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4          4.6         3.1          1.5         0.2  setosa     4</span>
-<span class="r-in"><span class="fu">reindex</span><span class="op">(</span><span class="va">iris1</span>, <span class="st">"index"</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">8</span>, <span class="fl">2</span><span class="op">)</span>, expand <span class="op">=</span> <span class="st">"both"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">reindex</span><span class="op">(</span><span class="va">iris1</span>, <span class="st">"index"</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">8</span>, <span class="fl">2</span><span class="op">)</span>, expand <span class="op">=</span> <span class="st">"both"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Sepal.Length Sepal.Width Petal.Length Petal.Width Species index</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1          5.1         3.5          1.4         0.2  setosa     1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2          4.9         3.0          1.4         0.2  setosa     2</span>
@@ -112,18 +112,18 @@ intersect (none), all values in x or index, or retain all values found.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5          5.0         3.6          1.4         0.2  setosa     5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6           NA          NA           NA          NA    &lt;NA&gt;    NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8           NA          NA           NA          NA    &lt;NA&gt;    NA</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Using letters will show changes in rownames</span></span>
-<span class="r-in"><span class="va">iris1</span><span class="op">$</span><span class="va">index</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span>
-<span class="r-in"><span class="fu">reindex</span><span class="op">(</span><span class="va">iris1</span>, <span class="st">"index"</span>, <span class="va">letters</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">8</span>, <span class="fl">2</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Using letters will show changes in rownames</span></span></span>
+<span class="r-in"><span><span class="va">iris1</span><span class="op">$</span><span class="va">index</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="fu">reindex</span><span class="op">(</span><span class="va">iris1</span>, <span class="st">"index"</span>, <span class="va">letters</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">8</span>, <span class="fl">2</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Sepal.Length Sepal.Width Petal.Length Petal.Width Species index</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> b           NA          NA           NA          NA    &lt;NA&gt;  &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> d           NA          NA           NA          NA    &lt;NA&gt;  &lt;NA&gt;</span>
-<span class="r-in"><span class="fu">reindex</span><span class="op">(</span><span class="va">iris1</span>, <span class="st">"index"</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">8</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">reindex</span><span class="op">(</span><span class="va">iris1</span>, <span class="st">"index"</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">8</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] Sepal.Length Sepal.Width  Petal.Length Petal.Width  Species     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [6] index       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;0 rows&gt; (or 0-length row.names)</span>
-<span class="r-in"><span class="fu">reindex</span><span class="op">(</span><span class="va">iris1</span>, <span class="st">"index"</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">8</span>, <span class="fl">2</span><span class="op">)</span>, expand <span class="op">=</span> <span class="st">"both"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">reindex</span><span class="op">(</span><span class="va">iris1</span>, <span class="st">"index"</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">8</span>, <span class="fl">2</span><span class="op">)</span>, expand <span class="op">=</span> <span class="st">"both"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Sepal.Length Sepal.Width Petal.Length Petal.Width Species index</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a           NA          NA           NA          NA    &lt;NA&gt;  &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> b           NA          NA           NA          NA    &lt;NA&gt;  &lt;NA&gt;</span>
@@ -148,7 +148,7 @@ intersect (none), all values in x or index, or retain all values found.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

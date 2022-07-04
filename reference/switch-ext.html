@@ -61,11 +61,11 @@ in the values on the left to return the value on the right.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">switch_params</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">switch_in_case</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, .default <span class="op">=</span> <span class="cn">NULL</span>, .envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu">switch_case</span><span class="op">(</span><span class="va">...</span>, .default <span class="op">=</span> <span class="cn">NULL</span>, .envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">switch_params</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">switch_in_case</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, .default <span class="op">=</span> <span class="cn">NULL</span>, .envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">switch_case</span><span class="op">(</span><span class="va">...</span>, .default <span class="op">=</span> <span class="cn">NULL</span>, .envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -107,75 +107,84 @@ an unnamed vector of values matching the rhs of <code>...</code></p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># by single</span></span>
-<span class="r-in"><span class="fu">switch_params</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"j"</span>, <span class="st">"m"</span>, <span class="st">"b"</span><span class="op">)</span>, j <span class="op">=</span> <span class="fl">10</span>, b <span class="op">=</span> <span class="fl">2</span>, m <span class="op">=</span> <span class="fl">13</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># by single</span></span></span>
+<span class="r-in"><span><span class="fu">switch_params</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"j"</span>, <span class="st">"m"</span>, <span class="st">"b"</span><span class="op">)</span>, j <span class="op">=</span> <span class="fl">10</span>, b <span class="op">=</span> <span class="fl">2</span>, m <span class="op">=</span> <span class="fl">13</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  j  m  b </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10 13  2 </span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># match with TRUE</span></span>
-<span class="r-in"><span class="fu">switch_case</span><span class="op">(</span></span>
-<span class="r-in">  <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> <span class="op">==</span> <span class="fl">9</span>      <span class="op">~</span> <span class="cn">NA_integer_</span>,</span>
-<span class="r-in">  <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%%</a></span> <span class="fl">3</span> <span class="op">==</span> <span class="fl">0</span> <span class="op">~</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,</span>
-<span class="r-in">  <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%%</a></span> <span class="fl">4</span> <span class="op">==</span> <span class="fl">0</span> <span class="op">~</span> <span class="fl">11</span><span class="op">:</span><span class="fl">20</span>,</span>
-<span class="r-in">  <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%%</a></span> <span class="fl">5</span> <span class="op">==</span> <span class="fl">0</span> <span class="op">~</span> <span class="fl">21</span><span class="op">:</span><span class="fl">30</span>,</span>
-<span class="r-in">  <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%%</a></span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">0</span> <span class="op">~</span> <span class="fl">31</span><span class="op">:</span><span class="fl">40</span>,</span>
-<span class="r-in">  .default <span class="op">=</span> <span class="op">-</span><span class="fl">1L</span></span>
-<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># match with TRUE</span></span></span>
+<span class="r-in"><span><span class="fu">switch_case</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> <span class="op">==</span> <span class="fl">9</span>      <span class="op">~</span> <span class="cn">NA_integer_</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%%</a></span> <span class="fl">3</span> <span class="op">==</span> <span class="fl">0</span> <span class="op">~</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%%</a></span> <span class="fl">4</span> <span class="op">==</span> <span class="fl">0</span> <span class="op">~</span> <span class="fl">11</span><span class="op">:</span><span class="fl">20</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%%</a></span> <span class="fl">5</span> <span class="op">==</span> <span class="fl">0</span> <span class="op">~</span> <span class="fl">21</span><span class="op">:</span><span class="fl">30</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%%</a></span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">0</span> <span class="op">~</span> <span class="fl">31</span><span class="op">:</span><span class="fl">40</span>,</span></span>
+<span class="r-in"><span>  .default <span class="op">=</span> <span class="op">-</span><span class="fl">1L</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] -1 32  3 14 25  6 -1 18 NA 30</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># match within a vector</span></span>
-<span class="r-in"><span class="fu">switch_in_case</span><span class="op">(</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">12</span>, <span class="fl">4</span>, <span class="fl">20</span>, <span class="fl">21</span><span class="op">)</span>,</span>
-<span class="r-in">  <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>  <span class="op">~</span> <span class="fl">1</span>,</span>
-<span class="r-in">  <span class="fl">11</span><span class="op">:</span><span class="fl">20</span> <span class="op">~</span> <span class="fl">2</span></span>
-<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># match within a vector</span></span></span>
+<span class="r-in"><span><span class="fu">switch_in_case</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">12</span>, <span class="fl">4</span>, <span class="fl">20</span>, <span class="fl">21</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>  <span class="op">~</span> <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">11</span><span class="op">:</span><span class="fl">20</span> <span class="op">~</span> <span class="fl">2</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  1  2 12  4 20 21 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  1  1  2  1  2 NA </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">switch_in_case</span><span class="op">(</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"d"</span>, <span class="st">"e"</span>, <span class="st">"g"</span>, <span class="st">"j"</span><span class="op">)</span>,</span>
-<span class="r-in">  <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span> <span class="op">~</span> <span class="st">"a"</span>,</span>
-<span class="r-in">  <span class="va">letters</span><span class="op">[</span><span class="fl">5</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span> <span class="op">~</span> <span class="st">"e"</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   a   b   d   e   g   j </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "a" "a"  NA "e"  NA  NA </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">use_these</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">5</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">switch_in_case</span><span class="op">(</span></span>
-<span class="r-in">  <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,</span>
-<span class="r-in">  <span class="va">use_these</span> <span class="op">~</span> <span class="cn">TRUE</span>,</span>
-<span class="r-in">  .default <span class="op">=</span> <span class="cn">FALSE</span></span>
-<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">switch_in_case</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"d"</span>, <span class="st">"e"</span>, <span class="st">"g"</span>, <span class="st">"j"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span> <span class="op">~</span> <span class="st">"a"</span>,</span></span>
+<span class="r-in"><span>  <span class="va">letters</span><span class="op">[</span><span class="fl">5</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span> <span class="op">~</span> <span class="st">"e"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    a    b    d    e    g    j </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  "a"  "a" "NA"  "e" "NA" "NA" </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">use_these</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">switch_in_case</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,</span></span>
+<span class="r-in"><span>  <span class="va">use_these</span> <span class="op">~</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>  .default <span class="op">=</span> <span class="cn">FALSE</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     1     2     3     4     5     6     7     8     9    10 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  TRUE  TRUE  TRUE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">ne</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">new.env</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ne</span><span class="op">$</span><span class="va">use_these2</span> <span class="op">&lt;-</span> <span class="va">use_these</span></span>
-<span class="r-in"><span class="co"># error</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="fu">switch_in_case</span><span class="op">(</span></span>
-<span class="r-in">  <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,</span>
-<span class="r-in">  <span class="va">use_these2</span> <span class="op">~</span> <span class="cn">TRUE</span></span>
-<span class="r-in"><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">ne</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">new.env</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ne</span><span class="op">$</span><span class="va">use_these2</span> <span class="op">&lt;-</span> <span class="va">use_these</span></span></span>
+<span class="r-in"><span><span class="co"># error</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="fu">switch_in_case</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,</span></span>
+<span class="r-in"><span>  <span class="va">use_these2</span> <span class="op">~</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Error in eval(parse(text = i[1L]), envir = .envir) : </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   object 'use_these2' not found</span>
-<span class="r-in"><span class="fu">switch_in_case</span><span class="op">(</span></span>
-<span class="r-in">  <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,</span>
-<span class="r-in">  <span class="va">use_these2</span> <span class="op">~</span> <span class="cn">TRUE</span>,</span>
-<span class="r-in">  .envir <span class="op">=</span> <span class="va">ne</span></span>
-<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">switch_in_case</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,</span></span>
+<span class="r-in"><span>  <span class="va">use_these2</span> <span class="op">~</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>  .envir <span class="op">=</span> <span class="va">ne</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    1    2    3    4    5    6    7    8    9   10 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> TRUE TRUE TRUE   NA TRUE   NA   NA   NA   NA   NA </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">switch_in_case</span><span class="op">(</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq.int</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">60</span>, <span class="fl">6</span><span class="op">)</span>,</span>
-<span class="r-in">  <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>          <span class="op">~</span> <span class="st">"a"</span>,</span>
-<span class="r-in">  <span class="fl">11</span><span class="op">:</span><span class="fl">20</span>         <span class="op">~</span> <span class="st">"b"</span>,</span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">22</span>, <span class="fl">24</span>, <span class="fl">26</span><span class="op">)</span> <span class="op">~</span> <span class="st">"c"</span>,</span>
-<span class="r-in">  <span class="fl">30</span><span class="op">:</span><span class="cn">Inf</span>        <span class="op">~</span> <span class="st">"d"</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   1   7  13  19  25  31  37  43  49  55 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "a" "a" "b" "b"  NA "d" "d" "d" "d" "d" </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">switch_in_case</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq.int</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">60</span>, <span class="fl">6</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>          <span class="op">~</span> <span class="st">"a"</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">11</span><span class="op">:</span><span class="fl">20</span>         <span class="op">~</span> <span class="st">"b"</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">22</span>, <span class="fl">24</span>, <span class="fl">26</span><span class="op">)</span> <span class="op">~</span> <span class="st">"c"</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">30</span><span class="op">:</span><span class="cn">Inf</span>        <span class="op">~</span> <span class="st">"d"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    1    7   13   19   25   31   37   43   49   55 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  "a"  "a"  "b"  "b" "NA"  "d"  "d"  "d"  "d"  "d" </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Use functions</span></span></span>
+<span class="r-in"><span><span class="fu">switch_in_case</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fl">1</span><span class="op">:</span><span class="fl">6</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span> <span class="op">~</span> <span class="va">exp</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span> <span class="op">~</span> <span class="va">log</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           1           2           3           4           5           6 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2.7182818   0.6931472  20.0855369   1.3862944 148.4131591          NA </span>
 </code></pre></div>
     </div>
   </div>
@@ -190,7 +199,7 @@ an unnamed vector of values matching the rhs of <code>...</code></p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

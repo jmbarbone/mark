@@ -53,7 +53,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">list2df</span><span class="op">(</span><span class="va">x</span>, name <span class="op">=</span> <span class="st">"name"</span>, value <span class="op">=</span> <span class="st">"value"</span>, <span class="va">show_NA</span>, warn <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">list2df</span><span class="op">(</span><span class="va">x</span>, name <span class="op">=</span> <span class="st">"name"</span>, value <span class="op">=</span> <span class="st">"value"</span>, <span class="va">show_NA</span>, warn <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -90,8 +90,8 @@ longer form list that may be more tidy.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">1</span>, b <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">4</span>, c <span class="op">=</span> <span class="va">letters</span><span class="op">[</span><span class="fl">10</span><span class="op">:</span><span class="fl">20</span><span class="op">]</span>, <span class="st">"unnamed"</span>, <span class="st">"unnamed2"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">list2df</span><span class="op">(</span><span class="va">x</span>, <span class="st">"col1"</span>, <span class="st">"col2"</span>, warn <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">1</span>, b <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">4</span>, c <span class="op">=</span> <span class="va">letters</span><span class="op">[</span><span class="fl">10</span><span class="op">:</span><span class="fl">20</span><span class="op">]</span>, <span class="st">"unnamed"</span>, <span class="st">"unnamed2"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">list2df</span><span class="op">(</span><span class="va">x</span>, <span class="st">"col1"</span>, <span class="st">"col2"</span>, warn <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    col1     col2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1     a        1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2     b        2</span>
@@ -110,14 +110,14 @@ longer form list that may be more tidy.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 15    c        t</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 16    4  unnamed</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 17    5 unnamed2</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric_version.html" class="external-link">getRversion</a></span><span class="op">(</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric_version.html" class="external-link">as.package_version</a></span><span class="op">(</span><span class="st">'4.0'</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co"># contrast with `base::list2DF()` and `base::as.data.frame()`</span></span>
-<span class="r-in">  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, b <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">4</span>, c <span class="op">=</span> <span class="va">letters</span><span class="op">[</span><span class="fl">10</span><span class="op">:</span><span class="fl">12</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu">list2df</span><span class="op">(</span><span class="va">x</span>, warn <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/list2DF.html" class="external-link">list2DF</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric_version.html" class="external-link">getRversion</a></span><span class="op">(</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric_version.html" class="external-link">as.package_version</a></span><span class="op">(</span><span class="st">'4.0'</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co"># contrast with `base::list2DF()` and `base::as.data.frame()`</span></span></span>
+<span class="r-in"><span>  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, b <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">4</span>, c <span class="op">=</span> <span class="va">letters</span><span class="op">[</span><span class="fl">10</span><span class="op">:</span><span class="fl">12</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu">list2df</span><span class="op">(</span><span class="va">x</span>, warn <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/list2DF.html" class="external-link">list2DF</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   a b c</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 1 2 j</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 2 3 k</span>
@@ -136,7 +136,7 @@ longer form list that may be more tidy.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

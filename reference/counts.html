@@ -63,18 +63,18 @@ counts <code>TRUE</code>, <code>FALSE</code> and <code>NA</code> values, which i
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">counts</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for data.frame</span>
-<span class="fu">counts</span><span class="op">(</span><span class="va">x</span>, <span class="va">cols</span>, sort <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span>, .name <span class="op">=</span> <span class="st">"freq"</span><span class="op">)</span>
-
-<span class="fu">props</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for default</span>
-<span class="fu">props</span><span class="op">(</span><span class="va">x</span>, sort <span class="op">=</span> <span class="cn">FALSE</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for data.frame</span>
-<span class="fu">props</span><span class="op">(</span><span class="va">x</span>, <span class="va">cols</span>, sort <span class="op">=</span> <span class="cn">FALSE</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span>, .name <span class="op">=</span> <span class="st">"prop"</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">counts</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for data.frame</span></span>
+<span><span class="fu">counts</span><span class="op">(</span><span class="va">x</span>, <span class="va">cols</span>, sort <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span>, .name <span class="op">=</span> <span class="st">"freq"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">props</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">props</span><span class="op">(</span><span class="va">x</span>, sort <span class="op">=</span> <span class="cn">FALSE</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for data.frame</span></span>
+<span><span class="fu">props</span><span class="op">(</span><span class="va">x</span>, <span class="va">cols</span>, sort <span class="op">=</span> <span class="cn">FALSE</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span>, .name <span class="op">=</span> <span class="st">"prop"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -122,50 +122,50 @@ respectively) or <code>data.frame</code> with columns for each column chosen and
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">10</span>, <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">counts</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 2 1 5 3 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 2 1 3 1 </span>
-<span class="r-in"><span class="fu">props</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   4   2   1   5   3 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.3 0.2 0.1 0.3 0.1 </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="quick_df.html">quick_df</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span class="r-in">  a <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"c"</span>, <span class="st">"a"</span>, <span class="st">"c"</span>, <span class="st">"d"</span>, <span class="st">"b"</span><span class="op">)</span>,</span>
-<span class="r-in">  b <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"a"</span>, <span class="st">"a"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>, <span class="st">"b"</span><span class="op">)</span>,</span>
-<span class="r-in">  c <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"a"</span>, <span class="st">"a"</span>, <span class="st">"c"</span>, <span class="st">"b"</span>, <span class="st">"b"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">counts</span><span class="op">(</span><span class="va">x</span>, <span class="st">"a"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">10</span>, <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">counts</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 5 3 1 2 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1 3 4 1 </span>
+<span class="r-in"><span><span class="fu">props</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4   5   3   1   2 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.1 0.1 0.3 0.4 0.1 </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="quick_df.html">quick_df</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  a <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"c"</span>, <span class="st">"a"</span>, <span class="st">"c"</span>, <span class="st">"d"</span>, <span class="st">"b"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  b <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"a"</span>, <span class="st">"a"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>, <span class="st">"b"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  c <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"a"</span>, <span class="st">"a"</span>, <span class="st">"c"</span>, <span class="st">"b"</span>, <span class="st">"b"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">counts</span><span class="op">(</span><span class="va">x</span>, <span class="st">"a"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   a freq</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 a    2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 c    2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3 d    1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 b    1</span>
-<span class="r-in"><span class="fu">counts</span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">counts</span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   a b c freq</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 a a a    2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 c a a    1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3 c c c    1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 d c b    1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5 b b b    1</span>
-<span class="r-in"><span class="fu">props</span><span class="op">(</span><span class="va">x</span>, <span class="fl">2</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">props</span><span class="op">(</span><span class="va">x</span>, <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   b      prop</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 a 0.5000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 c 0.3333333</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3 b 0.1666667</span>
-<span class="r-in"><span class="fu">props</span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">props</span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   a b c prop</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 a a a  0.4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 c a a  0.2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3 c c c  0.2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 d c b  0.2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5 b b b  0.2</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">props</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">3</span>, <span class="cn">NA</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">props</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">3</span>, <span class="cn">NA</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    1    3    4 &lt;NA&gt; </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  0.4  0.2  0.2  0.2 </span>
-<span class="r-in"><span class="fu">props</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">3</span>, <span class="cn">NA</span>, <span class="fl">4</span><span class="op">)</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">props</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">3</span>, <span class="cn">NA</span>, <span class="fl">4</span><span class="op">)</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    1    3    4 &lt;NA&gt; </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.50 0.25 0.25   NA </span>
 </code></pre></div>
@@ -182,7 +182,7 @@ respectively) or <code>data.frame</code> with columns for each column chosen and
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

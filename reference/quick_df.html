@@ -55,9 +55,9 @@ the same sort of checks. It should be used with caution.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">quick_df</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-
-<span class="fu">quick_dfl</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">quick_df</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">quick_dfl</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -82,10 +82,10 @@ the same sort of checks. It should be used with caution.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="co"># unnamed will use make.names()</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">quick_df</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># unnamed will use make.names()</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">quick_df</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    X1 X2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   1  a</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2   2  b</span>
@@ -97,10 +97,10 @@ the same sort of checks. It should be used with caution.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8   8  h</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9   9  i</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10 10  j</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># named is preferred</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"numbers"</span>, <span class="st">"letters"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">quick_df</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># named is preferred</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"numbers"</span>, <span class="st">"letters"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">quick_df</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    numbers letters</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1        1       a</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2        2       b</span>
@@ -112,11 +112,11 @@ the same sort of checks. It should be used with caution.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8        8       h</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9        9       i</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10      10       j</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># empty data.frame</span></span>
-<span class="r-in"><span class="fu">quick_df</span><span class="op">(</span><span class="cn">NULL</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># empty data.frame</span></span></span>
+<span class="r-in"><span><span class="fu">quick_df</span><span class="op">(</span><span class="cn">NULL</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data frame with 0 columns and 0 rows</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -131,7 +131,7 @@ the same sort of checks. It should be used with caution.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

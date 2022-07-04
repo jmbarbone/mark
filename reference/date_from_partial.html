@@ -53,12 +53,12 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">date_from_partial</span><span class="op">(</span>
-  <span class="va">x</span>,
-  format <span class="op">=</span> <span class="st">"ymd"</span>,
-  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"min"</span>, <span class="st">"max"</span><span class="op">)</span>,
-  year_replacement <span class="op">=</span> <span class="cn">NA_integer_</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">date_from_partial</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  format <span class="op">=</span> <span class="st">"ymd"</span>,</span>
+<span>  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"min"</span>, <span class="st">"max"</span><span class="op">)</span>,</span>
+<span>  year_replacement <span class="op">=</span> <span class="cn">NA_integer_</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -100,15 +100,15 @@ part of the date string is missing.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2020-12-17"</span>, <span class="cn">NA_character_</span>, <span class="st">""</span>, <span class="st">"2020-12-UN"</span>, <span class="st">"2020-12-UN"</span>,</span>
-<span class="r-in">       <span class="st">"2019-Unknown-00"</span>, <span class="st">"UNK-UNK-UNK"</span>, <span class="st">"1991-02-UN"</span>, <span class="st">"    "</span>,</span>
-<span class="r-in">       <span class="st">"2020January20"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span class="r-in">  x <span class="op">=</span> <span class="va">x</span>,</span>
-<span class="r-in">  min <span class="op">=</span> <span class="fu">date_from_partial</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
-<span class="r-in">  max <span class="op">=</span> <span class="fu">date_from_partial</span><span class="op">(</span><span class="va">x</span>, method <span class="op">=</span> <span class="st">"max"</span><span class="op">)</span>,</span>
-<span class="r-in">  year <span class="op">=</span> <span class="fu">date_from_partial</span><span class="op">(</span><span class="va">x</span>, year_replacement <span class="op">=</span> <span class="fl">1900</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2020-12-17"</span>, <span class="cn">NA_character_</span>, <span class="st">""</span>, <span class="st">"2020-12-UN"</span>, <span class="st">"2020-12-UN"</span>,</span></span>
+<span class="r-in"><span>       <span class="st">"2019-Unknown-00"</span>, <span class="st">"UNK-UNK-UNK"</span>, <span class="st">"1991-02-UN"</span>, <span class="st">"    "</span>,</span></span>
+<span class="r-in"><span>       <span class="st">"2020January20"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  x <span class="op">=</span> <span class="va">x</span>,</span></span>
+<span class="r-in"><span>  min <span class="op">=</span> <span class="fu">date_from_partial</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  max <span class="op">=</span> <span class="fu">date_from_partial</span><span class="op">(</span><span class="va">x</span>, method <span class="op">=</span> <span class="st">"max"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  year <span class="op">=</span> <span class="fu">date_from_partial</span><span class="op">(</span><span class="va">x</span>, year_replacement <span class="op">=</span> <span class="fl">1900</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                  x        min        max       year</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1       2020-12-17       &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2             &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;</span>
@@ -134,7 +134,7 @@ part of the date string is missing.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

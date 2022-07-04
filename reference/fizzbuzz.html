@@ -57,11 +57,11 @@ utilize that.  No reason to reinvent the wheel.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">fizzbuzz</span><span class="op">(</span><span class="va">n</span>, show_numbers <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-
-<span class="fu">fizzbuzz_lazy</span><span class="op">(</span><span class="va">n</span><span class="op">)</span>
-
-<span class="va">.fizzbuzz_vector</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">fizzbuzz</span><span class="op">(</span><span class="va">n</span>, show_numbers <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">fizzbuzz_lazy</span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">.fizzbuzz_vector</span></span></code></pre></div>
     </div>
 
     <div id="format">
@@ -94,17 +94,17 @@ with default parameters up to <code>1e6</code></p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">fizzbuzz</span><span class="op">(</span><span class="fl">15</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">fizzbuzz</span><span class="op">(</span><span class="fl">15</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "1"        "2"        "Fizz"     "4"        "Buzz"     "Fizz"    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "7"        "8"        "Fizz"     "Buzz"     "11"       "Fizz"    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [13] "13"       "14"       "FizzBuzz"</span>
-<span class="r-in"><span class="fu">fizzbuzz</span><span class="op">(</span><span class="fl">30</span>, show_numbers <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">fizzbuzz</span><span class="op">(</span><span class="fl">30</span>, show_numbers <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] ""         ""         "Fizz"     ""         "Buzz"     "Fizz"    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [7] ""         ""         "Fizz"     "Buzz"     ""         "Fizz"    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [13] ""         ""         "FizzBuzz" ""         ""         "Fizz"    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [19] ""         "Buzz"     "Fizz"     ""         ""         "Fizz"    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [25] "Buzz"     ""         "Fizz"     ""         ""         "FizzBuzz"</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu">fizzbuzz</span><span class="op">(</span><span class="fl">30</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">"\n"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu">fizzbuzz</span><span class="op">(</span><span class="fl">30</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">"\n"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Fizz</span>
@@ -135,20 +135,20 @@ with default parameters up to <code>1e6</code></p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 28</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 29</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> FizzBuzz</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># \donttest{</span></span>
-<span class="r-in"><span class="co"># show them how fast your solution is:</span></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="require_namespace.html">package_available</a></span><span class="op">(</span><span class="st">"bench"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">  <span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="http://bench.r-lib.org/reference/mark.html" class="external-link">mark</a></span><span class="op">(</span><span class="fu">fizzbuzz</span><span class="op">(</span><span class="fl">1e5</span><span class="op">)</span>, <span class="fu">fizzbuzz_lazy</span><span class="op">(</span><span class="fl">1e5</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="co"># show them how fast your solution is:</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="require_namespace.html">package_available</a></span><span class="op">(</span><span class="st">"bench"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="http://bench.r-lib.org/reference/mark.html" class="external-link">mark</a></span><span class="op">(</span><span class="fu">fizzbuzz</span><span class="op">(</span><span class="fl">1e5</span><span class="op">)</span>, <span class="fu">fizzbuzz_lazy</span><span class="op">(</span><span class="fl">1e5</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 13</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   expression                min  median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:t&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> fizzbuzz(1e+05)        35.7ms  37.1ms      27.0    5.19MB     6.00     9     2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> fizzbuzz_lazy(1e+05)  876.8µs   895µs    <span style="text-decoration: underline;">1</span>070.    36.44MB    27.5    272     7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> fizzbuzz(1e+05)        37.2ms  40.3ms      21.7    5.19MB     2.17    10     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> fizzbuzz_lazy(1e+05)  877.5µs  1.24ms     748.    36.44MB    23.3    193     6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 5 more variables: total_time &lt;bch:tm&gt;, result &lt;list&gt;, memory &lt;list&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   time &lt;list&gt;, gc &lt;list&gt;</span></span>
-<span class="r-in"><span class="co"># }</span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -163,7 +163,7 @@ with default parameters up to <code>1e6</code></p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

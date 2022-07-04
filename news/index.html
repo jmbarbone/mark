@@ -52,38 +52,40 @@
 <div class="section level3">
 <h3 id="new-features-development-version">New features<a class="anchor" aria-label="anchor" href="#new-features-development-version"></a></h3>
 <ul><li>
-<code><a href="../reference/get_version.html">update_version()</a></code> now correctly checks result of embedded <code><a href="https://rdrr.io/r/utils/menu.html" class="external-link">utils::menu()</a></code> call for updating the version <a href="https://github.com/jmbarbone/mark/issues/121" class="external-link"></a><a href="https://github.com/jmbarbone/mark/issues/123" class="external-link">#123</a>
+<code><a href="../reference/switch-ext.html">switch_in_case()</a></code> now handles functions in rhs</li>
+<li>
+<code><a href="../reference/get_version.html">update_version()</a></code> now correctly checks result of embedded <code><a href="https://rdrr.io/r/utils/menu.html" class="external-link">utils::menu()</a></code> call for updating the version <a href="https://github.com/jmbarbone/mark/issues/121" class="external-link">#123</a>
 </li>
 <li>
-<code><a href="../reference/require_namespace.html">require_namespace()</a></code> now accepts multiple namespaces <a href="https://github.com/jmbarbone/mark/issues/121" class="external-link"></a><a href="https://github.com/jmbarbone/mark/issues/121" class="external-link">#121</a>
+<code><a href="../reference/require_namespace.html">require_namespace()</a></code> now accepts multiple namespaces <a href="https://github.com/jmbarbone/mark/issues/121" class="external-link">#121</a>
 </li>
 <li>
-<code>unique.fact()</code> S3 method <a href="https://github.com/jmbarbone/mark/issues/86" class="external-link"></a><a href="https://github.com/jmbarbone/mark/issues/86" class="external-link">#86</a>
+<code>unique.fact()</code> S3 method <a href="https://github.com/jmbarbone/mark/issues/86" class="external-link">#86</a>
 </li>
 <li>
-<code><a href="../reference/recode_by.html">recode_only()</a></code> and <code><a href="../reference/recode_by.html">recode_by()</a></code> can accept a single value for <code>val</code> <a href="https://github.com/jmbarbone/mark/issues/72" class="external-link"></a><a href="https://github.com/jmbarbone/mark/issues/72" class="external-link">#72</a>
+<code><a href="../reference/recode_by.html">recode_only()</a></code> and <code><a href="../reference/recode_by.html">recode_by()</a></code> can accept a single value for <code>val</code> <a href="https://github.com/jmbarbone/mark/issues/72" class="external-link">#72</a>
 </li>
 <li>
-<code><a href="../reference/fact_reverse.html">fact_reverse()</a></code> for reversing <code>fact</code> levels <a href="https://github.com/jmbarbone/mark/issues/78" class="external-link"></a><a href="https://github.com/jmbarbone/mark/issues/78" class="external-link">#78</a>
+<code><a href="../reference/fact_reverse.html">fact_reverse()</a></code> for reversing <code>fact</code> levels <a href="https://github.com/jmbarbone/mark/issues/78" class="external-link">#78</a>
 </li>
 <li>
-<code>as.Date.fact()</code> added <a href="https://github.com/jmbarbone/mark/issues/108" class="external-link"></a><a href="https://github.com/jmbarbone/mark/issues/108" class="external-link">#108</a>
+<code>as.Date.fact()</code> added <a href="https://github.com/jmbarbone/mark/issues/108" class="external-link">#108</a>
 </li>
 <li>
 <code>as.character.fact()</code> added</li>
 <li>
 <code>[.fact</code> added</li>
 <li>
-<code><a href="../reference/read_bib.html">read_bib()</a></code> better handles fields where <code>=</code> is present in the text <a href="https://github.com/jmbarbone/mark/issues/117" class="external-link"></a><a href="https://github.com/jmbarbone/mark/issues/117" class="external-link">#117</a>
+<code><a href="../reference/read_bib.html">read_bib()</a></code> better handles fields where <code>=</code> is present in the text <a href="https://github.com/jmbarbone/mark/issues/117" class="external-link">#117</a>
 </li>
 </ul></div>
 <div class="section level3">
 <h3 id="fixes-development-version">Fixes<a class="anchor" aria-label="anchor" href="#fixes-development-version"></a></h3>
 <ul><li>
-<code><a href="../reference/drop_levels.html">drop_levels()</a></code> is exported <a href="https://github.com/jmbarbone/mark/issues/105" class="external-link"></a><a href="https://github.com/jmbarbone/mark/issues/105" class="external-link">#105</a>
+<code><a href="../reference/drop_levels.html">drop_levels()</a></code> is exported <a href="https://github.com/jmbarbone/mark/issues/105" class="external-link">#105</a>
 </li>
 <li>
-<code><a href="../reference/recode_by.html">recode_by()</a></code> and <code><a href="../reference/recode_by.html">recode_only()</a></code> handle factors better <a href="https://github.com/jmbarbone/mark/issues/81" class="external-link"></a><a href="https://github.com/jmbarbone/mark/issues/81" class="external-link">#81</a>
+<code><a href="../reference/recode_by.html">recode_by()</a></code> and <code><a href="../reference/recode_by.html">recode_only()</a></code> handle factors better <a href="https://github.com/jmbarbone/mark/issues/81" class="external-link">#81</a>
 </li>
 </ul></div>
 <div class="section level3">
@@ -96,7 +98,7 @@
 <div class="section level3">
 <h3 id="non-visible-changes-development-version">Non visible changes<a class="anchor" aria-label="anchor" href="#non-visible-changes-development-version"></a></h3>
 <ul><li>
-<code>print.fact()</code> rewritten as a slightly modified <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print.factor()</a></code> <a href="https://github.com/jmbarbone/mark/issues/109" class="external-link"></a><a href="https://github.com/jmbarbone/mark/issues/109" class="external-link">#109</a>
+<code>print.fact()</code> rewritten as a slightly modified <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print.factor()</a></code> <a href="https://github.com/jmbarbone/mark/issues/109" class="external-link">#109</a>
 </li></ul></div>
 </div>
     <div class="section level2">
@@ -105,29 +107,29 @@
 <div class="section level3">
 <h3 id="fixes-0-5-0">Fixes<a class="anchor" aria-label="anchor" href="#fixes-0-5-0"></a></h3>
 <ul><li>
-<code>detail(NA)</code> (or when <code>x</code> has only <code>NA</code> values) no longer throws a warning and returns <code>NA</code> for <code>min_c</code>, <code>max_c</code> <a href="https://github.com/jmbarbone/mark/issues/59" class="external-link"></a><a href="https://github.com/jmbarbone/mark/issues/59" class="external-link">#59</a>
+<code>detail(NA)</code> (or when <code>x</code> has only <code>NA</code> values) no longer throws a warning and returns <code>NA</code> for <code>min_c</code>, <code>max_c</code> <a href="https://github.com/jmbarbone/mark/issues/59" class="external-link">#59</a>
 </li>
 <li>
-<code>print.noted()</code> now passes <code>...</code> to next methods <a href="https://github.com/jmbarbone/mark/issues/67" class="external-link"></a><a href="https://github.com/jmbarbone/mark/issues/67" class="external-link">#67</a>
+<code>print.noted()</code> now passes <code>...</code> to next methods <a href="https://github.com/jmbarbone/mark/issues/67" class="external-link">#67</a>
 </li>
-<li>corrects deprecation warning in <code>assign_label()</code> <a href="https://github.com/jmbarbone/mark/issues/74" class="external-link"></a><a href="https://github.com/jmbarbone/mark/issues/74" class="external-link">#74</a><ul><li>
+<li>corrects deprecation warning in <code>assign_label()</code> <a href="https://github.com/jmbarbone/mark/issues/74" class="external-link">#74</a><ul><li>
 <code>assign_label()</code> will be removed in <code>0.4.2</code>
 </li></ul></li>
 <li>
 <code><a href="../reference/not_available.html">set_not_available()</a></code> now seems to work correctly – it probably hasn’t actually be working most of the time</li>
 <li>
-<code><a href="../reference/percentile_rank.html">percentile_rank()</a></code> is now more correct when <code>x</code> is a decimal by checking for unique values first <a href="https://github.com/jmbarbone/mark/issues/92" class="external-link"></a><a href="https://github.com/jmbarbone/mark/issues/92" class="external-link">#92</a>
+<code><a href="../reference/percentile_rank.html">percentile_rank()</a></code> is now more correct when <code>x</code> is a decimal by checking for unique values first <a href="https://github.com/jmbarbone/mark/issues/92" class="external-link">#92</a>
 </li>
 <li>
 <code><a href="../reference/counts.html">counts.data.frame()</a></code> now handle factor columns better</li>
 </ul></div>
 <div class="section level3">
 <h3 id="new-features-0-5-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-5-0"></a></h3>
-<ul><li>Functions in <code><a href="../reference/handlers.html">?handlers</a></code>, all allow for additional params passed through <code>...</code> <a href="https://github.com/jmbarbone/mark/issues/34" class="external-link"></a><a href="https://github.com/jmbarbone/mark/issues/34" class="external-link">#34</a>
+<ul><li>Functions in <code><a href="../reference/handlers.html">?handlers</a></code>, all allow for additional params passed through <code>...</code> <a href="https://github.com/jmbarbone/mark/issues/34" class="external-link">#34</a>
 </li>
-<li>adds <code><a href="../reference/row_bind.html">row_bind()</a></code> to bind a list of <code>data.frames()</code> <a href="https://github.com/jmbarbone/mark/issues/46" class="external-link"></a><a href="https://github.com/jmbarbone/mark/issues/46" class="external-link">#46</a>
+<li>adds <code><a href="../reference/row_bind.html">row_bind()</a></code> to bind a list of <code>data.frames()</code> <a href="https://github.com/jmbarbone/mark/issues/46" class="external-link">#46</a>
 </li>
-<li>adds <code><a href="../reference/drop_levels.html">drop_levels()</a></code> with <code>factor</code> and <code>data.frame</code> methods; functions similarly to <code><a href="https://rdrr.io/r/base/droplevels.html" class="external-link">base::droplevels()</a></code> but is a little faster <a href="https://github.com/jmbarbone/mark/issues/54" class="external-link"></a><a href="https://github.com/jmbarbone/mark/issues/54" class="external-link">#54</a>
+<li>adds <code><a href="../reference/drop_levels.html">drop_levels()</a></code> with <code>factor</code> and <code>data.frame</code> methods; functions similarly to <code><a href="https://rdrr.io/r/base/droplevels.html" class="external-link">base::droplevels()</a></code> but is a little faster <a href="https://github.com/jmbarbone/mark/issues/54" class="external-link">#54</a>
 </li>
 <li>
 <code><a href="../reference/todos.html">todos()</a></code> and <code><a href="../reference/todos.html">fixmes()</a></code> gain a new param <code>force</code><ul><li>When <code>TRUE</code>, forces searches for <code>.R</code> files when the given directory does not contain an <code>.Rproj</code> file</li>
@@ -135,18 +137,18 @@
 <li>This be toggled with a new options <code>mark.todos.force</code>
 </li>
 </ul></li>
-<li>adds <code><a href="../reference/note.html">set_note()</a></code>, a wrapper for <code>note&lt;-()</code> <a href="https://github.com/jmbarbone/mark/pull/77" class="external-link"></a><a href="https://github.com/jmbarbone/mark/issues/77" class="external-link">#77</a>
+<li>adds <code><a href="../reference/note.html">set_note()</a></code>, a wrapper for <code>note&lt;-()</code> <a href="https://github.com/jmbarbone/mark/pull/77" class="external-link">#77</a>
 </li>
-<li>adds <code><a href="../reference/fact2char.html">fact2char()</a></code> to compliment <code><a href="../reference/char2fact.html">char2fact()</a></code> <a href="https://github.com/jmbarbone/mark/pull/75" class="external-link"></a><a href="https://github.com/jmbarbone/mark/issues/75" class="external-link">#75</a>
-</li>
-<li>
-<code><a href="../reference/print.pseudo_id.html">print.pseudo_id()</a></code> now truncates long uniques to a single line <a href="https://github.com/jmbarbone/mark/pull/70" class="external-link"></a><a href="https://github.com/jmbarbone/mark/issues/70" class="external-link">#70</a>
+<li>adds <code><a href="../reference/fact2char.html">fact2char()</a></code> to compliment <code><a href="../reference/char2fact.html">char2fact()</a></code> <a href="https://github.com/jmbarbone/mark/pull/75" class="external-link">#75</a>
 </li>
 <li>
-<code>match_param(NULL, null = TRUE)</code> allows <code>param</code> to safely return <code>NULL</code> <a href="https://github.com/jmbarbone/mark/issues/89" class="external-link"></a><a href="https://github.com/jmbarbone/mark/issues/89" class="external-link">#89</a>
+<code><a href="../reference/print.pseudo_id.html">print.pseudo_id()</a></code> now truncates long uniques to a single line <a href="https://github.com/jmbarbone/mark/pull/70" class="external-link">#70</a>
 </li>
 <li>
-<code><a href="../reference/fact_na.html">fact_na()</a></code> is added to use <code>fact</code> vectors with <code>NA</code> levels that work with <code><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na()</a></code> <a href="https://github.com/jmbarbone/mark/issues/69" class="external-link"></a><a href="https://github.com/jmbarbone/mark/issues/69" class="external-link">#69</a> and other <code>NA</code> handling improvements</li>
+<code>match_param(NULL, null = TRUE)</code> allows <code>param</code> to safely return <code>NULL</code> <a href="https://github.com/jmbarbone/mark/issues/89" class="external-link">#89</a>
+</li>
+<li>
+<code><a href="../reference/fact_na.html">fact_na()</a></code> is added to use <code>fact</code> vectors with <code>NA</code> levels that work with <code><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na()</a></code> <a href="https://github.com/jmbarbone/mark/issues/69" class="external-link">#69</a> and other <code>NA</code> handling improvements</li>
 <li>adds a new <code>print._mark_bib_df()</code> method to supporting printing lists</li>
 <li>adds new methods for <code>facts</code>: <code>as.integer.fact()</code>, <code>as.double.fact()</code>, <code><a href="../reference/remove_na.html">remove_na.fact()</a></code>
 </li>
@@ -169,15 +171,15 @@
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.4.1" id="mark-041">mark 0.4.1<small>2021-11-05</small><a class="anchor" aria-label="anchor" href="#mark-041"></a></h2>
 <ul><li>
-<code>details(factor)</code> no longer adds <code>fact</code> class to <code>factors</code> <a href="https://github.com/jmbarbone/mark/issues/50" class="external-link"></a><a href="https://github.com/jmbarbone/mark/issues/50" class="external-link">#50</a>
+<code>details(factor)</code> no longer adds <code>fact</code> class to <code>factors</code> <a href="https://github.com/jmbarbone/mark/issues/50" class="external-link">#50</a>
 </li>
 <li>
 <code>details()</code> gains new argument <code>factor_n</code> to control threshold for making character vectors into factors</li>
 <li>
-<code><a href="../reference/detail.html">detail.data.frame()</a></code> now works with single column data.frames <a href="https://github.com/jmbarbone/mark/issues/48" class="external-link"></a><a href="https://github.com/jmbarbone/mark/issues/48" class="external-link">#48</a>
+<code><a href="../reference/detail.html">detail.data.frame()</a></code> now works with single column data.frames <a href="https://github.com/jmbarbone/mark/issues/48" class="external-link">#48</a>
 </li>
 <li>
-<code><a href="../reference/utils-paste.html">paste_combine()</a></code> no longer duplicated the second vector of <code>...</code> when <code>length(...) &gt; 2</code> <a href="https://github.com/jmbarbone/mark/issues/52" class="external-link"></a><a href="https://github.com/jmbarbone/mark/issues/52" class="external-link">#52</a>
+<code><a href="../reference/utils-paste.html">paste_combine()</a></code> no longer duplicated the second vector of <code>...</code> when <code>length(...) &gt; 2</code> <a href="https://github.com/jmbarbone/mark/issues/52" class="external-link">#52</a>
 </li>
 </ul></div>
     <div class="section level2">
@@ -202,10 +204,10 @@
 <div class="section level3">
 <h3 id="fixes-0-4-0">Fixes<a class="anchor" aria-label="anchor" href="#fixes-0-4-0"></a></h3>
 <ul><li>
-<code><a href="../reference/unlist0.html">squash_vec()</a></code> now works correctly when values are not ordered <a href="https://github.com/jmbarbone/mark/issues/43" class="external-link"></a><a href="https://github.com/jmbarbone/mark/issues/43" class="external-link">#43</a>
+<code><a href="../reference/unlist0.html">squash_vec()</a></code> now works correctly when values are not ordered <a href="https://github.com/jmbarbone/mark/issues/43" class="external-link">#43</a>
 </li>
 <li>
-<code><a href="../reference/as_ordered.html">as_ordered()</a></code> no longer duplicates <code>ordered</code> class <a href="https://github.com/jmbarbone/mark/issues/44" class="external-link"></a><a href="https://github.com/jmbarbone/mark/issues/44" class="external-link">#44</a>
+<code><a href="../reference/as_ordered.html">as_ordered()</a></code> no longer duplicates <code>ordered</code> class <a href="https://github.com/jmbarbone/mark/issues/44" class="external-link">#44</a>
 </li>
 <li>
 <code><a href="../reference/counts.html">counts.data.frame()</a></code> and <code><a href="../reference/counts.html">props.data.frame()</a></code> correctly make column names unique</li>
@@ -237,12 +239,12 @@
 <div class="section level3">
 <h3 id="fixes-0-3-0">Fixes<a class="anchor" aria-label="anchor" href="#fixes-0-3-0"></a></h3>
 <ul><li>
-<code><a href="../reference/fact.html">fact.haven_labelled()</a></code> now returns an object with class <code>fact</code> <a href="https://github.com/jmbarbone/mark/issues/39" class="external-link"></a><a href="https://github.com/jmbarbone/mark/issues/39" class="external-link">#39</a>; performance enhancements</li>
+<code><a href="../reference/fact.html">fact.haven_labelled()</a></code> now returns an object with class <code>fact</code> <a href="https://github.com/jmbarbone/mark/issues/39" class="external-link">#39</a>; performance enhancements</li>
 <li>
-<code>set_names0(NULL)</code> no longer causes an error and returns <code>NULL</code> <a href="https://github.com/jmbarbone/mark/issues/40" class="external-link"></a><a href="https://github.com/jmbarbone/mark/issues/40" class="external-link">#40</a>
+<code>set_names0(NULL)</code> no longer causes an error and returns <code>NULL</code> <a href="https://github.com/jmbarbone/mark/issues/40" class="external-link">#40</a>
 </li>
 <li>
-<code><a href="../reference/diff_time.html">diff_time()</a></code> correctly handles time zones when <code>x</code> is <code>Date</code> and <code>y</code> is <code>POSIXt</code> <a href="https://github.com/jmbarbone/mark/issues/41" class="external-link"></a><a href="https://github.com/jmbarbone/mark/issues/41" class="external-link">#41</a>
+<code><a href="../reference/diff_time.html">diff_time()</a></code> correctly handles time zones when <code>x</code> is <code>Date</code> and <code>y</code> is <code>POSIXt</code> <a href="https://github.com/jmbarbone/mark/issues/41" class="external-link">#41</a>
 </li>
 </ul></div>
 <div class="section level3">
@@ -292,16 +294,16 @@
 <code><a href="../reference/array_extract.html">array_extract()</a></code>’s first argument is changed from <code>arr</code> to <code>.arr</code>
 </li>
 <li>
-<code><a href="../reference/diff_time.html">diff_time()</a></code> now defaults to using UTC (Related to <a href="https://github.com/jmbarbone/mark/issues/32" class="external-link"></a><a href="https://github.com/jmbarbone/mark/issues/32" class="external-link">#32</a>)</li>
+<code><a href="../reference/diff_time.html">diff_time()</a></code> now defaults to using UTC (Related to <a href="https://github.com/jmbarbone/mark/issues/32" class="external-link">#32</a>)</li>
 <li>
-<code>print.note()</code> method has been updated (Related to: <a href="https://github.com/jmbarbone/mark/issues/33" class="external-link"></a><a href="https://github.com/jmbarbone/mark/issues/33" class="external-link">#33</a>):<ul><li>to print <code>x</code> <em>normally</em>, without the <code>note class</code> when just the note has to be seen</li>
+<code>print.note()</code> method has been updated (Related to: <a href="https://github.com/jmbarbone/mark/issues/33" class="external-link">#33</a>):<ul><li>to print <code>x</code> <em>normally</em>, without the <code>note class</code> when just the note has to be seen</li>
 <li>an internal function now handles the note formatted for class <code>noted</code>
 </li>
 </ul></li>
 <li>changes to <code><a href="../reference/fact.html">fact()</a></code><ul><li>
 <code><a href="../reference/fact.html">fact()</a></code> now returns a vector with a <code>fact</code> element</li>
 <li>
-<code><a href="../reference/fact.html">fact.character()</a></code> correctly labels <code>NA</code>s <a href="https://github.com/jmbarbone/mark/issues/24" class="external-link"></a><a href="https://github.com/jmbarbone/mark/issues/24" class="external-link">#24</a>
+<code><a href="../reference/fact.html">fact.character()</a></code> correctly labels <code>NA</code>s <a href="https://github.com/jmbarbone/mark/issues/24" class="external-link">#24</a>
 </li>
 <li>
 <code><a href="../reference/fact.html">fact.factor()</a></code> not longer simply returns <code>x</code> but rather updates the levels and integer values to confirm with other <code><a href="../reference/fact.html">fact()</a></code> methods. <code><a href="../reference/fact.html">fact.factor()</a></code> will retain all levels of the original value, reorder the levels, and append <code>NA</code> if necessary</li>
@@ -332,7 +334,7 @@
 <li>
 <code><a href="../reference/pseudo_id.html">pseudo_id.factor()</a></code> no longer returns <code>NA_integer</code> when a value is <code>NA</code> or a level is <code>NA</code> and correctly resets the order of the levels from the factor to their order of appearance</li>
 <li>
-<code><a href="../reference/flip.html">flip.data.frame()</a></code> no longer coerces single column data.frames <a href="https://github.com/jmbarbone/mark/issues/36" class="external-link"></a><a href="https://github.com/jmbarbone/mark/issues/36" class="external-link">#36</a>
+<code><a href="../reference/flip.html">flip.data.frame()</a></code> no longer coerces single column data.frames <a href="https://github.com/jmbarbone/mark/issues/36" class="external-link">#36</a>
 </li>
 </ul></div>
 <div class="section level3">
@@ -349,19 +351,19 @@
 <li>
 <code><a href="../reference/labels.html">assign_labels.data.frame()</a></code> gains an additional argument <code>.missing</code> to set how to control for missing labels: you can now use a <code>warning</code> for a missing label (instead of an error) or silently ignore any missing labels</li>
 <li>
-<code><a href="../reference/sort_names.html">sort_names()</a></code> gains a new argument <code>numeric</code> to try to sort names of <code>x</code> by their numeric value <a href="https://github.com/jmbarbone/mark/issues/26" class="external-link"></a><a href="https://github.com/jmbarbone/mark/issues/26" class="external-link">#26</a>
+<code><a href="../reference/sort_names.html">sort_names()</a></code> gains a new argument <code>numeric</code> to try to sort names of <code>x</code> by their numeric value <a href="https://github.com/jmbarbone/mark/issues/26" class="external-link">#26</a>
 </li>
 <li>adds <code><a href="../reference/struct.html">struct()</a></code>, a simplified version of <code><a href="../reference/struct.html">struct()</a></code>
 </li>
 <li>adds more <code><a href="../reference/fact.html">fact()</a></code> methods<ul><li>
-<code><a href="../reference/fact.html">fact.integer()</a></code> <a href="https://github.com/jmbarbone/mark/issues/30" class="external-link"></a><a href="https://github.com/jmbarbone/mark/issues/30" class="external-link">#30</a>
+<code><a href="../reference/fact.html">fact.integer()</a></code> <a href="https://github.com/jmbarbone/mark/issues/30" class="external-link">#30</a>
 </li>
 <li>
-<code><a href="../reference/fact.html">fact.haven_labelled()</a></code> <a href="https://github.com/jmbarbone/mark/issues/31" class="external-link"></a><a href="https://github.com/jmbarbone/mark/issues/31" class="external-link">#31</a>
+<code><a href="../reference/fact.html">fact.haven_labelled()</a></code> <a href="https://github.com/jmbarbone/mark/issues/31" class="external-link">#31</a>
 </li>
 </ul></li>
 <li>
-<code><a href="../reference/todos.html">todos()</a></code> and <code><a href="../reference/todos.html">fixmes()</a></code> gain an additional argument <code>path</code> to specify a directory or file to search within <a href="https://github.com/jmbarbone/mark/issues/25" class="external-link"></a><a href="https://github.com/jmbarbone/mark/issues/25" class="external-link">#25</a>
+<code><a href="../reference/todos.html">todos()</a></code> and <code><a href="../reference/todos.html">fixmes()</a></code> gain an additional argument <code>path</code> to specify a directory or file to search within <a href="https://github.com/jmbarbone/mark/issues/25" class="external-link">#25</a>
 </li>
 <li>
 <code><a href="../reference/print.pseudo_id.html">print.pseudo_id()</a></code> added for a cleaner print</li>
@@ -377,7 +379,7 @@
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.1.4" id="mark-014">mark 0.1.4<small>2021-07-16</small><a class="anchor" aria-label="anchor" href="#mark-014"></a></h2>
 <ul><li>no visible user changes</li>
-<li>removes temporarily created files <a href="https://github.com/jmbarbone/mark/issues/22" class="external-link"></a><a href="https://github.com/jmbarbone/mark/issues/22" class="external-link">#22</a>
+<li>removes temporarily created files <a href="https://github.com/jmbarbone/mark/issues/22" class="external-link">#22</a>
 </li>
 </ul></div>
     <div class="section level2">
@@ -385,7 +387,7 @@
 <p>New name! The previous name <code>jordan</code> was conflicting with recent package on CRAN.</p>
 <div class="section level3">
 <h3 id="changes-0-1-3">Changes<a class="anchor" aria-label="anchor" href="#changes-0-1-3"></a></h3>
-<ul><li>corrects use of <code>...</code> in <code><a href="../reference/todos.html">todos()</a></code> <a href="https://github.com/jmbarbone/mark/issues/8" class="external-link"></a><a href="https://github.com/jmbarbone/mark/issues/8" class="external-link">#8</a><ul><li>
+<ul><li>corrects use of <code>...</code> in <code><a href="../reference/todos.html">todos()</a></code> <a href="https://github.com/jmbarbone/mark/issues/8" class="external-link">#8</a><ul><li>
 <code><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep()</a></code> also now evaluated with <em>cleaned</em> todo text</li>
 <li>searches for <code><a href="../reference/todos.html">todos()</a></code> in Rmd files, too</li>
 <li>correctly removes additional <code>#</code> and spaces in lines (e.g., <code>#  # TODO text</code> -&gt; <code>text</code>)</li>
@@ -395,7 +397,7 @@
 </li>
 <li>core functions previously on <code><a href="https://rdrr.io/r/base/rle.html" class="external-link">base::rle()</a></code> now use a combination of <code><a href="../reference/pseudo_id.html">pseudo_id()</a></code> and <code><a href="https://rdrr.io/r/base/tabulate.html" class="external-link">base::tabulate()</a></code>
 </li>
-<li>corrects counts for factor data when higher levels are not present <a href="https://github.com/jmbarbone/mark/issues/17" class="external-link"></a><a href="https://github.com/jmbarbone/mark/issues/16" class="external-link">#16</a>
+<li>corrects counts for factor data when higher levels are not present <a href="https://github.com/jmbarbone/mark/issues/17" class="external-link">#16</a>
 </li>
 </ul></li>
 <li>update to <code><a href="../reference/multi_grepl.html">multi_grepl()</a></code> internal functions to prevent conflicts with <code>R 4.1.0</code>
@@ -406,7 +408,7 @@
 <h3 id="new-features-0-1-3">New features<a class="anchor" aria-label="anchor" href="#new-features-0-1-3"></a></h3>
 <ul><li>adds/exports <code><a href="../reference/fact.html">fact()</a></code> and <code><a href="../reference/pseudo_id.html">pseudo_id()</a></code>
 </li>
-<li>adds <code><a href="../reference/todos.html">fixmes()</a></code> <a href="https://github.com/jmbarbone/mark/issues/13" class="external-link"></a><a href="https://github.com/jmbarbone/mark/issues/13" class="external-link">#13</a>
+<li>adds <code><a href="../reference/todos.html">fixmes()</a></code> <a href="https://github.com/jmbarbone/mark/issues/13" class="external-link">#13</a>
 </li>
 <li>adds <code><a href="../reference/set_names0.html">names_switch()</a></code> to switch names and values</li>
 <li>
@@ -434,7 +436,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

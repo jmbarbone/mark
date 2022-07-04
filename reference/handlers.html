@@ -53,17 +53,17 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">has_warning</span><span class="op">(</span><span class="va">x</span>, <span class="va">FUN</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">has_error</span><span class="op">(</span><span class="va">x</span>, <span class="va">FUN</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">has_message</span><span class="op">(</span><span class="va">x</span>, <span class="va">FUN</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">get_warning</span><span class="op">(</span><span class="va">x</span>, <span class="va">FUN</span>, <span class="va">...</span>, .null <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-
-<span class="fu">get_message</span><span class="op">(</span><span class="va">x</span>, <span class="va">FUN</span>, <span class="va">...</span>, .null <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-
-<span class="fu">get_error</span><span class="op">(</span><span class="va">x</span>, <span class="va">FUN</span>, <span class="va">...</span>, .null <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">has_warning</span><span class="op">(</span><span class="va">x</span>, <span class="va">FUN</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">has_error</span><span class="op">(</span><span class="va">x</span>, <span class="va">FUN</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">has_message</span><span class="op">(</span><span class="va">x</span>, <span class="va">FUN</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">get_warning</span><span class="op">(</span><span class="va">x</span>, <span class="va">FUN</span>, <span class="va">...</span>, .null <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">get_message</span><span class="op">(</span><span class="va">x</span>, <span class="va">FUN</span>, <span class="va">...</span>, .null <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">get_error</span><span class="op">(</span><span class="va">x</span>, <span class="va">FUN</span>, <span class="va">...</span>, .null <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -104,38 +104,38 @@ error or warning without raising.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">has_warning</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="st">"no"</span><span class="op">)</span>, <span class="va">as.integer</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">has_warning</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="st">"no"</span><span class="op">)</span>, <span class="va">as.integer</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     1    no </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> FALSE  TRUE </span>
-<span class="r-in"><span class="co">#     1    no</span></span>
-<span class="r-in"><span class="co"># FALSE  TRUE</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">get_warning</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="st">"no"</span><span class="op">)</span>, <span class="va">as.integer</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">#     1    no</span></span></span>
+<span class="r-in"><span><span class="co"># FALSE  TRUE</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">get_warning</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="st">"no"</span><span class="op">)</span>, <span class="va">as.integer</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`1`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $no</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "NAs introduced by coercion"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># drop NULLs</span></span>
-<span class="r-in"><span class="fu">get_warning</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="st">"no"</span><span class="op">)</span>, <span class="va">as.integer</span>, .null <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># drop NULLs</span></span></span>
+<span class="r-in"><span><span class="fu">get_warning</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="st">"no"</span><span class="op">)</span>, <span class="va">as.integer</span>, .null <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $no</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "NAs introduced by coercion"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">foo</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot</a></span><span class="op">(</span><span class="va">x</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span></span>
-<span class="r-in">  <span class="va">x</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">has_error</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">2</span><span class="op">)</span>, <span class="va">foo</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">foo</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot</a></span><span class="op">(</span><span class="va">x</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">x</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">has_error</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">2</span><span class="op">)</span>, <span class="va">foo</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     1     0     2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> FALSE  TRUE FALSE </span>
-<span class="r-in"><span class="co">#     1     0     2</span></span>
-<span class="r-in"><span class="co"># FALSE  TRUE FALSE</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">get_error</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">2</span><span class="op">)</span>, <span class="va">foo</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">#     1     0     2</span></span></span>
+<span class="r-in"><span><span class="co"># FALSE  TRUE FALSE</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">get_error</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">2</span><span class="op">)</span>, <span class="va">foo</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`1`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -145,9 +145,9 @@ error or warning without raising.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`2`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># drop NULLs</span></span>
-<span class="r-in"><span class="fu">get_error</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">2</span><span class="op">)</span>, <span class="va">foo</span>, .null <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># drop NULLs</span></span></span>
+<span class="r-in"><span><span class="fu">get_error</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">2</span><span class="op">)</span>, <span class="va">foo</span>, .null <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`0`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "x &gt; 0 is not TRUE"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -165,7 +165,7 @@ error or warning without raising.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

@@ -53,11 +53,11 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">paste_c</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, collate <span class="op">=</span> <span class="cn">TRUE</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span>
-
-<span class="fu">paste_combine</span><span class="op">(</span><span class="va">...</span>, collate <span class="op">=</span> <span class="cn">TRUE</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span>
-
-<span class="fu">collapse0</span><span class="op">(</span><span class="va">...</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">paste_c</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, collate <span class="op">=</span> <span class="cn">TRUE</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">paste_combine</span><span class="op">(</span><span class="va">...</span>, collate <span class="op">=</span> <span class="cn">TRUE</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">collapse0</span><span class="op">(</span><span class="va">...</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -84,30 +84,30 @@ vector elements then the next; otherwise reversed (see examples)</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span>
-<span class="r-in"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span></span>
-<span class="r-in"><span class="va">z</span> <span class="op">&lt;-</span> <span class="va">month.abb</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">12</span><span class="op">)</span><span class="op">]</span></span>
-<span class="r-in"><span class="fu">paste_combine</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span></span></span>
+<span class="r-in"><span><span class="va">z</span> <span class="op">&lt;-</span> <span class="va">month.abb</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">12</span><span class="op">)</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="fu">paste_combine</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "a1" "a2" "a3" "b1" "b2" "b3" "c1" "c2" "c3" "d1" "d2" "d3" "e1" "e2" "e3"</span>
-<span class="r-in"><span class="fu">paste_combine</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">z</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">paste_combine</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">z</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "a1Jan" "a1Dec" "a2Jan" "a2Dec" "a3Jan" "a3Dec" "b1Jan" "b1Dec" "b2Jan"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [10] "b2Dec" "b3Jan" "b3Dec" "c1Jan" "c1Dec" "c2Jan" "c2Dec" "c3Jan" "c3Dec"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [19] "d1Jan" "d1Dec" "d2Jan" "d2Dec" "d3Jan" "d3Dec" "e1Jan" "e1Dec" "e2Jan"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [28] "e2Dec" "e3Jan" "e3Dec"</span>
-<span class="r-in"><span class="fu">paste_combine</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">z</span>, sep <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">paste_combine</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">z</span>, sep <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "a.1.Jan" "a.1.Dec" "a.2.Jan" "a.2.Dec" "a.3.Jan" "a.3.Dec" "b.1.Jan"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [8] "b.1.Dec" "b.2.Jan" "b.2.Dec" "b.3.Jan" "b.3.Dec" "c.1.Jan" "c.1.Dec"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [15] "c.2.Jan" "c.2.Dec" "c.3.Jan" "c.3.Dec" "d.1.Jan" "d.1.Dec" "d.2.Jan"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [22] "d.2.Dec" "d.3.Jan" "d.3.Dec" "e.1.Jan" "e.1.Dec" "e.2.Jan" "e.2.Dec"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [29] "e.3.Jan" "e.3.Dec"</span>
-<span class="r-in"><span class="fu">paste_combine</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, sep <span class="op">=</span> <span class="st">"_"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">paste_combine</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, sep <span class="op">=</span> <span class="st">"_"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "a_1" "a_2" "a_3" "b_1" "b_2" "b_3" "c_1" "c_2" "c_3" "d_1" "d_2" "d_3"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [13] "e_1" "e_2" "e_3"</span>
-<span class="r-in"><span class="fu">paste_combine</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, collate <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">paste_combine</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, collate <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "a1" "b1" "c1" "d1" "e1" "a2" "b2" "c2" "d2" "e2" "a3" "b3" "c3" "d3" "e3"</span>
-<span class="r-in"><span class="fu">collapse0</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span>, <span class="fl">5</span><span class="op">:</span><span class="fl">7</span>, <span class="va">letters</span><span class="op">[</span><span class="fl">5</span><span class="op">:</span><span class="fl">7</span><span class="op">]</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">collapse0</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span>, <span class="fl">5</span><span class="op">:</span><span class="fl">7</span>, <span class="va">letters</span><span class="op">[</span><span class="fl">5</span><span class="op">:</span><span class="fl">7</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "123abc567efg"</span>
-<span class="r-in"><span class="fu">collapse0</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="va">letters</span><span class="op">[</span><span class="fl">5</span><span class="op">:</span><span class="fl">7</span><span class="op">]</span>, sep <span class="op">=</span> <span class="st">"_"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">collapse0</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="va">letters</span><span class="op">[</span><span class="fl">5</span><span class="op">:</span><span class="fl">7</span><span class="op">]</span>, sep <span class="op">=</span> <span class="st">"_"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "1_2_3_e_f_g"</span>
 </code></pre></div>
     </div>
@@ -123,7 +123,7 @@ vector elements then the next; otherwise reversed (see examples)</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

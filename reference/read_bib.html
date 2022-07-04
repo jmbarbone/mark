@@ -53,7 +53,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">read_bib</span><span class="op">(</span><span class="va">file</span>, skip <span class="op">=</span> <span class="fl">0L</span>, max_lines <span class="op">=</span> <span class="cn">NULL</span>, encoding <span class="op">=</span> <span class="st">"UTF-8"</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_bib</span><span class="op">(</span><span class="va">file</span>, skip <span class="op">=</span> <span class="fl">0L</span>, max_lines <span class="op">=</span> <span class="cn">NULL</span>, encoding <span class="op">=</span> <span class="st">"UTF-8"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -96,14 +96,14 @@ This will also include as many categories as possible from the entry.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">file</span> <span class="op">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/jmbarbone/bib-references/master/references.bib"</span></span>
-<span class="r-in"><span class="va">bibdf</span> <span class="op">&lt;-</span> <span class="fu">read_bib</span><span class="op">(</span><span class="va">file</span>, max_lines <span class="op">=</span> <span class="fl">51L</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="require_namespace.html">package_available</a></span><span class="op">(</span><span class="st">"tibble"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">  <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="va">bibdf</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">bibdf</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/jmbarbone/bib-references/master/references.bib"</span></span></span>
+<span class="r-in"><span><span class="va">bibdf</span> <span class="op">&lt;-</span> <span class="fu">read_bib</span><span class="op">(</span><span class="va">file</span>, max_lines <span class="op">=</span> <span class="fl">51L</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="require_namespace.html">package_available</a></span><span class="op">(</span><span class="st">"tibble"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="va">bibdf</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">bibdf</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 5 × 13</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   key     field author journal title year  issn  month number pages volume doi  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
@@ -113,25 +113,25 @@ This will also include as many categories as possible from the entry.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> baker2… arti… Baker… Nature… 1,50… 2016  <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    7604   452   533    10.1…</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> begley… arti… <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 1 more variable: publisher &lt;chr&gt;</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="require_namespace.html">package_available</a></span><span class="op">(</span><span class="st">"bib2df"</span><span class="op">)</span> <span class="op">&amp;</span> <span class="fu"><a href="require_namespace.html">package_available</a></span><span class="op">(</span><span class="st">"bench"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">  <span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"bib2df_testfile_3.bib"</span>, package <span class="op">=</span> <span class="st">"bib2df"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in">  <span class="co"># Doesn't include the 'tidying' up</span></span>
-<span class="r-in">  <span class="va">foo</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">file</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">    <span class="va">bib</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="st">"bib2df"</span> <span class="op"><a href="grapes-colons-grapes.html">%colons%</a></span> <span class="st">"bib2df_read"</span><span class="op">)</span><span class="op">(</span><span class="va">file</span><span class="op">)</span></span>
-<span class="r-in">    <span class="op">(</span><span class="st">"bib2df"</span> <span class="op"><a href="grapes-colons-grapes.html">%colons%</a></span> <span class="st">"bib2df_gather"</span><span class="op">)</span><span class="op">(</span><span class="va">bib</span><span class="op">)</span></span>
-<span class="r-in">  <span class="op">}</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># \donttest{</span></span>
-<span class="r-in">  <span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="http://bench.r-lib.org/reference/mark.html" class="external-link">mark</a></span><span class="op">(</span></span>
-<span class="r-in">    read_bib <span class="op">=</span> <span class="fu">read_bib</span><span class="op">(</span><span class="va">file</span><span class="op">)</span>,</span>
-<span class="r-in">    bib2df <span class="op">=</span> <span class="fu">bib2df</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/bib2df/reference/bib2df.html" class="external-link">bib2df</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span>,</span>
-<span class="r-in">    foo <span class="op">=</span> <span class="fu">foo</span><span class="op">(</span><span class="va">file</span><span class="op">)</span>,</span>
-<span class="r-in">    check <span class="op">=</span> <span class="cn">FALSE</span></span>
-<span class="r-in">  <span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">9</span><span class="op">]</span></span>
-<span class="r-in"><span class="co"># }</span></span>
-<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="require_namespace.html">package_available</a></span><span class="op">(</span><span class="st">"bib2df"</span><span class="op">)</span> <span class="op">&amp;</span> <span class="fu"><a href="require_namespace.html">package_available</a></span><span class="op">(</span><span class="st">"bench"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"bib2df_testfile_3.bib"</span>, package <span class="op">=</span> <span class="st">"bib2df"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="co"># Doesn't include the 'tidying' up</span></span></span>
+<span class="r-in"><span>  <span class="va">foo</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">file</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="va">bib</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="st">"bib2df"</span> <span class="op"><a href="grapes-colons-grapes.html">%colons%</a></span> <span class="st">"bib2df_read"</span><span class="op">)</span><span class="op">(</span><span class="va">file</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="op">(</span><span class="st">"bib2df"</span> <span class="op"><a href="grapes-colons-grapes.html">%colons%</a></span> <span class="st">"bib2df_gather"</span><span class="op">)</span><span class="op">(</span><span class="va">bib</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span>  <span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="http://bench.r-lib.org/reference/mark.html" class="external-link">mark</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    read_bib <span class="op">=</span> <span class="fu">read_bib</span><span class="op">(</span><span class="va">file</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    bib2df <span class="op">=</span> <span class="fu">bib2df</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/bib2df/reference/bib2df.html" class="external-link">bib2df</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    foo <span class="op">=</span> <span class="fu">foo</span><span class="op">(</span><span class="va">file</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    check <span class="op">=</span> <span class="cn">FALSE</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">9</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`as_data_frame()` was deprecated in tibble 2.0.0.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> Please use `as_tibble()` instead.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> The signature and semantics have changed, see `?as_tibble`.</span>
@@ -140,9 +140,9 @@ This will also include as many categories as possible from the entry.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 9</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   expression     min  median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_time</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:t&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:t&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> read_bib    2.27ms  2.35ms     423.     9.41KB     6.90   184     3      435ms</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> bib2df     18.27ms 18.68ms      53.3    3.42MB     4.63    23     2      432ms</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> foo         8.11ms  8.32ms     120.   130.43KB     7.20    50     3      416ms</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> read_bib    2.16ms  2.39ms     411.     9.41KB     6.74   183     3      445ms</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> bib2df     19.89ms 20.36ms      48.8    3.45MB     4.65    21     2      431ms</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> foo         8.68ms  9.72ms     103.   130.43KB     4.38    47     2      457ms</span>
 </code></pre></div>
     </div>
   </div>
@@ -157,7 +157,7 @@ This will also include as many categories as possible from the entry.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

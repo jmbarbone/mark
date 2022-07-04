@@ -53,7 +53,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">round_by</span><span class="op">(</span><span class="va">x</span>, by <span class="op">=</span> <span class="fl">1</span>, method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"round"</span>, <span class="st">"ceiling"</span>, <span class="st">"floor"</span><span class="op">)</span>, include0 <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">round_by</span><span class="op">(</span><span class="va">x</span>, by <span class="op">=</span> <span class="fl">1</span>, method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"round"</span>, <span class="st">"ceiling"</span>, <span class="st">"floor"</span><span class="op">)</span>, include0 <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -85,14 +85,14 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">13</span>, by <span class="op">=</span> <span class="fl">4</span><span class="op">/</span><span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span></span>
-<span class="r-in">  <span class="va">x</span>,</span>
-<span class="r-in">  by_1 <span class="op">=</span> <span class="fu">round_by</span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">)</span>,</span>
-<span class="r-in">  by_2 <span class="op">=</span> <span class="fu">round_by</span><span class="op">(</span><span class="va">x</span>, <span class="fl">2</span><span class="op">)</span>,</span>
-<span class="r-in">  by_3 <span class="op">=</span> <span class="fu">round_by</span><span class="op">(</span><span class="va">x</span>, <span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">13</span>, by <span class="op">=</span> <span class="fl">4</span><span class="op">/</span><span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">x</span>,</span></span>
+<span class="r-in"><span>  by_1 <span class="op">=</span> <span class="fu">round_by</span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  by_2 <span class="op">=</span> <span class="fu">round_by</span><span class="op">(</span><span class="va">x</span>, <span class="fl">2</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  by_3 <span class="op">=</span> <span class="fu">round_by</span><span class="op">(</span><span class="va">x</span>, <span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               x by_1 by_2 by_3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  1.000000    1    0    0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  2.333333    2    2    3</span>
@@ -118,7 +118,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

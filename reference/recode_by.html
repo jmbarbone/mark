@@ -53,9 +53,9 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">recode_by</span><span class="op">(</span><span class="va">x</span>, <span class="va">by</span>, vals <span class="op">=</span> <span class="cn">NULL</span>, mode <span class="op">=</span> <span class="st">"any"</span><span class="op">)</span>
-
-<span class="fu">recode_only</span><span class="op">(</span><span class="va">x</span>, <span class="va">by</span>, vals <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">recode_by</span><span class="op">(</span><span class="va">x</span>, <span class="va">by</span>, vals <span class="op">=</span> <span class="cn">NULL</span>, mode <span class="op">=</span> <span class="st">"any"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">recode_only</span><span class="op">(</span><span class="va">x</span>, <span class="va">by</span>, vals <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -103,23 +103,23 @@ more like <code><a href="https://rdrr.io/r/base/replace.html" class="external-li
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">recode_by</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">1</span>, b <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">recode_by</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">1</span>, b <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "a" "b" NA </span>
-<span class="r-in"><span class="fu">recode_by</span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>`1` <span class="op">=</span> <span class="st">"a"</span>, `2` <span class="op">=</span> <span class="st">"b"</span><span class="op">)</span><span class="op">)</span>                   <span class="co"># will not guess mode</span></span>
+<span class="r-in"><span><span class="fu">recode_by</span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>`1` <span class="op">=</span> <span class="st">"a"</span>, `2` <span class="op">=</span> <span class="st">"b"</span><span class="op">)</span><span class="op">)</span>                   <span class="co"># will not guess mode</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "1" "2" NA </span>
-<span class="r-in"><span class="fu">recode_by</span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>`1` <span class="op">=</span> <span class="st">"a"</span>, `2` <span class="op">=</span> <span class="st">"b"</span><span class="op">)</span>, mode <span class="op">=</span> <span class="st">"integer"</span><span class="op">)</span> <span class="co"># make as integer</span></span>
+<span class="r-in"><span><span class="fu">recode_by</span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>`1` <span class="op">=</span> <span class="st">"a"</span>, `2` <span class="op">=</span> <span class="st">"b"</span><span class="op">)</span>, mode <span class="op">=</span> <span class="st">"integer"</span><span class="op">)</span> <span class="co"># make as integer</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1]  1  2 NA</span>
-<span class="r-in"><span class="fu">recode_by</span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span><span class="op">)</span>, vals <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span>                   <span class="co"># or pass to vals</span></span>
+<span class="r-in"><span><span class="fu">recode_by</span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span><span class="op">)</span>, vals <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span>                   <span class="co"># or pass to vals</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1]  1  2 NA</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">recode_only</span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"zzz"</span> <span class="op">=</span> <span class="st">"a"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">recode_only</span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"zzz"</span> <span class="op">=</span> <span class="st">"a"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "zzz" "b"   "c"  </span>
-<span class="r-in"><span class="fu">recode_only</span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>`1` <span class="op">=</span> <span class="st">"a"</span><span class="op">)</span><span class="op">)</span> <span class="co"># returns as "1"</span></span>
+<span class="r-in"><span><span class="fu">recode_only</span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>`1` <span class="op">=</span> <span class="st">"a"</span><span class="op">)</span><span class="op">)</span> <span class="co"># returns as "1"</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "1" "b" "c"</span>
-<span class="r-in"><span class="fu">recode_only</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span> <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span>            <span class="co"># coerced to NA</span></span>
+<span class="r-in"><span><span class="fu">recode_only</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span> <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span>            <span class="co"># coerced to NA</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>NAs introduced by coercion</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA  2  3</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -134,7 +134,7 @@ more like <code><a href="https://rdrr.io/r/base/replace.html" class="external-li
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>
