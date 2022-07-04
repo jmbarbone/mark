@@ -53,7 +53,8 @@ the entire path}
 }
 \value{
 \itemize{
-\item \code{open_file()}, \code{shell_exec()}: A logical vector where \code{TRUE} successfully opened, \code{FALSE} did not and \code{NA} did not try to open (file not found)
+\item \code{open_file()}, \code{shell_exec()}: A logical vector where \code{TRUE} successfully
+opened, \code{FALSE} did not and \code{NA} did not try to open (file not found)
 \item \code{list_files()}, \code{list_dirs()}: A vector of full paths
 }
 }
