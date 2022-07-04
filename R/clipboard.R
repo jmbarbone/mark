@@ -194,7 +194,3 @@ type_convert2 <- function(x) {
 
   res
 }
-
-is_windows <- function() {
-  Sys.info()[["sysname"]] == "Windows"
-}
