@@ -176,7 +176,6 @@ print.diff_time <- function(x, digits = getOption("digits"), ...) {
   invisible(x)
 }
 
-
 # Wrappers ----------------------------------------------------------------
 
 #' @export
@@ -239,7 +238,6 @@ diff_time_myears <- function(x, y, ...) {
   diff_time(x, y, method = "myears", ...)
 }
 
-
 # Inherits ----------------------------------------------------------------
 
 #' Time inherits
@@ -266,7 +264,6 @@ is_POSIXct <- function(x) {
 is_diff_time <- function(x) {
   inherits(x, "diff_time")
 }
-
 
 # helpers -----------------------------------------------------------------
 

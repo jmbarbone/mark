@@ -119,7 +119,6 @@ simpleTimeReport <- function(title = NULL, expr, envir = parent.frame()) {
   invisible(res)
 }
 
-
 #' Format time difference
 #'
 #' Provides quick formatting for time differences object
@@ -144,7 +143,6 @@ formatTimeDiff <- function(start, stop = Sys.time(), threshold = .1) {
   u <- substr(attr(difference, "units"), 1L, 1L)
   sprintf("[%.2f %s]", difference, u)
 }
-
 
 #' Split an expression
 #'

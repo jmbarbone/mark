@@ -45,7 +45,6 @@ col_to_rn <- function(data, row_names = 1L) {
   data[, -row_names, drop = FALSE]
 }
 
-
 #' Vector to data.frame
 #'
 #' Transforms a vector (named) to a data.frame
@@ -70,7 +69,6 @@ vector2df <- function(x, name = "name", value = "value", show_NA) {
   names(ls) <- c(name, value)
   quick_df(ls)
 }
-
 
 #' List to data.frame
 #'

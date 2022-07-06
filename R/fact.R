@@ -128,7 +128,6 @@ fact.factor <- function(x) {
     return(res)
   }
 
-
   if (anyNA(x) || anyNA(old_levels)) {
     new_levels <-
       if (!anyNA(new_levels)) {
@@ -245,7 +244,6 @@ print.fact <- function(
   invisible(x)
 }
 
-
 # as_ordered --------------------------------------------------------------
 
 #' Ordered
@@ -282,7 +280,6 @@ as_ordered <- function(x) {
   UseMethod("as_ordered", x)
 }
 
-
 #' @rdname as_ordered
 #' @export
 as_ordered.default <- function(x) {
@@ -294,8 +291,6 @@ as_ordered.default <- function(x) {
 
   res
 }
-
-
 
 
 # drop_levels -------------------------------------------------------------
@@ -343,7 +338,6 @@ drop_levels.factor <- function(x, ...) {
   )
 }
 
-
 # fact_na -----------------------------------------------------------------
 
 #' `fact` with `NA`
@@ -381,7 +375,6 @@ fact_na <- function(x, remove = FALSE) {
   x
 }
 
-
 # fact_reverse ------------------------------------------------------------
 
 #' Fact reverse levels
@@ -402,7 +395,6 @@ fact_reverse  <- function(x) {
 
   new_fact(seq[x], levels = lvls, ordered = is.ordered(x), na = na)
 }
-
 
 # other methods -----------------------------------------------------------
 
@@ -451,7 +443,6 @@ as.Date.fact <- function(x, ...) {
   attributes(y) <- attributes(x)
   y
 }
-
 
 # helpers -----------------------------------------------------------------
 

@@ -26,7 +26,6 @@ median2 <- function(x, type = 7, na.rm = FALSE) {
 #' @rdname median2
 q50 <- median2
 
-
 #' Range 2
 #'
 #' Employs `min()` and `max()`.  However, [base::range()], there is no argument

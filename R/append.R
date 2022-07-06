@@ -5,7 +5,6 @@ append0 <- function(x, values, pos = NULL, ...) {
 
 # maybe values should be a named list?
 
-
 #' @export
 append0.data.frame <- function(x, values, pos = NULL, ...) {
   quick_df(append0(as.list(x), values = values, pos = pos, expand = TRUE))

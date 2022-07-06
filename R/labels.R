@@ -132,7 +132,6 @@ get_labels.data.frame <- function(x) {
   vector2df(vap_chr(x, get_labels, .nm = TRUE), "column", "label")
 }
 
-
 #' @export
 #' @rdname labels
 view_labels <- function(x, title) {

@@ -210,7 +210,6 @@ switch_case <- function(..., .default = NULL, .envir = parent.frame()) {
   as.vector(out, mode(res0))
 }
 
-
 # FUNS --------------------------------------------------------------------
 
 try_catch_inf <- function(expr) {

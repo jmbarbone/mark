@@ -81,7 +81,6 @@ recode_only <- function(x, by, vals = NULL) {
   clean_na_coercion(as.vector(x, mode = mode))
 }
 
-
 # helpers -----------------------------------------------------------------
 
 clean_na_coercion <- function(expr) {

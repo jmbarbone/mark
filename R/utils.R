@@ -64,7 +64,6 @@ use_color <- function() {
   rn("crayon") && crayon::has_color()
 }
 
-
 use_color <- function() { rn("crayon") && crayon::has_color() }
 crayon_blue  <- function(x) { if (use_color()) crayon::blue(x)  else x }
 crayon_green <- function(x) { if (use_color()) crayon::green(x) else x }
@@ -80,7 +79,6 @@ crayon_cyan  <- function(x) { if (use_color()) crayon::cyan(x)  else x }
 ept <- function(x, envir = parent.frame()) {
   eval(parse(text = x), envir = envir)
 }
-
 
 # Removes object's attributes before printing
 print_no_attr <- function(x, ...) {
@@ -144,7 +142,6 @@ is_atomic0 <- function(x) {
   is.atomic(x) && !is.null(x)
 }
 
-
 cat0 <- function(...) { cat(..., sep = "") }
 catln <- function(...) { cat(..., sep = "\n") }
 charexpr <- function(x) { as.character(as.expression(x)) }
@@ -162,7 +159,6 @@ mark_temp <- function(ext = "") {
   oc <- paste0(oc, "__")
   norm_path(tempfile(oc, fileext = ext))
 }
-
 
 check_is_vector <- function(x, mode = "any") {
   if (isS4(x) | inherits(x, c("data.frame", "matrix", "array")) | !is.vector(remove_attributes(x), mode)) {
@@ -217,7 +213,6 @@ check_interactive <- function() {
   stop("mark.check_interactive must be TRUE, FALSE, or NA")
 }
 
-
 try_formats <- function(date = FALSE) {
   x <- c(
     "%Y-%m-%d %H:%M:%OS",
@@ -234,7 +229,6 @@ try_formats <- function(date = FALSE) {
   c(x, paste(x, "%Z"), if (date) c("%Y-%m-%d", "%Y/%m/%d", "%Y%m%d"))
 }
 
-
 has_char <- function(x) {
   if (!is.character(x)) {
     return(rep.int(FALSE, length(x)))
@@ -242,7 +236,6 @@ has_char <- function(x) {
 
   !is.na(x) & nzchar(x, keepNA = TRUE)
 }
-
 
 dupe_check <- function(x, n = getOption("mark.dupe.n", 5)) {
   n <- as.integer(n)

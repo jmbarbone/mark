@@ -35,7 +35,6 @@ ksource <- function(file, ..., quiet = TRUE, cd = FALSE, env = parent.frame()) {
   source(knitr::purl(file, output = o, quiet = quiet), chdir = cd, local = env)
 }
 
-
 #' @rdname sourcing
 #' @export
 try_source <- function(file, cd = FALSE, ...) {
@@ -61,7 +60,6 @@ try_ksource <- function(file, ...) {
       warning(e, call. = FALSE)
     })
 }
-
 
 #' Evaluate a  Named Chunk
 #'
@@ -118,7 +116,6 @@ eval_named_chunk <- function(rmd_file, label_name) {
   ept(exp, envir = new.env())
 }
 
-
 #' Source file from directory
 #'
 #' Walk through files in a directory and output them.
@@ -138,7 +135,6 @@ source_r_dir <- function(dir, echo = FALSE, quiet = FALSE, ...) {
   files <- list.files(dir, pattern = "\\.[rR]$", full.names = TRUE)
   invisible(lapply(sort(files), source_r_file, q = quiet, ...))
 }
-
 
 #' @export
 #' @rdname source_files
@@ -173,13 +169,11 @@ source_r_file <- function(path, echo = FALSE, quiet = FALSE, ...) {
   invisible()
 }
 
-
 # Rscript -----------------------------------------------------------------
 
 # Functions for "safe" sourcing, which can be used to launch a stand-alone
 #   script which may require the R objects created to be reused.
 #
-
 
 #' Source to environment
 #'
