@@ -224,7 +224,8 @@ smallest_file <- function(x) {
 #'
 #' @export
 #' @return
-#' * `open_file()`, `shell_exec()`: A logical vector where `TRUE` successfully opened, `FALSE` did not and `NA` did not try to open (file not found)
+#' * `open_file()`, `shell_exec()`: A logical vector where `TRUE` successfully
+#'   opened, `FALSE` did not and `NA` did not try to open (file not found)
 #' * `list_files()`, `list_dirs()`: A vector of full paths
 #' @name file_utils
 open_file <- function(x) {
@@ -241,18 +242,18 @@ file_open <- open_file
 #' @rdname file_utils
 #' @export
 shell_exec <- function(x) {
-  invisible(vap_lgl(x, try_shell_exec))
-}
+  open_fun <- switch(
+    Sys.info()[["sysname"]],
+    Windows = shell.exec,
+    Linux   = function(file) system2("xdg-open", shQuote(file, "sh")),
+    Darwin  = function(file) system2("xdg-open", shQuote(file, "sh")),
+    stop("sysname not recognized: ", Sys.info()[["sysname"]])
+  )
 
-try_shell_exec <- function(x) {
-  tryCatch({
-    shell.exec(x)
-    TRUE
-  },
-  error = function(e) {
-    warning(e, call. = FALSE)
-    FALSE
-  })
+  open_fun <- match.fun(open_fun)
+  x <- norm_path(x, check = TRUE)
+  FUN <- function(file) inherits(try(open_fun(x), silent = TRUE), "try-error")
+  invisible(!vap_lgl(x, FUN))
 }
 
 #' @rdname file_utils
