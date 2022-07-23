@@ -8,7 +8,8 @@ tableNA(..., .list = FALSE)
 }
 \arguments{
 \item{...}{one or more objects which can be interpreted as factors
-    (including character strings), or a list (or data frame) whose
+    (including numbers or character strings), or a \code{\link[base]{list}} (such
+    as a data frame) whose
     components can be so interpreted.  (For \code{as.table}, arguments
     passed to specific methods; for \code{as.data.frame}, unused.)}
 

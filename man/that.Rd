@@ -11,7 +11,8 @@ that(x, arr.ind = FALSE, useNames = TRUE)
    are allowed and omitted (treated as if \code{FALSE}).}
 
 \item{arr.ind}{logical; should \bold{arr}ay \bold{ind}ices be returned
-   when \code{x} is an array?}
+   when \code{x} is an array?  Anything other than a single true value
+   is treated as false.}
 
 \item{useNames}{logical indicating if the value of \code{arrayInd()}
    should have (non-null) dimnames at all.}

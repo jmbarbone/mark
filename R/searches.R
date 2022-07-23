@@ -2,7 +2,7 @@
 #'
 #' Multiple search pattern searches
 #'
-#' @inheritParams base::grepl
+#' @param x Passed to [base::grepl()]
 #' @param patterns A list or vector of patterns to search across `x`; if named
 #'   value returned will be the name of the pattern -- otherwise the position.
 #'   Pattern match reported will be the first in the list that is found
