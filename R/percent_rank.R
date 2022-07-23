@@ -85,7 +85,7 @@ do_percentile_rank <- function(u, w) {
     ok <- stats::complete.cases(u, w)
     o <- order(u[ok])
     p <- w[ok][o]
-    res <- (cumsum(p) - p * 0.5)[match(u[ok][o], u[ok])] / sum(w[ok])
+    res <- (cumsum(p) - p * 0.5)[match(u[ok], u[ok][o])] / sum(w[ok])
   }
 
   out <- rep(NA_real_, length(ok))
