@@ -1,3 +1,7 @@
+# mark 0.5.1
+
+* Fix for CRAN check [#128](https://github.com/jmbarbone/mark/issues/128)
+
 # mark 0.5.0
 
 The package website https://jmbarbone.github.io/mark/ is now available!
