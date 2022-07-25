@@ -35,7 +35,19 @@ test_that("note() work", {
   expect_identical(x, y)
 })
 
-test_that("print.noted() passes to next methods [67]", {
+test_that("print.noted() passes to next methods [67] (data.frame)", {
+  x <- data.frame(a = 1:50)
+  original <- capture.output(print(x, max = 5))
+  note(x) <- "note"
+  co <- withr::with_options(list(mark.check_interactive = FALSE), {
+    capture.output(print(x, max = 5))
+  })
+  expect_true(all(original %in% co))
+  expect_identical(co[1], "Note : note")
+})
+
+test_that("print.noted() passes to next methods [67] (tibble)", {
+  skip_on_cran() # don't need {tibble} of {pillar} breaking this test
   skip_if_not_installed("tibble")
 
   # not bothering with snapshots
