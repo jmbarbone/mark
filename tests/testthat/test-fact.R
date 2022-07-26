@@ -86,30 +86,41 @@ test_that("fact.factor() works", {
 test_that("fact.haven_labelled() works", {
   skip_if_not_installed("haven")
   .haven_as_factor <- "haven" %colons% "as_factor.haven_labelled"
-  haven_as_factor <- function(...) add_class(.haven_as_factor(...), "fact", 1L)
+  haven_as_fact <- function(...) {
+    res <- fact(.haven_as_factor(...))
+    attr(res, "label") <- attr(..1, "label", exact = TRUE)
+    res
+  }
+
+  expect_id_fact <- function(x) {
+    testthat::expect_identical(
+      fact(x),
+      haven_as_fact(x),
+      ignore_attr = c("uniques", "na")
+    )
+  }
 
   # Integers
   r <- rep(1:3, 2)
   x <- haven::labelled(r, labels = c(good = 1, bad = 3))
-  expect_identical(fact(x), haven_as_factor(x))
+  expect_id_fact(x)
 
   x <- haven::labelled(r, labels = c(good = 1, bad = 3), label = "this")
-  expect_identical(fact(x), haven_as_factor(x))
+  expect_id_fact(x)
 
   x <- haven::labelled(r, labels = c(good = 1, neutral = 2, bad = 3), label = "this")
-  expect_identical(fact(x), haven_as_factor(x))
+  expect_id_fact(x)
 
   x <- haven::labelled(r, label = "this")
-  expect_identical(fact(x), haven_as_factor(x))
-
+  expect_id_fact(x)
 
   # Doubles
   x <- haven::labelled(c(0, 0.5, 1), c(a = 0, b = 1))
-  expect_identical(fact(x), haven_as_factor(x))
+  expect_id_fact(x)
 
   # Character
   x <- haven::labelled(letters, c(good = "j", something = "m", cool = "b"))
-  expect_identical(fact(x), haven_as_factor(x))
+  expect_id_fact(x)
 })
 
 # nas ----

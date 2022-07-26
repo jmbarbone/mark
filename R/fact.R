@@ -168,28 +168,20 @@ fact.pseudo_id <- function(x) {
 #' @export
 fact.haven_labelled <- function(x) {
   require_namespace("haven")
-  labels <- sort(attr(x, "labels", exact = TRUE))
-  uc <- unclass(x)
-  u <- unique(uc)
-  m <- match(u, labels)
-  nas <- is.na(m)
+  lvls <- attr(x, "labels")
 
-  if (any(nas)) {
-    # Done to match haven::as_factor.haven_labelled()
-    labels <- labels[m]
-    labels[nas] <- u[nas]
-    names(labels)[nas] <- u[nas]
-    mx <- match(x, labels)
+  if (length(lvls)) {
+    ux <- unclass(x)
+    u <- unique(ux)
+    m <- match(ux, u)
+    u[match(lvls, ux)] <- names(lvls)
+    res <- new_fact(m, u)
   } else {
-    mx <- as.integer(x)
+    res <- fact(unclass(x))
   }
 
-  struct(
-    mx,
-    class = c("fact", "factor"),
-    levels = names(labels),
-    label = attr(x, "label", exact = TRUE)
-  )
+  attr(res, "label") <- attr(x, "label", exact = TRUE)
+  res
 }
 
 #' @export
@@ -239,6 +231,12 @@ print.fact <- function(
       "\n",
       sep = ""
     )
+
+    # Be nice to haven_labelled
+    lab <- attr(x, "label", exact = TRUE)
+    if (!is.null(lab)) {
+      cat("Label: ", paste(format(lab), ""), "\n", sep = "")
+    }
   }
 
   invisible(x)

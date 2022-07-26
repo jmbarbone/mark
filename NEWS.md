@@ -15,6 +15,7 @@
 
 ## Fixes
 
+* `fact.haven_labelled()` works properly and retains the `label` attribute [#136](https://github.com/jmbarbone/mark/issues/136)
 * `drop_levels()` is exported [#105](https://github.com/jmbarbone/mark/issues/105)
 * `recode_by()` and `recode_only()` handle factors better [#81](https://github.com/jmbarbone/mark/issues/81)
 * Functions that made use of `shell.exec()` now try to determine the appropriate method of opening a file base on OS. [#126](https://github.com/jmbarbone/mark/issues/126)
