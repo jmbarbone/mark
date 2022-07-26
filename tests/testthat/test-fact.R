@@ -343,6 +343,12 @@ test_that("as.Date.fact() works", {
   expect_identical(exp, res)
 })
 
+test_that("as.character.fact() works", {
+  exp <- c("a", NA_character_, "b", "b", "a")
+  res <- as.character(fact(exp))
+  expect_identical(exp, res)
+})
+
 # snapshots ---------------------------------------------------------------
 
 test_that("snapshots", {

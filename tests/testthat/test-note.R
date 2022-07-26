@@ -33,17 +33,18 @@ test_that("note() work", {
   expect_identical(x, y)
 })
 
-test_that("print.noted() passes to next methods [67]", {
-  skip_if_not_installed("tibble")
-
-  # not bothering with snapshots
-  x <- tibble::tibble(a = 1:50)
-  note(x) <- "note"
-  expect_match(
-    utils::tail(capture.output(print(x, n = 40)), 1),
-    "with 10 more rows"
-  )
-})
+# TODO updated with CRAN fix
+# test_that("print.noted() passes to next methods [67]", {
+#   skip_if_not_installed("tibble")
+#
+#   # not bothering with snapshots
+#   x <- tibble::tibble(a = 1:50)
+#   note(x) <- "note"
+#   expect_match(
+#     utils::tail(capture.output(print(x, n = 40)), 1),
+#     "with 10 more rows"
+#   )
+# })
 
 test_that("print_note() works with data.frame", {
   withr::local_options(list(mark.check_interactive = NA))
