@@ -172,10 +172,11 @@ fact.haven_labelled <- function(x) {
 
   if (length(lvls)) {
     ux <- unclass(x)
-    u <- unique(ux)
-    m <- match(ux, u)
-    u[match(lvls, ux)] <- names(lvls)
-    res <- new_fact(m, u)
+    uniques <- sort.int(unique(c(ux, lvls)))
+    m <- match(ux, uniques)
+    ml <- match(lvls, uniques)
+    uniques[ml] <- names(lvls)
+    res <- new_fact(m, uniques)
   } else {
     res <- fact(unclass(x))
   }
