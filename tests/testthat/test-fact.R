@@ -121,6 +121,14 @@ test_that("fact.haven_labelled() works", {
   # Character
   x <- haven::labelled(letters, c(good = "j", something = "m", cool = "b"))
   expect_id_fact(x)
+
+  # Unique not in levels; levels not in unique
+  x <- haven::labelled(
+    c(-10, 20, 40, 60),
+    labels = c(a = 10, b = 20, c = 30, d = 40),
+    label = "foo"
+  )
+  expect_id_fact(x)
 })
 
 # nas ----
