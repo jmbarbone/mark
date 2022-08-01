@@ -9,7 +9,7 @@ percentile_rank(x, weights = times, times)
 \arguments{
 \item{x}{A vector of values to rank}
 
-\item{weight, times}{A vector of the number of times to repeat \code{x}}
+\item{weights, times}{A vector of the number of times to repeat \code{x}}
 }
 \value{
 The percentile rank of \code{x} between 0 and 1 (see Boundaries)

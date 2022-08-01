@@ -28,7 +28,7 @@
 #' `1`, as these values are not actually within the set.
 #'
 #' @param x A vector of values to rank
-#' @param weight,times A vector of the number of times to repeat `x`
+#' @param weights,times A vector of the number of times to repeat `x`
 #'
 #' @return The percentile rank of `x` between 0 and 1 (see Boundaries)
 #'
