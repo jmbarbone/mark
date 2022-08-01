@@ -1,16 +1,17 @@
 ## Test environments
 
-* local R installation, R 4.1.0
-* windows-latest, release 4.0, 3.6
-* macOS-latest, devel, release, 4.0, 3.6
-* ubuntu 20.04, devel, release, 4.0, 3.6
+* local R installation, R 4.2.1
+* windows-latest, release, 3.6
+* macOS-latest release
+* ubuntu-latest devel, release, oldrel-1
 
 ## R CMD check results
 
 0 errors | 0 warnings | 0 note
 
-* This is a minor release
+* This is a patch release
 
 ## Notes
 
-* None
+* fixed failing print test
+* otherwise minor cleanup

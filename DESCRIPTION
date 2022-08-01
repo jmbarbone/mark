@@ -2,7 +2,7 @@ Package: mark
 Type: Package
 Title: Miscellaneous, Analytic R Kernels
 Version: 0.5.0.9001
-Date: 2022-02-26
+Date: 2022-07-24
 Authors@R:
     person(given   = "Jordan Mark",
            family  = "Barbone",

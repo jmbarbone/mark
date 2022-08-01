@@ -107,26 +107,27 @@ Read in bibliographies:
 file <- system.file("extdata", "example-bib.txt", package = "mark")
 bib <- read_bib(file)
 tibble::as_tibble(bib)
-#> # A tibble: 13 x 23
+#> # A tibble: 13 × 23
 #>    key          field author title journal year  number pages month note  volume
 #>    <chr>        <chr> <chr>  <chr> <chr>   <chr> <chr>  <chr> <chr> <chr> <chr> 
-#>  1 article      arti~ Peter~ The ~ The na~ 1993  2      201-~ 7     An o~ 4     
-#>  2 book         book  Peter~ The ~ <NA>    1993  <NA>   <NA>  7     An o~ 4     
-#>  3 booklet      book~ Peter~ The ~ <NA>    1993  <NA>   <NA>  7     An o~ <NA>  
-#>  4 conference   conf~ Peter~ The ~ <NA>    1993  <NA>   213   7     An o~ 4     
-#>  5 inbook       inbo~ Peter~ The ~ <NA>    1993  <NA>   201-~ 7     An o~ 4     
-#>  6 incollection inco~ Peter~ The ~ <NA>    1993  <NA>   201-~ 7     An o~ 4     
-#>  7 manual       manu~ Peter~ The ~ <NA>    1993  <NA>   <NA>  7     An o~ <NA>  
-#>  8 mastersthes~ mast~ Peter~ The ~ <NA>    1993  <NA>   <NA>  7     An o~ <NA>  
-#>  9 misc         misc  Peter~ The ~ <NA>    1993  <NA>   <NA>  7     An o~ <NA>  
-#> 10 phdthesis    phdt~ Peter~ The ~ <NA>    1993  <NA>   <NA>  7     An o~ <NA>  
-#> 11 proceedings  proc~ <NA>   The ~ <NA>    1993  <NA>   <NA>  7     An o~ 4     
-#> 12 techreport   tech~ Peter~ The ~ <NA>    1993  2      <NA>  7     An o~ <NA>  
-#> 13 unpublished  unpu~ Peter~ The ~ <NA>    1993  <NA>   <NA>  7     An o~ <NA>  
-#> # ... with 12 more variables: publisher <chr>, series <chr>, address <chr>,
+#>  1 article      arti… Peter… The … The na… 1993  2      201-… 7     An o… 4     
+#>  2 book         book  Peter… The … <NA>    1993  <NA>   <NA>  7     An o… 4     
+#>  3 booklet      book… Peter… The … <NA>    1993  <NA>   <NA>  7     An o… <NA>  
+#>  4 conference   conf… Peter… The … <NA>    1993  <NA>   213   7     An o… 4     
+#>  5 inbook       inbo… Peter… The … <NA>    1993  <NA>   201-… 7     An o… 4     
+#>  6 incollection inco… Peter… The … <NA>    1993  <NA>   201-… 7     An o… 4     
+#>  7 manual       manu… Peter… The … <NA>    1993  <NA>   <NA>  7     An o… <NA>  
+#>  8 mastersthes… mast… Peter… The … <NA>    1993  <NA>   <NA>  7     An o… <NA>  
+#>  9 misc         misc  Peter… The … <NA>    1993  <NA>   <NA>  7     An o… <NA>  
+#> 10 phdthesis    phdt… Peter… The … <NA>    1993  <NA>   <NA>  7     An o… <NA>  
+#> 11 proceedings  proc… <NA>   The … <NA>    1993  <NA>   <NA>  7     An o… 4     
+#> 12 techreport   tech… Peter… The … <NA>    1993  2      <NA>  7     An o… <NA>  
+#> 13 unpublished  unpu… Peter… The … <NA>    1993  <NA>   <NA>  7     An o… <NA>  
+#> # … with 12 more variables: publisher <chr>, series <chr>, address <chr>,
 #> #   edition <chr>, isbn <chr>, howpublished <chr>, booktitle <chr>,
 #> #   editor <chr>, organization <chr>, chapter <chr>, school <chr>,
 #> #   institution <chr>
+#> # ℹ Use `colnames()` to see all variable names
 ```
 
 More matching:

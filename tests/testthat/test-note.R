@@ -1,4 +1,6 @@
 co_note <- function(x) {
+  op <- options(mark.check_interactive = FALSE)
+  on.exit(options(op), add = TRUE)
   out <- capture.output(print_note(x))
 
   if (use_color()) {
@@ -33,16 +35,30 @@ test_that("note() work", {
   expect_identical(x, y)
 })
 
-test_that("print.noted() passes to next methods [67]", {
+test_that("print.noted() passes to next methods [67] (data.frame)", {
+  x <- data.frame(a = 1:50)
+  original <- capture.output(print(x, max = 5))
+  note(x) <- "note"
+  co <- withr::with_options(list(mark.check_interactive = FALSE), {
+    capture.output(print(x, max = 5))
+  })
+  expect_true(all(original %in% co))
+  expect_identical(co[1], "Note : note")
+})
+
+test_that("print.noted() passes to next methods [67] (tibble)", {
+  skip_on_cran() # don't need {tibble} of {pillar} breaking this test
   skip_if_not_installed("tibble")
 
   # not bothering with snapshots
   x <- tibble::tibble(a = 1:50)
+  original <- capture.output(print(x, n = 40))
   note(x) <- "note"
-  expect_match(
-    utils::tail(capture.output(print(x, n = 40)), 1),
-    "with 10 more rows"
-  )
+  co <- withr::with_options(list(mark.check_interactive = FALSE), {
+    capture.output(print(x, n = 40))
+  })
+  expect_true(all(original[-3] %in% co))
+  expect_identical(co[1], "Note : note")
 })
 
 test_that("print_note() works with data.frame", {

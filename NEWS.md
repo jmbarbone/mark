@@ -30,6 +30,10 @@
 * `print.fact()` rewritten as a slightly modified `print.factor()` [#109](https://github.com/jmbarbone/mark/issues/109)
 * `percentile_rank()` improvements [#131](https://github.com/jmbarbone/mark/issues/131)
 
+# mark 0.5.1
+
+* Fix for CRAN check [#128](https://github.com/jmbarbone/mark/issues/128)
+
 # mark 0.5.0
 
 The package website https://jmbarbone.github.io/mark/ is now available!
