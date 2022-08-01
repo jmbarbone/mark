@@ -2,7 +2,7 @@ Package: mark
 Type: Package
 Title: Miscellaneous, Analytic R Kernels
 Version: 0.5.0.9001
-Date: 2022-02-26
+Date: 2022-07-24
 Authors@R:
     person(given   = "Jordan Mark",
            family  = "Barbone",
@@ -42,7 +42,7 @@ Suggests:
     tibble (>= 3.0.4),
     waldo (>= 0.2.5),
     withr (>= 2.3.0)
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.1
 Roxygen: list(markdown = TRUE)
 Config/testthat/edition: 3
 Config/testthat/parallel: true

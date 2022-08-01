@@ -23,12 +23,12 @@
 #' is exactly `0` or `1`.  This may occur when the number of values are so large
 #' that the value within the boundaries is too small to be differentiated.
 #'
-#' Additionally, when using the `times` parameter, if the lowest or highest
+#' Additionally, when using the `weights` parameter, if the lowest or highest
 #' number has a value of `0`, the number will then have a theoretical `0` or
 #' `1`, as these values are not actually within the set.
 #'
 #' @param x A vector of values to rank
-#' @param times A vector of the number of times to repeat `x`
+#' @param weights,times A vector of the number of times to repeat `x`
 #'
 #' @return The percentile rank of `x` between 0 and 1 (see Boundaries)
 #'
@@ -44,31 +44,52 @@
 #' # with times
 #' percentile_rank(7:1, c(1, 0, 2, 2, 3, 1, 1))
 #' @export
-percentile_rank <- function(x, times = NULL) {
-  if (!is.null(times)) {
-    stopifnot(length(x) == 1 | length(x) == length(times))
-    return(percentile_rank_weighted(x, times))
+percentile_rank <- function(x, weights = times, times) {
+  if (!missing(times)) {
+    warning("`times` is deprecated; use `weights` instead", call. = FALSE)
   }
 
-  id <- pseudo_id(x, na_last = FALSE)
-  u <- attr(id, "uniques")
-  p <- props(id, na.rm = TRUE)
-  p <- remove_na(p)[order(remove_na(u))]
-  (cumsum(p) - p * 0.5)[match(x, sort.int(u))]
+  times <- NULL
+  force(weights)
+
+  if (!is.null(weights)) {
+    return(do_percentile_rank(x, weights))
+  }
+
+  id <- pseudo_id(x)
+  tab <- counts(id)
+  key <- attr(id, "uniques")
+  res <- set_names0(do_percentile_rank(key, tab), NULL)
+  set_names0(res[match(x, key)], x)
 }
 
-percentile_rank_weighted <- function(u, times) {
+do_percentile_rank <- function(u, w) {
   dupe_check(u)
-  o <- rep(NA_integer_, length(u))
-  ok <- !is.na(u)
-  o1 <- order(u[ok])
-  o[ok] <- o1
-  u <- u[ok]
-  # protect against rounding?
-  pid <- pseudo_id(rep.int(u, times[ok]), na_last = FALSE)
-  p <- props(pid)
-  p <- set_names0(p[match(u, attr(pid, "uniques"))], u)
-  p[is.na(p)] <- 0
-  p <- p[o1]
-  (cumsum(p) - p * 0.5)[o]
+  w <- as.integer(w)
+  if (length(w) == 1L) {
+    if (is.na(w)) {
+      # If weight is NA return NA?  Maybe through an warning?
+      return(rep.int(NA_real_, length(n)))
+    }
+
+    # no ordering necessary
+    ok <- !is.na(u)
+    n <- sum(ok)
+    p <- rep(1L, n)
+    res <- (cumsum(p) - 0.5) / n
+  } else {
+    if (length(w) != length(u)) {
+      stop("length(weights) must be 1L or equal to length(x)", call. = FALSE)
+    }
+
+    ok <- stats::complete.cases(u, w)
+    o <- order(u[ok])
+    p <- w[ok][o]
+    res <- (cumsum(p) - p * 0.5)[match(u[ok], u[ok][o])] / sum(w[ok])
+  }
+
+  out <- rep(NA_real_, length(ok))
+  names(out) <- u
+  out[ok] <- res
+  out
 }
