@@ -65,7 +65,7 @@ current score.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">percentile_rank</span><span class="op">(</span><span class="va">x</span>, times <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">percentile_rank</span><span class="op">(</span><span class="va">x</span>, weights <span class="op">=</span> <span class="va">times</span>, <span class="va">times</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -74,7 +74,7 @@ current score.</p>
 <dd><p>A vector of values to rank</p></dd>
 
 
-<dt>times</dt>
+<dt>weights, times</dt>
 <dd><p>A vector of the number of times to repeat <code>x</code></p></dd>
 
 </dl></div>
@@ -97,7 +97,7 @@ current score.</p>
 boundaries of <code>0</code> and <code>1</code>, this function may produce a percentile rank that
 is exactly <code>0</code> or <code>1</code>.  This may occur when the number of values are so large
 that the value within the boundaries is too small to be differentiated.</p>
-<p>Additionally, when using the <code>times</code> parameter, if the lowest or highest
+<p>Additionally, when using the <code>weights</code> parameter, if the lowest or highest
 number has a value of <code>0</code>, the number will then have a theoretical <code>0</code> or
 <code>1</code>, as these values are not actually within the set.</p>
     </div>
@@ -109,8 +109,8 @@ number has a value of <code>0</code>, the number will then have a theoretical <c
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.05 0.15 0.25 0.35 0.45 0.55 0.65 0.75 0.85 0.95 </span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">7</span>, <span class="fl">5</span>, <span class="cn">NA_integer_</span>, <span class="fl">7</span>, <span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">percentile_rank</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      1      2      1      7      5   &lt;NA&gt;      7     10 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.1250 0.3125 0.1250 0.6250 0.4375     NA 0.6250 0.8125 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         1         2         1         7         5      &lt;NA&gt;         7        10 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.1428571 0.3571429 0.1428571 0.7142857 0.5000000        NA 0.7142857 0.9285714 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="require_namespace.html">package_available</a></span><span class="op">(</span><span class="st">"dplyr"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/ranking.html" class="external-link">percent_rank</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
