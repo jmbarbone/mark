@@ -331,7 +331,7 @@ Some miscellaneous, less controlled functions have been moved to [jordanExtra](h
 * Statistical functions: `fishers_method()`, `iqrs()`, `p_round()`, `p_value_sig()`, `percentile_rank()`, `proportion()`, `sd_pooled()`, `sterr()`, `tukey_coef()`, `z_score()`
 * Others: `add_euclidean()`, `add_malahanobis()`, `%=+`, `filter_combine()`, `reverse_log_trans()`,
 
-# Prior development
+# 0.0.9000
 
 * Initial commits of functions
 * Quite a mess with no versions
