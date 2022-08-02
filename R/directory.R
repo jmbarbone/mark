@@ -66,7 +66,7 @@ get_dir_max_number <- function(x) {
 #' A function where you can detect the most recent file from a directory.
 #'
 #' @param x The directory in which to search the file
-#' @param exclude_temp Logical, if TRUE files that begin with "^\\~\\$" are excluded
+#' @param exclude_temp Logical, if `TRUE` tries to remove temp Windows files
 #' @param ... Additional arguments passed to [mark::list_files()]
 #' @return The full name of the most recent file from the stated directory
 #'

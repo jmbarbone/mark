@@ -9,7 +9,7 @@ get_recent_file(x, exclude_temp = TRUE, ...)
 \arguments{
 \item{x}{The directory in which to search the file}
 
-\item{exclude_temp}{Logical, if TRUE files that begin with "^\\~\\$" are excluded}
+\item{exclude_temp}{Logical, if \code{TRUE} tries to remove temp Windows files}
 
 \item{...}{Additional arguments passed to \code{\link[=list_files]{list_files()}}}
 }
