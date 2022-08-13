@@ -30,6 +30,9 @@
 #' recode_only(letters[1:3], c(`1` = "a")) # returns as "1"
 #' recode_only(1:3, c("a" = 1))            # coerced to NA
 #'
+#' # Pass list for multiples
+#' recode_only(letters[1:10], list(abc = c("a", "b", "c"), ef = c("e", "f")))
+#'
 #' @seealso [dplyr::recode()]
 #' @export
 
@@ -38,6 +41,10 @@ recode_by <- function(x, by, vals = NULL, mode = "any") {
   if (is.factor(x)) {
     levels(x) <- recode_by(levels(x), by = by, vals = vals, mode = mode)
     return(x)
+  }
+
+  if (is.list(by)) {
+    by <- unlist0(by)
   }
 
   vals <- vals %||% names(by)
@@ -62,10 +69,18 @@ recode_only <- function(x, by, vals = NULL) {
     return(x)
   }
 
+  if (is.list(by)) {
+    by <- unlist0(by)
+  }
+
   vals <- vals %||% names(by)
 
   if (is.null(vals)) {
     stop("values to recode by were not properly set", call. = FALSE)
+  }
+
+  if (is.list(vals)) {
+    vals <- unlist0
   }
 
   vals <- as.vector(vals, if (typeof(x) == "integer") "integer" else mode(x))
