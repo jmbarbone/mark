@@ -46,6 +46,9 @@ recode_only(letters[1:3], c("zzz" = "a"))
 recode_only(letters[1:3], c(`1` = "a")) # returns as "1"
 recode_only(1:3, c("a" = 1))            # coerced to NA
 
+# Pass list for multiples
+recode_only(letters[1:10], list(abc = c("a", "b", "c"), ef = c("e", "f")))
+
 }
 \seealso{
 \code{\link[dplyr:recode]{dplyr::recode()}}
