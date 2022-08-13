@@ -69,3 +69,16 @@ test_that("factors", {
   exp <- factor(c("A", NA, NA))
   expect_identical(res, exp)
 })
+
+test_that("recode_*(by = list())", {
+  x <- c("a", "b", "c", "d", "e")
+  by <- list(xy = c("a", "b"), z = "d")
+
+  exp <- c("xy", "xy", "c", "z", "e")
+  res <- recode_only(x, by)
+  expect_identical(exp, res)
+
+  exp <- c("xy", "xy", NA, "z", NA)
+  res <- recode_by(x, by)
+  expect_identical(exp, res)
+})
