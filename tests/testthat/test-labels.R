@@ -88,3 +88,8 @@ test_that("view_labels() works", {
   View <- NA
   expect_error(view_labels(df), "Something went wrong")
 })
+
+test_that("exact match [141]", {
+  x <- struct(1L, "integer", labels = 1:2)
+  expect_identical(get_labels(x), NA_character_)
+})
