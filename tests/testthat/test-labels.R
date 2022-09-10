@@ -4,7 +4,7 @@ test_that("default assignment", {
   x1 <- remove_labels(x)
 
   expect_false(inherits(x, "labelled")) # Hmisc::label produces this class
-  expect_equal(attr(x, "label"), "runs")
+  expect_equal(exattr(x, "label"), "runs")
 
   expect_error(assign_labels(x, NULL))
   expect_error(assign_labels(x, 1:2))

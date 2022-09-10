@@ -257,6 +257,10 @@ dupe_check <- function(x, n = getOption("mark.dupe.n", 5)) {
   invisible(NULL)
 }
 
+exattr <- function(x, which) {
+  attr(x, which = which, exact = TRUE)
+}
+
 # operating systems -------------------------------------------------------
 
 is_windows <- function() {
