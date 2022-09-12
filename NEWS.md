@@ -2,6 +2,7 @@
 
 ## New features
 
+* `normalize()` added to normalize values in `vectors`, `matrices`, and `data.frame`s by specified ranges and boundaries 
 * `recode_only()`, and `recode_by()` now accept a named `list()` for `by` [#96](https://github.com/jmbarbone/mark/issues/96)]
 * `switch_in_case()` now handles functions in rhs
 * `update_version()` now correctly checks result of embedded `utils::menu()` call for updating the version [#123](https://github.com/jmbarbone/mark/issues/121)
