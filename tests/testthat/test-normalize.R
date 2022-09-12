@@ -8,6 +8,9 @@ test_that("normalize.default() works", {
   res <- normalize(x)
   exp <- matrix(seq(0, 1, .25), ncol = 5)
   expect_identical(res, exp)
+
+  expect_identical(normalize(1), NaN)
+  expect_identical(normalize(NA), NA_real_)
 })
 
 test_that("normalize.data.frame() works", {
