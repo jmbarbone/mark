@@ -6,20 +6,23 @@
 \alias{normalize.data.frame}
 \title{Normalize values}
 \usage{
-normalize(x, range = base::range(x, na.rm = TRUE), bounds = 0:1)
+normalize(x, ...)
 
-\method{normalize}{default}(x, range = base::range(x, na.rm = TRUE), bounds = 0:1)
+\method{normalize}{default}(x, range = base::range(x, na.rm = TRUE), bounds = 0:1, ...)
 
-\method{normalize}{data.frame}(x, range = base::range(x, na.rm = TRUE), bounds = 0:1)
+\method{normalize}{data.frame}(x, ...)
 }
 \arguments{
-\item{x}{An object that is (coercible to) \code{double}}
+\item{x}{An object that is (coercible to) \code{double}; \code{data.frames} are
+transformed}
 
-\item{range}{The range of possible values of \code{x} as a vector of length \code{2}.
-Defaults to \code{range(x, na.rm = TRUE)}}
+\item{...}{Additional arguments passed to methods}
 
-\item{bounds}{The new boundaries for the normalized value as a vector of
-length \code{2}.  Defaults to \code{c(0, 1)}.}
+\item{range}{The range of possible values of \code{x}.  See details for more info.
+Defaults to the range of non-\code{NA} values}
+
+\item{bounds}{The new boundaries for the normalized values of \code{x}. Defaults
+to \code{0} and \code{1}.}
 }
 \value{
 \code{x} with transformed values where \code{range} values are transformed to
@@ -28,13 +31,23 @@ length \code{2}.  Defaults to \code{c(0, 1)}.}
 \description{
 Normalizes values based on possible range and new bounds
 }
+\details{
+Parameters \code{range} and \code{bounds} are modified with \code{\link[base:range]{base::range()}}.
+The largest and smallest values are then used to determine the
+minimum/maximum values and lower/upper bounds.  This allows for a vector of
+more than two values to be passed.
+
+The current implementation of \code{normalize.data.frame()} allows for \code{list} of
+parameters passed for each column.  However, it is probably best suited for
+default values.
+}
 \examples{
 x <- c(0.23, 0.32, 0.12, 0.61, 0.26, 0.24, 0.23, 0.32, 0.29, 0.27)
 data.frame(
-  x = normalize(x),
-  v = normalize(x, range = c(0, 2)),
-  b = normalize(x, bounds = c(0, 10)),
-  vb = normalize(x, range = c(0, 2), bounds = c(0, 10))
+  x  = normalize(x),
+  v  = normalize(x, range = 0:2),
+  b  = normalize(x, bounds = 0:10),
+  vb = normalize(x, range = 0:2, bounds = 0:10)
 )
 
 # maintains matrix
@@ -43,6 +56,6 @@ mat <- structure(c(0.24, 0.92, 0.05, 0.37, 0.19, 0.69, 0.43, 0.22, 0.85,
 0.34, 0.8, 0.25, 0.46, 0.03, 0.71, 0.79, 0.56, 0.83, 0.97), dim = c(10L, 3L))
 
 mat
-normalize(mat, bounds = c(-1, 1))
-normalize(as.data.frame(mat), bounds = c(-1, 1))
+normalize(mat, bounds = -1:1
+normalize(as.data.frame(mat), bounds = -1:1)
 }
