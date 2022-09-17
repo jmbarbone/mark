@@ -113,7 +113,6 @@ This will also include as many categories as possible from the entry.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> baker2… arti… Baker… Nature… 1,50… 2016  <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    7604   452   533    10.1…</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> begley… arti… <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 1 more variable: publisher &lt;chr&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ Use `colnames()` to see all variable names</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="require_namespace.html">package_available</a></span><span class="op">(</span><span class="st">"bib2df"</span><span class="op">)</span> <span class="op">&amp;</span> <span class="fu"><a href="require_namespace.html">package_available</a></span><span class="op">(</span><span class="st">"bench"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"bib2df_testfile_3.bib"</span>, package <span class="op">=</span> <span class="st">"bib2df"</span><span class="op">)</span></span></span>
@@ -136,14 +135,12 @@ This will also include as many categories as possible from the entry.</p>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`as_data_frame()` was deprecated in tibble 2.0.0.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> Please use `as_tibble()` instead.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> The signature and semantics have changed, see `?as_tibble`.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 9</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   expression      min   median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_…¹</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> read_bib     2.25ms   2.35ms     420.     9.41KB     6.92   182     3    433ms</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> bib2df      17.88ms  18.37ms      54.0    3.77MB     7.36    22     3    408ms</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> foo          7.93ms   8.11ms     123.   130.44KB     4.56    54     2    439ms</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> read_bib     2.27ms   2.34ms     427.     9.41KB     6.89   186     3    435ms</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> bib2df      16.01ms  16.39ms      60.5    3.69MB     4.66    26     2    430ms</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> foo          6.15ms   6.28ms     159.   130.44KB     7.35    65     3    408ms</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with abbreviated variable name ¹​total_time</span></span>
 </code></pre></div>
     </div>
