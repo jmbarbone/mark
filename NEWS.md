@@ -2,6 +2,7 @@
 
 ## New features
 
+* `get_labels()` and other label related functions now get exact matches for `"label"` attributes [#141](https://github.com/jmbarbone/mark/issues/141)]
 * `recode_only()`, and `recode_by()` now accept a named `list()` for `by` [#96](https://github.com/jmbarbone/mark/issues/96)]
 * `switch_in_case()` now handles functions in rhs
 * `update_version()` now correctly checks result of embedded `utils::menu()` call for updating the version [#123](https://github.com/jmbarbone/mark/issues/121)
