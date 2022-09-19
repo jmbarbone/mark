@@ -49,8 +49,8 @@ detail.default <- function(x, factor_n = 5L, ...) {
   if (!is.na(factor_n) && !facts) {
     # If either of these exist, make as factor
     has_lls <-
-      !is.null(attr(x, "levels", exact = TRUE)) ||
-      !is.null(attr(x, "labels", exact = TRUE))
+      !is.null(exattr(x, "levels")) ||
+      !is.null(exattr(x, "labels"))
 
     if (has_lls) {
       x <- fact(x)
@@ -65,7 +65,7 @@ detail.default <- function(x, factor_n = 5L, ...) {
   res <- quick_dfl(
     class = collapse0(class(x), sep = "; "),
     type  = collapse0(typeof(x), sep = "; "),
-    label = attr(x, "label", exact = TRUE) %||% NA_character_,
+    label = exattr(x, "label") %||% NA_character_,
     n     = length(x2),
     na    = sum(nas),
     # These are a little funky

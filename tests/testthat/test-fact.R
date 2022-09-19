@@ -88,7 +88,7 @@ test_that("fact.haven_labelled() works", {
   .haven_as_factor <- "haven" %colons% "as_factor.haven_labelled"
   haven_as_fact <- function(...) {
     res <- fact(.haven_as_factor(...))
-    attr(res, "label") <- attr(..1, "label", exact = TRUE)
+    attr(res, "label") <- exattr(..1, "label")
     res
   }
 
