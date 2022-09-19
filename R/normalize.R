@@ -35,7 +35,7 @@
 #' 0.34, 0.8, 0.25, 0.46, 0.03, 0.71, 0.79, 0.56, 0.83, 0.97), dim = c(10L, 3L))
 #'
 #' mat
-#' normalize(mat, bounds = -1:1
+#' normalize(mat, bounds = -1:1)
 #' normalize(as.data.frame(mat), bounds = -1:1)
 #' @export
 normalize <- function(x, ...) {
