@@ -8,13 +8,18 @@
 * `switch_in_case()` now handles functions in rh
 * `update_version()` now correctly checks result of embedded `utils::menu()` call for updating the version [#123](https://github.com/jmbarbone/mark/issues/121)
 * `require_namespace()` now accepts multiple namespaces [#121](https://github.com/jmbarbone/mark/issues/121)
-* `unique.fact()` S3 method [#86](https://github.com/jmbarbone/mark/issues/86)
 * `recode_only()` and `recode_by()` can accept a single value for `val` [#72](https://github.com/jmbarbone/mark/issues/72)
+
+### `fact` improvements
+
+This release contains a few specific enhancements to the `fact` family.
+
+* `unique.fact()` S3 method [#86](https://github.com/jmbarbone/mark/issues/86)
+* `read_bib()` better handles fields where `=` is present in the text [#117](https://github.com/jmbarbone/mark/issues/117)
 * `fact_reverse()` for reversing `fact` levels [#78](https://github.com/jmbarbone/mark/issues/78)
 * `as.Date.fact()` added [#108](https://github.com/jmbarbone/mark/issues/108)
 * `as.character.fact()` added
 * `[.fact` added
-* `read_bib()` better handles fields where `=` is present in the text [#117](https://github.com/jmbarbone/mark/issues/117)
 
 ## Fixes
 
@@ -24,6 +29,9 @@
 * Functions that made use of `shell.exec()` now try to determine the appropriate method of opening a file base on OS. [#126](https://github.com/jmbarbone/mark/issues/126)
 
 ## Breaking changes
+
+Several functions have been *deprecated* for a while now.
+These are now removed in this version.
 
 * `reverse()` has been removed (use `flip()` instead)
 * `assign_label()` has been removed (use `assign_labels()` instead)
