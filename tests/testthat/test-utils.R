@@ -72,7 +72,7 @@ test_that("check_interactive()", {
   options(op)
 })
 
-test_that("try_formats() doesn't case failure with %Z", {
+test_that("try_formats() doesn't cause failure with %Z", {
   msg <- "strptime(xx, f, tz = tz)`: use of %Z for input is not supported"
   expect_false(tryCatch(
     as.POSIXct("date", tryFormats = try_formats()),
