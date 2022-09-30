@@ -226,7 +226,7 @@ try_formats <- function(date = FALSE) {
     NULL
   )
 
-  c(x, paste(x, "%Z"), if (date) c("%Y-%m-%d", "%Y/%m/%d", "%Y%m%d"))
+  c(x, if (date) c("%Y-%m-%d", "%Y/%m/%d", "%Y%m%d"))
 }
 
 has_char <- function(x) {
