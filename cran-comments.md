@@ -13,5 +13,6 @@
 
 ## Notes
 
-* fixed failing print test
+* fixed issue with `strptime("%Z")`
+* several internal fixes
 * otherwise minor cleanup
