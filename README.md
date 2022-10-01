@@ -127,7 +127,6 @@ tibble::as_tibble(bib)
 #> #   edition <chr>, isbn <chr>, howpublished <chr>, booktitle <chr>,
 #> #   editor <chr>, organization <chr>, chapter <chr>, school <chr>,
 #> #   institution <chr>
-#> # ℹ Use `colnames()` to see all variable names
 ```
 
 More matching:
