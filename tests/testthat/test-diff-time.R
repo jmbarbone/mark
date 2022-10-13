@@ -31,8 +31,8 @@ tz2 <- c(
 
 df <- quick_df(
   list(
-    a = st + seq.int(0, by = 3600 * 24 * 5, length.out = n),
-    b = st - seq.int(0, by = 3600 * 24 * 5, length.out = n),
+    a = st + seq.int(1, by = 3600 * 24 * 5, length.out = n),
+    b = st - seq.int(1, by = 3600 * 24 * 5, length.out = n),
     tz1 = tz1,
     tz2 = tz2 * 3600
   )
