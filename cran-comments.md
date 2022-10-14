@@ -13,6 +13,4 @@
 
 ## Notes
 
-* fixed issue with `strptime("%Z")`
-* several internal fixes
-* otherwise minor cleanup
+* fixed timezone issues failing in R-devel
