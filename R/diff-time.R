@@ -100,14 +100,16 @@ extract_numeric_time <- function(x, tz) {
       gmt <- x$gmtoff
     }
 
+    x <- as.POSIXlt(x)
+
     if (is.null(gmt)) {
       gmt <- 0.0
       x$zone <- default_tz()
     } else {
       gmt[is.na(gmt)] <- 0.0
     }
-
-    return(unclass(as.POSIXct(x, x$zone)) + gmt)
+    # with R 4.3.0 this has to be
+    return(unclass(mapply(as.POSIXct, x = as.POSIXct(x), tz = x$zone %||% 0)) + gmt)
   }
 
   to_numeric_with_tz(x, tz)
@@ -125,7 +127,10 @@ to_numeric_with_tz <- function(x, tz) {
 
   out <- mapply(
     function(xi, tzi) {
-      o <- as.POSIXlt(xi, tz = tzi)
+      o <- as.POSIXlt(xi, tz = tzi, optional = TRUE)
+      if (is.na(o)) {
+        return(NA_real_)
+      }
       off <- o$gmtoff %||% 0.0
       as.double(o) + off
     },
