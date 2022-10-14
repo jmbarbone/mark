@@ -100,7 +100,9 @@ extract_numeric_time <- function(x, tz) {
       gmt <- x$gmtoff
     }
 
-    x <- as.POSIXlt(x)
+    if (getRversion() >= "4.3.0") {
+      x <- as.POSIXlt(x)
+    }
 
     if (is.null(gmt)) {
       gmt <- 0.0
@@ -108,8 +110,15 @@ extract_numeric_time <- function(x, tz) {
     } else {
       gmt[is.na(gmt)] <- 0.0
     }
-    # with R 4.3.0 this has to be
-    return(unclass(mapply(as.POSIXct, x = as.POSIXct(x), tz = x$zone %||% 0)) + gmt)
+
+    # with R 4.3.0 this has to be mapped
+    if (getRversion() >= "4.3.0") {
+      out <- mapply(as.POSIXct, x = as.POSIXct(x), tz = x$zone %||% 0)
+    } else {
+      as.POSIXct(x, x$zone %||% "")
+    }
+
+    return(unclass(out) + gmt)
   }
 
   to_numeric_with_tz(x, tz)
