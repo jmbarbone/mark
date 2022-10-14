@@ -112,11 +112,12 @@ extract_numeric_time <- function(x, tz) {
     }
 
     # with R 4.3.0 this has to be mapped
-    if (getRversion() >= "4.3.0") {
-      out <- mapply(as.POSIXct, x = as.POSIXct(x), tz = x$zone %||% 0)
-    } else {
-      as.POSIXct(x, x$zone %||% "")
-    }
+    out <-
+      if (getRversion() >= "4.3.0") {
+        mapply(as.POSIXct, x = as.POSIXct(x), tz = x$zone %||% 0)
+      } else {
+        as.POSIXct(x, x$zone %||% "")
+      }
 
     return(unclass(out) + gmt)
   }
