@@ -1,5 +1,7 @@
 # mark (development version)
 
+* CRAN fix for new release [#151](https://github.com/jmbarbone/mark/issues/151)
+
 # mark 0.5.2
 
 ## New features
