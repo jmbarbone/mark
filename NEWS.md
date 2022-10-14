@@ -1,4 +1,4 @@
-# mark (development version)
+# mark 0.5.3
 
 * CRAN fix for new release [#151](https://github.com/jmbarbone/mark/issues/151)
 
