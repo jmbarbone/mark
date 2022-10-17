@@ -1,8 +1,8 @@
 Package: mark
 Type: Package
 Title: Miscellaneous, Analytic R Kernels
-Version: 0.5.0.9001
-Date: 2022-02-26
+Version: 0.5.3.9000
+Date: 2022-09-29
 Authors@R:
     person(given   = "Jordan Mark",
            family  = "Barbone",
@@ -36,14 +36,14 @@ Suggests:
     haven,
     knitr (>= 1.30),
     rcmdcheck (>= 1.3.3),
+    rmarkdown,
     stringi (>= 1.5.3),
     spelling (>= 2.2),
     testthat (>= 3.0.0),
     tibble (>= 3.0.4),
     waldo (>= 0.2.5),
-    withr (>= 2.3.0),
-    rmarkdown
-RoxygenNote: 7.2.0
+    withr (>= 2.3.0)
+RoxygenNote: 7.2.1
 Roxygen: list(markdown = TRUE)
 Config/testthat/edition: 3
 Config/testthat/parallel: true

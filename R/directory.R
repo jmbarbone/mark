@@ -16,7 +16,6 @@ get_recent_dir <- function(x = ".",  ...) {
   newest_dir(dirs)
 }
 
-
 #' Get recent directory by date
 #'
 #' Looks at the directories and assumes the date
@@ -60,13 +59,12 @@ get_dir_max_number <- function(x) {
   files[dir_int]
 }
 
-
 #' Get recent file
 #'
 #' A function where you can detect the most recent file from a directory.
 #'
 #' @param x The directory in which to search the file
-#' @param exclude_temp Logical, if TRUE files that begin with "^\\~\\$" are excluded
+#' @param exclude_temp Logical, if `TRUE` tries to remove temp Windows files
 #' @param ... Additional arguments passed to [mark::list_files()]
 #' @return The full name of the most recent file from the stated directory
 #'
@@ -93,7 +91,6 @@ get_recent_file <- function(x, exclude_temp = TRUE, ...) {
 remove_temp_files <- function(x) {
   x[grep("^\\~\\$|\\~$", basename(x), invert = TRUE)]
 }
-
 
 #' Normalize paths
 #'
@@ -197,7 +194,6 @@ smallest_file <- function(x) {
   x[which.min(file.size(x))]
 }
 
-
 #' Open a file using windows file associations
 #'
 #' Opens the given files(s)
@@ -224,7 +220,8 @@ smallest_file <- function(x) {
 #'
 #' @export
 #' @return
-#' * `open_file()`, `shell_exec()`: A logical vector where `TRUE` successfully opened, `FALSE` did not and `NA` did not try to open (file not found)
+#' * `open_file()`, `shell_exec()`: A logical vector where `TRUE` successfully
+#'   opened, `FALSE` did not and `NA` did not try to open (file not found)
 #' * `list_files()`, `list_dirs()`: A vector of full paths
 #' @name file_utils
 open_file <- function(x) {
@@ -241,18 +238,18 @@ file_open <- open_file
 #' @rdname file_utils
 #' @export
 shell_exec <- function(x) {
-  invisible(vap_lgl(x, try_shell_exec))
-}
+  open_fun <- switch(
+    Sys.info()[["sysname"]],
+    Windows = shell.exec,
+    Linux   = function(file) system2("xdg-open", shQuote(file, "sh")),
+    Darwin  = function(file) system2("xdg-open", shQuote(file, "sh")),
+    stop("sysname not recognized: ", Sys.info()[["sysname"]])
+  )
 
-try_shell_exec <- function(x) {
-  tryCatch({
-    shell.exec(x)
-    TRUE
-  },
-  error = function(e) {
-    warning(e, call. = FALSE)
-    FALSE
-  })
+  open_fun <- match.fun(open_fun)
+  x <- norm_path(x, check = TRUE)
+  FUN <- function(file) inherits(try(open_fun(x), silent = TRUE), "try-error")
+  invisible(!vap_lgl(x, FUN))
 }
 
 #' @rdname file_utils
@@ -415,8 +412,6 @@ dir_create <- function(x, overwrite = FALSE) {
 file_name <- function(x, compression = FALSE) {
   tools::file_path_sans_ext(basename(x), compression = compression)
 }
-
-
 
 #' Add file timestamp
 #'

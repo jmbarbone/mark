@@ -1,7 +1,7 @@
 # snapshots()
 
     Code
-      bib_df
+      print(bib_df)
     Output
                    key         field           author                 title
       1        article       article      Peter Adams The title of the work
@@ -91,7 +91,7 @@
 ---
 
     Code
-      bib_list
+      print(bib_list)
     Output
       article ------------------------------------------------------------------------
         field      article
@@ -252,7 +252,7 @@
 ---
 
     Code
-      bib_entry
+      print(bib_entry)
     Output
       key        article
       field      article

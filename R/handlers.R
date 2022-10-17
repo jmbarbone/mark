@@ -142,7 +142,6 @@ catch <- function(FUN) {
   }
 }
 
-
 #' Muffle
 #'
 #' Suppress messages and warnings

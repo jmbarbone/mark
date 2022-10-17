@@ -73,7 +73,6 @@ do_vap <- function(.x, .f, .value, ..., .nm) {
   vapply(X = .x, FUN = .f, FUN.VALUE = .value, ..., USE.NAMES = .nm)
 }
 
-
 # This can take multiple elements, so can be a little dangerous
 capply <- function(.x, .f, ..., .nm = FALSE) {
   res <- do.call("c", lapply(X = .x, FUN = .f, ...))
@@ -84,7 +83,6 @@ capply <- function(.x, .f, ..., .nm = FALSE) {
 
   set_names0(res, use_names)
 }
-
 
 # A simplier implementation of sapply?
 slapply <- function(x, fun, ..., .simplify = TRUE, .names = TRUE) {
@@ -99,7 +97,6 @@ slapply <- function(x, fun, ..., .simplify = TRUE, .names = TRUE) {
   } else {
     NULL
   }
-
 
   res
 }

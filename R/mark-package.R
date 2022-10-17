@@ -6,7 +6,6 @@
 #' @name mark
 "_PACKAGE"
 
-
 op.mark <- list(
   mark.author            = NULL,
   # control for check_interactive() to return interactive() or TRUE

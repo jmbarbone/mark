@@ -1,7 +1,17 @@
 # mark (development version)
 
+# mark 0.5.3
+
+* CRAN fix for new release [#151](https://github.com/jmbarbone/mark/issues/151)
+
+# mark 0.5.2
+
 ## New features
 
+* `normalize()` added to normalize values in `vectors`, `matrices`, and `data.frame`s by specified ranges and boundaries [#143](https://github.com/jmbarbone/mark/issues/143)
+* `get_labels()` and other label related functions now get exact matches for `"label"` attributes [#141](https://github.com/jmbarbone/mark/issues/141)
+* `recode_only()`, and `recode_by()` now accept a named `list()` for `by` [#96](https://github.com/jmbarbone/mark/issues/96)]
+* `switch_in_case()` now handles functions in rh
 * `update_version()` now correctly checks result of embedded `utils::menu()` call for updating the version [#123](https://github.com/jmbarbone/mark/issues/121)
 * `require_namespace()` now accepts multiple namespaces [#121](https://github.com/jmbarbone/mark/issues/121)
 * `unique.fact()` S3 method [#86](https://github.com/jmbarbone/mark/issues/86)
@@ -14,17 +24,26 @@
 
 ## Fixes
 
+* `fact.haven_labelled()` works properly and retains the `label` attribute [#136](https://github.com/jmbarbone/mark/issues/136)
 * `drop_levels()` is exported [#105](https://github.com/jmbarbone/mark/issues/105)
 * `recode_by()` and `recode_only()` handle factors better [#81](https://github.com/jmbarbone/mark/issues/81)
+* Functions that made use of `shell.exec()` now try to determine the appropriate method of opening a file base on OS. [#126](https://github.com/jmbarbone/mark/issues/126)
+* Internal functions for potentially coercing factor levels into dates no longer try to check for `"%Z"` in the date format [#147](https://github.com/jmbarbone/mark/issues/147)
 
 ## Breaking changes
 
 * `reverse()` has been removed (use `flip()` instead)
 * `assign_label()` has been removed (use `assign_labels()` instead)
+* `percentile_rank(times)` is deprecated in favor of `percent_rank(weights)`
 
 ## Non visible changes
 
 * `print.fact()` rewritten as a slightly modified `print.factor()` [#109](https://github.com/jmbarbone/mark/issues/109)
+* `percentile_rank()` improvements [#131](https://github.com/jmbarbone/mark/issues/131)
+
+# mark 0.5.1
+
+* Fix for CRAN check [#128](https://github.com/jmbarbone/mark/issues/128)
 
 # mark 0.5.0
 
@@ -355,7 +374,7 @@ Some miscellaneous, less controlled functions have been moved to [jordanExtra](h
 * Statistical functions: `fishers_method()`, `iqrs()`, `p_round()`, `p_value_sig()`, `percentile_rank()`, `proportion()`, `sd_pooled()`, `sterr()`, `tukey_coef()`, `z_score()`
 * Others: `add_euclidean()`, `add_malahanobis()`, `%=+`, `filter_combine()`, `reverse_log_trans()`,
 
-# Prior development
+# 0.0.9000
 
 * Initial commits of functions
 * Quite a mess with no versions

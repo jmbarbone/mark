@@ -151,7 +151,6 @@ none <- function(..., na.rm = FALSE) {
   !any(..., na.rm = na.rm)
 }
 
-
 # FUNS --------------------------------------------------------------------
 
 null_check <- function(x) {

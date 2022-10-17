@@ -25,11 +25,19 @@ test_that("switch_case() works as expected", {
 test_that("switch_in_case() works as expected", {
   x <- c(1, 2, 12, 4, 20, 21)
   res <- switch_in_case(x, 1:10 ~ 1, 11:20 ~ 2)
-  expect_equal(res, set_names0(c(1, 1, 2, 1, 2, NA), x))
+  exp <- set_names0(c(1, 1, 2, 1, 2, NA), x)
+  expect_equal(res, exp)
 
   x <- c("a", "b", "d", "e", "g", "j")
   res <- switch_in_case(x, letters[1:3] ~ "a", letters[5:6] ~ "e")
-  expect_equal(res, set_names0(c("a", "a", NA, "e", NA, NA), x))
+  exp <- set_names0(c("a", "a", NA, "e", NA, NA), x)
+  expect_equal(res, exp)
+
+  # handles functions
+  res <- switch_in_case(1:6, c(1, 3, 5) ~ exp, c(2, 4) ~ log)
+  exp <- c(exp(1), log(2), exp(3), log(4), exp(5), NA)
+  names(exp) <- 1:6
+  expect_equal(res, exp)
 })
 
 test_that("switch_in_case() handles evaluations", {

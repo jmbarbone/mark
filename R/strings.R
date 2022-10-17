@@ -72,7 +72,6 @@ str_slice_by_word <- function(x, n = 80L) {
   )
 }
 
-
 #' Extract date from string
 #'
 #' @param x A character vector
@@ -109,7 +108,6 @@ string_extract <- function(x, pattern, perl = FALSE, ignore.case = FALSE) {
   starts <- as.vector(re, "integer")
   substr(x, starts, starts + attr(re, "match.length") - 1L)
 }
-
 
 #' Format string to a regular expression
 #'
@@ -163,7 +161,6 @@ chr_split <- function(x) {
   }
   strsplit(as.character(x), "")[[1]]
 }
-
 
 #' Print as c
 #'

@@ -4,12 +4,12 @@
 \alias{percentile_rank}
 \title{Percentile rank}
 \usage{
-percentile_rank(x, times = NULL)
+percentile_rank(x, weights = times, times)
 }
 \arguments{
 \item{x}{A vector of values to rank}
 
-\item{times}{A vector of the number of times to repeat \code{x}}
+\item{weights, times}{A vector of the number of times to repeat \code{x}}
 }
 \value{
 The percentile rank of \code{x} between 0 and 1 (see Boundaries)
@@ -39,7 +39,7 @@ boundaries of \code{0} and \code{1}, this function may produce a percentile rank
 is exactly \code{0} or \code{1}.  This may occur when the number of values are so large
 that the value within the boundaries is too small to be differentiated.
 
-Additionally, when using the \code{times} parameter, if the lowest or highest
+Additionally, when using the \code{weights} parameter, if the lowest or highest
 number has a value of \code{0}, the number will then have a theoretical \code{0} or
 \code{1}, as these values are not actually within the set.
 }

@@ -104,7 +104,6 @@ read_clipboard <- function(method = c("default", "data.frame", "tibble"), ...) {
     )
 }
 
-
 # helpers -----------------------------------------------------------------
 
 #' Read table from clipboard
@@ -155,7 +154,6 @@ clear_clipboard <- function() {
 
 # nocov end
 
-
 # coverage ----------------------------------------------------------------
 
 type_convert2 <- function(x) {
@@ -193,8 +191,4 @@ type_convert2 <- function(x) {
   }
 
   res
-}
-
-is_windows <- function() {
-  Sys.info()[["sysname"]] == "Windows"
 }

@@ -130,7 +130,6 @@ fact.factor <- function(x) {
     return(res)
   }
 
-
   if (anyNA(x) || anyNA(old_levels)) {
     new_levels <-
       if (!anyNA(new_levels)) {
@@ -171,28 +170,21 @@ fact.pseudo_id <- function(x) {
 #' @export
 fact.haven_labelled <- function(x) {
   require_namespace("haven")
-  labels <- sort(attr(x, "labels", exact = TRUE))
-  uc <- unclass(x)
-  u <- unique(uc)
-  m <- match(u, labels)
-  nas <- is.na(m)
+  lvls <- attr(x, "labels")
 
-  if (any(nas)) {
-    # Done to match haven::as_factor.haven_labelled()
-    labels <- labels[m]
-    labels[nas] <- u[nas]
-    names(labels)[nas] <- u[nas]
-    mx <- match(x, labels)
+  if (length(lvls)) {
+    ux <- unclass(x)
+    uniques <- sort.int(unique(c(ux, lvls)))
+    m <- match(ux, uniques)
+    ml <- match(lvls, uniques)
+    uniques[ml] <- names(lvls)
+    res <- new_fact(m, uniques)
   } else {
-    mx <- as.integer(x)
+    res <- fact(unclass(x))
   }
 
-  struct(
-    mx,
-    class = c("fact", "factor"),
-    levels = names(labels),
-    label = attr(x, "label", exact = TRUE)
-  )
+  attr(res, "label") <- exattr(x, "label")
+  res
 }
 
 #' @export
@@ -242,11 +234,16 @@ print.fact <- function(
       "\n",
       sep = ""
     )
+
+    # Be nice to haven_labelled
+    lab <- exattr(x, "label")
+    if (!is.null(lab)) {
+      cat("Label: ", paste(format(lab), ""), "\n", sep = "")
+    }
   }
 
   invisible(x)
 }
-
 
 # as_ordered --------------------------------------------------------------
 
@@ -284,7 +281,6 @@ as_ordered <- function(x) {
   UseMethod("as_ordered", x)
 }
 
-
 #' @rdname as_ordered
 #' @export
 as_ordered.default <- function(x) {
@@ -296,8 +292,6 @@ as_ordered.default <- function(x) {
 
   res
 }
-
-
 
 
 # drop_levels -------------------------------------------------------------
@@ -345,7 +339,6 @@ drop_levels.factor <- function(x, ...) {
   )
 }
 
-
 # fact_na -----------------------------------------------------------------
 
 #' `fact` with `NA`
@@ -383,7 +376,6 @@ fact_na <- function(x, remove = FALSE) {
   x
 }
 
-
 # fact_reverse ------------------------------------------------------------
 
 #' Fact reverse levels
@@ -404,7 +396,6 @@ fact_reverse  <- function(x) {
 
   new_fact(seq[x], levels = lvls, ordered = is.ordered(x), na = na)
 }
-
 
 # other methods -----------------------------------------------------------
 
@@ -453,7 +444,6 @@ as.Date.fact <- function(x, ...) {
   attributes(y) <- attributes(x)
   y
 }
-
 
 # helpers -----------------------------------------------------------------
 

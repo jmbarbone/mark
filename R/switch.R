@@ -71,6 +71,13 @@
 #'   c(22, 24, 26) ~ "c",
 #'   30:Inf        ~ "d"
 #' )
+#'
+#' # Use functions
+#' switch_in_case(
+#'   1:6,
+#'   c(1, 3, 5) ~ exp,
+#'   c(2, 4) ~ log
+#' )
 #' @name switch-ext
 NULL
 
@@ -107,7 +114,7 @@ switch_in_case <- function(x, ..., .default = NULL, .envir = parent.frame()) {
     )
   }
 
-  rhs <- lapply(splits, function(i) eval(parse(text = i[2L]), envir = .envir))
+  rhs <- lapply(splits, function(i) eval(parse(text = i[2L]), envir = parent.frame()))
   lhs <- lapply(splits, function(i) {
     # A bit more intensive to deal with "1:Inf" and what not
     res <- try_catch_inf(eval(parse(text = i[1L]), envir = .envir))
@@ -139,23 +146,34 @@ switch_in_case <- function(x, ..., .default = NULL, .envir = parent.frame()) {
   })
 
   # set the default NA value
-  res0 <- .default %||% rhs[[1L]][0L][NA]
-  res <- vapply(
-    x,
-    function(xi) {
-      resi <- res0
-      for (i in seq_along(ls)) {
-        if (any(xi %in% lhs[[i]])) {
-          # only change if found
-          resi <- rhs[[i]]
-          break
-        }
-      }
-      resi
-    },
-    FUN.VALUE = res0
-  )
+  # res0 <- .default %||% rhs[[1L]][0L][NA]
+  res0 <- .default %||% NA
 
+  do_switches <- function(xi) {
+    resi <- res0
+
+    for (i in seq_along(ls)) {
+      w <- which(xi %in% lhs[[i]])
+      if (length(w)) {
+        # only change if found
+        resi <- rhs[[i]]
+
+        if (is.function(resi)) {
+          resi <- match.fun(resi)
+          resi <- resi(xi[w])
+        }
+
+        break
+      }
+    }
+    resi
+  }
+
+  # debugonce(do_switches)
+  res <- lapply(x, do_switches)
+  stopifnot(lengths(res) == 1L)
+  mode(res) <- mode(res[[1]])
+  class(res) <- class(res[[1]])
   names(res) <- x
   res
 }
@@ -191,7 +209,6 @@ switch_case <- function(..., .default = NULL, .envir = parent.frame()) {
   out[rowSums(lmat) == 0L] <- res0
   as.vector(out, mode(res0))
 }
-
 
 # FUNS --------------------------------------------------------------------
 

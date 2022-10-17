@@ -47,7 +47,6 @@ base_alpha_single <- function(x, base) {
   as.integer(sum(c(a[-n] * base^(1:(n - 1)), a[n])))
 }
 
-
 #' Base N conversion
 #'
 #' Convert between base numbers

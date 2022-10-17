@@ -99,4 +99,11 @@ switch_in_case(
   c(22, 24, 26) ~ "c",
   30:Inf        ~ "d"
 )
+
+# Use functions
+switch_in_case(
+  1:6,
+  c(1, 3, 5) ~ exp,
+  c(2, 4) ~ log
+)
 }

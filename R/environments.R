@@ -39,7 +39,6 @@ ls_all <- function(all.names = FALSE) {
 #'@rdname list_environments
 objects_all <- ls_all
 
-
 #' List Objects - extensions
 #'
 #' @inheritParams base::ls
@@ -65,7 +64,6 @@ ls_function <- make_do_ls(is.function)
 #' @export
 #' @rdname ls_ext
 ls_object <- make_do_ls(is.object)
-
 
 do_ls <- function(FUN, pattern, all.names = FALSE, envir = parent.frame()) {
   .ls <- ls(envir = envir, pattern = pattern, all.names = all.names)

@@ -40,7 +40,6 @@ pseudo_id.factor <- function(x, ...) {
   pseudo_id(fact_values(fact(x)))
 }
 
-
 #' Print `pseudo_id`
 #' @export
 #' @param x An object of class [pseudo_id]
@@ -62,7 +61,6 @@ print.pseudo_id <- function(x, ..., all = FALSE) {
   cat0(out, "\n")
   invisible(x)
 }
-
 
 # helpers -----------------------------------------------------------------
 

@@ -61,7 +61,6 @@ counts.default <- function(x, sort = FALSE, ...) {
   out
 }
 
-
 # x <- structure(c(2L, NA, 3L, NA, NA, 3L, NA, NA, 1L, 1L), .Label = c("2", "4", "1", "0"), class = "factor")
 
 #' @export

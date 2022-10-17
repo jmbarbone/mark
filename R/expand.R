@@ -25,7 +25,6 @@ expand_by <- function(x, y, expand = c("x","y", "intersect", "both"), sort = FAL
   nx <- names(x)
   ny <- names(y)
 
-
   if (!unique_name_check(x)) {
     stop("unique name check failed for x", call. = FALSE)
   }
@@ -71,7 +70,6 @@ expand_by <- function(x, y, expand = c("x","y", "intersect", "both"), sort = FAL
 
   out
 }
-
 
 #' Reindex a data.frame
 #'
@@ -133,7 +131,6 @@ reindex <- function(x, index = NULL, new_index, expand = c("intersect", "both"),
   attr(out, "row.names") <- nm
   out
 }
-
 
 # FUNS --------------------------------------------------------------------
 

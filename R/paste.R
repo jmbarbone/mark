@@ -28,7 +28,6 @@ paste_c <- function(x, y, collate = TRUE, sep = "") {
   paste_combine(x, y, collate = collate, sep = sep)
 }
 
-
 #' @rdname utils-paste
 #' @export
 paste_combine <- function(..., collate = TRUE, sep = "") {

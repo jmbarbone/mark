@@ -94,7 +94,6 @@ read_bib <- function(file, skip = 0L, max_lines = NULL, encoding = "UTF-8") {
   )
 }
 
-
 # FUNS --------------------------------------------------------------------
 
 parse_bib <- function(x) {
@@ -128,7 +127,6 @@ parse_bib_val <- function(x) {
   x <- gsub(",$", "", x)
   x
 }
-
 
 #' Process bib values
 #'
@@ -234,7 +232,6 @@ as_bib <- function(x, bib_list = NULL) {
   x
 }
 
-
 # Prints ------------------------------------------------------------------
 
 #' @export
@@ -264,7 +261,6 @@ print.mark_bib_list <- function(x, ...) {
 
   invisible(x)
 }
-
 
 #' @export
 print.mark_bib_entry <- function(x, ...) {

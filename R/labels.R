@@ -123,7 +123,7 @@ get_labels <- function(x) {
 #' @export
 #' @rdname labels
 get_labels.default <- function(x) {
-  attr(x, "label") %||% NA_character_
+  exattr(x, "label") %||% NA_character_
 }
 
 #' @export
@@ -131,7 +131,6 @@ get_labels.default <- function(x) {
 get_labels.data.frame <- function(x) {
   vector2df(vap_chr(x, get_labels, .nm = TRUE), "column", "label")
 }
-
 
 #' @export
 #' @rdname labels

@@ -79,9 +79,7 @@ find_author <- function() {
   )
 }
 
-
 # Version -----------------------------------------------------------------
-
 
 #' Get and bump version
 #'
@@ -199,10 +197,8 @@ do_bump_date_version <- function(version) {
     x[n] <- x[n] + 1
   }
 
-
   package_version(collapse0(x, sep = "."))
 }
-
 
 # Some redundancy here
 # What about just packageVersion() ?
