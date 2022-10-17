@@ -21,6 +21,7 @@ LazyData: true
 Depends:
     R (>= 3.6)
 Imports:
+    facts,
     magrittr (>= 2.0.1),
     stats (>= 3.6),
     tools (>= 3.6),
@@ -49,3 +50,4 @@ Config/testthat/edition: 3
 Config/testthat/parallel: true
 Language: en-US
 VignetteBuilder: knitr
+Remotes: github::jmbarbone/facts
