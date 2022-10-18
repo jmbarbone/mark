@@ -1,5 +1,9 @@
 # mark (development version)
 
+## Fixes
+
+* `date_from_partial()` works again [#155](https://github.com/jmbarbone/mark/issues/155)] after fixing an issue with an internal utility `is_valid_date_string()` that wasn't recognizing `%Y-%m-%d` (and potentially others)
+
 ## New features
 
 * `recode_only()`, and `recode_by()` now accept a named `list()` for `by` [#96](https://github.com/jmbarbone/mark/issues/96)]
