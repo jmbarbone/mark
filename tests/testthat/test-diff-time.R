@@ -31,8 +31,8 @@ tz2 <- c(
 
 df <- quick_df(
   list(
-    a = st + seq.int(0, by = 3600 * 24 * 5, length.out = n),
-    b = st - seq.int(0, by = 3600 * 24 * 5, length.out = n),
+    a = st + seq.int(1, by = 3600 * 24 * 5, length.out = n),
+    b = st - seq.int(1, by = 3600 * 24 * 5, length.out = n),
     tz1 = tz1,
     tz2 = tz2 * 3600
   )
@@ -194,28 +194,27 @@ test_that("class coehersion", {
     diff_time(as.Date("2021-07-26"), as.POSIXct("2021-07-26 02:02:02"))
   )
 
-  # skip_if_not_installed("withr")
-  # withr::local_timezone("UTC")
-
-  expect_identical(
-    extract_numeric_time("2021-01-01", NULL),
-    struct(1609459200, "double", tzone = "UTC")
-  )
-
   expect_warning(
     to_numeric_with_tz("2021-01-01", NA),
     "NA found in timezones"
-  )
-
-  expect_identical(
-    extract_numeric_time(as.POSIXlt("2021-01-01", tz = "UTC"), NULL),
-    struct(1609459200, "double", tzone = "UTC")
   )
 
   expect_identical(check_tz(NULL), NULL)
   expect_identical(check_tz(c("UTC", "UTC")), NULL)
 })
 
+test_that("class cohersion <4.3.0", {
+  skip_if(getRversion() >= "4.3")
+  expect_identical(
+    extract_numeric_time("2021-01-01", NULL),
+    struct(1609459200, "double", tzone = "UTC")
+  )
+
+  expect_identical(
+    extract_numeric_time(as.POSIXlt("2021-01-01", tz = "UTC"), NULL),
+    struct(1609459200, "double", tzone = "UTC")
+  )
+})
 
 test_that("timezones", {
   withr::with_timezone("Pacific/Auckland", {

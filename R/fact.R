@@ -181,7 +181,7 @@ fact.haven_labelled <- function(x) {
     res <- fact(unclass(x))
   }
 
-  attr(res, "label") <- attr(x, "label", exact = TRUE)
+  attr(res, "label") <- exattr(x, "label")
   res
 }
 
@@ -234,7 +234,7 @@ print.fact <- function(
     )
 
     # Be nice to haven_labelled
-    lab <- attr(x, "label", exact = TRUE)
+    lab <- exattr(x, "label")
     if (!is.null(lab)) {
       cat("Label: ", paste(format(lab), ""), "\n", sep = "")
     }

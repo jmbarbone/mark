@@ -123,7 +123,7 @@ get_labels <- function(x) {
 #' @export
 #' @rdname labels
 get_labels.default <- function(x) {
-  attr(x, "label") %||% NA_character_
+  exattr(x, "label") %||% NA_character_
 }
 
 #' @export

@@ -88,7 +88,7 @@ test_that("fact.haven_labelled() works", {
   .haven_as_factor <- "haven" %colons% "as_factor.haven_labelled"
   haven_as_fact <- function(...) {
     res <- fact(.haven_as_factor(...))
-    attr(res, "label") <- attr(..1, "label", exact = TRUE)
+    attr(res, "label") <- exattr(..1, "label")
     res
   }
 
@@ -222,10 +222,12 @@ test_that("fact_coerce_levels() works", {
 
   # Be careful about setting a time zone
   # Not very good for dealing with local
-  x <- as.POSIXlt("2021-09-03", tz = "UTC") + 0:2
+  # NOTE r-dev after 4.2.1 has some weird behavior with the 0 and returns:
+  #  ('2021-09-03', '2021-09-03 00:00:01', '2021-09-03 00:00:02')
+  x <- as.POSIXlt("2021-09-03", tz = "UTC") + 1:3
   expect_equal(fact_coerce_levels(as.character(x)), x)
 
-  x <- as.POSIXlt("2021-09-03", tz = "UTC") + 0:2
+  x <- as.POSIXlt("2021-09-03", tz = "UTC") + 1:3
   expect_equal(fact_coerce_levels(as.character(x)), x)
 })
 

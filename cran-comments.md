@@ -13,5 +13,4 @@
 
 ## Notes
 
-* fixed failing print test
-* otherwise minor cleanup
+* fixed timezone issues failing in R-devel
