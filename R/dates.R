@@ -29,7 +29,12 @@
 #')
 #' @export
 
-date_from_partial <- function(x, format = "ymd", method = c("min", "max"), year_replacement = NA_integer_) {
+date_from_partial <- function(
+    x,
+    format = "ymd",
+    method = c("min", "max"),
+    year_replacement = NA_integer_
+) {
   x <- as.character(x)
   fmt <- verify_format(format)
   method <- match_param(method, c("min", "max"))
@@ -77,12 +82,20 @@ verify_format <- function(format) {
 }
 
 is_valid_date_string <- function(x) {
-  !OR(
-    is.na(x),
-    x == "",
-    !(grepl("[[:digit:]]+", x) | grepl("(.UNK?N?.?)", x)), # need some digits
+  x <- trimws(x)
+
+  bad <-
+    is.na(x) |
+    x == "" |
+    !grepl("[[:digit:]]", x) |
     grepl("^([[:blank:]]|[[:punct:]]|[[a-zA-Z]]|[[:digit:]]){1,}$", x)
-  ) | grepl("^[[:digit:]]{4}$", x)
+
+  ok <-
+    grepl("[[:digit:]]+", x) |
+    grepl("(.UNK?N?.?)", x) |
+    grepl("^[[:digit:]]{4}$", x)
+
+  ok | !bad
 }
 
 prep_date_string <- function(x) {
