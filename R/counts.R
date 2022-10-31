@@ -50,9 +50,10 @@ counts <- function(x, ...) {
 #' @export
 counts.default <- function(x, sort = FALSE, ...) {
   x <- pseudo_id(x)
-  u <- .uniques(x)
+  u <- attr(x, "values")
   out <- tabulate(x, length(u))
-  names(out) <- na_last(u)
+  nas <- is.na(u)
+  names(out) <- c(u[!nas], u[nas])
 
   if (sort) {
     return(sort_names(out, numeric = is.numeric(x)))

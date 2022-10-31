@@ -1,0 +1,114 @@
+---
+title: "Working with `facts`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Working with `facts`}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+bench_mark <- function(x) {
+  if (!(requireNamespace("bench") & requireNamespace("forcats"))) return(NULL)
+  b <- bench::mark(fact(x), factor(x), forcats::as_factor(x), iterations = 50, check = FALSE)
+  if (requireNamespace("ggplot2")) print(ggplot2::autoplot(b) + ggplot2::labs(title = class(x)))
+  b
+}
+```
+
+```{r setup}
+library(mark)
+```
+
+`fact`s are a special class much like `factors` but with some performance improvements.
+
+| Case    | `factor()` | `fact()` |
+| ------- | ---------- | -------- |
+| Level sorting | When not set, sorts | Sorts numbers, preset sorting for logical, no sorting for character |
+| `NA` | Default levels don't include `NA` | When `NA` is present, is added as the last level |
+| S3 methods | None | S3 methods can extend functionality |
+| Parameters | `x = character()`, `levels`, `labels = levels`, `exclude = NA`, `ordered = is.ordered(x)`, `nmax = NA` | `x` |
+| Attributes | `levels`, `class`|  `levels`, `uniques`, `na`, `class` |
+
+Notes on S3 methods
+
+| Class | Notes |
+| ----- | ---------- |
+| `.default` | Warns and defaults to `character()`.  Adding new S3 methods will avoid this warning |
+| `.character` | Does not perform any sorting, levels taken as they appear in the data |
+| `.numeric`, `.integer`, `.Date`, `POSIXt` | Performs radix sorting, treats `NaN` as `NA` |
+| `.factor` | Tries to restore data types before dispatching S3 methods |
+| `.fact` | Returns values -- assumes value was created with `fact()` |
+| `.haven_labelled` | Designed to mimic `haven::as_factor.haven_labelled()` |
+
+```{r, fig.width=6}
+x <- apply(matrix(sample(letters, 1e3, TRUE), ncol = 4), 1, collapse0)
+bench_mark(x)
+
+x <- round(runif(1e3), 2)
+bench_mark(x)
+
+x <- order(x)
+bench_mark(x)
+
+x <- x > 1e5 / 2
+x[sample(x, 1e3)] <- NA
+bench_mark(x)
+```
+
+`fact()` takes an S3 approach for factors which allows data to take different sorting and matching processes.
+This allows `fact()` to be most efficient with its labeling and transformations.
+This differs from `factor()` which uses the same process, and always sorts labels in ascending order.
+
+```{r}
+utils::methods("fact")
+```
+
+`fact()` currently doesn't have any further arguments than `x`, the object passed to it.
+This makes their utility different than `factor()`, the later of which can be helpful when levels are known a prior.
+Otherwise, `fact()` is better suited for not knowing levels.
+
+```{r}
+x <- 4:1
+factor(x)
+fact(x)
+```
+
+```{r}
+x <- c("j", "m", "b")
+factor(x)
+fact(x)
+```
+
+```{r}
+x <- c(1, 3, 2, 0)
+factor(x)
+fact(x)
+```
+
+There is a divergence here, where `fact` is meant to understand that boolean operations can have 3 possible outcomes and that it might be best to allow at least `TRUE` and `FALSE` regardless of their presence.
+This understanding also speeds up performance and becomes much quicker.
+`factor()` runs the same routine for all data, so many of the check are a bit useless if you don't intend to rec
+
+```{r}
+x <- c(TRUE, NA, FALSE)
+factor(x)
+fact(x)
+```
+
+The last example also highlights `fact()`'s handling of `NA`s.
+For `fact()`, `NA` values are always stored as the last `level`.
+
+```{r}
+x <- as.Date("2022-03-29") - 0:2
+
+fact1 <- factor(x)
+x2 <- fact(x)
+
+bench::mark(as.Date(x1), as.Date(x2))
+```

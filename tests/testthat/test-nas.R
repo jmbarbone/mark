@@ -9,7 +9,7 @@ test_that("remove_na()", {
     1:3,
     c("fact", "factor"),
     levels = c("1", "2", "3"),
-    uniques = c(1, 2, 3),
+    values = c(1, 2, 3),
     na = 0L
   )
 

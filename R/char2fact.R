@@ -22,7 +22,7 @@ char2fact.default <- function(x, n = 5) {
 char2fact.character <- function(x, n = 5) {
   id <- pseudo_id(x)
 
-  if (length(.uniques(id)) <= n) {
+  if (length(attr(id, "values")) <= n) {
     x <- fact(id)
   }
 

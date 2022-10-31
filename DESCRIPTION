@@ -10,7 +10,7 @@ Authors@R:
            email   = "jmbarbone@gmail.com",
            comment = c(orcid = "0000-0001-9788-3628"))
 Maintainer: Jordan Mark Barbone <jmbarbone@gmail.com>
-Description: Miscellaneous functions and wrappers for development in other 
+Description: Miscellaneous functions and wrappers for development in other
     packages created, maintained by Jordan Mark Barbone.
 License: MIT + file LICENSE
 URL: https://github.com/jmbarbone/mark,
@@ -21,6 +21,7 @@ LazyData: true
 Depends:
     R (>= 3.6)
 Imports:
+    facts,
     magrittr (>= 2.0.1),
     stats (>= 3.6),
     tools (>= 3.6),
@@ -36,6 +37,7 @@ Suggests:
     haven,
     knitr (>= 1.30),
     rcmdcheck (>= 1.3.3),
+    rmarkdown,
     stringi (>= 1.5.3),
     spelling (>= 2.2),
     testthat (>= 3.0.0),
@@ -47,3 +49,5 @@ Roxygen: list(markdown = TRUE)
 Config/testthat/edition: 3
 Config/testthat/parallel: true
 Language: en-US
+VignetteBuilder: knitr
+Remotes: github::jmbarbone/facts
