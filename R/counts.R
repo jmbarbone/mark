@@ -50,7 +50,7 @@ counts <- function(x, ...) {
 #' @export
 counts.default <- function(x, sort = FALSE, ...) {
   x <- pseudo_id(x)
-  u <- .uniques(x)
+  u <- attr(x, "values")
   out <- tabulate(x, length(u))
   names(out) <- na_last(u)
 
