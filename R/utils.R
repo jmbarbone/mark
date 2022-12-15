@@ -1,62 +1,10 @@
-#' @importFrom magrittr %>%
-magrittr::`%>%`
 
-# Like rlang::`%||%` but uses base is.null -- same thing
-
-#' Default value for NULL
-#'
-#' Replace if `NULL`
-#'
-#' @details
-#' A mostly copy of `rlang`'s `%||%` except does not use [rlang::is_null()],
-#'   which, currently, calls the same primitive `is.null` function as
-#'   [base::is.null()].
-#' This is not to be exported due to conflicts with `purrr`
-#'
-#' @param x,y If `x` is `NULL` returns `y`; otherwise `x`
-#'
-#' @name null_default
-#' @noRd
-`%||%` <- function(x, y) {
-  if (is.null(x)) y else x
-}
-`%len%` <- function(x, y) {
-  if (length(x)) x else y
-}
 which0 <- function(x) {
   which(x) %len% 0L
 }
 # isTRUE, isFALSE, ...
 isNA <- function(x) {
   is.logical(x) && length(x) == 1L && is.na(x)
-}
-
-#' Colons
-#'
-#' Get an object from a package
-#'
-#' @details
-#' This is a work around to calling `:::`.
-#'
-#' @section WARNING:
-#' To reiterate from other documentation: it is not advised to use `:::` in
-#'   your code as it will retrieve non-exported objects that may be more
-#'   likely to change in their functionality that exported objects.
-#'
-#' @param package Name of the package
-#' @param name Name to retrieve
-#' @return The variable `name` from package `package`
-#'
-#' @export
-`%colons%` <- function(package, name) {
-  tryCatch(
-    get(name, envir = asNamespace(package)),
-    error = function(e) {
-      stop(sprintf("`%s` not found in package `%s`",
-        name, package),
-        call. = FALSE)
-    }
-  )
 }
 
 # modified from https://github.com/tidyverse/purrr/blob/5aca9df41452f272fcef792dbc6d584be8be7167/R/utils.R
@@ -255,22 +203,4 @@ dupe_check <- function(x, n = getOption("mark.dupe.n", 5)) {
   }
 
   invisible(NULL)
-}
-
-exattr <- function(x, which) {
-  attr(x, which = which, exact = TRUE)
-}
-
-# operating systems -------------------------------------------------------
-
-is_windows <- function() {
-  Sys.info()[["sysname"]] == "Windows"
-}
-
-is_macos <- function() {
-  Sys.info()[["sysname"]] == "Darwin"
-}
-
-is_linux <- function() {
-  Sys.info()[["sysname"]] == "Linux"
 }

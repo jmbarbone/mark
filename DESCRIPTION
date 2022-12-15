@@ -21,6 +21,7 @@ LazyData: true
 Depends:
     R (>= 3.6)
 Imports:
+    fuj (>= 0.1.1),
     magrittr (>= 2.0.1),
     stats (>= 3.6),
     tools (>= 3.6),
@@ -42,7 +43,7 @@ Suggests:
     tibble (>= 3.0.4),
     waldo (>= 0.2.5),
     withr (>= 2.3.0)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.2
 Roxygen: list(markdown = TRUE)
 Config/testthat/edition: 3
 Config/testthat/parallel: true

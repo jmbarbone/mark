@@ -2,6 +2,7 @@
 #'
 #' Miscellaneous, Analytic R Code
 #'
+#' @import fuj
 #' @docType package
 #' @name mark
 "_PACKAGE"

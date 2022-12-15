@@ -35,15 +35,11 @@ sort_names <- function(x, numeric = FALSE) {
 #'
 #' @export
 set_names0 <- function(x, nm = x) {
+  .Deprecated("set_names")
   if (is.null(x)) return(NULL)
   `names<-`(x, nm)
 }
 
-#' @rdname set_names0
-#' @export
-remove_names <- function(x) {
-  set_names0(x, NULL)
-}
 
 #' @rdname set_names0
 #' @export
