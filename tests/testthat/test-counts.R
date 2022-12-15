@@ -4,14 +4,14 @@
 
 test_that("counts.default() work", {
   x <- rep(c("a", "b", "c"), c(3, 1, 4))
-  res <- set_names0(c(3, 1, 4), c("a", "b", "c"))
+  res <- set_names(c(3, 1, 4), c("a", "b", "c"))
   ans <- counts(x)
   expect_equal(ans, res)
 
   expect_equal(props(x), ans / sum(ans))
 
   x <- rep(c(2, 3, -1), c(3, 1, 4))
-  res <- set_names0(c(3, 1, 4), c(2, 3, -1))
+  res <- set_names(c(3, 1, 4), c(2, 3, -1))
   expect_equal(counts(x), res)
 
   res <- sort_names(res)
@@ -22,15 +22,15 @@ test_that("counts() works with NAs", {
 
   # Correct sort
   x <- c(FALSE, TRUE, NA)
-  res <- set_names0(c(1, 1, 1), x)
+  res <- set_names(c(1, 1, 1), x)
   expect_equal(counts(x), res)
 
   x <- c("false", "true", NA_character_)
-  res <- set_names0(c(1, 1, 1), x)
+  res <- set_names(c(1, 1, 1), x)
   expect_equal(counts(x), res)
 
   x <- c(1L, 0L, NA_integer_, NA_integer_)
-  res <- set_names0(c(1L, 1L, 2L), c(1, 0, NA))
+  res <- set_names(c(1L, 1L, 2L), c(1, 0, NA))
   expect_equal(counts(x), res)
 })
 
@@ -61,22 +61,22 @@ test_that("counts.data.frame() adds new name", {
 test_that("counts() NAs are last", {
   expect_equal(
     counts(c(NA, NA, 1, 2)),
-    set_names0(c(1, 1, 2), c(1, 2, NA))
+    set_names(c(1, 1, 2), c(1, 2, NA))
   )
 
   expect_equal(
     counts(c(NA, NA, 1)),
-    set_names0(c(1, 2), c(1, NA))
+    set_names(c(1, 2), c(1, NA))
   )
 
   expect_equal(
     counts(c("a", NA, NA)),
-    set_names0(c(1, 2), c("a", NA))
+    set_names(c(1, 2), c("a", NA))
   )
 
   expect_equal(
     counts(c(NA_real_, NA_real_)),
-    set_names0(2, NA)
+    set_names(2, NA)
   )
 })
 
@@ -112,8 +112,8 @@ test_that("missing upper levels", {
 
 test_that("props() handles NA", {
   x <- c(1, 1, 2, NA, 4)
-  res1 <- set_names0(c(.4, .2, .2, .2), c(1, 2, 4, NA))
-  res2 <- set_names0(c(.5, .25, .25, NA), c(1, 2, 4, NA))
+  res1 <- set_names(c(.4, .2, .2, .2), c(1, 2, 4, NA))
+  res2 <- set_names(c(.5, .25, .25, NA), c(1, 2, 4, NA))
   expect_identical(props(x), res1)
   expect_identical(props(x, na.rm = TRUE), res2)
 

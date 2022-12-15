@@ -88,7 +88,7 @@ do_todo <- function(text, pattern = NULL, path = path, force = FALSE, ...) {
 
   out <- quick_df(c(
     file = list(rep(names(finds), vap_int(finds, nrow))),
-    set_names0(as.list(Reduce(rbind, finds)), c("line", text))
+    set_names(as.list(Reduce(rbind, finds)), c("line", text))
   ))[, c("line", "file", text)]
 
   ind <- grepl("\\.rmd$", out[["file"]], ignore.case = TRUE)

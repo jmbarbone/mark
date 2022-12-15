@@ -34,22 +34,22 @@ sort_names <- function(x, numeric = FALSE) {
 #' * `names_switch()`: `character` vector of equal length `x` where names and values are switched
 #'
 #' @export
+#' @name set_names
 set_names0 <- function(x, nm = x) {
   .Deprecated("set_names")
-  if (is.null(x)) return(NULL)
   `names<-`(x, nm)
 }
 
 
-#' @rdname set_names0
+#' @rdname set_names
 #' @export
 names_switch <- function(x) {
   nm <- names(x) %||% stop("x must be named", call. = FALSE)
-  set_names0(nm, as.vector(x, "character"))
+  set_names(nm, as.vector(x, "character"))
 }
 
-#' @rdname set_names0
+#' @rdname set_names
 #' @export
 `%names%` <- function(x, nm) {
-  set_names0(x, nm)
+  set_names(x, nm)
 }

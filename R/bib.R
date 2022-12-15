@@ -174,7 +174,7 @@ process_bib_dataframe <- function(categories, values, fields, keys) {
       }
 
       # Transpose to prep for reduce rbinding
-      quick_df(set_names0(as.list(data[[2L]]), data[[1L]]))
+      quick_df(set_names(as.list(data[[2L]]), data[[1L]]))
     },
     cats = categories,
     vals = values,

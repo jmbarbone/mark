@@ -1,6 +1,6 @@
 test_that("flip.default", {
   expect_equal(flip(letters), letters[26:1])
-  x <- set_names0(1:5, letters[1:5])
+  x <- set_names(1:5, letters[1:5])
   expect_named(flip(x))
   expect_equal(names(flip(x)), letters[5:1])
 

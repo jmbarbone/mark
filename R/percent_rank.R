@@ -59,8 +59,8 @@ percentile_rank <- function(x, weights = times, times) {
   id <- pseudo_id(x)
   tab <- counts(id)
   key <- attr(id, "uniques")
-  res <- set_names0(do_percentile_rank(key, tab), NULL)
-  set_names0(res[match(x, key)], x)
+  res <- set_names(do_percentile_rank(key, tab), NULL)
+  set_names(res[match(x, key)], x)
 }
 
 do_percentile_rank <- function(u, w) {

@@ -112,7 +112,7 @@ parse_date_strings <- function(.x, fmt, method, year_replacement) {
 
         c(y = x, m = NA_character_, d = NA_character_),
         c(date_offset_match(x, fmt), d = NA_character_),
-        set_names0(x, fmt)
+        set_names(x, fmt)
       )
 
       ints <- c(y = NA_integer_, m = NA_integer_, d = NA_integer_)
@@ -123,7 +123,7 @@ parse_date_strings <- function(.x, fmt, method, year_replacement) {
       }
 
       # (re)set names and (re)arrange
-      x <- set_names0(suppressWarnings(as.integer(x)), names(x))
+      x <- set_names(suppressWarnings(as.integer(x)), names(x))
       x <- x[c('y', 'm', 'd')]
       x[is.na(x)] <- 0L
 
@@ -200,7 +200,7 @@ date_offset_match <- function(x, fmt) {
   }
 
   mt <- mt[c('y', 'm')]
-  set_names0(x[mt], nm = c("y", "m"))
+  set_names(x[mt], nm = c("y", "m"))
 }
 
 days_in_month <- c(31L, 28L, 31L, 30L, 31L, 30L, 31L, 31L, 30L, 31L, 30L, 31L)

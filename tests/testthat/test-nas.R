@@ -72,7 +72,7 @@ test_that("tableNA() works", {
     struct(
       c(`TRUE` = 0L, `FALSE` = 3L),
       dim = 2L,
-      dimnames = set_names0(list(c("TRUE", "FALSE")), "x"),
+      dimnames = set_names(list(c("TRUE", "FALSE")), "x"),
       class = "table"
     )
   )

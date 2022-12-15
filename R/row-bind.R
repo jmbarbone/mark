@@ -34,7 +34,7 @@ row_bind <- function(...) {
       w <- which(is.na(b))
 
       if (length(w)) {
-        a <- quick_df(set_names0(insert(a, w, NA), all_names))
+        a <- quick_df(set_names(insert(a, w, NA), all_names))
       }
 
       a
@@ -57,5 +57,5 @@ rbind2 <- function(...) {
     res[[i]] <- Reduce(c, lapply(ls, `[[`, i))
   }
 
-  quick_df(set_names0(res, names(ls[[1]])))
+  quick_df(set_names(res, names(ls[[1]])))
 }

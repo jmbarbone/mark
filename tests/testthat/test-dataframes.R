@@ -39,7 +39,7 @@ test_that("vector2df()", {
 
   expect_equal(vector2df(x), df)
   df$name <- as.character(x)
-  expect_equal(vector2df(set_names0(x)), df)
+  expect_equal(vector2df(set_names(x)), df)
   expect_named(vector2df(x, "one", "two"), c("one", "two"))
 
   expect_warning(vector2df(x, show_NA = NULL), info = "show_NA should not be set")

@@ -88,19 +88,19 @@ has_catch <- function(x, FUN, ..., type = c("error", "warning", "message")) {
   out <- vap_lgl(res, function(i) !is.null(i[[type]]))
   attr(out, "result") <- lapply(res, `[[`, "result")
   attr(out, "class") <- c("has_catch", "logical")
-  set_names0(out, x)
+  set_names(out, x)
 }
 
 #' @export
 print.has_catch <- function(x, ...) {
-  print(set_names0(remove_attributes(x), names(x)))
+  print(set_names(remove_attributes(x), names(x)))
   invisible(x)
 }
 
 get_catch <- function(x, FUN, type, ..., null = TRUE) {
   res <- sapply(x, catch(FUN), ..., USE.NAMES = TRUE, simplify = FALSE)
   out <- sapply(res, function(i) i[[type]], USE.NAMES = TRUE, simplify = FALSE)
-  out <- set_names0(out, x)
+  out <- set_names(out, x)
 
   if (!null) {
     out <- remove_null(out)
