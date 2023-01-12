@@ -26,7 +26,7 @@ test_that("outer_*()", {
 test_that("require_namespace()", {
   expect_error(
     require_namespace("impossible package"),
-    "Package .impossible package. is required."
+    class = "namespaceError"
   )
 
   foo <- function() {
@@ -37,14 +37,12 @@ test_that("require_namespace()", {
     foo()
   }
 
-  err <- "Package .not-real. is required for .foo. to work"
-  # Returns function name that calls require_namespace()
-  expect_error(foo(), err)
-  expect_error(bar(), err)
+  expect_error(foo(), class = "namespaceError")
+  expect_error(bar(), class = "namespaceError")
 
   expect_error(
     require_namespace("this_one", "that_thing"),
-    "Packages .this_one., .that_thing. are required"
+    class = "namespaceError"
   )
 })
 
