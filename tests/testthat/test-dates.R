@@ -3,6 +3,7 @@ test_that("dates - utils", {
 
   expect_true(is_valid_date_string("2019"))
   expect_true(is_valid_date_string("Jan 19 2020"))
+  expect_true(is_valid_date_string("2020-01-01"))
   # too difficult to determine year for max?
   expect_true(is_valid_date_string("01 Feb"))
 
@@ -57,6 +58,8 @@ test_that("Some examples", {
   expect_equal(foo("2015", method = "max"), "2015-12-31")
   expect_equal(foo("2015", format = "dmy", method = "min"), "2015-01-01")
   expect_equal(foo("2015", format = "dmy", method = "max"), "2015-12-31")
+
+  expect_equal(foo("2020-01-01"), "2020-01-01")
 })
 
 test_that("Bad date: Earliest", {
