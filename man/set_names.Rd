@@ -4,14 +4,11 @@
 \alias{set_names}
 \alias{set_names0}
 \alias{names_switch}
-\alias{\%names\%}
 \title{Set names}
 \usage{
 set_names0(x, nm = x)
 
 names_switch(x)
-
-x \%names\% nm
 }
 \arguments{
 \item{x}{A vector of values}

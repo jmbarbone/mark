@@ -141,28 +141,3 @@ catch <- function(FUN) {
     )
   }
 }
-
-#' Muffle
-#'
-#' Suppress messages and warnings
-#'
-#' @details
-#' `muffle()` and `wuffle()` are aliases for [base::suppressMessages()]
-#'   and [base::suppressWarnings()], respectively, except the names are shorter
-#'   and therefore quicker to write.
-#'
-#' @param expr An expression to be evaluated
-#' @param ... Additional arguments passed to [base::suppressMessages()] or
-#'   [base::suppressWarnings()]
-#' @return The result of `expr`
-#'
-#' @export
-muffle <- function(expr, ...) {
-  suppressMessages(expr, ...)
-}
-
-#' @rdname muffle
-#' @export
-wuffle <- function(expr, ...) {
-  suppressWarnings(expr, ...)
-}
