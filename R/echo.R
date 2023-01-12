@@ -1,3 +1,20 @@
+#' echo
+#'
+#' Run expressions with logging outputs
+#'
+#' @param exprs Expressions
+#' @param to Output locations
+#' @param msg If `FALSE` does not print results from `message()`
+#' @export
+#' @examples
+#' try(echo({
+#'   1 + 1
+#'   Sys.sleep(2)
+#'   head(mtcars)
+#'   message(1)
+#'   warning(2)
+#'   stop(3)
+#' }))
 echo <- function(exprs, to = stdout(), msg = TRUE) {
   env <- environment()
   exprs <- as.list(substitute(exprs))[-1]
