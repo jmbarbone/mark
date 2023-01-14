@@ -1,6 +1,6 @@
 #' mark
 #'
-#' Miscellaneous, Analytic R Code
+#' Miscellaneous, Analytic R Kernels
 #'
 #' @docType package
 #' @name mark
