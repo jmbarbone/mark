@@ -63,14 +63,19 @@ assign_labels.default <- function(x, label, ...) {
 #'   can be set to `error` to `stop()` the call, `warn` to provide a warning, or
 #'   `skip` to silently skip those labels.
 #' @param .ls A named list of columns and labels to be set if `...` is empty
-assign_labels.data.frame <- function(x, ..., .missing = c("error", "warn", "skip"), .ls = list(...)) {
+assign_labels.data.frame <- function(
+    x,
+    ...,
+    .missing = c("error", "warn", "skip"),
+    .ls = list(...)
+) {
   # TODO add test for implementing assign_labels.data.frame(.missing = )
 
   if (identical(.ls, list())) {
     stop(".ls cannot be empty", call. = FALSE)
   }
 
-  if (...length() & !identical(list(...), .ls)) {
+  if (...length() && !identical(list(...), .ls)) {
     stop("... was set separately from `.ls`. Only set one", call. = FALSE)
   }
 

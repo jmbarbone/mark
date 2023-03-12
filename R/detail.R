@@ -26,7 +26,7 @@ detail <- function(x, ...) {
 #'   character vectors with `factor_n` or less unique values into a `fact`;
 #'   setting as `NA` will ignore this
 #' @export
-detail.default <- function(x, factor_n = 5L, ...) {
+detail.default <- function(x, factor_n = 5L, ...) { # nolint: cyclocomp_linter.
   stopifnot(!is.list(x))
 
   op <- options(stringsAsFactors = FALSE)
@@ -57,7 +57,7 @@ detail.default <- function(x, factor_n = 5L, ...) {
     }
   }
 
-  if (!no_length & !facts & !quants & length(unique(x)) <= 5) {
+  if (!no_length && !facts && !quants && length(unique(x)) <= 5) {
     x <- fact(x)
     facts <- TRUE
   }
@@ -69,7 +69,7 @@ detail.default <- function(x, factor_n = 5L, ...) {
     n     = length(x2),
     na    = sum(nas),
     # These are a little funky
-    min_c = as.character(min(if (quants) x2 else nc)) ,
+    min_c = as.character(min(if (quants) x2 else nc)),
     max_c = as.character(max(if (quants) x2 else nc))
   )
 

@@ -1,5 +1,5 @@
 test_that("within_*()", {
-  FOO <- function() foo()
+  FOO <- function() foo() # nolint: object_name_linter.
   foo <- function(x) within_call()
 
   expect_equal(foo(), "foo()")

@@ -101,10 +101,9 @@ fact.logical <- function(x) {
 
 #' @rdname fact
 #' @export
-fact.factor <- function(x) {
+fact.factor <- function(x) { # nolint: cyclocomp_linter.
   old_levels <- levels(x)
   new_levels <- fact_coerce_levels(old_levels)
-  # new_levels <- type_convert2(old_levels)
 
   if (is.logical(new_levels)) {
     m <- match(new_levels[x], c(TRUE, FALSE, NA))
@@ -112,7 +111,7 @@ fact.factor <- function(x) {
     return(res)
   }
 
-  if (is.numeric(new_levels) | inherits(x, c("Date", "POSIXt"))) {
+  if (is.numeric(new_levels) || inherits(x, c("Date", "POSIXt"))) {
     ord_levels <- sort(new_levels, na.last = TRUE)
     o <- match(old_levels, as.character(ord_levels))
 
@@ -204,7 +203,7 @@ print.fact <- function(
     lev <- encodeString(levels(x), quote = "")
     n <- length(lev)
     colsep <- if (ord) " < " else " "
-    T0 <- "Levels: "
+    T0 <- "Levels: " # nolint: object_name_linter.
     if (is.logical(max_levels)) {
       max_levels <- {
         width <- width - (nchar(T0, "w") + 3L +  1L + 3L)
@@ -539,6 +538,6 @@ fact_coerce_levels <- function(x) {
   new_fact(match(levels, value)[x], value, is.ordered(x))
 }
 
-is.fact <- function(x) {
+is.fact <- function(x) { # nolint: object_name_linter.
   inherits(x, "fact")
 }

@@ -17,10 +17,10 @@
 #' x <- list(a = 1:2, b = NULL, c = 3)
 #' mark:::mapply0(foo, x)
 #' @noRd
-mapply0 <- function(FUN, params = NULL, ...) {
+mapply0 <- function(FUN, params = NULL, ...) { # nolint: object_name_linter.
   params <- c(params,  list(...))
 
-  FUN <- match.fun(FUN)
+  FUN <- match.fun(FUN) # nolint: object_name_linter.
   n <- max(lengths(params))
 
   p_list <- lapply(

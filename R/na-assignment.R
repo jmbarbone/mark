@@ -33,7 +33,7 @@ NULL
 
 #' @rdname na_assignments
 #' @export
-NA_at <- function(x, y, ...) {
+NA_at <- function(x, y, ...) { # nolint: object_name_linter.
   nx <- length(x)
 
   if (nx == 0L) {
@@ -41,15 +41,21 @@ NA_at <- function(x, y, ...) {
   }
 
   if (is.function(y)) {
-    FUN <- match.fun(y)
+    FUN <- match.fun(y) # nolint: object_name_linter.
     y <- FUN(x, ...)
   }
 
-  stopifnot(
-    "y must be a vector of integers" = isTRUE(all.equal(y, as.integer(y))),
-    "values of y must not be greater than length of x" = max(y, na.rm = TRUE) <= nx,
-    "length of y must not be greater than length of x" = length(y) <= nx
-  )
+  if (!isTRUE(all.equal(y, as.integer(y)))) {
+    stop("y must be a vector of integers", call. = FALSE)
+  }
+
+  if (!isTRUE(max(y, na.rm = TRUE) <= nx)) {
+    stop("values of y must not be greater than length of x", call. = FALSE)
+  }
+
+  if (!isTRUE(length(y) <= nx)) {
+    stop("length of y must not be greater than length of x", call. = FALSE)
+  }
 
   x[y] <- NA
   x
@@ -57,7 +63,7 @@ NA_at <- function(x, y, ...) {
 
 #' @rdname na_assignments
 #' @export
-NA_if <- function(x, y, ...) {
+NA_if <- function(x, y, ...) { # nolint: object_name_linter.
   nx <- length(x)
 
   if (nx == 0L) {
@@ -65,7 +71,7 @@ NA_if <- function(x, y, ...) {
   }
 
   if (is.function(y)) {
-    FUN <- match.fun(y)
+    FUN <- match.fun(y) # nolint: object_name_linter.
     y <- FUN(x, ...)
   }
 
@@ -80,13 +86,13 @@ NA_if <- function(x, y, ...) {
 
 #' @rdname na_assignments
 #' @export
-NA_in <- function(x, y, ...) {
+NA_in <- function(x, y, ...) { # nolint: object_name_linter.
   if (length(x) == 0L) {
     return(x)
   }
 
   if (is.function(y)) {
-    FUN <- match.fun(y)
+    FUN <- match.fun(y) # nolint: object_name_linter.
     y <- FUN(x, ...)
   }
 
@@ -96,13 +102,13 @@ NA_in <- function(x, y, ...) {
 
 #' @rdname na_assignments
 #' @export
-NA_out <- function(x, y, ...) {
+NA_out <- function(x, y, ...) { # nolint: object_name_linter.
   if (length(x) == 0L) {
     return(x)
   }
 
   if (is.function(y)) {
-    FUN <- match.fun(y)
+    FUN <- match.fun(y) # nolint: object_name_linter.
     y <- FUN(x, ...)
   }
 

@@ -33,13 +33,21 @@ test_that("pseudo_id.factor() does not return NA values [#28]", {
   # NA in levels and values
   x <- struct(c(1:3, NA), levels = c(letters[1:3], NA), class = "factor")
   res <- pseudo_id(x)
-  exp <- struct(1:4, uniques = c(letters[1:3], NA_character_), class = c("pseudo_id", "integer"))
+  exp <- struct(
+    1:4,
+    uniques = c(letters[1:3], NA_character_),
+    class = c("pseudo_id", "integer")
+  )
   expect_identical(res, exp)
 
   # NA in values but not in levels
   x <- struct(c(1:3, NA), levels = letters[1:3], class = "factor")
   res <- pseudo_id(x)
-  exp <- struct(1:4, uniques = c(letters[1:3], NA_character_), class = c("pseudo_id", "integer"))
+  exp <- struct(
+    1:4,
+    uniques = c(letters[1:3], NA_character_),
+    class = c("pseudo_id", "integer")
+  )
   expect_identical(res, exp)
 })
 

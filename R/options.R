@@ -19,7 +19,7 @@
 #'
 #' options(op)
 #' @export
-checkOptions <- function(x) {
+checkOptions <- function(x) { # nolint: object_name_linter.
   if (!is.list(x)) {
     stop("x must be a list", call. = FALSE)
   }

@@ -88,7 +88,7 @@ flip.data.frame <- function(x, by_row = TRUE, keep_rownames = NULL, ...) {
     }
 
     if (!keep_rownames) {
-      attr(out, "row.names") <- rn
+      attr(out, "row.names") <- rn # nolint: object_name_linter
     }
   } else {
     cols <- ncol(x)

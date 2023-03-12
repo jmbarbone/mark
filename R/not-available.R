@@ -68,12 +68,12 @@ get_na_list <- function() {
 
 #' @export
 #' @rdname not_available
-NA_Date_ <- not_available("Date", 1L)
+NA_Date_ <- not_available("Date", 1L) # nolint: object_name_linter.
 
 #' @export
 #' @rdname not_available
-NA_POSIXct_ <- not_available("POSIXct", 1L)
+NA_POSIXct_ <- not_available("POSIXct", 1L) # nolint: object_name_linter.
 
 #' @export
 #' @rdname not_available
-NA_POSIXlt_ <- not_available("POSIXlt", 1L)
+NA_POSIXlt_ <- not_available("POSIXlt", 1L) # nolint: object_name_linter.

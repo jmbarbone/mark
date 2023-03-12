@@ -50,7 +50,6 @@ remove_na.factor <- function(x) {
 #' @rdname remove_na
 #' @export
 remove_na.fact <- function(x) {
-  # browser()
   x <- fact_na(x, remove = TRUE)
   at <- attributes(x)
   x <- x[!is.na(x)]
@@ -166,7 +165,7 @@ is_na_cols <- function(x, names = TRUE) {
 #' tableNA(x[1], x[2])
 #' tableNA(x[1], x[2], x[3]) # equivalent ot tableNA(x, .list = TRUE)
 
-tableNA <- function(..., .list = FALSE) {
+tableNA <- function(..., .list = FALSE) { # nolint: object_name_linter
   ls <- if (.list) {
     as.list(...)
   } else {

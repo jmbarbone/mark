@@ -57,7 +57,13 @@ write_clipboard.default <- function(x, ...) {
 
 #' @export
 write_clipboard.data.frame <- function(x, sep = "\t", ...) {
-  utils::write.table(x, file = "clipboard-128", sep = sep, row.names = FALSE, ...)
+  utils::write.table(
+    x,
+    file = "clipboard-128",
+    sep = sep,
+    row.names = FALSE,
+    ...
+  )
 }
 
 #' @export
@@ -66,7 +72,7 @@ write_clipboard.matrix <- function(x, sep = "\t", ...) {
 }
 
 #' @export
-write_clipboard.list <- function(x, sep = "\t", show_NA = FALSE, ...) {
+write_clipboard.list <- function(x, sep = "\t", show_NA = FALSE, ...) { # nolint: object_name_linter, line_length_linter..
   ls <- list2df(x, show_NA = show_NA)
   write_clipboard(ls, sep = "\t", ...)
 }
@@ -112,21 +118,23 @@ read_clipboard <- function(method = c("default", "data.frame", "tibble"), ...) {
 #'
 #' @inheritParams utils::read.table
 #' @noRd
+# nolint start: object_name_linter.
 do_read_table_clipboard <- function(
-  header           = TRUE,
-  # Copying form Excel produces tab separations
-  sep              = "\t",
-  row.names        = NULL,
-  # Excel formula for NA produces #N/A -- sometimes people use N/A...
-  na.strings       = c("", "NA", "N/A", "#N/A"),
-  check.names      = FALSE,
-  stringsAsFactors = FALSE,
-  encoding         = "UTF-8",
-  # occasionally "#' is used as a column name -- may cause issues
-  comment.char     = "",
-  blank.lines.skip = FALSE,
-  fill             = TRUE,
-  ...
+    header           = TRUE,
+    # Copying form Excel produces tab separations
+    sep              = "\t",
+    row.names        = NULL,
+    # Excel formula for NA produces #N/A -- sometimes people use N/A...
+    na.strings       = c("", "NA", "N/A", "#N/A"),
+    check.names      = FALSE,
+    stringsAsFactors = FALSE,
+    encoding         = "UTF-8",
+    # occasionally "#' is used as a column name -- may cause issues
+    comment.char     = "",
+    blank.lines.skip = FALSE,
+    fill             = TRUE,
+    ...
+    # nolint end: objecT_name_linter.
 ) {
   utils::read.table(
     file             = "clipboard-128",

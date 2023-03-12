@@ -103,7 +103,7 @@ str_extract_datetime <- function(x, format = "%Y-%m-%d %H%M%S") {
   capply(text, strptime, format = format, tz = "")
 }
 
-string_extract <- function(x, pattern, perl = FALSE, ignore.case = FALSE) {
+string_extract <- function(x, pattern, perl = FALSE, ignore.case = FALSE) { # nolint: object_name_linter, line_length_linter.
   re <- regexpr(pattern, x, perl = perl, ignore.case = ignore.case)
   starts <- as.vector(re, "integer")
   substr(x, starts, starts + attr(re, "match.length") - 1L)

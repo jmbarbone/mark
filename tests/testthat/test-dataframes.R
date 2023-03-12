@@ -42,7 +42,10 @@ test_that("vector2df()", {
   expect_equal(vector2df(set_names0(x)), df)
   expect_named(vector2df(x, "one", "two"), c("one", "two"))
 
-  expect_warning(vector2df(x, show_NA = NULL), info = "show_NA should not be set")
+  expect_warning(
+    vector2df(x, show_NA = NULL),
+    info = "show_NA should not be set"
+  )
   expect_error(vector2df(list(a = 1)), "non-list vector")
 })
 
@@ -78,7 +81,12 @@ test_that("list2df()", {
 
 test_that("list2df2()", {
   res <- list2df2(list())
-  exp <- structure(list(), names = character(0), class = "data.frame", row.names = integer())
+  exp <- structure(
+    list(),
+    names = character(),
+    class = "data.frame",
+    row.names = integer()
+  )
   expect_identical(res, exp)
 })
 
@@ -87,11 +95,13 @@ test_that("t_df()", {
 
   y <- quick_dfl(
     colname = c("a", "b"),
+    # nolint start: spaces_inside_linter.
     row_1   = c(  1, "a"),
     row_2   = c(  2, "b"),
     row_3   = c(  3, "c"),
     row_4   = c(  4, "d"),
     row_5   = c(  5, "e")
+    # nolint end: spaces_inside_linter.
   )
 
   expect_equal(t_df(x), y)

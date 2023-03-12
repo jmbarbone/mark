@@ -25,7 +25,7 @@
 #' })
 #' @export
 
-simpleTimeReport <- function(title = NULL, expr, envir = parent.frame()) {
+simpleTimeReport <- function(title = NULL, expr, envir = parent.frame()) { # nolint: object_name_linter, cyclocomp_linter, line_length_linter.
   mc <- match.call()
   cat0(trimws(title), "\n", rep("-", getOption("width")), "\n")
   line <- rep("-", getOption("width"))
@@ -55,8 +55,9 @@ simpleTimeReport <- function(title = NULL, expr, envir = parent.frame()) {
         outputs[[i]] <<-
           utils::capture.output(results[[i]] <<-
               eval(exprs[i], envir)),
-        error = function(e)
-          stop("\n", e$message, call. = FALSE),
+        error = function(e) {
+          stop("\n", e$message, call. = FALSE)
+        },
         warning = function(e) {
           warnings[[i]] <<- e$message
           # Only invoke Restart if it is the same warning?
@@ -96,7 +97,10 @@ simpleTimeReport <- function(title = NULL, expr, envir = parent.frame()) {
     catln(calls[i])
   }
 
-  if (!identical(outputs, rep_len(list(), n)) && any(!vap_lgl(outputs, is.null))) {
+  if (
+    !identical(outputs, rep_len(list(), n)) &&
+    any(!vap_lgl(outputs, is.null))
+  ) {
     cat0("\nOutputs\n", line, "\n")
     for (i in seq_along(outputs)) {
       if (!is.null(outputs[[i]]) && !identical(outputs[[i]], character())) {
@@ -132,7 +136,7 @@ simpleTimeReport <- function(title = NULL, expr, envir = parent.frame()) {
 #' @param threshold A threshold for reporting the difference, if `stop - start`
 #'   is less than this, a empty character vector (`""`) is returned
 #' @noRd
-formatTimeDiff <- function(start, stop = Sys.time(), threshold = .1) {
+formatTimeDiff <- function(start, stop = Sys.time(), threshold = .1) { # nolint: object_name_linter, line_length_linter.
   difference <- stop - start
 
   threshold <- as.difftime(threshold, units = "secs")
@@ -181,5 +185,3 @@ split_expression <- function(expr) {
   x <- strsplit(x, "\\s{0,}\n\\s{0,}")[[1]]
   str2expression(x)
 }
-
-

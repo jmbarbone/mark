@@ -4,7 +4,7 @@
 #'
 #' @param x A vector of characters
 #' @param n The limit to the number of unique values for the factor
-#' @seealso #' @seealso [fact2char()]
+#' @seealso [fact2char()]
 #' @family factors
 #' @export
 char2fact <- function(x, n = 5) {
