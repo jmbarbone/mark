@@ -96,9 +96,9 @@ match_param <- function(param, choices, null = TRUE) {
     }
 
     stop(sprintf(
-      paste(
+      paste0(
         "`match_param(%s)` failed in `%s`:\n",
-        "`%s` [%s] must be one of the following: \"%s\""
+        "  `%s` [%s] must be one of the following: \"%s\""
       ),
       param_c,
       ocall,
