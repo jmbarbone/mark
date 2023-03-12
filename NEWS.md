@@ -4,12 +4,12 @@
 
 * `echo()` evaluates expressions and logs outputs [#164](https://github.com/jmbarbone/mark/issues/164)
 
-## Fixes
+## Fixes and updates
 
 * `date_from_partial()` works again [#155](https://github.com/jmbarbone/mark/issues/155) after fixing an issue with an internal utility `is_valid_date_string()` that wasn't recognizing `%Y-%m-%d` (and potentially others)
 * `lintr` GitHub action updated [#173](https://github.com/jmbarbone/mark/issues/173); this includes plenty of internal improvements and code cleanup
-
 * package description in help files corrected [#165](https://github.com/jmbarbone/mark/issues/165)
+* GitHub pages updated with latest `{pkgdown}` action [#175](https://github.com/jmbarbone/mark/issues/165)
 
 # mark 0.5.3
 
