@@ -62,7 +62,9 @@ echo <- function(exprs, to = stdout(), msg = TRUE) {
     if (is.null(res)) {
       utils::flush.console()
     } else {
-      catln(paste0(time(), "[OUT] #> ", utils::capture.output(res), collapse = "\n"))
+      catln(
+        paste0(time(), "[OUT] #> ", utils::capture.output(res), collapse = "\n")
+      )
     }
   }
 
