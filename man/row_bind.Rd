@@ -18,5 +18,5 @@ and \code{0} rows is returned if \code{...} has no length
 Bind a list of \code{data.frames}
 }
 \seealso{
-\code{\link[dplyr:bind]{dplyr::bind_rows()}} \code{\link[base:cbind]{base::rbind()}}
+\code{\link[dplyr:bind_rows]{dplyr::bind_rows()}} \code{\link[base:cbind]{base::rbind()}}
 }
