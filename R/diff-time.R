@@ -87,7 +87,7 @@ diff_time <- function(
 
 extract_numeric_time <- function(x, tz) {
   if (is.numeric(tz)) {
-    return(as.numeric(x) + tz)
+    return(unclass(x) + tz)
   }
 
   if (is.null(tz)) {
@@ -95,11 +95,38 @@ extract_numeric_time <- function(x, tz) {
       stop("Date times cannot be numeric", call. = FALSE)
     }
 
-    x <- as.POSIXlt(x)
-    gmt <- unclass(x)$gmtoff
-    gmt[is.na(gmt)] <- 0.0
-    if (!length(gmt)) gmt <- 0.0
-    return(as.numeric(x) + gmt)
+    gmt <- NULL
+
+    if (is_POSIXct(x)) {
+      gmt <- as.double(format(x, "%z"))
+    } else {
+      if (!is_POSIXlt(x)) {
+        x <- as.POSIXlt(x)
+        x$zone <- default_tz()
+      }
+      gmt <- x$gmtoff
+    }
+
+    if (getRversion() >= "4.3.0") {
+      x <- as.POSIXlt(x)
+    }
+
+    if (is.null(gmt)) {
+      gmt <- 0.0
+      x$zone <- default_tz()
+    } else {
+      gmt[is.na(gmt)] <- 0.0
+    }
+
+    # with R 4.3.0 this has to be mapped
+    out <-
+      if (getRversion() >= "4.3.0") {
+        mapply(as.POSIXct, x = as.POSIXct(x), tz = x$zone %||% 0)
+      } else {
+        as.POSIXct(x, x$zone %||% "")
+      }
+
+    return(unclass(out) + gmt)
   }
 
   to_numeric_with_tz(x, tz)
