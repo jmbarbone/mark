@@ -30,7 +30,10 @@ insert <- function(x, positions, values) {
     positions <- positions[o]
     values <- values[o]
   } else {
-    stop("length(values) must be equal to length(positions) or 1", call. = FALSE)
+    stop(
+      "length(values) must be equal to length(positions) or 1",
+      call. = FALSE
+    )
   }
 
   seqs <- seq_along(positions)

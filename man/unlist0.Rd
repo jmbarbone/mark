@@ -24,8 +24,11 @@ squash_vec(x, sep = ".")
 Unlist without unique names; combine names for unique values
 }
 \details{
-\code{\link[=unlist0]{unlist0()}} is much like \code{\link[=unlist]{unlist()}} expect that name are not made to be unique.
-\code{\link[=squash_vec]{squash_vec()}} works differently
+\itemize{
+\item \code{\link[=unlist0]{unlist0()}} is much like \code{\link[=unlist]{unlist()}} expect that name are not made to be
+unique.
+\item \code{\link[=squash_vec]{squash_vec()}} works differently
+}
 }
 \examples{
 x <- list(a = 1:3, b = 2, c = 2:4)

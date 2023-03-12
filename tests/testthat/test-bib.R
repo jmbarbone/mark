@@ -41,7 +41,6 @@ test_that("snapshots()", {
 })
 
 test_that("= inside text [#117]", {
-  # debug(get_bib_values)
   res <- read_bib(textConnection("
     @article{key,
     author     = {Barbone, Jordan Mark},

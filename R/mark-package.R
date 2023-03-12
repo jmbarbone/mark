@@ -6,7 +6,7 @@
 #' @name mark
 "_PACKAGE"
 
-op.mark <- list(
+op.mark <- list( # nolint: object_name_linter.
   mark.author            = NULL,
   # control for check_interactive() to return interactive() or TRUE
   mark.check_interactive = TRUE,

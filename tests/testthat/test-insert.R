@@ -27,9 +27,6 @@ test_that("insert.data.frame() works", {
     c = c(-1.5, 0, 1.5)
   )
 
-  # debugonce(insert)
-  # debugonce(append0.list)
-
   res <- insert(x, 2, list(x = 1:3))
   expect_identical(res, exp)
 })

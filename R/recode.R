@@ -1,3 +1,5 @@
+# nolint start: line_length_linter.
+
 #' Recode by
 #'
 #' A simple implementation of recoding
@@ -35,6 +37,8 @@
 #'
 #' @seealso [dplyr::recode()]
 #' @export
+
+# nolint end: line_length_linter.
 
 recode_by <- function(x, by, vals = NULL, mode = "any") {
 

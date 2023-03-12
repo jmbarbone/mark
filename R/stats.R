@@ -18,7 +18,7 @@
 #' @export
 #' @seealso [stats::quantile()]
 
-median2 <- function(x, type = 7, na.rm = FALSE) {
+median2 <- function(x, type = 7, na.rm = FALSE) { # nolint: object_name_linter.
   stats::quantile(x, probs = .5, type = type, na.rm = na.rm, names = FALSE)
 }
 
@@ -47,6 +47,6 @@ q50 <- median2
 #' system.time(rep(range2(x, na.rm = TRUE), 100))
 #' }
 #' @export
-range2 <- function(x, na.rm = FALSE) {
+range2 <- function(x, na.rm = FALSE) { # nolint: object_name_linter.
   c(min(x, na.rm = na.rm), max(x, na.rm = na.rm))
 }

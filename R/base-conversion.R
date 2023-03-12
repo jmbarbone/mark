@@ -33,9 +33,12 @@ base_alpha_single <- function(x, base) {
   a <- match(a, letters[1:base], nomatch = NA_integer_)
 
   if (anyNA(a)) {
-    stop(sprintf('Cannot calculate alpha base "%s" for "%s" which has letters beyond "%s"',
-                 base, x, x[base]),
-         call. = FALSE)
+    msg <-
+      sprintf(
+        'Cannot calculate alpha base "%s" for "%s" which has letters beyond "%s"', # nolint: line_length_linter.
+        base, x, x[base]
+      )
+    stop(msg, call. = FALSE)
   }
 
   n <- length(a)
@@ -69,7 +72,10 @@ base_n <- function(x, from = 10, to = 10) {
   }
 
   if (to != 10) {
-    stop("base_n() is currently only valid for conversions to base 10", call. = FALSE)
+    stop(
+      "base_n() is currently only valid for conversions to base 10",
+      call. = FALSE
+    )
   }
 
   check_base(from)
@@ -80,8 +86,11 @@ base_n_single <- function(x, base) {
   ints <- as.integer(chr_split(x))
 
   if (any(ints >= base)) {
-    stop('Cannot caluclate base "', base, '" for "', x, '" which has ',
-         "numbers greater than or equal to the base value", call. = FALSE )
+    stop(
+      'Cannot caluclate base "', base, '" for "', x, '" which has ',
+      "numbers greater than or equal to the base value",
+      call. = FALSE
+    )
   }
 
   seqs <- (length(ints) - 1L):0L
@@ -107,7 +116,7 @@ check_base <- function(b, high = 9) {
     stop("base must be an integer", call. = FALSE)
   }
 
-  if (b > high | b <= 1) {
+  if (b > high || b <= 1) {
     stop("base must be between 1 and ", high, call. = FALSE)
   }
 }
