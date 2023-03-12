@@ -39,7 +39,7 @@ sort_names <- function(x, numeric = FALSE) {
 #' @name set_names
 set_names0 <- function(x, nm = x) {
   .Deprecated("set_names")
-  `names<-`(x, nm)
+  set_names(x = x, nm = nm)
 }
 
 

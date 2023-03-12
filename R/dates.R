@@ -213,7 +213,7 @@ date_offset_match <- function(x, fmt) {
   }
 
   mt <- mt[c("y", "m")]
-  set_names0(x[mt], nm = c("y", "m"))
+  set_names(x[mt], nm = c("y", "m"))
 }
 
 days_in_month <- c(31L, 28L, 31L, 30L, 31L, 30L, 31L, 31L, 30L, 31L, 30L, 31L)
