@@ -59,7 +59,10 @@ test_that("todo() errors and messages", {
   expect_error(todos(path = 1), err)
   expect_error(todos(path = c("a", "b")), err)
   expect_error(todos(path = "zzz"), "path not found: zzz")
-  expect_error(do_todo(c("todo", "fixme"), path = "."), "Length of text must be 1")
+  expect_error(
+    do_todo(c("todo", "fixme"), path = "."),
+    "Length of text must be 1"
+  )
 
   expect_message(res <- todos("zzzzzz", path = path), "No todos found")
   expect_null(res)

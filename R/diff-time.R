@@ -1,22 +1,25 @@
+# nolint start: line_length_linter.
+
 #' Diff time wrappers
 #'
 #' Wrappers for computing diff times
 #'
 #' @details A few significant differences exist with these functions * The class
-#' of the object returned is no longer `difftime` (but does print) with the
-#' `difftime` method.  This makes the exporting process easier as the data will
-#' not have to be converted back to `numeric` * `difftime()` computes the
-#' difference of `time1` - `time2`, but the inverse feels a bit more nature:
-#' time difference from `x` to `y` * Additional units can be used (detailed
-#' below) * Differences can be sensitive to time zones if time zones are passed
-#' to the `tz` parameter as a character vector
+#'   of the object returned is no longer `difftime` (but does print) with the
+#'   `difftime` method.  This makes the exporting process easier as the data
+#'   will not have to be converted back to `numeric` * `difftime()` computes the
+#'   difference of `time1` - `time2`, but the inverse feels a bit more nature:
+#'   time difference from `x` to `y` * Additional units can be used (detailed
+#'   below) * Differences can be sensitive to time zones if time zones are
+#'   passed to the `tz` parameter as a character vector
 #'
 #' @section Units: Units can be used beyond those available in
 #'   `base::difftime()`.  Some of these use assumptions in how units of time
-#'   should be standardized and can be changed in the corresponding options.
-#'   Any of these can be calculated with `base::difftime()` through using `units
-#'   = "days"` but the `dtime` class will print out with these specifications
-#'   into the console for less potential confusion.
+#'   should be standardized and can be changed in the corresponding options. Any
+#'   of these can be calculated with `base::difftime()` through using `units =
+#'   "days"` but the `dtime` class will print out with these specifications into
+#'   the console for less potential confusion.
+#'
 #'
 #' \describe{
 #'   \item{months}{Months by number of days `mark.days_in_month` (defaults: `30`)}
@@ -30,7 +33,8 @@
 #'   GMT/UTC offsets (the number of seconds from GMT) or as a character vector.
 #'   If the letter, these need to conform with values from `base::OlsonNames()`.
 #'
-#'   A default timezone can be set with `options(mark.default_tz = .)`.  The value can either be a numeric
+#'   A default timezone can be set with `options(mark.default_tz = .)`.  The
+#'   value can either be a numeric
 #'
 #' @param x,y Vectors of times
 #' @param method A method to report the difference in units of time (see
@@ -41,6 +45,9 @@
 #'
 #' @export
 #' @name diff_time
+
+# nolint end: lien_length_linter.
+
 diff_time <- function(
   x,
   y,
@@ -102,7 +109,7 @@ to_numeric_with_tz <- function(x, tz) {
   nas <- is.na(tz)
 
   if (any(nas)) {
-    warning('NA found in timezones; setting to ', default_tz(), call. = FALSE)
+    warning("NA found in timezones; setting to ", default_tz(), call. = FALSE)
     tz[nas] <- default_tz()
   }
 
@@ -150,11 +157,13 @@ print.diff_time <- function(x, digits = getOption("digits"), ...) {
     xu,
     secs = "seconds",
     mins = "minutes",
+    # nolint start: line_length_linter.
     months = sprintf("months (%s days)",      getOption("mark.days_in_month", 30)),
     years  = sprintf("years (%s days)",       getOption("mark.days_in_year", 365)),
     dyears = sprintf("years (%s days)",       getOption("mark.days_in_year", 365)),
     myears = sprintf("years (%s-day months)", getOption("mark.days_in_month", 30)),
     wyears = sprintf("years (%s weeks)",      getOption("mark.weeks_in_year", 52)),
+    # nolint end: line_length_linter.
     xu
   )
   cat("Time differences in ", u, "\n", sep = "")
@@ -237,13 +246,13 @@ diff_time_myears <- function(x, y, ...) {
 #' @seealso [mark::diff_time]
 #' @name time_inherits
 #' @noRd
-is_POSIXlt <- function(x) {
+is_POSIXlt <- function(x) { # nolint: object_name_linter.
   inherits(x, "POSIXlt")
 }
 
 #' @rdname time_inherits
 #' @noRd
-is_POSIXct <- function(x) {
+is_POSIXct <- function(x) { # nolint: object_name_linter.
   inherits(x, "POSIXct")
 }
 
@@ -286,8 +295,8 @@ default_tz <- function() {
 }
 
 # easy time zones
-# lapply(1:7, sys_tz)
-# bench::press(x = 1:7, bench::mark(sys_tz(x), check = FALSE))
+#> lapply(1:7, sys_tz)
+#> bench::press(x = 1:7, bench::mark(sys_tz(x), check = FALSE))
 
 sys_tz <- function(method = 1) {
   switch(
@@ -304,4 +313,3 @@ sys_tz <- function(method = 1) {
     as.integer(sys_tz(6))
   )
 }
-

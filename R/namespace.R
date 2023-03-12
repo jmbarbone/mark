@@ -9,7 +9,7 @@
 #' @inheritParams base::attach
 #' @noRd
 
-loadAllNamespace <- function(namespace, warn.conflicts = TRUE) {
+loadAllNamespace <- function(namespace, warn.conflicts = TRUE) { # nolint: object_name_linter, line_length_linter.
   ls <- ls(all.names = TRUE, envir = asNamespace(namespace))
   ne <- new.env()
 

@@ -1,3 +1,5 @@
+# nolint start: line_length_linter.
+
 #' Sourcing extensions
 #'
 #' Functions for extending sourcing features
@@ -22,6 +24,8 @@
 #' * `ksource()`: Invisibly, the result of calling `source()` on the `.R` file conversion of `file`
 #' * `try_source()`, `try_ksource()`: attempts of `source()` and `ksource()` but converts errors to warnings
 #' @export
+
+# nolint end: line_length_linter.
 
 ksource <- function(file, ..., quiet = TRUE, cd = FALSE, env = parent.frame()) {
   require_namespace("knitr")
@@ -61,6 +65,8 @@ try_ksource <- function(file, ...) {
     })
 }
 
+# nolint start: commented_code_linter.
+
 #' Evaluate a  Named Chunk
 #'
 #' Evaluate a named chunk from an Rmd file.
@@ -98,6 +104,8 @@ try_ksource <- function(file, ...) {
 #'
 #' file.remove(temp_rmd)
 #' }
+
+# nolint end: commented_code_linter.
 
 eval_named_chunk <- function(rmd_file, label_name) {
   if (!grepl("\\.[Rr][Mm][Dd]$", rmd_file)) {
@@ -181,7 +189,8 @@ source_r_file <- function(path, echo = FALSE, quiet = FALSE, ...) {
 #'
 #' @param x An R script
 #' @param ops Options to be passed to [mark::rscript]
-#' @return Invisibly, and environment variable of the objects/results created from `x`
+#' @return Invisibly, and environment variable of the objects/results created
+#'   from `x`
 #' @export
 source_to_env <- function(x, ops = NULL) {
   rds_file <- mark_temp("Rds")
@@ -262,7 +271,11 @@ rscript <- function(x, ops = NULL, args = NULL, ...) {
 #' @return A `source_env`/`environment` object, created from `env`
 #'
 #' @export
-save_source <- function(env = parent.frame(), file = mark_temp("Rds"), name = NULL) {
+save_source <- function(
+    env = parent.frame(),
+    file = mark_temp("Rds"),
+    name = NULL
+) {
   ls <- ls(envir = env, all.name = TRUE)
   out <- lapply(ls, get, envir = env)
   names(out) <- ls

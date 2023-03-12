@@ -237,8 +237,6 @@ test_that("sys_tz() does not fail", {
 # printing ----------------------------------------------------------------
 
 test_that("snaps", {
-  # skip("not currently testing snaps")
-
   x <- struct(18842L, "Date")
   y <- x + 100L
 

@@ -20,17 +20,27 @@
 #'
 #' @export
 
-todos <- function(pattern = NULL, path = ".", force = getOption("mark.todos.force", FALSE), ...) {
+todos <- function(
+    pattern = NULL,
+    path = ".",
+    force = getOption("mark.todos.force", FALSE),
+    ...
+) {
   do_todo("todo", pattern = pattern, path = path, force = force, ...)
 }
 
 #' @rdname todos
 #' @export
-fixmes <- function(pattern = NULL, path = ".", force = getOption("mark.todos.force", FALSE), ...) {
+fixmes <- function(
+    pattern = NULL,
+    path = ".",
+    force = getOption("mark.todos.force", FALSE),
+    ...
+) {
   do_todo("fixme", pattern = pattern, path = path, force = force, ...)
 }
 
-do_todo <- function(text, pattern = NULL, path = path, force = FALSE, ...) {
+do_todo <- function(text, pattern = NULL, path = path, force = FALSE, ...) { # nolint: cyclocomp_linter, line_length_linter.
   # fs::dir_ls() would be a lot quicker but would be a new dependency
 
   if (missing(path) || length(path) != 1 || !is.character(path)) {
@@ -47,7 +57,10 @@ do_todo <- function(text, pattern = NULL, path = path, force = FALSE, ...) {
 
   files <- if (is_dir(path)) {
     # when will path be "" ?  cusing nzchar() instead
-    if (!has_char(path) | !(force | length(list.files(path, pattern = "\\.Rproj$")))) {
+    if (
+      !has_char(path) ||
+      !(force || length(list.files(path, pattern = "\\.Rproj$")))
+    ) {
       message("Did not search for TODOS in ", norm_path(path))
       return(invisible(NULL))
     }
@@ -77,7 +90,6 @@ do_todo <- function(text, pattern = NULL, path = path, force = FALSE, ...) {
     }
   )
 
-  # names(finds) <- substr(files, path_n, vap_int(files, nchar))
   names(finds) <- files
   finds <- finds[vap_int(finds, nrow) > 0L]
 
@@ -106,7 +118,7 @@ do_todo <- function(text, pattern = NULL, path = path, force = FALSE, ...) {
 
   if (!is.null(pattern)) {
     out <- out[grep(pattern, out[[text]], value = FALSE, ...), ]
-    attr(out, "row.names") <- seq_along(attr(out, "row.names"))
+    attr(out, "row.names") <- seq_along(attr(out, "row.names")) # nolint: object_name_linter, line_length_linter.
   }
 
   if (nrow(out) == 0L) {

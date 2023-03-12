@@ -79,5 +79,3 @@ normalize.data.frame <- function(x, ...) {
   x[] <- mapply(normalize, x = x, MoreArgs = list(...), SIMPLIFY = FALSE)
   x
 }
-
-

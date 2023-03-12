@@ -4,10 +4,10 @@
 #'
 #' @param x A numeric vector of values
 #' @param left,right Boundary values
-#' @param type Abbreviation for the evaluation of `left` on `right` (see details)
+#' @param type Abbreviation for the evaluation of `left` on `right` (see
+#'   details)
 #'
-#' @details
-#' Type can be one of the below:
+#' @details Type can be one of the below:
 #'
 #' \describe{
 #'  \item{g}{is greater than (>)}

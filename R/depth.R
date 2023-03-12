@@ -39,7 +39,7 @@ depth.list <- function(x, ...) {
   if (no_length(x)) {
     # Empty list -- don't count
     return(0L)
-  } else if (length(x) == 1L & !is.list(x[[1]])) {
+  } else if (length(x) == 1L && !is.list(x[[1]])) {
     # Check if next level is a list
     depth(x[[1]])
   } else {

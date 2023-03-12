@@ -8,8 +8,10 @@ test_that("match-param", {
   expect_null(foo(y = 1))
   expect_error(
     foo(y = 4),
-    '`match_param(y)` failed in `foo(y = 4)`:
-  `y` [4] must be one of the following: "1", "2", "3"',
+    paste0(
+      "`match_param(y)` failed in `foo(y = 4)`:\n",
+      '  `y` [4] must be one of the following: "1", "2", "3"'
+    ),
     fixed = TRUE
   )
 
@@ -20,7 +22,6 @@ test_that("match-param", {
   expect_equal(foo2(1), 1)
   expect_equal(foo2(1L), 1L)
   expect_equal(foo2("1"), 1)
-
 
   foo <- function(x = NULL) {
     match_param(tolower(x), c("a", "b", "c"))

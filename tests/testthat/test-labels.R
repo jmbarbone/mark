@@ -82,10 +82,10 @@ test_that("view_labels() works", {
   df <- assign_labels(df, a = "a", b = "b")
 
   # redefine "View"
-  View <- function(x, ...) identity(x)
+  View <- function(x, ...) identity(x) # nolint: object_name_linter.
   expect_error(view_labels(df), NA)
 
-  View <- NA
+  View <- NA # nolint: object_name_linter.
   expect_error(view_labels(df), "Something went wrong")
 })
 

@@ -30,7 +30,7 @@ test_that("multi_grepl() examples are correct", {
 
   expect_equal(
     # returned as positions
-    multi_grepl(x, c("^[ab]", "e")) ,
+    multi_grepl(x, c("^[ab]", "e")),
     c(1L, 1L, 2L)
   )
 })

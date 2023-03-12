@@ -3,7 +3,7 @@ which0 <- function(x) {
   which(x) %len% 0L
 }
 # isTRUE, isFALSE, ...
-isNA <- function(x) {
+isNA <- function(x) { # nolint: object_name_linter.
   is.logical(x) && length(x) == 1L && is.na(x)
 }
 
@@ -12,9 +12,11 @@ use_color <- function() {
   rn("crayon") && crayon::has_color()
 }
 
+# nolint start: brace_linter.
 crayon_blue  <- function(x) { if (use_color()) crayon::blue(x)  else x }
 crayon_green <- function(x) { if (use_color()) crayon::green(x) else x }
 crayon_cyan  <- function(x) { if (use_color()) crayon::cyan(x)  else x }
+# nolint end: brace_linter.
 
 #' Parse and evaluate text
 #'
@@ -45,7 +47,7 @@ print_no_attr <- function(x, ...) {
 #'
 #' @export
 #' @seealso [base::which()]
-that <- function(x, arr.ind = FALSE, useNames = TRUE) {
+that <- function(x, arr.ind = FALSE, useNames = TRUE) { # nolint: object_name_linter, line_length_linter.
   # TODO consider that() as #seq_along(x)[x]?
   which(x, arr.ind = arr.ind, useNames = useNames)
 }
@@ -90,9 +92,12 @@ is_atomic0 <- function(x) {
   is.atomic(x) && !is.null(x)
 }
 
+# nolint start: brace_linter.
 cat0 <- function(...) { cat(..., sep = "") }
 catln <- function(...) { cat(..., sep = "\n") }
 charexpr <- function(x) { as.character(as.expression(x)) }
+# nolint end: brace_linter.
+
 mark_temp <- function(ext = "") {
   if (!grepl("^[.]", ext) && !identical(ext, "") && !is.na(ext)) {
     ext <- paste0(".", ext)
@@ -109,8 +114,17 @@ mark_temp <- function(ext = "") {
 }
 
 check_is_vector <- function(x, mode = "any") {
-  if (isS4(x) | inherits(x, c("data.frame", "matrix", "array")) | !is.vector(remove_attributes(x), mode)) {
-    stop(deparse(substitute(x)), " must be a vector of mode ", mode, call. = FALSE)
+  if (
+    isS4(x) ||
+    inherits(x, c("data.frame", "matrix", "array")) ||
+    !is.vector(remove_attributes(x), mode)
+  ) {
+    stop(
+      deparse(substitute(x)),
+      " must be a vector of mode ",
+      mode,
+      call. = FALSE
+    )
   }
 }
 

@@ -17,3 +17,5 @@ test_that("are_identical() fails", {
   expect_error(are_identical(1, 1:3))
   expect_error(are_identical(NULL))
 })
+
+# lintr things there isn't a terminal line here?
