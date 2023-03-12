@@ -3,6 +3,10 @@
 ## New features
 
 * `echo()` evaluates expressions and logs outputs [#164](https://github.com/jmbarbone/mark/issues/164)
+* `{fuj}` is now imported
+  * multiple functions now re-exported from `{fuj}` (see `?mark::reexports`)
+  * `set_names0()` is deprecated in favor of `set_names()`
+  * error messages are created with `fuj::new_condition()`
 
 ## Fixes and updates
 
