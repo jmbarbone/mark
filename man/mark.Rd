@@ -6,7 +6,7 @@
 \alias{mark-package}
 \title{mark}
 \description{
-Miscellaneous, Analytic R Code
+Miscellaneous, Analytic R Kernels
 }
 \seealso{
 Useful links:
