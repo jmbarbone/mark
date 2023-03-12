@@ -139,7 +139,7 @@ cond_base_n_ten <- function() {
 cond_base_n_single_limit <- function(base, x) {
   new_condition(
     sprintf(
-      paset0(
+      paste0(
         "Cannot caluclate base \"%s\" for \"%s\" which has numbers greater",
         " than or equal to the base value"
       ),
