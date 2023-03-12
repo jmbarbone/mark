@@ -112,20 +112,20 @@
     <h2>Details</h2>
     <p>A few significant differences exist with these functions * The class
 of the object returned is no longer <code>difftime</code> (but does print) with the
-<code>difftime</code> method.  This makes the exporting process easier as the data will
-not have to be converted back to <code>numeric</code> * <code><a href="https://rdrr.io/r/base/difftime.html" class="external-link">difftime()</a></code> computes the
+<code>difftime</code> method.  This makes the exporting process easier as the data
+will not have to be converted back to <code>numeric</code> * <code><a href="https://rdrr.io/r/base/difftime.html" class="external-link">difftime()</a></code> computes the
 difference of <code>time1</code> - <code>time2</code>, but the inverse feels a bit more nature:
 time difference from <code>x</code> to <code>y</code> * Additional units can be used (detailed
-below) * Differences can be sensitive to time zones if time zones are passed
-to the <code>tz</code> parameter as a character vector</p>
+below) * Differences can be sensitive to time zones if time zones are
+passed to the <code>tz</code> parameter as a character vector</p>
     </div>
     <div id="units">
     <h2>Units</h2>
     <p>Units can be used beyond those available in
 <code><a href="https://rdrr.io/r/base/difftime.html" class="external-link">base::difftime()</a></code>.  Some of these use assumptions in how units of time
-should be standardized and can be changed in the corresponding options.
-Any of these can be calculated with <code><a href="https://rdrr.io/r/base/difftime.html" class="external-link">base::difftime()</a></code> through using <code>units = "days"</code> but the <code>dtime</code> class will print out with these specifications
-into the console for less potential confusion.</p>
+should be standardized and can be changed in the corresponding options. Any
+of these can be calculated with <code><a href="https://rdrr.io/r/base/difftime.html" class="external-link">base::difftime()</a></code> through using <code>units = "days"</code> but the <code>dtime</code> class will print out with these specifications into
+the console for less potential confusion.</p>
 <dl><dt>months</dt>
 <dd><p>Months by number of days <code>mark.days_in_month</code> (defaults: <code>30</code>)</p></dd>
 
@@ -148,7 +148,8 @@ into the console for less potential confusion.</p>
     <p>Time zones can be passed as either a numeric vector of
 GMT/UTC offsets (the number of seconds from GMT) or as a character vector.
 If the letter, these need to conform with values from <code><a href="https://rdrr.io/r/base/timezones.html" class="external-link">base::OlsonNames()</a></code>.</p>
-<p>A default timezone can be set with <code>options(mark.default_tz = .)</code>.  The value can either be a numeric</p>
+<p>A default timezone can be set with <code>options(mark.default_tz = .)</code>.  The
+value can either be a numeric</p>
     </div>
 
   </div>
@@ -163,7 +164,7 @@ If the letter, these need to conform with values from <code><a href="https://rdr
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>
