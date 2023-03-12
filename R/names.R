@@ -36,14 +36,13 @@ sort_names <- function(x, numeric = FALSE) {
 #'    values are switched
 #'
 #' @export
-#' @name set_names
+#' @name set_names0
 set_names0 <- function(x, nm = x) {
   .Deprecated("set_names")
   set_names(x = x, nm = nm)
 }
 
-
-#' @rdname set_names
+#' @rdname set_names0
 #' @export
 names_switch <- function(x) {
   nm <- names(x) %||% stop("x must be named", call. = FALSE)
