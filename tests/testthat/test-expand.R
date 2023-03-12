@@ -20,7 +20,9 @@ test_that("expand_by() work", {
   expect_equal(exp, res)
 
   res <- expand_by(x, y, "both", sort = TRUE)
-  exp <- sort_names(c(c = "c", b = "b", e = "e", i = "i", a = NA, d = NA, h = NA))
+  exp <- sort_names(
+    c(c = "c", b = "b", e = "e", i = "i", a = NA, d = NA, h = NA)
+  )
   expect_equal(exp, res)
 
   expect_error(expect_warning(expand_by(c(a = 1, a = 1), c(a = 1))))

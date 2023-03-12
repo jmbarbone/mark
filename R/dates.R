@@ -114,7 +114,7 @@ prep_date_string <- function(x) {
   out
 }
 
-parse_date_strings <- function(.x, fmt, method, year_replacement) {
+parse_date_strings <- function(.x, fmt, method, year_replacement) { # nolint: cyclocomp_linter, line_length_linter.
   splits <- strsplit(.x, "-")
 
   mat <- sapply(
@@ -137,7 +137,7 @@ parse_date_strings <- function(.x, fmt, method, year_replacement) {
 
       # (re)set names and (re)arrange
       x <- set_names0(suppressWarnings(as.integer(x)), names(x))
-      x <- x[c('y', 'm', 'd')]
+      x <- x[c("y", "m", "d")]
       x[is.na(x)] <- 0L
 
       if (all(x == integer(3))) {
@@ -155,35 +155,35 @@ parse_date_strings <- function(.x, fmt, method, year_replacement) {
 
       if (method == "min") {
 
-        if (x['d'] == 0L) {
-          x['d'] <- 1L
+        if (x["d"] == 0L) {
+          x["d"] <- 1L
         }
 
-        if (x['m'] == 0L) {
-          x['m'] <- 1L
+        if (x["m"] == 0L) {
+          x["m"] <- 1L
         }
 
-        if (x['y'] == 0L) {
+        if (x["y"] == 0L) {
 
           if (is.na(year_replacement)) {
             return(ints)
           }
 
-          x['y'] <- year_replacement
+          x["y"] <- year_replacement
         }
 
         return(x)
       }
 
-      if (x['m'] == 0L) {
-        x['m'] <- 12L
+      if (x["m"] == 0L) {
+        x["m"] <- 12L
       }
 
-      if (x['d'] == 0L) {
-        x['d'] <- days_in_month[x['m']]
+      if (x["d"] == 0L) {
+        x["d"] <- days_in_month[x["m"]]
 
-        if (x['m'] == 2L && is_leap_year(x['y'])) {
-          x['d'] <- 29L
+        if (x["m"] == 2L && is_leap_year(x["y"])) {
+          x["d"] <- 29L
         }
       }
 
@@ -205,21 +205,23 @@ parse_date_strings <- function(.x, fmt, method, year_replacement) {
 
 # When only 2 date splits are found, assume year and month
 date_offset_match <- function(x, fmt) {
-  mt <- match(c('y', 'm', 'd'), fmt)
-  names(mt) <- c('y', 'm', 'd')
+  mt <- match(c("y", "m", "d"), fmt)
+  names(mt) <- c("y", "m", "d")
 
-  if (mt['d'] == 1L) {
+  if (mt["d"] == 1L) {
     mt <- mt - 1L
   }
 
-  mt <- mt[c('y', 'm')]
+  mt <- mt[c("y", "m")]
   set_names0(x[mt], nm = c("y", "m"))
 }
 
 days_in_month <- c(31L, 28L, 31L, 30L, 31L, 30L, 31L, 31L, 30L, 31L, 30L, 31L)
 names(days_in_month) <- month.name
+# nolint start: object_name_linter.
 month.NAME <- toupper(month.name)
 month.ABBR <- toupper(month.abb)
+# nolint end: object_name_linter.
 
 is_leap_year <- function(year = Sys.time()) {
   if (inherits(year, c("Date", "POSIXct", "POSIXlt"))) {
@@ -243,6 +245,6 @@ as_date_strptime <- function(x, format = "%Y-%m-%d") {
 }
 
 strp_format <- function(fmt) {
-  fmt[fmt == 'y'] <- "Y"
+  fmt[fmt == "y"] <- "Y"
   sprintf("%%%s-%%%s-%%%s", fmt[1], fmt[2], fmt[3])
 }

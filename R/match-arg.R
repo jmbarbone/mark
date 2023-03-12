@@ -45,9 +45,12 @@ match_arg <- function(x, table) {
   out <- table[pmatch(x[1], table, nomatch = 0L, duplicates.ok = FALSE)]
 
   if (!length(out)) {
-    stop(as.character(substitute(x)), ": \'", x, "\' did not match any of the following:\n\   '",
-         collapse0(table, sep = "\', \'"), "\'",
-         call. = FALSE)
+    stop(
+      as.character(substitute(x)),
+      ": \'", x, "\' did not match any of the following:\n\   '",
+      collapse0(table, sep = "\', \'"), "\'",
+      call. = FALSE
+    )
   }
   out
 }
@@ -93,7 +96,10 @@ match_param <- function(param, choices, null = TRUE) {
     }
 
     stop(sprintf(
-      '`match_param(%s)` failed in `%s`:\n  `%s` [%s] must be one of the following: "%s"',
+      paste0(
+        "`match_param(%s)` failed in `%s`:\n",
+        "  `%s` [%s] must be one of the following: \"%s\""
+      ),
       param_c,
       ocall,
       param_c,

@@ -5,10 +5,10 @@ test_that("switch_params() works as expected", {
 
 test_that("switch_case() works as expected", {
   res <- switch_case(
-    1:5 == 4      ~ NA_integer_, # 4
-    1:5 %% 2 == 0 ~ 1:5,         # 2 & 4
-    1:5 == 1      ~ 6:10,        # 1
-    .default = -1L               # 3 & 5
+    1:5 == 4      ~ NA_integer_, #> 4
+    1:5 %% 2 == 0 ~ 1:5,         #> 2 & 4
+    1:5 == 1      ~ 6:10,        #> 1
+    .default = -1L               #> 3 & 5
   )
 
   expect_equal(res, c(6L, 2L, -1L, NA_integer_, -1L))

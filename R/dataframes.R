@@ -41,7 +41,7 @@ col_to_rn <- function(data, row_names = 1L) {
     x <- as.character(x)
   }
 
-  attr(data, "row.names") <- x
+  attr(data, "row.names") <- x # nolint: object_name_linter.
   data[, -row_names, drop = FALSE]
 }
 
@@ -55,7 +55,7 @@ col_to_rn <- function(data, row_names = 1L) {
 #' @return A `data.frame` with `name` (optional) and `value` columns
 #' @export
 
-vector2df <- function(x, name = "name", value = "value", show_NA) {
+vector2df <- function(x, name = "name", value = "value", show_NA) { # nolint: object_name_linter, line_length_linter.
   if (!missing(show_NA)) {
     warning("`show_NA` is no longer in use", call. = FALSE)
   }
@@ -100,7 +100,7 @@ vector2df <- function(x, name = "name", value = "value", show_NA) {
 #'   as.data.frame(x)
 #' }
 
-list2df <- function(x, name = "name", value = "value", show_NA, warn = TRUE) {
+list2df <- function(x, name = "name", value = "value", show_NA, warn = TRUE) { # nolint: object_name_linter, line_length_linter.
   if (!is.list(x)) {
     stop("`x` must be a list", call. = FALSE)
   }
@@ -112,7 +112,7 @@ list2df <- function(x, name = "name", value = "value", show_NA, warn = TRUE) {
   cl <- lapply(x, class)
   n_cl <- length(unique(cl))
 
-  if (n_cl > 1 & warn) {
+  if (n_cl > 1 && warn) {
     warning(
       ngettext(
         any(c("character", "factor") %in% cl),
@@ -142,18 +142,21 @@ list2df <- function(x, name = "name", value = "value", show_NA, warn = TRUE) {
 list2df2 <- function(x = list(), nrow = NULL) {
   stopifnot(is.list(x), is.null(nrow) || nrow >= 0L)
   if (n <- length(x)) {
-    if (is.null(nrow))
+    if (is.null(nrow)) {
       nrow <- max(lengths(x), 0L)
+    }
     x <- lapply(x, rep_len, nrow)
-  }
-  else {
-    if (is.null(nrow))
+  } else {
+    if (is.null(nrow)) {
       nrow <- 0L
+    }
   }
-  if (is.null(names(x)))
+  if (is.null(names(x))) {
     names(x) <- character(n)
+  }
+
   class(x) <- "data.frame"
-  attr(x, "row.names") <- .set_row_names(nrow)
+  attr(x, "row.names") <- .set_row_names(nrow) # nolint: object_name_linter.
   x
 }
 
@@ -193,7 +196,7 @@ t_df <- function(x, id = NULL) {
     make.names = FALSE
   )
 
-  colnames(out) <- paste0("row_", 1:nrow(x))
+  colnames(out) <- paste0("row_", seq_len(nrow(x)))
   rn_to_col(out, "colname")
 }
 
@@ -204,9 +207,9 @@ rn_to_col <- function(data, name = "row.name") {
 
   n <- length(data) + 1
   data[[n]] <- attr(data, "row.names")
-  attr(data, "row.names") <- 1:nrow(data)
+  attr(data, "row.names") <- seq_len(nrow(data)) # nolint: object_name_linter.
   colnames(data)[n] <- name
-  data[, c(n, 1:(n - 1)), drop = FALSE]
+  data[, c(n, seq_len(n - 1)), drop = FALSE]
 }
 
 #' Quick DF
@@ -237,7 +240,9 @@ NULL
 #' @param x A list or `NULL` (see return)
 quick_df <- function(x) {
   if (is.null(x)) {
-    return(struct(list(), "data.frame", row.names = integer(), names = character()))
+    return(
+      struct(list(), "data.frame", row.names = integer(), names = character())
+    )
   }
 
   if (!is.list(x)) {
@@ -251,7 +256,7 @@ quick_df <- function(x) {
   }
 
   struct(x, "data.frame",
-    names = names(x) %||% make.names(1:length(x)),
+    names = names(x) %||% make.names(1:length(x)), # nolint: seq_linter.
     row.names = c(NA_integer_, -n)
   )
 }
@@ -305,6 +310,6 @@ complete_cases <- function(data, cols = NULL, invert = FALSE) {
   }
 
   out <- data[cc, , drop = FALSE]
-  attr(out, "row.names") <- .set_row_names(sum(cc))
+  attr(out, "row.names") <- .set_row_names(sum(cc)) # nolint: object_name_linter, line_length_linter.
   out
 }

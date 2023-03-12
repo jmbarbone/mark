@@ -114,7 +114,10 @@ switch_in_case <- function(x, ..., .default = NULL, .envir = parent.frame()) {
     )
   }
 
-  rhs <- lapply(splits, function(i) eval(parse(text = i[2L]), envir = parent.frame()))
+  rhs <- lapply(splits, function(i)  {
+    eval(parse(text = i[2L]), envir = parent.frame())
+  })
+
   lhs <- lapply(splits, function(i) {
     # A bit more intensive to deal with "1:Inf" and what not
     res <- try_catch_inf(eval(parse(text = i[1L]), envir = .envir))
@@ -146,7 +149,6 @@ switch_in_case <- function(x, ..., .default = NULL, .envir = parent.frame()) {
   })
 
   # set the default NA value
-  # res0 <- .default %||% rhs[[1L]][0L][NA]
   res0 <- .default %||% NA
 
   do_switches <- function(xi) {
@@ -169,7 +171,6 @@ switch_in_case <- function(x, ..., .default = NULL, .envir = parent.frame()) {
     resi
   }
 
-  # debugonce(do_switches)
   res <- lapply(x, do_switches)
   stopifnot(lengths(res) == 1L)
   mode(res) <- mode(res[[1]])

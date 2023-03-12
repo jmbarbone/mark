@@ -24,7 +24,8 @@ objects_all(all.names = FALSE)
 }
 
 \itemize{
-\item \code{ls_all()}, \code{objects_all()}: A named list for each of the environments in the \code{search()} path with all the objects found in that environment
+\item \code{ls_all()}, \code{objects_all()}: A named list for each of the environments
+the \code{search()} path with all the objects found in that environment
 }
 }
 \description{

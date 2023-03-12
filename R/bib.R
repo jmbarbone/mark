@@ -1,3 +1,5 @@
+# nolint start: line_length_linter.
+
 #' Read Bib file
 #'
 #' Read a bib file into a data.frame
@@ -49,6 +51,8 @@
 #' }
 #' }
 
+# nolint end: line_length_linter.
+
 read_bib <- function(file, skip = 0L, max_lines = NULL, encoding = "UTF-8") {
   # Account for nul values found in encoding?
   # skipNul = TRUE could do this but an error can still be caused later
@@ -82,8 +86,6 @@ read_bib <- function(file, skip = 0L, max_lines = NULL, encoding = "UTF-8") {
   fields <- tolower(fields)
 
   # TODO Implement checks for duplicate categories?
-  # categories <- lapply(item_list, get_bib_categories)
-  # values <- lapply(item_list, get_bib_values)
   out <- lapply(item_list, parse_bib)
   categories <- lapply(out, "[[", "cat")
   values <- lapply(out, "[[", "val")
@@ -121,7 +123,6 @@ parse_bib_val <- function(x) {
   x[!lengths(x)] <- NA_character_
   # There may be something better than this
   # Would like to maintain the { and }
-  # x <- gsub("\\{|\\}|,?$", "", x)
   x <- trimws(x)
   x <- gsub("^(\\{|\")|(\"|\\})[,]?$", "", x)
   x <- gsub(",$", "", x)
@@ -142,7 +143,10 @@ parse_bib_val <- function(x) {
 process_bib_dataframe <- function(categories, values, fields, keys) {
   # Determine all categories for missing values inside Map
   ucats <- unique(remove_na(unlist(categories)))
-  ucats_df <- quick_dfl(category = ucats, value = rep(NA_character_, length(ucats)))
+  ucats_df <- quick_dfl(
+    category = ucats,
+    value = rep(NA_character_, length(ucats))
+  )
 
   x <- mapply(
     function(cats, vals, field, key) {
@@ -156,7 +160,11 @@ process_bib_dataframe <- function(categories, values, fields, keys) {
       bad <- lens > 1L
 
       if (any(bad)) {
-        msg <- sprintf("The key `%s` has duplicate categories of `%s`", key, names(lens)[bad])
+        msg <- sprintf(
+          "The key `%s` has duplicate categories of `%s`",
+          key,
+          names(lens)[bad]
+        )
         stop(simpleError(msg))
       }
 
@@ -192,11 +200,6 @@ process_bib_list <- function(keys, fields, categories, values) {
 
   x <- mapply(
     function(key, field, cats, vals) {
-      # # vals[is.na(vals)] <- ""
-      # new <- c(key, field, vals)
-      # names(new) <- c("key", "field", cats)
-      # class(new) <- c("character", "mark_bib_entry", .Names = key)
-      # new
       struct(
         c(key, field, vals),
         class = c("character", "mark_bib_entry"),
@@ -297,7 +300,6 @@ print.mark_bib_df <- function(x, list = FALSE, ...) {
     y <- x
     attr(y, "bib_list") <- NULL
     NextMethod()
-    # print(y, ...)
   }
 
   invisible(x)

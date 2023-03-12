@@ -2,23 +2,22 @@
 #'
 #' Logical operations, extended
 #'
-#' @description
-#' All functions take logical or logical-like (i.e., 1, 0, or NA as integer or
-#'   doubles) and return logical values.
+#' @description All functions take logical or logical-like (i.e., 1, 0, or NA as
+#' integer or doubles) and return logical values.
 #'
 #' Extensions to the base logical operations to account for `NA` values.
 #'
 #' [base::isTRUE()] and [base::isFALSE()] will only return single length `TRUE`
-#'   or `FALSE` as it checks for valid lengths in the evaluation.  When needing
-#'   to check over a vector for the presence of `TRUE` or `FALSE` and not being
-#'   held back by `NA` values, `is_true` and `is_false` will always provide a
-#'   `TRUE` `FALSE` when the vector is logical or return `NA` is the vector `x`
-#'   is not logical.
+#' or `FALSE` as it checks for valid lengths in the evaluation.  When needing to
+#' check over a vector for the presence of `TRUE` or `FALSE` and not being held
+#' back by `NA` values, `is_true` and `is_false` will always provide a `TRUE`
+#' `FALSE` when the vector is logical or return `NA` is the vector `x` is not
+#' logical.
 #'
 #' `%or%` is just a wrapper for [base::xor()]
 #'
-#' @param x,y  A vector of logical values.  If `NULL` will generate a warning.  If
-#'   not a logical value, will return `NA` equal to the vector length
+#' @param x,y  A vector of logical values.  If `NULL` will generate a warning.
+#'   If not a logical value, will return `NA` equal to the vector length
 #' @param ... Vectors or a list of logical values
 #' @param na.rm Logical, if `TRUE` will ignore `NA`
 #'
@@ -48,7 +47,8 @@
 #' is_boolean(c(1L, NA_integer_, 0L))
 #' is_boolean(c(1.01, 0, -1))
 #' @return
-#' * `is_true()`, `is_false()`, `either()`, `%or%`, `AND()`, `OR()`: A `logical` vector, equal length of `x` (or `y` or of all `...` lengths)
+#' * `is_true()`, `is_false()`, `either()`, `%or%`, `AND()`, `OR()`: A `logical`
+#' vector, equal length of `x` (or `y` or of all `...` lengths)
 #' * `is_boolean()`: `TRUE` or `FALSE`
 #' * `none()`: `TRUE`, `FALSE`, or `NA`
 #'
@@ -121,13 +121,13 @@ is_false.logical <- function(x) {
 
 #' @export
 #' @rdname logic_ext
-OR <- function(..., na.rm = FALSE) {
+OR <- function(..., na.rm = FALSE) { # nolint: object_name_linter.
   apply_logical_matrix(cbind(...), "|", na.rm = na.rm)
 }
 
 #' @export
 #' @rdname logic_ext
-AND <- function(..., na.rm = FALSE) {
+AND <- function(..., na.rm = FALSE) { # nolint: object_name_linter.
   apply_logical_matrix(cbind(...), "&", na.rm = na.rm)
 }
 
@@ -147,7 +147,7 @@ is_boolean <- function(x) {
 
 #' @export
 #' @rdname logic_ext
-none <- function(..., na.rm = FALSE) {
+none <- function(..., na.rm = FALSE) { # nolint: object_name_linter.
   !any(..., na.rm = na.rm)
 }
 
@@ -160,7 +160,7 @@ null_check <- function(x) {
   }
 }
 
-apply_logical_matrix <- function(mat, FUN, na.rm) {
+apply_logical_matrix <- function(mat, FUN, na.rm) { # nolint: object_name_linter, line_length_linter.
   if (!is.matrix(mat)) {
     stop("`mat` must be a matrix", call. = FALSE)
   }

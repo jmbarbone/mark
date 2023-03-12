@@ -85,4 +85,3 @@ struct <- function(x, class, ..., .keep_attr = FALSE) {
   class(x) <- class
   x
 }
-

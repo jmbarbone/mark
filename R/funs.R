@@ -63,7 +63,13 @@ require_namespace <- function(namespace, ...) {
       if (bad == 1) {
         paste0(sprintf("Package '%s' is required", namespace), of)
       } else {
-        paste0(sprintf("Packages '%s' are required", paste(namespace, collapse = "', '")), of)
+        paste0(
+          sprintf(
+            "Packages '%s' are required",
+            paste(namespace, collapse = "', '")
+          ),
+          of
+        )
       }
     stop(msg, call. = FALSE)
   }
