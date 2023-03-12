@@ -62,7 +62,12 @@ author_info_to_text <- function(x) {
 
   ind <- !comment & len
   x[ind] <- paste0('"', x[ind], '"')
-  x[comment] <-  paste0("c(", names(x[comment][[1]]), " = ",  paste0('"', x[comment][1], '"'), ")")
+  x[comment] <-  paste0(
+    "c(",
+    names(x[comment][[1]]),
+    " = ",
+    paste0('"', x[comment][1], '"'), ")"
+  )
 
   paste0(format(nm, width = width), " = ", x, ",")
 }
@@ -85,19 +90,21 @@ find_author <- function() {
 #'
 #' Get and bump package version for dates
 #'
-#' @description
-#' Will read the `DESCRIPTION` file and to get and adjust the version
+#' @description Will read the `DESCRIPTION` file and to get and adjust the
+#' version
 #'
 #' `bump_date_version()` will not check if the version is actually a date.  When
-#'  the current version is the same as today's date(equal by character strings)
-#'  it will append a `.1`.
+#' the current version is the same as today's date(equal by character strings)
+#' it will append a `.1`.
 #'
 #' @param version A new version to be added; default of `NULL` will
 #'   automatically update.
 #' @param date If `TRUE` will use a date as a version.
 #' @return
 #' * `get_version()`: A package_version
-#' * `bump_version()`, `bump_date_version()`, `update_version()`: None, called for its side-effects
+#' * `bump_version()`: None, called for its side-effects
+#' * `bump_date_version()`: None, called for its side-effects
+#' * `update_version()`: None, called for its side-effects
 #'
 #' @export
 get_version <- function() {
@@ -165,7 +172,7 @@ update_version <- function(version = NULL, date = FALSE) {
   }
   # nocov end
 
-  if (identical(men, 1L) | isNA(getOption("mark.check_interactive"))) {
+  if (identical(men, 1L) || isNA(getOption("mark.check_interactive"))) {
     foo()
   }
 
@@ -209,7 +216,7 @@ today_as_version <- function(zero = FALSE) {
   char <- if (zero) {
     paste(0, x[["year"]] + 1900, x[["mon"]] + 1, x[["mday"]], sep = ".")
   } else {
-    paste( x[["year"]] + 1900, x[["mon"]] + 1, x[["mday"]], sep = ".")
+    paste(   x[["year"]] + 1900, x[["mon"]] + 1, x[["mday"]], sep = ".") # nolint: spaces_inside_linter, line_length_linter.
   }
   as.package_version(char)
 }

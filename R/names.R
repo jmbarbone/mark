@@ -29,9 +29,11 @@ sort_names <- function(x, numeric = FALSE) {
 #' @param x A vector of values
 #' @param nm A vector of names
 #' @return
-#' * `set_names0()`: `x` with `nm` values assigned to names (if `x` is `NULL`, `NULL` is returned)
+#' * `set_names0()`: `x` with `nm` values assigned to names (if `x` is `NULL`,
+#'   `NULL` is returned)
 #' * `remove_names()`: `x` without names
-#' * `names_switch()`: `character` vector of equal length `x` where names and values are switched
+#' * `names_switch()`: `character` vector of equal length `x` where names and
+#'    values are switched
 #'
 #' @export
 set_names0 <- function(x, nm = x) {

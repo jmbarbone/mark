@@ -141,4 +141,3 @@ test_that("props() handles NA", {
   expect_identical(props(df, c("x", "y")), res_xy1)
   expect_identical(props(df, c("x", "y"), na.rm = TRUE), res_xy2)
 })
-

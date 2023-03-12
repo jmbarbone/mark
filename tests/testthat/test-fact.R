@@ -15,7 +15,10 @@ test_that("fact.logical() works", {
 # fact.pseudo_id() ----
 
 test_that("fact.pseudo_id() works", {
-  expect_message(capture.output(print(fact(pseudo_id(c("a", "a", "b", NA_character_))))), NA)
+  expect_message(
+    capture.output(print(fact(pseudo_id(c("a", "a", "b", NA_character_))))),
+    NA
+  )
 
   # Should appropriately order numeric values
   x <- c(0L, 10L, 10L, NA, 0L, 5L)
@@ -32,7 +35,6 @@ test_that("fact.pseudo_id() works", {
   # pseudo_id() ordered by appearance, fact() has pre-set ordering
   expect_identical(pseudo_id(f), id)
 
-  # attr(id, "uniques") <- as.character(attr(id, "uniques"))
   # factors store levels as characters
   o <- order(as.integer(levels(f)))
   expect_identical(o, 1:4)
@@ -50,8 +52,6 @@ test_that("fact.integer() works", {
 # fact.factor() ----
 
 test_that("fact.factor() works", {
-  # x <- fact(as.character(c(Sys.Date() + 5:1, NA))[sample(1:6, 20, TRUE)])
-
   x <- factor(letters)
   class(x) <- c("fact", "factor")
   expect_identical(fact(x), x)
@@ -108,7 +108,11 @@ test_that("fact.haven_labelled() works", {
   x <- haven::labelled(r, labels = c(good = 1, bad = 3), label = "this")
   expect_id_fact(x)
 
-  x <- haven::labelled(r, labels = c(good = 1, neutral = 2, bad = 3), label = "this")
+  x <- haven::labelled(
+    r,
+    labels = c(good = 1, neutral = 2, bad = 3),
+    label = "this"
+  )
   expect_id_fact(x)
 
   x <- haven::labelled(r, label = "this")
@@ -265,7 +269,13 @@ test_that("drop_levels() works", {
   expect_identical(drop_levels(x), x)
 
   x <- as_ordered(factor(1, 1:2))
-  exp <- struct(1L, class = c("fact", "ordered", "factor"), levels = "1", uniques = 1L, na = 0L)
+  exp <- struct(
+    1L,
+    class = c("fact", "ordered", "factor"),
+    levels = "1",
+    uniques = 1L,
+    na = 0L
+  )
   expect_equal(drop_levels(x), exp)
 })
 

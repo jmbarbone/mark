@@ -11,7 +11,8 @@ round_by(x, by = 1, method = c("round", "ceiling", "floor"), include0 = TRUE)
 
 \item{by}{The number by which to round}
 
-\item{method}{An option to explicitly specify automatic rounding, ceiling, or floor}
+\item{method}{An option to explicitly specify automatic rounding, ceiling, or
+floor}
 
 \item{include0}{If \code{FALSE} replaces \code{0} with \code{by}}
 }

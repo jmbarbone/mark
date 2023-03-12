@@ -65,4 +65,3 @@ test_that("flip doesn't coerce into lower object [36]", {
 
   expect_identical(flip(matrix(1)), matrix(1))
 })
-

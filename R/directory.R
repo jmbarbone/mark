@@ -27,14 +27,28 @@ get_recent_dir <- function(x = ".",  ...) {
 #' @return A full path to a directory
 #' @export
 
-get_dir_recent_date <- function(x = ".", dt_pattern = NULL, dt_format = NULL, all = FALSE) {
+get_dir_recent_date <- function(
+    x = ".",
+    dt_pattern = NULL,
+    dt_format = NULL,
+    all = FALSE
+) {
   dt_pattern <- dt_pattern %||% .default_dt_pattern
   dt_format <- dt_format %||% .default_dt_format
   dirs <- list_dirs(x, pattern = dt_pattern, basename = TRUE, all = all)
-  dirs[which.max(sapply(basename(dirs), as.POSIXct, tryFormats = dt_format, optional = TRUE))]
+  ind <- sapply(
+    basename(dirs),
+    as.POSIXct,
+    tryFormats = dt_format,
+    optional = TRUE
+  )
+  dirs[which.max(ind)]
 }
 
-.default_dt_pattern <- "^[[:digit:]]{4}.?[[:digit:]]{2}.?[[:digit:]]{2}.?[[:digit:]]{2}.?[[:digit:]]{2}.?[[:digit:]]{2}(.?[PA]M)?$"
+.default_dt_pattern <- paste0(
+  "^[[:digit:]]{4}.?[[:digit:]]{2}.?[[:digit:]]{2}.?[[:digit:]]{2}",
+  ".?[[:digit:]]{2}.?[[:digit:]]{2}(.?[PA]M)?$"
+)
 
 .default_dt_format <- c(
   "%Y-%m-%d %H %M %S",
@@ -47,7 +61,8 @@ get_dir_recent_date <- function(x = ".", dt_pattern = NULL, dt_format = NULL, al
 
 #' Get recent directory by number name
 #'
-#' Finds the directory where the number is the greatest.  This can be useful for when folders are created as run IDs.
+#' Finds the directory where the number is the greatest.  This can be useful for
+#' when folders are created as run IDs.
 #'
 #' @param x The directory to look in
 #' @return A full path to a directory
@@ -240,7 +255,7 @@ file_open <- open_file
 shell_exec <- function(x) {
   open_fun <- switch(
     Sys.info()[["sysname"]],
-    Windows = shell.exec,
+    Windows = shell.exec, # nolint: object_usage_linter.
     Linux   = function(file) system2("xdg-open", shQuote(file, "sh")),
     Darwin  = function(file) system2("xdg-open", shQuote(file, "sh")),
     stop("sysname not recognized: ", Sys.info()[["sysname"]])
@@ -248,7 +263,7 @@ shell_exec <- function(x) {
 
   open_fun <- match.fun(open_fun)
   x <- norm_path(x, check = TRUE)
-  FUN <- function(file) inherits(try(open_fun(x), silent = TRUE), "try-error")
+  FUN <- function(file) inherits(try(open_fun(x), silent = TRUE), "try-error") # nolint: object_name_linter, line_length_linter.
   invisible(!vap_lgl(x, FUN))
 }
 
@@ -304,15 +319,33 @@ list_files <- function(
   }
 
   if (basename) {
-    files[grep(pattern, basename(files), ignore.case = ignore_case, invert = negate)]
+    files[grep(
+      pattern,
+      basename(files),
+      ignore.case = ignore_case,
+      invert = negate
+    )]
   } else {
-    grep(pattern, files, ignore.case = ignore_case, value = TRUE, invert = negate)
+    grep(
+      pattern,
+      files,
+      ignore.case = ignore_case,
+      value = TRUE,
+      invert = negate
+    )
   }
 }
 
 #' @rdname file_utils
 #' @export
-list_dirs <- function(x = ".", pattern = NULL, ignore_case = FALSE, all = FALSE, basename = FALSE, negate = FALSE) {
+list_dirs <- function(
+    x = ".",
+    pattern = NULL,
+    ignore_case = FALSE,
+    all = FALSE,
+    basename = FALSE,
+    negate = FALSE
+) {
   path <- norm_path(x, check = TRUE)
 
   if (length(path) == 1L && is.na(path)) {
@@ -332,9 +365,20 @@ list_dirs <- function(x = ".", pattern = NULL, ignore_case = FALSE, all = FALSE,
   }
 
   if (basename) {
-    dirs[grep(pattern, basename(dirs), ignore.case = ignore_case, invert = negate)]
+    dirs[grep(
+      pattern,
+      basename(dirs),
+      ignore.case = ignore_case,
+      invert = negate
+    )]
   } else {
-    grep(pattern, dirs, ignore.case = ignore_case, value = TRUE, invert = negate)
+    grep(
+      pattern,
+      dirs,
+      ignore.case = ignore_case,
+      value = TRUE,
+      invert = negate
+    )
   }
 }
 
@@ -433,7 +477,12 @@ file_name <- function(x, compression = FALSE) {
 #' add_file_timestamp(file2)
 #'
 #' file.remove(file1, file2)
-add_file_timestamp <- function(x, ts = Sys.time(), format = "%Y-%m-%d %H%M%S", sep = " ") {
+add_file_timestamp <- function(
+    x,
+    ts = Sys.time(),
+    format = "%Y-%m-%d %H%M%S",
+    sep = " "
+) {
   if (!is.null(format)) {
     ts <- format(ts, format = format)
   }

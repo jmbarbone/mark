@@ -3,8 +3,9 @@
 #' Unlist without unique names; combine names for unique values
 #'
 #' @details
-#' [unlist0()] is much like [unlist()] expect that name are not made to be unique.
-#' [squash_vec()] works differently
+#' * [unlist0()] is much like [unlist()] expect that name are not made to be
+#'   unique.
+#' * [squash_vec()] works differently
 #'
 #' @param x A vector of values
 #' @examples

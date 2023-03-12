@@ -1,5 +1,5 @@
 test_that("round_by() works", {
-  x <- seq(1, 13, by = 4/3)
+  x <- seq(1, 13, by = 4 / 3)
 
   res <- round_by(x, 1)
   exp <- c(1, 2, 4, 5, 6, 8, 9, 10, 12, 13)

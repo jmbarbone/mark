@@ -2,8 +2,8 @@
 #'
 #' Expands an ordered factor from one level to another
 #'
-#' @details
-#' Defaults for `min_lvl` and `max_lvl` are the minimum and maximum levels in the ordered vector `x`.
+#' @details Defaults for `min_lvl` and `max_lvl` are the minimum and maximum
+#' levels in the ordered vector `x`.
 #'
 #' @param x An ordered factor
 #' @param min_lvl The start of the level sequence
@@ -16,7 +16,9 @@
 #' fct_expand_seq(x)
 #' fct_expand_seq(x, "g", "s", 3L) # from "g" to "s" by 3
 #' fct_expand_seq(x, "g", "t", 3L) # same as above
-#' fct_expand_seq(x, min(levels(x))) # from the first inherit level to the last observed
+#'
+#' # from the first inherit level to the last observed
+#' fct_expand_seq(x, min(levels(x)))
 #' @export
 
 fct_expand_seq <- function(x,
@@ -33,11 +35,11 @@ fct_expand_seq <- function(x,
 
   lvls <- levels(x)
 
-  if (is.character(min_lvl) | inherits(min_lvl, "factor")) {
+  if (is.character(min_lvl) || inherits(min_lvl, "factor")) {
     min_lvl <- which(lvls == min_lvl)
   }
 
-  if (is.character(max_lvl) | inherits(max_lvl, "factor")) {
+  if (is.character(max_lvl) || inherits(max_lvl, "factor")) {
     max_lvl <- which(lvls == max_lvl)
   }
 

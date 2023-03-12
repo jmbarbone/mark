@@ -7,7 +7,7 @@ test_that("use_author() works", {
   author_info <- list(
     given = "Jordan Mark",
     family = "Barbone",
-    role = c("aut","cph", "cre"),
+    role = c("aut", "cph", "cre"),
     email = "jmbarbone@gmail.com",
     comment = c(ORCID = "0000-0001-9788-3628")
   )

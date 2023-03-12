@@ -11,7 +11,8 @@ between_more(x, left, right, type = c("gele", "gel", "gle", "gl"))
 
 \item{left, right}{Boundary values}
 
-\item{type}{Abbreviation for the evaluation of \code{left} on \code{right} (see details)}
+\item{type}{Abbreviation for the evaluation of \code{left} on \code{right} (see
+details)}
 }
 \value{
 A logical vector
