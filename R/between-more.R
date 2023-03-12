@@ -29,7 +29,7 @@ between_more <- function(x, left, right, type = c("gele", "gel", "gle", "gl")) {
   type <- match_param(type)
 
   if (any(left > right)) {
-    warning("`left` > `right`", call. = FALSE)
+    warning(cond_between_more_lr())
   }
 
   switch(
@@ -38,5 +38,16 @@ between_more <- function(x, left, right, type = c("gele", "gel", "gle", "gl")) {
     gel  = x >= left & x < right,
     gle  = x > left & x <= right,
     gl   = x > left & x < right
+  )
+}
+
+
+# conditions --------------------------------------------------------------
+
+cond_between_more_lr <- function() {
+  new_condition(
+    "`left` > `right`",
+    "between_more_lr",
+    type = "warning"
   )
 }

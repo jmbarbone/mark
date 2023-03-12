@@ -19,13 +19,13 @@ array_extract <- function(.arr, ..., default = "1") {
   ls <- dotlist(...)
 
   if (!is.array(.arr)) {
-    stop(".arr must be an array", call. = FALSE)
+    stop(cond_array_extract_class())
   }
 
   nm <- wuffle(as.integer(names(ls) %||% seq_along(ls)))
 
   if (anyNA(nm)) {
-    stop("... must be fully named by integers or have no names", call. = FALSE)
+    stop(cond_arary_extract_names())
   }
 
   ds <- dim(.arr)
@@ -61,4 +61,18 @@ dotlist <- function(...) {
   }
 
   list(...)
+}
+
+
+# conditions --------------------------------------------------------------
+
+cond_array_extract_class <- function() {
+  new_condition(".arr must be an array", "array_extract_class")
+}
+
+cond_arary_extract_names <- function() {
+  new_condition(
+    "... must be fully named by integers or have no names",
+    "array_extract_names"
+  )
 }
