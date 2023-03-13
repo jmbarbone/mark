@@ -155,19 +155,14 @@ none <- function(..., na.rm = FALSE) { # nolint: object_name_linter.
 
 null_check <- function(x) {
   if (no_length(x)) {
-    stop("Cannot accept `NULL` or 0 length values",
-         call. = FALSE)
+    stop(cond_null_check())
   }
+
+  invisible()
 }
 
 apply_logical_matrix <- function(mat, FUN, na.rm) { # nolint: object_name_linter, line_length_linter.
-  if (!is.matrix(mat)) {
-    stop("`mat` must be a matrix", call. = FALSE)
-  }
-
-  if (!is_boolean(mat)) {
-    stop("`mat` must be boolean", call. = FALSE)
-  }
+  stopifnot(is.matrix(mat), is_boolean(mat))
 
   na_val <-
     if (na.rm) {
@@ -198,3 +193,13 @@ apply_logical_matrix <- function(mat, FUN, na.rm) { # nolint: object_name_linter
     }
   )
 }
+
+# conditions --------------------------------------------------------------
+
+cond_null_check <- function() {
+  new_condition(
+    "Cannot accept `NULL` or 0 length values",
+    "null_check"
+  )
+}
+

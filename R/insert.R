@@ -20,7 +20,7 @@ insert <- function(x, positions, values) {
   npos <- length(positions)
 
   if (npos == 0L) {
-    stop("positions has no length")
+    stop(cond_insert_npos())
   }
 
   if (nval == 1L && !is.list(values)) {
@@ -30,17 +30,32 @@ insert <- function(x, positions, values) {
     positions <- positions[o]
     values <- values[o]
   } else {
-    stop(
-      "length(values) must be equal to length(positions) or 1",
-      call. = FALSE
-    )
+    stop(cond_insert_length())
   }
 
   seqs <- seq_along(positions)
   positions <- positions + seqs - 1L
+
   for (i in seq_along(positions)) {
     x <- append0(x, values[i], positions[i])
   }
 
   x
+}
+
+
+# conditions --------------------------------------------------------------
+
+cond_insert_npos <- function() {
+  new_condition(
+    "positions has no length",
+    "insert_npos"
+  )
+}
+
+cond_insert_length <- function() {
+  new_condition(
+    "length(values) must be equal to length(positions) or 1",
+    "insert_length"
+  )
 }

@@ -61,7 +61,7 @@ test_that("logical helpers", {
   expect_error(null_check(NULL))
   expect_error(null_check(integer()))
 
-  expect_error(apply_logical_matrix(1L, mean, TRUE), "must be a matrix")
-  expect_error(apply_logical_matrix(matrix("a"), mean, TRUE), "must be boolean")
-  expect_error(apply_logical_matrix(matrix(3L), mean, TRUE), "must be boolean")
+  expect_error(apply_logical_matrix(1L, mean, TRUE))
+  expect_error(apply_logical_matrix(matrix("a"), mean, TRUE))
+  expect_error(apply_logical_matrix(matrix(3L), mean, TRUE))
 })
