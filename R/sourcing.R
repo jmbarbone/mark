@@ -314,7 +314,7 @@ cond_eval_named_chunk_rmd <- function() {
 }
 
 cond_eval_named_chunk_label <- function() {
-  new_condiion("label not found in .Rmd file", "eval_named_chunk_label")
+  new_condition("label not found in .Rmd file", "eval_named_chunk_label")
 }
 
 cond_source_r_file_r <- function() {

@@ -16,12 +16,9 @@
 #' array_extract(x, `2` = 2, `3` = 3)
 
 array_extract <- function(.arr, ..., default = "1") {
+  stopifnot(is.array(.arr))
+
   ls <- dotlist(...)
-
-  if (!is.array(.arr)) {
-    stop(cond_array_extract_class())
-  }
-
   nm <- wuffle(as.integer(names(ls) %||% seq_along(ls)))
 
   if (anyNA(nm)) {
@@ -65,10 +62,6 @@ dotlist <- function(...) {
 
 
 # conditions --------------------------------------------------------------
-
-cond_array_extract_class <- function() {
-  new_condition(".arr must be an array", "array_extract_class")
-}
 
 cond_arary_extract_names <- function() {
   new_condition(

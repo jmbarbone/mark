@@ -169,6 +169,7 @@ check_tz <- function(x) {
 
   ux <- unique(x)
   bad <- ux %out% OlsonNames()
+
   if (any(bad)) {
     stop(cond_check_tz_timezones(ux[bad]))
   }
@@ -308,7 +309,7 @@ default_tz <- function() {
   }
 
   if (!is.character(tz) || length(tz) != 1L) {
-    stop(cond_default_tz())
+    stop(cond_default_tz_tz())
   }
 
   tz

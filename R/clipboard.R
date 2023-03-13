@@ -107,7 +107,7 @@ read_clipboard <- function(method = c("default", "data.frame", "tibble"), ...) {
       require_namespace("tibble")
       tibble::as_tibble(read_clipboard("data.frame", ...))
     }
-    )
+  )
 }
 
 # helpers -----------------------------------------------------------------

@@ -18,21 +18,27 @@ append0.list <- function(x, values, pos = NULL, expand = FALSE, ...) {
 
   if (expand) {
     n <- unique(lengths(x))
+
     if (length(n) > 1) {
       warning(cond_append_expand())
       n <- max(n)
     }
+
     for (i in seq_along(values)) {
       values[[i]] <- rep_len(values[[i]], n)
     }
   }
+
   if (!is.list(values)) {
     values <- list(values)
   }
+
   len <- length(x)
+
   if (is.null(pos) || pos > len) {
     return(c(x, values))
   }
+
   if (pos == 1L) {
     return(c(values, x))
   }

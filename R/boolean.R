@@ -30,6 +30,7 @@ to_boolean.character <- function(x, true = NULL, false = NULL, ...) {
   if (is.null(true) && is.null(false)) {
     return(to_boolean_default(x))
   }
+
   stop("Not yet finished")
 }
 
@@ -39,6 +40,7 @@ to_boolean.factor <- function(x, true = NULL, false = NULL, ...) {
   if (is.null(true) && is.null(false)) {
     return(to_boolean_default(x))
   }
+
   stop("Not yet finished")
 }
 

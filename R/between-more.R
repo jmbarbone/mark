@@ -28,7 +28,7 @@
 between_more <- function(x, left, right, type = c("gele", "gel", "gle", "gl")) {
   type <- match_param(type)
 
-  if (any(left > right)) {
+  if (any(left > right, na.rm = TRUE)) {
     warning(cond_between_more_lr())
   }
 
