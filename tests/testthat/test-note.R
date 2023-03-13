@@ -39,9 +39,11 @@ test_that("print.noted() passes to next methods [67] (data.frame)", {
   x <- data.frame(a = 1:50)
   original <- capture.output(print(x, max = 5))
   note(x) <- "note"
+
   co <- withr::with_options(list(mark.check_interactive = FALSE), {
     capture.output(print(x, max = 5))
   })
+
   expect_true(all(original %in% co))
   expect_identical(co[1], "Note : note")
 })
@@ -54,9 +56,11 @@ test_that("print.noted() passes to next methods [67] (tibble)", {
   x <- tibble::tibble(a = 1:50)
   original <- capture.output(print(x, n = 40))
   note(x) <- "note"
+
   co <- withr::with_options(list(mark.check_interactive = FALSE), {
     capture.output(print(x, n = 40))
   })
+
   expect_true(all(original[-3] %in% co))
   expect_identical(co[1], "Note : note")
 })
@@ -75,9 +79,9 @@ test_that("print_note() works with data.frame", {
 
 test_that("note() errors", {
   withr::local_options(list(mark.check_interactive = NA))
-  expect_error(print_note(1L))
+  expect_error(print_note(1L), class = "simpleError")
   x <- struct(1L, "noted", note = struct("hi", "note_a_note"))
-  expect_error(print_note(x))
+  expect_error(print_note(x), class = "printNoteNotedError")
 })
 
 test_that("note() snapshots", {

@@ -24,10 +24,10 @@ test_that("eval_named_chunk()", {
   )
   file.remove(temp_rmd)
 
-  expect_error(eval_named_chunk(tempfile()), "rmd file")
+  expect_error(eval_named_chunk(tempfile()), class = "evalNamedChunkRmdError")
   file <- tempfile(fileext = ".Rmd")
   file.create(file)
-  expect_error(eval_named_chunk(file), "label")
+  expect_error(eval_named_chunk(file), "\"label_name\" is missing")
   file.remove(file)
 })
 

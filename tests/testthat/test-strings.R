@@ -1,5 +1,4 @@
 test_that("string slices", {
-
   skip_if_not(rn("stringi"))
 
   x <- stringi::stri_rand_lipsum(1)
@@ -25,7 +24,7 @@ test_that("string slices", {
   )
 
   xx <- c(x, x)
-  expect_error(str_slice_by_word(xx, 80))
+  expect_error(str_slice_by_word(xx, 80), class = "simpleError")
 })
 
 # Better outputs

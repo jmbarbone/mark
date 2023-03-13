@@ -353,13 +353,15 @@ cond_to_numeric_with_tz_na <- function() {
 }
 
 cond_check_tz_timezones <- function(x) {
-  sprintf(
+  msg <- sprintf(
     paste0(
       "Timezone(s) not found: %s\n",
       "Please check timezones in `OlsonNames()`"
     ),
     collapse(x, sep = ", ")
   )
+
+  new_condition(msg, "check_tz_timezone_olson")
 }
 
 cond_default_tz_tz <- function() {

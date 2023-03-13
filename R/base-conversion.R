@@ -73,7 +73,7 @@ base_n_single <- function(x, base) {
   ints <- as.integer(chr_split(x))
 
   if (any(ints >= base, na.rm = TRUE)) {
-    stop(cond_base_n_single_limit())
+    stop(cond_base_n_single_limit(base, x))
   }
 
   seqs <- (length(ints) - 1L):0L

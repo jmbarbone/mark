@@ -28,8 +28,8 @@ test_that("names_sort() works", {
     set_names(rep(NA, 3), c(-1, 2, 10))
   )
 
-  expect_error(sort_names(list(a = 1)))
-  expect_error(sort_names(NA))
+  expect_error(sort_names(list(a = 1)), class = "sortByAtomicError")
+  expect_error(sort_names(NA), class = "simpleError")
 })
 
 test_that("%names% works", {

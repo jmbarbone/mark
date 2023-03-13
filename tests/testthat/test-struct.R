@@ -21,6 +21,7 @@ test_that("struct() works", {
 test_that("struct() works for factors", {
   expect_error(
     struct(1, class = "factor", levels = "a"),
+    class = "simpleError",
     'adding class "factor" to an invalid object'
   )
 

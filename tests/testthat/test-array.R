@@ -16,7 +16,7 @@ test_that("array_extract() works", {
 
 test_that("array_extract() errors", {
   x <- array(1:9, dim = c(3, 3))
-  expect_error(array_extract(1))
+  expect_error(array_extract(1), class = "simpleError")
   expect_error(array_extract(x, 2, 3), NA)
   expect_error(array_extract(x, a = 2, b = 3), class = "arrayExtractNamesError")
 })
