@@ -202,4 +202,3 @@ cond_null_check <- function() {
     "null_check"
   )
 }
-

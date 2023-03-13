@@ -144,3 +144,5 @@ cond_na_if_length <- function() {
 cond_na_if_logical <- function() {
   new_condition("y must be logical", "na_if_logical")
 }
+
+# terminal line

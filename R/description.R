@@ -231,3 +231,5 @@ cond_version_lines <- function() {
     "get_version_lines"
   )
 }
+
+# terminal line

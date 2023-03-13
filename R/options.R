@@ -62,3 +62,5 @@ checkOptions <- function(x) { # nolint: object_name_linter.
 cond_check_options_names <- function() {
   new_condition("All options must be named", "check_options_names")
 }
+
+# terminal line

@@ -311,7 +311,7 @@ cond_read_bib_entries <- function() {
   )
 }
 
-cond_process_bib_dataframe_dupe <- function(key, categories) {
+cond_process_bib_dataframe_dupe <- function(key, categories) { # nolint: object_length_linter, line_length_linter.
   new_condition(
     sprintf(
       "The key `%s` has duplicate categories of `%s`",

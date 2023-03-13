@@ -337,7 +337,7 @@ sys_tz <- function(method = 1) {
 
 # conditions --------------------------------------------------------------
 
-cond_extract_numeric_time_numeric <- function() {
+cond_extract_numeric_time_numeric <- function() { # nolint: object_length_linter, line_length_linter.
   new_condition(
     "Date times cannot be numeric when tz is NULL",
     "extract_numeric_time_numeric"

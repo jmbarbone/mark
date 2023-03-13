@@ -173,3 +173,5 @@ cond_reindex_na <- function() {
 cond_reindex_index <- function() {
   new_condition("x[[index]] returned `NULL`", "reindex_index")
 }
+
+# terminal line

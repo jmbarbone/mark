@@ -180,18 +180,18 @@ remove_labels.data.frame <- function(x, cols, ...) {
 
 # conditions --------------------------------------------------------------
 
-cond_assign_labels_dataframe_dots <- function() {
+cond_assign_labels_dataframe_dots <- function() { # nolint: object_length_linter, line_length_linter.
   new_condition(
     "... was set separately from `.ls`. Only set one",
     "assign_labels_dataframe_dots"
   )
 }
 
-cond_assign_labels_dataframe_names <- function() {
+cond_assign_labels_dataframe_names <- function() { # nolint: object_length_linter, line_length_linter.
   new_condition("... must not have NULLs", "assign_labels_dataframe_names")
 }
 
-cond_assign_labels_dataframe_missing <- function(
+cond_assign_labels_dataframe_missing <- function( # nolint: object_length_linter, line_length_linter.
     x,
     type = c("error", "warning")
 ) {
@@ -216,7 +216,7 @@ cond_view_labels_something <- function(x, title) {
   )
 }
 
-cond_remove_labels_dataframe_bad <- function(x) {
+cond_remove_labels_dataframe_bad <- function(x) { # nolint: object_length_linter, line_length_linter.
   new_condition(
     paste0("Column not found in data.frame:\n  ", toString(x)),
     "remove_labels_dataframe_bad"

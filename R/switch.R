@@ -312,3 +312,5 @@ cond_switch_length_check_3 <- function() {
 cond_switch_length_check_bad <- function() {
   new_condition("Something really went wrong", "switch_length_check_bad")
 }
+
+# terminal line

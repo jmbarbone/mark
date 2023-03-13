@@ -137,7 +137,7 @@ parse_date_strings <- function(.x, fmt, method, year_replacement) { # nolint: cy
 
       # (re)set names and (re)arrange
       x <- set_names(wuffle(as.integer(x)), names(x))
-      x <- x[c('y', 'm', 'd')]
+      x <- x[c("y", "m", "d")]
       x[is.na(x)] <- 0L
 
       if (all(x == integer(3))) {

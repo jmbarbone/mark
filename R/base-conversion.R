@@ -157,3 +157,5 @@ cond_check_base_limit <- function(high) {
     "check_base_limit"
   )
 }
+
+# terminal line

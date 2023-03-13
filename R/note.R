@@ -112,4 +112,3 @@ print.noted <- function(x, ...) {
 cond_print_note_note <- function() {
   new_condition("note(x) must be class note", "print_note_noted")
 }
-

@@ -96,7 +96,7 @@ do_percentile_rank <- function(u, w) {
 
 # conditions --------------------------------------------------------------
 
-cond_do_percentile_rank_weights <- function() {
+cond_do_percentile_rank_weights <- function() { # nolint: object_length_linter.
   new_condition(
     "length(weights) must be 1L or equal to length(x)",
     "do_percentile_rank_weights"
