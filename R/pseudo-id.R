@@ -30,7 +30,11 @@ pseudo_id.pseudo_id <- function(x, ...) {
 #' @param na_last `Logical` if `FALSE` will not place `NA` at the end
 pseudo_id.default <- function(x, na_last = TRUE, ...) {
   ux <- unique(x)
-  if (na_last) ux <- na_last(ux)
+
+  if (na_last) {
+    ux <- na_last(ux)
+  }
+
   make_pseudo_id(match(x, ux), ux)
 }
 

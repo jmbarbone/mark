@@ -29,11 +29,7 @@
 
 ksource <- function(file, ..., quiet = TRUE, cd = FALSE, env = parent.frame()) {
   require_namespace("knitr")
-
-  if (!is.environment(env)) {
-    stop("env is not an environment", call. = FALSE)
-  }
-
+  stopifnot(is.environment(env))
   o <- mark_temp("R")
   on.exit(file.remove(o), add = TRUE)
   source(knitr::purl(file, output = o, quiet = quiet), chdir = cd, local = env)
@@ -109,14 +105,14 @@ try_ksource <- function(file, ...) {
 
 eval_named_chunk <- function(rmd_file, label_name) {
   if (!grepl("\\.[Rr][Mm][Dd]$", rmd_file)) {
-    stop("rmd_file does not appear to be an rmd file", call. = FALSE)
+    stop(cond_eval_named_chunk_rmd())
   }
 
   lines <- readLines(rmd_file)
   label_line <- grep(paste0("\\{r ", label_name), lines)[1]
 
   if (is.na(label_line)) {
-    stop("label not found in .Rmd file", call. = FALSE)
+    stop(cond_eval_named_chunk_label())
   }
 
   lines <- lines[(label_line + 1):length(lines)]
@@ -149,12 +145,10 @@ source_r_dir <- function(dir, echo = FALSE, quiet = FALSE, ...) {
 #' @inheritParams source_files
 source_r_file <- function(path, echo = FALSE, quiet = FALSE, ...) {
   if (!grepl("\\.[rR]$", path)) {
-    stop("Must be a .R file", call. = FALSE)
+    stop(cond_source_r_file_r())
   }
 
-  if (!is_file(path)) {
-    stop(sprintf('File "%s" not found.', path), call. = FALSE)
-  }
+  stopifnot(is_file(path))
 
   st <- system.time(
     tryCatch(
@@ -210,17 +204,11 @@ source_to_env <- function(x, ops = NULL) {
   rscript(r_temp, ops, wait = TRUE, stdout = std_out, stderr = std_err)
 
   if (!is_file(rds_file)) {
-    stop(
-      "RDS file not succesfully saved here:\n  ", rds_file,
-      "\n",
-      "\nRscript stderr:\n",
-      collapse0(readLines(std_err), sep = "\n"),
-      "\n",
-      "\nRscript stdout:\n",
-      collapse0(readLines(std_out), sep = "\n"),
-      "\n",
-      call. = FALSE
-    )
+    stop(cond_source_to_env_fail(
+      file = rds_file,
+      err = std_err,
+      out = std_out
+    ))
   }
 
   con <- file(rds_file)
@@ -315,5 +303,38 @@ print.source_env <- function(x, ...) {
   )
   invisible(x)
 }
+
+# conditions --------------------------------------------------------------
+
+cond_eval_named_chunk_rmd <- function() {
+  new_condition(
+    "rmd_file does not appear to be an rmd file",
+    "eval_named_chunk_rmd"
+  )
+}
+
+cond_eval_named_chunk_label <- function() {
+  new_condiion("label not found in .Rmd file", "eval_named_chunk_label")
+}
+
+cond_source_r_file_r <- function() {
+  new_condition("Must be a .R file", "source_r_file_r")
+}
+
+cond_source_to_env_fail <- function(file, err, out) {
+  msg <- paste0(
+    "RDS file not succesfully saved here:\n  ", file,
+    "\n",
+    "\nRscript stderr:\n",
+    collapse0(readLines(err), sep = "\n"),
+    "\n",
+    "\nRscript stdout:\n",
+    collapse0(readLines(out), sep = "\n"),
+    "\n"
+  )
+  new_condition(msg, "source_to_env_fail")
+}
+
+# globalVariables ---------------------------------------------------------
 
 utils::globalVariables(c("source_file_r", "quiet"))

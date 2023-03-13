@@ -119,14 +119,20 @@ check_is_vector <- function(x, mode = "any") {
     inherits(x, c("data.frame", "matrix", "array")) ||
     !is.vector(remove_attributes(x), mode)
   ) {
-    stop(
-      deparse(substitute(x)),
-      " must be a vector of mode ",
-      mode,
-      call. = FALSE
-    )
+    x <- deparse1(substitute(x))
+    stop(cond_check_is_vector_mode(x, mode))
   }
+
+  invisible()
 }
+
+cond_check_is_vector_mode <- function(x, mode) {
+  new_condition(
+    paste(x, "must be a vector of mode", mode),
+    "check_is_vector_mode"
+  )
+}
+
 
 add_attributes <- function(x, ...) {
   attributes(x) <- c(attributes(x), list(...))
@@ -172,7 +178,14 @@ check_interactive <- function() {
     return(FALSE)
   }
 
-  stop("mark.check_interactive must be TRUE, FALSE, or NA")
+  stop(cond_check_interactive())
+}
+
+cond_check_interactive <- function() {
+  new_condition(
+    "mark.check_interactive must be TRUE, FALSE, or NA",
+    "check_interactive"
+  )
 }
 
 try_formats <- function(date = FALSE) {
@@ -207,14 +220,19 @@ dupe_check <- function(x, n = getOption("mark.dupe.n", 5)) {
   dupes <- utils::head(dupes, n)
 
   if (n_dupes) {
-    stop(
-      "Duplicate values found in ", n_dupes, " location(s) :\n",
-      if (n_dupes > n) sprintf("(first %i)\n", n),
-      paste0("  > ", sprintf("[%s] %s", format(dupes), format(x[dupes])), "\n"),
-      if (n_dupes > n) "... and ", n_dupes - n, " more",
-      call. = FALSE
-    )
+    stop(cond_dupe_check(x, dupes, n_dupes, n))
   }
 
   invisible(NULL)
+}
+
+cond_dupe_check <- function(x, dupes, n_dupes, n) {
+  msg <- paste0(
+    "Duplicate values found in ", n_dupes, " location(s) :\n",
+    if (n_dupes > n) sprintf("(first %i)\n", n),
+    paste0("  > ", sprintf("[%s] %s", format(dupes), format(x[dupes])), "\n"),
+    if (n_dupes > n) "... and ", n_dupes - n, " more"
+  )
+
+  new_condition(msg, "dupe_check")
 }

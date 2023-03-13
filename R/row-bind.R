@@ -17,7 +17,7 @@ row_bind <- function(...) {
   }
 
   if (!all(vap_lgl(ls, is.data.frame))) {
-    stop("... must only be data.frames", call. = FALSE)
+    stop(cond_row_bind_dataframes())
   }
 
   names <- lapply(ls, names)
@@ -58,4 +58,10 @@ rbind2 <- function(...) {
   }
 
   quick_df(set_names(res, names(ls[[1]])))
+}
+
+# conditions --------------------------------------------------------------
+
+cond_row_bind_dataframes <- function() {
+  new_condition("... must only be data.frames", "row_bind_dataframes")
 }

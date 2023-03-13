@@ -44,16 +44,10 @@ do_todo <- function(text, pattern = NULL, path = path, force = FALSE, ...) { # n
   # fs::dir_ls() would be a lot quicker but would be a new dependency
 
   if (missing(path) || length(path) != 1 || !is.character(path)) {
-    stop("path must be a character vector of length 1L", call. = FALSE)
+    stop(cond_do_todo_path())
   }
 
-  if (!file.exists(path)) {
-    stop("path not found: ", path, call. = FALSE)
-  }
-
-  if (length(text) != 1L) {
-    stop("Length of text must be 1", call. = FALSE)
-  }
+  stopifnot(file.exists(path), length(text) == 1L)
 
   files <- if (is_dir(path)) {
     # when will path be "" ?  cusing nzchar() instead
@@ -74,8 +68,9 @@ do_todo <- function(text, pattern = NULL, path = path, force = FALSE, ...) { # n
     )
   } else {
     if (!grepl(path, pattern = "\\.r(md)?$", ignore.case = TRUE)) {
-      stop("path is not a .R or .Rmd file", .call = FALSE)
+      stop(cond_do_todo_path_r())
     }
+
     path
   }
 
@@ -166,4 +161,14 @@ print.todos_df <- function(x, ...) {
   }
 
   invisible(x)
+}
+
+# conditions --------------------------------------------------------------
+
+cond_do_todo_path <- function() {
+  new_condition("path must be a character vector of length 1L", "do_todo_path")
+}
+
+cond_do_todo_path_r <- function() {
+  new_condition("path is not a .R or .Rmd file", "do_todo_path_r")
 }

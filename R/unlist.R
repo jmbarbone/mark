@@ -25,7 +25,10 @@
 #' * [unlist0()]: a vector with the possibility of non-unique names
 #' * [squash_vec()]: A vector of unique values and names
 unlist0 <- function(x) {
-  if (!is.list(x)) return(x)
+  if (!is.list(x)) {
+    return(x)
+  }
+
   unlist(x, use.names = FALSE) %names% rep.int(names(x), lengths(x))
 }
 
@@ -36,6 +39,6 @@ squash_vec <- function(x, sep = ".") {
   x <- unlist0(x)
   id <- pseudo_id(x, na_last = FALSE)
   nm <- names(x)
-  squasher <- function(i) collapse0(nm[i], sep = sep)
+  squasher <- function(i) collapse(nm[i], sep = sep)
   .uniques(id) %names% vap_chr(split(seq_along(id), id), squasher)
 }
