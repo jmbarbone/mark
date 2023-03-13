@@ -92,7 +92,7 @@ extract_numeric_time <- function(x, tz) {
 
   if (is.null(tz)) {
     if (is.numeric(x)) {
-      stop("Date times cannot be numeric", call. = FALSE)
+      stop(cond_extract_numeric_time_numeric())
     }
 
     gmt <- NULL
@@ -136,7 +136,7 @@ to_numeric_with_tz <- function(x, tz) {
   nas <- is.na(tz)
 
   if (any(nas)) {
-    warning("NA found in timezones; setting to ", default_tz(), call. = FALSE)
+    warning(cond_to_numeric_with_tz_na())
     tz[nas] <- default_tz()
   }
 
@@ -145,9 +145,11 @@ to_numeric_with_tz <- function(x, tz) {
   out <- mapply(
     function(xi, tzi) {
       o <- as.POSIXlt(xi, tz = tzi, optional = TRUE)
+
       if (is.na(o)) {
         return(NA_real_)
       }
+
       off <- o$gmtoff %||% 0.0
       as.double(o) + off
     },
@@ -168,10 +170,7 @@ check_tz <- function(x) {
   ux <- unique(x)
   bad <- ux %out% OlsonNames()
   if (any(bad)) {
-    stop("Timezone(s) not found: ",
-         collapse0(ux[bad], sep = ", "),
-         "\n  Please check timezones in `OlsonNames()`",
-         call. = FALSE)
+    stop(cond_check_tz_timezones(ux[bad]))
   }
 
   invisible(NULL)
@@ -309,13 +308,7 @@ default_tz <- function() {
   }
 
   if (!is.character(tz) || length(tz) != 1L) {
-    stop(
-      "option(mark.default_tz) must be",
-      " a character vector of length 1L,",
-      " a function that returns a character vector of length 1L,",
-      " NULL (defaults to UTC),",
-      ' or "system" to set to system timezone',
-      call. = FALSE)
+    stop(cond_default_tz())
   }
 
   tz
@@ -338,5 +331,45 @@ sys_tz <- function(method = 1) {
     format(strptime(Sys.timezone(), format = "%t"), "%Z"),
     format(as.POSIXct(Sys.Date(), tz = Sys.timezone()), "%z"),
     as.integer(sys_tz(6))
+  )
+}
+
+# conditions --------------------------------------------------------------
+
+cond_extract_numeric_time_numeric <- function() {
+  new_condition(
+    "Date times cannot be numeric when tz is NULL",
+    "extract_numeric_time_numeric"
+  )
+}
+
+cond_to_numeric_with_tz_na <- function() {
+  new_condition(
+    paste("NA found in timezones; setting to", default_tz()),
+    "to_numeric_with_tz_na",
+    type = "warning"
+  )
+}
+
+cond_check_tz_timezones <- function(x) {
+  sprintf(
+    paste0(
+      "Timezone(s) not found: %s\n",
+      "Please check timezones in `OlsonNames()`"
+    ),
+    collapse(x, sep = ", ")
+  )
+}
+
+cond_default_tz_tz <- function() {
+  new_condition(
+    paste0(
+      "option(mark.default_tz) must be",
+      " a character vector of length 1L,",
+      " a function that returns a character vector of length 1L,",
+      " NULL (defaults to UTC),",
+      ' or "system" to set to system timezone'
+    ),
+    "default_tz_tz"
   )
 }

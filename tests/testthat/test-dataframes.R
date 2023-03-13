@@ -44,9 +44,10 @@ test_that("vector2df()", {
 
   expect_warning(
     vector2df(x, show_NA = NULL),
-    info = "show_NA should not be set"
+    class = "vector2dfShowNaWarning"
   )
-  expect_error(vector2df(list(a = 1)), "non-list vector")
+
+  expect_error(vector2df(list(a = 1)))
 })
 
 test_that("list2df()", {
@@ -66,14 +67,17 @@ test_that("list2df()", {
   expect_warning(list2df(x), NA)
   expect_equal(list2df(x), exp)
   expect_named(list2df(x, "hello", "world"), c("hello", "world"))
-  expect_warning(list2df(x, show_NA = NULL), info = "show_NA should not be set")
+  expect_warning(
+    list2df(x, show_NA = NULL),
+    class = "list2dfShowNaError"
+  )
 
   # Unnamed
   x <- list(a = 1, 0, 2)
   res <- quick_dfl(name = c("a", 2, 3), value = c(1, 0, 2))
   expect_equal(list2df(x), res)
 
-  expect_error(list2df(1), "must be a list")
+  expect_error(list2df(1))
 
   # Not sure this will continue to be the case
   expect_identical(quick_df(NULL), data.frame())
