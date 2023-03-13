@@ -1,8 +1,8 @@
 ## Test environments
 
 * local R installation, R 4.2.1
-* windows-latest, release, 3.6
-* macOS-latest release
+* windows-latest
+* macOS-latest
 * ubuntu-latest devel, release, oldrel-1
 
 ## R CMD check results
