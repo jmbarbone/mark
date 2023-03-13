@@ -66,22 +66,18 @@ vap_date <- function(.x, .f, ..., .nm = FALSE) {
 
 # Mostly sets up the names
 do_vap <- function(.x, .f, .value, ..., .nm) {
-  if (.nm) {
-    .x <- set_names0(.x, names(.x) %||% .x)
-  }
-
+  .x <- set_names(.x, names(.x) %||% .x)
   vapply(X = .x, FUN = .f, FUN.VALUE = .value, ..., USE.NAMES = .nm)
 }
 
 # This can take multiple elements, so can be a little dangerous
 capply <- function(.x, .f, ..., .nm = FALSE) {
   res <- do.call("c", lapply(X = .x, FUN = .f, ...))
-
-  use_names <- if (.nm) {
-    names(.x) %||% .x
+  if (.nm) {
+    set_names(res, names(.x) %||% res)
+  } else {
+    remove_names(res)
   }
-
-  set_names0(res, use_names)
 }
 
 # A simplier implementation of sapply?

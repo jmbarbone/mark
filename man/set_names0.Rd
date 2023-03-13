@@ -2,18 +2,12 @@
 % Please edit documentation in R/names.R
 \name{set_names0}
 \alias{set_names0}
-\alias{remove_names}
 \alias{names_switch}
-\alias{\%names\%}
 \title{Set names}
 \usage{
 set_names0(x, nm = x)
 
-remove_names(x)
-
 names_switch(x)
-
-x \%names\% nm
 }
 \arguments{
 \item{x}{A vector of values}

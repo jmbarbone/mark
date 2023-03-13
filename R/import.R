@@ -18,10 +18,23 @@ import <- function(pkg, fun, overwrite = FALSE) {
   require_namespace(pkg)
 
   if (!overwrite && fun %in% ls(envir = e)) {
-    stop("`", fun, "` has already been assigned.",
-         " Use `overwite = TRUE` to overwrite assignment.",
-         call. = FALSE)
+    stop(cond_import_assigned(fun))
   }
 
   assign(fun, pkg %colons% fun, envir = e)
+}
+
+# conditions --------------------------------------------------------------
+
+cond_import_assigned <- function(fun) {
+  new_condition(
+    sprintf(
+      paste(
+        "`%s` has already been assigned.",
+        "Use `overwite = TRUE` to overwrite assignment."
+      ),
+      fun
+    ),
+    "import_assigned"
+  )
 }

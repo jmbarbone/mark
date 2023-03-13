@@ -58,10 +58,12 @@ test_that("Logical extension work", {
 })
 
 test_that("logical helpers", {
-  expect_error(null_check(NULL))
-  expect_error(null_check(integer()))
+  expect_error(null_check(NULL), class = "nullCheckError")
+  expect_error(null_check(integer()), class = "nullCheckError")
 
-  expect_error(apply_logical_matrix(1L, mean, TRUE), "must be a matrix")
-  expect_error(apply_logical_matrix(matrix("a"), mean, TRUE), "must be boolean")
-  expect_error(apply_logical_matrix(matrix(3L), mean, TRUE), "must be boolean")
+  expect_error(apply_logical_matrix(1L, mean, TRUE), class = "simpleError")
+  # nolint start: line_length_linter.
+  expect_error(apply_logical_matrix(matrix("a"), mean, TRUE), class = "simpleError")
+  expect_error(apply_logical_matrix(matrix(3L), mean, TRUE), class = "simpleError")
+  # nolint end: line_length_linter.
 })

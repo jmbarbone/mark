@@ -1,28 +1,4 @@
-#' @importFrom magrittr %>%
-magrittr::`%>%`
 
-# Like rlang::`%||%` but uses base is.null -- same thing
-
-#' Default value for NULL
-#'
-#' Replace if `NULL`
-#'
-#' @details
-#' A mostly copy of `rlang`'s `%||%` except does not use [rlang::is_null()],
-#'   which, currently, calls the same primitive `is.null` function as
-#'   [base::is.null()].
-#' This is not to be exported due to conflicts with `purrr`
-#'
-#' @param x,y If `x` is `NULL` returns `y`; otherwise `x`
-#'
-#' @name null_default
-#' @noRd
-`%||%` <- function(x, y) {
-  if (is.null(x)) y else x
-}
-`%len%` <- function(x, y) {
-  if (length(x)) x else y
-}
 which0 <- function(x) {
   which(x) %len% 0L
 }
@@ -31,36 +7,7 @@ isNA <- function(x) { # nolint: object_name_linter.
   is.logical(x) && length(x) == 1L && is.na(x)
 }
 
-#' Colons
-#'
-#' Get an object from a package
-#'
-#' @details
-#' This is a work around to calling `:::`.
-#'
-#' @section WARNING:
-#' To reiterate from other documentation: it is not advised to use `:::` in
-#'   your code as it will retrieve non-exported objects that may be more
-#'   likely to change in their functionality that exported objects.
-#'
-#' @param package Name of the package
-#' @param name Name to retrieve
-#' @return The variable `name` from package `package`
-#'
-#' @export
-`%colons%` <- function(package, name) {
-  tryCatch(
-    get(name, envir = asNamespace(package)),
-    error = function(e) {
-      stop(sprintf("`%s` not found in package `%s`",
-        name, package),
-        call. = FALSE)
-    }
-  )
-}
-
-# modified from
-# https://github.com/tidyverse/purrr/blob/5aca9df41452f272fcef792dbc6d584be8be7167/R/utils.R # nolint: line_length_linter.
+# modified from https://github.com/tidyverse/purrr/blob/5aca9df41452f272fcef792dbc6d584be8be7167/R/utils.R # nolint: line_length_linter.
 use_color <- function() {
   rn("crayon") && crayon::has_color()
 }
@@ -172,14 +119,20 @@ check_is_vector <- function(x, mode = "any") {
     inherits(x, c("data.frame", "matrix", "array")) ||
     !is.vector(remove_attributes(x), mode)
   ) {
-    stop(
-      deparse(substitute(x)),
-      " must be a vector of mode ",
-      mode,
-      call. = FALSE
-    )
+    x <- deparse1(substitute(x))
+    stop(cond_check_is_vector_mode(x, mode))
   }
+
+  invisible()
 }
+
+cond_check_is_vector_mode <- function(x, mode) {
+  new_condition(
+    paste(x, "must be a vector of mode", mode),
+    "check_is_vector_mode"
+  )
+}
+
 
 add_attributes <- function(x, ...) {
   attributes(x) <- c(attributes(x), list(...))
@@ -225,7 +178,14 @@ check_interactive <- function() {
     return(FALSE)
   }
 
-  stop("mark.check_interactive must be TRUE, FALSE, or NA")
+  stop(cond_check_interactive())
+}
+
+cond_check_interactive <- function() {
+  new_condition(
+    "mark.check_interactive must be TRUE, FALSE, or NA",
+    "check_interactive"
+  )
 }
 
 try_formats <- function(date = FALSE) {
@@ -260,32 +220,19 @@ dupe_check <- function(x, n = getOption("mark.dupe.n", 5)) {
   dupes <- utils::head(dupes, n)
 
   if (n_dupes) {
-    stop(
-      "Duplicate values found in ", n_dupes, " location(s) :\n",
-      if (n_dupes > n) sprintf("(first %i)\n", n),
-      paste0("  > ", sprintf("[%s] %s", format(dupes), format(x[dupes])), "\n"),
-      if (n_dupes > n) "... and ", n_dupes - n, " more",
-      call. = FALSE
-    )
+    stop(cond_dupe_check(x, dupes, n_dupes, n))
   }
 
   invisible(NULL)
 }
 
-exattr <- function(x, which) {
-  attr(x, which = which, exact = TRUE)
-}
+cond_dupe_check <- function(x, dupes, n_dupes, n) {
+  msg <- paste0(
+    "Duplicate values found in ", n_dupes, " location(s) :\n",
+    if (n_dupes > n) sprintf("(first %i)\n", n),
+    paste0("  > ", sprintf("[%s] %s", format(dupes), format(x[dupes])), "\n"),
+    if (n_dupes > n) "... and ", n_dupes - n, " more"
+  )
 
-# operating systems -------------------------------------------------------
-
-is_windows <- function() {
-  Sys.info()[["sysname"]] == "Windows"
-}
-
-is_macos <- function() {
-  Sys.info()[["sysname"]] == "Darwin"
-}
-
-is_linux <- function() {
-  Sys.info()[["sysname"]] == "Linux"
+  new_condition(msg, "dupe_check")
 }

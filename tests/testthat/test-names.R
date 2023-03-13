@@ -1,5 +1,5 @@
-test_that("set_names0() works", {
-  expect_null(set_names0(NULL))
+test_that("set_names() works", {
+  expect_null(set_names(NULL))
 })
 
 test_that("names_switch() works", {
@@ -16,20 +16,20 @@ test_that("names_switch() works", {
 })
 
 test_that("names_sort() works", {
-  x <- set_names0(rep(NA, 3), c(-1, 10, 2))
+  x <- set_names(rep(NA, 3), c(-1, 10, 2))
 
   expect_equal(
     sort_names(x),
-    set_names0(rep(NA, 3), c(-1, 10, 2))
+    set_names(rep(NA, 3), c(-1, 10, 2))
   )
 
   expect_equal(
     sort_names(x, numeric = TRUE),
-    set_names0(rep(NA, 3), c(-1, 2, 10))
+    set_names(rep(NA, 3), c(-1, 2, 10))
   )
 
-  expect_error(sort_names(list(a = 1)))
-  expect_error(sort_names(NA))
+  expect_error(sort_names(list(a = 1)), class = "sortByAtomicError")
+  expect_error(sort_names(NA), class = "simpleError")
 })
 
 test_that("%names% works", {
@@ -38,6 +38,6 @@ test_that("%names% works", {
 
   expect_identical(
     x %names% nm,
-    set_names0(x, nm)
+    set_names(x, nm)
   )
 })

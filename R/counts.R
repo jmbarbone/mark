@@ -68,7 +68,7 @@ counts.factor <- function(x, ...) {
   x <- seq_along(lvl)[x]
   n <- length(lvl)
   x[is.na(x)] <- n
-  set_names0(tabulate(x, n), lvl)
+  set_names(tabulate(x, n), lvl)
 }
 
 #' @export
@@ -76,7 +76,7 @@ counts.logical <- function(x, ...) {
   fs <- sum(!x, na.rm = TRUE)
   ts <- sum(x, na.rm = TRUE)
   ns <- sum(is.na(x), na.rm = TRUE)
-  out <- set_names0(c(fs, ts, ns), c(FALSE, TRUE, NA))
+  out <- set_names(c(fs, ts, ns), c(FALSE, TRUE, NA))
   out[out != 0L]
 }
 

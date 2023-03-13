@@ -56,13 +56,10 @@ test_that("todo() errors and messages", {
   path <- test_path("scripts")
 
   err <- "path must be a character vector of length 1L"
-  expect_error(todos(path = 1), err)
-  expect_error(todos(path = c("a", "b")), err)
-  expect_error(todos(path = "zzz"), "path not found: zzz")
-  expect_error(
-    do_todo(c("todo", "fixme"), path = "."),
-    "Length of text must be 1"
-  )
+  expect_error(todos(path = 1), class = "doTodoPathError")
+  expect_error(todos(path = c("a", "b")), class = "doTodoPathError")
+  expect_error(todos(path = "zzz"))
+  expect_error(do_todo(c("todo", "fixme"), path = "."))
 
   expect_message(res <- todos("zzzzzz", path = path), "No todos found")
   expect_null(res)

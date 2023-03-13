@@ -29,8 +29,8 @@ test_that("to_row_names()", {
 
 
 test_that("col_to_rn()", {
-  expect_error(col_to_rn(data.frame(), 1:2), "must be a single element")
-  expect_error(col_to_rn(data.frame(), NA), "is invalid")
+  expect_error(col_to_rn(data.frame(), 1:2), class = "colToRnRownamesError")
+  expect_error(col_to_rn(data.frame(), NA), class = "colToRnRownamesNaError")
 })
 
 test_that("vector2df()", {
@@ -39,14 +39,15 @@ test_that("vector2df()", {
 
   expect_equal(vector2df(x), df)
   df$name <- as.character(x)
-  expect_equal(vector2df(set_names0(x)), df)
+  expect_equal(vector2df(set_names(x)), df)
   expect_named(vector2df(x, "one", "two"), c("one", "two"))
 
   expect_warning(
     vector2df(x, show_NA = NULL),
-    info = "show_NA should not be set"
+    class = "vector2dfShowNaWarning"
   )
-  expect_error(vector2df(list(a = 1)), "non-list vector")
+
+  expect_error(vector2df(list(a = 1)), class = "simpleError")
 })
 
 test_that("list2df()", {
@@ -56,7 +57,7 @@ test_that("list2df()", {
     value = c(1, 2:4, letters[10:20])
   )
 
-  expect_warning(list2df(x))
+  expect_warning(list2df(x), class = "list2dfClassesWarning")
   expect_warning(list2df(x, warn = FALSE), NA)
   expect_equal(list2df(x, warn = FALSE), exp)
 
@@ -66,14 +67,17 @@ test_that("list2df()", {
   expect_warning(list2df(x), NA)
   expect_equal(list2df(x), exp)
   expect_named(list2df(x, "hello", "world"), c("hello", "world"))
-  expect_warning(list2df(x, show_NA = NULL), info = "show_NA should not be set")
+  expect_warning(
+    list2df(x, show_NA = NULL),
+    class = "list2dfShowNaError"
+  )
 
   # Unnamed
   x <- list(a = 1, 0, 2)
   res <- quick_dfl(name = c("a", 2, 3), value = c(1, 0, 2))
   expect_equal(list2df(x), res)
 
-  expect_error(list2df(1), "must be a list")
+  expect_error(list2df(1), class = "simpleError")
 
   # Not sure this will continue to be the case
   expect_identical(quick_df(NULL), data.frame())

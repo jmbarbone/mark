@@ -38,7 +38,7 @@ test_that("paste_combine() works", {
 })
 
 test_that("paste_combine() fails", {
-  expect_error(paste_combine(1))
+  expect_error(paste_combine(1), class = "pasteCombineLengthError")
 })
 
 test_that("collapse0()", {

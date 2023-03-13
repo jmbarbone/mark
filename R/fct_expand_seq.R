@@ -21,18 +21,16 @@
 #' fct_expand_seq(x, min(levels(x)))
 #' @export
 
-fct_expand_seq <- function(x,
-                           min_lvl = min(x, na.rm = TRUE),
-                           max_lvl = max(x, na.rm = TRUE),
-                           by = 1L) {
-  if (!inherits(x, "ordered")) {
-    stop("<< x >> must be a class ordered", call. = FALSE)
-  }
-
-  if (!isTRUE(is.integer(by) || by < 1L)) {
-    stop("<< by >> must be an integer >= 1L", call. = FALSE)
-  }
-
+fct_expand_seq <- function(
+    x,
+    min_lvl = min(x, na.rm = TRUE),
+    max_lvl = max(x, na.rm = TRUE),
+    by = 1L
+) {
+  stopifnot(
+    inherits(x, "ordered"),
+    is.integer(by) || by < 1L
+  )
   lvls <- levels(x)
 
   if (is.character(min_lvl) || inherits(min_lvl, "factor")) {
@@ -44,13 +42,20 @@ fct_expand_seq <- function(x,
   }
 
   if (is.na(min_lvl)) {
-    stop("<< min_lvl >> cannot be `NA`", call. = FALSE)
+    stop(cond_fct_expand_seq_na("min_lvl"))
   }
 
   if (is.na(max_lvl)) {
-    stop("<< min_lvl >> cannot be `NA`", call. = FALSE)
+    stop(cond_fct_expand_seq_na("max_lvl"))
   }
 
   int <- seq(from = min_lvl, to = max_lvl, by = by)
   ordered(lvls[int], levels = lvls)
+}
+
+# condition ---------------------------------------------------------------
+
+cond_fct_expand_seq_na <- function(x = c("min_lvl", "max_lvl")) {
+  x <- match_param(x)
+  new_condition(paste(x, "cannot be `NA`"), "fct_expand_seq_na")
 }

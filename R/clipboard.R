@@ -81,7 +81,7 @@ write_clipboard.list <- function(x, sep = "\t", show_NA = FALSE, ...) { # nolint
 #' @rdname clipboard
 read_clipboard <- function(method = c("default", "data.frame", "tibble"), ...) {
   if (!is_windows()) {
-    stop("`mark::read_clipboard()` is only valid for Windows", call. = FALSE)
+    stop(cond_read_clipboard_windows())
   }
 
   switch(
@@ -107,7 +107,7 @@ read_clipboard <- function(method = c("default", "data.frame", "tibble"), ...) {
       require_namespace("tibble")
       tibble::as_tibble(read_clipboard("data.frame", ...))
     }
-    )
+  )
 }
 
 # helpers -----------------------------------------------------------------
@@ -199,4 +199,13 @@ type_convert2 <- function(x) {
   }
 
   res
+}
+
+# conditions --------------------------------------------------------------
+
+cond_read_clipboard_windows <- function() {
+  new_condition(
+    "`mark::read_clipboard()` is only valid for Windows",
+    "read_clipboard_windows"
+  )
 }

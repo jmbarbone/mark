@@ -59,8 +59,8 @@ percentile_rank <- function(x, weights = times, times) {
   id <- pseudo_id(x)
   tab <- counts(id)
   key <- attr(id, "uniques")
-  res <- set_names0(do_percentile_rank(key, tab), NULL)
-  set_names0(res[match(x, key)], x)
+  res <- set_names(do_percentile_rank(key, tab), NULL)
+  set_names(res[match(x, key)], x)
 }
 
 do_percentile_rank <- function(u, w) {
@@ -79,7 +79,7 @@ do_percentile_rank <- function(u, w) {
     res <- (cumsum(p) - 0.5) / n
   } else {
     if (length(w) != length(u)) {
-      stop("length(weights) must be 1L or equal to length(x)", call. = FALSE)
+      stop(cond_do_percentile_rank_weights())
     }
 
     ok <- stats::complete.cases(u, w)
@@ -92,4 +92,13 @@ do_percentile_rank <- function(u, w) {
   names(out) <- u
   out[ok] <- res
   out
+}
+
+# conditions --------------------------------------------------------------
+
+cond_do_percentile_rank_weights <- function() { # nolint: object_length_linter.
+  new_condition(
+    "length(weights) must be 1L or equal to length(x)",
+    "do_percentile_rank_weights"
+  )
 }

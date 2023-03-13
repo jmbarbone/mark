@@ -4,10 +4,9 @@ test_that("tests with temp dir", {
     x_short <- file.path(basename(dirname(x)), basename(x))
     y_short <- file.path(basename(dirname(y)), basename(y))
 
-    testthat::expect_true(file.exists(y), info = "Expected path does not exist")
-    testthat::expect_equal(x_short, y_short)
+    expect_true(file.exists(y), info = "Expected path does not exist")
+    expect_equal(x_short, y_short)
   }
-
 
   td <- tempdir(check = TRUE)
 
@@ -59,10 +58,10 @@ test_that("tests with temp dir", {
 })
 
 test_that("errors", {
-  expect_error(is_file(NULL))
-  expect_error(is_file(character()))
-  expect_error(is_file(TRUE))
-  expect_error(is_dir(NULL))
-  expect_error(is_dir(character()))
-  expect_error(is_dir(TRUE))
+  expect_error(is_file(NULL),        class = "simpleError")
+  expect_error(is_file(character()), class = "simpleError")
+  expect_error(is_file(TRUE),        class = "simpleError")
+  expect_error(is_dir(NULL),         class = "simpleError")
+  expect_error(is_dir(character()),  class = "simpleError")
+  expect_error(is_dir(TRUE),         class = "simpleError")
 })

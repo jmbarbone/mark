@@ -24,7 +24,7 @@ col_to_rn <- function(data, row_names = 1L) {
   row_names0 <- row_names
 
   if (length(row_names) != 1) {
-    stop("`row_names` must be a single element vector", call. = FALSE)
+    stop(cond_col_to_rn_rownames())
   }
 
   if (is.character(row_names)) {
@@ -32,7 +32,7 @@ col_to_rn <- function(data, row_names = 1L) {
   }
 
   if (is.na(row_names)) {
-    stop("`row_names` of `", row_names0, "` is invalid", call. = FALSE)
+    stop(cond_col_to_rn_rownames_na(row_names0))
   }
 
   x <- data[[row_names]]
@@ -57,12 +57,10 @@ col_to_rn <- function(data, row_names = 1L) {
 
 vector2df <- function(x, name = "name", value = "value", show_NA) { # nolint: object_name_linter, line_length_linter.
   if (!missing(show_NA)) {
-    warning("`show_NA` is no longer in use", call. = FALSE)
+    warning(cond_vector2df_show_na())
   }
 
-  if (is.list(x)) {
-    stop("`x` must be a non-list vector", call. = FALSE)
-  }
+  stopifnot(!is.list(x))
 
   ls <- list(names(x) %||% rep(NA, length(x)), remove_names(x))
   ls <- ls[!vap_lgl(list(name, value), is.null)]
@@ -101,26 +99,17 @@ vector2df <- function(x, name = "name", value = "value", show_NA) { # nolint: ob
 #' }
 
 list2df <- function(x, name = "name", value = "value", show_NA, warn = TRUE) { # nolint: object_name_linter, line_length_linter.
-  if (!is.list(x)) {
-    stop("`x` must be a list", call. = FALSE)
-  }
+  stopifnot(is.list(x))
 
   if (!missing(show_NA)) {
-    warning("`show_NA` is no longer in use", call. = FALSE)
+    warning(cond_list2df_show_na())
   }
 
   cl <- lapply(x, class)
   n_cl <- length(unique(cl))
 
   if (n_cl > 1 && warn) {
-    warning(
-      ngettext(
-        any(c("character", "factor") %in% cl),
-        "Not all values are the same class: converting to character",
-        "Not all values are the same class"
-      ),
-      call. = FALSE
-    )
+    warning(cond_list2df_classes(cl))
   }
 
   ulist <- unlist(x, use.names = FALSE)
@@ -141,16 +130,17 @@ list2df <- function(x, name = "name", value = "value", show_NA, warn = TRUE) { #
 # And an update prevents recycling
 list2df2 <- function(x = list(), nrow = NULL) {
   stopifnot(is.list(x), is.null(nrow) || nrow >= 0L)
+
   if (n <- length(x)) {
     if (is.null(nrow)) {
       nrow <- max(lengths(x), 0L)
     }
+
     x <- lapply(x, rep_len, nrow)
-  } else {
-    if (is.null(nrow)) {
-      nrow <- 0L
-    }
+  } else if (is.null(nrow)) {
+    nrow <- 0L
   }
+
   if (is.null(names(x))) {
     names(x) <- character(n)
   }
@@ -182,12 +172,10 @@ list2df2 <- function(x = list(), nrow = NULL) {
 
 t_df <- function(x, id = NULL) {
   if (!is.null(id)) {
-    warning("Argument `id` is no longer valid")
+    warning(cond_t_df_id())
   }
 
-  if (!is.data.frame(x)) {
-    stop("`x` must be a data.frame", call. = FALSE)
-  }
+  stopifnot(is.data.frame(x))
 
   out <- as.data.frame(
     t(x),
@@ -201,71 +189,12 @@ t_df <- function(x, id = NULL) {
 }
 
 rn_to_col <- function(data, name = "row.name") {
-  if (!is.data.frame(data)) {
-    stop("`data` must be a data.frame", call. = FALSE)
-  }
-
+  stopifnot(is.data.frame(data))
   n <- length(data) + 1
   data[[n]] <- attr(data, "row.names")
   attr(data, "row.names") <- seq_len(nrow(data)) # nolint: object_name_linter.
   colnames(data)[n] <- name
   data[, c(n, seq_len(n - 1)), drop = FALSE]
-}
-
-#' Quick DF
-#'
-#' This is a speedier implementation of `as.data.frame()` but does not provide
-#' the same sort of checks. It should be used with caution.
-#'
-#' @return A `data.frame`; if `x` is `NULL` a `data.frame` with `0` rows and `0`
-#'   columns is returned (similar to calling `data.frame()` but faster)
-#' @examples
-#'
-#' # unnamed will use make.names()
-#' x <- list(1:10, letters[1:10])
-#' quick_df(x)
-#'
-#' # named is preferred
-#' names(x) <- c("numbers", "letters")
-#' quick_df(x)
-#'
-#' # empty data.frame
-#' quick_df(NULL)
-#'
-#' @name quick_df
-NULL
-
-#' @export
-#' @rdname quick_df
-#' @param x A list or `NULL` (see return)
-quick_df <- function(x) {
-  if (is.null(x)) {
-    return(
-      struct(list(), "data.frame", row.names = integer(), names = character())
-    )
-  }
-
-  if (!is.list(x)) {
-    stop("x is not a list", call. = FALSE)
-  }
-
-  n <- unique(lengths(x))
-
-  if (length(n) != 1L) {
-    stop("List does not have an equal length", call. = FALSE)
-  }
-
-  struct(x, "data.frame",
-    names = names(x) %||% make.names(1:length(x)), # nolint: seq_linter.
-    row.names = c(NA_integer_, -n)
-  )
-}
-
-#' @export
-#' @rdname quick_df
-#' @param ... Columns as `tag = value` (passed to `list()`)
-quick_dfl <- function(...) {
-  quick_df(list(...))
 }
 
 #' Complete cases
@@ -292,14 +221,11 @@ quick_dfl <- function(...) {
 #' complete_cases(x, "c")
 #' @export
 complete_cases <- function(data, cols = NULL, invert = FALSE) {
-  if (!inherits(data, "data.frame")) {
-    stop("`data` must be a data.frame", call. = FALSE)
-  }
-
+  stopifnot(is.data.frame(data))
   ds <- dim(data)
 
   if (ds[1L] == 0L || ds[2L] == 0L) {
-    stop("`data` must have at least 1 row and 1 column", call. = FALSE)
+    stop(cond_complete_cases_rc())
   }
 
   x <- data[, cols %||% 1:ds[2L], drop = FALSE]
@@ -312,4 +238,59 @@ complete_cases <- function(data, cols = NULL, invert = FALSE) {
   out <- data[cc, , drop = FALSE]
   attr(out, "row.names") <- .set_row_names(sum(cc)) # nolint: object_name_linter, line_length_linter.
   out
+}
+
+# conditions --------------------------------------------------------------
+
+cond_col_to_rn_rownames <- function() {
+  new_condition(
+    "`row_names` must be a single element vector",
+    "col_to_rn_rownames"
+  )
+}
+
+cond_col_to_rn_rownames_na <- function(x) {
+  new_condition(
+    sprintf("`row_names` of `%s` is invalid", x),
+    "col_to_rn_rownames_na"
+  )
+}
+
+cond_vector2df_show_na <- function() {
+  new_condition(
+    "`show_NA` is no longer in use",
+    "vector2df_show_na",
+    type = "warning"
+  )
+}
+
+cond_list2df_show_na <- function() {
+  new_condition("`show_NA` is no longer in use", "list2df_show_na")
+}
+
+cond_list2df_classes <- function(x) {
+  new_condition(
+    ngettext(
+      any(c("character", "factor") %in% x),
+      "Not all values are the same class: converting to character",
+      "Not all values are the same class"
+    ),
+    "list2df_classes",
+    type = "warning"
+  )
+}
+
+cond_t_df_id <- function() {
+  new_condition(
+    "Argument `id` is no longer valid",
+    "t_df_id",
+    type = "warning"
+  )
+}
+
+cond_complete_cases_rc <- function() {
+  new_condition(
+    "`data` must have at least 1 row and 1 column",
+    "completed_cases_rc"
+  )
 }

@@ -3,7 +3,7 @@ test_that("unlist0() works", {
 
   expect_identical(
     unlist0(x),
-    set_names0(1:4, c("a", "a", "b", "a"))
+    set_names(1:4, c("a", "a", "b", "a"))
   )
 })
 

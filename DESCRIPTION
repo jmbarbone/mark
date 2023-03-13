@@ -21,6 +21,7 @@ LazyData: true
 Depends:
     R (>= 3.6)
 Imports:
+    fuj (>= 0.1.1),
     magrittr (>= 2.0.1),
     stats (>= 3.6),
     tools (>= 3.6),

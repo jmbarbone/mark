@@ -58,7 +58,10 @@ test_that("which0()", {
 })
 
 test_that("%colons%", {
-  expect_error("bad_package" %colons% "not_a_function")
+  expect_error(
+    "bad_package" %colons% "not_a_function",
+    class = "namespaceError"
+  )
 })
 
 test_that("that()", {
@@ -73,11 +76,14 @@ test_that("check_interactive()", {
 })
 
 test_that("try_formats() doesn't cause failure with %Z", {
-  msg <- "strptime(xx, f, tz = tz)`: use of %Z for input is not supported"
   expect_false(tryCatch(
     as.POSIXct("date", tryFormats = try_formats()),
     error = function(e) {
-      grepl(msg, e$message, fixed = TRUE)
+      grepl(
+        "strptime(xx, f, tz = tz)`: use of %Z for input is not supported",
+        e$message,
+        fixed = TRUE
+      )
     }
   ))
 })

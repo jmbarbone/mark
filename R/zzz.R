@@ -3,5 +3,5 @@
 }
 
 .onDetach <- function(libpath) {
-
+  invisible()
 }

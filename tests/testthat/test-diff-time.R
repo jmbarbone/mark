@@ -15,19 +15,7 @@ tz1 <- c(
   NULL
 )
 
-tz2 <- c(
-  2,
-  3,
-  6,
-  8,
-  -10,
-  -11,
-  12,
-  -13,
-  16,
-  -17,
-  NULL
-)
+tz2 <- c(2, 3, 6, 8, -10, -11, 12, -13, 16, -17)
 
 df <- quick_df(
   list(
@@ -170,8 +158,15 @@ test_that("Timezones", {
 })
 
 test_that("Error checking", {
-  expect_error(diff_time_secs(1:10, 1:10), "Date times cannot be numeric")
-  expect_error(diff_time_secs(st, st, "Not good"), "OlsonNames()")
+  expect_error(
+    diff_time_secs(1:10, 1:10),
+    class = "extractNumericTimeNumericError"
+  )
+
+  expect_error(
+    diff_time_secs(st, st, "Not good"),
+    class = "checkTzTimezoneOlsonError"
+  )
 
   # Don't throw error because of NA tz
   expect_identical(
@@ -196,7 +191,8 @@ test_that("class coehersion", {
 
   expect_warning(
     to_numeric_with_tz("2021-01-01", NA),
-    "NA found in timezones"
+    "NA found in timezones",
+    class = "toNumericWithTzNaWarning"
   )
 
   expect_identical(check_tz(NULL), NULL)

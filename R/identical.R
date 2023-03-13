@@ -24,11 +24,11 @@ are_identical <- function(..., params = NULL) {
   n <- length(x)
 
   if (length(unique(lengths(x))) != 1L) {
-    stop("... must have equal length vectors", call. = FALSE)
+    stop(cond_are_identical_none())
   }
 
   if (n < 2L) {
-    stop("... must have length of 2 or more", call. = FALSE)
+    stop(cond_are_identical_two())
   }
 
   if (n == 2L) {
@@ -53,5 +53,21 @@ do_map_identical <- function(x, y, params = NULL) {
     y,
     USE.NAMES = FALSE,
     SIMPLIFY = TRUE
+  )
+}
+
+# conditions --------------------------------------------------------------
+
+cond_are_identical_none <- function() {
+  new_condition(
+    "... must have equal length vectors",
+    "are_identical_none"
+  )
+}
+
+cond_are_identical_two <- function() {
+  new_condition(
+    "... must have length of 2 or more",
+    "are_identical_two"
   )
 }

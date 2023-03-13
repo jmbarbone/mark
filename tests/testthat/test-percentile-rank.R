@@ -15,5 +15,5 @@ test_that("percentile_rank() works", {
 test_that("percentile_rank_weighted() handles decimals [92]", {
   x <- c(1, 3.120000000001, 3.120000000001, 4)
   w <- 1:4
-  expect_error(percentile_rank(x, w), "Duplicate")
+  expect_error(percentile_rank(x, w), class = "dupeCheckError")
 })

@@ -128,22 +128,20 @@ switch_in_case <- function(x, ..., .default = NULL, .envir = parent.frame()) {
     cres <- as.character(res)
     if (cres[1L] == ":") {
       if (!exists("xrange")) {
-        stop(
-          "x did not appear to be numeric,",
-          "cannot continue evaluating lhs", call. = FALSE
-        )
+        stop(cond_switch_in_case_numeric())
       }
+
       cres[cres == "-Inf"] <- xrange[1L]
       cres[cres == "Inf"] <- xrange[2L]
       if (any(cres %in% c("-Inf", "inf"))) {
-        stop("Ambiguous infinity, cannot calculate", call. = FALSE)
+        stop(cond_switch_in_case_ambiguous())
       }
     }
 
     tryCatch(
       do.call(cres[1L], as.list(cres[-1L])),
       error = function(e) {
-        stop("Could not evaluate lhs\n", e$message, call. = FALSE)
+        stop(cond_switch_in_case_evaluate(e$message))
       }
     )
   })
@@ -234,21 +232,24 @@ switch_length_check <- function(ls) {
     length(u),
     return(ls),
     {
-      if (u[1L] == 0L)
-        stop("Cannot have 0 length rhs", call. = FALSE)
+      if (u[1L] == 0L) {
+        stop(cond_switch_length_check_0())
+      }
 
       if (u[1L] == 1L) {
         ind <- which(lens == 1L)
+
         for (i in ind) {
           ls[[i]] <- rep.int(ls[[i]], u[2L])
         }
+
         return(ls)
       }
-      stop("2 lengths found, one of which was not 1", call. = FALSE)
+      stop(cond_switch_length_check_2())
     },
-    stop("3 or more lengths found, stopping", call. = FALSE)
+    stop(cond_switch_length_check_3())
   )
-  stop("Something really went wrong", call. = FALSE)
+  stop(cond_switch_length_check_bad())
 }
 
 switch_lengths_check <- function(lhs, rhs) {
@@ -260,8 +261,56 @@ switch_lengths_check <- function(lhs, rhs) {
   }
 
   if (!identical(llens, rlens)) {
-    stop("statements have different lengths", call. = FALSE)
+    stop(cond_switch_lengths_check())
   }
 
   return(invisible(NULL))
 }
+
+# conditions --------------------------------------------------------------
+
+cond_switch_in_case_numeric <- function() {
+  new_condition(
+    "x did not appear to be numeric, cannot continue evaluating lhs",
+    "switch_in_case_numeric"
+  )
+}
+
+cond_switch_in_case_ambiguous <- function() {
+  new_condition(
+    "Ambiguous infinity, cannot calculate",
+    "switch_in_case_ambiguous"
+  )
+}
+
+cond_switch_in_case_evaluate <- function(x) {
+  new_condition(
+    paste0("Could not evaluate lhs\n", x),
+    "switch_in_case_evaluate"
+  )
+}
+
+cond_switch_lengths_check <- function() {
+  new_condition("statements have different lengths", "switch_lengths_check")
+}
+
+cond_switch_length_check_0 <- function() {
+  new_condition("Cannot have 0 length rhs", "switch_length_check_0")
+}
+
+cond_switch_length_check_2 <- function() {
+  new_condition(
+    "2 lengths found, one of which was not 1",
+    "switch_length_check_1"
+  )
+}
+
+cond_switch_length_check_3 <- function() {
+  new_condition("3 or more lengths found, stopping", "switch_length_check_3")
+}
+
+cond_switch_length_check_bad <- function() {
+  new_condition("Something really went wrong", "switch_length_check_bad")
+}
+
+# terminal line
