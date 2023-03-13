@@ -51,6 +51,15 @@
 <ul><li>
 <code><a href="../reference/echo.html">echo()</a></code> evaluates expressions and logs outputs <a href="https://github.com/jmbarbone/mark/issues/164" class="external-link">#164</a>
 </li>
+<li>
+<a href="https://jmbarbone.github.io/fuj/" class="external-link">fuj</a> is now imported
+<ul><li>multiple functions now re-exported from <a href="https://jmbarbone.github.io/fuj/" class="external-link">fuj</a> (see <code>?mark::reexports</code>)</li>
+<li>
+<code><a href="../reference/set_names0.html">set_names0()</a></code> is deprecated in favor of <code><a href="https://jmbarbone.github.io/fuj/reference/names.html" class="external-link">set_names()</a></code>
+</li>
+<li>error messages are created with <code><a href="https://jmbarbone.github.io/fuj/reference/new_condition.html" class="external-link">fuj::new_condition()</a></code>;</li>
+<li>test for errors and warnings enhanced with class checks</li>
+</ul></li>
 </ul></div>
 <div class="section level3">
 <h3 id="fixes-and-updates-development-version">Fixes and updates<a class="anchor" aria-label="anchor" href="#fixes-and-updates-development-version"></a></h3>
@@ -89,7 +98,7 @@
 <code><a href="../reference/get_version.html">update_version()</a></code> now correctly checks result of embedded <code><a href="https://rdrr.io/r/utils/menu.html" class="external-link">utils::menu()</a></code> call for updating the version <a href="https://github.com/jmbarbone/mark/issues/121" class="external-link">#123</a>
 </li>
 <li>
-<code><a href="../reference/require_namespace.html">require_namespace()</a></code> now accepts multiple namespaces <a href="https://github.com/jmbarbone/mark/issues/121" class="external-link">#121</a>
+<code><a href="https://jmbarbone.github.io/fuj/reference/require_namespace.html" class="external-link">require_namespace()</a></code> now accepts multiple namespaces <a href="https://github.com/jmbarbone/mark/issues/121" class="external-link">#121</a>
 </li>
 <li>
 <code>unique.fact()</code> S3 method <a href="https://github.com/jmbarbone/mark/issues/86" class="external-link">#86</a>
@@ -130,7 +139,7 @@
 <div class="section level3">
 <h3 id="breaking-changes-0-5-2">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-5-2"></a></h3>
 <ul><li>
-<code>reverse()</code> has been removed (use <code><a href="../reference/flip.html">flip()</a></code> instead)</li>
+<code>reverse()</code> has been removed (use <code><a href="https://jmbarbone.github.io/fuj/reference/flip.html" class="external-link">flip()</a></code> instead)</li>
 <li>
 <code>assign_label()</code> has been removed (use <code><a href="../reference/labels.html">assign_labels()</a></code> instead)</li>
 <li>
@@ -252,7 +261,7 @@
 <code>quick_df(NULL)</code> now returns an empty <code>data.frame</code>
 </li>
 <li>
-<code><a href="../reference/quick_df.html">quick_dfl()</a></code> exported as a wrapper for <code>quick_df(list(...))</code>
+<code><a href="https://jmbarbone.github.io/fuj/reference/quick_df.html" class="external-link">quick_dfl()</a></code> exported as a wrapper for <code>quick_df(list(...))</code>
 </li>
 </ul></div>
 <div class="section level3">
@@ -269,7 +278,7 @@
 <li>
 <code>flip.matrix(, keep_rownames = FALSE)</code> now works correctly</li>
 <li>
-<code><a href="../reference/match_ext.html">any_match()</a></code> now works as expected</li>
+<code><a href="https://jmbarbone.github.io/fuj/reference/match_ext.html" class="external-link">any_match()</a></code> now works as expected</li>
 <li>
 <code><a href="../reference/lines_of_r_code.html">lines_of_r_code()</a></code> now works correctly reading a single file</li>
 <li>
@@ -284,7 +293,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="others-0-4-0">Others<a class="anchor" aria-label="anchor" href="#others-0-4-0"></a></h3>
-<ul><li>documentation of <code><a href="../reference/struct.html">struct()</a></code> overwriting attributes improved and examples</li>
+<ul><li>documentation of <code><a href="https://jmbarbone.github.io/fuj/reference/struct.html" class="external-link">struct()</a></code> overwriting attributes improved and examples</li>
 <li>adds more unit tests</li>
 </ul></div>
 </div>
@@ -338,7 +347,7 @@
 <div class="section level3">
 <h3 id="changes-0-2-0">Changes<a class="anchor" aria-label="anchor" href="#changes-0-2-0"></a></h3>
 <ul><li>
-<code><a href="../reference/require_namespace.html">package_available()</a></code> now visibly returns <code>TRUE</code>/<code>FALSE</code>
+<code><a href="../reference/package_available.html">package_available()</a></code> now visibly returns <code>TRUE</code>/<code>FALSE</code>
 </li>
 <li>
 <code><a href="../reference/remove_na.html">remove_na()</a></code> now has methods for <code>list</code>s and <code>factor</code>s</li>
@@ -390,7 +399,7 @@
 <li>
 <code><a href="../reference/pseudo_id.html">pseudo_id.factor()</a></code> no longer returns <code>NA_integer</code> when a value is <code>NA</code> or a level is <code>NA</code> and correctly resets the order of the levels from the factor to their order of appearance</li>
 <li>
-<code><a href="../reference/flip.html">flip.data.frame()</a></code> no longer coerces single column data.frames <a href="https://github.com/jmbarbone/mark/issues/36" class="external-link">#36</a>
+<code>flip.data.frame()</code> no longer coerces single column data.frames <a href="https://github.com/jmbarbone/mark/issues/36" class="external-link">#36</a>
 </li>
 </ul></div>
 <div class="section level3">
@@ -409,7 +418,7 @@
 <li>
 <code><a href="../reference/sort_names.html">sort_names()</a></code> gains a new argument <code>numeric</code> to try to sort names of <code>x</code> by their numeric value <a href="https://github.com/jmbarbone/mark/issues/26" class="external-link">#26</a>
 </li>
-<li>adds <code><a href="../reference/struct.html">struct()</a></code>, a simplified version of <code><a href="../reference/struct.html">struct()</a></code>
+<li>adds <code><a href="https://jmbarbone.github.io/fuj/reference/struct.html" class="external-link">struct()</a></code>, a simplified version of <code><a href="https://jmbarbone.github.io/fuj/reference/struct.html" class="external-link">struct()</a></code>
 </li>
 <li>adds more <code><a href="../reference/fact.html">fact()</a></code> methods
 <ul><li>
