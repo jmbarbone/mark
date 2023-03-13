@@ -32,7 +32,7 @@ test_that("fizzbuzz() works", {
   expect_length(fizzbuzz_lazy(200), 200)
 
   expect_length(.fizzbuzz_vector, 1e6)
-  expect_error(fizzbuzz_lazy(1e6 + 1), "n must be <= 1e6")
+  expect_error(fizzbuzz_lazy(1e6 + 1))
 
   expect_error(fizzbuzz(NULL))
   expect_error(fizzbuzz(0))

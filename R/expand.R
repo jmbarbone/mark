@@ -127,12 +127,11 @@ reindex <- function(
   }
 
   if (anyNA(xi)) {
-    warning("NA values detected in index this may cause errors with expansion",
-            call. = FALSE)
+    warning(cond_reindex_na())
   }
 
   if (is.null(xi)) {
-    stop("x[[index]] returned `NULL`", call. = FALSE)
+    stop(cond_reindex_index())
   }
 
   ro <- expand_by(xi, new_index, expand = expand, sort = sort)
@@ -159,4 +158,18 @@ unique_name_check <- function(x) {
   }
 
   invisible(TRUE)
+}
+
+# conditions --------------------------------------------------------------
+
+cond_reindex_na <- function() {
+  new_condition(
+    "NA values detected in index this may cause errors with expansion",
+    "reindex_na",
+    type = "warning"
+  )
+}
+
+cond_reindex_index <- function() {
+  new_condition("x[[index]] returned `NULL`", "reindex_index")
 }
