@@ -45,13 +45,10 @@ match_arg <- function(x, table) {
   out <- table[pmatch(x[1], table, nomatch = 0L, duplicates.ok = FALSE)]
 
   if (!length(out)) {
-    stop(
-      as.character(substitute(x)),
-      ": \'", x, "\' did not match any of the following:\n\   '",
-      collapse0(table, sep = "\', \'"), "\'",
-      call. = FALSE
-    )
+    csx <- as.character(substitute(x))
+    stop(cond_match_arg(csx, x, table))
   }
+
   out
 }
 
@@ -74,8 +71,11 @@ match_arg <- function(x, table) {
 #' @export
 match_param <- function(param, choices, null = TRUE) {
   if (is.null(param)) {
-    if (null) return(NULL)
-    stop("match_param() requires non-NULL params", call. = FALSE)
+    if (null) {
+      return(NULL)
+    }
+
+    stop(cond_match_param_null())
   }
 
   param_c <- charexpr(substitute(param))
@@ -95,19 +95,54 @@ match_param <- function(param, choices, null = TRUE) {
       param <- deparse(param)
     }
 
-    stop(sprintf(
-      paste0(
-        "`match_param(%s)` failed in `%s`:\n",
-        "  `%s` [%s] must be one of the following: \"%s\""
-      ),
-      param_c,
-      ocall,
-      param_c,
-      param,
-      collapse0(choices, sep = '", "')
-    ),
-    call. = FALSE)
+    stop(cond_match_param_match(
+      input = param_c,
+      argument = ocall,
+      param = param,
+      choices = choices
+    ))
   }
 
   res
+}
+
+# conditions --------------------------------------------------------------
+
+cond_match_arg <- function(csx, x, table) {
+  table <-  collapse(table, sep = "\', \'")
+  new_condition(
+    sprintf(
+      "%s : '%s' did not match of of the following:\n   '%s'",
+      csx, x, table
+    ),
+    "cond_match_arg"
+  )
+}
+
+cond_match_param_null <- function() {
+  new_condition(
+    "match_param() requires non-NULL params",
+    "cond_match_param_null"
+  )
+}
+
+cond_match_param_match <- function(
+    input,
+    argument,
+    param,
+    choices
+) {
+  msg <- sprintf(
+    paste0(
+      "`match_param(%s)` failed in `%s`:\n",
+      "  `%s` [%s] must be one of the following: \"%s\""
+    ),
+    input,
+    argument,
+    input,
+    param,
+    collapse0(choices, sep = '", "')
+  )
+
+  new_condition(msg, "match_param_match")
 }

@@ -114,3 +114,4 @@ test_that("omit_na() works", {
   res <- omit_na(x)
   exp <- struct(x[c(1, 3, 4)], "character", na = 2L, valid = c(1L, 3L, 4L))
 })
+
