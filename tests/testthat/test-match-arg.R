@@ -56,3 +56,11 @@ test_that("match_arg() works", {
   expect_identical(foo(table = "a"), "a")
   expect_error(foo(table = "c"), class = "condMatchArgError")
 })
+
+test_that("match_arg() accepts multiple [#104]", {
+  foo <- function(x = list(this = 1:2, that = 3)) {
+    mark::match_param(x)
+  }
+
+  expect_identical(foo(), "this")
+})
