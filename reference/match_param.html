@@ -70,7 +70,8 @@ Will not return error messages with ugly quotation marks
 
 
 <dt>choices</dt>
-<dd><p>The available choices</p></dd>
+<dd><p>The available choices; named lists will return the name (a
+character) for when matched to the value within the list element</p></dd>
 
 
 <dt>null</dt>
@@ -91,7 +92,13 @@ Will not return error messages with ugly quotation marks
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="match_arg.html">match_arg()</a></code></p></div>
+    <div class="dont-index"><p><code><a href="match_arg.html">match_arg()</a></code>
+fruits &lt;- function(x = c("apple", "banana", "orange")) 
+match_param(x)</p>
+<p>fruits()         # apple try(fruits("b")) # must be exact fruits("banana")can have multiple responses</p>
+<p>how_much &lt;- function(x = list(too_few = 0:2, ok = 3:5, too_many = 6:10)) 
+match_param(x)</p>
+<p>how_much(1) how_much(3) how_much(9)</p></div>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
