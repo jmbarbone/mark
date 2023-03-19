@@ -2,6 +2,7 @@
 
 ## New features
 
+* `match_param()` now accepts a named listed for alias matching [#104](https://github.com/jmbarbone/mark/issues/104)
 * `echo()` evaluates expressions and logs outputs [#164](https://github.com/jmbarbone/mark/issues/164)
 * `{fuj}` is now imported
   * multiple functions now re-exported from `{fuj}` (see `?mark::reexports`)
