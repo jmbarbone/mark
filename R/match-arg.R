@@ -56,18 +56,29 @@ match_arg <- function(x, table) {
 #'
 #' Param matching for an argument
 #'
-#' @description
-#' Much like [base::match.arg()] with a few key differences:
+#' @description Much like [base::match.arg()] with a few key differences:
 #' * Will not perform partial matching
 #' * Will not return error messages with ugly quotation marks
 #'
 #' @param param The parameter
-#' @param choices The available choices
+#' @param choices The available choices; named lists will return the name (a
+#'   character) for when matched to the value within the list element
 #' @param null If `TRUE` allows `NULL` to be passed a `param`
 #' @return A single value from `param` matched on `choices`
 #'
 #' @seealso [mark::match_arg()]
+#' fruits <- function(x = c("apple", "banana", "orange")) {
+#'   match_param(x)
+#' }
 #'
+#'   fruits()         # apple try(fruits("b")) # must be exact fruits("banana")
+#'
+#'   # can have multiple responses
+#' how_much <- function(x = list(too_few = 0:2, ok = 3:5, too_many = 6:10)) {
+#'   match_param(x)
+#' }
+#'
+#'   how_much(1) how_much(3) how_much(9)
 #' @export
 match_param <- function(param, choices, null = TRUE) {
   if (is.null(param)) {
@@ -86,7 +97,11 @@ match_param <- function(param, choices, null = TRUE) {
     choices <- eval(forms[[param_c]], envir = parent)
   }
 
-  res <- choices[match(param[1], choices, nomatch = 0L)[1]]
+  choices <- unlist0(choices)
+
+  values <- names(choices) %||% choices
+  param <- unlist0(param)
+  res <- values[match(param[1], choices, nomatch = 0L)[[1]]]
   ocall <- outer_call()
 
   if (no_length(res)) {
