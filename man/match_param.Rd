@@ -9,7 +9,8 @@ match_param(param, choices, null = TRUE)
 \arguments{
 \item{param}{The parameter}
 
-\item{choices}{The available choices}
+\item{choices}{The available choices; named lists will return the name (a
+character) for when matched to the value within the list element}
 
 \item{null}{If \code{TRUE} allows \code{NULL} to be passed a \code{param}}
 }
@@ -28,4 +29,15 @@ Param matching for an argument
 }
 \seealso{
 \code{\link[=match_arg]{match_arg()}}
+fruits <- function(x = c("apple", "banana", "orange")) {
+match_param(x)
+}
+
+fruits()         # apple try(fruits("b")) # must be exact fruits("banana")can have multiple responses
+
+how_much <- function(x = list(too_few = 0:2, ok = 3:5, too_many = 6:10)) {
+match_param(x)
+}
+
+how_much(1) how_much(3) how_much(9)
 }
