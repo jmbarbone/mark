@@ -2,6 +2,11 @@
 
 ## New features
 
+* new functions for detecting _blank_ values in a vector or `data.frame`.  _Blank_ values are those which do not contain any text (controls for `NA`) or are entirely white space.
+  * `is_blank()` for detecting _blank_ values in a vector
+  * `is_blank_cols()` for detecting _blank_ columns
+  * `select_blank_cols()` for selecting _blank_ columns
+  * `remove_blank_cols()` for removing _blank_ columns
 * `match_param()` now accepts a named listed for alias matching [#104](https://github.com/jmbarbone/mark/issues/104)
 * `echo()` evaluates expressions and logs outputs [#164](https://github.com/jmbarbone/mark/issues/164)
 * `{fuj}` is now imported

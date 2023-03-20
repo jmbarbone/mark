@@ -100,28 +100,28 @@ remove_null <- function(x) {
 #'
 #' Select or remove columns that are entirely NA
 #'
-#' @param x A data.frame
+#' @param x A `data.frame`
 #' @param names Logical, if `TRUE` (default) will return column names as names
 #'   of vector
 #'
 #' @returns
-#' * `select_na_cols()` the data.frame with only columns that are all `NA`
-#' * `remove_na_cols()` the data.frame without columns of only `NA`
+#' * `select_na_cols()` `x` with only columns that are all `NA`
+#' * `remove_na_cols()` `x` without columns of only `NA`
 #' * `is_na_cols()` a logical vector: `TRUE` all rows of column are `NA`,
 #'  otherwise `FALSE`
 #' @name na_cols
-#' @export
+NULL
 
+#' @rdname na_cols
+#' @export
 select_na_cols <- function(x) {
-  stopifnot(is.data.frame(x))
-  x[, is_na_cols(x)]
+  x[, is_na_cols(x), drop = FALSE]
 }
 
 #' @rdname na_cols
 #' @export
 remove_na_cols <- function(x) {
-  stopifnot(is.data.frame(x))
-  x[, !is_na_cols(x)]
+  x[, !is_na_cols(x), drop = FALSE]
 }
 
 #' @rdname na_cols
