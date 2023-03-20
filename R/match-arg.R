@@ -10,10 +10,8 @@
 #' @param x An argument
 #' @param table A table of choices
 #' @return A single value from `x` matched on `table`
-#' @export
 #'
-#' @seealso [mark::match_param()]
-#'
+#' @seealso [match_param()]
 #' @examples
 #' x <- c("apple", "banana", "orange")
 #' match_arg("b", x)
@@ -30,7 +28,7 @@
 #'
 #' # Error
 #' try(foo(1, 0))
-
+#' @export
 match_arg <- function(x, table) {
   if (is.null(x)) {
     return(NULL)
@@ -66,19 +64,23 @@ match_arg <- function(x, table) {
 #' @param null If `TRUE` allows `NULL` to be passed a `param`
 #' @return A single value from `param` matched on `choices`
 #'
-#' @seealso [mark::match_arg()]
+#' @seealso [match_arg()]
+#' @examples
 #' fruits <- function(x = c("apple", "banana", "orange")) {
 #'   match_param(x)
 #' }
 #'
-#'   fruits()         # apple try(fruits("b")) # must be exact fruits("banana")
+#' fruits()         # apple
+#' try(fruits("b")) # must be exact fruits("banana")
 #'
-#'   # can have multiple responses
+#' # can have multiple responses
 #' how_much <- function(x = list(too_few = 0:2, ok = 3:5, too_many = 6:10)) {
 #'   match_param(x)
 #' }
 #'
-#'   how_much(1) how_much(3) how_much(9)
+#' how_much(1)
+#' how_much(3)
+#' how_much(9)
 #' @export
 match_param <- function(param, choices, null = TRUE) {
   if (is.null(param)) {
