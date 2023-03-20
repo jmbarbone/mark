@@ -27,17 +27,23 @@ Much like \code{\link[base:match.arg]{base::match.arg()}} with a few key differe
 \details{
 Param matching for an argument
 }
+\examples{
+fruits <- function(x = c("apple", "banana", "orange")) {
+  match_param(x)
+}
+
+fruits()         # apple
+try(fruits("b")) # must be exact fruits("banana")
+
+# can have multiple responses
+how_much <- function(x = list(too_few = 0:2, ok = 3:5, too_many = 6:10)) {
+  match_param(x)
+}
+
+how_much(1)
+how_much(3)
+how_much(9)
+}
 \seealso{
 \code{\link[=match_arg]{match_arg()}}
-fruits <- function(x = c("apple", "banana", "orange")) {
-match_param(x)
-}
-
-fruits()         # apple try(fruits("b")) # must be exact fruits("banana")can have multiple responses
-
-how_much <- function(x = list(too_few = 0:2, ok = 3:5, too_many = 6:10)) {
-match_param(x)
-}
-
-how_much(1) how_much(3) how_much(9)
 }
