@@ -48,7 +48,17 @@
 <h2 class="pkg-version" data-toc-text="development version" id="mark-development-version">mark (development version)<a class="anchor" aria-label="anchor" href="#mark-development-version"></a></h2>
 <div class="section level3">
 <h3 id="new-features-development-version">New features<a class="anchor" aria-label="anchor" href="#new-features-development-version"></a></h3>
+<ul><li>new functions for detecting <em>blank</em> values in a vector or <code>data.frame</code>. <em>Blank</em> values are those which do not contain any text (controls for <code>NA</code>) or are entirely white space.
 <ul><li>
+<code><a href="../reference/blank_values.html">is_blank()</a></code> for detecting <em>blank</em> values in a vector</li>
+<li>
+<code><a href="../reference/blank_values.html">is_blank_cols()</a></code> for detecting <em>blank</em> columns</li>
+<li>
+<code><a href="../reference/blank_values.html">select_blank_cols()</a></code> for selecting <em>blank</em> columns</li>
+<li>
+<code><a href="../reference/blank_values.html">remove_blank_cols()</a></code> for removing <em>blank</em> columns</li>
+</ul></li>
+<li>
 <code><a href="../reference/match_param.html">match_param()</a></code> now accepts a named listed for alias matching <a href="https://github.com/jmbarbone/mark/issues/104" class="external-link">#104</a>
 </li>
 <li>
