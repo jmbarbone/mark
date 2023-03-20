@@ -14,15 +14,15 @@ remove_na_cols(x)
 is_na_cols(x, names = TRUE)
 }
 \arguments{
-\item{x}{A data.frame}
+\item{x}{A \code{data.frame}}
 
 \item{names}{Logical, if \code{TRUE} (default) will return column names as names
 of vector}
 }
 \value{
 \itemize{
-\item \code{select_na_cols()} the data.frame with only columns that are all \code{NA}
-\item \code{remove_na_cols()} the data.frame without columns of only \code{NA}
+\item \code{select_na_cols()} \code{x} with only columns that are all \code{NA}
+\item \code{remove_na_cols()} \code{x} without columns of only \code{NA}
 \item \code{is_na_cols()} a logical vector: \code{TRUE} all rows of column are \code{NA},
 otherwise \code{FALSE}
 }
