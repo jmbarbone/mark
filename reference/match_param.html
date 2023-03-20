@@ -92,15 +92,35 @@ character) for when matched to the value within the list element</p></dd>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="match_arg.html">match_arg()</a></code>
-fruits &lt;- function(x = c("apple", "banana", "orange")) 
-match_param(x)</p>
-<p>fruits()         # apple try(fruits("b")) # must be exact fruits("banana")can have multiple responses</p>
-<p>how_much &lt;- function(x = list(too_few = 0:2, ok = 3:5, too_many = 6:10)) 
-match_param(x)</p>
-<p>how_much(1) how_much(3) how_much(9)</p></div>
+    <div class="dont-index"><p><code><a href="match_arg.html">match_arg()</a></code></p></div>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">fruits</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"apple"</span>, <span class="st">"banana"</span>, <span class="st">"orange"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="fu">match_param</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">fruits</span><span class="op">(</span><span class="op">)</span>         <span class="co"># apple</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "apple"</span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="fu">fruits</span><span class="op">(</span><span class="st">"b"</span><span class="op">)</span><span class="op">)</span> <span class="co"># must be exact fruits("banana")</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Error : &lt;matchParamMatchError&gt; `match_param(x)` failed in `fruits("b")`:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   `x` [b] must be one of the following: "apple", "banana", "orange"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> package:mark</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># can have multiple responses</span></span></span>
+<span class="r-in"><span><span class="va">how_much</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>too_few <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">2</span>, ok <span class="op">=</span> <span class="fl">3</span><span class="op">:</span><span class="fl">5</span>, too_many <span class="op">=</span> <span class="fl">6</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="fu">match_param</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">how_much</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "too_few"</span>
+<span class="r-in"><span><span class="fu">how_much</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "ok"</span>
+<span class="r-in"><span><span class="fu">how_much</span><span class="op">(</span><span class="fl">9</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "too_many"</span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
 
