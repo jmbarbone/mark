@@ -30,7 +30,7 @@ test_that("switch_in_case() works as expected", {
 
   x <- c("a", "b", "d", "e", "g", "j")
   res <- switch_in_case(x, letters[1:3] ~ "a", letters[5:6] ~ "e")
-  exp <- set_names(c("a", "a", NA, "e", NA, NA), x)
+  exp <- set_names(c("a", "a", "NA", "e", "NA", "NA"), x)
   expect_equal(res, exp)
 
   # handles functions
@@ -54,7 +54,7 @@ test_that("switch_in_case() handles evaluations", {
     c(22, 24, 26) ~ "c",
     30:Inf ~ "d"
   )
-  exp_res <- set_names(c("a", "a", "b", "b", NA, "d", "d", "d", "d", "d"), x)
+  exp_res <- set_names(c("a", "a", "b", "b", "NA", "d", "d", "d", "d", "d"), x)
   expect_equal(res, exp_res)
 
   ne <- new.env()
