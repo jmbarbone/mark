@@ -171,6 +171,7 @@ switch_in_case <- function(x, ..., .default = NULL, .envir = parent.frame()) {
 
   res <- lapply(x, do_switches)
   stopifnot(lengths(res) == 1L)
+  res <- unlist(res)
   mode(res) <- mode(res[[1]])
   class(res) <- class(res[[1]])
   names(res) <- x
