@@ -22,6 +22,9 @@
 * package description in help files corrected [#165](https://github.com/jmbarbone/mark/issues/165)
 * GitHub pages updated with latest `{pkgdown}` action [#175](https://github.com/jmbarbone/mark/issues/165)
 * Update to GitHub R-CMD-check action [178](https://github.com/jmbarbone/mark/issues/151)
+* Update to GitHub R-CMD-check action [#178](https://github.com/jmbarbone/mark/issues/151)
+* `switch_in_case()` handles `NA`s better [#183](https://github.com/jmbarbone/mark/issues/183)
+* internal `switch` tests updated for `{waldo}` development [#182](https://github.com/jmbarbone/mark/pulls/182) thanks, `@hadley`
 
 # mark 0.5.3
 
