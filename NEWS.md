@@ -20,9 +20,8 @@
 * `date_from_partial()` works again [#155](https://github.com/jmbarbone/mark/issues/155) after fixing an issue with an internal utility `is_valid_date_string()` that wasn't recognizing `%Y-%m-%d` (and potentially others)
 * `lintr` GitHub action updated [#173](https://github.com/jmbarbone/mark/issues/173); this includes plenty of internal improvements and code cleanup
 * package description in help files corrected [#165](https://github.com/jmbarbone/mark/issues/165)
-* GitHub pages updated with latest `{pkgdown}` action [#175](https://github.com/jmbarbone/mark/issues/165)
-* Update to GitHub R-CMD-check action [178](https://github.com/jmbarbone/mark/issues/151)
-* Update to GitHub R-CMD-check action [#178](https://github.com/jmbarbone/mark/issues/151)
+* GitHub pages updated with latest `{pkgdown}` action [#175](https://github.com/jmbarbone/mark/issues/175)
+* Update to GitHub R-CMD-check action [#178](https://github.com/jmbarbone/mark/issues/178)
 * `switch_in_case()` handles `NA`s better [#183](https://github.com/jmbarbone/mark/issues/183)
 * internal `switch` tests updated for `{waldo}` development [#182](https://github.com/jmbarbone/mark/pulls/182) thanks, `@hadley`
 
