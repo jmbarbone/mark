@@ -123,7 +123,7 @@ tibble::as_tibble(bib)
 #> 11 proceedings  proc… <NA>   The … <NA>    1993  <NA>   <NA>  7     An o… 4     
 #> 12 techreport   tech… Peter… The … <NA>    1993  2      <NA>  7     An o… <NA>  
 #> 13 unpublished  unpu… Peter… The … <NA>    1993  <NA>   <NA>  7     An o… <NA>  
-#> # … with 12 more variables: publisher <chr>, series <chr>, address <chr>,
+#> # ℹ 12 more variables: publisher <chr>, series <chr>, address <chr>,
 #> #   edition <chr>, isbn <chr>, howpublished <chr>, booktitle <chr>,
 #> #   editor <chr>, organization <chr>, chapter <chr>, school <chr>,
 #> #   institution <chr>
