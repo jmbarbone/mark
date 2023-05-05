@@ -265,7 +265,10 @@ cond_vector2df_show_na <- function() {
 }
 
 cond_list2df_show_na <- function() {
-  new_condition("`show_NA` is no longer in use", "list2df_show_na")
+  new_condition(
+    "`show_NA` is no longer in use", "list2df_show_na",
+    type = "warning"
+  )
 }
 
 cond_list2df_classes <- function(x) {

@@ -69,7 +69,7 @@ test_that("list2df()", {
   expect_named(list2df(x, "hello", "world"), c("hello", "world"))
   expect_warning(
     list2df(x, show_NA = NULL),
-    class = "list2dfShowNaError"
+    class = "list2dfShowNaWarning"
   )
 
   # Unnamed
