@@ -24,6 +24,7 @@
 * Update to GitHub R-CMD-check action [#178](https://github.com/jmbarbone/mark/issues/178)
 * `switch_in_case()` handles `NA`s better [#183](https://github.com/jmbarbone/mark/issues/183)
 * internal `switch` tests updated for `{waldo}` development [#182](https://github.com/jmbarbone/mark/pulls/182) thanks, `@hadley`
+* methods for `write_clipboard()` are now displayed in documentation [#186](https://github.com/jmbarbone/mark/issues/182)
 
 # mark 0.5.3
 
