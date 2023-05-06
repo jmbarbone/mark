@@ -53,6 +53,18 @@
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">write_clipboard</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
+<span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">write_clipboard</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for data.frame</span></span>
+<span><span class="fu">write_clipboard</span><span class="op">(</span><span class="va">x</span>, sep <span class="op">=</span> <span class="st">"\t"</span>, row.names <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for matrix</span></span>
+<span><span class="fu">write_clipboard</span><span class="op">(</span><span class="va">x</span>, sep <span class="op">=</span> <span class="st">"\t"</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for list</span></span>
+<span><span class="fu">write_clipboard</span><span class="op">(</span><span class="va">x</span>, sep <span class="op">=</span> <span class="st">"\t"</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
 <span><span class="fu">read_clipboard</span><span class="op">(</span>method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"default"</span>, <span class="st">"data.frame"</span>, <span class="st">"tibble"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -63,7 +75,18 @@
 
 
 <dt>...</dt>
-<dd><p>Additional arguments sent to methods</p></dd>
+<dd><p>Additional arguments sent to methods or to <code><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">utils::write.table()</a></code></p></dd>
+
+
+<dt>sep</dt>
+<dd><p>the field separator string.  Values within each row of
+    <code>x</code> are separated by this string.</p></dd>
+
+
+<dt>row.names</dt>
+<dd><p>either a logical value indicating whether the row
+    names of <code>x</code> are to be written along with <code>x</code>, or a
+    character vector of row names to be written.</p></dd>
 
 
 <dt>method</dt>
@@ -74,18 +97,20 @@
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p><code>write_clipboard()</code> None, called for side effects
-<code>read_clipboard()</code> Either a vector, <code>data.frame</code>, or <code>tibble</code> depending on
-the <code>method</code> chosen.  Unlike <code><a href="https://rdrr.io/r/utils/clipboard.html" class="external-link">utils::readClipboard()</a></code>, an empty clipboard
-value returns <code>NA</code> rather than <code>""</code></p>
+<p><code>write_clipboard()</code> None, called for side effects <code>read_clipboard()</code></p>
+
+
+<p>Either a vector, <code>data.frame</code>, or <code>tibble</code> depending on the <code>method</code> chosen.
+Unlike <code><a href="https://rdrr.io/r/utils/clipboard.html" class="external-link">utils::readClipboard()</a></code>, an empty clipboard value returns <code>NA</code> rather
+than <code>""</code></p>
 
 
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>As these functions rely on <code><a href="https://rdrr.io/r/utils/clipboard.html" class="external-link">utils::readClipboard()</a></code> and
-<code><a href="https://rdrr.io/r/utils/clipboard.html" class="external-link">utils::writeClipboard</a></code> they are only available for Windows 10.
-For copying and pasting floats, there may be some rounding that can occur.</p>
+<code><a href="https://rdrr.io/r/utils/clipboard.html" class="external-link">utils::writeClipboard()</a></code> they are only available for Windows 10. For copying
+and pasting floats, there may be some rounding that can occur.</p>
     </div>
 
     <div class="section level2">
