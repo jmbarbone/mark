@@ -2,20 +2,18 @@
 #'
 #' Wrappers for working with the clipboard
 #'
-#' @details
-#' As these functions rely on `utils::readClipboard()` and
-#'   `utils::writeClipboard` they are only available for Windows 10.
-#' For copying and pasting floats, there may be some rounding that can occur.
+#' @details As these functions rely on [utils::readClipboard()] and
+#' [utils::writeClipboard()] they are only available for Windows 10. For copying
+#' and pasting floats, there may be some rounding that can occur.
 #'
 #' @param x An object
 #' @param method Method switch for loading the clipboard
-#' @param ... Additional arguments sent to methods
+#' @param ... Additional arguments sent to methods or to [utils::write.table()]
 #'
-#' @return
-#' `write_clipboard()` None, called for side effects
-#' `read_clipboard()` Either a vector, `data.frame`, or `tibble` depending on
-#'   the `method` chosen.  Unlike [utils::readClipboard()], an empty clipboard
-#'   value returns `NA` rather than `""`
+#' @return `write_clipboard()` None, called for side effects `read_clipboard()`
+#' Either a vector, `data.frame`, or `tibble` depending on the `method` chosen.
+#' Unlike [utils::readClipboard()], an empty clipboard value returns `NA` rather
+#' than `""`
 #'
 #' @name clipboard
 #' @examples
@@ -51,29 +49,34 @@ write_clipboard <- function(x, ...) {
 }
 
 #' @export
+#' @rdname clipboard
 write_clipboard.default <- function(x, ...) {
   utils::writeClipboard(str = as.character(x), format = 1L)
 }
 
 #' @export
-write_clipboard.data.frame <- function(x, sep = "\t", ...) {
+#' @rdname clipboard
+#' @inheritParams utils::write.table
+write_clipboard.data.frame <- function(x, sep = "\t", row.names = FALSE, ...) { # nolint: object_name_linter, line_length_linter.
   utils::write.table(
     x,
     file = "clipboard-128",
     sep = sep,
-    row.names = FALSE,
+    row.names = row.names,
     ...
   )
 }
 
 #' @export
+#' @rdname clipboard
 write_clipboard.matrix <- function(x, sep = "\t", ...) {
   write_clipboard.data.frame(x, sep = sep, ...)
 }
 
 #' @export
-write_clipboard.list <- function(x, sep = "\t", show_NA = FALSE, ...) { # nolint: object_name_linter, line_length_linter..
-  ls <- list2df(x, show_NA = show_NA)
+#' @rdname clipboard
+write_clipboard.list <- function(x, sep = "\t", ...) {
+  ls <- list2df(x)
   write_clipboard(ls, sep = "\t", ...)
 }
 
