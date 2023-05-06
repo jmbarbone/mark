@@ -57,7 +57,7 @@ write_clipboard.default <- function(x, ...) {
 #' @export
 #' @rdname clipboard
 #' @inheritParams utils::write.table
-write_clipboard.data.frame <- function(x, sep = "\t", row.names = FALSE, ...) {
+write_clipboard.data.frame <- function(x, sep = "\t", row.names = FALSE, ...) { # nolint: object_name_linter, line_length_linter.
   utils::write.table(
     x,
     file = "clipboard-128",
