@@ -8,14 +8,16 @@
 todos(
   pattern = NULL,
   path = ".",
-  force = getOption("mark.todos.force", FALSE),
+  force = getOption("mark.todos.force"),
+  ext = getOption("mark.todos.ext"),
   ...
 )
 
 fixmes(
   pattern = NULL,
   path = ".",
-  force = getOption("mark.todos.force", FALSE),
+  force = getOption("mark.todos.force"),
+  ext = getOption("mark.todos.ext"),
   ...
 )
 }
@@ -29,6 +31,8 @@ for comments after tags; default \code{NULL} does not filter}
 not contain an \code{.Rproj} file.  This can be controlled with the option
 \code{mark.todos.force}}
 
+\item{ext}{A vector of file extensions to search for todos.}
+
 \item{...}{Additional parameters passed to \code{grep} (Except for \code{pattern}, \code{x},
 and \code{value})}
 }
@@ -40,6 +44,13 @@ number, file name, and TODO comment.
 Search for \verb{#`` TODO} tags
 }
 \details{
-Calls \verb{git grep -in "[#] TODO"} to find any lines of a \code{.R} or \code{.Rmd} file
-with a comment.
+Searches for \code{TODO} comments in files.  Extensions with \code{md}, \code{Rmd},
+and \code{qmd} specifically search for a \verb{<-- TODO * -->} string, whereas
+everything else is found with \verb{# TODO}.
+}
+\examples{
+file <- system.file("tests/testthat/scripts/todos.R", package = "mark")
+todos(path = file)
+todos("example", path = file)
+fixmes(path = file)
 }
