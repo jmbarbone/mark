@@ -9,24 +9,40 @@
 #' @param pattern A character string containing a regular expression to filter
 #'  for comments after tags; default `NULL` does not filter
 #' @param path The file directory to search for the tags
-#' @param ... Additional parameters passed to `grep` (Except for `pattern`, `x`,
-#'   and `value`)
 #' @param force If `TRUE` will force searching for files in directories that do
 #'   not contain an `.Rproj` file.  This can be controlled with the option
 #'   `mark.todos.force`
+#' @param ext A vector of file extensions to search for todos.
+#' @param ... Additional parameters passed to `grep` (Except for `pattern`, `x`,
+#'   and `value`)
 #'
 #' @return `NULL` if none are found, otherwise a `data.frame` with the line
 #'   number, file name, and TODO comment.
 #'
-#' @export
+#' @examples
+#' file <- system.file("tests/testthat/scripts/todos.R", package = "mark")
+#' todos(path = file)
+#' todos("example", path = file)
+#' fixmes(path = file)
+NULL
 
+#' @rdname todos
+#' @export
 todos <- function(
     pattern = NULL,
     path = ".",
-    force = getOption("mark.todos.force", FALSE),
+    force = getOption("mark.todos.force"),
+    ext = getOption("mark.todos.ext"),
     ...
 ) {
-  do_todo("todo", pattern = pattern, path = path, force = force, ...)
+  do_todo(
+    "todo",
+    pattern = pattern,
+    path = path,
+    force = force,
+    ext = ext,
+    ...
+  )
 }
 
 #' @rdname todos
@@ -34,15 +50,28 @@ todos <- function(
 fixmes <- function(
     pattern = NULL,
     path = ".",
-    force = getOption("mark.todos.force", FALSE),
+    force = getOption("mark.todos.force"),
+    ext = getOption("mark.todos.ext"),
     ...
 ) {
-  do_todo("fixme", pattern = pattern, path = path, force = force, ...)
+  do_todo(
+    "fixme",
+    pattern = pattern,
+    path = path,
+    force = force,
+    ext = ext,
+    ...
+  )
 }
 
-do_todo <- function(text, pattern = NULL, path = path, force = FALSE, ...) { # nolint: cyclocomp_linter, line_length_linter.
-  # fs::dir_ls() would be a lot quicker but would be a new dependency
-
+do_todo <- function(
+    text,
+    pattern = NULL,
+    path = ".",
+    force = getOption("mark.todos.force"),
+    ext = getOption("mark.todos.ext"),
+    ...
+) { # nolint: cyclocomp_linter.
   if (missing(path) || length(path) != 1 || !is.character(path)) {
     stop(cond_do_todo_path())
   }
@@ -50,7 +79,6 @@ do_todo <- function(text, pattern = NULL, path = path, force = FALSE, ...) { # n
   stopifnot(file.exists(path), length(text) == 1L)
 
   files <- if (is_dir(path)) {
-    # when will path be "" ?  cusing nzchar() instead
     if (
       !has_char(path) ||
       !(force || length(list.files(path, pattern = "\\.Rproj$")))
@@ -61,18 +89,15 @@ do_todo <- function(text, pattern = NULL, path = path, force = FALSE, ...) { # n
 
     list.files(
       path,
-      pattern = "\\.r(md)?$",
       recursive = TRUE,
       ignore.case = TRUE,
       full.names = TRUE
     )
   } else {
-    if (!grepl(path, pattern = "\\.r(md)?$", ignore.case = TRUE)) {
-      stop(cond_do_todo_path_r())
-    }
-
     path
   }
+
+  files <- files[tolower(tools::file_ext(files)) %in% tolower(ext)]
 
   finds <- lapply(
     lapply(files, readLines, warn = FALSE),
@@ -96,9 +121,10 @@ do_todo <- function(text, pattern = NULL, path = path, force = FALSE, ...) { # n
   out <- quick_df(c(
     file = list(rep(names(finds), vap_int(finds, nrow))),
     set_names(as.list(Reduce(rbind, finds)), c("line", text))
-  ))[, c("line", "file", text)]
+  ))
 
-  ind <- grepl("\\.rmd$", out[["file"]], ignore.case = TRUE)
+  out <- out[, c("line", "file", text)]
+  ind <- tolower(tools::file_ext(out[["file"]])) %in% c("md", "qmd", "rmd")
 
   if (any(ind)) {
     # quick fix for Rmd files
