@@ -2,12 +2,12 @@
 #'
 #' Search for `#`` TODO` tags
 #'
-#' @details
-#' Calls `git grep -in "[#] TODO"` to find any lines of a `.R` or `.Rmd` file
-#'   with a comment.
+#' @details Searches for `TODO` comments in files.  Extensions with `md`, `Rmd`,
+#'   and `qmd` specifically search for a `<-- TODO * -->` string, whereas
+#'   everything else is found with `# TODO`.
 #'
 #' @param pattern A character string containing a regular expression to filter
-#'  for comments after tags; default `NULL` does not filter
+#'   for comments after tags; default `NULL` does not filter
 #' @param path The file directory to search for the tags
 #' @param force If `TRUE` will force searching for files in directories that do
 #'   not contain an `.Rproj` file.  This can be controlled with the option
@@ -24,6 +24,7 @@
 #' todos(path = file)
 #' todos("example", path = file)
 #' fixmes(path = file)
+#' @name todos
 NULL
 
 #' @rdname todos
