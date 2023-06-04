@@ -48,7 +48,7 @@ todos <- function(
     path = ".",
     force = getOption("mark.todos.force"),
     ext = getOption("mark.todos.ext"),
-    ignore = ignore,
+    ignore = NULL,
     ...
 ) {
   do_todo(
@@ -125,6 +125,7 @@ do_todo <- function(
       params$pattern <- ignore
       params$x <- files
       params$invert <- TRUE
+      params$value <- TRUE
       files <- do.call(grep, params)
     }
   } else {
@@ -173,8 +174,8 @@ do_todo <- function(
     params <- ls
     params$pattern <- pattern
     params$x <- out[[text]]
-    params$value <- value
-    out <- out[do.call(grep, params), ]
+    params$value <- FALSE
+    out <- out[do.call(grep, params), , drop = FALSE]
     attr(out, "row.names") <- seq_along(attr(out, "row.names")) # nolint: object_name_linter, line_length_linter.
   }
 
