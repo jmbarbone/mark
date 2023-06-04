@@ -10,6 +10,7 @@ todos(
   path = ".",
   force = getOption("mark.todos.force"),
   ext = getOption("mark.todos.ext"),
+  ignore = ignore,
   ...
 )
 
@@ -18,6 +19,7 @@ fixmes(
   path = ".",
   force = getOption("mark.todos.force"),
   ext = getOption("mark.todos.ext"),
+  ignore = NULL,
   ...
 )
 }
@@ -25,13 +27,18 @@ fixmes(
 \item{pattern}{A character string containing a regular expression to filter
 for comments after tags; default \code{NULL} does not filter}
 
-\item{path}{The file directory to search for the tags}
+\item{path}{Where to search for the todos.  If this is a directory, paths
+matching the \code{ext} will be included.  If a file, \code{ext} is ignored.}
 
 \item{force}{If \code{TRUE} will force searching for files in directories that do
 not contain an \code{.Rproj} file.  This can be controlled with the option
 \code{mark.todos.force}}
 
-\item{ext}{A vector of file extensions to search for todos.}
+\item{ext}{A vector of file extensions to search for todos.  Ignored when
+\code{path} is not a directory or when \code{NULL}.}
+
+\item{ignore}{A regular expression for files to ignore.  Ignored if \code{path} is
+not a directory or when \code{NULL}.}
 
 \item{...}{Additional parameters passed to \code{grep} (Except for \code{pattern}, \code{x},
 and \code{value})}
@@ -49,8 +56,18 @@ and \code{qmd} specifically search for a \verb{<-- TODO * -->} string, whereas
 everything else is found with \verb{# TODO}.
 }
 \examples{
-file <- system.file("tests/testthat/scripts/todos.R", package = "mark")
+\dontrun{
+file <- tempfile()
+writeLines(c(
+  "# TODO make x longer",
+  "x <- 1:10",
+  "length(x)",
+  "# TODO add another example",
+  "# FIXME This is a fixme"
+  ), file)
 todos(path = file)
 todos("example", path = file)
 fixmes(path = file)
+file.remove(file)
+}
 }
