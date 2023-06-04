@@ -8,11 +8,15 @@
 #'
 #' @param pattern A character string containing a regular expression to filter
 #'   for comments after tags; default `NULL` does not filter
-#' @param path The file directory to search for the tags
+#' @param path Where to search for the todos.  If this is a directory, paths
+#'   matching the `ext` will be included.  If a file, `ext` is ignored.
 #' @param force If `TRUE` will force searching for files in directories that do
 #'   not contain an `.Rproj` file.  This can be controlled with the option
 #'   `mark.todos.force`
-#' @param ext A vector of file extensions to search for todos.
+#' @param ext A vector of file extensions to search for todos.  Ignored when
+#'   `path` is not a directory or when `NULL`.
+#' @param ignore A regular expression for files to ignore.  Ignored if `path` is
+#'   not a directory or when `NULL`.
 #' @param ... Additional parameters passed to `grep` (Except for `pattern`, `x`,
 #'   and `value`)
 #'
@@ -20,10 +24,20 @@
 #'   number, file name, and TODO comment.
 #'
 #' @examples
-#' file <- system.file("tests/testthat/scripts/todos.R", package = "mark")
+#' \dontrun{
+#' file <- tempfile()
+#' writeLines(c(
+#'   "# TODO make x longer",
+#'   "x <- 1:10",
+#'   "length(x)",
+#'   "# TODO add another example",
+#'   "# FIXME This is a fixme"
+#'   ), file)
 #' todos(path = file)
 #' todos("example", path = file)
 #' fixmes(path = file)
+#' file.remove(file)
+#' }
 #' @name todos
 NULL
 
@@ -34,6 +48,7 @@ todos <- function(
     path = ".",
     force = getOption("mark.todos.force"),
     ext = getOption("mark.todos.ext"),
+    ignore = ignore,
     ...
 ) {
   do_todo(
@@ -42,6 +57,7 @@ todos <- function(
     path = path,
     force = force,
     ext = ext,
+    ignore = ignore,
     ...
   )
 }
@@ -53,6 +69,7 @@ fixmes <- function(
     path = ".",
     force = getOption("mark.todos.force"),
     ext = getOption("mark.todos.ext"),
+    ignore = NULL,
     ...
 ) {
   do_todo(
@@ -61,6 +78,7 @@ fixmes <- function(
     path = path,
     force = force,
     ext = ext,
+    ignore = ignore,
     ...
   )
 }
@@ -71,6 +89,7 @@ do_todo <- function(
     path = ".",
     force = getOption("mark.todos.force"),
     ext = getOption("mark.todos.ext"),
+    ignore = NULL,
     ...
 ) { # nolint: cyclocomp_linter.
   if (missing(path) || length(path) != 1 || !is.character(path)) {
@@ -79,7 +98,9 @@ do_todo <- function(
 
   stopifnot(file.exists(path), length(text) == 1L)
 
-  files <- if (is_dir(path)) {
+  ls <- list(...)
+
+  if (is_dir(path)) {
     if (
       !has_char(path) ||
       !(force || length(list.files(path, pattern = "\\.Rproj$")))
@@ -88,17 +109,27 @@ do_todo <- function(
       return(invisible(NULL))
     }
 
-    list.files(
+    files <- list.files(
       path,
       recursive = TRUE,
       ignore.case = TRUE,
       full.names = TRUE
     )
-  } else {
-    path
-  }
 
-  files <- files[tolower(tools::file_ext(files)) %in% tolower(ext)]
+    if (!is.null(ext)) {
+      files <- files[tolower(tools::file_ext(files)) %in% tolower(ext)]
+    }
+
+    if (!is.null(ignore)) {
+      params <- ls
+      params$pattern <- ignore
+      params$x <- files
+      params$invert <- TRUE
+      files <- do.call(grep, params)
+    }
+  } else {
+    files <- path
+  }
 
   finds <- lapply(
     lapply(files, readLines, warn = FALSE),
@@ -139,7 +170,11 @@ do_todo <- function(
   )
 
   if (!is.null(pattern)) {
-    out <- out[grep(pattern, out[[text]], value = FALSE, ...), ]
+    params <- ls
+    params$pattern <- pattern
+    params$x <- out[[text]]
+    params$value <- value
+    out <- out[do.call(grep, params), ]
     attr(out, "row.names") <- seq_along(attr(out, "row.names")) # nolint: object_name_linter, line_length_linter.
   }
 
