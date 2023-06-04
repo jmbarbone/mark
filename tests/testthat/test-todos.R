@@ -50,7 +50,15 @@ test_that("todos() works", {
   expect_identical(res, exp)
 })
 
-test_that("todo() errors and messages", {
+test_that("todos() ignores files", {
+  path <- test_path("scripts")
+  expect_message(
+    todos(path = path, ignore = "todo", force = TRUE),
+    "No todos found"
+  )
+})
+
+test_that("todos() errors and messages", {
   withr::local_options(list(mark.todos.force = TRUE))
 
   path <- test_path("scripts")

@@ -1,5 +1,9 @@
 # mark (development version)
 
+* improvements in `todos()` and `fixmes()`
+  * File extension an now be set [#170](https://github.com/jmbarbone/mark/issues/170), which by default includes `qmd` ([#163]((https://github.com/jmbarbone/mark/issues/104))) and `py` files
+  * new parameter `ignore` to ignore any files
+
 # mark 0.6.0
 
 ## New features
