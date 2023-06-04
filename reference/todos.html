@@ -41,7 +41,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Get TODOs</h1>
-      <small class="dont-index">Source: <a href="https://github.com/jmbarbone/mark/blob/HEAD/R/todo.R" class="external-link"><code>R/todo.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/jmbarbone/mark/blob/HEAD/R/todos.R" class="external-link"><code>R/todos.R</code></a></small>
       <div class="d-none name"><code>todos.Rd</code></div>
     </div>
 
@@ -54,14 +54,18 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">todos</span><span class="op">(</span></span>
 <span>  pattern <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  path <span class="op">=</span> <span class="st">"."</span>,</span>
-<span>  force <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"mark.todos.force"</span>, <span class="cn">FALSE</span><span class="op">)</span>,</span>
+<span>  force <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"mark.todos.force"</span><span class="op">)</span>,</span>
+<span>  ext <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"mark.todos.ext"</span><span class="op">)</span>,</span>
+<span>  ignore <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">fixmes</span><span class="op">(</span></span>
 <span>  pattern <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  path <span class="op">=</span> <span class="st">"."</span>,</span>
-<span>  force <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"mark.todos.force"</span>, <span class="cn">FALSE</span><span class="op">)</span>,</span>
+<span>  force <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"mark.todos.force"</span><span class="op">)</span>,</span>
+<span>  ext <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"mark.todos.ext"</span><span class="op">)</span>,</span>
+<span>  ignore <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -74,13 +78,24 @@ for comments after tags; default <code>NULL</code> does not filter</p></dd>
 
 
 <dt>path</dt>
-<dd><p>The file directory to search for the tags</p></dd>
+<dd><p>Where to search for the todos.  If this is a directory, paths
+matching the <code>ext</code> will be included.  If a file, <code>ext</code> is ignored.</p></dd>
 
 
 <dt>force</dt>
 <dd><p>If <code>TRUE</code> will force searching for files in directories that do
 not contain an <code>.Rproj</code> file.  This can be controlled with the option
 <code>mark.todos.force</code></p></dd>
+
+
+<dt>ext</dt>
+<dd><p>A vector of file extensions to search for todos.  Ignored when
+<code>path</code> is not a directory or when <code>NULL</code>.</p></dd>
+
+
+<dt>ignore</dt>
+<dd><p>A regular expression for files to ignore.  Ignored if <code>path</code> is
+not a directory or when <code>NULL</code>.</p></dd>
 
 
 <dt>...</dt>
@@ -97,10 +112,29 @@ number, file name, and TODO comment.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Calls <code>git grep -in "[#] TODO"</code> to find any lines of a <code>.R</code> or <code>.Rmd</code> file
-with a comment.</p>
+    <p>Searches for <code>TODO</code> comments in files.  Extensions with <code>md</code>, <code>Rmd</code>,
+and <code>qmd</code> specifically search for a <code>&lt;-- TODO * --&gt;</code> string, whereas
+everything else is found with <code># TODO</code>.</p>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html" class="external-link">writeLines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="st">"# TODO make x longer"</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"x &lt;- 1:10"</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"length(x)"</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"# TODO add another example"</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"# FIXME This is a fixme"</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span>, <span class="va">file</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">todos</span><span class="op">(</span>path <span class="op">=</span> <span class="va">file</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">todos</span><span class="op">(</span><span class="st">"example"</span>, path <span class="op">=</span> <span class="va">file</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">fixmes</span><span class="op">(</span>path <span class="op">=</span> <span class="va">file</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.remove</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
 
