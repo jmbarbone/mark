@@ -1,4 +1,4 @@
-# todo() errors and messages
+# todos() errors and messages
 
     Code
       todos(path = path)
