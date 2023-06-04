@@ -83,7 +83,7 @@ fixmes <- function(
   )
 }
 
-do_todo <- function(
+do_todo <- function( # nolint: cyclocomp_linter.
     text,
     pattern = NULL,
     path = ".",
@@ -91,7 +91,7 @@ do_todo <- function(
     ext = getOption("mark.todos.ext"),
     ignore = NULL,
     ...
-) { # nolint: cyclocomp_linter.
+) {
   if (missing(path) || length(path) != 1 || !is.character(path)) {
     stop(cond_do_todo_path())
   }
