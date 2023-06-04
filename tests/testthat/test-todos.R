@@ -53,7 +53,7 @@ test_that("todos() works", {
 test_that("todos() ignores files", {
   path <- test_path("scripts")
   expect_message(
-    todos(path = path, ignore = "todo"),
+    todos(path = path, ignore = "todo", force = TRUE),
     "No todos found"
   )
 })
