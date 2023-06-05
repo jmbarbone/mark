@@ -31,7 +31,7 @@ ksource <- function(file, ..., quiet = TRUE, cd = FALSE, env = parent.frame()) {
   require_namespace("knitr")
   stopifnot(is.environment(env))
   o <- mark_temp("R")
-  on.exit(file.remove(o), add = TRUE)
+  on.exit(fs::file_delete(o), add = TRUE)
   source(knitr::purl(file, output = o, quiet = quiet), chdir = cd, local = env)
 }
 
@@ -136,7 +136,7 @@ eval_named_chunk <- function(rmd_file, label_name) {
 #' @name source_files
 
 source_r_dir <- function(dir, echo = FALSE, quiet = FALSE, ...) {
-  files <- list.files(dir, pattern = "\\.[rR]$", full.names = TRUE)
+  files <- fs::dir_ls(dir, regexp = "\\.[rR]$")
   invisible(lapply(sort(files), source_r_file, q = quiet, ...))
 }
 

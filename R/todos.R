@@ -103,18 +103,13 @@ do_todo <- function( # nolint: cyclocomp_linter.
   if (is_dir(path)) {
     if (
       !has_char(path) ||
-      !(force || length(list.files(path, pattern = "\\.Rproj$")))
+      !(force || length(fs::dir_ls(path, regexp = "\\.Rproj$")))
     ) {
       message("Did not search for TODOS in ", norm_path(path))
       return(invisible(NULL))
     }
 
-    files <- list.files(
-      path,
-      recursive = TRUE,
-      ignore.case = TRUE,
-      full.names = TRUE
-    )
+    files <- fs::dir_ls(path, recurse = TRUE, ignore.case = TRUE)
 
     if (!is.null(ext)) {
       files <- files[tolower(tools::file_ext(files)) %in% tolower(ext)]
