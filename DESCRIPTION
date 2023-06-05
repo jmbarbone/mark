@@ -20,6 +20,7 @@ LazyData: true
 Depends:
     R (>= 3.6)
 Imports:
+    fs (>= 1.6.2),
     fuj (>= 0.1.1),
     magrittr (>= 2.0.1),
     stats (>= 3.6),
