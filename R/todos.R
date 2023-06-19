@@ -190,45 +190,18 @@ do_todo <- function( # nolint: cyclocomp_linter.
 #' @export
 print.todos_df <- function(x, ...) {
   # TODO Add a limit for number of TODOs to show?
-  type <- attr(x, "todos_type")
+  cat0(sprintf("Found %d %s:\n", nrow(x), toupper(attr(x, "todos_type"))))
 
-  n <- max(nchar(x[["line"]]), 0)
-  w <- getOption("width") - n - 3 # 4??
-  pad <- collapse0(rep(" ", n + 3))
-  pat <- sprintf("[%%%i.i]", n)
-
-  splits <- split(x, x[["file"]])
-  nm <- names(splits)
-
-  cat0(sprintf("Found %d %s:\n", nrow(x), toupper(type)))
-
-  for (i in seq_along(splits)) {
-    # TODO can I preserve white space?
-    cli::cli_text(sprintf("%s{.file %s}", pad, nm[i]))
-
-    for (j in seq_along(splits[[i]]$todo)) {
-      info <- splits[[i]]
-      text <-
-        if (nchar(info$todo[j])) {
-          collapse0(
-            substr(info$todo[j], 1, max(1, w - 6)),
-            " [...]"
-          )
-        } else {
-          info$todo[j]
-        }
-
-      cli::cli_text(sprintf(
-        "{.href [%s](file://%s#%i)} %s",
-        sprintf(pat, info$line[j]),
-        info$file[j],
-        info$line[j],
-        text
-      ))
-    }
+  for (i in seq_len(nrow(x))) {
+    cli::cli_text(sprintf(
+      "{.file %s#%i} %s",
+      x$file[i],
+      x$line[i],
+      x$todo[i]
+    ))
   }
 
-  invisible(x)
+  return(invisible(x))
 }
 
 # conditions --------------------------------------------------------------
