@@ -202,25 +202,56 @@ print.todos_df <- function(x, ...) {
 
   cat0(sprintf("Found %d %s:\n", nrow(x), toupper(type)))
 
+  if (package_available("cli")) {
+    cli_file <- function(x)  {
+      cli::cli_text(sprintf("%s{.file %s}", pad, x))
+    }
+
+    cli_line <- function(file, line) {
+      line <- as.integer(line)
+      cli::cli_text(sprintf(
+        "{.href [%s](file://%s#%i)}",
+        sprintf(pat, line),
+        file,
+        line
+      ))
+    }
+  } else {
+    cli_file <- function(file) {
+      collapse0(pad, crayon_blue(file))
+    }
+
+    cli_line <- function(file, line) {
+      line <- as.integer(line)
+      crayon_blue(sprintf(pat, line))
+    }
+  }
+
   for (i in seq_along(splits)) {
-    catln(
-      collapse0(pad, crayon_blue(nm[i])),
-      apply(
-        splits[[i]][, c("line", type)],
-        1,
-        function(xi) {
-          paste(
-            crayon_blue(sprintf(pat, as.integer(xi[1]))),
-            if (nchar(xi[2]) > w) {
-              # TODO consider wrapping with respect to the line number?
-              collapse0(substr(xi[2], 1, max(1, w - 6)), " [...]")
-            } else {
-              xi[2]
-            }
+    # print the file
+    # print the line
+    cli_file(nm[i])
+
+    for (j in seq_along(splits[[i]]$todo)) {
+      info <- splits[[i]]
+      text <-
+        if (nchar(info$todo[j])) {
+          collapse0(
+            substr(info$todo[j], 1, max(1, w - 6)),
+            " [...]"
           )
+        } else {
+          info$todo[j]
         }
-      )
-    )
+
+      cli::cli_text(sprintf(
+        "{.href [%s](file://%s#%i)} %s",
+        sprintf(pat, info$line[j]),
+        info$file[j],
+        info$line[j],
+        text
+      ))
+    }
   }
 
   invisible(x)
