@@ -190,14 +190,15 @@ do_todo <- function( # nolint: cyclocomp_linter.
 #' @export
 print.todos_df <- function(x, ...) {
   # TODO Add a limit for number of TODOs to show?
-  cat0(sprintf("Found %d %s:\n", nrow(x), toupper(attr(x, "todos_type"))))
+  type <- attr(x, "todos_type")
+  catln(sprintf("Found %d %s(s)", nrow(x), toupper(type)))
 
   for (i in seq_len(nrow(x))) {
     cli::cli_text(sprintf(
       "{.file %s#%i} %s",
-      x$file[i],
-      x$line[i],
-      x$todo[i]
+      x[["file"]][i],
+      x[["line"]][i],
+      x[[type]][i]
     ))
   }
 
