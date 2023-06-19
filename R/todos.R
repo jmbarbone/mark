@@ -202,35 +202,9 @@ print.todos_df <- function(x, ...) {
 
   cat0(sprintf("Found %d %s:\n", nrow(x), toupper(type)))
 
-  if (package_available("cli")) {
-    cli_file <- function(x)  {
-      cli::cli_text(sprintf("%s{.file %s}", pad, x))
-    }
-
-    cli_line <- function(file, line) {
-      line <- as.integer(line)
-      cli::cli_text(sprintf(
-        "{.href [%s](file://%s#%i)}",
-        sprintf(pat, line),
-        file,
-        line
-      ))
-    }
-  } else {
-    cli_file <- function(file) {
-      collapse0(pad, crayon_blue(file))
-    }
-
-    cli_line <- function(file, line) {
-      line <- as.integer(line)
-      crayon_blue(sprintf(pat, line))
-    }
-  }
-
   for (i in seq_along(splits)) {
-    # print the file
-    # print the line
-    cli_file(nm[i])
+    # TODO can I preserve white space?
+    cli::cli_text(sprintf("%s{.file %s}", pad, nm[i]))
 
     for (j in seq_along(splits[[i]]$todo)) {
       info <- splits[[i]]
