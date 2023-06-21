@@ -191,18 +191,46 @@ do_todo <- function( # nolint: cyclocomp_linter.
 print.todos_df <- function(x, ...) {
   # TODO Add a limit for number of TODOs to show?
   type <- attr(x, "todos_type")
-  catln(sprintf("Found %d %s(s)", nrow(x), toupper(type)))
+  catln(sprintf("Found %d %s(s):", nrow(x), toupper(type)))
 
-  for (i in seq_len(nrow(x))) {
+  chunks <- split(x, x[["file"]])
+  nms <- names(chunks)
+
+  n <- max(nchar(x$line))
+  pad <- strrep("\u00a0", n + 3L)
+
+  for (i in seq_along(nms)) {
     cli::cli_text(sprintf(
-      "{.file %s#%i} %s",
-      x[["file"]][i],
-      x[["line"]][i],
-      x[[type]][i]
+      "%s{.file %s}",
+      pad,
+      nms[i]
     ))
+
+    for (j in seq_len(nrow(chunks[[i]]))) {
+      cli::cli_text(sprintf(
+        "{.href [%s](file://%s#%i)} %s",
+        format_line_number(chunks[[i]][["line"]][j], width = n),
+        chunks[[i]][["file"]][j],
+        chunks[[i]][["line"]][j],
+        string_dots(chunks[[i]][[3L]][j], getOption("width") - (n + 3L))
+      ))
+    }
   }
 
   return(invisible(x))
+}
+
+format_line_number <- function(x, width = 3) {
+  x <- format(x, width = width)
+  x <- gsub("\\s", "\u00a0", x)
+  x <- sprintf("[%s]", x)
+  crayon_blue(x)
+}
+
+string_dots <- function(x, width = getOption("width")) {
+  long <- nchar(x) > width
+  x[long] <- paste(strtrim(x[long], width - 5), "[...]")
+  x
 }
 
 # conditions --------------------------------------------------------------
