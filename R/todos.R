@@ -156,6 +156,7 @@ do_todo <- function( # nolint: cyclocomp_linter.
     set_names(as.list(Reduce(rbind, finds)), c("line", text))
   ))
 
+  out[["file"]] <- fs::path_rel(out[["file"]], getwd())
   out <- out[, c("line", "file", text)]
   ind <- tolower(tools::file_ext(out[["file"]])) %in% c("md", "qmd", "rmd")
 
