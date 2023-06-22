@@ -156,6 +156,7 @@ do_todo <- function( # nolint: cyclocomp_linter.
     set_names(as.list(Reduce(rbind, finds)), c("line", text))
   ))
 
+  out[["file"]] <- fs::path_rel(out[["file"]], getwd())
   out <- out[, c("line", "file", text)]
   ind <- tolower(tools::file_ext(out[["file"]])) %in% c("md", "qmd", "rmd")
 
@@ -191,39 +192,46 @@ do_todo <- function( # nolint: cyclocomp_linter.
 print.todos_df <- function(x, ...) {
   # TODO Add a limit for number of TODOs to show?
   type <- attr(x, "todos_type")
+  catln(sprintf("Found %d %s(s):", nrow(x), toupper(type)))
 
-  n <- max(nchar(x[["line"]]), 0)
-  w <- getOption("width") - n - 3 # 4??
-  pad <- collapse0(rep(" ", n + 3))
-  pat <- sprintf("[%%%i.i]", n)
+  chunks <- split(x, x[["file"]])
+  nms <- names(chunks)
 
-  splits <- split(x, x[["file"]])
-  nm <- names(splits)
+  n <- max(nchar(x$line))
+  pad <- strrep("\u00a0", n + 3L)
 
-  cat0(sprintf("Found %d %s:\n", nrow(x), toupper(type)))
+  for (i in seq_along(nms)) {
+    cli::cli_text(sprintf(
+      "%s{.file %s}",
+      pad,
+      nms[i]
+    ))
 
-  for (i in seq_along(splits)) {
-    catln(
-      collapse0(pad, crayon_blue(nm[i])),
-      apply(
-        splits[[i]][, c("line", type)],
-        1,
-        function(xi) {
-          paste(
-            crayon_blue(sprintf(pat, as.integer(xi[1]))),
-            if (nchar(xi[2]) > w) {
-              # TODO consider wrapping with respect to the line number?
-              collapse0(substr(xi[2], 1, max(1, w - 6)), " [...]")
-            } else {
-              xi[2]
-            }
-          )
-        }
-      )
-    )
+    for (j in seq_len(nrow(chunks[[i]]))) {
+      cli::cli_text(sprintf(
+        "{.href [%s](file://%s#%i)} %s",
+        format_line_number(chunks[[i]][["line"]][j], width = n),
+        chunks[[i]][["file"]][j],
+        chunks[[i]][["line"]][j],
+        string_dots(chunks[[i]][[3L]][j], getOption("width") - (n + 3L))
+      ))
+    }
   }
 
-  invisible(x)
+  return(invisible(x))
+}
+
+format_line_number <- function(x, width = 3) {
+  x <- format(x, width = width)
+  x <- gsub("\\s", "\u00a0", x)
+  x <- sprintf("[%s]", x)
+  crayon_blue(x)
+}
+
+string_dots <- function(x, width = getOption("width")) {
+  long <- nchar(x) > width
+  x[long] <- paste(strtrim(x[long], width - 5), "[...]")
+  x
 }
 
 # conditions --------------------------------------------------------------
