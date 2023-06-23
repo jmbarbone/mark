@@ -92,7 +92,11 @@ do_todo <- function( # nolint: cyclocomp_linter.
     ignore = NULL,
     ...
 ) {
-  if (missing(path) || length(path) != 1 || !is.character(path)) {
+  if (
+    missing(path) ||
+    length(path) != 1 ||
+    !is.character(path)
+  ) {
     stop(cond_do_todo_path())
   }
 
@@ -103,7 +107,7 @@ do_todo <- function( # nolint: cyclocomp_linter.
   if (is_dir(path)) {
     if (
       !has_char(path) ||
-      !(force || length(list.files(path, pattern = "\\.Rproj$")))
+      !(force || any(tolower(tools::file_ext(list.files(path))) == "rproj"))
     ) {
       message("Did not search for TODOS in ", norm_path(path))
       return(invisible(NULL))
