@@ -139,10 +139,10 @@ do_todo <- function( # nolint: cyclocomp_linter.
   finds <- lapply(
     lapply(files, readLines, warn = FALSE),
     function(x) {
-      ind <- grep(
-        pattern = sprintf("[#]\\s+%s[:]?\\s+", toupper(text)),
-        x = x
-      )
+      x <- iconv(x, to = "UTF-8")
+      Encoding(x) <- "UTF-8"
+      regex <- sprintf("[#]\\s+%s[:]?\\s+", toupper(text))
+      ind <- grep(pattern = regex, x = x)
       quick_dfl(ind = ind, todo = x[ind])
     }
   )
