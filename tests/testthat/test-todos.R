@@ -2,13 +2,13 @@ test_that("todos() works", {
   withr::local_options(list(mark.todos.force = TRUE))
 
   path <- test_path("scripts")
-  file <- test_path("scripts/todos.R")
+  file <- fs::path(test_path("scripts/todos.R"))
 
   res <- todos(path = path)
   exp <- struct(
     list(
       line = c(3L, 7L),
-      file = rep(file, 2),
+      file = fs::path(rep(file, 2)),
       todo = c("make x longer", "add another example")
     ),
     c("todos_df", "data.frame"),

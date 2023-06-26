@@ -92,18 +92,22 @@ do_todo <- function( # nolint: cyclocomp_linter.
     ignore = NULL,
     ...
 ) {
-  if (missing(path) || length(path) != 1 || !is.character(path)) {
+  if (
+    missing(path) ||
+    length(path) != 1 ||
+    !is.character(path)
+  ) {
     stop(cond_do_todo_path())
   }
 
-  stopifnot(file.exists(path), length(text) == 1L)
+  stopifnot(fs::file_exists(path), length(text) == 1L)
 
   ls <- list(...)
 
   if (is_dir(path)) {
     if (
       !has_char(path) ||
-      !(force || length(fs::dir_ls(path, regexp = "\\.Rproj$")))
+      !(force || any(tolower(tools::file_ext(fs::dir_ls(path))) == "rproj"))
     ) {
       message("Did not search for TODOS in ", norm_path(path))
       return(invisible(NULL))
@@ -130,10 +134,10 @@ do_todo <- function( # nolint: cyclocomp_linter.
   finds <- lapply(
     lapply(files, readLines, warn = FALSE),
     function(x) {
-      ind <- grep(
-        pattern = sprintf("[#]\\s+%s[:]?\\s+", toupper(text)),
-        x = x
-      )
+      x <- iconv(x, to = "UTF-8")
+      Encoding(x) <- "UTF-8"
+      regex <- sprintf("[#]\\s+%s[:]?\\s+", toupper(text))
+      ind <- grep(pattern = regex, x = x)
       quick_dfl(ind = ind, todo = x[ind])
     }
   )
@@ -151,6 +155,7 @@ do_todo <- function( # nolint: cyclocomp_linter.
     set_names(as.list(Reduce(rbind, finds)), c("line", text))
   ))
 
+  out[["file"]] <- fs::path_rel(out[["file"]], getwd())
   out <- out[, c("line", "file", text)]
   ind <- tolower(tools::file_ext(out[["file"]])) %in% c("md", "qmd", "rmd")
 
@@ -186,39 +191,46 @@ do_todo <- function( # nolint: cyclocomp_linter.
 print.todos_df <- function(x, ...) {
   # TODO Add a limit for number of TODOs to show?
   type <- attr(x, "todos_type")
+  catln(sprintf("Found %d %s(s):", nrow(x), toupper(type)))
 
-  n <- max(nchar(x[["line"]]), 0)
-  w <- getOption("width") - n - 3 # 4??
-  pad <- collapse0(rep(" ", n + 3))
-  pat <- sprintf("[%%%i.i]", n)
+  chunks <- split(x, x[["file"]])
+  nms <- names(chunks)
 
-  splits <- split(x, x[["file"]])
-  nm <- names(splits)
+  n <- max(nchar(x$line))
+  pad <- strrep("\u00a0", n + 3L)
 
-  cat0(sprintf("Found %d %s:\n", nrow(x), toupper(type)))
+  for (i in seq_along(nms)) {
+    cli::cli_text(sprintf(
+      "%s{.file %s}",
+      pad,
+      nms[i]
+    ))
 
-  for (i in seq_along(splits)) {
-    catln(
-      collapse0(pad, crayon_blue(nm[i])),
-      apply(
-        splits[[i]][, c("line", type)],
-        1,
-        function(xi) {
-          paste(
-            crayon_blue(sprintf(pat, as.integer(xi[1]))),
-            if (nchar(xi[2]) > w) {
-              # TODO consider wrapping with respect to the line number?
-              collapse0(substr(xi[2], 1, max(1, w - 6)), " [...]")
-            } else {
-              xi[2]
-            }
-          )
-        }
-      )
-    )
+    for (j in seq_len(nrow(chunks[[i]]))) {
+      cli::cli_text(sprintf(
+        "{.href [%s](file://%s#%i)} %s",
+        format_line_number(chunks[[i]][["line"]][j], width = n),
+        chunks[[i]][["file"]][j],
+        chunks[[i]][["line"]][j],
+        string_dots(chunks[[i]][[3L]][j], getOption("width") - (n + 3L))
+      ))
+    }
   }
 
-  invisible(x)
+  return(invisible(x))
+}
+
+format_line_number <- function(x, width = 3) {
+  x <- format(x, width = width)
+  x <- gsub("\\s", "\u00a0", x)
+  x <- sprintf("[%s]", x)
+  crayon_blue(x)
+}
+
+string_dots <- function(x, width = getOption("width")) {
+  long <- nchar(x) > width
+  x[long] <- paste(strtrim(x[long], width - 5), "[...]")
+  x
 }
 
 # conditions --------------------------------------------------------------
