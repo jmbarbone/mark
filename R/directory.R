@@ -203,17 +203,15 @@ smallest_file <- function(x) {
 #'
 #' Opens the given files(s)
 #'
-#' @details
-#' `open_file` is an alternative to `shell.exec()` that can take take
-#'   multiple files.
-#' `list_files` and `list_dirs` are mostly wrappers for [base::list.files()] and
-#'   [base::list.dirs()] with preferred defaults and pattern searching on the
-#'   full file path.
+#' @details `open_file` is an alternative to `shell.exec()` that can take take
+#' multiple files. `list_files` and `list_dirs` are mostly wrappers for
+#' [fs::dir_ls()] with preferred defaults and pattern searching on the full file
+#' path.
 #'
 #' `file_open` is simply an alias.
 #'
 #' @inheritParams norm_path
-#' @inheritParams base::list.files
+#' @inheritParams fs::dir_ls
 #' @param ignore_case logical. Should pattern-matching be case-insensitive?
 #' @param all a logical value. If FALSE, only the names of visible files are
 #'   returned (following Unix-style visibility, that is files whose name does
@@ -225,7 +223,7 @@ smallest_file <- function(x) {
 #'
 #' @return
 #' * `open_file()`, `shell_exec()`: A logical vector where `TRUE` successfully
-#'   opened, `FALSE` did not and `NA` did not try to open (file not found)
+#' opened, `FALSE` did not and `NA` did not try to open (file not found)
 #' * `list_files()`, `list_dirs()`: A vector of full paths
 #' @name file_utils
 NULL
@@ -389,7 +387,7 @@ is_dir <- function(x) {
 #' @export
 is_file <- function(x) {
   stopifnot(!no_length(x), is.character(x))
-  isdir <- file.info(x, extra_cols = FALSE)$isdir
+  isdir <- file.info(x, extra_cols = FALSE)[["isdir"]]
   !is.na(isdir) & !isdir
 }
 
