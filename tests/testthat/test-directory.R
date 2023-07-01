@@ -1,8 +1,8 @@
 
 test_that("tests with temp dir", {
   expect_equal_path <- function(x, y) {
-    x_short <- file.path(basename(dirname(x)), basename(x))
-    y_short <- file.path(basename(dirname(y)), basename(y))
+    x_short <- fs::path(basename(dirname(x)), basename(x))
+    y_short <- fs::path(basename(dirname(y)), basename(y))
 
     expect_true(file.exists(y), info = "Expected path does not exist")
     expect_equal(x_short, y_short)
