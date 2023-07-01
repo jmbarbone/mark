@@ -223,12 +223,15 @@ smallest_file <- function(x) {
 #' @param negate Logical, if `TRUE` will inversely select files that do not
 #'   match the provided pattern
 #'
-#' @export
 #' @return
 #' * `open_file()`, `shell_exec()`: A logical vector where `TRUE` successfully
 #'   opened, `FALSE` did not and `NA` did not try to open (file not found)
 #' * `list_files()`, `list_dirs()`: A vector of full paths
 #' @name file_utils
+NULL
+
+#' @export
+#' @rdname file_utils
 open_file <- function(x) {
   x <- norm_path(x, check = TRUE)
   out <- rep(NA, length(x))
@@ -244,7 +247,7 @@ file_open <- open_file
 #' @export
 shell_exec <- function(x) {
   if (is_windows()) {
-    open_fun <- function(path) shell.exec(file = path)
+    open_fun <- function(path) shell.exec(file = path) # nolint: object_usage_linter.
   } else {
     require_namespace("xopen")
     open_fun <- function(path) xopen::xopen(target = path)
