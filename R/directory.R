@@ -245,7 +245,7 @@ file_open <- open_file
 #' @export
 shell_exec <- function(x) {
   if (is_windows()) {
-    open_fun <- function(path) shell.exec(file = path) # nolint: object_usage_linter.
+    open_fun <- function(path) shell.exec(file = path) # nolint: object_usage_linter, line_length_linter.
   } else {
     require_namespace("xopen")
     open_fun <- function(path) xopen::xopen(target = path)
