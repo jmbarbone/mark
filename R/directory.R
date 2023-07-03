@@ -212,6 +212,8 @@ smallest_file <- function(x) {
 #'
 #' @inheritParams norm_path
 #' @inheritParams fs::dir_ls
+#' @param pattern,glob Pattern to search for files.  `glob` is absorbed into
+#'   `pattern`, through [utils::glob2rx()].
 #' @param ignore_case logical. Should pattern-matching be case-insensitive?
 #' @param all a logical value. If FALSE, only the names of visible files are
 #'   returned (following Unix-style visibility, that is files whose name does
@@ -264,13 +266,15 @@ shell_exec <- function(x) {
 #' @export
 list_files <- function(
   x = ".",
-  pattern = NULL,
+  pattern = utils::glob2rx(glob),
+  glob = NULL,
   ignore_case = FALSE,
   all = FALSE,
   negate = FALSE,
   basename = FALSE
 ) {
 
+  pattern <- force(pattern) %|||% NULL
   path <- norm_path(x, check = TRUE)
 
   if (length(path) == 1L && is.na(path)) {
