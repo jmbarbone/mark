@@ -17,7 +17,8 @@ shell_exec(x)
 
 list_files(
   x = ".",
-  pattern = NULL,
+  pattern = utils::glob2rx(glob),
+  glob = NULL,
   ignore_case = FALSE,
   all = FALSE,
   negate = FALSE,
@@ -35,6 +36,9 @@ list_dirs(
 }
 \arguments{
 \item{x}{A character vector of paths}
+
+\item{pattern, glob}{Pattern to search for files.  \code{glob} is absorbed into
+\code{pattern}, through \code{\link[utils:glob2rx]{utils::glob2rx()}}.}
 
 \item{ignore_case}{logical. Should pattern-matching be case-insensitive?}
 
