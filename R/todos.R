@@ -100,25 +100,20 @@ do_todo <- function( # nolint: cyclocomp_linter.
     stop(cond_do_todo_path())
   }
 
-  stopifnot(file.exists(path), length(text) == 1L)
+  stopifnot(fs::file_exists(path), length(text) == 1L)
 
   ls <- list(...)
 
   if (is_dir(path)) {
     if (
       !has_char(path) ||
-      !(force || any(tolower(tools::file_ext(list.files(path))) == "rproj"))
+      !(force || any(tolower(tools::file_ext(fs::dir_ls(path))) == "rproj"))
     ) {
       message("Did not search for TODOS in ", norm_path(path))
       return(invisible(NULL))
     }
 
-    files <- list.files(
-      path,
-      recursive = TRUE,
-      ignore.case = TRUE,
-      full.names = TRUE
-    )
+    files <- fs::dir_ls(path, recurse = TRUE, ignore.case = TRUE)
 
     if (!is.null(ext)) {
       files <- files[tolower(tools::file_ext(files)) %in% tolower(ext)]

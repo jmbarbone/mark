@@ -17,7 +17,8 @@ shell_exec(x)
 
 list_files(
   x = ".",
-  pattern = NULL,
+  pattern = utils::glob2rx(glob),
+  glob = NULL,
   ignore_case = FALSE,
   all = FALSE,
   negate = FALSE,
@@ -36,8 +37,8 @@ list_dirs(
 \arguments{
 \item{x}{A character vector of paths}
 
-\item{pattern}{an optional \link[base]{regular expression}.  Only file names
-    which match the regular expression will be returned.}
+\item{pattern, glob}{Pattern to search for files.  \code{glob} is absorbed into
+\code{pattern}, through \code{\link[utils:glob2rx]{utils::glob2rx()}}.}
 
 \item{ignore_case}{logical. Should pattern-matching be case-insensitive?}
 
@@ -63,10 +64,9 @@ Opens the given files(s)
 }
 \details{
 \code{open_file} is an alternative to \code{shell.exec()} that can take take
-multiple files.
-\code{list_files} and \code{list_dirs} are mostly wrappers for \code{\link[base:list.files]{base::list.files()}} and
-\code{\link[base:list.files]{base::list.dirs()}} with preferred defaults and pattern searching on the
-full file path.
+multiple files. \code{list_files} and \code{list_dirs} are mostly wrappers for
+\code{\link[fs:dir_ls]{fs::dir_ls()}} with preferred defaults and pattern searching on the full file
+path.
 
 \code{file_open} is simply an alias.
 }
