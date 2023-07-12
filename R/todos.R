@@ -25,7 +25,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' file <- tempfile()
+#' file <- tempfile(fileext = ".R")
 #' writeLines(c(
 #'   "# TODO make x longer",
 #'   "x <- 1:10",
