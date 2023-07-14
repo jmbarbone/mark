@@ -84,7 +84,7 @@ fixmes <- function(
 }
 
 do_todo <- function( # nolint: cyclocomp_linter.
-    text,
+    text = c("todo", "fixme"),
     pattern = NULL,
     path = ".",
     force = getOption("mark.todos.force"),
@@ -92,6 +92,7 @@ do_todo <- function( # nolint: cyclocomp_linter.
     ignore = NULL,
     ...
 ) {
+  text <- match_param(text)
   if (
     missing(path) ||
     length(path) != 1 ||
@@ -100,20 +101,27 @@ do_todo <- function( # nolint: cyclocomp_linter.
     stop(cond_do_todo_path())
   }
 
-  stopifnot(fs::file_exists(path), length(text) == 1L)
+  stopifnot(fs::file_exists(path))
 
   ls <- list(...)
 
   if (is_dir(path)) {
-    if (
-      !has_char(path) ||
-      !(force || any(tolower(tools::file_ext(fs::dir_ls(path))) == "rproj"))
-    ) {
+    rproj_found <- local({
+      extensions <- tools::file_ext(fs::dir_ls(path, type = "file"))
+      any(tolower(extensions) == "rproj")
+    })
+
+    if (!(rproj_found || force)) {
       message("Did not search for TODOS in ", norm_path(path))
       return(invisible(NULL))
     }
 
-    files <- fs::dir_ls(path, recurse = TRUE, ignore.case = TRUE)
+    files <- fs::dir_ls(
+      path,
+      recurse = TRUE,
+      ignore.case = TRUE,
+      type = "file"
+    )
 
     if (!is.null(ext)) {
       files <- files[tolower(tools::file_ext(files)) %in% tolower(ext)]
@@ -133,13 +141,12 @@ do_todo <- function( # nolint: cyclocomp_linter.
 
   finds <- lapply(
     lapply(files, readLines, warn = FALSE),
-    function(x) {
-      x <- iconv(x, to = "UTF-8")
-      Encoding(x) <- "UTF-8"
-      regex <- sprintf("[#]\\s+%s[:]?\\s+", toupper(text))
+    function(x, regex) {
+      x <- enc2utf8(x)
       ind <- grep(pattern = regex, x = x)
       quick_dfl(ind = ind, todo = x[ind])
-    }
+    },
+    regex = sprintf("[#]\\s+%s[:]?\\s+", toupper(text))
   )
 
   names(finds) <- files
