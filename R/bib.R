@@ -14,11 +14,11 @@
 #' @param file File or connection
 #' @param skip The lines to skip
 #' @param max_lines The maximum number of lines to read
-#' @param encoding Assumed encoding of file (passed to readLines)
+#' @param encoding Assumed encoding of file (passed to [readLines()]
 #'
 #' @return A `data.frame` with each row as a bib entry and each column as a
 #'   field
-#' @seealso [bib2df::bib2df()]
+#' @seealso `?bib2df::bib2df`
 #'
 #' @export
 #'
