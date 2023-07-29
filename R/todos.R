@@ -200,11 +200,19 @@ print.todos_df <- function(x, ...) {
   type <- attr(x, "todos_type")
   catln(sprintf("Found %d %s(s):", nrow(x), toupper(type)))
 
-  chunks <- split(x, x[["file"]])
+  chunks <- split(as.data.frame(x), x[["file"]])
   nms <- names(chunks)
-
   n <- max(nchar(x$line))
   pad <- strrep("\u00a0", n + 3L)
+
+  if (!isFALSE(getOption("mark.todos..norm_path"))) {
+    # perform action on chunks as not to modify x
+    for (i in seq_along(chunks))
+    chunks <- lapply(chunks, function(chunk) {
+      chunk[["file"]] <- norm_path(chunk[["file"]])
+      chunk
+    })
+  }
 
   for (i in seq_along(nms)) {
     cli::cli_text(sprintf(

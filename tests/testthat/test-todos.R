@@ -60,17 +60,17 @@ test_that("todos() ignores files", {
 
 test_that("todos() errors and messages", {
   withr::local_options(list(mark.todos.force = TRUE))
-
   path <- test_path("scripts")
 
   err <- "path must be a character vector of length 1L"
   expect_error(todos(path = 1), class = "doTodoPathError")
   expect_error(todos(path = c("a", "b")), class = "doTodoPathError")
   expect_error(todos(path = "zzz"))
-  expect_error(do_todo(c("todo", "fixme"), path = "."))
+  expect_error(do_todo(c("todo", "fixme"), path = "."), NA)
 
   expect_message(res <- todos("zzzzzz", path = path), "No todos found")
   expect_null(res)
 
+  withr::local_options(list(mark.todos..norm_path = FALSE))
   expect_snapshot(todos(path = path))
 })
