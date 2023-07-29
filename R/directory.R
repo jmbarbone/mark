@@ -118,18 +118,18 @@ remove_temp_files <- function(x) {
 norm_path <- function(x = ".", check = FALSE, remove = check) {
   stopifnot(is.character(x))
 
-  paths <- fs::path_norm(x)
-  ind <- !fs::file_exists(paths)
+  x <- fs::path_abs(x)
+  ind <- !fs::file_exists(x)
 
   if (check && any(ind)) {
-    warning(cond_norm_path_found(paths[ind]))
+    warning(cond_norm_path_found(x[ind]))
   }
 
   if (remove) {
-    paths[ind] <- NA_character_
+    x[ind] <- NA_character_
   }
 
-  paths
+  x
 }
 
 #' @export
