@@ -7,8 +7,7 @@
 #'   regular expression.  `glob` is by default passed to regexp via
 #'   [utils::glob2rx()]
 #' @param ... Additional parameters passed to `grep`; `value` is ignored
-#' @param invert
-#' @exports
+#' @export
 glob <- function(x, glob = NULL, regexp = NULL, ...) {
   if (!is.null(glob)) {
     if (!is.null(regexp)) {
