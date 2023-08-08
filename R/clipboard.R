@@ -137,7 +137,7 @@ do_read_table_clipboard <- function(
     blank.lines.skip = FALSE,
     fill             = TRUE,
     ...
-    # nolint end: objecT_name_linter.
+    # nolint end: object_name_linter.
 ) {
   utils::read.table(
     file             = "clipboard-128",
