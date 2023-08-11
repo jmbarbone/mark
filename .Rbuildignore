@@ -17,3 +17,4 @@ revdep
 ^docs$
 ^pkgdown$
 ^CRAN-SUBMISSION$
+^\.lintr$
