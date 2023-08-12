@@ -2,19 +2,27 @@
 % Please edit documentation in R/glob.R
 \name{glob}
 \alias{glob}
-\title{File globbing}
+\title{Wildcard globbing}
 \usage{
-glob(x, glob = NULL, regexp = NULL, ...)
+glob(x, pattern = NULL, value = TRUE, ...)
 }
 \arguments{
 \item{x}{A vector of characters}
 
-\item{glob, regexp}{Search expressions, as either wildcard globbing or as a
-regular expression.  \code{glob} is by default passed to regexp via
-\code{\link[utils:glob2rx]{utils::glob2rx()}}}
+\item{pattern}{Wildcard globbing pattern}
 
-\item{...}{Additional parameters passed to \code{grep}; \code{value} is ignored}
+\item{value, ...}{Additional parameters passed to \code{grep}. Note: \code{value} is by
+default \code{TRUE}; when \code{NA}, \code{...} is passed to \code{grepl}.}
 }
 \description{
-Helper function for globbing files
+Helper function for globbing character vectors
+}
+\examples{
+x <- c("apple", "banana", "peach", "pear", "orange")
+glob(x, "*e")
+glob(x, "pea*", value = FALSE)
+glob(x, "*an*", value = NA)
+
+path <- system.file("R", package = "mark")
+glob(list.files(path), "r*")
 }
