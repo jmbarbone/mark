@@ -1,28 +1,30 @@
-#' File globbing
+#' Wildcard globbing
 #'
-#' Helper function for globbing files
+#' Helper function for globbing character vectors
 #'
 #' @param x A vector of characters
-#' @param glob,regexp Search expressions, as either wildcard globbing or as a
-#'   regular expression.  `glob` is by default passed to regexp via
-#'   [utils::glob2rx()]
-#' @param ... Additional parameters passed to `grep`; `value` is ignored
+#' @param pattern Wildcard globbing pattern
+#' @param value,... Additional parameters passed to `grep`. Note: `value` is by
+#'   default `TRUE`; when `NA`, `...` is passed to `grepl`.
+#' @examples
+#' x <- c("apple", "banana", "peach", "pear", "orange")
+#' glob(x, "*e")
+#' glob(x, "pea*", value = FALSE)
+#' glob(x, "*an*", value = NA)
+#'
+#' path <- system.file("R", package = "mark")
+#' glob(list.files(path), "r*")
 #' @export
-glob <- function(x, glob = NULL, regexp = NULL, ...) {
-  if (!is.null(glob)) {
-    if (!is.null(regexp)) {
-      stop("either `glob` or `regexp` should be NULL", call. = FALSE)
-    }
-    regexp <- utils::glob2rx(glob)
-  }
+glob <- function(x, pattern = NULL, value = TRUE, ...) {
+  pattern <- utils::glob2rx(pattern)
+  params <- list(...)
+  params$x <- x
+  params$pattern <- pattern
 
-  if (!is.null(regexp)) {
-    params <- list(...)
-    params$pattern <- regexp
-    params$x <- x
-    params$value <- TRUE
-    x <- do.call(grep, params)
+  if (isNA(value)) {
+    do.call(grepl, params)
+  } else {
+    params$value <- value
+    do.call(grep, params)
   }
-
-  x
 }
