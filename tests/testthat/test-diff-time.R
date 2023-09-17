@@ -60,13 +60,13 @@ test_that("diff_time_*() identical to difftime()", {
 
 test_that("Timezones", {
 
-  st <- as.POSIXct("2021-04-06 11:12:45", tz = "US/Central")
+  st <- as.POSIXct("2021-04-06 11:12:45", tz = "America/Chicago")
 
   dftz <- quick_dfl(
     a = rep(st, 4),
     b = rep(st, 4),
-    tza = c("GMT", "UTC", "US/Eastern", "NZ"),
-    tzb = c("GMT", "Africa/Casablanca", "US/Central", "CET"),
+    tza = c("GMT", "UTC", "America/New_York", "Pacific/Auckland"),
+    tzb = c("GMT", "Africa/Casablanca", "America/Chicago", "CET"),
     tzn = c(0, 1, -1, 6) * 3600
   )
 
