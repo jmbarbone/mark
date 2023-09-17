@@ -1,3 +1,7 @@
+# mark 0.6.1
+
+* updates Timezone references for upcoming R release [#203](https://github.com/jmbarbone/mark/issues/203)
+
 # mark 0.6.0
 
 ## New features
