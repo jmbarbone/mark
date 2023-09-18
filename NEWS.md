@@ -1,5 +1,12 @@
 # mark (development version)
 
+* `glob()` added for basic wildcard globbing on character vectors [#167](https://github.com/jmbarbone/mark/issues/167)
+* adds greater use of `{fs}` over base file functions [#160](https://github.com/jmbarbone/mark/issues/160)
+* improvements in `todos()` and `fixmes()`
+  * File extension can now be set [#170](https://github.com/jmbarbone/mark/issues/170), which by default includes `qmd` ([#163](https://github.com/jmbarbone/mark/issues/163)) and `py` files
+  * new parameter `ignore` to ignore any files
+  * file paths and line numbers can now be _clicked_ within RStudio ([#171](https://github.com/jmbarbone/mark/issues/171))
+
 # mark 0.6.1
 
 * updates Timezone references for upcoming R release [#203](https://github.com/jmbarbone/mark/issues/203)

@@ -118,31 +118,31 @@ remove_temp_files <- function(x) {
 norm_path <- function(x = ".", check = FALSE, remove = check) {
   stopifnot(is.character(x))
 
-  paths <- normalizePath(x, winslash = .Platform$file.sep, mustWork = FALSE)
-  ind <- !file.exists(paths)
+  x <- fs::path_abs(x)
+  ind <- !fs::file_exists(x)
 
   if (check && any(ind)) {
-    warning(cond_norm_path_found(paths[ind]))
+    warning(cond_norm_path_found(x[ind]))
   }
 
   if (remove) {
-    paths[ind] <- NA_character_
+    x[ind] <- NA_character_
   }
 
-  paths
+  x
 }
 
 #' @export
 #' @rdname norm_path
 file_path <- function(..., check = FALSE, remove = check) {
-  fp <- file.path(..., fsep = .Platform$file.sep)
-  norm_path(fp, check = check, remove = remove)
+  norm_path(fs::path(...), check = check, remove = remove)
 }
 
 #' @export
 #' @rdname norm_path
 user_file <- function(..., check = FALSE, remove = check) {
-  file_path(Sys.getenv("R_USER"), ..., check = check, remove = remove)
+  r_user <- norm_path(Sys.getenv("R_USER"), check = TRUE)
+  file_path(r_user, ..., check = check, remove = remove)
 }
 
 #' File information utils
@@ -203,17 +203,17 @@ smallest_file <- function(x) {
 #'
 #' Opens the given files(s)
 #'
-#' @details
-#' `open_file` is an alternative to `shell.exec()` that can take take
-#'   multiple files.
-#' `list_files` and `list_dirs` are mostly wrappers for [base::list.files()] and
-#'   [base::list.dirs()] with preferred defaults and pattern searching on the
-#'   full file path.
+#' @details `open_file` is an alternative to `shell.exec()` that can take take
+#' multiple files. `list_files` and `list_dirs` are mostly wrappers for
+#' [fs::dir_ls()] with preferred defaults and pattern searching on the full file
+#' path.
 #'
 #' `file_open` is simply an alias.
 #'
 #' @inheritParams norm_path
-#' @inheritParams base::list.files
+#' @inheritParams fs::dir_ls
+#' @param pattern,glob Pattern to search for files.  `glob` is absorbed into
+#'   `pattern`, through [utils::glob2rx()].
 #' @param ignore_case logical. Should pattern-matching be case-insensitive?
 #' @param all a logical value. If FALSE, only the names of visible files are
 #'   returned (following Unix-style visibility, that is files whose name does
@@ -223,12 +223,15 @@ smallest_file <- function(x) {
 #' @param negate Logical, if `TRUE` will inversely select files that do not
 #'   match the provided pattern
 #'
-#' @export
 #' @return
 #' * `open_file()`, `shell_exec()`: A logical vector where `TRUE` successfully
-#'   opened, `FALSE` did not and `NA` did not try to open (file not found)
+#' opened, `FALSE` did not and `NA` did not try to open (file not found)
 #' * `list_files()`, `list_dirs()`: A vector of full paths
 #' @name file_utils
+NULL
+
+#' @export
+#' @rdname file_utils
 open_file <- function(x) {
   x <- norm_path(x, check = TRUE)
   out <- rep(NA, length(x))
@@ -243,67 +246,62 @@ file_open <- open_file
 #' @rdname file_utils
 #' @export
 shell_exec <- function(x) {
-  open_fun <- switch(
-    Sys.info()[["sysname"]],
-    Windows = shell.exec, # nolint: object_usage_linter.
-    Linux   = function(file) system2("xdg-open", shQuote(file, "sh")),
-    Darwin  = function(file) system2("xdg-open", shQuote(file, "sh")),
-    stop(cond_shell_exec(Sys.info()[["sysname"]]))
-  )
+  if (is_windows()) {
+    open_fun <- function(path) shell.exec(file = path) # nolint: object_usage_linter, line_length_linter.
+  } else {
+    require_namespace("xopen")
+    open_fun <- function(path) xopen::xopen(target = path)
+  }
 
-  open_fun <- match.fun(open_fun)
   x <- norm_path(x, check = TRUE)
 
-  FUN <- function(file) { # nolint: object_name_linter.
+  do_open_fun <- function(file) {
     inherits(try(open_fun(x), silent = TRUE), "try-error")
   }
 
-  invisible(!vap_lgl(x, FUN))
+  invisible(!vap_lgl(x, do_open_fun))
 }
 
 #' @rdname file_utils
 #' @export
 list_files <- function(
   x = ".",
-  pattern = NULL,
+  pattern = utils::glob2rx(glob),
+  glob = NULL,
   ignore_case = FALSE,
   all = FALSE,
   negate = FALSE,
   basename = FALSE
 ) {
 
+  pattern <- force(pattern) %|||% NULL
   path <- norm_path(x, check = TRUE)
 
   if (length(path) == 1L && is.na(path)) {
     return(NA_character_)
   }
 
-  files <- if (basename && !negate) {
-    # default behavior
-    list.files(
-      path         = path,
-      pattern      = pattern,
-      all.files    = all,
-      full.names   = TRUE,
-      recursive    = all,
-      ignore.case  = ignore_case,
-      include.dirs = FALSE,
-      no..         = TRUE
-    )
-  } else {
-    # If we want the regular expression applied to the entire file
-    # Or if we want to negate the expression
-    list.files(
-      path         = path,
-      pattern      = NULL,
-      all.files    = all,
-      full.names   = TRUE,
-      recursive    = all,
-      ignore.case  = FALSE,
-      include.dirs = FALSE,
-      no..         = FALSE
-    )
-  }
+  files <-
+    if (basename) {
+      # default behavior
+      fs::dir_ls(
+        path        = path,
+        regexp      = pattern,
+        all         = all,
+        recurse     = all,
+        ignore.case = ignore_case,
+        invert      = negate,
+        type        = "file"
+      )
+    } else {
+      # If we want the regular expression applied to the entire file
+      fs::dir_ls(
+        path    = path,
+        all     = all,
+        recurse = all,
+        type    = "file"
+      )
+    }
 
   files <- norm_path(files)
   files <- files[is_file(files)]
@@ -346,13 +344,8 @@ list_dirs <- function(
     return(NA_character_)
   }
 
-  dirs <- norm_path(
-    list.dirs(
-      path         = path,
-      full.names   = TRUE,
-      recursive    = all
-    )
-  )
+  dirs <- fs::dir_ls(path = path, type = "directory", recurse = TRUE)
+  dirs <- norm_path(dirs)
 
   if (is.null(pattern)) {
     return(dirs)
@@ -398,7 +391,7 @@ is_dir <- function(x) {
 #' @export
 is_file <- function(x) {
   stopifnot(!no_length(x), is.character(x))
-  isdir <- file.info(x, extra_cols = FALSE)$isdir
+  isdir <- file.info(x, extra_cols = FALSE)[["isdir"]]
   !is.na(isdir) & !isdir
 }
 
@@ -410,26 +403,23 @@ file_create <- function(x, overwrite = FALSE) {
   }
 
   if (overwrite) {
-    file.remove(x[is_file(x)])
+    fs::file_delete(x[is_file(x)])
   }
 
-  invisible(file.create(x, showWarnings = TRUE))
+  invisible(fs::file_create(x))
 }
 
 dir_create <- function(x, overwrite = FALSE) {
   if (overwrite) {
-    e <- is_dir(x)
-
-    if (any(e)) {
-      for (i in x[e]) {
-        if (dir.exists(i)) {
-          unlink(i, recursive = TRUE)
-        }
+    e <- which(is_dir(x))
+    for (i in e) {
+      if (fs::dir_exists(i)) {
+        fs::dir_delete(i)
       }
     }
   }
 
-  invisible(dir.create(x, showWarnings = TRUE, recursive = TRUE))
+  invisible(fs::dir_create(x))
 }
 
 #' File name
@@ -474,13 +464,13 @@ add_file_timestamp <- function(
   }
 
   bn <- file_name(x)
-  ext <- tools::file_ext(x)
+  ext <- fs::path_ext(x)
 
   if (length(sep) > 1) {
     sep <- collapse0(sep)
   }
 
-  file.path(dirname(x), paste0(bn, sep, ts, if (ext != "") ".", ext))
+  fs::path(dirname(x), paste0(bn, sep, ts, if (ext != "") ".", ext))
 }
 
 # conditions --------------------------------------------------------------
@@ -494,13 +484,6 @@ cond_norm_path_found <- function(paths) {
     paste0("Paths not found:\n  '", collapse(paths, sep = "'\n  '"), "'"),
     "norm_path_found",
     type = "warning"
-  )
-}
-
-cond_shell_exec <- function(x) {
-  new_condition(
-    paste0("sysname not recognized:", toString(x)),
-    "shell_exec_sysname"
   )
 }
 
