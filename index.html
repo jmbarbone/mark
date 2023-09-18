@@ -28,7 +28,7 @@
     
     <a class="navbar-brand me-2" href="index.html">mark</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -78,14 +78,19 @@
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"mark"</span><span class="op">)</span></span></code></pre></div>
 <p>You can the development version from <a href="https://github.com/jmbarbone/mark" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"jmbarbone/mark"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"jmbarbone/mark"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="select-examples">Select examples<a class="anchor" aria-label="anchor" href="#select-examples"></a>
 </h2>
 <p>This package contains a many variety of functions, some useful, some not so much. Below are a selection of a few functions that could potential be useful for others:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jmbarbone/mark" class="external-link">mark</a></span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jmbarbone/mark" class="external-link">mark</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'mark'</span></span>
+<span><span class="co">#&gt; The following object is masked from 'package:usethis':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     use_author</span></span></code></pre></div>
 <p>Get dates from sloppy entries:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bad_dates</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2020 Dec 8th"</span>, <span class="st">"1970 May"</span>, <span class="st">"??"</span>, <span class="st">"1984 UNK UN"</span><span class="op">)</span></span>
@@ -220,8 +225,8 @@
 <span><span class="co">#&gt; 7  1  2  1 0.1428571</span></span></code></pre></div>
 <p>Date time differences:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXlt</a></span><span class="op">(</span><span class="st">"2021-02-13 05:02:30"</span>, tz <span class="op">=</span> <span class="st">"US/Eastern"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="op">-</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span> <span class="op">*</span> <span class="fl">3600</span> <span class="op">*</span> <span class="fl">24</span></span>
-<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXlt</a></span><span class="op">(</span><span class="st">"2020-02-13 05:02:30"</span>, tz <span class="op">=</span> <span class="st">"US/Eastern"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="op">-</span><span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span> <span class="op">*</span> <span class="fl">3600</span> <span class="op">*</span> <span class="fl">24</span></span>
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXlt</a></span><span class="op">(</span><span class="st">"2021-02-13 05:02:30"</span>, tz <span class="op">=</span> <span class="st">"America/New_York"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="op">-</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span> <span class="op">*</span> <span class="fl">3600</span> <span class="op">*</span> <span class="fl">24</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXlt</a></span><span class="op">(</span><span class="st">"2020-02-13 05:02:30"</span>, tz <span class="op">=</span> <span class="st">"America/New_York"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="op">-</span><span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span> <span class="op">*</span> <span class="fl">3600</span> <span class="op">*</span> <span class="fl">24</span></span>
 <span></span>
 <span><span class="co"># comparison with base::difftime() (note the order of x and y)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/difftime.html" class="external-link">difftime</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">x</span>, units <span class="op">=</span> <span class="st">"days"</span><span class="op">)</span></span>
@@ -247,10 +252,10 @@
 <span><span class="co">#&gt; [1] -1.016667 -1.019444 -1.011111</span></span>
 <span></span>
 <span><span class="co"># Set time zones</span></span>
-<span><span class="fu"><a href="reference/diff_time.html">diff_time_hours</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="st">"GMT"</span>, <span class="st">"US/Eastern"</span><span class="op">)</span>                         </span>
+<span><span class="fu"><a href="reference/diff_time.html">diff_time_hours</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="st">"GMT"</span>, <span class="st">"America/New_York"</span><span class="op">)</span>                         </span>
 <span><span class="co">#&gt; Time differences in hours</span></span>
 <span><span class="co">#&gt; [1] -8789 -8813 -8741</span></span>
-<span><span class="fu"><a href="reference/diff_time.html">diff_time_hours</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">x</span>, <span class="st">"GMT"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"US/Pacific"</span>, <span class="st">"US/Eastern"</span>, <span class="st">"GB"</span><span class="op">)</span><span class="op">)</span> <span class="co"># note x, x</span></span>
+<span><span class="fu"><a href="reference/diff_time.html">diff_time_hours</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">x</span>, <span class="st">"GMT"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"America/Los_Angeles"</span>, <span class="st">"America/New_York"</span>, <span class="st">"Europe/London"</span><span class="op">)</span><span class="op">)</span> <span class="co"># note x, x</span></span>
 <span><span class="co">#&gt; Time differences in hours</span></span>
 <span><span class="co">#&gt; [1] -8 -5  0</span></span>
 <span><span class="fu"><a href="reference/diff_time.html">diff_time_days</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="cn">NULL</span>, <span class="fl">31536000</span><span class="op">)</span> </span>
