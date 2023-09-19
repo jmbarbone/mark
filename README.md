@@ -45,6 +45,11 @@ be useful for others:
 
 ``` r
 library(mark)
+#> 
+#> Attaching package: 'mark'
+#> The following object is masked from 'package:usethis':
+#> 
+#>     use_author
 ```
 
 Get dates from sloppy entries:
@@ -200,8 +205,8 @@ props(df, 1:3)
 Date time differences:
 
 ``` r
-x <- as.POSIXlt("2021-02-13 05:02:30", tz = "US/Eastern") + c(0, -1, 2) * 3600 * 24
-y <- as.POSIXlt("2020-02-13 05:02:30", tz = "US/Eastern") + c(0, -2, 4) * 3600 * 24
+x <- as.POSIXlt("2021-02-13 05:02:30", tz = "America/New_York") + c(0, -1, 2) * 3600 * 24
+y <- as.POSIXlt("2020-02-13 05:02:30", tz = "America/New_York") + c(0, -2, 4) * 3600 * 24
 
 # comparison with base::difftime() (note the order of x and y)
 difftime(y, x, units = "days")
@@ -227,10 +232,10 @@ diff_time_myears(x, y)
 #> [1] -1.016667 -1.019444 -1.011111
 
 # Set time zones
-diff_time_hours(x, y, "GMT", "US/Eastern")                         
+diff_time_hours(x, y, "GMT", "America/New_York")                         
 #> Time differences in hours
 #> [1] -8789 -8813 -8741
-diff_time_hours(x, x, "GMT", c("US/Pacific", "US/Eastern", "GB")) # note x, x
+diff_time_hours(x, x, "GMT", c("America/Los_Angeles", "America/New_York", "Europe/London")) # note x, x
 #> Time differences in hours
 #> [1] -8 -5  0
 diff_time_days(x, y, NULL, 31536000) 

@@ -7,6 +7,10 @@
   * new parameter `ignore` to ignore any files
   * file paths and line numbers can now be _clicked_ within RStudio ([#171](https://github.com/jmbarbone/mark/issues/171))
 
+# mark 0.6.1
+
+* updates Timezone references for upcoming R release [#203](https://github.com/jmbarbone/mark/issues/203)
+
 # mark 0.6.0
 
 ## New features
