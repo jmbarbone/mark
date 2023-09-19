@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">mark</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.1.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,7 +59,8 @@
 <span></span>
 <span><span class="fu">list_files</span><span class="op">(</span></span>
 <span>  x <span class="op">=</span> <span class="st">"."</span>,</span>
-<span>  pattern <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  pattern <span class="op">=</span> <span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/glob2rx.html" class="external-link">glob2rx</a></span><span class="op">(</span><span class="va">glob</span><span class="op">)</span>,</span>
+<span>  glob <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  ignore_case <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  all <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  negate <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -82,9 +83,9 @@
 <dd><p>A character vector of paths</p></dd>
 
 
-<dt>pattern</dt>
-<dd><p>an optional <a href="https://rdrr.io/r/base/regex.html" class="external-link">regular expression</a>.  Only file names
-    which match the regular expression will be returned.</p></dd>
+<dt>pattern, glob</dt>
+<dd><p>Pattern to search for files.  <code>glob</code> is absorbed into
+<code>pattern</code>, through <code><a href="https://rdrr.io/r/utils/glob2rx.html" class="external-link">utils::glob2rx()</a></code>.</p></dd>
 
 
 <dt>ignore_case</dt>
@@ -118,10 +119,9 @@ opened, <code>FALSE</code> did not and <code>NA</code> did not try to open (file
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p><code>open_file</code> is an alternative to <code>shell.exec()</code> that can take take
-multiple files.
-<code>list_files</code> and <code>list_dirs</code> are mostly wrappers for <code><a href="https://rdrr.io/r/base/list.files.html" class="external-link">base::list.files()</a></code> and
-<code><a href="https://rdrr.io/r/base/list.files.html" class="external-link">base::list.dirs()</a></code> with preferred defaults and pattern searching on the
-full file path.</p>
+multiple files. <code>list_files</code> and <code>list_dirs</code> are mostly wrappers for
+<code><a href="https://fs.r-lib.org/reference/dir_ls.html" class="external-link">fs::dir_ls()</a></code> with preferred defaults and pattern searching on the full file
+path.</p>
 <p><code>file_open</code> is simply an alias.</p>
     </div>
 
