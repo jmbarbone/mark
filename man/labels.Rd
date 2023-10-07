@@ -18,7 +18,12 @@ assign_labels(x, ...)
 
 \method{assign_labels}{default}(x, label, ...)
 
-\method{assign_labels}{data.frame}(x, ..., .missing = c("error", "warn", "skip"), .ls = list(...))
+\method{assign_labels}{data.frame}(
+  x,
+  ...,
+  .missing = c("error", "warn", "skip"),
+  .ls = rlang::list2(...)
+)
 
 get_labels(x)
 
