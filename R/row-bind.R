@@ -10,7 +10,7 @@
 #' @seealso [dplyr::bind_rows()] [base::rbind()]
 #' @export
 row_bind <- function(...) {
-  ls <- remove_null(if (...length() == 1) ..1 else list(...))
+  ls <- remove_null(if (...length() == 1) ..1 else rlang::list2(...))
 
   if (!length(ls)) {
     return(quick_df(NULL))
@@ -50,7 +50,7 @@ row_bind <- function(...) {
 
 # This may be a little faster than rbind()
 rbind2 <- function(...) {
-  ls <- list(...)
+  ls <- rlang::list2(...)
   res <- list()
 
   for (i in seq_along(ls[[1]])) {

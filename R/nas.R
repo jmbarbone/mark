@@ -155,9 +155,9 @@ is_na_cols <- function(x, names = TRUE) {
 
 tableNA <- function(..., .list = FALSE) { # nolint: object_name_linter
   ls <- if (.list) {
-    as.list(...)
+    as.rlang::list2(...)
   } else {
-    list(...)
+    rlang::list2(...)
   }
 
   if (is.null(names(ls))) {
