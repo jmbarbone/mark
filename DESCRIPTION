@@ -24,6 +24,7 @@ Imports:
     fs (>= 1.6.2),
     fuj (>= 0.1.1),
     magrittr (>= 2.0.1),
+    rlang,
     stats (>= 3.6),
     tools (>= 3.6),
     utils (>= 3.6)
