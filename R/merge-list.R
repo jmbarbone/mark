@@ -8,6 +8,8 @@
 #' @examples
 #' x <- list(a = 1, b = 2, c = NULL)
 #' y <- list(a = 2, c = 3)
+#' # compared to:
+#' utils::modifyList(x, y)
 #' merge_list(x, y)
 #' merge_list(x, y, keep = "y")
 #' @export
