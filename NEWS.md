@@ -1,5 +1,6 @@
 # mark (development version)
 
+* `merge_list()` added for combining lists [#200](https://github.com/jmbarbone/mark/issues/200)
 * `glob()` added for basic wildcard globbing on character vectors [#167](https://github.com/jmbarbone/mark/issues/167)
 * adds greater use of `{fs}` over base file functions [#160](https://github.com/jmbarbone/mark/issues/160)
 * improvements in `todos()` and `fixmes()`
