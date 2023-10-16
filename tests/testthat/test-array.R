@@ -20,8 +20,3 @@ test_that("array_extract() errors", {
   expect_error(array_extract(x, 2, 3), NA)
   expect_error(array_extract(x, a = 2, b = 3), class = "arrayExtractNamesError")
 })
-
-test_that("dot_list() reurns correctly", {
-  ls <- list(a = 1, b = 2)
-  expect_identical(dotlist(ls), ls)
-})

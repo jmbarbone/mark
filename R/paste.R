@@ -31,7 +31,7 @@ paste_c <- function(x, y, collate = TRUE, sep = "") {
 #' @rdname utils-paste
 #' @export
 paste_combine <- function(..., collate = TRUE, sep = "") {
-  ls <- list(...)
+  ls <- rlang::list2(...)
   n <- length(ls)
 
   if (n < 2) {
@@ -54,7 +54,7 @@ paste_combine <- function(..., collate = TRUE, sep = "") {
 #' @rdname utils-paste
 #' @export
 collapse0 <- function(..., sep = "") {
-  ls <- list(...)
+  ls <- rlang::list2(...)
   paste0(unlist(ls), collapse = sep)
 }
 

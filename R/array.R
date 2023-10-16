@@ -18,7 +18,7 @@
 array_extract <- function(.arr, ..., default = "1") {
   stopifnot(is.array(.arr))
 
-  ls <- dotlist(...)
+  ls <- rlang::list2(...)
   nm <- wuffle(as.integer(names(ls) %||% seq_along(ls)))
 
   if (anyNA(nm)) {
@@ -51,15 +51,6 @@ array_extract <- function(.arr, ..., default = "1") {
 
   eval(str2expression(text), envir = parent.frame())
 }
-
-dotlist <- function(...) {
-  if (tryCatch(is.list(...), error = function(e) FALSE)) {
-    return(list(...)[[1]])
-  }
-
-  list(...)
-}
-
 
 # conditions --------------------------------------------------------------
 

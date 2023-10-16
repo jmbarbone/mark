@@ -60,11 +60,11 @@ assign_labels.data.frame <- function(
     x,
     ...,
     .missing = c("error", "warn", "skip"),
-    .ls = list(...)
+    .ls = rlang::list2(...)
 ) {
   stopifnot(!identical(.ls, list()))
 
-  if (...length() && !identical(list(...), .ls)) {
+  if (...length() && !identical(rlang::list2(...), .ls)) {
     stop(cond_assign_labels_dataframe_dots())
   }
 

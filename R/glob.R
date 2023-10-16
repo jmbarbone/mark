@@ -17,7 +17,7 @@
 #' @export
 glob <- function(x, pattern = NULL, value = TRUE, ...) {
   pattern <- utils::glob2rx(pattern)
-  params <- list(...)
+  params <- rlang::list2(...)
   params$x <- x
   params$pattern <- pattern
 

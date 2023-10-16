@@ -135,7 +135,7 @@ cond_check_is_vector_mode <- function(x, mode) {
 
 
 add_attributes <- function(x, ...) {
-  attributes(x) <- c(attributes(x), list(...))
+  attributes(x) <- c(attributes(x), rlang::list2(...))
   x
 }
 

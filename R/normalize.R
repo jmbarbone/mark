@@ -76,6 +76,11 @@ normalize.default <- function(
 #' @rdname normalize
 #' @export
 normalize.data.frame <- function(x, ...) {
-  x[] <- mapply(normalize, x = x, MoreArgs = list(...), SIMPLIFY = FALSE)
+  x[] <- mapply(
+    normalize,
+    x = x,
+    MoreArgs = rlang::list2(...),
+    SIMPLIFY = FALSE
+  )
   x
 }

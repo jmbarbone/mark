@@ -157,7 +157,7 @@ tableNA <- function(..., .list = FALSE) { # nolint: object_name_linter
   ls <- if (.list) {
     as.list(...)
   } else {
-    list(...)
+    rlang::list2(...)
   }
 
   if (is.null(names(ls))) {
