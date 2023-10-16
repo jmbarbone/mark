@@ -9,8 +9,9 @@ merge_list(x, y, keep = c("x", "y"))
 \arguments{
 \item{x, y}{Lists to merge}
 
-\item{keep}{When matching names are found, from which object should the values be
-retained; \code{"x"} retains values from \code{x}, \code{"y"} retains values from \code{y}.}
+\item{keep}{When matching names are found, from which object should the
+values be retained; \code{"x"} retains values from \code{x}, \code{"y"} retains values
+from \code{y}.}
 }
 \description{
 Merge lists with different or intersecting names

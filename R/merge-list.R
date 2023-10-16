@@ -3,8 +3,9 @@
 #' Merge lists with different or intersecting names
 #'
 #' @param x,y Lists to merge
-#' @param keep When matching names are found, from which object should the values be
-#' retained; `"x"` retains values from `x`, `"y"` retains values from `y`.
+#' @param keep When matching names are found, from which object should the
+#'   values be retained; `"x"` retains values from `x`, `"y"` retains values
+#'   from `y`.
 #' @examples
 #' x <- list(a = 1, b = 2, c = NULL)
 #' y <- list(a = 2, c = 3)
