@@ -20,7 +20,7 @@
 #' @export
 
 are_identical <- function(..., params = NULL) {
-  x <- list(...)
+  x <- rlang::list2(...)
   n <- length(x)
 
   if (length(unique(lengths(x))) != 1L) {

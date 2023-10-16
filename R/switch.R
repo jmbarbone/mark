@@ -86,7 +86,7 @@ NULL
 #' @rdname switch-ext
 #' @export
 switch_params <- function(x, ...) {
-  ls <- list(...)
+  ls <- rlang::list2(...)
   y <- as.vector(ls, mode = mode(ls[[1L]]))
   nmls <- names(ls)
   names(y) <- nmls
@@ -100,7 +100,7 @@ switch_params <- function(x, ...) {
 #' @rdname switch-ext
 #' @export
 switch_in_case <- function(x, ..., .default = NULL, .envir = parent.frame()) {
-  ls <- list(...)
+  ls <- rlang::list2(...)
 
   # split by the tilde
   splits <- strsplit(as.character(ls), "\\s?~\\s?")
@@ -181,7 +181,7 @@ switch_in_case <- function(x, ..., .default = NULL, .envir = parent.frame()) {
 #' @rdname switch-ext
 #' @export
 switch_case <- function(..., .default = NULL, .envir = parent.frame()) {
-  ls <- list(...)
+  ls <- rlang::list2(...)
 
   # split by the tilde
   splits <- strsplit(as.character(ls), "\\s?~\\s?")

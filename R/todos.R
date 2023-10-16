@@ -103,7 +103,7 @@ do_todo <- function( # nolint: cyclocomp_linter.
 
   stopifnot(fs::file_exists(path))
 
-  ls <- list(...)
+  ls <- rlang::list2(...)
 
   if (is_dir(path)) {
     rproj_found <- local({
