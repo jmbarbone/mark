@@ -33,11 +33,6 @@ merge_list <- function(
     keep = c("x", "y"),
     null = c("ignore", "drop", "keep")[1:2]
 ) {
-  # x <- list(a = 1, b = 2, c = NULL, d = NULL)
-  # y <- list(a = 2, b = NULL, c = 3)
-  # keep <- c("x", "y")
-  # null <- c("ignore", "drop")
-
   if (length(null) == 1L) {
     null <- c(null, null)
   }
@@ -65,7 +60,11 @@ merge_list <- function(
   res <- c(x, y)[!duplicated(c(names(x), names(y)), fromLast = keep == "y")]
 
   if (null[1] == "ignore") {
-    return(merge_list(xx[names(xx) %out% names(res)], res, null = c("keep", "ignore")))
+    return(merge_list(
+      x = xx[names(xx) %out% names(res)],
+      y = res,
+      null = c("keep", "ignore")
+    ))
   }
 
   res[order(names(res))]
