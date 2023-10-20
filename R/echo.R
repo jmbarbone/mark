@@ -38,6 +38,8 @@ echo <- function(exprs, to = stdout(), msg = TRUE) {
   op <- options(width = max(getOption("width") - 37, 30))
   on.exit(options(op))
 
+  res <- NULL
+
   for (exp in exprs) {
     cat0(time(), "[EXP] ")
     dep <- deparse1(exp)
