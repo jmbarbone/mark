@@ -1,7 +1,7 @@
 test_that("echo() works", {
   expect_output(
     expect_warning(
-      expect_identical(echo({ 1 }), 1),
+      expect_identical(echo({ 1 }), 1), # nolint: brace_linter.
       regexp = "echo::echo()",
       fixed = TRUE,
       class = "deprecatedWarning"
@@ -10,7 +10,7 @@ test_that("echo() works", {
 
   expect_output(
     expect_warning(
-      echo({ message("m") }, msg = FALSE),
+      echo({ message("m") }, msg = FALSE), # nolint: brace_linter.
       regexp = "echo::echo()",
       fixed = TRUE,
       class = "deprecatedWarning"
