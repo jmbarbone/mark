@@ -10,15 +10,6 @@
 #' @param msg If `FALSE` does not print results from `message()`
 #' @export
 #' @examples
-#' try(echo({
-#'   1 + 1
-#'   Sys.sleep(2)
-#'   head(mtcars)
-#'   message(1)
-#'   warning(2)
-#'   stop(3)
-#' }))
-#'
 #' if (package_available("echo")) {
 #'   try(echo::echo({
 #'     1 + 1
