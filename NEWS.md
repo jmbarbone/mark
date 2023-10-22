@@ -1,4 +1,4 @@
-# mark (development version)
+# mark 0.7.0
 
 * `merge_list()` added for combining lists [#200](https://github.com/jmbarbone/mark/issues/200)
 * `glob()` added for basic wildcard globbing on character vectors [#167](https://github.com/jmbarbone/mark/issues/167)
