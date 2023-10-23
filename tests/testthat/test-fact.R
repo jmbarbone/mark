@@ -85,7 +85,7 @@ test_that("fact.factor() works", {
 
 test_that("fact.haven_labelled() works", {
   skip_if_not_installed("haven")
-  .haven_as_factor <- "haven" %colons% "as_factor.haven_labelled"
+  .haven_as_factor <- "haven" %:::% "as_factor.haven_labelled"
   haven_as_fact <- function(...) {
     res <- fact(.haven_as_factor(...))
     attr(res, "label") <- exattr(..1, "label")
