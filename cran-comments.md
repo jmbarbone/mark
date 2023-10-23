@@ -9,8 +9,9 @@
 
 0 errors | 0 warnings | 0 note
 
-* This is a patch release
+* This is a minor release
 
 ## Notes
 
-* fixes current failed test checks for timezone references
+* fixes current warning for documentation
+* provides new functions

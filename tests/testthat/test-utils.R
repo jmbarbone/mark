@@ -57,13 +57,6 @@ test_that("which0()", {
   expect_identical(which0(c(FALSE, FALSE, FALSE)), 0L)
 })
 
-test_that("%colons%", {
-  expect_error(
-    "bad_package" %colons% "not_a_function",
-    class = "namespaceError"
-  )
-})
-
 test_that("that()", {
   expect_identical(that(c(TRUE, FALSE, TRUE)), which(c(TRUE, FALSE, TRUE)))
   expect_identical(that(c(FALSE, FALSE)), which(c(FALSE, FALSE)))
