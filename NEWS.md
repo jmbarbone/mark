@@ -9,6 +9,7 @@
   * file paths and line numbers can now be _clicked_ within RStudio [#171](https://github.com/jmbarbone/mark/issues/171)
 * adds more use of `rlang::list2()` for internally [#199](https://github.com/jmbarbone/mark/issues/199)
 * GitHub action included to check version updates with pull requests [#211](https://github.com/jmbarbone/mark/issues/211)
+* `%::%` and `%:::%` now exported from `{fuj}`
 
 # mark 0.6.1
 
