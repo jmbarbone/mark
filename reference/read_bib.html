@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">mark</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.1.9004</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -117,8 +117,8 @@ This will also include as many categories as possible from the entry.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span>  <span class="co"># Doesn't include the 'tidying' up</span></span></span>
 <span class="r-in"><span>  <span class="va">foo</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">file</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span>    <span class="va">bib</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="st">"bib2df"</span> <span class="op"><a href="https://jmbarbone.github.io/fuj/reference/grapes-colons-grapes.html" class="external-link">%colons%</a></span> <span class="st">"bib2df_read"</span><span class="op">)</span><span class="op">(</span><span class="va">file</span><span class="op">)</span></span></span>
-<span class="r-in"><span>    <span class="op">(</span><span class="st">"bib2df"</span> <span class="op"><a href="https://jmbarbone.github.io/fuj/reference/grapes-colons-grapes.html" class="external-link">%colons%</a></span> <span class="st">"bib2df_gather"</span><span class="op">)</span><span class="op">(</span><span class="va">bib</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="va">bib</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="st">"bib2df"</span> <span class="op"><a href="https://jmbarbone.github.io/fuj/reference/colons.html" class="external-link">%colons%</a></span> <span class="st">"bib2df_read"</span><span class="op">)</span><span class="op">(</span><span class="va">file</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="op">(</span><span class="st">"bib2df"</span> <span class="op"><a href="https://jmbarbone.github.io/fuj/reference/colons.html" class="external-link">%colons%</a></span> <span class="st">"bib2df_gather"</span><span class="op">)</span><span class="op">(</span><span class="va">bib</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># \donttest{</span></span></span>
@@ -138,9 +138,9 @@ This will also include as many categories as possible from the entry.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 9</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   expression     min  median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_time</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:t&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:t&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> read_bib    3.31ms  3.71ms     256.     9.41KB     7.45   103     3      403ms</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> bib2df     24.12ms 24.88ms      40.3    4.69MB     5.03    16     2      397ms</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> foo        14.65ms 15.47ms      62.3  162.97KB     8.12    23     3      369ms</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> read_bib    2.44ms  2.56ms     388.     9.41KB     9.83   158     4      407ms</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> bib2df        18ms 18.73ms      53.4    4.69MB     7.63    21     3      393ms</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> foo        10.59ms 11.04ms      91.0  162.97KB    10.7     34     4      374ms</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
