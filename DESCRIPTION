@@ -22,7 +22,7 @@ Depends:
 Imports:
     cli,
     fs (>= 1.6.2),
-    fuj (>= 0.1.1),
+    fuj (>= 0.1.4),
     magrittr (>= 2.0.1),
     rlang,
     stats (>= 3.6),
