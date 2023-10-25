@@ -1,5 +1,7 @@
 # mark (development version)
 
+* includes `tryn()` for running an expression a maximum number of times before failure [#80](https://github.com/jmbarbone/mark/issues/80)
+
 # mark 0.7.0
 
 * `merge_list()` added for combining lists [#200](https://github.com/jmbarbone/mark/issues/200)
