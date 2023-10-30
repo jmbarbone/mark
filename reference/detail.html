@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">mark</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0.9001</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -82,10 +82,10 @@ setting as <code>NA</code> will ignore this</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, <span class="fl">10</span>, <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">detail</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          class    type label  n na min_c max_c level level_n note comment</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 fact; factor integer  &lt;NA&gt; 10  0     1     1     a       1 &lt;NA&gt;    &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 fact; factor integer  &lt;NA&gt; 10  0     1     1     c       3 &lt;NA&gt;    &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 fact; factor integer  &lt;NA&gt; 10  0     1     1     b       4 &lt;NA&gt;    &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 fact; factor integer  &lt;NA&gt; 10  0     1     1     d       2 &lt;NA&gt;    &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 fact; factor integer  &lt;NA&gt; 10  0     1     1     d       4 &lt;NA&gt;    &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 fact; factor integer  &lt;NA&gt; 10  0     1     1     a       2 &lt;NA&gt;    &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 fact; factor integer  &lt;NA&gt; 10  0     1     1     c       3 &lt;NA&gt;    &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 fact; factor integer  &lt;NA&gt; 10  0     1     1     b       1 &lt;NA&gt;    &lt;NA&gt;</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://jmbarbone.github.io/fuj/reference/quick_df.html" class="external-link">quick_df</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  x <span class="op">=</span> <span class="va">x</span>,</span></span>
@@ -95,12 +95,12 @@ setting as <code>NA</code> will ignore this</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">detail</span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   i col        class    type label  n na      min_c      max_c level level_n</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1   x fact; factor integer  &lt;NA&gt; 10  0          1          1     a       1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 1   x fact; factor integer  &lt;NA&gt; 10  0          1          1     c       3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 1   x fact; factor integer  &lt;NA&gt; 10  0          1          1     b       4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 1   x fact; factor integer  &lt;NA&gt; 10  0          1          1     d       2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 2   y      numeric  double  &lt;NA&gt; 10  0       0.19       0.98  &lt;NA&gt;      NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 3   z         Date  double  &lt;NA&gt; 10  0 2023-11-11 2024-02-03  &lt;NA&gt;      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1   x fact; factor integer  &lt;NA&gt; 10  0          1          1     d       4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 1   x fact; factor integer  &lt;NA&gt; 10  0          1          1     a       2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 1   x fact; factor integer  &lt;NA&gt; 10  0          1          1     c       3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 1   x fact; factor integer  &lt;NA&gt; 10  0          1          1     b       1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 2   y      numeric  double  &lt;NA&gt; 10  0       0.32       0.89  &lt;NA&gt;      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 3   z         Date  double  &lt;NA&gt; 10  0 2023-11-04 2024-02-02  &lt;NA&gt;      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   note comment</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 &lt;NA&gt;    &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 &lt;NA&gt;    &lt;NA&gt;</span>
