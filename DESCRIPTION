@@ -1,7 +1,7 @@
 Package: mark
 Type: Package
 Title: Miscellaneous, Analytic R Kernels
-Version: 0.6.1.9005
+Version: 0.7.0.9000
 Authors@R:
     person(given   = "Jordan Mark",
            family  = "Barbone",
@@ -22,7 +22,7 @@ Depends:
 Imports:
     cli,
     fs (>= 1.6.2),
-    fuj (>= 0.1.1),
+    fuj (>= 0.1.4),
     magrittr (>= 2.0.1),
     rlang,
     stats (>= 3.6),

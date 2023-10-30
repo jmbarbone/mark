@@ -1,6 +1,14 @@
 #' @importFrom fuj %||%
 fuj::`%||%`
 
+#' @importFrom fuj %:::%
+#' @export
+fuj::`%:::%`
+
+#' @importFrom fuj %::%
+#' @export
+fuj::`%::%`
+
 #' @importFrom fuj %colons%
 #' @export
 fuj::`%colons%`

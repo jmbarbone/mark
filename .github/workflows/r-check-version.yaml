@@ -23,4 +23,3 @@ jobs:
       - uses: jmbarbone/actions/r-check-version@main
         with:
           ignore-dev-version: true
-

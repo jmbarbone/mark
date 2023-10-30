@@ -1,5 +1,10 @@
 # mark (development version)
 
+* includes `tryn()` for running an expression a maximum number of times before failure [#80](https://github.com/jmbarbone/mark/issues/80)
+* `echo()` is deprecated in favor of `echo::echo()` [#210](https://github.com/jmbarbone/mark/issues/210) (this was incorrectly listed in the previous release)
+
+# mark 0.7.0
+
 * `merge_list()` added for combining lists [#200](https://github.com/jmbarbone/mark/issues/200)
 * `glob()` added for basic wildcard globbing on character vectors [#167](https://github.com/jmbarbone/mark/issues/167)
 * adds greater use of `{fs}` over base file functions [#160](https://github.com/jmbarbone/mark/issues/160)
@@ -9,7 +14,7 @@
   * file paths and line numbers can now be _clicked_ within RStudio [#171](https://github.com/jmbarbone/mark/issues/171)
 * adds more use of `rlang::list2()` for internally [#199](https://github.com/jmbarbone/mark/issues/199)
 * GitHub action included to check version updates with pull requests [#211](https://github.com/jmbarbone/mark/issues/211)
-* `echo()` is deprecated in favor of `echo::echo()` [#210](https://github.com/jmbarbone/mark/issues/210)
+* `%::%` and `%:::%` now exported from `{fuj}`
 
 # mark 0.6.1
 
