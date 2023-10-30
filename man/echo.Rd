@@ -16,13 +16,20 @@ echo(exprs, to = stdout(), msg = TRUE)
 \description{
 Run expressions with logging outputs
 }
+\details{
+Function is deprecated.  Use \code{echo::echo()} instead.
+}
 \examples{
-try(echo({
-  1 + 1
-  Sys.sleep(2)
-  head(mtcars)
-  message(1)
-  warning(2)
-  stop(3)
-}))
+if (package_available("echo")) {
+  try(echo::echo({
+    1 + 1
+    Sys.sleep(2)
+    print(head(mtcars))
+    message(1)
+    warning(2)
+    stop(3)
+  },
+  level = 0
+  ))
+}
 }
