@@ -62,6 +62,8 @@ match_arg <- function(x, table) {
 #' @param choices The available choices; named lists will return the name (a
 #'   character) for when matched to the value within the list element
 #' @param null If `TRUE` allows `NULL` to be passed a `param`
+#' @param partial If `TRUE` allows partial matching via [pmatch()]
+#' @param multiple If `TRUE` allows multiple values to be returned
 #' @return A single value from `param` matched on `choices`
 #'
 #' @seealso [match_arg()]
@@ -73,6 +75,19 @@ match_arg <- function(x, table) {
 #' fruits()         # apple
 #' try(fruits("b")) # must be exact fruits("banana")
 #'
+#' pfruits <- function(x = c("apple", "apricot", "banana")) {
+#'   match_param(x, partial = TRUE)
+#' }
+#' fruits()      # apple
+#' fruits("ap")  # NA
+#' fruits("app") # apple
+#'
+#' afruits <- function(x = c("apple", "banana", "orange")) {
+#'   match_param(x, multiple = TRUE)
+#' }
+#'
+#' afruits() # apple, banana, orange
+#'
 #' # can have multiple responses
 #' how_much <- function(x = list(too_few = 0:2, ok = 3:5, too_many = 6:10)) {
 #'   match_param(x)
@@ -82,7 +97,16 @@ match_arg <- function(x, table) {
 #' how_much(3)
 #' how_much(9)
 #' @export
-match_param <- function(param, choices, null = TRUE) {
+match_param <- function(
+    param,
+    choices,
+    null = TRUE,
+    partial = getOption("mark.match_param.partial", FALSE),
+    multiple = FALSE
+) {
+  param_c <- charexpr(substitute(param))
+  force(param)
+
   if (is.null(param)) {
     if (null) {
       return(NULL)
@@ -91,7 +115,6 @@ match_param <- function(param, choices, null = TRUE) {
     stop(cond_match_param_null())
   }
 
-  param_c <- charexpr(substitute(param))
 
   if (missing(choices)) {
     parent <- sys.parent()
@@ -100,14 +123,18 @@ match_param <- function(param, choices, null = TRUE) {
   }
 
   choices <- unlist0(choices)
-
   values <- names(choices) %||% choices
   param <- unlist0(param)
-  res <- values[match(param[1], choices, nomatch = 0L)[[1]]]
+
+  fun <- if (partial) pmatch else match
+  m <- fun(param, choices, nomatch = 0L)
+  if (!multiple && length(m)) {
+    m <- m[1L]
+  }
+  res <- values[m]
   ocall <- outer_call()
 
   if (no_length(res)) {
-
     if (is_length0(param)) {
       param <- deparse(param)
     }
