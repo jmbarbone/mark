@@ -2,6 +2,8 @@
 
 * includes `tryn()` for running an expression a maximum number of times before failure [#80](https://github.com/jmbarbone/mark/issues/80)
 * `echo()` is deprecated in favor of `echo::echo()` [#210](https://github.com/jmbarbone/mark/issues/210) (this was incorrectly listed in the previous release)
+* `match_param()` can now return multiple matches [#191](https:://github.com/jmbarbone/mark/issues/191), and can return partial matches
+* `match_param()` no longer returns `condMatchParamNullError` but instead `matchParamLengthError` when `x` has a length of `0`
 
 # mark 0.7.0
 
