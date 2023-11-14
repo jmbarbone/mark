@@ -48,9 +48,9 @@ try(fruits("b")) # must be exact fruits("banana")
 pfruits <- function(x = c("apple", "apricot", "banana")) {
   match_param(x, partial = TRUE)
 }
-fruits()      # apple
-fruits("ap")  # NA
-fruits("app") # apple
+pfruits()          # apple
+try(pfruits("ap")) # matchParamMatchError
+pfruits("app")     # apple
 
 afruits <- function(x = c("apple", "banana", "orange")) {
   match_param(x, multiple = TRUE)
