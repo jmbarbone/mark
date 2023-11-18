@@ -18,7 +18,7 @@ Will not return error messages with ugly quotation marks
     
     <a class="navbar-brand me-2" href="../index.html">mark</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0.9001</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0.9002</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,7 +60,13 @@ Will not return error messages with ugly quotation marks
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">match_param</span><span class="op">(</span><span class="va">param</span>, <span class="va">choices</span>, null <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">match_param</span><span class="op">(</span></span>
+<span>  <span class="va">param</span>,</span>
+<span>  <span class="va">choices</span>,</span>
+<span>  null <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  partial <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"mark.match_param.partial"</span>, <span class="cn">FALSE</span><span class="op">)</span>,</span>
+<span>  multiple <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -76,6 +82,14 @@ character) for when matched to the value within the list element</p></dd>
 
 <dt>null</dt>
 <dd><p>If <code>TRUE</code> allows <code>NULL</code> to be passed a <code>param</code></p></dd>
+
+
+<dt>partial</dt>
+<dd><p>If <code>TRUE</code> allows partial matching via <code><a href="https://rdrr.io/r/base/pmatch.html" class="external-link">pmatch()</a></code></p></dd>
+
+
+<dt>multiple</dt>
+<dd><p>If <code>TRUE</code> allows multiple values to be returned</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -107,6 +121,25 @@ character) for when matched to the value within the list element</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Error : &lt;matchParamMatchError&gt; `match_param(x)` failed in `fruits("b")`:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   `x` [b] must be one of the following: "apple", "banana", "orange"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> package:mark</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">pfruits</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"apple"</span>, <span class="st">"apricot"</span>, <span class="st">"banana"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="fu">match_param</span><span class="op">(</span><span class="va">x</span>, partial <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="fu">pfruits</span><span class="op">(</span><span class="op">)</span>          <span class="co"># apple</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "apple"</span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="fu">pfruits</span><span class="op">(</span><span class="st">"ap"</span><span class="op">)</span><span class="op">)</span> <span class="co"># matchParamMatchError</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Error : &lt;matchParamMatchError&gt; `match_param(x)` failed in `pfruits("ap")`:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   `x` [ap] must be one of the following: "apple", "apricot", "banana"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> package:mark</span>
+<span class="r-in"><span><span class="fu">pfruits</span><span class="op">(</span><span class="st">"app"</span><span class="op">)</span>     <span class="co"># apple</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "apple"</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">afruits</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"apple"</span>, <span class="st">"banana"</span>, <span class="st">"orange"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="fu">match_param</span><span class="op">(</span><span class="va">x</span>, multiple <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">afruits</span><span class="op">(</span><span class="op">)</span> <span class="co"># apple, banana, orange</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "apple"  "banana" "orange"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># can have multiple responses</span></span></span>
 <span class="r-in"><span><span class="va">how_much</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>too_few <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">2</span>, ok <span class="op">=</span> <span class="fl">3</span><span class="op">:</span><span class="fl">5</span>, too_many <span class="op">=</span> <span class="fl">6</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
