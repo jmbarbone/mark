@@ -4,7 +4,13 @@
 \alias{match_param}
 \title{Match params}
 \usage{
-match_param(param, choices, null = TRUE)
+match_param(
+  param,
+  choices,
+  null = TRUE,
+  partial = getOption("mark.match_param.partial", FALSE),
+  multiple = FALSE
+)
 }
 \arguments{
 \item{param}{The parameter}
@@ -13,6 +19,10 @@ match_param(param, choices, null = TRUE)
 character) for when matched to the value within the list element}
 
 \item{null}{If \code{TRUE} allows \code{NULL} to be passed a \code{param}}
+
+\item{partial}{If \code{TRUE} allows partial matching via \code{\link[=pmatch]{pmatch()}}}
+
+\item{multiple}{If \code{TRUE} allows multiple values to be returned}
 }
 \value{
 A single value from \code{param} matched on \code{choices}
@@ -34,6 +44,19 @@ fruits <- function(x = c("apple", "banana", "orange")) {
 
 fruits()         # apple
 try(fruits("b")) # must be exact fruits("banana")
+
+pfruits <- function(x = c("apple", "apricot", "banana")) {
+  match_param(x, partial = TRUE)
+}
+pfruits()          # apple
+try(pfruits("ap")) # matchParamMatchError
+pfruits("app")     # apple
+
+afruits <- function(x = c("apple", "banana", "orange")) {
+  match_param(x, multiple = TRUE)
+}
+
+afruits() # apple, banana, orange
 
 # can have multiple responses
 how_much <- function(x = list(too_few = 0:2, ok = 3:5, too_many = 6:10)) {

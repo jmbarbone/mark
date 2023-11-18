@@ -1,4 +1,4 @@
-test_that("match-param", {
+test_that("match_param() works", {
   foo <- function(x = NULL, y = c(1, 2, 3)) {
     y <- match_param(y)
     x
@@ -44,6 +44,24 @@ test_that("match-param", {
 
   expect_error(foo(NULL), class = "condMatchParamNullError")
   expect_null(foo(NULL, null = TRUE))
+})
+
+test_that("match_param() can partialy match", {
+  fruits <- function(x = c("apple", "apricot", "banana")) {
+    match_param(x, partial = TRUE)
+  }
+
+  expect_identical(fruits(), "apple")
+  expect_error(fruits("a"), class = "matchParamMatchError")
+  expect_identical(fruits("app"), "apple")
+})
+
+test_that("match_param() accepts can return multiple", {
+  fruits <- function(x = c("apple", "banana", "orange")) {
+    match_param(x, multiple = TRUE)
+  }
+
+  expect_identical(fruits(), c("apple", "banana", "orange"))
 })
 
 test_that("match_arg() works", {
