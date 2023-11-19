@@ -33,15 +33,12 @@ file_copy_ms <- function(path, new_path, overwrite = NA, quiet = FALSE) {
   md_old <- unname(tools::md5sum(path))
   md_new <- unname(tools::md5sum(new_path))
   changed <- md_old != md_new
+  ok <- changed | is.na(changed)
 
-  if (any(changed, na.rm = TRUE)) {
+  if (any(ok, na.rm = TRUE)) {
     # fs::file_copy(character(), character()) currently works, but I want to be
     # safe
-    fs::file_copy(
-      path = path[which(changed)],
-      new_path = new_path[which(changed)],
-      overwrite = TRUE
-    )
+    fs::file_copy(path[ok], new_path[ok], overwrite = TRUE)
   }
 
   msg({
@@ -61,7 +58,7 @@ file_copy_ms <- function(path, new_path, overwrite = NA, quiet = FALSE) {
 # should use more custom messages
 mark_file_copy_ms_message <- function(...) {
   message(struct(
-    list(.makeMessage(...), NULL),
+    list(.makeMessage(..., appendLF = TRUE), NULL),
     # nolint next: line_length_linter.
     class = c("markFileCopyMsMessage", "verboseMessage", "message", "condition"),
     names = c("message", "call.")
