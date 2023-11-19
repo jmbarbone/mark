@@ -1,6 +1,6 @@
 #' Write file with md5 hash check
 #'
-#' @param data A data object to write to file
+#' @param x An object to write to file
 #' @param file The file or connection to write to (dependent on part by method)
 #' @param method The method of saving the file.  When `NULL`, the method is
 #'   determined by the file extension.
@@ -28,7 +28,7 @@
 #' fs::file_delete(temp)
 #' @export
 write_file_ms <- function(
-    data,
+    x,
     path = NULL,
     method = NULL,
     overwrite = NA,
@@ -43,55 +43,74 @@ write_file_ms <- function(
     ext <- fs::path_ext(path)
   }
 
-  if (null_path || ext == "") {
-    if (is.data.frame(data)) {
-      method <- "table"
-    } else {
-      if (!is.atomic(data)) {
-        warning(
-          "don't know what to do with class ", toString(class(data)),
-          "\ntrying to convert to character",
-          call. = FALSE
-        )
-        data <- as.character(data)
-      }
-      method <- "lines"
-    }
+  if (is.null(method)) {
+    method <- ext
   }
 
-  method <- mark::match_param(method, list(
-    "csv",
-    "csv2",
-    "dcf",
-    lines = c("lines", "md", "txt", "qmd", "rmd"),
-    "rds",
-    table = c("table", "delim"),
-    "tsv",
-    "tsv2"
-  ))
+  if (method != "") {
+    invisible()
+  } else if (is.data.frame(x)) {
+    method <- "table"
+  } else if (is.matrix(x)) {
+    method <- "write"
+  } else if (is.atomic(x)) {
+    method <- "lines"
+  } else {
+    x <- as.list(x)
+    method <- "json"
+  }
+
+  method <- match_param(
+    method,
+    choices = list(
+      "csv",
+      "csv2",
+      "dcf",
+      "json",
+      lines = c("lines", "md", "txt", "qmd", "rmd"),
+      "rds",
+      table = c("table", "delim"),
+      "tsv",
+      "tsv2",
+      "write",
+      yaml = c("yaml", "yml")
+    ),
+    null = FALSE,
+    partial = FALSE,
+    multiple = FALSE
+  )
 
   write_function <- switch(
     method,
     csv = function(x, ...) utils::write.csv(x = x, ...),
     csv2 = function(x, ...) utils::write.csv2(x = x, ...),
     dcf = function(x, ...) write.dcf(x = x, ...),
-    lines = function(x, ...) writeLines(text = x, con = path, ...),
+    lines = function(x, file, ...) writeLines(text = x, con = file, ...),
     rds = function(x, ...) saveRDS(object = x, ...),
     table = function(x, ...) utils::write.table(x = x, ...),
     tsv = function(x, ...) utils::write.table(x = x, sep = "\t", ...),
     tsv2 = function(x, ...) utils::write.table(x = x, sep = "|", ...),
-    NULL
+    # nolint next: line_length_linter.
+    write = function(x, ncolumns = NCOL(x), ...) write(x, ncolumns = ncolumns, ...),
+    json = function(x, file, ...) {
+      requireNamespace("jsonlite")
+      jsonlite::write_json(x, path = file, ...)
+    },
+    yaml = function(x, ...) {
+      require_namespace("yaml")
+      yaml::write_yaml(x, ...)
+    }
   )
 
   params <- rlang::list2(...)
-  params$x <- data
+  params$x <- x
   params$file <- if (null_path) {
     stdout()
   } else {
     fs::file_temp(ext = ext)
   }
 
-  if (method %in% c("dcf", "table", "tsv", "tsv2")) {
+  if (method %in% c("dcf", "table", "tsv", "tsv2", "write")) {
     if (!is.null(params$append) && !isFALSE(params$append)) {
       stop(
         "method '", method,
