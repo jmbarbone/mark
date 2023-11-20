@@ -115,7 +115,6 @@ match_param <- function(
     stop(cond_match_param_null())
   }
 
-
   if (missing(choices)) {
     parent <- sys.parent()
     forms <- formals(sys.function(parent))
@@ -123,6 +122,13 @@ match_param <- function(
   }
 
   choices <- unlist0(choices)
+  nm <- names(choices)
+  if (is.null(nm)) {
+    names(choices) <- choices
+  } else {
+    empty <- nm == ""
+    names(choices)[empty] <- choices[empty]
+  }
   values <- names(choices) %||% choices
   param <- unlist0(param)
 
