@@ -5,6 +5,9 @@ test_that("unlist0() works", {
     unlist0(x),
     set_names(1:4, c("a", "a", "b", "a"))
   )
+
+  # should be fine without names
+  expect_identical(unlist0(list(1:3)), 1:3)
 })
 
 test_that("sqash_vec() works", {
