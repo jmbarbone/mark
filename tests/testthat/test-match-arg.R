@@ -75,10 +75,16 @@ test_that("match_arg() works", {
   expect_error(foo(table = "c"), class = "condMatchArgError")
 })
 
-test_that("match_arg() accepts multiple [#104]", {
+test_that("match_param() accepts multiple [#104]", {
   foo <- function(x = list(this = 1:2, that = 3)) {
     mark::match_param(x)
   }
 
   expect_identical(foo(), "this")
+})
+
+test_that("match_param() accepts unnamed multiple arguments [#219]", {
+  obj <- match_param("a", list("a", b = c("c", "d")))
+  exp <- "a"
+  expect_identical(obj, exp)
 })
