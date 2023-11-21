@@ -60,10 +60,13 @@ match_arg <- function(x, table) {
 #'
 #' @param param The parameter
 #' @param choices The available choices; named lists will return the name (a
-#'   character) for when matched to the value within the list element
+#'   character) for when matched to the value within the list element.  A list
+#'   of formula objects (preferred) retains the LHS of the formula as the return
+#'   value when matched to the RHS of the formula.
 #' @param null If `TRUE` allows `NULL` to be passed a `param`
 #' @param partial If `TRUE` allows partial matching via [pmatch()]
 #' @param multiple If `TRUE` allows multiple values to be returned
+#' @param simplify If `TRUE` will simplify the output to a single value
 #' @return A single value from `param` matched on `choices`
 #'
 #' @seealso [match_arg()]
@@ -96,13 +99,18 @@ match_arg <- function(x, table) {
 #' how_much(1)
 #' how_much(3)
 #' how_much(9)
+#'
+#' # use a list of formulas instead
+#' ls <- list(1L ~ 0:1, 2L, 3L ~ 3:5)
+#' sapply(0:5, match_param, choices = ls)
 #' @export
 match_param <- function(
     param,
     choices,
     null = TRUE,
     partial = getOption("mark.match_param.partial", FALSE),
-    multiple = FALSE
+    multiple = FALSE,
+    simplify = TRUE
 ) {
   param_c <- charexpr(substitute(param))
   force(param)
@@ -115,32 +123,30 @@ match_param <- function(
     stop(cond_match_param_null())
   }
 
-  if (missing(choices)) {
+  missing_choices <- missing(choices)
+  if (missing_choices) {
     parent <- sys.parent()
     forms <- formals(sys.function(parent))
     choices <- eval(forms[[param_c]], envir = parent)
   }
 
-  choices <- unlist0(choices)
-  nm <- names(choices)
-  if (is.null(nm)) {
-    names(choices) <- choices
-  } else {
-    empty <- nm == ""
-    names(choices)[empty] <- choices[empty]
+  mparam <- cleanup_param_list(param)
+  mchoices <- cleanup_param_list(choices)
+  dupes <- duplicated(unname(mchoices$choices))
+
+  if (any(dupes)) {
+    stop(cond_match_param_dupes(choices))
   }
-  values <- names(choices) %||% choices
-  param <- unlist0(param)
 
   fun <- if (partial) pmatch else match
-  m <- fun(param, choices, nomatch = 0L)
+  m <- fun(mparam$choices, mchoices$choices, nomatch = NA_integer_)
+
   if (!multiple && length(m)) {
     m <- m[1L]
   }
-  res <- values[m]
-  ocall <- outer_call()
 
-  if (no_length(res)) {
+  ocall <- outer_call()
+  if (no_length(param) || identical(m, NA_integer_)) {
     if (is_length0(param)) {
       param <- deparse(param)
     }
@@ -153,7 +159,38 @@ match_param <- function(
     ))
   }
 
+  res <- lapply(m, function(i) mchoices$values[[i]])
+
+  if (simplify) {
+    res <- unlist0(res)
+  }
+
   res
+}
+
+cleanup_param_list <- function(x) {
+  x <- as.list(x)
+  env <- parent.frame()
+
+  eval_expr <- function(x, i) {
+    eval(as.expression(x[[i]]), env)
+  }
+
+  out <- list(values = NULL, choices = NULL)
+  nms <- names(x)
+  for (i in seq_along(x)) {
+    if (inherits(x[[i]], "formula")) {
+      out$values[[i]] <- eval_expr(x[[i]], 2L)
+      out$choices[[i]] <- eval_expr(x[[i]], 3L)
+    } else {
+      out$values[[i]] <- if (isTRUE(nzchar(nms[i]))) nms[i] else x[[i]]
+      out$choices[[i]] <- x[[i]]
+    }
+  }
+
+  out$values <- rep(out$values, lengths(out$choices))
+  out$choices <- unlist(lapply(out$choices, as.list), recursive = FALSE)
+  out
 }
 
 # conditions --------------------------------------------------------------
@@ -182,16 +219,39 @@ cond_match_param_match <- function(
     param,
     choices
 ) {
+  to_value <- function(x) {
+    if (all(names(x) == as.character(x))) {
+      return(toString(x))
+    }
+
+    toString(sprintf("%s = %s", names(x), x))
+  }
+
+  to_options <- function(x) {
+    if (all(names(x) == as.character(x))) {
+      return(toString(x))
+    }
+
+    collapse(mapply(
+      function(x, nm) {
+        sprintf("%s = %s", nm, toString(x))
+      },
+      x = x,
+      nm = names(x),
+      USE.NAMES = FALSE
+    ), sep = " | ")
+  }
+2
   msg <- sprintf(
     paste0(
       "`match_param(%s)` failed in `%s`:\n",
-      "  `%s` [%s] must be one of the following: \"%s\""
+      "  param    %s\n",
+      "  choices  %s"
     ),
     input,
     argument,
-    input,
-    param,
-    collapse0(choices, sep = '", "')
+    to_value(param),
+    to_options(choices)
   )
 
   new_condition(msg, "match_param_match")
