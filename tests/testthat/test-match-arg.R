@@ -8,9 +8,11 @@ test_that("match_param() works", {
   expect_null(foo(y = 1))
   expect_error(
     foo(y = 4),
-    paste0(
-      "`match_param(y)` failed in `foo(y = 4)`:\n",
-      '  `y` [4] must be one of the following: "1", "2", "3"'
+    regexp = collapse(
+      "`match_param(y)` failed in `foo(y = 4)`:",
+      "  param    4",
+      "  choices  1, 2, 3",
+      sep = "\n"
     ),
     fixed = TRUE,
     class = "matchParamMatchError"
@@ -30,12 +32,14 @@ test_that("match_param() works", {
 
   expect_error(
     foo(),
-    paste0(
-      "`match_param(tolower(x))` failed in `foo()`:\n  `tolower(x)`",
-      " [character(0)] must be one of the following: \"a\", \"b\", \"c\""
+    regexp = collapse(
+      "`match_param(tolower(x))` failed in `foo()`:",
+      "  param    character(0)",
+      "  choices  a, b, c",
+      sep = "\n"
     ),
-    fixed = TRUE,
-    class = "matchParamMatchError"
+    class = "matchParamMatchError",
+    fixed = TRUE
   )
 
   foo <- function(x = c("a", "b"), null = FALSE) {
@@ -87,4 +91,15 @@ test_that("match_param() accepts unnamed multiple arguments [#219]", {
   obj <- match_param("a", list("a", b = c("c", "d")))
   exp <- "a"
   expect_identical(obj, exp)
+})
+
+test_that("match_param() accepts formula lists", {
+  foo <- function(x = list(1L ~ 0:1, 2L, 3L ~ 3:5, foo = 6)) {
+    match_param(x)
+  }
+
+  expect_identical(foo(1L), 1L)
+  expect_identical(foo(2L), 2L)
+  expect_identical(foo(5L), 3L)
+  expect_identical(foo(6L), "foo")
 })
