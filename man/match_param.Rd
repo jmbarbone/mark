@@ -9,20 +9,25 @@ match_param(
   choices,
   null = TRUE,
   partial = getOption("mark.match_param.partial", FALSE),
-  multiple = FALSE
+  multiple = FALSE,
+  simplify = TRUE
 )
 }
 \arguments{
 \item{param}{The parameter}
 
 \item{choices}{The available choices; named lists will return the name (a
-character) for when matched to the value within the list element}
+character) for when matched to the value within the list element.  A list
+of formula objects (preferred) retains the LHS of the formula as the return
+value when matched to the RHS of the formula.}
 
 \item{null}{If \code{TRUE} allows \code{NULL} to be passed a \code{param}}
 
 \item{partial}{If \code{TRUE} allows partial matching via \code{\link[=pmatch]{pmatch()}}}
 
 \item{multiple}{If \code{TRUE} allows multiple values to be returned}
+
+\item{simplify}{If \code{TRUE} will simplify the output to a single value}
 }
 \value{
 A single value from \code{param} matched on \code{choices}
@@ -66,6 +71,10 @@ how_much <- function(x = list(too_few = 0:2, ok = 3:5, too_many = 6:10)) {
 how_much(1)
 how_much(3)
 how_much(9)
+
+# use a list of formulas instead
+ls <- list(1L ~ 0:1, 2L, 3L ~ 3:5)
+sapply(0:5, match_param, choices = ls)
 }
 \seealso{
 \code{\link[=match_arg]{match_arg()}}
