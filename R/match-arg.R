@@ -132,9 +132,9 @@ match_param <- function(
 
   mparam <- cleanup_param_list(param)
   mchoices <- cleanup_param_list(choices)
-  dupes <- duplicated(unname(mchoices$choices))
 
-  if (any(dupes)) {
+  if (anyDuplicated(unlist(mchoices$choices))) {
+    # TODO implement cond_match_param_dupes()
     stop(cond_match_param_dupes(choices))
   }
 
@@ -241,7 +241,7 @@ cond_match_param_match <- function(
       USE.NAMES = FALSE
     ), sep = " | ")
   }
-2
+
   msg <- sprintf(
     paste0(
       "`match_param(%s)` failed in `%s`:\n",
@@ -255,4 +255,39 @@ cond_match_param_match <- function(
   )
 
   new_condition(msg, "match_param_match")
+}
+
+cond_match_param_dupes <- function(choices) {
+  to_choices <- function(x) {
+    if (all(names(x) == as.character(x))) {
+      dupe <- duplicated(x)
+      x[dupe] <- paste0(x[dupe], "*")
+      return(toString(x))
+    }
+
+    collapse(mapply(
+      function(x, nm, d) {
+        sprintf(
+          "%s = %s",
+          nm,
+          toString(paste0(x, ifelse(d, "*", "")))
+        )
+      },
+      x = x,
+      nm = names(x),
+      d = split(
+        duplicated(unlist(x)),
+        rep(seq_along(x), lengths(x))
+      ),
+      USE.NAMES = FALSE
+    ), sep = "\n  ")
+  }
+
+  new_condition(
+    msg = paste0(
+      "duplicate values found in `choices`:\n  ",
+      to_choices(choices)
+    ),
+    class = "match_param_dupes"
+  )
 }
