@@ -58,6 +58,14 @@ test_that("match_param() can partialy match", {
   expect_identical(fruits(), "apple")
   expect_error(fruits("a"), class = "matchParamMatchError")
   expect_identical(fruits("app"), "apple")
+
+  fruits <- function(x = list("apple" = 1:2, "apricot" = 3, "banana" = 4)) {
+    match_param(x, partial = TRUE)
+  }
+
+  expect_identical(fruits(), "apple")
+  expect_error(fruits(c(a = 0)), class = "matchParamMatchError")
+  expect_identical(fruits(1), "apple")
 })
 
 test_that("match_param() accepts can return multiple", {
