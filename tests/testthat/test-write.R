@@ -44,5 +44,3 @@ test_that("write_file_ms() errors", {
     write_file_ms(df, method = "dcf", append = TRUE)
   )
 })
-
-# covr::file_report(covr::file_coverage("R/write.R", "tests/testthat/test-write.R"))
