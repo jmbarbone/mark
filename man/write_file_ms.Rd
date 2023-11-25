@@ -16,7 +16,7 @@ write_file_ms(
 \arguments{
 \item{x}{An object to write to file}
 
-\item{path}{A character vector of one or more paths.}
+\item{path}{The file or connection to write to (dependent on part by method)}
 
 \item{method}{The method of saving the file.  When \code{NULL}, the method is
 determined by the file extension.}
@@ -27,8 +27,6 @@ Otherwise, see \code{\link[fs:copy]{fs::file_copy()}}.}
 \item{quiet}{When \code{TRUE}, suppresses messages from md5 checks.}
 
 \item{...}{Additional arguments passed to the write function.}
-
-\item{file}{The file or connection to write to (dependent on part by method)}
 }
 \value{
 See \code{\link[=file_copy_ms]{file_copy_ms()}}.  When \code{file} is a connection, the returns

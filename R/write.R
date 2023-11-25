@@ -1,7 +1,7 @@
 #' Write file with md5 hash check
 #'
 #' @param x An object to write to file
-#' @param file The file or connection to write to (dependent on part by method)
+#' @param path The file or connection to write to (dependent on part by method)
 #' @param method The method of saving the file.  When `NULL`, the method is
 #'   determined by the file extension.
 #' @inheritParams file_copy_ms
