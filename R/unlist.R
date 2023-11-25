@@ -29,7 +29,13 @@ unlist0 <- function(x) {
     return(x)
   }
 
-  unlist(x, use.names = FALSE) %names% rep.int(names(x), lengths(x))
+  res <- unlist(x, use.names = FALSE)
+
+  if (is.null(names(x)) || all(names(x) == "")) {
+    return(res)
+  }
+
+  res %names% rep.int(names(x) %||% "", lengths(x))
 }
 
 #' @rdname unlist0
