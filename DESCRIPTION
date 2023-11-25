@@ -1,7 +1,7 @@
 Package: mark
 Type: Package
 Title: Miscellaneous, Analytic R Kernels
-Version: 0.7.0.9004
+Version: 0.7.0.9005
 Authors@R:
     person(given   = "Jordan Mark",
            family  = "Barbone",
