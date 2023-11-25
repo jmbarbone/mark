@@ -82,16 +82,33 @@ write_file_ms <- function(
 
   write_function <- switch(
     method,
-    csv = function(x, ...) utils::write.csv(x = x, ...),
-    csv2 = function(x, ...) utils::write.csv2(x = x, ...),
-    dcf = function(x, ...) write.dcf(x = x, ...),
-    lines = function(x, file, ...) writeLines(text = x, con = file, ...),
-    rds = function(x, ...) saveRDS(object = x, ...),
-    table = function(x, ...) utils::write.table(x = x, ...),
-    tsv = function(x, ...) utils::write.table(x = x, sep = "\t", ...),
-    tsv2 = function(x, ...) utils::write.table(x = x, sep = "|", ...),
-    # nolint next: line_length_linter.
-    write = function(x, ncolumns = NCOL(x), ...) write(x, ncolumns = ncolumns, ...),
+    csv = function(x, ...) {
+      utils::write.csv(x = x, ...)
+    },
+    csv2 = function(x, ...) {
+      utils::write.csv2(x = x, ...)
+    },
+    dcf = function(x, ...) {
+      write.dcf(x = x, ...)
+    },
+    lines = function(x, file, ...) {
+      writeLines(text = x, con = file, ...)
+    },
+    rds = function(x, ...) {
+      saveRDS(object = x, ...)
+    },
+    table = function(x, ...) {
+      utils::write.table(x = x, ...)
+    },
+    tsv = function(x, ...) {
+      utils::write.table(x = x, sep = "\t", ...)
+    },
+    tsv2 = function(x, ...) {
+      utils::write.table(x = x, sep = "|", ...)
+    },
+    write = function(x, ncolumns = NCOL(x), ...) {
+      write(x, ncolumns = ncolumns, ...)
+    },
     json = function(x, file, ...) {
       requireNamespace("jsonlite")
       jsonlite::write_json(x, path = file, ...)
