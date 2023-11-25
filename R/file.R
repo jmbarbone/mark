@@ -11,11 +11,11 @@
 #'   a logical vector indicating whether the file was changed (`NA` for when the
 #'   file is new), and `"md5sum"`, a list of the md5sums of the old and new md5
 #'   sums.
-file_copy_ms <- function(path, new_path, overwrite = NA, quiet = FALSE) {
+file_copy_md5 <- function(path, new_path, overwrite = NA, quiet = FALSE) {
   msg <- if (quiet) {
     function(...) invisible()
   } else {
-    mark_file_copy_ms_message
+    mark_file_copy_md5_message
   }
 
   new_exists <- fs::file_exists(new_path)
@@ -56,7 +56,7 @@ file_copy_ms <- function(path, new_path, overwrite = NA, quiet = FALSE) {
 }
 
 # should use more custom messages
-mark_file_copy_ms_message <- function(...) {
+mark_file_copy_md5_message <- function(...) {
   message(struct(
     list(.makeMessage(..., appendLF = TRUE), NULL),
     # nolint next: line_length_linter.

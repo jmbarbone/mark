@@ -1,4 +1,4 @@
-test_that("file_copy_ms() works", {
+test_that("file_copy_md5() works", {
   x <- c(tempfile("one"), tempfile("two"), tempfile("three"))
   y <- c(tempfile("one"), tempfile("two"), tempfile("three"))
   on.exit({
@@ -10,11 +10,11 @@ test_that("file_copy_ms() works", {
   writeLines("three", x[3L])
 
   # none of y exists
-  expect_message(file_copy_ms(x, y, overwrite = FALSE), NA)
-  expect_message(file_copy_ms(x, y, overwrite = FALSE), NA)
+  expect_message(file_copy_md5(x, y, overwrite = FALSE), NA)
+  expect_message(file_copy_md5(x, y, overwrite = FALSE), NA)
 
   # all of y exists
-  expect_message(file_copy_ms(x, y, overwrite = TRUE), NA)
+  expect_message(file_copy_md5(x, y, overwrite = TRUE), NA)
 
   # mix
   writeLines("twotwo", y[2L])
@@ -22,7 +22,7 @@ test_that("file_copy_ms() works", {
 
   expect_message(
     expect_identical(
-      attr(file_copy_ms(x, y), "changed"),
+      attr(file_copy_md5(x, y), "changed"),
       c(FALSE, TRUE, NA)
     ),
     class = "markFileCopyMsMessage",
@@ -32,5 +32,5 @@ test_that("file_copy_ms() works", {
     )
   )
 
-  expect_message(file_copy_ms(x, y, quiet = TRUE), NA)
+  expect_message(file_copy_md5(x, y, quiet = TRUE), NA)
 })

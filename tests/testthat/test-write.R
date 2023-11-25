@@ -1,24 +1,24 @@
-test_that("write_file_ms() works", {
+test_that("write_file_md5() works", {
   df <- data.frame(a = 1, b = 2)
   temp <- tempfile()
   on.exit(fs::file_delete(temp))
 
-  expect_output(write_file_ms(df))
-  expect_message(write_file_ms(df, temp), NA)
-  expect_message(write_file_ms(df, temp), class = "markFileCopyMsMessage")
+  expect_output(write_file_md5(df))
+  expect_message(write_file_md5(df, temp), NA)
+  expect_message(write_file_md5(df, temp), class = "markFileCopyMsMessage")
 
   # atomic
-  expect_output(write_file_ms("lines"))
-  expect_output(write_file_ms(list(a = 1)))
-  expect_output(write_file_ms(matrix(1:4, 2)))
+  expect_output(write_file_md5("lines"))
+  expect_output(write_file_md5(list(a = 1)))
+  expect_output(write_file_md5(matrix(1:4, 2)))
 })
 
-test_that("write_file_ms() types", {
+test_that("write_file_md5() types", {
   foo <- function(method, ...) {
     file <- tempfile()
     on.exit(file.remove(file))
     df <- data.frame(a = 1)
-    expect_message(write_file_ms(df, file, method = method, ...), NA)
+    expect_message(write_file_md5(df, file, method = method, ...), NA)
   }
 
   foo("csv")
@@ -33,14 +33,14 @@ test_that("write_file_ms() types", {
   foo("yaml")
 })
 
-test_that("write_file_ms() errors", {
+test_that("write_file_md5() errors", {
   df <- data.frame(a = 1)
   expect_error(
-    write_file_ms(df, method = "foo"),
+    write_file_md5(df, method = "foo"),
     class = "matchParamMatchError"
   )
 
   expect_error(
-    write_file_ms(df, method = "dcf", append = TRUE)
+    write_file_md5(df, method = "dcf", append = TRUE)
   )
 })

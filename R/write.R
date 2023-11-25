@@ -4,30 +4,30 @@
 #' @param path The file or connection to write to (dependent on part by method)
 #' @param method The method of saving the file.  When `NULL`, the method is
 #'   determined by the file extension.
-#' @inheritParams file_copy_ms
+#' @inheritParams file_copy_md5
 #' @param ... Additional arguments passed to the write function.
-#' @returns See [file_copy_ms()].  When `file` is a connection, the returns
+#' @returns See [file_copy_md5()].  When `file` is a connection, the returns
 #'   nothing and writes the file to the `stdout()`
 #' @examples
 #' df <- data.frame(a = 1, b = 2)
 #'
 #' # just writes to stdout()
-#' write_file_ms(df)
+#' write_file_md5(df)
 #'
 #' temp <- tempfile()
 #' # new
-#' write_file_ms(df, temp)
+#' write_file_md5(df, temp)
 #'
 #' # same
-#' write_file_ms(df, temp)
+#' write_file_md5(df, temp)
 #'
 #' # changed
 #' df$c <- 3
-#' write_file_ms(df, temp)
+#' write_file_md5(df, temp)
 #'
 #' fs::file_delete(temp)
 #' @export
-write_file_ms <- function(
+write_file_md5 <- function(
     x,
     path = NULL,
     method = NULL,
@@ -144,5 +144,5 @@ write_file_ms <- function(
     return(invisible())
   }
 
-  file_copy_ms(params$file, path, overwrite = overwrite, quiet = quiet)
+  file_copy_md5(params$file, path, overwrite = overwrite, quiet = quiet)
 }
