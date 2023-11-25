@@ -8,9 +8,11 @@ test_that("match_param() works", {
   expect_null(foo(y = 1))
   expect_error(
     foo(y = 4),
-    paste0(
-      "`match_param(y)` failed in `foo(y = 4)`:\n",
-      '  `y` [4] must be one of the following: "1", "2", "3"'
+    regexp = collapse(
+      "`match_param(y)` failed in `foo(y = 4)`:",
+      "  param    4",
+      "  choices  1, 2, 3",
+      sep = "\n"
     ),
     fixed = TRUE,
     class = "matchParamMatchError"
@@ -30,12 +32,14 @@ test_that("match_param() works", {
 
   expect_error(
     foo(),
-    paste0(
-      "`match_param(tolower(x))` failed in `foo()`:\n  `tolower(x)`",
-      " [character(0)] must be one of the following: \"a\", \"b\", \"c\""
+    regexp = collapse(
+      "`match_param(tolower(x))` failed in `foo()`:",
+      "  param    character(0)",
+      "  choices  a, b, c",
+      sep = "\n"
     ),
-    fixed = TRUE,
-    class = "matchParamMatchError"
+    class = "matchParamMatchError",
+    fixed = TRUE
   )
 
   foo <- function(x = c("a", "b"), null = FALSE) {
@@ -54,6 +58,14 @@ test_that("match_param() can partialy match", {
   expect_identical(fruits(), "apple")
   expect_error(fruits("a"), class = "matchParamMatchError")
   expect_identical(fruits("app"), "apple")
+
+  fruits <- function(x = list("apple" = 1:2, "apricot" = 3, "banana" = 4)) {
+    match_param(x, partial = TRUE)
+  }
+
+  expect_identical(fruits(), "apple")
+  expect_error(fruits(c(a = 0)), class = "matchParamMatchError")
+  expect_identical(fruits(1), "apple")
 })
 
 test_that("match_param() accepts can return multiple", {
@@ -75,10 +87,39 @@ test_that("match_arg() works", {
   expect_error(foo(table = "c"), class = "condMatchArgError")
 })
 
-test_that("match_arg() accepts multiple [#104]", {
+test_that("match_param() accepts multiple [#104]", {
   foo <- function(x = list(this = 1:2, that = 3)) {
     mark::match_param(x)
   }
 
   expect_identical(foo(), "this")
+})
+
+test_that("match_param() accepts unnamed multiple arguments [#219]", {
+  obj <- match_param("a", list("a", b = c("c", "d")))
+  exp <- "a"
+  expect_identical(obj, exp)
+})
+
+test_that("match_param() accepts formula lists", {
+  foo <- function(x = list(1L ~ 0:1, 2L, 3L ~ 3:5, foo = 6)) {
+    match_param(x)
+  }
+
+  expect_identical(foo(1L), 1L)
+  expect_identical(foo(2L), 2L)
+  expect_identical(foo(5L), 3L)
+  expect_identical(foo(6L), "foo")
+})
+
+test_that("match_param() finds duplicate choices", {
+  expect_error(
+    match_param("a", c("a", "a")),
+    class = "matchParamDupesError"
+  )
+
+  expect_error(
+    match_param(1, c(a = 1:2, b = 3:4, c = c(1, 3))),
+    class = "matchParamDupesError"
+  )
 })
