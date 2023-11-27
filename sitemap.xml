@@ -103,6 +103,9 @@
     <loc>https://jmbarbone.github.io/mark/reference/fct_expand_seq.html</loc>
   </url>
   <url>
+    <loc>https://jmbarbone.github.io/mark/reference/file_copy_md5.html</loc>
+  </url>
+  <url>
     <loc>https://jmbarbone.github.io/mark/reference/file_info.html</loc>
   </url>
   <url>
@@ -338,5 +341,8 @@
   </url>
   <url>
     <loc>https://jmbarbone.github.io/mark/reference/within_call.html</loc>
+  </url>
+  <url>
+    <loc>https://jmbarbone.github.io/mark/reference/write_file_md5.html</loc>
   </url>
 </urlset>
