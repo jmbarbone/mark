@@ -7,6 +7,8 @@
   * error message readability improved for `matchParamMatchError`
   * `choices` can now be a list of `formula` elements, preserving the return value
 * `unlist0()` no longer fails when input list is not named [#220](https://github.com/jmbarbone/mark/issues/220)
+* `file_copy_md5()` added as a wrapper for `fs::file_copy()` but provides MD5 checks through `tools::md5sum()` to avoid overwriting files that had no content changes [#207](https://github.com/jmbarbone/mark/issues/207)
+* `write_file_md5()` added as a general writing function and utilizes `file_copy_md5()` for MD5 checks [#207](https://github.com/jmbarbone/mark/issues/207)
 
 # mark 0.7.0
 
