@@ -49,7 +49,7 @@ write_file_md5 <- function(
 
   if (method == "default") {
     if (nzchar(ext)) {
-      method <- ext
+      method <- match_param(ext, mark_write_methods())
     } else if (is.data.frame(x)) {
       method <- "table"
     } else if (is.matrix(x)) {
@@ -74,7 +74,16 @@ write_file_md5 <- function(
   if (null_path) {
     params$con <- stdout()
   } else {
+    if (compression == "default") {
+      compression <- attr(path, "compress")
+    }
+
+    if (compression != "none") {
+      ext <- paste0(ext, ".", compression)
+    }
+
     temp <- fs::file_temp(ext = ext)
+    attributes(temp) <- attributes(path)
     on.exit(fs::file_delete(temp), add = TRUE)
     params$con <- compress(temp, compression)
     on.exit(safe_close(params$con), add = TRUE)
@@ -220,11 +229,13 @@ mark_write_yaml <- function(
     indent.mapping.sequence = FALSE,
     handlers = list(
       boolean = function(x) {
+        # nocov start
         if (x %in% c("n", "y")) {
           x
         } else {
           tolower(x) == "true"
         }
+        # nocov end
       }
     )
   )
@@ -265,7 +276,6 @@ compress <- function(
   method <- match_param(method, c("default", "none", "gz", "bz2", "xz"))
 
   if (!identical(x, "")) {
-    x <- fs::path(x)
     fs::dir_create(dirname(x))
   }
 
@@ -283,6 +293,10 @@ compress <- function(
 }
 
 analyze_path <- function(x) {
+  if (isTRUE(attr(x, "analyzed"))) {
+    return(x)
+  }
+
   ext <- tools::file_ext(x)
 
   if (ext %in% c("gz", "bz2", "xz")) {
@@ -295,7 +309,8 @@ analyze_path <- function(x) {
   structure(
     fs::path(x),
     ext = ext,
-    compress = compress
+    compress = compress,
+    analyzed = TRUE
   )
 }
 
@@ -306,7 +321,7 @@ safe_close <- function(con, ...) {
       if (identical(conditionMessage(e), "invalid connection")) {
         return(invisible())
       }
-      stop(e)
+      stop(e) # nocov
     }
   )
 }

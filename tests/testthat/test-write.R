@@ -14,15 +14,15 @@ test_that("write_file_md5() works", {
 })
 
 test_that("write_file_md5() types", {
-  foo <- function(method, ..., ext = "") {
-    file <- tempfile(fileext = ext)
+  foo <- function(method) {
+    file <- tempfile()
     on.exit(file.remove(file))
     df <- data.frame(a = 1, b = "n", c = TRUE)
-    expect_message(write_file_md5(df, file, method = method, ...), NA)
+    expect_message(write_file_md5(df, file, method = method), NA)
   }
 
-  foo("csv", ext = ".csv")
-  foo("csv2", ext = ".csv2.gz")
+  foo("csv")
+  foo("csv2")
   foo("dcf")
   foo("json")
   foo("rds")
@@ -42,14 +42,15 @@ test_that("write_file_md5() errors", {
 })
 
 test_that("compression works", {
-  df <- data.frame(a = 1, b = 2)
-  temp <- tempfile()
-  on.exit(fs::file_delete(temp))
+  foo <- function(ext = "") {
+    file <- tempfile(fileext = ext)
+    on.exit(unlink(file, recursive = TRUE))
+    df <- data.frame(a = 1)
+    write_file_md5(df, file)
+  }
 
-  muffle({
-    expect_s3_class(write_file_md5(df, temp, compress = "none"), "data.frame")
-    expect_s3_class(write_file_md5(df, temp, compress = "gz"), "data.frame")
-    expect_s3_class(write_file_md5(df, temp, compress = "bz2"), "data.frame")
-    expect_s3_class(write_file_md5(df, temp, compress = "xz"), "data.frame")
-  })
+  expect_s3_class(foo(), "data.frame")
+  expect_s3_class(foo(".csv.gz"), "data.frame")
+  expect_s3_class(foo(".tsv.bz2"), "data.frame")
+  expect_s3_class(foo(".dcf.xz"), "data.frame")
 })
