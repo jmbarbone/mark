@@ -150,11 +150,14 @@ mark_write_table <- function(
     eol = "\n",
     na = "",
     dec = ".",
+    # nolint next: object_name_linter.
     row.names = FALSE,
+    # nolint next: object_name_linter.
     col.names = NA,
     qmethod = "escape"
 ) {
   if (isFALSE(row.names) && isNA(col.names)) {
+    # nolint next: object_name_linter.
     col.names <- TRUE
   }
 
@@ -176,9 +179,11 @@ mark_write_table <- function(
 mark_write_dcf <- function(
     x,
     con = "",
+    # nolint next: object_name_linter.
     useBytes = FALSE,
     indent = 4,
     width = Inf,
+    # nolint next: object_name_linter.
     keep.white = NULL
 ) {
   write.dcf(
@@ -218,7 +223,7 @@ mark_write_yaml <- function(
         if (x %in% c("n", "y")) {
           x
         } else {
-          tolower(x) == 'true'
+          tolower(x) == "true"
         }
       }
     )
