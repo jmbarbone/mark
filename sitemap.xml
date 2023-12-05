@@ -40,9 +40,6 @@
     <loc>https://jmbarbone.github.io/mark/reference/between_more.html</loc>
   </url>
   <url>
-    <loc>https://jmbarbone.github.io/mark/reference/blank_values.html</loc>
-  </url>
-  <url>
     <loc>https://jmbarbone.github.io/mark/reference/char2fact.html</loc>
   </url>
   <url>
@@ -76,9 +73,6 @@
     <loc>https://jmbarbone.github.io/mark/reference/drop_levels.html</loc>
   </url>
   <url>
-    <loc>https://jmbarbone.github.io/mark/reference/echo.html</loc>
-  </url>
-  <url>
     <loc>https://jmbarbone.github.io/mark/reference/ept.html</loc>
   </url>
   <url>
@@ -103,9 +97,6 @@
     <loc>https://jmbarbone.github.io/mark/reference/fct_expand_seq.html</loc>
   </url>
   <url>
-    <loc>https://jmbarbone.github.io/mark/reference/file_copy_md5.html</loc>
-  </url>
-  <url>
     <loc>https://jmbarbone.github.io/mark/reference/file_info.html</loc>
   </url>
   <url>
@@ -116,6 +107,9 @@
   </url>
   <url>
     <loc>https://jmbarbone.github.io/mark/reference/fizzbuzz.html</loc>
+  </url>
+  <url>
+    <loc>https://jmbarbone.github.io/mark/reference/flip.html</loc>
   </url>
   <url>
     <loc>https://jmbarbone.github.io/mark/reference/get_dir_max_number.html</loc>
@@ -133,7 +127,7 @@
     <loc>https://jmbarbone.github.io/mark/reference/get_version.html</loc>
   </url>
   <url>
-    <loc>https://jmbarbone.github.io/mark/reference/glob.html</loc>
+    <loc>https://jmbarbone.github.io/mark/reference/grapes-colons-grapes.html</loc>
   </url>
   <url>
     <loc>https://jmbarbone.github.io/mark/reference/handlers.html</loc>
@@ -181,13 +175,16 @@
     <loc>https://jmbarbone.github.io/mark/reference/match_arg.html</loc>
   </url>
   <url>
+    <loc>https://jmbarbone.github.io/mark/reference/match_ext.html</loc>
+  </url>
+  <url>
     <loc>https://jmbarbone.github.io/mark/reference/match_param.html</loc>
   </url>
   <url>
     <loc>https://jmbarbone.github.io/mark/reference/median2.html</loc>
   </url>
   <url>
-    <loc>https://jmbarbone.github.io/mark/reference/merge_list.html</loc>
+    <loc>https://jmbarbone.github.io/mark/reference/muffle.html</loc>
   </url>
   <url>
     <loc>https://jmbarbone.github.io/mark/reference/multi_grepl.html</loc>
@@ -214,9 +211,6 @@
     <loc>https://jmbarbone.github.io/mark/reference/omit_na.html</loc>
   </url>
   <url>
-    <loc>https://jmbarbone.github.io/mark/reference/package_available.html</loc>
-  </url>
-  <url>
     <loc>https://jmbarbone.github.io/mark/reference/percentile_rank.html</loc>
   </url>
   <url>
@@ -233,6 +227,9 @@
   </url>
   <url>
     <loc>https://jmbarbone.github.io/mark/reference/pseudo_id.html</loc>
+  </url>
+  <url>
+    <loc>https://jmbarbone.github.io/mark/reference/quick_df.html</loc>
   </url>
   <url>
     <loc>https://jmbarbone.github.io/mark/reference/quiet_stop.html</loc>
@@ -257,6 +254,9 @@
   </url>
   <url>
     <loc>https://jmbarbone.github.io/mark/reference/remove_null.html</loc>
+  </url>
+  <url>
+    <loc>https://jmbarbone.github.io/mark/reference/require_namespace.html</loc>
   </url>
   <url>
     <loc>https://jmbarbone.github.io/mark/reference/round_by.html</loc>
@@ -298,6 +298,9 @@
     <loc>https://jmbarbone.github.io/mark/reference/str_slice.html</loc>
   </url>
   <url>
+    <loc>https://jmbarbone.github.io/mark/reference/struct.html</loc>
+  </url>
+  <url>
     <loc>https://jmbarbone.github.io/mark/reference/switch-ext.html</loc>
   </url>
   <url>
@@ -319,9 +322,6 @@
     <loc>https://jmbarbone.github.io/mark/reference/todos.html</loc>
   </url>
   <url>
-    <loc>https://jmbarbone.github.io/mark/reference/tryn.html</loc>
-  </url>
-  <url>
     <loc>https://jmbarbone.github.io/mark/reference/unlist0.html</loc>
   </url>
   <url>
@@ -341,8 +341,5 @@
   </url>
   <url>
     <loc>https://jmbarbone.github.io/mark/reference/within_call.html</loc>
-  </url>
-  <url>
-    <loc>https://jmbarbone.github.io/mark/reference/write_file_md5.html</loc>
   </url>
 </urlset>
