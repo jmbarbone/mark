@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">mark</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0.9005</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0.9006</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,7 +65,7 @@
 <code><a href="../reference/file_copy_md5.html">file_copy_md5()</a></code> added as a wrapper for <code><a href="https://fs.r-lib.org/reference/copy.html" class="external-link">fs::file_copy()</a></code> but provides MD5 checks through <code><a href="https://rdrr.io/r/tools/md5sum.html" class="external-link">tools::md5sum()</a></code> to avoid overwriting files that had no content changes <a href="https://github.com/jmbarbone/mark/issues/207" class="external-link">#207</a>
 </li>
 <li>
-<code><a href="../reference/write_file_md5.html">write_file_md5()</a></code> added as a general writing function and utilizes <code><a href="../reference/file_copy_md5.html">file_copy_md5()</a></code> for MD5 checks <a href="https://github.com/jmbarbone/mark/issues/207" class="external-link">#207</a>
+<code><a href="../reference/write_file_md5.html">write_file_md5()</a></code> added as a general writing function and utilizes <code><a href="../reference/file_copy_md5.html">file_copy_md5()</a></code> for MD5 checks (including some compressions) <a href="https://github.com/jmbarbone/mark/issues/207" class="external-link">#207</a>, <a href="https://github.com/jmbarbone/mark/issues/224" class="external-link">#224</a>
 </li>
 </ul></div>
     <div class="section level2">
