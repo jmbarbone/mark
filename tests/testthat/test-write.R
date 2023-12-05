@@ -14,11 +14,11 @@ test_that("write_file_md5() works", {
 })
 
 test_that("write_file_md5() types", {
-  foo <- function(method, ...) {
+  foo <- function(method) {
     file <- tempfile()
     on.exit(file.remove(file))
-    df <- data.frame(a = 1)
-    expect_message(write_file_md5(df, file, method = method, ...), NA)
+    df <- data.frame(a = 1, b = "n", c = TRUE)
+    expect_message(write_file_md5(df, file, method = method), NA)
   }
 
   foo("csv")
@@ -39,8 +39,18 @@ test_that("write_file_md5() errors", {
     write_file_md5(df, method = "foo"),
     class = "matchParamMatchError"
   )
+})
 
-  expect_error(
-    write_file_md5(df, method = "dcf", append = TRUE)
-  )
+test_that("compression works", {
+  foo <- function(ext = "") {
+    file <- tempfile(fileext = ext)
+    on.exit(unlink(file, recursive = TRUE))
+    df <- data.frame(a = 1)
+    write_file_md5(df, file)
+  }
+
+  expect_s3_class(foo(), "data.frame")
+  expect_s3_class(foo(".csv.gz"), "data.frame")
+  expect_s3_class(foo(".tsv.bz2"), "data.frame")
+  expect_s3_class(foo(".dcf.xz"), "data.frame")
 })

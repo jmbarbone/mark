@@ -7,9 +7,11 @@
 write_file_md5(
   x,
   path = NULL,
-  method = NULL,
+  method = mark_write_methods(),
   overwrite = NA,
   quiet = FALSE,
+  encoding = "UTF-8",
+  compression = getOption("mark.compress.method", "default"),
   ...
 )
 }
@@ -18,39 +20,37 @@ write_file_md5(
 
 \item{path}{The file or connection to write to (dependent on part by method)}
 
-\item{method}{The method of saving the file.  When \code{NULL}, the method is
-determined by the file extension.}
+\item{method}{The method of saving the file.  When \code{default}, the method is
+determined by file extension of \code{path}, if present, otherwise by the type
+of object of \code{x}.}
 
 \item{overwrite}{When \code{NA}, only saves if the md5 hashes do not match.
 Otherwise, see \code{\link[fs:copy]{fs::file_copy()}}.}
 
 \item{quiet}{When \code{TRUE}, suppresses messages from md5 checks.}
 
+\item{encoding}{The encoding to use when writing the file.}
+
+\item{compression}{The compression method to use when writing the file.}
+
 \item{...}{Additional arguments passed to the write function.}
 }
 \value{
-See \code{\link[=file_copy_md5]{file_copy_md5()}}.  When \code{file} is a connection, the returns
-nothing and writes the file to the \code{stdout()}
+\code{x}, invisibly.  When \code{path} is not the \code{stdout()}, \code{x} is returned
+with the attribute \code{"path"} set to the result of \code{\link[=file_copy_md5]{file_copy_md5()}}.
 }
 \description{
 Write file with md5 hash check
 }
 \examples{
-df <- data.frame(a = 1, b = 2)
-
 # just writes to stdout()
+df <- data.frame(a = 1, b = 2)
 write_file_md5(df)
 
 temp <- tempfile()
-# new
-write_file_md5(df, temp)
-
-# same
-write_file_md5(df, temp)
-
-# changed
+write_file_md5(df, temp) # new
+write_file_md5(df, temp) # same
 df$c <- 3
-write_file_md5(df, temp)
-
+write_file_md5(df, temp) # changes
 fs::file_delete(temp)
 }
