@@ -256,6 +256,15 @@ mark_write_table <- function(
     } else {
       list_hook <- function(x) collapse(shQuote(x, "sh"), sep = ",")
     }
+  } else if (isFALSE(list_hook)) {
+    list_hook <- function(x) NA_character_
+  } else if (isNA(list_hook)) {
+    list_hook <- function(x) {
+      stop(new_condition(
+        "options(mark.list.hook) is NA but list columns detected",
+        class = "writeFileMd5ListHook"
+      ))
+    }
   }
 
   if (!isFALSE(list_hook) && !is.null(list_hook)) {
