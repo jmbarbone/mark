@@ -104,7 +104,7 @@ write_file_md5 <- function(
 
     temp <- fs::file_temp(ext = ext)
     attributes(temp) <- attributes(path)
-    on.exit(fs::file_delete(temp), add = TRUE)
+    on.exit(safe_fs_delete(temp), add = TRUE)
     params$con <- compress(temp, compression)
     on.exit(safe_close(params$con), add = TRUE)
   }
@@ -407,7 +407,7 @@ compress <- function(
     zip = structure(
       file(x, ...),
       hook = function(x) {
-        on.exit(if (fs::file_exists(new)) fs::file_delete(new), add = TRUE)
+        on.exit(safe_fs_delete(new), add = TRUE)
         # file path coming in as the .zip file, but we want to move this over,
         # and then save the .zip file to the new location
         new <- tools::file_path_sans_ext(x)
@@ -424,7 +424,7 @@ compress <- function(
     tar = structure(
       file(x, ...),
       hook = function(x) {
-        on.exit(if (fs::file_exists(x)) fs::file_delete(x), add = TRUE)
+        on.exit(safe_fs_delete(x), add = TRUE)
         params <- list(...)
         params$tarfile <- x
         fs::path_ext(params$tarfile) <- "tar"
@@ -484,4 +484,10 @@ safe_close <- function(con, ...) {
       stop(e) # nocov
     }
   )
+}
+
+safe_fs_delete <- function(x) {
+  if (fs::file_exists(x)) {
+    fs::file_delete(x)
+  }
 }
