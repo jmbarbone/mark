@@ -54,6 +54,16 @@ methods
 \description{
 Write file with md5 hash check
 }
+\section{\code{options()}}{
+
+\itemize{
+\item \code{mark.compress.method}: compression method to use when writing files
+\item \code{mark.list.hook}: when a \code{data.frame} contains a \code{list} column, this
+function is applied to each element of the list.  The default \code{"auto"}
+uses \code{toJSON()} if the package \code{jsonlite} is available, otherwise
+}
+}
+
 \examples{
 # just writes to stdout()
 df <- data.frame(a = 1, b = 2)
