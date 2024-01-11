@@ -59,7 +59,7 @@ test_that("compression works", {
 test_that("list columns", {
   foo <- function(method) {
     temp <- tempfile(fileext = ".csv")
-    on.exit(file.remove(temp))
+    on.exit(safe_fs_delete(temp))
 
     op <- options(mark.list.hook = method)
     on.exit(options(op))
@@ -71,8 +71,9 @@ test_that("list columns", {
   }
 
   expect_s3_class(foo("auto"), "data.frame")
-  expect_s3_class(foo(TRUE), "data.frame")
-  expect_s3_class(foo(FALSE), "data.frame")
-  expect_s3_class(foo(NULL), "data.frame")
   expect_s3_class(foo(toString), "data.frame")
+  expect_s3_class(foo(TRUE), "data.frame")
+  expect_s3_class(foo(NULL), "data.frame")
+  expect_s3_class(foo(FALSE), "data.frame")
+  expect_error(foo(NA))
 })
