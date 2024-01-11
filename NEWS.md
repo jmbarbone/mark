@@ -1,5 +1,6 @@
 # mark (development version)
 
+* `echo()` is now removed; use `echo::echo()` instead [#214](https://github.com/jmbarbone/mark/issues/214)
 * includes `tryn()` for running an expression a maximum number of times before failure [#80](https://github.com/jmbarbone/mark/issues/80)
 * `echo()` is deprecated in favor of `echo::echo()` [#210](https://github.com/jmbarbone/mark/issues/210) (this was incorrectly listed in the previous release)
 * `match_param()` enhancements
