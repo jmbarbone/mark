@@ -140,7 +140,7 @@ do_todo <- function( # nolint: cyclocomp_linter.
   }
 
   finds <- lapply(
-    lapply(files, readLines, warn = FALSE),
+    lapply(files, readLines, warn = FALSE, skipNul = TRUE),
     function(x, regex) {
       x <- enc2utf8(x)
       ind <- grep(pattern = regex, x = x)
