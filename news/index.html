@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">mark</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0.9006</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0.9007</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,10 +46,13 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="mark-development-version">mark (development version)<a class="anchor" aria-label="anchor" href="#mark-development-version"></a></h2>
-<ul><li>includes <code><a href="../reference/tryn.html">tryn()</a></code> for running an expression a maximum number of times before failure <a href="https://github.com/jmbarbone/mark/issues/80" class="external-link">#80</a>
+<ul><li>
+<code>echo()</code> is now removed; use <code><a href="https://jmbarbone.github.io/echo/reference/echo.html" class="external-link">echo::echo()</a></code> instead <a href="https://github.com/jmbarbone/mark/issues/214" class="external-link">#214</a>
+</li>
+<li>includes <code><a href="../reference/tryn.html">tryn()</a></code> for running an expression a maximum number of times before failure <a href="https://github.com/jmbarbone/mark/issues/80" class="external-link">#80</a>
 </li>
 <li>
-<code><a href="../reference/echo.html">echo()</a></code> is deprecated in favor of <code><a href="https://jmbarbone.github.io/echo/reference/echo.html" class="external-link">echo::echo()</a></code> <a href="https://github.com/jmbarbone/mark/issues/210" class="external-link">#210</a> (this was incorrectly listed in the previous release)</li>
+<code>echo()</code> is deprecated in favor of <code><a href="https://jmbarbone.github.io/echo/reference/echo.html" class="external-link">echo::echo()</a></code> <a href="https://github.com/jmbarbone/mark/issues/210" class="external-link">#210</a> (this was incorrectly listed in the previous release)</li>
 <li>
 <code><a href="../reference/match_param.html">match_param()</a></code> enhancements
 <ul><li>can now return multiple matches <a href="https:://github.com/jmbarbone/mark/issues/191">#191</a>, and can return partial matches</li>
@@ -115,7 +118,7 @@
 <code><a href="../reference/match_param.html">match_param()</a></code> now accepts a named listed for alias matching <a href="https://github.com/jmbarbone/mark/issues/104" class="external-link">#104</a>
 </li>
 <li>
-<code><a href="../reference/echo.html">echo()</a></code> evaluates expressions and logs outputs <a href="https://github.com/jmbarbone/mark/issues/164" class="external-link">#164</a>
+<code>echo()</code> evaluates expressions and logs outputs <a href="https://github.com/jmbarbone/mark/issues/164" class="external-link">#164</a>
 </li>
 <li>
 <a href="https://jmbarbone.github.io/fuj/" class="external-link">fuj</a> is now imported
