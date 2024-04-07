@@ -46,8 +46,8 @@ max(x, na.rm = TRUE) # returns b -- correct
 Other factors: 
 \code{\link{char2fact}()},
 \code{\link{drop_levels}()},
+\code{\link{fact}()},
 \code{\link{fact2char}()},
-\code{\link{fact_na}()},
-\code{\link{fact}()}
+\code{\link{fact_na}()}
 }
 \concept{factors}
