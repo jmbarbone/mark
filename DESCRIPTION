@@ -22,7 +22,7 @@ Depends:
 Imports:
     cli,
     fs (>= 1.6.2),
-    fuj (>= 0.1.4),
+    fuj,
     magrittr (>= 2.0.1),
     rlang,
     stats (>= 3.6),
@@ -54,3 +54,4 @@ Roxygen: list(markdown = TRUE)
 Config/testthat/edition: 3
 Config/testthat/parallel: true
 Language: en-US
+remotes: jmbarbone/fuj@v0.1.4.9010
