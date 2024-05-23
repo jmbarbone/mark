@@ -1,6 +1,6 @@
 ## Test environments
 
-* local R installation, R 4.3.1
+* local R installation, R 4.4.0
 * windows-latest
 * macOS-latest
 * ubuntu-latest devel, release, oldrel-1
@@ -13,5 +13,4 @@
 
 ## Notes
 
-* fixes current warning for documentation
-* provides new functions
+* fixes current check errors
