@@ -27,7 +27,7 @@ Other factors:
 \code{\link{as_ordered}()},
 \code{\link{char2fact}()},
 \code{\link{drop_levels}()},
-\code{\link{fact2char}()},
-\code{\link{fact}()}
+\code{\link{fact}()},
+\code{\link{fact2char}()}
 }
 \concept{factors}

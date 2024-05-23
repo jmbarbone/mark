@@ -224,7 +224,14 @@ cond_match_param_match <- function(
       return(toString(x))
     }
 
-    toString(sprintf("%s = %s", names(x), x))
+    nms <- names(x)
+    if (is.null(nms)) {
+      return(toString(x))
+    }
+
+    ok <- nzchar(nms)
+    nms[ok] <- paste(nms[ok], "= ")
+    toString(paste0(nms, x))
   }
 
   to_options <- function(x) {
@@ -234,7 +241,11 @@ cond_match_param_match <- function(
 
     collapse(mapply(
       function(x, nm) {
-        sprintf("%s = %s", nm, toString(x))
+        if (nzchar(nm)) {
+          sprintf("%s = %s", nm, toString(x))
+        } else {
+          toString(x)
+        }
       },
       x = x,
       nm = names(x),

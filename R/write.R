@@ -1,5 +1,12 @@
 #' Write file with md5 hash check
 #'
+#' @section `options()`:
+#'
+#' - `mark.compress.method`: compression method to use when writing files
+#' - `mark.list.hook`: when a `data.frame` contains a `list` column, this
+#'   function is applied to each element of the list.  The default `"auto"`
+#'   uses `toJSON()` if the package `jsonlite` is available, otherwise
+#'
 #' @param x An object to write to file
 #' @param path The file or connection to write to (dependent on part by method)
 #' @param method The method of saving the file.  When `default`, the method is
@@ -9,8 +16,13 @@
 #' @param encoding The encoding to use when writing the file.
 #' @param compression The compression method to use when writing the file.
 #' @param ... Additional arguments passed to the write function.
-#' @returns `x`, invisibly.  When `path` is not the `stdout()`, `x` is returned
-#'   with the attribute `"path"` set to the result of [file_copy_md5()].
+#' @returns
+#' - [write_file_md5()]: `x`, invisibly.  When `path` is not the `stdout()`, `x`
+#' is returned with the attribute `"path"` set to the result of
+#' [file_copy_md5()].
+#' - [mark_write_methods()]: A list of applicable methods and their aliases
+#' - [mark_compress_methods()]: A character vector of applicable compression
+#' methods
 #' @examples
 #' # just writes to stdout()
 #' df <- data.frame(a = 1, b = 2)
@@ -30,13 +42,21 @@ write_file_md5 <- function(
     overwrite = NA,
     quiet = FALSE,
     encoding = "UTF-8",
-    compression = getOption("mark.compress.method", "default"),
+    compression = getOption("mark.compress.method", mark_compress_methods()),
     ...
 ) {
-  op <- options(encoding = encoding, mark.compress.method = compression)
+  compression <- match_param(compression, mark_compress_methods())
+  op <- options(
+    encoding = encoding,
+    mark.compress.method = compression,
+    mark..compress.method = NULL
+  )
   on.exit(options(op), add = TRUE)
 
-  if (!isTRUE(nzchar(path, keepNA = TRUE))) {
+  if (
+    !isTRUE(nzchar(path, keepNA = TRUE)) ||
+    inherits(path, "terminal")
+  )  {
     null_path <- TRUE
     ext <- ""
   } else {
@@ -72,7 +92,7 @@ write_file_md5 <- function(
   params$x <- x
 
   if (null_path) {
-    params$con <- stdout()
+    params$con <- path %||% stdout()
   } else {
     if (compression == "default") {
       compression <- attr(path, "compress")
@@ -84,7 +104,7 @@ write_file_md5 <- function(
 
     temp <- fs::file_temp(ext = ext)
     attributes(temp) <- attributes(path)
-    on.exit(fs::file_delete(temp), add = TRUE)
+    on.exit(safe_fs_delete(temp), add = TRUE)
     params$con <- compress(temp, compression)
     on.exit(safe_close(params$con), add = TRUE)
   }
@@ -94,6 +114,10 @@ write_file_md5 <- function(
   if (null_path) {
     return(invisible(x))
   }
+
+  hook <- attr(params$con, "hook") %||% "invisible"
+  hook <- match.fun(hook)
+  temp <- hook(temp) %||% temp
 
   if (!is.null(attr(x, "path"))) {
     warning("attr(x, \"path\") is being overwritten")
@@ -108,11 +132,14 @@ write_file_md5 <- function(
   invisible(x)
 }
 
+#' @export
+#' @rdname write_file_md5
 mark_write_methods <- function() {
   list(
     "default",
     "csv",
     "csv2",
+    "csv3",
     "dcf",
     "json",
     lines = c("lines", "md", "txt", "qmd", "rmd"),
@@ -125,6 +152,12 @@ mark_write_methods <- function() {
   )
 }
 
+#' @export
+#' @rdname write_file_md5
+mark_compress_methods <- function() {
+  c("default", "none", "gz", "bz2", "xz", "zip", "tar")
+}
+
 # write functions ---------------------------------------------------------
 
 mark_write_write <- function(x, con, sep = " ") {
@@ -135,20 +168,66 @@ mark_write_rds <- function(x, con, version = 3) {
   saveRDS(object = x, file = con, version = version)
 }
 
-mark_write_csv <- function(x, con, sep = ",", dec = ".", ...) {
-  mark_write_table(x = x, con = con, sep = sep, dec = dec, ...)
+mark_write_csv <- function(
+    x,
+    con,
+    sep = ",",
+    dec = ".",
+    qmethod = "double",
+    ...
+) {
+  mark_write_table(
+    x = x,
+    con = con,
+    sep = sep,
+    dec = dec,
+    qmethod = qmethod,
+    ...
+  )
 }
 
-mark_write_csv2 <- function(x, con, sep = ";", dec = ",", ...) {
-  mark_write_table(x = x, con = con, sep = sep, dec = dec, ...)
+mark_write_csv2 <- function(
+    x,
+    con,
+    sep = ";",
+    dec = ",",
+    qmethod = "double",
+    ...
+) {
+  mark_write_table(
+    x = x,
+    con = con,
+    sep = sep,
+    dec = dec,
+    qmethod = qmethod,
+    ...
+  )
 }
 
-mark_write_tsv <- function(x, con, sep = "\t", ...) {
-  mark_write_table(x = x, con = con, sep = sep, ...)
+mark_write_csv3 <- function(
+    x,
+    con,
+    sep = "|",
+    dec = ".",
+    qmethod = "double",
+    ...
+) {
+  mark_write_table(
+    x = x,
+    con = con,
+    sep = sep,
+    dec = dec,
+    qmethod = qmethod,
+    ...
+  )
 }
 
-mark_write_tsv2 <- function(x, con, sep = "|", ...) {
-  mark_write_table(x = x, con = con, sep = sep, ...)
+mark_write_tsv <- function(x, con, sep = "\t", qmethod = "double", ...) {
+  mark_write_table(x = x, con = con, sep = sep, qmethod = qmethod, ...)
+}
+
+mark_write_tsv2 <- function(x, con, sep = "|", qmethod = "double", ...) {
+  mark_write_table(x = x, con = con, sep = sep, qmethod = qmethod, ...)
 }
 
 mark_write_table <- function(
@@ -163,11 +242,37 @@ mark_write_table <- function(
     row.names = FALSE,
     # nolint next: object_name_linter.
     col.names = NA,
-    qmethod = "escape"
+    qmethod = "escape",
+    list_hook = getOption("mark.list.hook", "auto")
 ) {
   if (isFALSE(row.names) && isNA(col.names)) {
     # nolint next: object_name_linter.
     col.names <- TRUE
+  }
+
+  if (identical(list_hook, "auto") || isTRUE(list_hook)) {
+    if (package_available("jsonlite")) {
+      list_hook <- "mark_to_json"
+    } else {
+      list_hook <- function(x) collapse(shQuote(x, "sh"), sep = ",")
+    }
+  } else if (isFALSE(list_hook)) {
+    list_hook <- function(x) NA_character_
+  } else if (isNA(list_hook)) {
+    list_hook <- function(x) {
+      stop(new_condition(
+        "options(mark.list.hook) is NA but list columns detected",
+        class = "writeFileMd5ListHook"
+      ))
+    }
+  }
+
+  if (!isFALSE(list_hook) && !is.null(list_hook)) {
+    list_hook <- match.fun(list_hook)
+    ok <- vap_lgl(x, is.list)
+    if (any(ok)) {
+      x[ok] <- lapply(x[ok], function(i) vap_chr(i, list_hook))
+    }
   }
 
   utils::write.table(
@@ -244,7 +349,14 @@ mark_write_yaml <- function(
 
 mark_write_json <- function(x, con) {
   require_namespace("yaml")
-  string <- jsonlite::toJSON(
+  string <- mark_to_json(x)
+  mark_write_lines(string, con)
+}
+
+# helpers -----------------------------------------------------------------
+
+mark_to_json <- function(x) {
+  jsonlite::toJSON(
     x,
     dataframe = "columns",
     matrix = "rowmajor",
@@ -260,10 +372,7 @@ mark_write_json <- function(x, con) {
     pretty = TRUE,
     force = TRUE
   )
-  mark_write_lines(string, con)
 }
-
-# helpers -----------------------------------------------------------------
 
 compress <- function(
     x = "",
@@ -273,14 +382,29 @@ compress <- function(
 ) {
   op <- options(encoding = encoding)
   on.exit(options(op), add = TRUE)
-  method <- match_param(method, c("default", "none", "gz", "bz2", "xz"))
+  method <- match_param(method, mark_compress_methods())
 
   if (!identical(x, "")) {
     fs::dir_create(dirname(x))
   }
 
+  path <- analyze_path(x)
+
   if (method == "default") {
-    method <- attr(analyze_path(x), "compress")
+    method <- attr(path, "compress")
+  }
+
+  if (identical(attr(path, "extra"), "tar")) {
+    if (method == "zip") {
+      stop(
+        "'zip' is not a valid method when writing to a tar archive",
+        call. = FALSE
+      )
+    }
+    # tar() can do the compression for us, so we move this to a temporary
+    # option.  this is always cleaned up because it shouldn't be set manually
+    options(mark..compress.method = method)
+    method <- "tar"
   }
 
   switch(
@@ -288,7 +412,44 @@ compress <- function(
     none = file(x, ...),
     gz = gzfile(x, ...),
     bz2 = bzfile(x, ...),
-    xz = xzfile(x, ...)
+    xz = xzfile(x, ...),
+    zip = structure(
+      file(x, ...),
+      hook = function(x) {
+        on.exit(safe_fs_delete(new), add = TRUE)
+        # file path coming in as the .zip file, but we want to move this over,
+        # and then save the .zip file to the new location
+        new <- tools::file_path_sans_ext(x)
+        fs::file_move(x, new)
+
+        params <- list(...)
+        params$zipfile <- x
+        params$files <- new
+        params$flags <- params$flags %||% "-q"
+        do.call(utils::zip, params)
+        invisible()
+      }
+    ),
+    tar = structure(
+      file(x, ...),
+      hook = function(x) {
+        on.exit(safe_fs_delete(x), add = TRUE)
+        params <- list(...)
+        params$tarfile <- x
+        fs::path_ext(params$tarfile) <- "tar"
+        params$files <- x
+        # applies the compression method to the tar file
+        params$compression <-
+          params$compression %||% getOption("mark..compress.method")
+
+        if (params$compression != "default") {
+          params$tarfile <- paste0(params$tarfile, ".", params$compression)
+        }
+
+        do.call(utils::tar, params)
+        params$tarfile
+      }
+    )
   )
 }
 
@@ -298,10 +459,17 @@ analyze_path <- function(x) {
   }
 
   ext <- tools::file_ext(x)
+  extra <- NULL
 
-  if (ext %in% c("gz", "bz2", "xz")) {
+  if (ext %in% mark_compress_methods()[-1]) {
     compress <- ext
     ext <- tools::file_ext(tools::file_path_sans_ext(x))
+    if (identical(ext, "tar")) {
+      extra <- "tar"
+      ext <- tools::file_ext(
+        tools::file_path_sans_ext(tools::file_path_sans_ext(x))
+      )
+    }
   } else {
     compress <- "none"
   }
@@ -310,7 +478,8 @@ analyze_path <- function(x) {
     fs::path(x),
     ext = ext,
     compress = compress,
-    analyzed = TRUE
+    analyzed = TRUE,
+    extra = extra
   )
 }
 
@@ -324,4 +493,10 @@ safe_close <- function(con, ...) {
       stop(e) # nocov
     }
   )
+}
+
+safe_fs_delete <- function(x) {
+  if (fs::file_exists(x)) {
+    fs::file_delete(x)
+  }
 }

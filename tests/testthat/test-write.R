@@ -1,8 +1,6 @@
 test_that("write_file_md5() works", {
   df <- data.frame(a = 1, b = 2)
-  temp <- tempfile()
-  on.exit(fs::file_delete(temp))
-
+  temp <- withr::local_tempfile()
   expect_output(write_file_md5(df))
   expect_message(write_file_md5(df, temp), NA)
   expect_message(write_file_md5(df, temp), class = "markFileCopyMsMessage")
@@ -23,6 +21,7 @@ test_that("write_file_md5() types", {
 
   foo("csv")
   foo("csv2")
+  foo("csv3")
   foo("dcf")
   foo("json")
   foo("rds")
@@ -53,4 +52,28 @@ test_that("compression works", {
   expect_s3_class(foo(".csv.gz"), "data.frame")
   expect_s3_class(foo(".tsv.bz2"), "data.frame")
   expect_s3_class(foo(".dcf.xz"), "data.frame")
+  expect_s3_class(foo(".csv.zip"), "data.frame")
+  expect_s3_class(foo(".tar.gz"), "data.frame")
+})
+
+test_that("list columns", {
+  foo <- function(method) {
+    temp <- tempfile(fileext = ".csv")
+    on.exit(safe_fs_delete(temp))
+
+    op <- options(mark.list.hook = method)
+    on.exit(options(op))
+
+    df <- data.frame(x = c("a", "b"))
+    df$y <- list(1:2, 2)
+
+    write_file_md5(df, temp)
+  }
+
+  expect_s3_class(foo("auto"), "data.frame")
+  expect_s3_class(foo(toString), "data.frame")
+  expect_s3_class(foo(TRUE), "data.frame")
+  expect_s3_class(foo(NULL), "data.frame")
+  expect_s3_class(foo(FALSE), "data.frame")
+  expect_error(foo(NA))
 })

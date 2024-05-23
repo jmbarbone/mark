@@ -26,7 +26,7 @@ alpha_base <- function(x, base = 26) {
 }
 
 base_alpha_single <- function(x, base) {
-  a <- letters %wi% chr_split(tolower(x))
+  a <- chr_split(tolower(x)) %wi% letters
   a <- match(a, letters[1:base], nomatch = NA_integer_)
 
   if (anyNA(a)) {

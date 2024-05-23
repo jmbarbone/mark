@@ -2,8 +2,8 @@
 % Please edit documentation in R/mark-package.R
 \docType{package}
 \name{mark}
-\alias{mark}
 \alias{mark-package}
+\alias{mark}
 \title{mark}
 \description{
 Miscellaneous, Analytic R Kernels
