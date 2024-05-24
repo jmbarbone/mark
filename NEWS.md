@@ -1,15 +1,25 @@
-# mark (development version)
+# mark 0.8.0
+
+## breaking changes
 
 * `echo()` is now removed; use `echo::echo()` instead [#214](https://github.com/jmbarbone/mark/issues/214)
 * includes `tryn()` for running an expression a maximum number of times before failure [#80](https://github.com/jmbarbone/mark/issues/80)
-* `echo()` is deprecated in favor of `echo::echo()` [#210](https://github.com/jmbarbone/mark/issues/210) (this was incorrectly listed in the previous release)
-* `match_param()` enhancements
+
+## fixes 
+
+* `unlist0()` no longer fails when input list is not named [#220](https://github.com/jmbarbone/mark/issues/220)
+
+## improvements
+
+* `match_param()` has been improved
   * can now return multiple matches [#191](https://github.com/jmbarbone/mark/issues/191), and can return partial matches
   * error message readability improved for `matchParamMatchError`[#194](https://github.com/jmbarbone/mark/issues/194)
   * `choices` can now be a list of `formula` elements, preserving the return value
-* `unlist0()` no longer fails when input list is not named [#220](https://github.com/jmbarbone/mark/issues/220)
+  
+## new features
+
 * `file_copy_md5()` added as a wrapper for `fs::file_copy()` but provides MD5 checks through `tools::md5sum()` to avoid overwriting files that had no content changes [#207](https://github.com/jmbarbone/mark/issues/207)
-* `write_file_md5()` added as a general writing function and utilizes `file_copy_md5()` for MD5 checks (including some compressions) [#207](https://github.com/jmbarbone/mark/issues/207), [#224](https://github.com/jmbarbone/mark/issues/224)
+* `write_file_md5()` added as a general writing function and utilizes `file_copy_md5()` for MD5 checks (including some compression options) [#207](https://github.com/jmbarbone/mark/issues/207), [#224](https://github.com/jmbarbone/mark/issues/224)
 
 # mark 0.7.0
 
