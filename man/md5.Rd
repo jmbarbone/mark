@@ -2,15 +2,9 @@
 % Please edit documentation in R/md5.R
 \name{md5}
 \alias{md5}
-\alias{md5.character}
-\alias{md5.default}
 \title{Compute the MD5 hash of an object}
 \usage{
 md5(x)
-
-\method{md5}{character}(x)
-
-\method{md5}{default}(x)
 }
 \arguments{
 \item{x}{An object}
@@ -19,7 +13,12 @@ md5(x)
 A single \code{character}
 }
 \description{
-Compute the MD5 hash of an object
+Wrapper for calling \code{\link[tools:md5sum]{tools::md5sum()}} on objects rather than files.
+}
+\details{
+When \code{x} is a \code{character} vector, \code{\link[base:writeLines]{base::writeLines()}} is used to write to
+a temporary file.  Otherwise, an Rds file is created with \code{\link[base:saveRds]{base::saveRds()}}.
+Coercing
 }
 \examples{
 md5("hello")
