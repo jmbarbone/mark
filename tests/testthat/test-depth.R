@@ -1,6 +1,6 @@
 test_that("depth", {
   expect_equal(depth(NA), 1L)
-  expect_equal(depth(data.frame(a = 1)), 1L)
+  expect_equal(depth(quick_dfl(a = 1)), 1L)
   expect_equal(depth(list()), 0L)
   expect_equal(depth(NULL), 0L)
   expect_equal(depth(list(1)), 1L)

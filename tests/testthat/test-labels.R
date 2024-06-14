@@ -51,7 +51,7 @@ test_that("data.frame assignment", {
     class = "assignLabelsDataframeDotsError"
   )
 
-  df <- data.frame(a = 1, b = 2, c = 3)
+  df <- quick_dfl(a = 1, b = 2, c = 3)
   # nolint start: line_length_linter.
   expect_error(assign_labels(df, c = "c", d = "d", .missing = "error"), class = "assignLabelsDataframeMissingError")
   expect_warning(assign_labels(df, c = "c", d = "d", .missing = "warn"), class = "assignLabelsDataframeMissingWarning")
@@ -64,21 +64,21 @@ test_that("data.frame assign with data.frame", {
 
   x <- assign_labels(iris, Sepal.Length = "a", Species = "b")
 
-  labels <- data.frame(
+  labels <- quick_dfl(
     name = c("Sepal.Length", "Species"),
     label = c("a", "b")
   )
 
   y <- assign_labels(iris, labels)
 
-  exp <- data.frame(
+  exp <- quick_dfl(
     column = colnames(iris),
     label = c("a", NA, NA, NA, "b")
   )
 
   expect_equal(get_labels(y), get_labels(y))
 
-  bad_labels <- data.frame(
+  bad_labels <- quick_dfl(
     v1 = c("a", "b", 1),
     v2 = c("x", "y", 2)
   )

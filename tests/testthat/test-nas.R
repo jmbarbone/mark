@@ -2,7 +2,7 @@ test_that("remove_na()", {
   x <- c(1, 2, NA, 3, NaN)
   expect_equal(remove_na(x), c(1, 2, 3))
   expect_equal(remove_na(as.list(x)), list(1, 2, numeric(), 3, numeric()))
-  expect_error(remove_na(data.frame(x = 1)), class = "checkIsVectorModeError")
+  expect_error(remove_na(quick_dfl(x = 1)), class = "checkIsVectorModeError")
 
   res <- remove_na(fact(x))
   exp <- struct(
@@ -25,17 +25,16 @@ test_that("remove_null()", {
   expect_equal(remove_null(x), list(a = 1, c = 1))
 
   expect_error(remove_null(c(1, 2)), class = "simpleError")
-  expect_error(remove_null(data.frame(x = NULL)), class = "simpleError")
+  expect_error(remove_null(quick_dfl(x = NULL)), class = "simpleError")
 })
 
 test_that("*_na_cols() works", {
-  x <- data.frame(
+  x <- quick_dfl(
     first = c(NA, 2, 3, 4),
     second = c(1, NA, 3, 4),
     all = not_available(length = 4),
     last = c(1, 2, 3, NA),
-    all2 = not_available(length = 4),
-    stringsAsFactors = FALSE
+    all2 = not_available(length = 4)
   )
 
   expect_equal(

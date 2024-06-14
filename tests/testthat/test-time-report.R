@@ -8,7 +8,7 @@ test_that("simpleTimeReport() works", {
         foo_warn()
         foo_msg()
         cat("this is a cat\n")
-        data.frame(a = 1, b = 2)
+        quick_dfl(a = 1, b = 2)
       })
     ),
   NA)

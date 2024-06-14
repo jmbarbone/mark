@@ -52,7 +52,7 @@ test_that("reindex() work", {
 
   expect_error(reindex(1), "data.frame", class = "simpleError")
   expect_error(
-    reindex(data.frame(a = 1), index = integer()),
+    reindex(quick_dfl(a = 1), index = integer()),
     "new_index",
     class = "simpleError"
   )

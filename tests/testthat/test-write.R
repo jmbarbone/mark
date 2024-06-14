@@ -1,5 +1,5 @@
 test_that("write_file_md5() works", {
-  df <- data.frame(a = 1, b = 2)
+  df <- quick_dfl(a = 1, b = 2)
   temp <- withr::local_tempfile()
   expect_output(write_file_md5(df))
   expect_message(write_file_md5(df, temp), NA)
@@ -44,7 +44,7 @@ test_that("path warning", {
 })
 
 test_that("write_file_md5() errors", {
-  df <- data.frame(a = 1)
+  df <- quick_dfl(a = 1)
   expect_error(
     write_file_md5(df, method = "foo"),
     class = "matchParamMatchError"
@@ -55,7 +55,7 @@ test_that("compression works", {
   foo <- function(ext = "") {
     file <- tempfile(fileext = ext)
     on.exit(unlink(file, recursive = TRUE))
-    df <- data.frame(a = 1)
+    df <- quick_dfl(a = 1)
     write_file_md5(df, file)
   }
 
@@ -75,9 +75,13 @@ test_that("list columns", {
     op <- options(mark.list.hook = method)
     on.exit(options(op))
 
-    df <- data.frame(x = c("a", "b"))
+    df <- quick_dfl(x = c("a", "b"))
     df$y <- list(1:2, 2)
 
+    write_file_md5(df, temp)
+    fs::file_delete(temp)
+
+    df$z <- list(1, 2:3)
     write_file_md5(df, temp)
   }
 
