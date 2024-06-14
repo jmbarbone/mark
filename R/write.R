@@ -135,20 +135,22 @@ write_file_md5 <- function(
 #' @export
 #' @rdname write_file_md5
 mark_write_methods <- function() {
-  list(
+  list0(
     "default",
     "csv",
     "csv2",
     "csv3",
     "dcf",
+    "feather",
     "json",
     lines = c("lines", "md", "txt", "qmd", "rmd"),
+    "parquet",
     "rds",
     table = c("table", "delim"),
     "tsv",
     "tsv2",
     "write",
-    yaml = c("yaml", "yml")
+    yaml = c("yaml", "yml"),
   )
 }
 
@@ -351,6 +353,50 @@ mark_write_json <- function(x, con) {
   require_namespace("yaml")
   string <- mark_to_json(x)
   mark_write_lines(string, con)
+}
+
+mark_write_feather <- function(x, con, ...) {
+  mark_write_arrow(x, con, ..., .method = "feather")
+}
+
+mark_write_parquet <- function(x, con, ...) {
+  mark_write_arrow(x, con, ..., .method = "parquet")
+}
+
+mark_write_arrow <- function(
+    x,
+    con,
+    ...,
+    .method = c("feather", "parquet")
+) {
+  require_namespace("arrow")
+  .method <- mark::match_param(.method)
+
+  switch(
+    .method,
+    feather = {
+      read <- arrow::read_feather
+      write <- arrow::write_feather
+    },
+    parquet = {
+      read <- arrow::read_parquet
+      write <- arrow::write_parquet
+    }
+  )
+
+  if (identical(con, stdout())) {
+    temp <- tempfile()
+    con <- file(temp, open = "wb", encoding = "UTF-8")
+    on.exit({
+      co <- utils::capture.output(read(temp, as_data_frame = FALSE))
+      co <- grep("See $metadata", co, value = TRUE, invert = TRUE, fixed = TRUE)
+      co <- co[nzchar(co)]
+      writeLines(co)
+      safe_fs_delete(temp)
+    })
+  }
+
+  write(x, sink = con, ...)
 }
 
 # helpers -----------------------------------------------------------------
