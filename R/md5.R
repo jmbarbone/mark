@@ -29,5 +29,5 @@ md5 <- function(x) {
     mark_write_lines(x, file)
   }
 
-  unname(tools::md5sum(file))
+  unname(tools::md5sum(path))
 }
