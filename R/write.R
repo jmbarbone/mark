@@ -7,6 +7,7 @@
 #'   function is applied to each element of the list.  The default `"auto"`
 #'   uses `toJSON()` if the package `jsonlite` is available, otherwise
 #'
+#'
 #' @param x An object to write to file
 #' @param path The file or connection to write to (dependent on part by method)
 #' @param method The method of saving the file.  When `default`, the method is
@@ -252,28 +253,11 @@ mark_write_table <- function(
     col.names <- TRUE
   }
 
-  if (identical(list_hook, "auto") || isTRUE(list_hook)) {
-    if (package_available("jsonlite")) {
-      list_hook <- "mark_to_json"
-    } else {
-      list_hook <- function(x) collapse(shQuote(x, "sh"), sep = ",")
-    }
-  } else if (isFALSE(list_hook)) {
-    list_hook <- function(x) NA_character_
-  } else if (isNA(list_hook)) {
-    list_hook <- function(x) {
-      stop(new_condition(
-        "options(mark.list.hook) is NA but list columns detected",
-        class = "writeFileMd5ListHook"
-      ))
-    }
-  }
-
-  if (!isFALSE(list_hook) && !is.null(list_hook)) {
-    list_hook <- match.fun(list_hook)
-    ok <- vap_lgl(x, is.list)
-    if (any(ok)) {
-      x[ok] <- lapply(x[ok], function(i) vap_chr(i, list_hook))
+  list_hook <- get_list_hook(list_hook)
+  if (!is.null(list_hook)) {
+    cols <- which(vap_lgl(x, is.list))
+    for (col in cols) {
+      x[[col]] <- vap_chr(x[[col]], list_hook)
     }
   }
 
@@ -289,6 +273,41 @@ mark_write_table <- function(
     row.names = row.names,
     col.names = col.names,
     qmethod = qmethod
+  )
+}
+
+get_list_hook <- function(hook) {
+  if (is.null(hook)) {
+    return()
+  }
+
+  if (is.function(hook)) {
+    return(hook)
+  }
+
+  if (isTRUE(hook)) {
+    hook <- "auto"
+  } else if (isFALSE(hook)) {
+    hook <- "false"
+  } else if (is.na(hook)) {
+    hook <- "na"
+  }
+
+  switch(
+    hook,
+    auto = if (package_available("jsonlite")) {
+      get_list_hook("json")
+    } else {
+      get_list_hook("default")
+    },
+    json = mark_to_json,
+    default = function(x) collapse(shQuote(x, "sh"), sep = ","),
+    false = function(x) NA_character_,
+    na = function(x) stop(new_condition(
+      "options(mark.list.hook) is NA but list columns detected",
+      class = "writeFileMd5ListHook"
+    )),
+    match.fun(hook)
   )
 }
 
