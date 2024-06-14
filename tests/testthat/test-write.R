@@ -65,6 +65,12 @@ test_that("compression works", {
   expect_s3_class(foo(".dcf.xz"), "data.frame")
   expect_s3_class(foo(".csv.zip"), "data.frame")
   expect_s3_class(foo(".tar.gz"), "data.frame")
+
+  expect_error(
+    compress("foo.tar.zip"),
+    "'zip' is not a valid method",
+    fixed = TRUE
+  )
 })
 
 test_that("list columns", {
@@ -86,9 +92,21 @@ test_that("list columns", {
   }
 
   expect_s3_class(foo("auto"), "data.frame")
+  expect_s3_class(foo("default"), "data.frame")
+  expect_s3_class(foo("json"), "data.frame")
   expect_s3_class(foo(toString), "data.frame")
   expect_s3_class(foo(TRUE), "data.frame")
-  expect_s3_class(foo(NULL), "data.frame")
   expect_s3_class(foo(FALSE), "data.frame")
-  expect_error(foo(NA))
+  expect_s3_class(foo("toString"), "data.frame")
+  expect_error(
+    foo("none"),
+    "unimplemented type 'list' in 'EncodeElement'",
+    fixed = TRUE
+  )
+  expect_error(foo(NA), class = "writeFileMd5ListHookError")
+})
+
+test_that("arrow prints something to stdout()", {
+  expect_snapshot(write_file_md5(quick_dfl(a = 1), method = "feather"))
+  expect_snapshot(write_file_md5(quick_dfl(a = 1), method = "parquet"))
 })

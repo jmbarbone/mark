@@ -277,10 +277,6 @@ mark_write_table <- function(
 }
 
 get_list_hook <- function(hook) {
-  if (is.null(hook)) {
-    return()
-  }
-
   if (is.function(hook)) {
     return(hook)
   }
@@ -303,6 +299,7 @@ get_list_hook <- function(hook) {
     json = mark_to_json,
     default = function(x) collapse(shQuote(x, "sh"), sep = ","),
     false = function(x) NA_character_,
+    none = NULL,
     na = function(x) stop(new_condition(
       "options(mark.list.hook) is NA but list columns detected",
       class = "writeFileMd5ListHook"
