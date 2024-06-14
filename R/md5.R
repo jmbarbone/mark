@@ -4,11 +4,11 @@
 #'
 #' @details
 #' When `x` is a `character` vector, [base::writeLines()] is used to write to
-#' a temporary file.  Otherwise, an Rds file is created with [base::saveRds()].
+#' a temporary file.  Otherwise, an Rds file is created with [base::saveRDS()].
 #' Coercing
 #'
 #' @param x An object
-#' @return A single `character`
+#' @return A `md5sum` object
 #' @export
 #' @examples
 #' md5("hello")
@@ -17,6 +17,7 @@
 md5 <- function(x) {
   path <- fs::file_temp("mark_md5__")
   file <- file(path, encoding = "UTF-8")
+
   on.exit({
     safe_close(file)
     safe_fs_delete(path)
@@ -29,5 +30,11 @@ md5 <- function(x) {
     mark_write_lines(x, file)
   }
 
-  unname(tools::md5sum(path))
+  struct(tools::md5sum(path), class = c("md5sum", "character"))
+}
+
+#' @export
+print.md5sum <- function(x, ...) {
+  cat(x, "\n", sep = "")
+  invisible(x)
 }
