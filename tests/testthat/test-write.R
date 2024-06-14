@@ -15,21 +15,32 @@ test_that("write_file_md5() types", {
   foo <- function(method) {
     file <- tempfile()
     on.exit(file.remove(file))
-    df <- data.frame(a = 1, b = "n", c = TRUE)
-    expect_message(write_file_md5(df, file, method = method), NA)
+    x <-
+      if (method %in% c(mark_write_methods()$lines, "write")) {
+        letters
+      } else {
+        quick_dfl(a = 1, b = "n", c = TRUE)
+      }
+      expect_message(
+        write_file_md5(x, file, method = !!method),
+        NA
+      )
   }
 
-  foo("csv")
-  foo("csv2")
-  foo("csv3")
-  foo("dcf")
-  foo("json")
-  foo("rds")
-  foo("table")
-  foo("tsv")
-  foo("tsv2")
-  foo("json")
-  foo("yaml")
+  for (method in unlist0(mark_write_methods())) {
+    foo(method)
+  }
+})
+
+test_that("path warning", {
+  t <- tempfile()
+  on.exit(fs::file_delete(t))
+  x <- structure(quick_dfl(a = 1), path = t)
+  expect_warning(
+    write_file_md5(x, t),
+    "attr(x, \"path\") is being overwritten",
+    fixed = TRUE
+  )
 })
 
 test_that("write_file_md5() errors", {
