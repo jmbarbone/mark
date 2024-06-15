@@ -2,10 +2,8 @@
 #'
 #' Wrapper for calling [tools::md5sum()] on objects rather than files.
 #'
-#' @details
-#' When `x` is a `character` vector, [base::writeLines()] is used to write to
-#' a temporary file.  Otherwise, an Rds file is created with [base::saveRDS()].
-#' Coercing
+#' @details All `x` objects are [serialized][base::serialize()] to a temporary
+#' file before [tools::md5sum()] is called.
 #'
 #' @param x An object
 #' @return A `md5sum` object
@@ -16,20 +14,13 @@
 #' md5(data.frame(a = 1:10, b = letters[1:10]))
 md5 <- function(x) {
   path <- fs::file_temp("mark_md5__")
-  file <- file(path, encoding = "UTF-8")
+  on.exit(safe_fs_delete(path), add = TRUE)
 
-  on.exit({
-    safe_close(file)
-    safe_fs_delete(path)
-  })
+  con <- file(path, "wb", encoding = "UTF-8", raw = TRUE)
+  on.exit(safe_close(con), add = TRUE)
 
-  if (is.object(x)) {
-    mark_write_rds(x, file)
-  } else {
-    x <- as.character(x)
-    mark_write_lines(x, file)
-  }
-
+  serialize(x, con, ascii = FALSE, version = 3L)
+  close(con)
   struct(tools::md5sum(path), class = c("md5sum", "character"))
 }
 
