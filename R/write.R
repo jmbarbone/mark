@@ -300,6 +300,7 @@ get_list_hook <- function(hook) {
     default = function(x) collapse(shQuote(x, "sh"), sep = ","),
     false = function(x) NA_character_,
     none = NULL,
+    # nolint next: brace_linter.
     na = function(x) stop(new_condition(
       "options(mark.list.hook) is NA but list columns detected",
       class = "writeFileMd5ListHook"
