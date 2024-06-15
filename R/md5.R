@@ -19,6 +19,7 @@ md5 <- function(x) {
   con <- file(path, "wb", encoding = "UTF-8", raw = TRUE)
   on.exit(safe_close(con), add = TRUE)
 
+  # nolint next: line_length_linter.
   # https://github.com/yihui/xfun/blob/6de6590306e7493dec8c457b5baa0b371735ad0d/R/cache.R#L396-L408
   s <- serialize(x, NULL, ascii = FALSE, version = 3L)
   writeBin(s[seq.int(15L, length(s))], con, useBytes = TRUE)
