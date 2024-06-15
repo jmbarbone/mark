@@ -1,21 +1,21 @@
-# snapshopts
+# snapshots
 
     Code
       md5(letters)
     Output
-      bc37452c4ba81b8d2bbb3aa6cf204c32
+      d50f072f51db46c1736ee43adbba195f
 
 ---
 
     Code
       md5(1:100)
     Output
-      0098c968f60e9718b250297103b5388b
+      9d6257190ff5b50a0242cea93afda52f
 
 ---
 
     Code
       md5(quick_dfl(a = 1))
     Output
-      6311f1f7467adb01d7d97447f650b452
+      45aa38750405b63fd8cb81b938cdf76b
 
