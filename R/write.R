@@ -394,10 +394,12 @@ mark_write_arrow <- function(
     feather = {
       read <- arrow::read_feather
       write <- arrow::write_feather
+      clean <- function() NULL
     },
     parquet = {
       read <- arrow::read_parquet
       write <- arrow::write_parquet
+      clean <- base::gc
     }
   )
 
@@ -406,9 +408,14 @@ mark_write_arrow <- function(
     con <- file(temp, open = "wb", encoding = "UTF-8")
     on.exit({
       co <- utils::capture.output(read(temp, as_data_frame = FALSE))
+      # Something weird was happening after reading the parquet object on
+      # windows; fs::file_delete() was throwing an EPERM error but file.remove()
+      # wasn't. Adding an explicit gc() seems to do the trick...
+      clean()
       co <- grep("See $metadata", co, value = TRUE, invert = TRUE, fixed = TRUE)
       co <- co[nzchar(co)]
       writeLines(co)
+      safe_close(con)
       safe_fs_delete(temp)
     })
   }
