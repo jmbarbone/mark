@@ -16,9 +16,8 @@ A \code{md5sum} object
 Wrapper for calling \code{\link[tools:md5sum]{tools::md5sum()}} on objects rather than files.
 }
 \details{
-When \code{x} is a \code{character} vector, \code{\link[base:writeLines]{base::writeLines()}} is used to write to
-a temporary file.  Otherwise, an Rds file is created with \code{\link[base:readRDS]{base::saveRDS()}}.
-Coercing
+All \code{x} objects are \link[base:serialize]{serialized} to a temporary
+file before \code{\link[tools:md5sum]{tools::md5sum()}} is called.
 }
 \examples{
 md5("hello")
