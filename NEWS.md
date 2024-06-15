@@ -1,5 +1,7 @@
 # mark (development version)
 
+* `md5()` added to provide MD5 check sums for objects [#233](https://github.com/jmbarbone/jmbarbone/mark/issues/233)
+
 # mark 0.8.0
 
 ## breaking changes
