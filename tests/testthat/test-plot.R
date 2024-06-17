@@ -4,7 +4,7 @@ test_that("with_par() works", {
 
   par0 <- graphics::par("mfrow")
   set.seed(42)
-  df <- data.frame(a = stats::rnorm(100), b = stats::rnorm(100))
+  df <- quick_dfl(a = stats::rnorm(100), b = stats::rnorm(100))
   # not testing for plot
   grDevices::dev.off()
   wuffle(with_par(

@@ -1,7 +1,7 @@
 Package: mark
 Type: Package
 Title: Miscellaneous, Analytic R Kernels
-Version: 0.8.0.9001
+Version: 0.8.0.9002
 Authors@R:
     person(given   = "Jordan Mark",
            family  = "Barbone",
@@ -48,7 +48,8 @@ Suggests:
     withr (>= 2.3.0),
     xopen,
     yaml,
-    jsonlite
+    jsonlite,
+    arrow (>= 16.1.0)
 RoxygenNote: 7.3.1
 Roxygen: list(markdown = TRUE)
 Config/testthat/edition: 3

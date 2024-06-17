@@ -9,7 +9,7 @@ test_that("environments() and friends works", {
   local({
     foo_obj <- structure(list(), class = "foo")
     foo_fun <- function() NULL
-    foo_df <- data.frame(a = 1)
+    foo_df <- quick_dfl(a = 1)
   }, envir = ne)
 
   # these are failing...?

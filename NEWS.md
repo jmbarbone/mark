@@ -1,5 +1,6 @@
 # mark (development version)
 
+* `write_file_md5()` now supports `"feather"` and `"parquet"` methods as wrappers for [`{arrow}`]() [#234](https://github.com/jmbarbone/mark/issues/234)
 * `md5()` added to provide MD5 check sums for objects [#233](https://github.com/jmbarbone/jmbarbone/mark/issues/233)
 
 # mark 0.8.0

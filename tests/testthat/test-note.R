@@ -36,7 +36,7 @@ test_that("note() work", {
 })
 
 test_that("print.noted() passes to next methods [67] (data.frame)", {
-  x <- data.frame(a = 1:50)
+  x <- quick_dfl(a = 1:50)
   original <- capture.output(print(x, max = 5))
   note(x) <- "note"
 
@@ -68,11 +68,11 @@ test_that("print.noted() passes to next methods [67] (tibble)", {
 test_that("print_note() works with data.frame", {
   withr::local_options(list(mark.check_interactive = NA))
 
-  x <- data.frame(a = 1:2, b = 1:2)
+  x <- quick_dfl(a = 1:2, b = 1:2)
   note(x) <- "This should work"
   expect_identical(print_note(x), x)
 
-  x <- list(a = 1:3, b = 2, c = data.frame(a = 1))
+  x <- list(a = 1:3, b = 2, c = quick_dfl(a = 1))
   note(x) <- "This is a list"
   expect_identical(print_note(x), x)
 })

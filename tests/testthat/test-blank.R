@@ -12,7 +12,7 @@ test_that("is_blank() works", {
   exp <- c(TRUE, FALSE, FALSE, FALSE)
   expect_identical(obj, exp)
 
-  df <- data.frame(
+  df <- quick_dfl(
     x = x,
     i = 1:4,
     na = rep(NA, 4L),
