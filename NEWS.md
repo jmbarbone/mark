@@ -2,6 +2,7 @@
 
 * `write_file_md5()` now supports `"feather"` and `"parquet"` methods as wrappers for [`{arrow}`]() [#234](https://github.com/jmbarbone/mark/issues/234)
 * `md5()` added to provide MD5 check sums for objects [#233](https://github.com/jmbarbone/jmbarbone/mark/issues/233)
+* `unique_rows()` added to subset on (non-)duplicated rows in a `data.frame` [#87](https://github.com/jmbarbone/mark/issues/87)
 
 # mark 0.8.0
 
@@ -10,7 +11,7 @@
 * `echo()` is now removed; use `echo::echo()` instead [#214](https://github.com/jmbarbone/mark/issues/214)
 * includes `tryn()` for running an expression a maximum number of times before failure [#80](https://github.com/jmbarbone/mark/issues/80)
 
-## fixes 
+## fixes
 
 * `unlist0()` no longer fails when input list is not named [#220](https://github.com/jmbarbone/mark/issues/220)
 
@@ -20,7 +21,7 @@
   * can now return multiple matches [#191](https://github.com/jmbarbone/mark/issues/191), and can return partial matches
   * error message readability improved for `matchParamMatchError`[#194](https://github.com/jmbarbone/mark/issues/194)
   * `choices` can now be a list of `formula` elements, preserving the return value
-  
+
 ## new features
 
 * `file_copy_md5()` added as a wrapper for `fs::file_copy()` but provides MD5 checks through `tools::md5sum()` to avoid overwriting files that had no content changes [#207](https://github.com/jmbarbone/mark/issues/207)
