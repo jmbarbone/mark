@@ -28,6 +28,7 @@ df <- quick_dfl(
   a = rep(1:2, 2L),
   b = rep("a", 4L),
 )
+
 unique_rows(df, 2:3)
-unique_rows(df, 2:3, from_last = TRUE, invert = TRUE)
+unique_rows(df, c("a", "b"), from_last = TRUE, invert = TRUE)
 }
