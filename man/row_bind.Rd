@@ -17,6 +17,14 @@ and \code{0} rows is returned if \code{...} has no length
 \description{
 Bind a list of \code{data.frames}
 }
+\examples{
+row_bind(
+  quick_df(a = 1:2, b = 1:2),
+  quick_df(a = 3:4, c = 3:4),
+  quick_df(d = 5:6, b = 5:6),
+  quick_df(e = 0),
+)
+}
 \seealso{
 \code{\link[dplyr:bind_rows]{dplyr::bind_rows()}} \code{\link[base:cbind]{base::rbind()}}
 }
