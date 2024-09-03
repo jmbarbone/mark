@@ -3,6 +3,7 @@ test_that("dates - utils", {
 
   expect_true(is_valid_date_string("2019"))
   expect_true(is_valid_date_string("Jan 19 2020"))
+  expect_true(is_valid_date_string("2020-01-01"))
   # too difficult to determine year for max?
   expect_true(is_valid_date_string("01 Feb"))
 
@@ -16,6 +17,7 @@ test_that("dates - utils", {
 
 
 test_that("leap years", {
+  # nolint start: spaces_inside_linter.
   expect_false(is_leap_year(1500))
   expect_true( is_leap_year(1600))
   expect_false(is_leap_year(1700))
@@ -29,11 +31,12 @@ test_that("leap years", {
   expect_false(is_leap_year(102))
   expect_true( is_leap_year(400))
   expect_true( is_leap_year(as.POSIXct("2020-01-01")))
+  # nolint end: spaces_inside_litner.
 })
 
 # # Waldo prints out dates as days from origin...
-# waldo::compare(as.Date("2020-12-18"), as.Date("2020-12-17"))
-# waldo::compare("2020-12-18", "2020-12-17")
+#> waldo::compare(as.Date("2020-12-18"), as.Date("2020-12-17"))
+#> waldo::compare("2020-12-18", "2020-12-17")
 foo <- function(x, ...) {
   as.character(date_from_partial(x, ...))
 }
@@ -57,6 +60,8 @@ test_that("Some examples", {
   expect_equal(foo("2015", method = "max"), "2015-12-31")
   expect_equal(foo("2015", format = "dmy", method = "min"), "2015-01-01")
   expect_equal(foo("2015", format = "dmy", method = "max"), "2015-12-31")
+
+  expect_equal(foo("2020-01-01"), "2020-01-01")
 })
 
 test_that("Bad date: Earliest", {
@@ -66,9 +71,11 @@ test_that("Bad date: Earliest", {
 })
 
 test_that("Bad date: Latest", {
+  # nolint start: line_length_linter.
   dates <- c("3 UNK 2019", "UN JUN 2004", "Feb 2000",   "Feb 2100",   "UK UNK UNKN")
   exp <-  c("2019-12-03",  "2004-06-30",  "2000-02-29", "2100-02-28", NA_character_)
   expect_equal(foo(dates, format = "dmy", method = "max"), exp)
+  # nolint end: line_length_linter.
 })
 
 test_that("'Empty' dates don't cause errors", {
@@ -80,9 +87,9 @@ test_that("'Empty' dates don't cause errors", {
 })
 
 test_that("date errors", {
-  expect_error(verify_format("ymda"))
-  expect_error(verify_format("abc"))
-  expect_error(verify_format("aaa"))
+  expect_error(verify_format("ymda"), class = "verifyFormatChrsError")
+  expect_error(verify_format("abc"), class = "verifyFormatYmdError")
+  expect_error(verify_format("aaa"), class = "verifyFormatChrsError")
   expect_error(verify_format("ymd"), NA)
   expect_error(verify_format("dmy"), NA)
   expect_error(verify_format("mdy"), NA)

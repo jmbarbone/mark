@@ -33,7 +33,7 @@ NULL
 
 #' @rdname na_assignments
 #' @export
-NA_at <- function(x, y, ...) {
+NA_at <- function(x, y, ...) { # nolint: object_name_linter.
   nx <- length(x)
 
   if (nx == 0L) {
@@ -41,15 +41,21 @@ NA_at <- function(x, y, ...) {
   }
 
   if (is.function(y)) {
-    FUN <- match.fun(y)
+    FUN <- match.fun(y) # nolint: object_name_linter.
     y <- FUN(x, ...)
   }
 
-  stopifnot(
-    "y must be a vector of integers" = isTRUE(all.equal(y, as.integer(y))),
-    "values of y must not be greater than length of x" = max(y, na.rm = TRUE) <= nx,
-    "length of y must not be greater than length of x" = length(y) <= nx
-  )
+  if (any(y %% 1 > 0, na.rm = TRUE)) {
+    stop(cond_na_at_integer())
+  }
+
+  if (!isTRUE(max(y, na.rm = TRUE) <= nx)) {
+    stop(cond_na_at_max())
+  }
+
+  if (!isTRUE(length(y) <= nx)) {
+    stop(cond_na_at_length())
+  }
 
   x[y] <- NA
   x
@@ -57,7 +63,7 @@ NA_at <- function(x, y, ...) {
 
 #' @rdname na_assignments
 #' @export
-NA_if <- function(x, y, ...) {
+NA_if <- function(x, y, ...) { # nolint: object_name_linter.
   nx <- length(x)
 
   if (nx == 0L) {
@@ -65,14 +71,17 @@ NA_if <- function(x, y, ...) {
   }
 
   if (is.function(y)) {
-    FUN <- match.fun(y)
+    FUN <- match.fun(y) # nolint: object_name_linter.
     y <- FUN(x, ...)
   }
 
-  stopifnot(
-    "y must be the same length as x" = length(y) == nx,
-    "y must be logical" = is.logical(y)
-  )
+  if (length(y) != nx) {
+    stop(cond_na_if_length())
+  }
+
+  if (!is.logical(y)) {
+    stop(cond_na_if_logical())
+  }
 
   x[y] <- NA
   x
@@ -80,13 +89,13 @@ NA_if <- function(x, y, ...) {
 
 #' @rdname na_assignments
 #' @export
-NA_in <- function(x, y, ...) {
+NA_in <- function(x, y, ...) { # nolint: object_name_linter.
   if (length(x) == 0L) {
     return(x)
   }
 
   if (is.function(y)) {
-    FUN <- match.fun(y)
+    FUN <- match.fun(y) # nolint: object_name_linter.
     y <- FUN(x, ...)
   }
 
@@ -96,16 +105,44 @@ NA_in <- function(x, y, ...) {
 
 #' @rdname na_assignments
 #' @export
-NA_out <- function(x, y, ...) {
+NA_out <- function(x, y, ...) { # nolint: object_name_linter.
   if (length(x) == 0L) {
     return(x)
   }
 
   if (is.function(y)) {
-    FUN <- match.fun(y)
+    FUN <- match.fun(y) # nolint: object_name_linter.
     y <- FUN(x, ...)
   }
 
   x[x %out% y] <- NA
   x
 }
+
+
+# conditions --------------------------------------------------------------
+
+cond_na_at_integer <- function() {
+  new_condition("y must be a vector of integers", "na_at_integer")
+}
+
+cond_na_at_max <- function() {
+  new_condition("values of y must not be greater than length of x", "na_at_max")
+}
+
+cond_na_at_length <- function() {
+  new_condition(
+    "length of y must not be greater than length of x",
+    "na_at_length"
+  )
+}
+
+cond_na_if_length <- function() {
+  new_condition("y must be the same length as x", "na_if_length")
+}
+
+cond_na_if_logical <- function() {
+  new_condition("y must be logical", "na_if_logical")
+}
+
+# terminal line

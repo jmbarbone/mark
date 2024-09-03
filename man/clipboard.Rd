@@ -3,33 +3,52 @@
 \name{clipboard}
 \alias{clipboard}
 \alias{write_clipboard}
+\alias{write_clipboard.default}
+\alias{write_clipboard.data.frame}
+\alias{write_clipboard.matrix}
+\alias{write_clipboard.list}
 \alias{read_clipboard}
 \title{Write to and read from the clipboard}
 \usage{
 write_clipboard(x, ...)
+
+\method{write_clipboard}{default}(x, ...)
+
+\method{write_clipboard}{data.frame}(x, sep = "\\t", row.names = FALSE, ...)
+
+\method{write_clipboard}{matrix}(x, sep = "\\t", ...)
+
+\method{write_clipboard}{list}(x, sep = "\\t", ...)
 
 read_clipboard(method = c("default", "data.frame", "tibble"), ...)
 }
 \arguments{
 \item{x}{An object}
 
-\item{...}{Additional arguments sent to methods}
+\item{...}{Additional arguments sent to methods or to \code{\link[utils:write.table]{utils::write.table()}}}
+
+\item{sep}{the field separator string.  Values within each row of
+    \code{x} are separated by this string.}
+
+\item{row.names}{either a logical value indicating whether the row
+    names of \code{x} are to be written along with \code{x}, or a
+    character vector of row names to be written.}
 
 \item{method}{Method switch for loading the clipboard}
 }
 \value{
-\code{write_clipboard()} None, called for side effects
-\code{read_clipboard()} Either a vector, \code{data.frame}, or \code{tibble} depending on
-the \code{method} chosen.  Unlike \code{\link[utils:clipboard]{utils::readClipboard()}}, an empty clipboard
-value returns \code{NA} rather than \code{""}
+\code{write_clipboard()} None, called for side effects \code{read_clipboard()}
+Either a vector, \code{data.frame}, or \code{tibble} depending on the \code{method} chosen.
+Unlike \code{\link[utils:clipboard]{utils::readClipboard()}}, an empty clipboard value returns \code{NA} rather
+than \code{""}
 }
 \description{
 Wrappers for working with the clipboard
 }
 \details{
-As these functions rely on \code{utils::readClipboard()} and
-\code{utils::writeClipboard} they are only available for Windows 10.
-For copying and pasting floats, there may be some rounding that can occur.
+As these functions rely on \code{\link[utils:clipboard]{utils::readClipboard()}} and
+\code{\link[utils:clipboard]{utils::writeClipboard()}} they are only available for Windows 10. For copying
+and pasting floats, there may be some rounding that can occur.
 }
 \examples{
 # Will only run on windows

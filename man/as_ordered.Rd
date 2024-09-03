@@ -19,11 +19,11 @@ An \code{ordered} vector
 As ordered
 }
 \details{
-Simple implementation of \code{ordered}.  If \code{x} is \code{ordered} it is simply
-returned.  If \code{x} is a \code{factor} the \code{ordered} class is added.  Otherwise,
-\code{x} is made into a \code{factor} with \code{\link[=fact]{fact()}} and then the \code{ordered}
-class is added.
-Unlike just \code{fact}, \code{ordered} will replace the \code{NA} levels with \code{NA_integer_} to work appropriately with other functions.
+Simple implementation of \code{ordered}.  If \code{x} is \code{ordered} it is
+simply returned.  If \code{x} is a \code{factor} the \code{ordered} class is added.
+Otherwise, \code{x} is made into a \code{factor} with \code{\link[=fact]{fact()}} and then the
+\code{ordered} class is added. Unlike just \code{fact}, \code{ordered} will replace the \code{NA}
+levels with \code{NA_integer_} to work appropriately with other functions.
 }
 \examples{
 x <- c("a", NA, "b")
@@ -46,7 +46,8 @@ max(x, na.rm = TRUE) # returns b -- correct
 Other factors: 
 \code{\link{char2fact}()},
 \code{\link{drop_levels}()},
+\code{\link{fact}()},
 \code{\link{fact2char}()},
-\code{\link{fact}()}
+\code{\link{fact_na}()}
 }
 \concept{factors}

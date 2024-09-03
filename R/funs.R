@@ -32,44 +32,22 @@ outer_fun <- function(n = 0) {
   as.character(s)[1]
 }
 
-#' Require namespace
+rn <- function(namespace) {
+  vap_lgl(namespace, requireNamespace, quietly = TRUE)
+}
+
+#' Check if package is available
 #'
 #' A wrapped requireNamespace
 #'
-#' @param namespace The name of a package/namespace
+#' @param namespace One or more packages to to require.
 #' @export
 #' @return
 #' * `require_namespace()`: None, called for side effects
 #' * `package_available()`: Visibly, `TRUE` or `FALSE`
-#'
-#' @examples
-#' foo <- function() {
-#'   require_namespace("bad_package")
-#'   1
-#' }
-#'
-#' try(require_namespace("bad_package"))
-#' try(foo())
-require_namespace <- function(namespace) {
-  of <- outer_fun()
-  of <- if (!is.na(of)) {
-    sprintf(" for `%s` to work", of)
-  }
-
-  if (!rn(namespace)) {
-    stop("Package `", namespace, "` is required", of, ".",
-         call. = FALSE)
-  }
-}
-
-rn <- function(namespace) {
-  requireNamespace(namespace, quietly = TRUE)
-}
-
 #' @export
-#' @rdname require_namespace
 package_available <- function(namespace) {
-  withVisible(rn(namespace))[["value"]]
+  vap_lgl(namespace, requireNamespace, quietly = TRUE)
 }
 
 rn_soft <- function(namespace) {

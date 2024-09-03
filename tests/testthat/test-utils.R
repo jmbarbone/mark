@@ -1,5 +1,5 @@
 test_that("match param", {
-  foo <- function(x = c('a', 'b')) {
+  foo <- function(x = c("a", "b")) {
     match_param(x)
   }
 
@@ -20,8 +20,6 @@ test_that("utils", {
 
   res <- remove_class(struct(1, class = "foo"))
   expect_identical(class(res), "numeric")
-
-  expect_identical(append0(1:3, 4L), 1:4)
 })
 
 test_that("check_interactive() works", {
@@ -41,5 +39,44 @@ test_that("check_interactive() works", {
 
 test_that("has_char() works", {
   expect_identical(has_char(c(NA, "this", "")), c(FALSE, TRUE,  FALSE))
-  expect_identical(has_char(c(1, 2, NA))      , c(FALSE, FALSE, FALSE))
+  expect_identical(has_char(c(1, 2, NA)),       c(FALSE, FALSE, FALSE))
+})
+
+test_that("dupe_check() works", {
+  expect_error(dupe_check(c(1, 1, 2, 3)))
+  expect_error(dupe_check(1:4), NA)
+})
+
+test_that("%len%", {
+  expect_true(logical() %len% TRUE)
+  expect_false(FALSE %len% TRUE)
+})
+
+test_that("which0()", {
+  expect_identical(which0(c(FALSE, FALSE, TRUE)), 3L)
+  expect_identical(which0(c(FALSE, FALSE, FALSE)), 0L)
+})
+
+test_that("that()", {
+  expect_identical(that(c(TRUE, FALSE, TRUE)), which(c(TRUE, FALSE, TRUE)))
+  expect_identical(that(c(FALSE, FALSE)), which(c(FALSE, FALSE)))
+})
+
+test_that("check_interactive()", {
+  op <- options(mark.check_interactive = -1)
+  expect_error(check_interactive())
+  options(op)
+})
+
+test_that("try_formats() doesn't cause failure with %Z", {
+  expect_false(tryCatch(
+    as.POSIXct("date", tryFormats = try_formats()),
+    error = function(e) {
+      grepl(
+        "strptime(xx, f, tz = tz)`: use of %Z for input is not supported",
+        e$message,
+        fixed = TRUE
+      )
+    }
+  ))
 })

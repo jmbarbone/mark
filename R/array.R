@@ -16,16 +16,13 @@
 #' array_extract(x, `2` = 2, `3` = 3)
 
 array_extract <- function(.arr, ..., default = "1") {
-  ls <- dotlist(...)
+  stopifnot(is.array(.arr))
 
-  if (!is.array(.arr)) {
-    stop(".arr must be an array", call. = FALSE)
-  }
-
+  ls <- rlang::list2(...)
   nm <- wuffle(as.integer(names(ls) %||% seq_along(ls)))
 
   if (anyNA(nm)) {
-    stop("... must be fully named by integers or have no names", call. = FALSE)
+    stop(cond_arary_extract_names())
   }
 
   ds <- dim(.arr)
@@ -55,10 +52,11 @@ array_extract <- function(.arr, ..., default = "1") {
   eval(str2expression(text), envir = parent.frame())
 }
 
-dotlist <- function(...) {
-  if (tryCatch(is.list(...), error = function(e) FALSE)) {
-    return(list(...)[[1]])
-  }
+# conditions --------------------------------------------------------------
 
-  list(...)
+cond_arary_extract_names <- function() {
+  new_condition(
+    "... must be fully named by integers or have no names",
+    "array_extract_names"
+  )
 }

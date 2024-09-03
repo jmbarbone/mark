@@ -50,7 +50,7 @@ test_that("utils_type_convert()", {
   xint <- c("121021", "-12191", "121001", "  ")
   xdat <- c("2020-05-01", "1900-10-10", "1655-06-07")
   xlgl <- c("TRUE", "  true", "FALSE", "fALSE", "na", "NA")
-  rchr <- xchr
+  rchr <- c("this", "that", NA, "121", "them", ".011", "2020", NA)
   rdbl <- as.double(xdbl)
   rint <- as.integer(xint)
   rdat <- as.Date(xdat)

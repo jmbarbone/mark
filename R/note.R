@@ -3,24 +3,25 @@
 #' An alternative to the [base::comment()].
 #'
 #' @details When the note is assigned to an object a new class will be added,
-#' `note`, so that a `print` function can call an S3 method.  The print for this
-#' can be adjusted for it's width by using the option `mark.note.width` which
-#' defaults to the option `width` when not set.
+#'   `note`, so that a `print` function can call an S3 method.  The print for
+#'   this can be adjusted for it's width by using the option `mark.note.width`
+#'   which defaults to the option `width` when not set.
 #'
-#' The type of object assigned to the note is not restricted, so user beware of
-#' odd prints or additional features added to the notes fun.
+#'   The type of object assigned to the note is not restricted, so user beware
+#'   of odd prints or additional features added to the notes fun.
 #'
-#' When assigning a note (with `note<-`, and its alias `set_note()`) the `noted`
-#' class is added to the object.  This allows the `print.noted` class to be
-#' dispatched and for the note to be printed every time the object is
-#' called/printed and the next print method used.  However, it will not be
-#' called when not `interactive()`
+#'   When assigning a note (with `note<-`, and its alias `set_note()`) the
+#'   `noted` class is added to the object.  This allows the `print.noted` class
+#'   to be dispatched and for the note to be printed every time the object is
+#'   called/printed and the next print method used.  However, it will not be
+#'   called when not `interactive()`
 #'
 #' @param x An object
 #' @param value The note to attach; if `NULL` will remove the note and the class
 #'   `noted` from the object.
 #' @return
-#' * `note<-`, `set_note()` will return `x` (with the `"note"` attribute assigned)
+#' * `note<-`, `set_note()` will return `x` (with the `"note"` attribute
+#'    assigned)
 #' * `note()` will retrieve the `"note"` attribute
 #'
 #' @examples
@@ -81,14 +82,12 @@ print.note <- function(x, ...) {
 }
 
 print_note <- function(x, ...) {
-  if (!inherits(x, "noted")) {
-    stop("x must be class noted")
-  }
+  stopifnot(inherits(x, "noted"))
 
   the_note <- note(x)
 
   if (!inherits(the_note, "note")) {
-    stop("note(x) must be class note")
+    stop(cond_print_note_note())
   }
 
   if (!check_interactive()) {
@@ -106,4 +105,10 @@ print.noted <- function(x, ...) {
   print_note(x)
   print(set_note(x, NULL), ...)
   invisible(x)
+}
+
+# conditions --------------------------------------------------------------
+
+cond_print_note_note <- function() {
+  new_condition("note(x) must be class note", "print_note_noted")
 }

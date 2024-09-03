@@ -1,13 +1,13 @@
 test_that("find_author() works", {
   withr::local_options(list(mark.author = NULL))
-  expect_error(find_author())
+  expect_error(find_author(), class = "findAuthorError")
 })
 
 test_that("use_author() works", {
   author_info <- list(
     given = "Jordan Mark",
     family = "Barbone",
-    role = c("aut","cph", "cre"),
+    role = c("aut", "cph", "cre"),
     email = "jmbarbone@gmail.com",
     comment = c(ORCID = "0000-0001-9788-3628")
   )
@@ -46,6 +46,6 @@ test_that("use_author() works", {
 
   writeLines(original, "DESCRIPTION")
 
-  expect_error(use_author(NULL), "list")
-  expect_error(use_author(person()), "person")
+  expect_error(use_author(NULL), "list", class = "simpleError")
+  expect_error(use_author(person()), "person", class = "simpleError")
 })

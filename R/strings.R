@@ -72,7 +72,6 @@ str_slice_by_word <- function(x, n = 80L) {
   )
 }
 
-
 #' Extract date from string
 #'
 #' @param x A character vector
@@ -104,12 +103,11 @@ str_extract_datetime <- function(x, format = "%Y-%m-%d %H%M%S") {
   capply(text, strptime, format = format, tz = "")
 }
 
-string_extract <- function(x, pattern, perl = FALSE, ignore.case = FALSE) {
+string_extract <- function(x, pattern, perl = FALSE, ignore.case = FALSE) { # nolint: object_name_linter, line_length_linter.
   re <- regexpr(pattern, x, perl = perl, ignore.case = ignore.case)
   starts <- as.vector(re, "integer")
   substr(x, starts, starts + attr(re, "match.length") - 1L)
 }
-
 
 #' Format string to a regular expression
 #'
@@ -158,12 +156,9 @@ month_name_regex <- sprintf("(%s)", paste(month.name, collapse = "|"))
 #' chr_split("split this")
 #' @export
 chr_split <- function(x) {
-  if (length(x) != 1L) {
-    stop("`x` must be a single element", call. = FALSE)
-  }
+  stopifnot(length(x) == 1L)
   strsplit(as.character(x), "")[[1]]
 }
-
 
 #' Print as c
 #'
@@ -205,7 +200,7 @@ print_c <- function(x = read_clipboard(), sorted = TRUE, null = TRUE) {
   }
 
   if (interactive()) {
-    write_clipboard(string)
+    write_clipboard(string) # nocovr
   }
 
   cat(string)

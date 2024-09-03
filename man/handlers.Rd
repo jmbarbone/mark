@@ -32,16 +32,16 @@ get_error(x, FUN, ..., .null = TRUE)
 \item{.null}{Logical, if \code{FALSE} will drop \code{NULL} results (for \verb{get_*()})}
 }
 \value{
-The \verb{has_*()} functions will return \code{TRUE}/\code{FALSE} for if the handler is
-found in the execution of the code.
-The \verb{get_*()} functions provide the text of the message
+The \verb{has_*()} functions will return \code{TRUE}/\code{FALSE} for if the handler
+is found in the execution of the code. The \verb{get_*()} functions provide the
+text of the message
 }
 \description{
 Catch and report handlers
 }
 \details{
-These functions can be used to catch whether an evaluation will return an
-error or warning without raising.
+These functions can be used to catch whether an evaluation will
+return an error or warning without raising.
 }
 \examples{
 has_warning(c(1, "no"), as.integer)
@@ -68,5 +68,6 @@ get_error(c(1, 0, 2), foo)
 get_error(c(1, 0, 2), foo, .null = FALSE)
 }
 \references{
-Function for \emph{catching} has been adapted from https://stackoverflow.com/a/4952908/12126576
+Function for \emph{catching} has been adapted from
+https://stackoverflow.com/a/4952908/12126576
 }

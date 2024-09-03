@@ -30,5 +30,9 @@ test_that("between_more() works", {
   res <- c(FALSE, TRUE, TRUE, FALSE, FALSE)
   expect_identical(between_more(x, left, right), res)
 
-  expect_warning(between_more(1:2, 3, 2),"`left` > `right`")
+  expect_warning(
+    between_more(1:2, 3, 2),
+    "`left` > `right`",
+    class = "betweenMoreLrWarning"
+  )
 })

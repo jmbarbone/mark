@@ -19,29 +19,33 @@
 #'
 #' options(op)
 #' @export
-checkOptions <- function(x) {
-  if (!is.list(x)) {
-    stop("x must be a list", call. = FALSE)
-  }
+checkOptions <- function(x) { # nolint: object_name_linter.
+  stopifnot(is.list(x))
 
   nm <- names(x)
   if (is.null(nm) || any(nm == "")) {
-    stop("All options must be named", call. = FALSE)
+    stop(cond_check_options_names())
   }
 
   msg <- NULL
   op <- options()
   for (i in seq_along(x)) {
     go <- op[[nm[i]]]
-    if (is.null(go))
+
+    if (is.null(go)) {
       next
+    }
+
     if (!identical(x[[i]], go)) {
       if (is.null(msg)) {
         msg <- "Option(s) updated :"
       }
+
       msg <- c(msg, sprintf(
         '\n "%s"\n   old : %s\n   new : %s',
-        nm[i], go, x[[i]]
+        nm[i],
+        go,
+        x[[i]]
       ))
     }
   }
@@ -52,3 +56,11 @@ checkOptions <- function(x) {
 
   invisible(op)
 }
+
+# conditions --------------------------------------------------------------
+
+cond_check_options_names <- function() {
+  new_condition("All options must be named", "check_options_names")
+}
+
+# terminal line

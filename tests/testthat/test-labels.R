@@ -4,15 +4,13 @@ test_that("default assignment", {
   x1 <- remove_labels(x)
 
   expect_false(inherits(x, "labelled")) # Hmisc::label produces this class
-  expect_equal(attr(x, "label"), "runs")
+  expect_equal(exattr(x, "label"), "runs")
 
   expect_error(assign_labels(x, NULL))
   expect_error(assign_labels(x, 1:2))
 
   expect_equal(x0, x1)
   expect_true(is.null(attr(x1, "label")))
-
-  expect_warning(assign_label(x, "what"), "deprecated")
 })
 
 test_that("data.frame assignment", {
@@ -30,24 +28,35 @@ test_that("data.frame assignment", {
   exp2 <- remove_labels(x)
 
   expect_equal(get_labels(x), exp)
-  expect_error(assign_labels(x0, a = "x", b = "y", `1` = 2),
-               "Columns not found: a, b, 1")
 
-  expect_error(assign_labels(x0, NULL))
+  expect_error(
+    assign_labels(x0, a = "x", b = "y", `1` = 2),
+    "Columns not found: a, b, 1",
+    class = "assignLabelsDataframeMissingError"
+  )
+
+  expect_error(
+    assign_labels(x0, NULL),
+    class = "assignLabelsDataframeNamesError"
+  )
 
   expect_true(is.null(attr(exp0[["Species"]], "label")))
   expect_equal(attr(exp0[["Sepal.Length"]], "label"), "a")
   expect_equal(x0, exp2)
   expect_equal(exp1, exp2)
 
-  expect_error(assign_labels(x0, .ls = list()))
-  expect_error(assign_labels(x0, a = 1, .ls = list(b = 2)))
+  expect_error(assign_labels(x0, .ls = list()), class = "simpleError")
+  expect_error(
+    assign_labels(x0, a = 1, .ls = list(b = 2)),
+    class = "assignLabelsDataframeDotsError"
+  )
 
-
-  df <- data.frame(a = 1, b = 2, c = 3)
-  expect_error(assign_labels(df, c = "c", d = "d", .missing = "error"))
-  expect_warning(assign_labels(df, c = "c", d = "d", .missing = "warn"))
+  df <- quick_dfl(a = 1, b = 2, c = 3)
+  # nolint start: line_length_linter.
+  expect_error(assign_labels(df, c = "c", d = "d", .missing = "error"), class = "assignLabelsDataframeMissingError")
+  expect_warning(assign_labels(df, c = "c", d = "d", .missing = "warn"), class = "assignLabelsDataframeMissingWarning")
   expect_warning(assign_labels(df, c = "c", d = "d", .missing = "skip"), NA)
+  # nolint end: line_length_linter.
 })
 
 test_that("data.frame assign with data.frame", {
@@ -55,26 +64,30 @@ test_that("data.frame assign with data.frame", {
 
   x <- assign_labels(iris, Sepal.Length = "a", Species = "b")
 
-  labels <- data.frame(
+  labels <- quick_dfl(
     name = c("Sepal.Length", "Species"),
     label = c("a", "b")
   )
 
   y <- assign_labels(iris, labels)
 
-  exp <- data.frame(
+  exp <- quick_dfl(
     column = colnames(iris),
     label = c("a", NA, NA, NA, "b")
   )
 
   expect_equal(get_labels(y), get_labels(y))
 
-  bad_labels <- data.frame(
+  bad_labels <- quick_dfl(
     v1 = c("a", "b", 1),
     v2 = c("x", "y", 2)
   )
-  expect_error(assign_labels(iris, bad_labels),
-               "Columns not found: a, b, 1")
+
+  expect_error(
+    assign_labels(iris, bad_labels),
+    "Columns not found: a, b, 1",
+    class = "assignLabelsDataframeMissingError"
+  )
 
   options(op)
 })
@@ -84,9 +97,14 @@ test_that("view_labels() works", {
   df <- assign_labels(df, a = "a", b = "b")
 
   # redefine "View"
-  View <- function(x, ...) identity(x)
+  View <- function(x, ...) identity(x) # nolint: object_name_linter.
   expect_error(view_labels(df), NA)
 
-  View <- NA
-  expect_error(view_labels(df), "Something went wrong")
+  View <- NA # nolint: object_name_linter.
+  expect_error(view_labels(df), class = "viewLabelsSomethingError")
+})
+
+test_that("exact match [141]", {
+  x <- struct(1L, "integer", labels = 1:2)
+  expect_identical(get_labels(x), NA_character_)
 })

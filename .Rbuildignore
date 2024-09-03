@@ -16,3 +16,6 @@ revdep
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
+^CRAN-SUBMISSION$
+^\.lintr$
+^\.git$

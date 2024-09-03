@@ -42,22 +42,19 @@ remove_na.list <- function(x) {
 #' @rdname remove_na
 #' @export
 remove_na.factor <- function(x) {
-  lvls <- levels(x)
-  na_levels <- is.na(lvls)
+  x <- x[!is.na(x)]
+  levels(x) <- remove_na(levels(x))
+  x
+}
 
-  out <- x[!is.na(x)]
-  out <- as.integer(out)
-
-  if (any(na_levels)) {
-    which_na_level <- which(na_levels)
-    out <- out[out != which_na_level]
-
-    if (which_na_level != length(lvls)) {
-      out <- match(out, unique(out))
-    }
-  }
-
-  struct(out, class(x), levels = lvls[!na_levels])
+#' @rdname remove_na
+#' @export
+remove_na.fact <- function(x) {
+  x <- fact_na(x, remove = TRUE)
+  at <- attributes(x)
+  x <- x[!is.na(x)]
+  attributes(x) <- at
+  x
 }
 
 #' Omit NA values
@@ -95,10 +92,7 @@ omit_na <- function(x) {
 #' remove_null(x)
 #' @export
 remove_null <- function(x) {
-  if (!inherits(x, "list")) {
-    stop("x must be a list", call. = FALSE)
-  }
-
+  stopifnot(inherits(x, "list"))
   x[!vap_lgl(x, is.null)]
 }
 
@@ -106,43 +100,34 @@ remove_null <- function(x) {
 #'
 #' Select or remove columns that are entirely NA
 #'
-#' @param x A data.frame
+#' @param x A `data.frame`
 #' @param names Logical, if `TRUE` (default) will return column names as names
 #'   of vector
 #'
 #' @returns
-#' * `select_na_cols()` the data.frame with only columns that are all `NA`
-#' * `remove_na_cols()` the data.frame without columns of only `NA`
+#' * `select_na_cols()` `x` with only columns that are all `NA`
+#' * `remove_na_cols()` `x` without columns of only `NA`
 #' * `is_na_cols()` a logical vector: `TRUE` all rows of column are `NA`,
 #'  otherwise `FALSE`
 #' @name na_cols
+NULL
+
+#' @rdname na_cols
 #' @export
-
 select_na_cols <- function(x) {
-  if (!is.data.frame(x)) {
-    stop("x must be a data.frame", call. = FALSE)
-  }
-
-  x[, is_na_cols(x)]
+  x[, is_na_cols(x), drop = FALSE]
 }
 
 #' @rdname na_cols
 #' @export
 remove_na_cols <- function(x) {
-  if (!is.data.frame(x)) {
-    stop("x must be a data.frame", call. = FALSE)
-  }
-
-  x[, !is_na_cols(x)]
+  x[, !is_na_cols(x), drop = FALSE]
 }
 
 #' @rdname na_cols
 #' @export
 is_na_cols <- function(x, names = TRUE) {
-  if (!is.data.frame(x)) {
-    stop("x must be a data.frame", call. = FALSE)
-  }
-
+  stopifnot(is.data.frame(x))
   vap_lgl(x, function(xx) all(is.na(xx)), .nm = names)
 }
 
@@ -168,11 +153,11 @@ is_na_cols <- function(x, names = TRUE) {
 #' tableNA(x[1], x[2])
 #' tableNA(x[1], x[2], x[3]) # equivalent ot tableNA(x, .list = TRUE)
 
-tableNA <- function(..., .list = FALSE) {
+tableNA <- function(..., .list = FALSE) { # nolint: object_name_linter
   ls <- if (.list) {
     as.list(...)
   } else {
-    list(...)
+    rlang::list2(...)
   }
 
   if (is.null(names(ls))) {

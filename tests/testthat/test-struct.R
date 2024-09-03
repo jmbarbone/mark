@@ -21,6 +21,7 @@ test_that("struct() works", {
 test_that("struct() works for factors", {
   expect_error(
     struct(1, class = "factor", levels = "a"),
+    class = "simpleError",
     'adding class "factor" to an invalid object'
   )
 
@@ -50,5 +51,5 @@ test_that("examples", {
 test_that("struct() overwrites attributes", {
   x <- struct(list(), class = "foo", a = 1L)
   res <- struct(list(), class = "foo", a = 2L, .keep_attr = TRUE)
-  expect_identical(attr(res, "a", exact = TRUE), 2L)
+  expect_identical(exattr(res, "a"), 2L)
 })

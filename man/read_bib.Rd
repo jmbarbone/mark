@@ -13,7 +13,7 @@ read_bib(file, skip = 0L, max_lines = NULL, encoding = "UTF-8")
 
 \item{max_lines}{The maximum number of lines to read}
 
-\item{encoding}{Assumed encoding of file (passed to readLines)}
+\item{encoding}{Assumed encoding of file (passed to \code{\link[=readLines]{readLines()}}}
 }
 \value{
 A \code{data.frame} with each row as a bib entry and each column as a
@@ -59,5 +59,5 @@ if (package_available("bib2df") & package_available("bench")) {
 }
 }
 \seealso{
-\code{\link[bib2df:bib2df]{bib2df::bib2df()}}
+\code{?bib2df::bib2df}
 }

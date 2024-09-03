@@ -14,6 +14,8 @@ test_that("are_identical() works", {
 })
 
 test_that("are_identical() fails", {
-  expect_error(are_identical(1, 1:3))
-  expect_error(are_identical(NULL))
+  expect_error(are_identical(1, 1:3), class = "areIdenticalNoneError")
+  expect_error(are_identical(NULL), class = "areIdenticalTwoError")
 })
+
+# lintr things there isn't a terminal line here?

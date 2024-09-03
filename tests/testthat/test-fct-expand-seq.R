@@ -14,8 +14,16 @@ test_that("Sequences correctly", {
 })
 
 test_that("fct_expand_seq() fails", {
-  expect_error(fct_expand_seq("a"))
-  expect_error(fct_expand_seq(as.ordered("a"), by = NA))
-  expect_error(fct_expand_seq(as.ordered("a"), min_lvl = NA))
-  expect_error(fct_expand_seq(as.ordered("a"), max_lvl = NA))
+  expect_error(fct_expand_seq("a"), class = "simpleError")
+  expect_error(fct_expand_seq(as.ordered("a"), by = NA), class = "simpleError")
+
+  expect_error(
+    fct_expand_seq(as.ordered("a"), min_lvl = NA),
+    class = "fctExpandSeqNaError"
+  )
+
+  expect_error(
+    fct_expand_seq(as.ordered("a"), max_lvl = NA),
+    class = "fctExpandSeqNaError"
+  )
 })

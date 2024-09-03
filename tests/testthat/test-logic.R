@@ -3,8 +3,10 @@ test_that("Logical extension work", {
   y <- c(TRUE, FALSE, NA, TRUE, FALSE, NA, TRUE, FALSE, NA)
   z <- c(TRUE, TRUE, FALSE, FALSE, NA, NA, TRUE, FALSE, NA)
 
+  # nolint start: object_name_linter.
   xL <- as.integer(x)
   xD <- as.double(x)
+  # nolint end: object_name_linter.
 
   res_n <- logical(length(x))
 
@@ -35,7 +37,7 @@ test_that("Logical extension work", {
   expect_equal(is_true(x), sapply(x, isTRUE, USE.NAMES = FALSE))
   expect_equal(is_false(x), sapply(x, isFALSE, USE.NAMES = FALSE))
 
-  expect_identical(is_true(c( TRUE, FALSE, NA)), c(TRUE,  FALSE, FALSE))
+  expect_identical(is_true(c( TRUE, FALSE, NA)), c(TRUE,  FALSE, FALSE)) # nolint: spaces_inside_linter, line_length_linter.
   expect_identical(is_false(c(TRUE, FALSE, NA)), c(FALSE,  TRUE, FALSE))
 
   expect_true(is_boolean(x))
@@ -56,10 +58,12 @@ test_that("Logical extension work", {
 })
 
 test_that("logical helpers", {
-  expect_error(null_check(NULL))
-  expect_error(null_check(integer()))
+  expect_error(null_check(NULL), class = "nullCheckError")
+  expect_error(null_check(integer()), class = "nullCheckError")
 
-  expect_error(apply_logical_matrix(1L, mean, TRUE), "must be a matrix")
-  expect_error(apply_logical_matrix(matrix("a"), mean, TRUE), "must be boolean")
-  expect_error(apply_logical_matrix(matrix(3L), mean, TRUE), "must be boolean")
+  expect_error(apply_logical_matrix(1L, mean, TRUE), class = "simpleError")
+  # nolint start: line_length_linter.
+  expect_error(apply_logical_matrix(matrix("a"), mean, TRUE), class = "simpleError")
+  expect_error(apply_logical_matrix(matrix(3L), mean, TRUE), class = "simpleError")
+  # nolint end: line_length_linter.
 })

@@ -1,4 +1,6 @@
 co_note <- function(x) {
+  op <- options(mark.check_interactive = FALSE)
+  on.exit(options(op), add = TRUE)
   out <- capture.output(print_note(x))
 
   if (use_color()) {
@@ -33,35 +35,53 @@ test_that("note() work", {
   expect_identical(x, y)
 })
 
-test_that("print.noted() passes to next methods [67]", {
+test_that("print.noted() passes to next methods [67] (data.frame)", {
+  x <- quick_dfl(a = 1:50)
+  original <- capture.output(print(x, max = 5))
+  note(x) <- "note"
+
+  co <- withr::with_options(list(mark.check_interactive = FALSE), {
+    capture.output(print(x, max = 5))
+  })
+
+  expect_true(all(original %in% co))
+  expect_identical(co[1], "Note : note")
+})
+
+test_that("print.noted() passes to next methods [67] (tibble)", {
+  skip_on_cran() # don't need {tibble} of {pillar} breaking this test
   skip_if_not_installed("tibble")
 
   # not bothering with snapshots
   x <- tibble::tibble(a = 1:50)
+  original <- capture.output(print(x, n = 40))
   note(x) <- "note"
-  expect_match(
-    utils::tail(capture.output(print(x, n = 40)), 1),
-    "with 10 more rows"
-  )
+
+  co <- withr::with_options(list(mark.check_interactive = FALSE), {
+    capture.output(print(x, n = 40))
+  })
+
+  expect_true(all(original[-3] %in% co))
+  expect_identical(co[1], "Note : note")
 })
 
 test_that("print_note() works with data.frame", {
   withr::local_options(list(mark.check_interactive = NA))
 
-  x <- data.frame(a = 1:2, b = 1:2)
+  x <- quick_dfl(a = 1:2, b = 1:2)
   note(x) <- "This should work"
   expect_identical(print_note(x), x)
 
-  x <- list(a = 1:3, b = 2, c = data.frame(a = 1))
+  x <- list(a = 1:3, b = 2, c = quick_dfl(a = 1))
   note(x) <- "This is a list"
   expect_identical(print_note(x), x)
 })
 
 test_that("note() errors", {
   withr::local_options(list(mark.check_interactive = NA))
-  expect_error(print_note(1L))
+  expect_error(print_note(1L), class = "simpleError")
   x <- struct(1L, "noted", note = struct("hi", "note_a_note"))
-  expect_error(print_note(x))
+  expect_error(print_note(x), class = "printNoteNotedError")
 })
 
 test_that("note() snapshots", {

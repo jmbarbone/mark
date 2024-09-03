@@ -15,24 +15,12 @@ tz1 <- c(
   NULL
 )
 
-tz2 <- c(
-  2,
-  3,
-  6,
-  8,
-  -10,
-  -11,
-  12,
-  -13,
-  16,
-  -17,
-  NULL
-)
+tz2 <- c(2, 3, 6, 8, -10, -11, 12, -13, 16, -17)
 
 df <- quick_df(
   list(
-    a = st + seq.int(0, by = 3600 * 24 * 5, length.out = n),
-    b = st - seq.int(0, by = 3600 * 24 * 5, length.out = n),
+    a = st + seq.int(1, by = 3600 * 24 * 5, length.out = n),
+    b = st - seq.int(1, by = 3600 * 24 * 5, length.out = n),
     tz1 = tz1,
     tz2 = tz2 * 3600
   )
@@ -72,13 +60,13 @@ test_that("diff_time_*() identical to difftime()", {
 
 test_that("Timezones", {
 
-  st <- as.POSIXct("2021-04-06 11:12:45", tz = "US/Central")
+  st <- as.POSIXct("2021-04-06 11:12:45", tz = "America/Chicago")
 
   dftz <- quick_dfl(
     a = rep(st, 4),
     b = rep(st, 4),
-    tza = c("GMT", "UTC", "US/Eastern", "NZ"),
-    tzb = c("GMT", "Africa/Casablanca", "US/Central", "CET"),
+    tza = c("GMT", "UTC", "America/New_York", "Pacific/Auckland"),
+    tzb = c("GMT", "Africa/Casablanca", "America/Chicago", "CET"),
     tzn = c(0, 1, -1, 6) * 3600
   )
 
@@ -170,8 +158,15 @@ test_that("Timezones", {
 })
 
 test_that("Error checking", {
-  expect_error(diff_time_secs(1:10, 1:10), "Date times cannot be numeric")
-  expect_error(diff_time_secs(st, st, "Not good"), "OlsonNames()")
+  expect_error(
+    diff_time_secs(1:10, 1:10),
+    class = "extractNumericTimeNumericError"
+  )
+
+  expect_error(
+    diff_time_secs(st, st, "Not good"),
+    class = "checkTzTimezoneOlsonError"
+  )
 
   # Don't throw error because of NA tz
   expect_identical(
@@ -194,28 +189,28 @@ test_that("class coehersion", {
     diff_time(as.Date("2021-07-26"), as.POSIXct("2021-07-26 02:02:02"))
   )
 
-  # skip_if_not_installed("withr")
-  # withr::local_timezone("UTC")
-
-  expect_identical(
-    extract_numeric_time("2021-01-01", NULL),
-    struct(1609459200, "double", tzone = "UTC")
-  )
-
   expect_warning(
     to_numeric_with_tz("2021-01-01", NA),
-    "NA found in timezones"
-  )
-
-  expect_identical(
-    extract_numeric_time(as.POSIXlt("2021-01-01", tz = "UTC"), NULL),
-    struct(1609459200, "double", tzone = "UTC")
+    "NA found in timezones",
+    class = "toNumericWithTzNaWarning"
   )
 
   expect_identical(check_tz(NULL), NULL)
   expect_identical(check_tz(c("UTC", "UTC")), NULL)
 })
 
+test_that("class cohersion <4.3.0", {
+  skip_if(getRversion() >= "4.3")
+  expect_identical(
+    extract_numeric_time("2021-01-01", NULL),
+    struct(1609459200, "double", tzone = "UTC")
+  )
+
+  expect_identical(
+    extract_numeric_time(as.POSIXlt("2021-01-01", tz = "UTC"), NULL),
+    struct(1609459200, "double", tzone = "UTC")
+  )
+})
 
 test_that("timezones", {
   withr::with_timezone("Pacific/Auckland", {
@@ -250,8 +245,6 @@ test_that("sys_tz() does not fail", {
 # printing ----------------------------------------------------------------
 
 test_that("snaps", {
-  # skip("not currently testing snaps")
-
   x <- struct(18842L, "Date")
   y <- x + 100L
 

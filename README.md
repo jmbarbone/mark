@@ -45,6 +45,14 @@ be useful for others:
 
 ``` r
 library(mark)
+#> 
+#> Attaching package: 'mark'
+#> The following object is masked from 'package:usethis':
+#> 
+#>     use_author
+#> The following object is masked from 'package:base':
+#> 
+#>     sort_by
 ```
 
 Get dates from sloppy entries:
@@ -107,23 +115,23 @@ Read in bibliographies:
 file <- system.file("extdata", "example-bib.txt", package = "mark")
 bib <- read_bib(file)
 tibble::as_tibble(bib)
-#> # A tibble: 13 x 23
-#>    key    field  author  title   journal  year  number pages month note   volume
-#>    <chr>  <chr>  <chr>   <chr>   <chr>    <chr> <chr>  <chr> <chr> <chr>  <chr> 
-#>  1 artic~ artic~ Peter ~ The ti~ The nam~ 1993  2      201-~ 7     An op~ 4     
-#>  2 book   book   Peter ~ The ti~ <NA>     1993  <NA>   <NA>  7     An op~ 4     
-#>  3 bookl~ bookl~ Peter ~ The ti~ <NA>     1993  <NA>   <NA>  7     An op~ <NA>  
-#>  4 confe~ confe~ Peter ~ The ti~ <NA>     1993  <NA>   213   7     An op~ 4     
-#>  5 inbook inbook Peter ~ The ti~ <NA>     1993  <NA>   201-~ 7     An op~ 4     
-#>  6 incol~ incol~ Peter ~ The ti~ <NA>     1993  <NA>   201-~ 7     An op~ 4     
-#>  7 manual manual Peter ~ The ti~ <NA>     1993  <NA>   <NA>  7     An op~ <NA>  
-#>  8 maste~ maste~ Peter ~ The ti~ <NA>     1993  <NA>   <NA>  7     An op~ <NA>  
-#>  9 misc   misc   Peter ~ The ti~ <NA>     1993  <NA>   <NA>  7     An op~ <NA>  
-#> 10 phdth~ phdth~ Peter ~ The ti~ <NA>     1993  <NA>   <NA>  7     An op~ <NA>  
-#> 11 proce~ proce~ <NA>    The ti~ <NA>     1993  <NA>   <NA>  7     An op~ 4     
-#> 12 techr~ techr~ Peter ~ The ti~ <NA>     1993  2      <NA>  7     An op~ <NA>  
-#> 13 unpub~ unpub~ Peter ~ The ti~ <NA>     1993  <NA>   <NA>  7     An op~ <NA>  
-#> # ... with 12 more variables: publisher <chr>, series <chr>, address <chr>,
+#> # A tibble: 13 × 23
+#>    key          field author title journal year  number pages month note  volume
+#>    <chr>        <chr> <chr>  <chr> <chr>   <chr> <chr>  <chr> <chr> <chr> <chr> 
+#>  1 article      arti… Peter… The … The na… 1993  2      201-… 7     An o… 4     
+#>  2 book         book  Peter… The … <NA>    1993  <NA>   <NA>  7     An o… 4     
+#>  3 booklet      book… Peter… The … <NA>    1993  <NA>   <NA>  7     An o… <NA>  
+#>  4 conference   conf… Peter… The … <NA>    1993  <NA>   213   7     An o… 4     
+#>  5 inbook       inbo… Peter… The … <NA>    1993  <NA>   201-… 7     An o… 4     
+#>  6 incollection inco… Peter… The … <NA>    1993  <NA>   201-… 7     An o… 4     
+#>  7 manual       manu… Peter… The … <NA>    1993  <NA>   <NA>  7     An o… <NA>  
+#>  8 mastersthes… mast… Peter… The … <NA>    1993  <NA>   <NA>  7     An o… <NA>  
+#>  9 misc         misc  Peter… The … <NA>    1993  <NA>   <NA>  7     An o… <NA>  
+#> 10 phdthesis    phdt… Peter… The … <NA>    1993  <NA>   <NA>  7     An o… <NA>  
+#> 11 proceedings  proc… <NA>   The … <NA>    1993  <NA>   <NA>  7     An o… 4     
+#> 12 techreport   tech… Peter… The … <NA>    1993  2      <NA>  7     An o… <NA>  
+#> 13 unpublished  unpu… Peter… The … <NA>    1993  <NA>   <NA>  7     An o… <NA>  
+#> # ℹ 12 more variables: publisher <chr>, series <chr>, address <chr>,
 #> #   edition <chr>, isbn <chr>, howpublished <chr>, booktitle <chr>,
 #> #   editor <chr>, organization <chr>, chapter <chr>, school <chr>,
 #> #   institution <chr>
@@ -151,13 +159,20 @@ quick_df(x)
 #> 3 3 c
 #> 4 4 d
 #> 5 5 e
-vector2df(x[["b"]])
-#>   name value
-#> 1   NA     a
-#> 2   NA     b
-#> 3   NA     c
-#> 4   NA     d
-#> 5   NA     e
+
+vector2df(x[["b"]], name = NULL)
+#>   value
+#> 1     a
+#> 2     b
+#> 3     c
+#> 4     d
+#> 5     e
+
+quick_dfl(a = 1:3, b = list(1:5, 6:10, 11:15))
+#>   a                  b
+#> 1 1      1, 2, 3, 4, 5
+#> 2 2     6, 7, 8, 9, 10
+#> 3 3 11, 12, 13, 14, 15
 ```
 
 Counts and proportions:
@@ -193,8 +208,8 @@ props(df, 1:3)
 Date time differences:
 
 ``` r
-x <- as.POSIXlt("2021-02-13 05:02:30", tz = "US/Eastern") + c(0, -1, 2) * 3600 * 24
-y <- as.POSIXlt("2020-02-13 05:02:30", tz = "US/Eastern") + c(0, -2, 4) * 3600 * 24
+x <- as.POSIXlt("2021-02-13 05:02:30", tz = "America/New_York") + c(0, -1, 2) * 3600 * 24
+y <- as.POSIXlt("2020-02-13 05:02:30", tz = "America/New_York") + c(0, -2, 4) * 3600 * 24
 
 # comparison with base::difftime() (note the order of x and y)
 difftime(y, x, units = "days")
@@ -220,10 +235,10 @@ diff_time_myears(x, y)
 #> [1] -1.016667 -1.019444 -1.011111
 
 # Set time zones
-diff_time_hours(x, y, "GMT", "US/Eastern")                         
+diff_time_hours(x, y, "GMT", "America/New_York")                         
 #> Time differences in hours
 #> [1] -8789 -8813 -8741
-diff_time_hours(x, x, "GMT", c("US/Pacific", "US/Eastern", "GB")) # note x, x
+diff_time_hours(x, x, "GMT", c("America/Los_Angeles", "America/New_York", "Europe/London")) # note x, x
 #> Time differences in hours
 #> [1] -8 -5  0
 diff_time_days(x, y, NULL, 31536000) 

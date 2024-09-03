@@ -3,8 +3,9 @@
 #' Unlist without unique names; combine names for unique values
 #'
 #' @details
-#' [unlist0()] is much like [unlist()] expect that name are not made to be unique.
-#' [squash_vec()] works differently
+#' * [unlist0()] is much like [unlist()] expect that name are not made to be
+#'   unique.
+#' * [squash_vec()] works differently
 #'
 #' @param x A vector of values
 #' @examples
@@ -24,8 +25,17 @@
 #' * [unlist0()]: a vector with the possibility of non-unique names
 #' * [squash_vec()]: A vector of unique values and names
 unlist0 <- function(x) {
-  if (!is.list(x)) return(x)
-  unlist(x, use.names = FALSE) %names% rep.int(names(x), lengths(x))
+  if (!is.list(x)) {
+    return(x)
+  }
+
+  res <- unlist(x, use.names = FALSE)
+
+  if (is.null(names(x)) || all(names(x) == "")) {
+    return(res)
+  }
+
+  res %names% rep.int(names(x) %||% "", lengths(x))
 }
 
 #' @rdname unlist0
@@ -35,6 +45,6 @@ squash_vec <- function(x, sep = ".") {
   x <- unlist0(x)
   id <- pseudo_id(x, na_last = FALSE)
   nm <- names(x)
-  squasher <- function(i) collapse0(nm[i], sep = sep)
+  squasher <- function(i) collapse(nm[i], sep = sep)
   .uniques(id) %names% vap_chr(split(seq_along(id), id), squasher)
 }

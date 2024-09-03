@@ -30,17 +30,19 @@ pseudo_id.pseudo_id <- function(x, ...) {
 #' @param na_last `Logical` if `FALSE` will not place `NA` at the end
 pseudo_id.default <- function(x, na_last = TRUE, ...) {
   ux <- unique(x)
-  if (na_last) ux <- na_last(ux)
+
+  if (na_last) {
+    ux <- na_last(ux)
+  }
+
   make_pseudo_id(match(x, ux), ux)
 }
 
 #' @export
 #' @rdname pseudo_id
 pseudo_id.factor <- function(x, ...) {
-  x <- fact(x)
-  pseudo_id(fact_coerce_levels(levels(x))[x])
+  pseudo_id(fact_values(fact(x)))
 }
-
 
 #' Print `pseudo_id`
 #' @export
@@ -64,7 +66,6 @@ print.pseudo_id <- function(x, ..., all = FALSE) {
   invisible(x)
 }
 
-
 # helpers -----------------------------------------------------------------
 
 make_pseudo_id <- function(x, u) {
@@ -83,4 +84,3 @@ na_last <- function(x) {
 .uniques <- function(x) {
   attr(x, "uniques")
 }
-

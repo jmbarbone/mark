@@ -3,12 +3,15 @@
 \name{drop_levels}
 \alias{drop_levels}
 \alias{drop_levels.data.frame}
+\alias{drop_levels.fact}
 \alias{drop_levels.factor}
 \title{Drop levels}
 \usage{
 drop_levels(x, ...)
 
 \method{drop_levels}{data.frame}(x, ...)
+
+\method{drop_levels}{fact}(x, ...)
 
 \method{drop_levels}{factor}(x, ...)
 }
@@ -26,7 +29,8 @@ Drop unused levels of a factor
 Other factors: 
 \code{\link{as_ordered}()},
 \code{\link{char2fact}()},
+\code{\link{fact}()},
 \code{\link{fact2char}()},
-\code{\link{fact}()}
+\code{\link{fact_na}()}
 }
 \concept{factors}

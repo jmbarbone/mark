@@ -91,7 +91,10 @@ Small functions for working with data.frames:
 ```{r dataframes}
 x <- list(a = 1:5, b = letters[1:5])
 quick_df(x)
-vector2df(x[["b"]])
+
+vector2df(x[["b"]], name = NULL)
+
+quick_dfl(a = 1:3, b = list(1:5, 6:10, 11:15))
 ```
 
 Counts and proportions:
@@ -110,8 +113,8 @@ props(df, 1:3)
 Date time differences:
 
 ```{r diff_time}
-x <- as.POSIXlt("2021-02-13 05:02:30", tz = "US/Eastern") + c(0, -1, 2) * 3600 * 24
-y <- as.POSIXlt("2020-02-13 05:02:30", tz = "US/Eastern") + c(0, -2, 4) * 3600 * 24
+x <- as.POSIXlt("2021-02-13 05:02:30", tz = "America/New_York") + c(0, -1, 2) * 3600 * 24
+y <- as.POSIXlt("2020-02-13 05:02:30", tz = "America/New_York") + c(0, -2, 4) * 3600 * 24
 
 # comparison with base::difftime() (note the order of x and y)
 difftime(y, x, units = "days")
@@ -125,8 +128,8 @@ diff_time_years(x, y)
 diff_time_myears(x, y)
 
 # Set time zones
-diff_time_hours(x, y, "GMT", "US/Eastern")                         
-diff_time_hours(x, x, "GMT", c("US/Pacific", "US/Eastern", "GB")) # note x, x
+diff_time_hours(x, y, "GMT", "America/New_York")                         
+diff_time_hours(x, x, "GMT", c("America/Los_Angeles", "America/New_York", "Europe/London")) # note x, x
 diff_time_days(x, y, NULL, 31536000) 
 ```
 

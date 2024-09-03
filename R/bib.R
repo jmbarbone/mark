@@ -1,3 +1,5 @@
+# nolint start: line_length_linter.
+
 #' Read Bib file
 #'
 #' Read a bib file into a data.frame
@@ -12,11 +14,11 @@
 #' @param file File or connection
 #' @param skip The lines to skip
 #' @param max_lines The maximum number of lines to read
-#' @param encoding Assumed encoding of file (passed to readLines)
+#' @param encoding Assumed encoding of file (passed to [readLines()]
 #'
 #' @return A `data.frame` with each row as a bib entry and each column as a
 #'   field
-#' @seealso [bib2df::bib2df()]
+#' @seealso `?bib2df::bib2df`
 #'
 #' @export
 #'
@@ -49,6 +51,8 @@
 #' }
 #' }
 
+# nolint end: line_length_linter.
+
 read_bib <- function(file, skip = 0L, max_lines = NULL, encoding = "UTF-8") {
   # Account for nul values found in encoding?
   # skipNul = TRUE could do this but an error can still be caused later
@@ -66,7 +70,7 @@ read_bib <- function(file, skip = 0L, max_lines = NULL, encoding = "UTF-8") {
   from <- grep("[@]", bib)
 
   if (!length(from)) {
-    stop("No entries detected", call. = FALSE)
+    stop(cond_read_bib_entries())
   }
 
   # shift over (may contain white space?)
@@ -82,8 +86,9 @@ read_bib <- function(file, skip = 0L, max_lines = NULL, encoding = "UTF-8") {
   fields <- tolower(fields)
 
   # TODO Implement checks for duplicate categories?
-  categories <- get_bib_categories(item_list)
-  values <- get_bib_values(item_list)
+  out <- lapply(item_list, parse_bib)
+  categories <- lapply(out, "[[", "cat")
+  values <- lapply(out, "[[", "val")
 
   as_bib(
     process_bib_dataframe(categories, values, fields, keys),
@@ -91,35 +96,37 @@ read_bib <- function(file, skip = 0L, max_lines = NULL, encoding = "UTF-8") {
   )
 }
 
-
 # FUNS --------------------------------------------------------------------
 
-get_bib_categories <- function(list) {
-  lapply(list, function(x) {
-    # Assuming categories are to the left of any "="
-    x <- strsplit(x[-1L], "=")
-    x <- sapply(x, `[`, 1L)
-    x <- trimws(x)
-    x[x %in% c("{", "}")] <- NA_character_
-    tolower(x)
-  })
+parse_bib <- function(x) {
+  x <- x[-1L]
+  m <- regexpr("=", x)
+  ok <- m > 0L
+  m <- m[ok]
+  x <- x[ok]
+  res <- list(
+    cat = substring(x, 1L, m - 1L),
+    val = substring(x, m + 1L, nchar(x))
+  )
+  res$cat <- parse_bib_cat(res$cat)
+  res$val <- parse_bib_val(res$val)
+  res
 }
 
-get_bib_values <- function(list) {
-  lapply(list, function(x) {
-    # Assuming values are to the right of any "="
-    x <- strsplit(x[-1L], "=")
-    x <- sapply(x, `[`, -1L)
-    # remove empty columns
-    x[!lengths(x)] <- NA_character_
-    # There may be something better than this
-    # Would like to maintain the { and }
-    # x <- gsub("\\{|\\}|,?$", "", x)
-    x <- trimws(x)
-    x <- gsub("^(\\{|\")|(\"|\\})[,]?$", "", x)
-    x <- gsub(",$", "", x)
-    x
-  })
+parse_bib_cat <- function(x) {
+  x <- trimws(x)
+  x[x %in% c("{", "}")] <- NA_character_
+  tolower(x)
+}
+
+parse_bib_val <- function(x) {
+  x[!lengths(x)] <- NA_character_
+  # There may be something better than this
+  # Would like to maintain the { and }
+  x <- trimws(x)
+  x <- gsub("^(\\{|\")|(\"|\\})[,]?$", "", x)
+  x <- gsub(",$", "", x)
+  x
 }
 
 #' Process bib values
@@ -136,7 +143,10 @@ get_bib_values <- function(list) {
 process_bib_dataframe <- function(categories, values, fields, keys) {
   # Determine all categories for missing values inside Map
   ucats <- unique(remove_na(unlist(categories)))
-  ucats_df <- quick_dfl(category = ucats, value = rep(NA_character_, length(ucats)))
+  ucats_df <- quick_dfl(
+    category = ucats,
+    value = rep(NA_character_, length(ucats))
+  )
 
   x <- mapply(
     function(cats, vals, field, key) {
@@ -150,8 +160,7 @@ process_bib_dataframe <- function(categories, values, fields, keys) {
       bad <- lens > 1L
 
       if (any(bad)) {
-        msg <- sprintf("The key `%s` has duplicate categories of `%s`", key, names(lens)[bad])
-        stop(simpleError(msg))
+        stop(cond_process_bib_dataframe_dupe(key, names(lens)[bad]))
       }
 
       # Append vectors
@@ -168,7 +177,7 @@ process_bib_dataframe <- function(categories, values, fields, keys) {
       }
 
       # Transpose to prep for reduce rbinding
-      quick_df(set_names0(as.list(data[[2L]]), data[[1L]]))
+      quick_df(set_names(as.list(data[[2L]]), data[[1L]]))
     },
     cats = categories,
     vals = values,
@@ -184,13 +193,8 @@ process_bib_dataframe <- function(categories, values, fields, keys) {
 process_bib_list <- function(keys, fields, categories, values) {
   valid <- !is.na(values) & values != ""
 
-  x <- mappply(
+  x <- mapply(
     function(key, field, cats, vals) {
-      # # vals[is.na(vals)] <- ""
-      # new <- c(key, field, vals)
-      # names(new) <- c("key", "field", cats)
-      # class(new) <- c("character", "mark_bib_entry", .Names = key)
-      # new
       struct(
         c(key, field, vals),
         class = c("character", "mark_bib_entry"),
@@ -210,21 +214,22 @@ process_bib_list <- function(keys, fields, categories, values) {
 
 as_bib_list <- function(x, names = NULL) {
   if (!is.list(x)) {
-    stop("`x` must be a list", call. = FALSE)
+    stop(cond_as_bib_list_class())
   }
+
   class(x) <- c("list", "mark_bib_list")
   x
 }
 
 as_bib <- function(x, bib_list = NULL) {
   if (!is.data.frame(x)) {
-    stop("`x` must be a data.frame", call. = FALSE)
+    stop(cond_as_bib_class())
   }
 
-  class(x) <- c("data.frame", "mark_bib")
+  class(x) <- c("mark_bib_df", "data.frame")
+  attr(x, "bib_list") <- bib_list
   x
 }
-
 
 # Prints ------------------------------------------------------------------
 
@@ -234,6 +239,7 @@ print.mark_bib_list <- function(x, ...) {
   out <- x
   names(out) <- NULL
 
+  # TODO run format() on all categories for equal lengths
   for (i in seq_along(out)) {
     nmi <- nm[i]
     bordern <- getOption("width") - nchar(nmi) - 1L
@@ -255,7 +261,6 @@ print.mark_bib_list <- function(x, ...) {
   invisible(x)
 }
 
-
 #' @export
 print.mark_bib_entry <- function(x, ...) {
   out <- x[!(is.na(x) | x == "")]
@@ -273,4 +278,60 @@ print.mark_bib_entry <- function(x, ...) {
 
   cat(paste(nm, blanks, out), sep = "\n")
   invisible(x)
+}
+
+#' Print bib data frame
+#'
+#' Print bib dataframe, or as list
+#'
+#' @param x The `mark_bib_df` object
+#' @param list If `TRUE` will print as a list rather than the `data.frame`
+#' @param ... Additional arguments passed to methods
+#' @returns `x`, invisibly, called for its side effects
+#' @export
+print.mark_bib_df <- function(x, list = FALSE, ...) {
+  if (list) {
+    print(attr(x, "bib_list"), ...)
+  } else {
+    y <- x
+    attr(y, "bib_list") <- NULL
+    NextMethod()
+  }
+
+  invisible(x)
+}
+
+
+# conditions --------------------------------------------------------------
+
+cond_read_bib_entries <- function() {
+  new_condition(
+    "No entries detected",
+    "read_bib_entries"
+  )
+}
+
+cond_process_bib_dataframe_dupe <- function(key, categories) { # nolint: object_length_linter, line_length_linter.
+  new_condition(
+    sprintf(
+      "The key `%s` has duplicate categories of `%s`",
+      key,
+      categories
+    ),
+    "process_bib_dataframe_dupe"
+  )
+}
+
+cond_as_bib_list_class <- function() {
+  new_condition(
+    "`x` must be a list",
+    "as_bib_list_class"
+  )
+}
+
+cond_as_bib_class <- function() {
+  new_condition(
+    "`x` must be a data.frame",
+    "as_bib_class"
+  )
 }

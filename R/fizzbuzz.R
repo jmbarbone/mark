@@ -28,9 +28,7 @@
 #' }
 
 fizzbuzz <- function(n, show_numbers = TRUE) {
-  if (n < 1) {
-    stop("n must be at least 1", call. = FALSE)
-  }
+  stopifnot(n >= 1)
 
   x <- 1:n
 
@@ -53,10 +51,7 @@ fizzbuzz <- function(n, show_numbers = TRUE) {
 #' @rdname fizzbuzz
 #' @export
 fizzbuzz_lazy <- function(n) {
-  if (n > 1e6) {
-    stop("n must be <= 1e6", call. = FALSE)
-  }
-
+  stopifnot(n <= 1e6)
   .fizzbuzz_vector[1:n]
 }
 

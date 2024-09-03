@@ -1,9 +1,9 @@
 test_that("match extensions works", {
-  res <- 1:10 %in% c(1,3,5,9)
+  res <- 1:10 %in% c(1, 3, 5, 9)
   exp <- c(TRUE, FALSE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE, FALSE)
   expect_identical(res, exp)
 
-  res <- 1:10 %out% c(1,3,5,9)
+  res <- 1:10 %out% c(1, 3, 5, 9)
   expect_identical(res, !exp)
 
   res <- letters[1:5] %wo% letters[3:7]

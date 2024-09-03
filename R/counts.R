@@ -61,9 +61,6 @@ counts.default <- function(x, sort = FALSE, ...) {
   out
 }
 
-
-# x <- structure(c(2L, NA, 3L, NA, NA, 3L, NA, NA, 1L, 1L), .Label = c("2", "4", "1", "0"), class = "factor")
-
 #' @export
 counts.factor <- function(x, ...) {
   x <- fact(x)
@@ -71,7 +68,7 @@ counts.factor <- function(x, ...) {
   x <- seq_along(lvl)[x]
   n <- length(lvl)
   x[is.na(x)] <- n
-  set_names0(tabulate(x, n), lvl)
+  set_names(tabulate(x, n), lvl)
 }
 
 #' @export
@@ -79,7 +76,7 @@ counts.logical <- function(x, ...) {
   fs <- sum(!x, na.rm = TRUE)
   ts <- sum(x, na.rm = TRUE)
   ns <- sum(is.na(x), na.rm = TRUE)
-  out <- set_names0(c(fs, ts, ns), c(FALSE, TRUE, NA))
+  out <- set_names(c(fs, ts, ns), c(FALSE, TRUE, NA))
   out[out != 0L]
 }
 
@@ -91,11 +88,13 @@ counts.data.frame <- function(x, cols, sort = FALSE, ..., .name = "freq") {
     cols <- colnames(x)[cols]
   }
 
-  if (length(cols) > 1) {
-    return(counts_n(x[, cols], sort = sort, name = .name))
-  }
+  out <-
+    if (length(cols) > 1) {
+      counts_n(x[, cols], sort = sort, name = .name)
+    } else {
+      vector2df(counts(x[[cols]], sort = sort), cols, .name %||% "freq")
+    }
 
-  out <- vector2df(counts(x[[cols]], sort = sort), cols, .name %||% "freq")
   remake_df(out, x[, cols, drop = FALSE])
 }
 
@@ -108,7 +107,7 @@ props <- function(x, ...) {
 #' @rdname counts
 #' @export
 #' @param na.rm If `TRUE` will remove NA values from proportions
-props.default <- function(x, sort = FALSE, na.rm = FALSE, ...) {
+props.default <- function(x, sort = FALSE, na.rm = FALSE, ...) { # nolint: object_name_linter, line_length_linter.
   res <- counts(x, sort = sort)
 
   n <- length(res)
@@ -127,7 +126,7 @@ props.data.frame <- function(
   x,
   cols,
   sort = FALSE,
-  na.rm = FALSE,
+  na.rm = FALSE, # nolint: object_name_linter.
   ...,
   .name = "prop"
 ) {
@@ -135,17 +134,16 @@ props.data.frame <- function(
     cols <- colnames(x)[cols]
   }
 
-  if (length(cols) > 1) {
-    values <- x[, cols]
-    na_ind <- if (na.rm) which(!stats::complete.cases(values))
-    return(props_n(values, sort = sort, name = .name, na_ind = na_ind))
-  }
-
-  out <- vector2df(
-    props(x[[cols]], sort = sort, na.rm = na.rm),
-    cols,
-    .name %||% "prop"
-  )
+  out <-
+    if (length(cols) > 1) {
+      values <- x[, cols, drop = FALSE]
+      na_ind <- if (na.rm) which(!stats::complete.cases(values))
+      props_n(values, sort = sort, name = .name, na_ind = na_ind)
+    } else {
+      vector2df(
+        props(x[[cols]], sort = sort, na.rm = na.rm), cols, .name %||% "prop"
+      )
+    }
 
   remake_df(out, x[, cols, drop = FALSE])
 }
@@ -166,7 +164,7 @@ counts_n <- function(x, name = "freq", sort = FALSE) {
   len <- length(res)
   non_dupe <- !duplicated(ints, nmax = len)
   out <- x[non_dupe, ]
-  attr(out, "row.names") <- 1:len
+  attr(out, "row.names") <- seq_len(len) # nolint: object_name_linter.
 
   cn <- colnames(x)
   colnames(out) <- cn
@@ -180,18 +178,20 @@ counts_n <- function(x, name = "freq", sort = FALSE) {
 props_n <- function(
   x,
   sort = FALSE,
-  na.rm = FALSE,
+  na.rm = FALSE, # nolint: object_name_linter.
   name = "props",
   na_ind = NULL
 ) {
   res <- counts_n(x, name %||% "prop", sort = sort)
   n <- ncol(res) # maybe could use `name`?
+
   if (is.null(na_ind)) {
     big_n <- length(res[[n]])
   } else {
     res[[n]][na_ind] <- NA_real_
     big_n <- length(res[[n]][-na_ind])
   }
+
   res[[n]] <- res[[n]] / big_n
   res
 }
@@ -207,18 +207,11 @@ remake_df <- function(new, old) {
     n <- new_cn[i]
     o <- old_cn[m[i]]
 
-    a <- attributes(old[[o]])
-    a <- a[setdiff(names(a), "class")]
-    attributes(new[[n]]) <- a
-
     if (is.factor(old[[o]])) {
-      new[[n]] <- factor(
-        new[[n]],
-        levels = levels(old[[o]]),
-        # ordered = is.ordered(old[[o]])
-      )
+      new[[n]] <- match(new[[n]], levels(old[[o]]))
     }
 
+    attributes(new[[n]]) <- attributes(old[[o]])
     class(new[[n]]) <- class(old[[o]])
   }
 

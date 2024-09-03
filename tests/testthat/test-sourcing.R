@@ -23,11 +23,15 @@ test_that("eval_named_chunk()", {
     '\\[1\\] "hello, world"\n\\[1\\] TRUE'
   )
   file.remove(temp_rmd)
+
+  expect_error(eval_named_chunk(tempfile()), class = "evalNamedChunkRmdError")
+  file <- tempfile(fileext = ".Rmd")
+  file.create(file)
+  expect_error(eval_named_chunk(file), "\"label_name\" is missing")
+  file.remove(file)
 })
 
 test_that("Rscript", {
-  # skip_if_not(.Platform$OS.type == "windows")
-
   x <- test_path("scripts", "rscript-test.R")
   expect_error(rscript(x, "vanilla", stdout = FALSE, stderr = FALSE), NA)
   expect_false("dplyr" %in% search())

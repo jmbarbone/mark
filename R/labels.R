@@ -45,14 +45,7 @@ assign_labels <- function(x, ...) {
 #' @export
 #' @rdname labels
 assign_labels.default <- function(x, label, ...) {
-  if (is.null(label)) {
-    stop("`label` is NULL", call. = FALSE)
-  }
-
-  if (length(label) != 1L) {
-    stop("`label` is not of length 1L", call. = FALSE)
-  }
-
+  stopifnot(length(label) == 1)
   attr(x, "label") <- label
   x
 }
@@ -63,21 +56,22 @@ assign_labels.default <- function(x, label, ...) {
 #'   can be set to `error` to `stop()` the call, `warn` to provide a warning, or
 #'   `skip` to silently skip those labels.
 #' @param .ls A named list of columns and labels to be set if `...` is empty
-assign_labels.data.frame <- function(x, ..., .missing = c("error", "warn", "skip"), .ls = list(...)) {
-  # TODO add test for implementing assign_labels.data.frame(.missing = )
+assign_labels.data.frame <- function(
+    x,
+    ...,
+    .missing = c("error", "warn", "skip"),
+    .ls = rlang::list2(...)
+) {
+  stopifnot(!identical(.ls, list()))
 
-  if (identical(.ls, list())) {
-    stop(".ls cannot be empty", call. = FALSE)
-  }
-
-  if (...length() & !identical(list(...), .ls)) {
-    stop("... was set separately from `.ls`. Only set one", call. = FALSE)
+  if (...length() && !identical(rlang::list2(...), .ls)) {
+    stop(cond_assign_labels_dataframe_dots())
   }
 
   .missing <- match_param(.missing)
 
   if (is.null(.ls) || any(vap_lgl(.ls, is.null))) {
-    stop("... must not have NULLs", call. = FALSE)
+    stop(cond_assign_labels_dataframe_names())
   }
 
   if (inherits(.ls[[1]], "data.frame")) {
@@ -94,11 +88,11 @@ assign_labels.data.frame <- function(x, ..., .missing = c("error", "warn", "skip
     text <- paste0("Columns not found: ", collapse0(nm[nas], sep = ", "))
 
     if (.missing == "error") {
-      stop(text, call. = FALSE)
+      stop(cond_assign_labels_dataframe_missing(text, "error"))
     }
 
     if (.missing == "warn") {
-      warning(text, call. = FALSE)
+      warning(cond_assign_labels_dataframe_missing(text, "warning"))
     }
 
     nm  <-  nm[!nas]
@@ -116,27 +110,6 @@ assign_labels.data.frame <- function(x, ..., .missing = c("error", "warn", "skip
 
 #' @export
 #' @rdname labels
-assign_label <- function(x, ...) {
-  msg <- collapse0(
-    "`mark::assign_label()` is deprecated.",
-    "Use `mark::assign_labels()` instead.",
-    "This function will be removed in mark 0.4.3",
-    sep = "\n"
-  )
-  cond <- warningCondition(
-    message = msg,
-    old = "assign_label()",
-    new = "assign_labels()",
-    package = "mark",
-    class = "deprecatedWarning"
-  )
-  warning(cond)
-  assign_labels(x, ...)
-}
-
-
-#' @export
-#' @rdname labels
 get_labels <- function(x) {
   UseMethod("get_labels", x)
 }
@@ -144,7 +117,7 @@ get_labels <- function(x) {
 #' @export
 #' @rdname labels
 get_labels.default <- function(x) {
-  attr(x, "label") %||% NA_character_
+  exattr(x, "label") %||% NA_character_
 }
 
 #' @export
@@ -152,7 +125,6 @@ get_labels.default <- function(x) {
 get_labels.data.frame <- function(x) {
   vector2df(vap_chr(x, get_labels, .nm = TRUE), "column", "label")
 }
-
 
 #' @export
 #' @rdname labels
@@ -167,14 +139,7 @@ view_labels <- function(x, title) {
   view_fun <- get0("View", envir = pf, ifnotfound = "utils" %colons% "View")
 
   if (!is.function(view_fun)) {
-    stop("Something went wrong trying to use `View()`",
-         "\nThis may be because you are using Rstudio :",
-         "\n  https://community.rstudio.com/t/view-is-causing-an-error/75297/4",
-         "\nYou can try :\n  ",
-         sprintf('`View(get_labels(%s), title = "%s")`',
-                 cesx,
-                 title),
-         call. = FALSE)
+    stop(cond_view_labels_something(cesx, title))
   }
 
   view_fun(x = get_labels(x), title = title)
@@ -202,9 +167,7 @@ remove_labels.data.frame <- function(x, cols, ...) {
     bad <- cols %out% colnames(x)
 
     if (any(bad)) {
-      stop("Column not found in data.frame:\n  ",
-           collapse0(cols[bad], sep = ", "),
-           call. = FALSE)
+      stop(cond_remove_labels_dataframe_bad(cols[bad]))
     }
   }
 
@@ -213,4 +176,49 @@ remove_labels.data.frame <- function(x, cols, ...) {
   }
 
   x
+}
+
+# conditions --------------------------------------------------------------
+
+cond_assign_labels_dataframe_dots <- function() { # nolint: object_length_linter, line_length_linter.
+  new_condition(
+    "... was set separately from `.ls`. Only set one",
+    "assign_labels_dataframe_dots"
+  )
+}
+
+cond_assign_labels_dataframe_names <- function() { # nolint: object_length_linter, line_length_linter.
+  new_condition("... must not have NULLs", "assign_labels_dataframe_names")
+}
+
+cond_assign_labels_dataframe_missing <- function( # nolint: object_length_linter, line_length_linter.
+    x,
+    type = c("error", "warning")
+) {
+  type <- match_param(type)
+  new_condition(
+    x,
+    "assign_labels_dataframe_missing",
+    type = type
+  )
+}
+
+cond_view_labels_something <- function(x, title) {
+  new_condition(
+    paste0(
+      "Something went wrong trying to use `View()`",
+      "\nThis may be because you are using Rstudio :",
+      "\n  https://community.rstudio.com/t/view-is-causing-an-error/75297/4",
+      "\nYou can try :\n  ",
+      sprintf('`View(get_labels(%s), title = "%s")`', x, title)
+    ),
+    "view_labels_something"
+  )
+}
+
+cond_remove_labels_dataframe_bad <- function(x) { # nolint: object_length_linter, line_length_linter.
+  new_condition(
+    paste0("Column not found in data.frame:\n  ", toString(x)),
+    "remove_labels_dataframe_bad"
+  )
 }

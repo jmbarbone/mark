@@ -27,7 +27,7 @@ test_that("char2fact.data.frame() works", {
 })
 
 test_that("fact2char() works", {
-  expect_error(fact2char(letters))
+  expect_error(fact2char(letters), class = "simpleError")
 
   df <- quick_dfl(
     a = 1:5,

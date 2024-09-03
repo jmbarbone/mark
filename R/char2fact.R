@@ -4,7 +4,7 @@
 #'
 #' @param x A vector of characters
 #' @param n The limit to the number of unique values for the factor
-#' @seealso #' @seealso [fact2char()]
+#' @seealso [fact2char()]
 #' @family factors
 #' @export
 char2fact <- function(x, n = 5) {
@@ -14,7 +14,7 @@ char2fact <- function(x, n = 5) {
 #' @rdname char2fact
 #' @export
 char2fact.default <- function(x, n = 5) {
-  stop("char2fact does not support class ", class(x), call. = FALSE)
+  stop(cond_char2fact_class(x))
 }
 
 #' @rdname char2fact
@@ -62,4 +62,13 @@ fact2char <- function(data, threshold = 10) {
   bad <- lengths(lapply(data, levels)) >= threshold
   data[bad] <- lapply(data[bad], as.character)
   data
+}
+
+# conditions --------------------------------------------------------------
+
+cond_char2fact_class <- function(x) {
+  new_condition(
+    paste("char2fact does not support class", toString(class(x))),
+    "char2fact_class"
+  )
 }

@@ -19,7 +19,7 @@ for (i in seq_along(x)) {
 df <- quick_df(x)
 df$bad <- NA
 
-bench::mark(                            # median
+res <- bench::mark(                            # median
   as.data.frame(x),                     #  305us
   plyr::quickdf(x),                     #   37us
   quick_df(x),                          #   21us
@@ -38,3 +38,7 @@ bench::mark(                            # median
   iterations = 200,
   check = FALSE
 )
+
+res2 <- res
+res2$expression <- fact(as.character(res2$expression))
+ggplot2::autoplot(res2)

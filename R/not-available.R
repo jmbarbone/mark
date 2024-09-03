@@ -41,15 +41,11 @@ get_not_available <- function(type = NULL) {
   out <- get_na_list()[[type]]
 
   if (is.null(out)) {
-    stop(
-      '"', type, '" not found\n',
-      "Can be set with `mark::set_not_available(", type, ", value = .)`",
-      call. = FALSE
-    )
+    stop(cond_get_not_available(type))
   }
 
   if (is.function(out) || is.call(out)) {
-    stop("type is not valid", call. = FALSE)
+    stop(cond_get_not_available_type())
   }
 
   out
@@ -68,12 +64,31 @@ get_na_list <- function() {
 
 #' @export
 #' @rdname not_available
-NA_Date_ <- not_available("Date", 1L)
+NA_Date_ <- not_available("Date", 1L) # nolint: object_name_linter.
 
 #' @export
 #' @rdname not_available
-NA_POSIXct_ <- not_available("POSIXct", 1L)
+NA_POSIXct_ <- not_available("POSIXct", 1L) # nolint: object_name_linter.
 
 #' @export
 #' @rdname not_available
-NA_POSIXlt_ <- not_available("POSIXlt", 1L)
+NA_POSIXlt_ <- not_available("POSIXlt", 1L) # nolint: object_name_linter.
+
+# conditions --------------------------------------------------------------
+
+cond_get_not_available <- function(x) {
+  msg <- sprintf(
+    paste0(
+      "\"%s\" not found\n",
+      "Can be set with `mark::set_not_available(%s, value = .)`"
+    ),
+    x,
+    x
+  )
+
+  new_condition(msg, "get_not_available")
+}
+
+cond_get_not_available_type <- function() {
+  new_condition("type is not valid", "get_not_available_type")
+}

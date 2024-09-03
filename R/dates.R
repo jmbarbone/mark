@@ -29,7 +29,12 @@
 #')
 #' @export
 
-date_from_partial <- function(x, format = "ymd", method = c("min", "max"), year_replacement = NA_integer_) {
+date_from_partial <- function(
+    x,
+    format = "ymd",
+    method = c("min", "max"),
+    year_replacement = NA_integer_
+) {
   x <- as.character(x)
   fmt <- verify_format(format)
   method <- match_param(method, c("min", "max"))
@@ -66,23 +71,31 @@ verify_format <- function(format) {
   m <- match(c("y", "m", "d"), s)
 
   if (length(unique(s)) != 3L) {
-    stop("format must be 3 characters", call. = FALSE)
+    stop(cond_verify_format_chrs())
   }
 
   if (anyNA(m)) {
-    stop('format must contain "y", "m", and "d"', call. = FALSE)
+    stop(cond_verify_format_ymd())
   }
 
   s
 }
 
 is_valid_date_string <- function(x) {
-  !OR(
-    is.na(x),
-    x == "",
-    !(grepl("[[:digit:]]+", x) | grepl("(.UNK?N?.?)", x)), # need some digits
+  x <- trimws(x)
+
+  bad <-
+    is.na(x) |
+    x == "" |
+    !grepl("[[:digit:]]", x) |
     grepl("^([[:blank:]]|[[:punct:]]|[[a-zA-Z]]|[[:digit:]]){1,}$", x)
-  ) | grepl("^[[:digit:]]{4}$", x)
+
+  ok <-
+    grepl("[[:digit:]]+", x) |
+    grepl("(.UNK?N?.?)", x) |
+    grepl("^[[:digit:]]{4}$", x)
+
+  ok | !bad
 }
 
 prep_date_string <- function(x) {
@@ -101,7 +114,7 @@ prep_date_string <- function(x) {
   out
 }
 
-parse_date_strings <- function(.x, fmt, method, year_replacement) {
+parse_date_strings <- function(.x, fmt, method, year_replacement) { # nolint: cyclocomp_linter, line_length_linter.
   splits <- strsplit(.x, "-")
 
   mat <- sapply(
@@ -112,7 +125,7 @@ parse_date_strings <- function(.x, fmt, method, year_replacement) {
 
         c(y = x, m = NA_character_, d = NA_character_),
         c(date_offset_match(x, fmt), d = NA_character_),
-        set_names0(x, fmt)
+        set_names(x, fmt)
       )
 
       ints <- c(y = NA_integer_, m = NA_integer_, d = NA_integer_)
@@ -123,8 +136,8 @@ parse_date_strings <- function(.x, fmt, method, year_replacement) {
       }
 
       # (re)set names and (re)arrange
-      x <- set_names0(suppressWarnings(as.integer(x)), names(x))
-      x <- x[c('y', 'm', 'd')]
+      x <- set_names(wuffle(as.integer(x)), names(x))
+      x <- x[c("y", "m", "d")]
       x[is.na(x)] <- 0L
 
       if (all(x == integer(3))) {
@@ -142,35 +155,35 @@ parse_date_strings <- function(.x, fmt, method, year_replacement) {
 
       if (method == "min") {
 
-        if (x['d'] == 0L) {
-          x['d'] <- 1L
+        if (x["d"] == 0L) {
+          x["d"] <- 1L
         }
 
-        if (x['m'] == 0L) {
-          x['m'] <- 1L
+        if (x["m"] == 0L) {
+          x["m"] <- 1L
         }
 
-        if (x['y'] == 0L) {
+        if (x["y"] == 0L) {
 
           if (is.na(year_replacement)) {
             return(ints)
           }
 
-          x['y'] <- year_replacement
+          x["y"] <- year_replacement
         }
 
         return(x)
       }
 
-      if (x['m'] == 0L) {
-        x['m'] <- 12L
+      if (x["m"] == 0L) {
+        x["m"] <- 12L
       }
 
-      if (x['d'] == 0L) {
-        x['d'] <- days_in_month[x['m']]
+      if (x["d"] == 0L) {
+        x["d"] <- days_in_month[x["m"]]
 
-        if (x['m'] == 2L && is_leap_year(x['y'])) {
-          x['d'] <- 29L
+        if (x["m"] == 2L && is_leap_year(x["y"])) {
+          x["d"] <- 29L
         }
       }
 
@@ -192,21 +205,23 @@ parse_date_strings <- function(.x, fmt, method, year_replacement) {
 
 # When only 2 date splits are found, assume year and month
 date_offset_match <- function(x, fmt) {
-  mt <- match(c('y', 'm', 'd'), fmt)
-  names(mt) <- c('y', 'm', 'd')
+  mt <- match(c("y", "m", "d"), fmt)
+  names(mt) <- c("y", "m", "d")
 
-  if (mt['d'] == 1L) {
+  if (mt["d"] == 1L) {
     mt <- mt - 1L
   }
 
-  mt <- mt[c('y', 'm')]
-  set_names0(x[mt], nm = c("y", "m"))
+  mt <- mt[c("y", "m")]
+  set_names(x[mt], nm = c("y", "m"))
 }
 
 days_in_month <- c(31L, 28L, 31L, 30L, 31L, 30L, 31L, 31L, 30L, 31L, 30L, 31L)
 names(days_in_month) <- month.name
+# nolint start: object_name_linter.
 month.NAME <- toupper(month.name)
 month.ABBR <- toupper(month.abb)
+# nolint end: object_name_linter.
 
 is_leap_year <- function(year = Sys.time()) {
   if (inherits(year, c("Date", "POSIXct", "POSIXlt"))) {
@@ -230,6 +245,22 @@ as_date_strptime <- function(x, format = "%Y-%m-%d") {
 }
 
 strp_format <- function(fmt) {
-  fmt[fmt == 'y'] <- "Y"
+  fmt[fmt == "y"] <- "Y"
   sprintf("%%%s-%%%s-%%%s", fmt[1], fmt[2], fmt[3])
+}
+
+# conditions --------------------------------------------------------------
+
+cond_verify_format_chrs <- function() {
+  new_condition(
+    "format must be 3 characters",
+    "verify_format_chrs"
+  )
+}
+
+cond_verify_format_ymd <- function() {
+  new_condition(
+    "format must contain \"y\", \"m\", and \"d\"",
+    "verify_format_ymd"
+  )
 }

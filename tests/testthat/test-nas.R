@@ -2,10 +2,21 @@ test_that("remove_na()", {
   x <- c(1, 2, NA, 3, NaN)
   expect_equal(remove_na(x), c(1, 2, 3))
   expect_equal(remove_na(as.list(x)), list(1, 2, numeric(), 3, numeric()))
-  expect_error(remove_na(data.frame(x = 1)))
+  expect_error(remove_na(quick_dfl(x = 1)), class = "checkIsVectorModeError")
 
   res <- remove_na(fact(x))
-  exp <- struct(1:4, c("fact", "factor"), levels = c("1", "2", "3", "NaN"))
+  exp <- struct(
+    1:3,
+    c("fact", "factor"),
+    levels = c("1", "2", "3"),
+    uniques = c(1, 2, 3),
+    na = 0L
+  )
+
+  expect_identical(res, exp)
+
+  res <- remove_na(factor(x))
+  exp <- struct(1:4, "factor", levels = as.character(c(1:3, NaN)))
   expect_identical(res, exp)
 })
 
@@ -13,19 +24,17 @@ test_that("remove_null()", {
   x <- list(a = 1, b = NULL, c = 1)
   expect_equal(remove_null(x), list(a = 1, c = 1))
 
-  expect_error(remove_null(c(1, 2)))
-  expect_error(remove_null(data.frame(x = NULL)))
+  expect_error(remove_null(c(1, 2)), class = "simpleError")
+  expect_error(remove_null(quick_dfl(x = NULL)), class = "simpleError")
 })
 
-
 test_that("*_na_cols() works", {
-  x <- data.frame(
+  x <- quick_dfl(
     first = c(NA, 2, 3, 4),
     second = c(1, NA, 3, 4),
     all = not_available(length = 4),
     last = c(1, 2, 3, NA),
-    all2 = not_available(length = 4),
-    stringsAsFactors = FALSE
+    all2 = not_available(length = 4)
   )
 
   expect_equal(
@@ -43,11 +52,10 @@ test_that("*_na_cols() works", {
     c(first = FALSE, second = FALSE, all = TRUE, last = FALSE, all2 = TRUE)
     )
 
-  expect_error(select_na_cols(1))
-  expect_error(remove_na_cols(1))
-  expect_error(is_na_cols(1))
+  expect_error(select_na_cols(1), class = "simpleError")
+  expect_error(remove_na_cols(1), class = "simpleError")
+  expect_error(is_na_cols(1), class = "simpleError")
 })
-
 
 test_that("tableNA() works", {
   x <- list(
@@ -61,7 +69,7 @@ test_that("tableNA() works", {
     struct(
       c(`TRUE` = 0L, `FALSE` = 3L),
       dim = 2L,
-      dimnames = set_names0(list(c("TRUE", "FALSE")), "x"),
+      dimnames = set_names(list(c("TRUE", "FALSE")), "x"),
       class = "table"
     )
   )

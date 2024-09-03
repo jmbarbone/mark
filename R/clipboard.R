@@ -2,20 +2,18 @@
 #'
 #' Wrappers for working with the clipboard
 #'
-#' @details
-#' As these functions rely on `utils::readClipboard()` and
-#'   `utils::writeClipboard` they are only available for Windows 10.
-#' For copying and pasting floats, there may be some rounding that can occur.
+#' @details As these functions rely on [utils::readClipboard()] and
+#' [utils::writeClipboard()] they are only available for Windows 10. For copying
+#' and pasting floats, there may be some rounding that can occur.
 #'
 #' @param x An object
 #' @param method Method switch for loading the clipboard
-#' @param ... Additional arguments sent to methods
+#' @param ... Additional arguments sent to methods or to [utils::write.table()]
 #'
-#' @return
-#' `write_clipboard()` None, called for side effects
-#' `read_clipboard()` Either a vector, `data.frame`, or `tibble` depending on
-#'   the `method` chosen.  Unlike [utils::readClipboard()], an empty clipboard
-#'   value returns `NA` rather than `""`
+#' @return `write_clipboard()` None, called for side effects `read_clipboard()`
+#' Either a vector, `data.frame`, or `tibble` depending on the `method` chosen.
+#' Unlike [utils::readClipboard()], an empty clipboard value returns `NA` rather
+#' than `""`
 #'
 #' @name clipboard
 #' @examples
@@ -51,23 +49,34 @@ write_clipboard <- function(x, ...) {
 }
 
 #' @export
+#' @rdname clipboard
 write_clipboard.default <- function(x, ...) {
   utils::writeClipboard(str = as.character(x), format = 1L)
 }
 
 #' @export
-write_clipboard.data.frame <- function(x, sep = "\t", ...) {
-  utils::write.table(x, file = "clipboard-128", sep = sep, row.names = FALSE, ...)
+#' @rdname clipboard
+#' @inheritParams utils::write.table
+write_clipboard.data.frame <- function(x, sep = "\t", row.names = FALSE, ...) { # nolint: object_name_linter, line_length_linter.
+  utils::write.table(
+    x,
+    file = "clipboard-128",
+    sep = sep,
+    row.names = row.names,
+    ...
+  )
 }
 
 #' @export
+#' @rdname clipboard
 write_clipboard.matrix <- function(x, sep = "\t", ...) {
   write_clipboard.data.frame(x, sep = sep, ...)
 }
 
 #' @export
-write_clipboard.list <- function(x, sep = "\t", show_NA = FALSE, ...) {
-  ls <- list2df(x, show_NA = show_NA)
+#' @rdname clipboard
+write_clipboard.list <- function(x, sep = "\t", ...) {
+  ls <- list2df(x)
   write_clipboard(ls, sep = "\t", ...)
 }
 
@@ -75,7 +84,7 @@ write_clipboard.list <- function(x, sep = "\t", show_NA = FALSE, ...) {
 #' @rdname clipboard
 read_clipboard <- function(method = c("default", "data.frame", "tibble"), ...) {
   if (!is_windows()) {
-    stop("`mark::read_clipboard()` is only valid for Windows", call. = FALSE)
+    stop(cond_read_clipboard_windows())
   }
 
   switch(
@@ -101,9 +110,8 @@ read_clipboard <- function(method = c("default", "data.frame", "tibble"), ...) {
       require_namespace("tibble")
       tibble::as_tibble(read_clipboard("data.frame", ...))
     }
-    )
+  )
 }
-
 
 # helpers -----------------------------------------------------------------
 
@@ -113,21 +121,23 @@ read_clipboard <- function(method = c("default", "data.frame", "tibble"), ...) {
 #'
 #' @inheritParams utils::read.table
 #' @noRd
+# nolint start: object_name_linter.
 do_read_table_clipboard <- function(
-  header           = TRUE,
-  # Copying form Excel produces tab separations
-  sep              = "\t",
-  row.names        = NULL,
-  # Excel formula for NA produces #N/A -- sometimes people use N/A...
-  na.strings       = c("", "NA", "N/A", "#N/A"),
-  check.names      = FALSE,
-  stringsAsFactors = FALSE,
-  encoding         = "UTF-8",
-  # occasionally "#' is used as a column name -- may cause issues
-  comment.char     = "",
-  blank.lines.skip = FALSE,
-  fill             = TRUE,
-  ...
+    header           = TRUE,
+    # Copying form Excel produces tab separations
+    sep              = "\t",
+    row.names        = NULL,
+    # Excel formula for NA produces #N/A -- sometimes people use N/A...
+    na.strings       = c("", "NA", "N/A", "#N/A"),
+    check.names      = FALSE,
+    stringsAsFactors = FALSE,
+    encoding         = "UTF-8",
+    # occasionally "#' is used as a column name -- may cause issues
+    comment.char     = "",
+    blank.lines.skip = FALSE,
+    fill             = TRUE,
+    ...
+    # nolint end: object_name_linter.
 ) {
   utils::read.table(
     file             = "clipboard-128",
@@ -154,7 +164,6 @@ clear_clipboard <- function() {
 }
 
 # nocov end
-
 
 # coverage ----------------------------------------------------------------
 
@@ -195,6 +204,11 @@ type_convert2 <- function(x) {
   res
 }
 
-is_windows <- function() {
-  Sys.info()[["sysname"]] == "Windows"
+# conditions --------------------------------------------------------------
+
+cond_read_clipboard_windows <- function() {
+  new_condition(
+    "`mark::read_clipboard()` is only valid for Windows",
+    "read_clipboard_windows"
+  )
 }
