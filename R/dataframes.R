@@ -192,7 +192,7 @@ rn_to_col <- function(data, name = "row.name") {
   stopifnot(is.data.frame(data))
   n <- length(data) + 1
   data[[n]] <- attr(data, "row.names")
-  attr(data, "row.names") <- seq_len(nrow(data)) # nolint: object_name_linter.
+  data <- reset_rownames(data)
   colnames(data)[n] <- name
   data[, c(n, seq_len(n - 1)), drop = FALSE]
 }
@@ -235,10 +235,53 @@ complete_cases <- function(data, cols = NULL, invert = FALSE) {
     cc <- !cc
   }
 
-  out <- data[cc, , drop = FALSE]
-  attr(out, "row.names") <- .set_row_names(sum(cc)) # nolint: object_name_linter, line_length_linter.
-  out
+  reset_rownames(data[cc, ])
 }
+
+#' Unique rows
+#'
+#' Drops duplicated rows
+#'
+#' @param data A `data.frame`
+#' @param cols Columns to compare against; when `NULL` selects all columns
+#' @param from_last When `TRUE` returns the last row containing duplicates,
+#'   rather than the first
+#' @param invert If `TRUE` returns the duplicated rows
+#' @returns `data` will duplicates removes
+#' @examples
+#' df <- quick_dfl(
+#'   i = 1:4,
+#'   a = rep(1:2, 2L),
+#'   b = rep("a", 4L),
+#' )
+#'
+#' unique_rows(df, 2:3)
+#' unique_rows(df, c("a", "b"), from_last = TRUE, invert = TRUE)
+#' @export
+unique_rows <- function(data, cols = NULL, from_last = FALSE, invert = FALSE) {
+  stopifnot(is.data.frame(data))
+  cn <- names(data)
+  cols <- cols %||% cn
+
+  if (is.numeric(cols)) {
+    cols <- cn[cols]
+  }
+
+  keep <- duplicated(data[, cols, drop = FALSE], fromLast = from_last)
+
+  if (!invert) {
+    keep <- !keep
+  }
+
+  reset_rownames(data[keep, ])
+}
+
+
+reset_rownames <- function(data, n = nrow(data)) {
+  attr(data, "row.names") <- .set_row_names(n)
+  data
+}
+
 
 # conditions --------------------------------------------------------------
 
