@@ -66,7 +66,7 @@ betwixt <- function(
   left_null <- is.null(left)
   right_null <- is.null(right)
 
-  if (left_null & right_null) {
+  if (left_null && right_null) {
     return(x)
   }
 
