@@ -149,3 +149,19 @@ test_that("complete_cases()", {
   expect_identical(complete_cases(df, "a"), res1)
   expect_identical(complete_cases(df), res2)
 })
+
+test_that("unique_rows()", {
+  expect_error(unique_rows(1L))
+
+  df <- quick_dfl(
+    id = 1:4,
+    a = rep(1:2, 2L),
+    b = rep("a", 4L)
+  )
+
+  res1 <- reset_rownames(df[1:2, ])
+  res2 <- reset_rownames(df[1:3, ])
+
+  expect_identical(unique_rows(df, 2), res1)
+  expect_identical(unique_rows(df, 3, TRUE, TRUE), res2)
+})
