@@ -36,3 +36,40 @@ test_that("between_more() works", {
     class = "betweenMoreLrWarning"
   )
 })
+
+
+test_that("betwixt()", {
+  x <- 1:20
+  ss <- x >= 5 & x <= 10
+  sr <- x >= 5 & x <  10
+  rs <- x >  5 & x <= 10
+  rr <- x >  5 & x <  10
+
+  expect_equal(betwixt(x, 5, 10, "[]"), ss)
+  expect_equal(betwixt(x, 5, 10, "[)"), sr)
+  expect_equal(betwixt(x, 5, 10, "(]"), rs)
+  expect_equal(betwixt(x, 5, 10, "()"), rr)
+
+  # vectors for left or right
+
+  x <- 1:5
+  left <- c(2, 2, 3, 2, 4)
+  right <- c(3, 3, 4, 3, 4)
+
+  res <- c(FALSE, TRUE, TRUE, TRUE, TRUE)
+  expect_identical(betwixt(x, left), res)
+
+  res <- c(FALSE, FALSE, TRUE, FALSE, FALSE)
+  expect_identical(betwixt(x, 3, right), res)
+
+  res <- c(FALSE, TRUE, TRUE, FALSE, FALSE)
+  expect_identical(betwixt(x, left, right), res)
+
+  expect_identical(betwixt(x), x)
+
+  expect_warning(
+    betwixt(1:2, 3, 2),
+    "`left` > `right`",
+    class = "betwixtLrWarning"
+  )
+})
