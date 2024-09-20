@@ -1,9 +1,9 @@
-#' Betwixt boundaries
+#' within boundaries
 #'
-#' Compare a vector betwitx (between) other values
+#' Compare a vector within (between) other values
 #'
 #' @param x A numeric vector of values
-#' @param left,right Boundary values.  For [betwixt()], when `NULL` no
+#' @param left,right Boundary values.  For [within()], when `NULL` no
 #'   comparison is made for that boundary.  When both are `NULL`, `x` is just
 #'   returned.
 #'
@@ -17,24 +17,24 @@
 #' }
 #'
 #' Note: [between_more()] may be deprecated in the future in favor of just
-#' [betwixt()]
+#' [within()]
 #'
 #' @returns A logical vector
 #'
 #' @examples
 #'
 #' between_more(2:10, 2, 10, "gl")
-#' betwixt(2:10, 2, bounds = "()")
+#' within(2:10, 2, bounds = "()")
 #' between_more(10, 2, 10, "gle")
-#' betwixt(2:10, bounds = "(]")
-#' betwixt(1:5, c(3, 3, 2, 2, 1), 5)
-#' @name betwixt
+#' within(2:10, bounds = "(]")
+#' within(1:5, c(3, 3, 2, 2, 1), 5)
+#' @name within
 #' @aliases between betwee_more
 NULL
 
-# TODO consider deprecating `between_more()` in favor of `betwixt()``
+# TODO consider deprecating `between_more()` in favor of `within()``
 
-#' @rdname betwixt
+#' @rdname within
 #' @export
 #' @param type Abbreviation for the evaluation of `left` on `right` (see
 #'   details)
@@ -54,10 +54,10 @@ between_more <- function(x, left, right, type = c("gele", "gel", "gle", "gl")) {
   )
 }
 
-#' @rdname betwixt
+#' @rdname within
 #' @export
 #' @param bounds Boundaries for comparisons of `left` and `right` (see details)
-betwixt <- function(
+within <- function(
     x,
     left = NULL,
     right = NULL,
@@ -71,7 +71,7 @@ betwixt <- function(
   }
 
   if (any(left > right, na.rm = TRUE)) {
-    warning(cond_betwixt_lr())
+    warning(cond_within_lr())
   }
 
   funs <- switch(
@@ -107,10 +107,10 @@ cond_between_more_lr <- function() {
   )
 }
 
-cond_betwixt_lr <- function() {
+cond_within_lr <- function() {
   new_condition(
     "`left` > `right`",
-    "betwixt_lr",
+    "within_lr",
     type = "warning"
   )
 }

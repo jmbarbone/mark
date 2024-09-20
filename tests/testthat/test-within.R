@@ -38,17 +38,17 @@ test_that("between_more() works", {
 })
 
 
-test_that("betwixt()", {
+test_that("within()", {
   x <- 1:20
   ss <- x >= 5 & x <= 10
   sr <- x >= 5 & x <  10
   rs <- x >  5 & x <= 10
   rr <- x >  5 & x <  10
 
-  expect_equal(betwixt(x, 5, 10, "[]"), ss)
-  expect_equal(betwixt(x, 5, 10, "[)"), sr)
-  expect_equal(betwixt(x, 5, 10, "(]"), rs)
-  expect_equal(betwixt(x, 5, 10, "()"), rr)
+  expect_equal(within(x, 5, 10, "[]"), ss)
+  expect_equal(within(x, 5, 10, "[)"), sr)
+  expect_equal(within(x, 5, 10, "(]"), rs)
+  expect_equal(within(x, 5, 10, "()"), rr)
 
   # vectors for left or right
 
@@ -57,19 +57,19 @@ test_that("betwixt()", {
   right <- c(3, 3, 4, 3, 4)
 
   res <- c(FALSE, TRUE, TRUE, TRUE, TRUE)
-  expect_identical(betwixt(x, left), res)
+  expect_identical(within(x, left), res)
 
   res <- c(FALSE, FALSE, TRUE, FALSE, FALSE)
-  expect_identical(betwixt(x, 3, right), res)
+  expect_identical(within(x, 3, right), res)
 
   res <- c(FALSE, TRUE, TRUE, FALSE, FALSE)
-  expect_identical(betwixt(x, left, right), res)
+  expect_identical(within(x, left, right), res)
 
-  expect_identical(betwixt(x), x)
+  expect_identical(within(x), x)
 
   expect_warning(
-    betwixt(1:2, 3, 2),
+    within(1:2, 3, 2),
     "`left` > `right`",
-    class = "betwixtLrWarning"
+    class = "withinLrWarning"
   )
 })
