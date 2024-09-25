@@ -1,6 +1,6 @@
 ## Test environments
 
-* local R installation, R 4.4.0
+* local R installation, R 4.4.1
 * windows-latest
 * macOS-latest
 * ubuntu-latest devel, release, oldrel-1
