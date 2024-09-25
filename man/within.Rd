@@ -27,7 +27,7 @@ details)}
 A logical vector
 }
 \description{
-Compare a vector within (between) other values
+Compare a vector betwitx (between) other values
 }
 \details{
 \verb{type``, }bounds`` can be one of the below:
