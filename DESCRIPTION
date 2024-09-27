@@ -12,7 +12,8 @@ Maintainer: Jordan Mark Barbone <jmbarbone@gmail.com>
 Description: Miscellaneous functions and wrappers for development in other
     packages created, maintained by Jordan Mark Barbone.
 License: MIT + file LICENSE
-URL: https://github.com/jmbarbone/mark,
+URL: https://CRAN.R-project.org/package=mark,
+    https://github.com/jmbarbone/mark,
     https://jmbarbone.github.io/mark/
 BugReports: https://github.com/jmbarbone/mark/issues
 Encoding: UTF-8
