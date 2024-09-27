@@ -11,6 +11,7 @@ Miscellaneous, Analytic R Kernels
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://CRAN.R-project.org/package=mark}
   \item \url{https://github.com/jmbarbone/mark}
   \item \url{https://jmbarbone.github.io/mark/}
   \item Report bugs at \url{https://github.com/jmbarbone/mark/issues}
