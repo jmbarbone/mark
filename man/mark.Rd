@@ -19,6 +19,6 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Jordan Mark Barbone \email{jmbarbone@gmail.com} (0000-0001-9788-3628) [copyright holder]
+\strong{Maintainer}: Jordan Mark Barbone \email{jmbarbone@gmail.com} (\href{https://orcid.org/0000-0001-9788-3628}{ORCID}) [copyright holder]
 
 }

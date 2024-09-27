@@ -7,12 +7,13 @@ Authors@R:
            family  = "Barbone",
            role    = c("aut", "cph", "cre"),
            email   = "jmbarbone@gmail.com",
-           comment = c(orcid = "0000-0001-9788-3628"))
+           comment = c(ORCID = "0000-0001-9788-3628"))
 Maintainer: Jordan Mark Barbone <jmbarbone@gmail.com>
 Description: Miscellaneous functions and wrappers for development in other
     packages created, maintained by Jordan Mark Barbone.
 License: MIT + file LICENSE
-URL: https://CRAN.R-project.org/package=mark,
+URL: 
+    https://CRAN.R-project.org/package=mark,
     https://github.com/jmbarbone/mark,
     https://jmbarbone.github.io/mark/
 BugReports: https://github.com/jmbarbone/mark/issues

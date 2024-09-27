@@ -1,6 +1,6 @@
 #' within boundaries
 #'
-#' Compare a vector betwitx (between) other values
+#' Compare a vector within (between) other values
 #'
 #' @param x A numeric vector of values
 #' @param left,right Boundary values.  For [within()], when `NULL` no
