@@ -40,7 +40,7 @@ This is how the end results are
 \item \code{NA_in} and \code{NA_out} expect some values to match on
 \itemize{
 \item \code{NA_in} checks \code{x[x \%in\% y] <- NA}
-\item \code{NA_out} checks \code{x[x \%out\% y] <- NA} (see \link{match_ext})
+\item \code{NA_out} checks \code{x[x \%out\% y] <- NA} (see \link[fuj:match_ext]{fuj::match_ext})
 }
 }
 }

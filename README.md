@@ -50,9 +50,9 @@ library(mark)
 #> The following object is masked from 'package:usethis':
 #> 
 #>     use_author
-#> The following object is masked from 'package:base':
+#> The following objects are masked from 'package:base':
 #> 
-#>     sort_by
+#>     sort_by, within
 ```
 
 Get dates from sloppy entries:

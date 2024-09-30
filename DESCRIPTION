@@ -1,18 +1,20 @@
 Package: mark
 Type: Package
 Title: Miscellaneous, Analytic R Kernels
-Version: 0.8.0.9006
+Version: 0.8.1.9000
 Authors@R:
     person(given   = "Jordan Mark",
            family  = "Barbone",
            role    = c("aut", "cph", "cre"),
            email   = "jmbarbone@gmail.com",
-           comment = c(orcid = "0000-0001-9788-3628"))
+           comment = c(ORCID = "0000-0001-9788-3628"))
 Maintainer: Jordan Mark Barbone <jmbarbone@gmail.com>
 Description: Miscellaneous functions and wrappers for development in other
     packages created, maintained by Jordan Mark Barbone.
 License: MIT + file LICENSE
-URL: https://github.com/jmbarbone/mark,
+URL: 
+    https://CRAN.R-project.org/package=mark,
+    https://github.com/jmbarbone/mark,
     https://jmbarbone.github.io/mark/
 BugReports: https://github.com/jmbarbone/mark/issues
 Encoding: UTF-8

@@ -11,6 +11,7 @@ Miscellaneous, Analytic R Kernels
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://CRAN.R-project.org/package=mark}
   \item \url{https://github.com/jmbarbone/mark}
   \item \url{https://jmbarbone.github.io/mark/}
   \item Report bugs at \url{https://github.com/jmbarbone/mark/issues}
@@ -18,6 +19,6 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Jordan Mark Barbone \email{jmbarbone@gmail.com} (0000-0001-9788-3628) [copyright holder]
+\strong{Maintainer}: Jordan Mark Barbone \email{jmbarbone@gmail.com} (\href{https://orcid.org/0000-0001-9788-3628}{ORCID}) [copyright holder]
 
 }
