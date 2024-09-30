@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">mark</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.0.9006</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,16 +29,16 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/jmbarbone/mark/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/jmbarbone/mark/blob/v0.8.1/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="development version" id="mark-development-version">mark (development version)<a class="anchor" aria-label="anchor" href="#mark-development-version"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.8.1" id="mark-081">mark 0.8.1<a class="anchor" aria-label="anchor" href="#mark-081"></a></h2><p class="text-muted">CRAN release: 2024-09-29</p>
 <ul><li>
-<code><a href="../reference/write_file_md5.html">write_file_md5()</a></code> now supports <code>"feather"</code> and <code>"parquet"</code> methods as wrappers for <a href=""><code>{arrow}</code></a> <a href="https://github.com/jmbarbone/mark/issues/234" class="external-link">#234</a>
+<code><a href="../reference/write_file_md5.html">write_file_md5()</a></code> now supports <code>"feather"</code> and <code>"parquet"</code> methods as wrappers for <a href="https://arrow.apache.org/docs/r/" class="external-link"><code>{arrow}</code></a> <a href="https://github.com/jmbarbone/mark/issues/234" class="external-link">#234</a>
 </li>
 <li>
-<code><a href="../reference/md5.html">md5()</a></code> added to provide MD5 check sums for objects <a href="https://github.com/jmbarbone/jmbarbone/mark/issues/233" class="external-link">#233</a>
+<code><a href="../reference/md5.html">md5()</a></code> added to provide MD5 check sums for objects <a href="https://github.com/jmbarbone/mark/issues/233" class="external-link">#233</a>
 </li>
 <li>
 <code><a href="../reference/unique_rows.html">unique_rows()</a></code> added to subset on (non-)duplicated rows in a <code>data.frame</code> <a href="https://github.com/jmbarbone/mark/issues/87" class="external-link">#87</a>
@@ -184,7 +184,7 @@
 <li>
 <code><a href="../reference/recode_by.html">recode_only()</a></code>, and <code><a href="../reference/recode_by.html">recode_by()</a></code> now accept a named <code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code> for <code>by</code> <a href="https://github.com/jmbarbone/mark/issues/96" class="external-link">#96</a>]</li>
 <li>
-<code><a href="../reference/switch-ext.html">switch_in_case()</a></code> now handles functions in rh</li>
+<code><a href="../reference/switch-ext.html">switch_in_case()</a></code> now handles functions in the right hand statements</li>
 <li>
 <code><a href="../reference/get_version.html">update_version()</a></code> now correctly checks result of embedded <code><a href="https://rdrr.io/r/utils/menu.html" class="external-link">utils::menu()</a></code> call for updating the version <a href="https://github.com/jmbarbone/mark/issues/121" class="external-link">#123</a>
 </li>
@@ -195,7 +195,7 @@
 <code>unique.fact()</code> S3 method <a href="https://github.com/jmbarbone/mark/issues/86" class="external-link">#86</a>
 </li>
 <li>
-<code><a href="../reference/recode_by.html">recode_only()</a></code> and <code><a href="../reference/recode_by.html">recode_by()</a></code> can accept a single value for <code>val</code> <a href="https://github.com/jmbarbone/mark/issues/72" class="external-link">#72</a>
+<code><a href="../reference/recode_by.html">recode_only()</a></code> and <code><a href="../reference/recode_by.html">recode_by()</a></code> can accept a single value for <code>val</code> <a href="https://github.com/jmbarbone/mark/issues/73" class="external-link">#73</a>
 </li>
 <li>
 <code><a href="../reference/fact_reverse.html">fact_reverse()</a></code> for reversing <code>fact</code> levels <a href="https://github.com/jmbarbone/mark/issues/78" class="external-link">#78</a>
