@@ -20,7 +20,11 @@ write_clipboard(x, ...)
 
 \method{write_clipboard}{list}(x, sep = "\\t", ...)
 
-read_clipboard(method = c("default", "data.frame", "tibble"), ...)
+read_clipboard(
+  method = c("default", "data.frame", "tibble", "excel", "calc", "csv", "csv2", "bsv",
+    "psv", "tsv", "md", NULL),
+  ...
+)
 }
 \arguments{
 \item{x}{An object}
@@ -46,7 +50,7 @@ than \code{""}
 Wrappers for working with the clipboard
 }
 \details{
-As these functions rely on \code{\link[utils:clipboard]{utils::readClipboard()}} and
+As these functions rely on \code{\link[clipr:read_clip]{clipr::read_clip()}} and
 \code{\link[utils:clipboard]{utils::writeClipboard()}} they are only available for Windows 10. For copying
 and pasting floats, there may be some rounding that can occur.
 }
