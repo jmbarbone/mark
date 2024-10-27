@@ -2,7 +2,7 @@
 #'
 #' Wrappers for working with the clipboard
 #'
-#' @details As these functions rely on [utils::readClipboard()] and
+#' @details As these functions rely on [clipr::read_clip()] and
 #' [utils::writeClipboard()] they are only available for Windows 10. For copying
 #' and pasting floats, there may be some rounding that can occur.
 #'
@@ -51,16 +51,16 @@ write_clipboard <- function(x, ...) {
 #' @export
 #' @rdname clipboard
 write_clipboard.default <- function(x, ...) {
-  utils::writeClipboard(str = as.character(x), format = 1L)
+  clipr::write_clip(x)
 }
 
 #' @export
 #' @rdname clipboard
 #' @inheritParams utils::write.table
 write_clipboard.data.frame <- function(x, sep = "\t", row.names = FALSE, ...) { # nolint: object_name_linter, line_length_linter.
-  utils::write.table(
-    x,
-    file = "clipboard-128",
+  fuj::require_namespace("clipr")
+  clipr::write_clip(
+    content = x,
     sep = sep,
     row.names = row.names,
     ...
@@ -82,21 +82,37 @@ write_clipboard.list <- function(x, sep = "\t", ...) {
 
 #' @export
 #' @rdname clipboard
-read_clipboard <- function(method = c("default", "data.frame", "tibble"), ...) {
-  if (!is_windows()) {
-    stop(cond_read_clipboard_windows())
-  }
-
+read_clipboard <- function(
+    method = c(
+      "default",
+      "data.frame",
+      "tibble",
+      "excel",
+      "calc",
+      "csv",
+      "csv2",
+      "bsv",
+      "psv",
+      "tsv",
+      "md",
+      NULL
+    ), 
+    ...
+  ) {
+  fuj::require_namespace("clipr")
   switch(
     match_param(method),
 
     default = {
-      x <- utils::readClipboard(format = 1L, raw = FALSE)
+      x <- clipr::read_clip()
       type_convert2(x)
     },
 
-    # Specifications I prefer -- mostly copying from Excel
+    tibble = ,
+    excel = ,
+    calc = ,
     data.frame = {
+      # default are specifications for excel/calc
       tab <- do_read_table_clipboard(...)
 
       for (i in seq_along(tab)) {
@@ -105,10 +121,21 @@ read_clipboard <- function(method = c("default", "data.frame", "tibble"), ...) {
 
       tab
     },
-
-    tibble = {
-      require_namespace("tibble")
-      tibble::as_tibble(read_clipboard("data.frame", ...))
+    
+    csv = read_clipboard("data.frame", sep = ",", ...),
+    csv2 = read_clipboard("data.frame", sep = ";", ...),
+    bsv = ,
+    psv = read_clipboard("data.frame", sep = "|", ...),
+    tsv = read_clipboard("data.frame", sep = "\t", ...),
+    md = {
+      fuj::require_namespace("readMDTable")
+      temp <- fs::file_temp()
+      on.exit(fs::file_delete(temp), add = TRUE)
+      writeLines(read_clipboard(), temp)
+      params <- list0(...)
+      params$file <- temp
+      params$show_col_types <- params$show_col_types %||% FALSE
+      do.call(readMDTable::read_md_table, params)
     }
   )
 }
@@ -139,8 +166,7 @@ do_read_table_clipboard <- function(
     ...
     # nolint end: object_name_linter.
 ) {
-  utils::read.table(
-    file             = "clipboard-128",
+  res <- clipr::read_clip_tbl(
     header           = header,
     sep              = sep,
     row.names        = row.names,
@@ -153,14 +179,16 @@ do_read_table_clipboard <- function(
     fill             = fill,
     ...
   )
+  
+  if (package_available("tibble")) {
+    tibble::as_tibble(res)
+  } else {
+    res
+  }
 }
 
 clear_clipboard <- function() {
-  if (!is_windows()) {
-    stop("`mark::write_clipboard()` is only valid for Windows", call. = FALSE)
-  }
-
-  utils::writeClipboard("", format = 1L)
+  clipr::clear_clip()
 }
 
 # nocov end
@@ -202,13 +230,4 @@ type_convert2 <- function(x) {
   }
 
   res
-}
-
-# conditions --------------------------------------------------------------
-
-cond_read_clipboard_windows <- function() {
-  new_condition(
-    "`mark::read_clipboard()` is only valid for Windows",
-    "read_clipboard_windows"
-  )
 }
