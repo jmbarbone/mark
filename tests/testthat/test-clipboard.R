@@ -41,15 +41,15 @@ test_that("clipboard methods", {
     }
     expect_identical(read_clipboard(method), res)
   }
-  
+
   simple_tbl <- function(delim) {
     paste(
       paste(letters[1:3], collapse = delim),
       paste(1:3, collapse = delim),
       sep = "\n"
-    )  
+    )
   }
-  
+
   expect_clip(simple_tbl("\t"), "data.frame")
   expect_clip(simple_tbl("\t"), "excel")
   expect_clip(simple_tbl("\t"), "calc")

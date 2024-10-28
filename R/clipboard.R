@@ -197,7 +197,7 @@ type_convert2 <- function(x) {
     x[] <- lapply(x, type_convert2)
     return(x)
   }
-  
+
   if (!is.character(x)) {
     return(x)
   }
