@@ -8,6 +8,7 @@
 \alias{write_clipboard.matrix}
 \alias{write_clipboard.list}
 \alias{read_clipboard}
+\alias{read_clipboard_methods}
 \title{Write to and read from the clipboard}
 \usage{
 write_clipboard(x, ...)
@@ -20,11 +21,9 @@ write_clipboard(x, ...)
 
 \method{write_clipboard}{list}(x, sep = "\\t", ...)
 
-read_clipboard(
-  method = c("default", "data.frame", "tibble", "excel", "calc", "csv", "csv2", "bsv",
-    "psv", "tsv", "md", NULL),
-  ...
-)
+read_clipboard(method = read_clipboard_methods(), ...)
+
+read_clipboard_methods()
 }
 \arguments{
 \item{x}{An object}
