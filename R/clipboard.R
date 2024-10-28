@@ -51,16 +51,18 @@ write_clipboard <- function(x, ...) {
 #' @export
 #' @rdname clipboard
 write_clipboard.default <- function(x, ...) {
-  clipr::write_clip(x)
+  clipr::write_clip(x, allow_non_interactive = TRUE)
 }
 
 #' @export
 #' @rdname clipboard
 #' @inheritParams utils::write.table
-write_clipboard.data.frame <- function(x, sep = "\t", row.names = FALSE, ...) { # nolint: object_name_linter, line_length_linter.
+# nolint next: object_name_linter.
+write_clipboard.data.frame <- function(x, sep = "\t", row.names = FALSE, ...) {
   fuj::require_namespace("clipr")
   clipr::write_clip(
     content = x,
+    allow_non_interactive = TRUE,
     sep = sep,
     row.names = row.names,
     ...
@@ -82,46 +84,16 @@ write_clipboard.list <- function(x, sep = "\t", ...) {
 
 #' @export
 #' @rdname clipboard
-read_clipboard <- function(
-    method = c(
-      "default",
-      "data.frame",
-      "tibble",
-      "excel",
-      "calc",
-      "csv",
-      "csv2",
-      "bsv",
-      "psv",
-      "tsv",
-      "md",
-      NULL
-    ), 
-    ...
-  ) {
+read_clipboard <- function(method = read_clipboard_methods(), ...) {
   fuj::require_namespace("clipr")
   switch(
     match_param(method),
-
-    default = {
-      x <- clipr::read_clip()
-      type_convert2(x)
-    },
-
+    default = type_convert2(clipr::read_clip(TRUE)),
     tibble = ,
     excel = ,
     calc = ,
-    data.frame = {
-      # default are specifications for excel/calc
-      tab <- do_read_table_clipboard(...)
-
-      for (i in seq_along(tab)) {
-        tab[[i]] <- type_convert2(tab[[i]])
-      }
-
-      tab
-    },
-    
+    # default are specifications for excel/calc
+    data.frame = type_convert2(do_read_table_clipboard(...)),
     csv = read_clipboard("data.frame", sep = ",", ...),
     csv2 = read_clipboard("data.frame", sep = ";", ...),
     bsv = ,
@@ -135,8 +107,28 @@ read_clipboard <- function(
       params <- list0(...)
       params$file <- temp
       params$show_col_types <- params$show_col_types %||% FALSE
-      do.call(readMDTable::read_md_table, params)
+      params$col_types <- params$col_types %||% list(.default = "character")
+      type_convert2(do.call(readMDTable::read_md_table, params))
     }
+  )
+}
+
+#' @export
+#' @rdname clipboard
+read_clipboard_methods <- function() {
+  c(
+    "default",
+    "data.frame",
+    "tibble",
+    "excel",
+    "calc",
+    "csv",
+    "csv2",
+    "bsv",
+    "psv",
+    "tsv",
+    "md",
+    NULL
   )
 }
 
@@ -148,25 +140,30 @@ read_clipboard <- function(
 #'
 #' @inheritParams utils::read.table
 #' @noRd
-# nolint start: object_name_linter.
 do_read_table_clipboard <- function(
     header           = TRUE,
     # Copying form Excel produces tab separations
     sep              = "\t",
+    # nolint next: object_name_linter.
     row.names        = NULL,
     # Excel formula for NA produces #N/A -- sometimes people use N/A...
+    # nolint next: object_name_linter.
     na.strings       = c("", "NA", "N/A", "#N/A"),
+    # nolint next: object_name_linter.
     check.names      = FALSE,
+    # nolint next: object_name_linter.
     stringsAsFactors = FALSE,
     encoding         = "UTF-8",
     # occasionally "#' is used as a column name -- may cause issues
+    # nolint next: object_name_linter.
     comment.char     = "",
+    # nolint next: object_name_linter.
     blank.lines.skip = FALSE,
     fill             = TRUE,
     ...
-    # nolint end: object_name_linter.
 ) {
-  res <- clipr::read_clip_tbl(
+  res <- utils::read.table(
+    file = textConnection(clipr::read_clip(TRUE)),
     header           = header,
     sep              = sep,
     row.names        = row.names,
@@ -179,7 +176,7 @@ do_read_table_clipboard <- function(
     fill             = fill,
     ...
   )
-  
+
   if (package_available("tibble")) {
     tibble::as_tibble(res)
   } else {
@@ -188,7 +185,7 @@ do_read_table_clipboard <- function(
 }
 
 clear_clipboard <- function() {
-  clipr::clear_clip()
+  clipr::clear_clip(allow_non_interactive = TRUE)
 }
 
 # nocov end
@@ -196,6 +193,11 @@ clear_clipboard <- function() {
 # coverage ----------------------------------------------------------------
 
 type_convert2 <- function(x) {
+  if (is.data.frame(x)) {
+    x[] <- lapply(x, type_convert2)
+    return(x)
+  }
+  
   if (!is.character(x)) {
     return(x)
   }
@@ -223,7 +225,6 @@ type_convert2 <- function(x) {
 
     dates <- as_date_strptime(x0)
 
-    # if (isTRUE(all.equal(as.character(dates), x0))) {
     if (!anyNA(dates)) {
       return(as_date_strptime(x))
     }
