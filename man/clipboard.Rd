@@ -8,6 +8,7 @@
 \alias{write_clipboard.matrix}
 \alias{write_clipboard.list}
 \alias{read_clipboard}
+\alias{read_clipboard_methods}
 \title{Write to and read from the clipboard}
 \usage{
 write_clipboard(x, ...)
@@ -20,7 +21,9 @@ write_clipboard(x, ...)
 
 \method{write_clipboard}{list}(x, sep = "\\t", ...)
 
-read_clipboard(method = c("default", "data.frame", "tibble"), ...)
+read_clipboard(method = read_clipboard_methods(), ...)
+
+read_clipboard_methods()
 }
 \arguments{
 \item{x}{An object}
@@ -46,7 +49,7 @@ than \code{""}
 Wrappers for working with the clipboard
 }
 \details{
-As these functions rely on \code{\link[utils:clipboard]{utils::readClipboard()}} and
+As these functions rely on \code{\link[clipr:read_clip]{clipr::read_clip()}} and
 \code{\link[utils:clipboard]{utils::writeClipboard()}} they are only available for Windows 10. For copying
 and pasting floats, there may be some rounding that can occur.
 }

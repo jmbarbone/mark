@@ -1,16 +1,10 @@
+need_clipr <- function() {
+  testthat::skip_if_not_installed("clipr")
+  testthat::skip_if_not(clipr::clipr_available(allow_non_interactive = TRUE))
+}
+
 test_that("clipboard", {
-  skip_if_not(interactive(), "Is not interactive")
-
-  if (!is_windows()) {
-    expect_error(write_clipboard())
-    skip("Not windows")
-  }
-
-  skip_if(
-    any(has_warning(integer(1e4), readClipboard)),
-    "Failed to access clipboard"
-  )
-
+  need_clipr()
   clear_clipboard()
 
   test_clipboard <- function(x, ...) {
@@ -40,6 +34,40 @@ test_that("clipboard", {
   # finally test tibble
   skip_if_not_installed("tibble")
   expect_equal(read_clipboard("tibble"), tibble::as_tibble(x))
+})
+
+test_that("clipboard methods", {
+  need_clipr()
+  expect_clip <- function(input, method) {
+    write_clipboard(input)
+    res <- if (package_available("tibble")) {
+      tibble::tibble(a = 1L, b = 2L, c = 3L)
+    } else {
+      fuj::quick_dfl(a = 1L, b = 2L, c = 3L)
+    }
+    expect_identical(read_clipboard(method), res)
+  }
+
+  simple_tbl <- function(delim) {
+    paste(
+      paste(letters[1:3], collapse = delim),
+      paste(1:3, collapse = delim),
+      sep = "\n"
+    )
+  }
+
+  expect_clip(simple_tbl("\t"), "data.frame")
+  expect_clip(simple_tbl("\t"), "excel")
+  expect_clip(simple_tbl("\t"), "calc")
+  expect_clip(simple_tbl("\t"), "tibble")
+  expect_clip(simple_tbl(","), "csv")
+  expect_clip(simple_tbl(";"), "csv2")
+  expect_clip(simple_tbl(";"), "csv2")
+  expect_clip(simple_tbl("|"), "bsv")
+  expect_clip(simple_tbl("|"), "psv")
+  expect_clip(simple_tbl("\t"), "tsv")
+  skip_if_not_installed("readMDTable")
+  expect_clip("| a | b | c |\n|--:|--:|--:|\n| 1 | 2 | 3 |", "md")
 })
 
 test_that("utils_type_convert()", {
