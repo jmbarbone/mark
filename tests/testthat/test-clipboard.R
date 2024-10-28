@@ -1,5 +1,10 @@
+need_clipr <- function() {
+  testthat::skip_if_not_installed("clipr")
+  testthat::skip_if_not(clipr::clipr_available(allow_non_interactive = TRUE))
+}
+
 test_that("clipboard", {
-  skip_if_not(interactive(), "Is not interactive")
+  need_clipr()
   clear_clipboard()
 
   test_clipboard <- function(x, ...) {
@@ -32,6 +37,7 @@ test_that("clipboard", {
 })
 
 test_that("clipboard methods", {
+  need_clipr()
   expect_clip <- function(input, method) {
     write_clipboard(input)
     res <- if (package_available("tibble")) {
