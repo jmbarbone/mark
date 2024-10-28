@@ -1,5 +1,9 @@
 # mark (development version)
 
+* `read_clipboard()` and `write_clipboard()` now use `{clipr}` to work on non-Windows platforms [#125](https://github.com/jmbarbone/mark/issues/125)
+* `read_clipboard()` now works with more methods for reading `data.frame`s
+* `read_clipboard()` now defaults to a `tibble` return when `{tibble}` is available
+
 # mark 0.8.1
 
 * `write_file_md5()` now supports `"feather"` and `"parquet"` methods as wrappers for [`{arrow}`](https://arrow.apache.org/docs/r/) [#234](https://github.com/jmbarbone/mark/issues/234)
