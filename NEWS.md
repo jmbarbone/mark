@@ -4,6 +4,7 @@
 * `read_clipboard()` now works with more methods for reading `data.frame`s
 * `read_clipboard()` now defaults to a `tibble` return when `{tibble}` is available
 * timezone testing updated [#247](https://github.com/jmbarbone/mark/issues/247)
+* actions updated
 
 # mark 0.8.1
 
