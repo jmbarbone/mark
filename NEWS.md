@@ -1,4 +1,4 @@
-# mark (development version)
+# mark 0.8.2
 
 * `read_clipboard()` and `write_clipboard()` now use `{clipr}` to work on non-Windows platforms [#125](https://github.com/jmbarbone/mark/issues/125)
 * `read_clipboard()` now works with more methods for reading `data.frame`s
