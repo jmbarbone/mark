@@ -66,7 +66,7 @@ test_that("Timezones", {
     a = rep(st, 4),
     b = rep(st, 4),
     tza = c("GMT", "UTC", "America/New_York", "Pacific/Auckland"),
-    tzb = c("GMT", "Africa/Casablanca", "America/Chicago", "CET"),
+    tzb = c("GMT", "Africa/Casablanca", "America/Chicago", "Europe/Rome"),
     tzn = c(0, 1, -1, 6) * 3600
   )
 
