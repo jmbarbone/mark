@@ -36,6 +36,11 @@ jobs:
         if: ${{ matrix.config.os == 'ubuntu-latest' }}
         run: |
           sudo apt-get install -y xclip
+          # Initialize xclip
+          uptime | xclip -i -sel p -f | xclip -i -sel c
+          xclip -o -sel clipboard
+        env:
+          DISPLAY: ':99.0'
 
       - uses: r-lib/actions/setup-pandoc@v2
 
@@ -54,3 +59,7 @@ jobs:
         with:
           upload-snapshots: true
           build_args: 'c("--no-manual","--compact-vignettes=gs+qpdf")'
+        env:
+          ALLOW_CLIP: true
+          CLIP_TYPE: xclip
+          DISPLAY: ':99.0'
