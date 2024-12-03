@@ -128,7 +128,7 @@ clipr_read_clip <- function(...) {
     }
   )
   
-  if (is_windows() && isNA(res)) {
+  if (is_windows() && (isNA(res) || (length(res) == 1L && !nzchar(res)))) {
     NULL
   } else {
     res
