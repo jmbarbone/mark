@@ -115,7 +115,7 @@ read_clipboard <- function(method = read_clipboard_methods(), ...) {
 }
 
 clipr_read_clip <- function(...) {
-  withCallingHandlers(
+  res <- withCallingHandlers(
     clipr::read_clip(...),
     simpleWarning = function(e) {
       if (grepl(
@@ -127,6 +127,12 @@ clipr_read_clip <- function(...) {
       }
     }
   )
+  
+  if (is_windows() && isNA(res)) {
+    NULL
+  } else {
+    res
+  }
 }
 
 #' @export
