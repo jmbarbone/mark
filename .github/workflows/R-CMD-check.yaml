@@ -39,8 +39,6 @@ jobs:
           # Initialize xclip
           uptime | xclip -i -sel p -f | xclip -i -sel c
           xclip -o -sel clipboard
-        env:
-          DISPLAY: ':99.0'
 
       - uses: r-lib/actions/setup-pandoc@v2
 
