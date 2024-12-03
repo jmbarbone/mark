@@ -36,9 +36,6 @@ jobs:
         if: ${{ matrix.config.os == 'ubuntu-latest' }}
         run: |
           sudo apt-get install -y xclip
-          # Initialize xclip
-          uptime | xclip -i -sel p -f | xclip -i -sel c
-          xclip -o -sel clipboard
 
       - uses: r-lib/actions/setup-pandoc@v2
 
