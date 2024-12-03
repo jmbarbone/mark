@@ -51,6 +51,7 @@ write_clipboard <- function(x, ...) {
 #' @export
 #' @rdname clipboard
 write_clipboard.default <- function(x, ...) {
+  x <- as.character(x)
   clipr::write_clip(x, allow_non_interactive = TRUE)
 }
 
@@ -88,7 +89,7 @@ read_clipboard <- function(method = read_clipboard_methods(), ...) {
   fuj::require_namespace("clipr")
   switch(
     match_param(method),
-    default = type_convert2(clipr::read_clip(TRUE)),
+    default = type_convert2(clipr_read_clip(TRUE)),
     tibble = ,
     excel = ,
     calc = ,
@@ -109,6 +110,21 @@ read_clipboard <- function(method = read_clipboard_methods(), ...) {
       params$show_col_types <- params$show_col_types %||% FALSE
       params$col_types <- params$col_types %||% list(.default = "character")
       type_convert2(do.call(readMDTable::read_md_table, params))
+    }
+  )
+}
+
+clipr_read_clip <- function(...) {
+  withCallingHandlers(
+    clipr::read_clip(...),
+    simpleWarning = function(e) {
+      if (grepl(
+        "System clipboard contained no readable text", 
+        conditionMessage(e),
+        fixed = TRUE
+      )) {
+       tryInvokeRestart("muffleWarning") 
+      }
     }
   )
 }
@@ -163,7 +179,7 @@ do_read_table_clipboard <- function(
     ...
 ) {
   res <- utils::read.table(
-    file = textConnection(clipr::read_clip(TRUE)),
+    file = textConnection(clipr_read_clip(TRUE)),
     header           = header,
     sep              = sep,
     row.names        = row.names,

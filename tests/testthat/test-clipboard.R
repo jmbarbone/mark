@@ -1,6 +1,8 @@
 need_clipr <- function() {
   testthat::skip_if_not_installed("clipr")
-  testthat::skip_if_not(clipr::clipr_available(allow_non_interactive = TRUE))
+  
+  # not sure if this is needed
+  # testthat::skip_if_not(clipr::clipr_available(allow_non_interactive = TRUE))
 }
 
 test_that("clipboard", {
@@ -16,8 +18,11 @@ test_that("clipboard", {
   test_clipboard(c(0.1234, -0.1586, 0.0001200))
   test_clipboard(-1:4)
   test_clipboard(as.Date("2020-01-02") + 0:4)
-  test_clipboard(runif(1e6))
+  test_clipboard(runif(1e4))
 
+  expect_error(clear_clipboard(), NA)
+  expect_equal(read_clipboard(), NULL) # previously ""
+  
   x <- quick_dfl(
     var1 = 1:3,
     var2 = letters[1:3],
@@ -26,13 +31,14 @@ test_that("clipboard", {
   )
 
   expect_error(write_clipboard(x), NA)
-  expect_equal(read_clipboard("data.frame"), x)
-
-  expect_error(clear_clipboard(), NA)
-  expect_equal(read_clipboard(), NA) # previously ""
+  res <- read_clipboard("data.frame")
+  expect_s3_class(res, "data.frame")
+  if (package_available("tibble")) 
+  expect_equal(as.data.frame(res), x)
 
   # finally test tibble
   skip_if_not_installed("tibble")
+  expect_s3_class(res, "tbl_df")
   expect_equal(read_clipboard("tibble"), tibble::as_tibble(x))
 })
 

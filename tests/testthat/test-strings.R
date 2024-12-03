@@ -70,7 +70,6 @@ test_that("Extract dates", {
 })
 
 test_that("print_c()", {
-  skip_if_not(is_windows(), "mark::write_clipboard() needs to be updated")
   expect_equal(
     utils::capture.output(print_c(1:3)),
     c("c(", "1,", "2,", "3,", "NULL", ")")
