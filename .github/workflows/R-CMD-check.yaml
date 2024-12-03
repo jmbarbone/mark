@@ -32,6 +32,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
+      # https://github.com/mdlincoln/clipr/blob/main/.github/workflows/R-CMD-check.yaml
+      - name: Install and run XVFB
+        if: ${{ matrix.config.os == 'ubuntu-latest' }}
+        run: |
+          sudo apt-get install -y xvfb
+          sudo /usr/bin/Xvfb :99.0 -screen 0 1280x1024x24 &
+          sleep 3
+      
+      # https://github.com/mdlincoln/clipr/blob/main/.github/workflows/R-CMD-check.yaml
       - name: Install xclip
         if: ${{ matrix.config.os == 'ubuntu-latest' }}
         run: |
