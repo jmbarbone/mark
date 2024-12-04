@@ -2,7 +2,9 @@ need_clipr <- function() {
   testthat::skip_if_not_installed("clipr")
 
   # not sure if this is needed
-  #> testthat::skip_if_not(clipr::clipr_available(allow_non_interactive = TRUE))
+  withr::with_envvar(c(CLIPR_ALLOW = TRUE), {
+    testthat::skip_if_not(clipr::clipr_available())
+  })
 }
 
 test_that("clipboard", {
