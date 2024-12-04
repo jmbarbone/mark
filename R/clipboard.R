@@ -119,15 +119,15 @@ clipr_read_clip <- function(...) {
     clipr::read_clip(...),
     simpleWarning = function(e) {
       if (grepl(
-        "System clipboard contained no readable text", 
+        "System clipboard contained no readable text",
         conditionMessage(e),
         fixed = TRUE
       )) {
-       tryInvokeRestart("muffleWarning") 
+        tryInvokeRestart("muffleWarning")
       }
     }
   )
-  
+
   if (is_windows() && (isNA(res) || (length(res) == 1L && !nzchar(res)))) {
     NULL
   } else {
