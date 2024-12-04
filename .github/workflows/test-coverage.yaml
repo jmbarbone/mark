@@ -55,6 +55,10 @@ jobs:
           )
           covr::to_cobertura(cov)
         shell: Rscript {0}
+        env:
+          ALLOW_CLIP: true
+          CLIP_TYPE: xclip
+          DISPLAY: ':99.0'
 
       - uses: codecov/codecov-action@v4
         with:
