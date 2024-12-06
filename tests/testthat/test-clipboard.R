@@ -5,7 +5,7 @@ need_clipr <- function() {
   withr::with_envvar(c(CLIPR_ALLOW = TRUE), {
     testthat::skip_if_not(clipr::clipr_available())
   })
-  
+
   testthat::skip_on_cran()
 }
 
