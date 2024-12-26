@@ -10,11 +10,20 @@ test_that("file_copy_md5() works", {
   writeLines("three", x[3L])
 
   # none of y exists
-  expect_message(file_copy_md5(x, y, overwrite = FALSE), NA)
-  expect_message(file_copy_md5(x, y, overwrite = FALSE), NA)
+  expect_message(
+    file_copy_md5(x, y, overwrite = FALSE), 
+    class = "mark:fileCopyMd5Warning"
+  )
+  expect_message(
+    file_copy_md5(x, y, overwrite = FALSE),
+    class = "mark:fileCopyMd5Warning"
+  )
 
   # all of y exists
-  expect_message(file_copy_md5(x, y, overwrite = TRUE), NA)
+  expect_message(
+    file_copy_md5(x, y, overwrite = TRUE),
+    class = "mark:fileCopyMd5Warning"
+  )
 
   # mix
   writeLines("twotwo", y[2L])
@@ -25,7 +34,7 @@ test_that("file_copy_md5() works", {
       attr(file_copy_md5(x, y), "changed"),
       c(FALSE, TRUE, NA)
     ),
-    class = "markFileCopyMsMessage",
+    class = "mark:fileCopyMd5Warning",
     regexp = paste(
       "one", "md5 same", "two", "md5 change", "three", "new file",
       sep = ".*"
