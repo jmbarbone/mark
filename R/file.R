@@ -15,18 +15,10 @@ file_copy_md5 <- function(path, new_path, overwrite = NA, quiet = FALSE) {
   msg <- if (quiet) {
     function(...) invisible()
   } else {
-    mark_file_copy_md5_message
+    message(cond_file_copy_md5(...))
   }
 
   new_exists <- fs::file_exists(new_path)
-
-  if (all(new_exists) && isFALSE(overwrite)) {
-    return(invisible(new_path))
-  }
-
-  if (!any(new_exists) || isTRUE(overwrite)) {
-    return(fs::file_copy(path, new_path, overwrite = TRUE))
-  }
 
   # not as pretty, but pretty reasonable
   stopifnot(length(path) == length(new_path))
@@ -51,16 +43,14 @@ file_copy_md5 <- function(path, new_path, overwrite = NA, quiet = FALSE) {
   })
 
   attr(new_path, "changed") <- changed
-  attr(new_path, "md5sum") <= list(old = md_old, new = md_new)
+  attr(new_path, "md5sum") <- list(old = md_old, new = md_new)
   invisible(new_path)
 }
 
-# should use more custom messages
-mark_file_copy_md5_message <- function(...) {
-  message(struct(
-    list(.makeMessage(..., appendLF = TRUE), NULL),
-    # nolint next: line_length_linter.
-    class = c("markFileCopyMsMessage", "verboseMessage", "message", "condition"),
-    names = c("message", "call.")
-  ))
+cond_file_copy_md5 <- function(...) {
+  fuj::new_condition(
+    .makeMessage(...),
+    class = "file_copy_md5",
+    type = "message"
+  )
 }
