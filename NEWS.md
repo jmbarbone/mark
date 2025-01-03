@@ -1,5 +1,7 @@
 # mark (development version)
 
+* `make_sf()` now uses `substitute()` to provide more information inside the function body when viewing [#129](https://github.com/jmbarbone/mark/issues/129)
+
 # mark 0.8.2
 
 * `read_clipboard()` and `write_clipboard()` now use `{clipr}` to work on non-Windows platforms [#125](https://github.com/jmbarbone/mark/issues/125)
