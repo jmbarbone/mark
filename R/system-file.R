@@ -6,9 +6,11 @@
 #' @export
 
 make_sf <- function(package) {
-  function(..., check = FALSE) {
+  fun <- function(..., check = FALSE) { }                                                   
+  body(fun) <- substitute({
     match.fun("system.file")(..., package = package, mustWork = check)
-  }
+  }, environment())
+  fun
 }
 
 sf <- make_sf("mark")
