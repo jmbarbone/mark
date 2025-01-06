@@ -15,7 +15,7 @@ file_copy_md5 <- function(path, new_path, overwrite = NA, quiet = FALSE) {
   msg <- if (quiet) {
     function(...) invisible()
   } else {
-    message(cond_file_copy_md5(...))
+    function(...) message(cond_file_copy_md5(...))
   }
 
   new_exists <- fs::file_exists(new_path)
