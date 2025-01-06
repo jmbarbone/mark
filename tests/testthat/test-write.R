@@ -2,8 +2,8 @@ test_that("write_file_md5() works", {
   df <- quick_dfl(a = 1, b = 2)
   temp <- withr::local_tempfile()
   expect_output(write_file_md5(df))
-  expect_message(write_file_md5(df, temp), NA)
-  expect_message(write_file_md5(df, temp), class = "markFileCopyMsMessage")
+  expect_message(write_file_md5(df, temp), class = "fileCopyMd5Message")
+  expect_message(write_file_md5(df, temp), class = "fileCopyMd5Message")
 
   # atomic
   expect_output(write_file_md5("lines"))
@@ -13,8 +13,7 @@ test_that("write_file_md5() works", {
 
 test_that("write_file_md5() types", {
   foo <- function(method) {
-    file <- tempfile()
-    on.exit(file.remove(file))
+    temp <- withr::local_tempfile()
     x <-
       if (method %in% c(mark_write_methods()$lines, "write")) {
         letters
@@ -22,8 +21,8 @@ test_that("write_file_md5() types", {
         quick_dfl(a = 1, b = "n", c = TRUE)
       }
       expect_message(
-        write_file_md5(x, file, method = !!method),
-        NA
+        write_file_md5(x, temp, method = !!method),
+        class = "fileCopyMd5Message"
       )
   }
 
@@ -33,13 +32,15 @@ test_that("write_file_md5() types", {
 })
 
 test_that("path warning", {
-  t <- tempfile()
-  on.exit(fs::file_delete(t))
-  x <- structure(quick_dfl(a = 1), path = t)
-  expect_warning(
-    write_file_md5(x, t),
-    "attr(x, \"path\") is being overwritten",
-    fixed = TRUE
+  temp <- withr::local_tempfile()
+  x <- structure(quick_dfl(a = 1), path = temp)
+  expect_message(
+    expect_warning(
+      write_file_md5(x, temp),
+      "attr(x, \"path\") is being overwritten",
+      fixed = TRUE
+    ),
+    class = "fileCopyMd5Message"
   )
 })
 
@@ -56,7 +57,7 @@ test_that("compression works", {
     file <- tempfile(fileext = ext)
     on.exit(unlink(file, recursive = TRUE))
     df <- quick_dfl(a = 1)
-    write_file_md5(df, file)
+    write_file_md5(df, file, quiet = TRUE)
   }
 
   expect_s3_class(foo(), "data.frame")
@@ -84,11 +85,11 @@ test_that("list columns", {
     df <- quick_dfl(x = c("a", "b"))
     df$y <- list(1:2, 2)
 
-    write_file_md5(df, temp)
+    write_file_md5(df, temp, quiet = TRUE)
     fs::file_delete(temp)
 
     df$z <- list(1, 2:3)
-    write_file_md5(df, temp)
+    write_file_md5(df, temp, quiet = TRUE)
   }
 
   expect_s3_class(foo("auto"), "data.frame")
