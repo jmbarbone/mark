@@ -9,7 +9,7 @@ test_that("file_copy_md5() works", {
 
   # none of y exists
   expect_message(
-    file_copy_md5(x, y, overwrite = FALSE), 
+    file_copy_md5(x, y, overwrite = FALSE),
     class = "mark:fileCopyMd5Message"
   )
   expect_message(
