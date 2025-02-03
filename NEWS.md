@@ -1,5 +1,8 @@
 # mark (development version)
 
+* `file_copy_md5()` now produces more messages [#239](https://github.com/jmbarbone/mark/issues/239)
+* `file_copy_md5()` saves md5 sum checks as an attribute
+
 # mark 0.8.2
 
 * `read_clipboard()` and `write_clipboard()` now use `{clipr}` to work on non-Windows platforms [#125](https://github.com/jmbarbone/mark/issues/125)
