@@ -1,7 +1,7 @@
 Package: mark
 Type: Package
 Title: Miscellaneous, Analytic R Kernels
-Version: 0.8.2.9001
+Version: 0.8.2.9002
 Authors@R:
     person(given   = "Jordan Mark",
            family  = "Barbone",
