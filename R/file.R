@@ -15,21 +15,12 @@ file_copy_md5 <- function(path, new_path, overwrite = NA, quiet = FALSE) {
   msg <- if (quiet) {
     function(...) invisible()
   } else {
-    mark_file_copy_md5_message
-  }
-
-  new_exists <- fs::file_exists(new_path)
-
-  if (all(new_exists) && isFALSE(overwrite)) {
-    return(invisible(new_path))
-  }
-
-  if (!any(new_exists) || isTRUE(overwrite)) {
-    return(fs::file_copy(path, new_path, overwrite = TRUE))
+    function(...) message(cond_file_copy_md5(...))
   }
 
   # not as pretty, but pretty reasonable
   stopifnot(length(path) == length(new_path))
+  # md5sum(nonexisting_file) produces NA
   md_old <- unname(tools::md5sum(path))
   md_new <- unname(tools::md5sum(new_path))
   changed <- md_old != md_new
@@ -47,20 +38,18 @@ file_copy_md5 <- function(path, new_path, overwrite = NA, quiet = FALSE) {
     out[code == 1L] <- paste(new_path[code == 1L], "(md5 same)")
     out[code == 2L] <- paste(new_path[code == 2L], "(md5 change)")
     out[code == 3L] <- paste(new_path[code == 3L], "(new file)")
-    collapse(out, sep = "\n")
+    fuj::collapse(out, sep = "\n")
   })
 
   attr(new_path, "changed") <- changed
-  attr(new_path, "md5sum") <= list(old = md_old, new = md_new)
+  attr(new_path, "md5sum") <- list(old = md_old, new = md_new)
   invisible(new_path)
 }
 
-# should use more custom messages
-mark_file_copy_md5_message <- function(...) {
-  message(struct(
-    list(.makeMessage(..., appendLF = TRUE), NULL),
-    # nolint next: line_length_linter.
-    class = c("markFileCopyMsMessage", "verboseMessage", "message", "condition"),
-    names = c("message", "call.")
-  ))
+cond_file_copy_md5 <- function(...) {
+  fuj::new_condition(
+    .makeMessage(...),
+    class = "file_copy_md5",
+    type = "message"
+  )
 }

@@ -1,6 +1,8 @@
 # mark (development version)
 
 * `make_sf()` now uses `substitute()` to provide more information inside the function body when viewing [#129](https://github.com/jmbarbone/mark/issues/129)
+* `file_copy_md5()` now produces more messages [#239](https://github.com/jmbarbone/mark/issues/239)
+* `file_copy_md5()` saves md5 sum checks as an attribute
 
 # mark 0.8.2
 
