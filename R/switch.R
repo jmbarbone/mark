@@ -216,11 +216,10 @@ try_catch_inf <- function(expr) {
   tryCatch(
     expr,
     error = function(e) {
-      if (grepl("result would be too long a vector", e$message)) {
-        return(e$call)
-      } else {
+      if (!grepl("result would be too long a vector", e$message)) {
         stop(errorCondition(e$message, class = e$class, call = e$call))
       }
+      e$call
     }
   )
 }
@@ -265,7 +264,7 @@ switch_lengths_check <- function(lhs, rhs) {
     stop(cond_switch_lengths_check())
   }
 
-  return(invisible(NULL))
+  invisible(NULL)
 }
 
 # conditions --------------------------------------------------------------

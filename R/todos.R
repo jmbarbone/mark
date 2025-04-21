@@ -83,7 +83,7 @@ fixmes <- function(
   )
 }
 
-do_todo <- function( # nolint: cyclocomp_linter.
+do_todo <- function(
     text = c("todo", "fixme"),
     pattern = NULL,
     path = ".",
@@ -232,7 +232,7 @@ print.todos_df <- function(x, ...) {
     }
   }
 
-  return(invisible(x))
+  invisible(x)
 }
 
 format_line_number <- function(x, width = 3) {

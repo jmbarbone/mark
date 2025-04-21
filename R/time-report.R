@@ -25,7 +25,8 @@
 #' })
 #' @export
 
-simpleTimeReport <- function(title = NULL, expr, envir = parent.frame()) { # nolint: object_name_linter, cyclocomp_linter, line_length_linter.
+# nolint next: object_name_linter.
+simpleTimeReport <- function(title = NULL, expr, envir = parent.frame()) {
   mc <- match.call()
   cat0(trimws(title), "\n", rep("-", getOption("width")), "\n")
   line <- rep("-", getOption("width"))

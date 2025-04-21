@@ -101,7 +101,7 @@ fact.logical <- function(x) {
 
 #' @rdname fact
 #' @export
-fact.factor <- function(x) { # nolint: cyclocomp_linter.
+fact.factor <- function(x) {
   old_levels <- levels(x)
   new_levels <- fact_coerce_levels(old_levels)
 
