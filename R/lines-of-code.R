@@ -36,20 +36,18 @@ list_r_files <- function(x = ".") {
 }
 
 n_lines_r_file <- function(r_file) {
-  withCallingHandlers({
-    x <- trimws(readLines(r_file, skipNul = TRUE, warn = FALSE))
-    length(x %wo% c("", "}", "{", "(", ")", "[", "]", '"', "'"))
-  },
-  error = function(e) {
-    return(0L)
-  })
+  withCallingHandlers(
+    {
+      x <- trimws(readLines(r_file, skipNul = TRUE, warn = FALSE))
+      length(x %wo% c("", "}", "{", "(", ")", "[", "]", '"', "'"))
+    },
+    error = function(e) 0L
+  )
 }
 
 n_lines_r_file_all <- function(r_file) {
-  withCallingHandlers({
-    length(readLines(r_file, skipNul = TRUE, warn = FALSE))
-  },
-  error = function(e) {
-    return(0L)
-  })
+  withCallingHandlers(
+    length(readLines(r_file, skipNul = TRUE, warn = FALSE)),
+    error = function(e) 0L
+  )
 }

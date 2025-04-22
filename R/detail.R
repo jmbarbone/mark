@@ -26,7 +26,7 @@ detail <- function(x, ...) {
 #'   character vectors with `factor_n` or less unique values into a `fact`;
 #'   setting as `NA` will ignore this
 #' @export
-detail.default <- function(x, factor_n = 5L, ...) { # nolint: cyclocomp_linter.
+detail.default <- function(x, factor_n = 5L, ...) {
   stopifnot(!is.list(x))
 
   op <- options(stringsAsFactors = FALSE)

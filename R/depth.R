@@ -39,11 +39,13 @@ depth.list <- function(x, ...) {
   if (no_length(x)) {
     # Empty list -- don't count
     return(0L)
-  } else if (length(x) == 1L && !is.list(x[[1]])) {
-    # Check if next level is a list
-    depth(x[[1]])
-  } else {
-    # +1 for every level
-    max(vap_int(x, depth) + 1L)
   }
+
+  if (length(x) == 1L && !is.list(x[[1]])) {
+    # Check if next level is a list
+    return(depth(x[[1]]))
+  }
+
+  # +1 for every level
+  max(vap_int(x, depth) + 1L)
 }

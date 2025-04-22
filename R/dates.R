@@ -114,7 +114,7 @@ prep_date_string <- function(x) {
   out
 }
 
-parse_date_strings <- function(.x, fmt, method, year_replacement) { # nolint: cyclocomp_linter, line_length_linter.
+parse_date_strings <- function(.x, fmt, method, year_replacement) {
   splits <- strsplit(.x, "-")
 
   mat <- sapply(
