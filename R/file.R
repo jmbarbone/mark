@@ -14,6 +14,8 @@
 file_copy_md5 <- function(path, new_path, overwrite = NA, quiet = FALSE) {
   msg <- if (quiet) {
     function(...) invisible()
+  } else if (utils::packageVersion("fuj") < "0.2.2") {
+    function(...) message(...)
   } else {
     function(...) message(cond_file_copy_md5(...))
   }

@@ -1,10 +1,9 @@
 test_that("write_file_md5() works", {
-  needs_fuj()
   df <- quick_dfl(a = 1, b = 2)
   temp <- withr::local_tempfile()
   expect_output(write_file_md5(df))
-  expect_message(write_file_md5(df, temp), class = "fileCopyMd5Message")
-  expect_message(write_file_md5(df, temp), class = "fileCopyMd5Message")
+  expect_message(write_file_md5(df, temp), class = fuj_message())
+  expect_message(write_file_md5(df, temp), class = fuj_message())
 
   # atomic
   expect_output(write_file_md5("lines"))
@@ -13,7 +12,6 @@ test_that("write_file_md5() works", {
 })
 
 test_that("write_file_md5() types", {
-  needs_fuj()
   foo <- function(method) {
     temp <- withr::local_tempfile()
     x <-
@@ -24,7 +22,7 @@ test_that("write_file_md5() types", {
       }
       expect_message(
         write_file_md5(x, temp, method = !!method),
-        class = "fileCopyMd5Message"
+        class = fuj_message()
       )
   }
 
@@ -34,7 +32,6 @@ test_that("write_file_md5() types", {
 })
 
 test_that("path warning", {
-  needs_fuj()
   temp <- withr::local_tempfile()
   x <- structure(quick_dfl(a = 1), path = temp)
   expect_message(
@@ -43,7 +40,7 @@ test_that("path warning", {
       "attr(x, \"path\") is being overwritten",
       fixed = TRUE
     ),
-    class = "fileCopyMd5Message"
+    class = fuj_message()
   )
 })
 
