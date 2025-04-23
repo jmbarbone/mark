@@ -1,4 +1,5 @@
 test_that("file_copy_md5() works", {
+  needs_fuj()
   x <- c(tempfile("one"), tempfile("two"), tempfile("three"))
   y <- c(tempfile("one"), tempfile("two"), tempfile("three"))
   on.exit(fs::file_delete(c(x, y)))

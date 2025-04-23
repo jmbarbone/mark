@@ -1,4 +1,5 @@
 test_that("write_file_md5() works", {
+  needs_fuj()
   df <- quick_dfl(a = 1, b = 2)
   temp <- withr::local_tempfile()
   expect_output(write_file_md5(df))
@@ -12,6 +13,7 @@ test_that("write_file_md5() works", {
 })
 
 test_that("write_file_md5() types", {
+  needs_fuj()
   foo <- function(method) {
     temp <- withr::local_tempfile()
     x <-
@@ -32,6 +34,7 @@ test_that("write_file_md5() types", {
 })
 
 test_that("path warning", {
+  needs_fuj()
   temp <- withr::local_tempfile()
   x <- structure(quick_dfl(a = 1), path = temp)
   expect_message(
