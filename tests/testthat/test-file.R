@@ -10,17 +10,17 @@ test_that("file_copy_md5() works", {
   # none of y exists
   expect_message(
     file_copy_md5(x, y, overwrite = FALSE),
-    class = "mark:fileCopyMd5Message"
+    class = fuj_message()
   )
   expect_message(
     file_copy_md5(x, y, overwrite = FALSE),
-    class = "mark:fileCopyMd5Message"
+    class = fuj_message()
   )
 
   # all of y exists
   expect_message(
     file_copy_md5(x, y, overwrite = TRUE),
-    class = "mark:fileCopyMd5Message"
+    class = fuj_message()
   )
 
   # mix
@@ -32,7 +32,7 @@ test_that("file_copy_md5() works", {
       attr(file_copy_md5(x, y), "changed"),
       c(FALSE, TRUE, NA)
     ),
-    class = "mark:fileCopyMd5Message",
+    class = fuj_message(),
     regexp = paste(
       "one", "md5 same", "two", "md5 change", "three", "new file",
       sep = ".*"
