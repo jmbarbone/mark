@@ -1,5 +1,7 @@
 # mark (development version)
 
+* `make_sf()` now uses `substitute()` to provide more information inside the function body when viewing [#129](https://github.com/jmbarbone/mark/issues/129)
+
 # mark 0.8.3
 
 * `file_copy_md5()` now produces more messages [#239](https://github.com/jmbarbone/mark/issues/239)

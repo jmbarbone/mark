@@ -9,6 +9,13 @@ make_sf(package)
 \arguments{
 \item{package}{The name of the package}
 }
+\value{
+A \code{function} wrapping \code{\link[=system.file]{system.file()}} which will always use the
+package name provided in \code{package}
+}
 \description{
-Simple wrapper for package specific function for internal packages
+Simple wrapper for package specific function for internal packages.
+}
+\examples{
+make_sf("mark")()
 }
