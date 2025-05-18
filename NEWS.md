@@ -1,6 +1,7 @@
 # mark (development version)
 
 * `make_sf()` now uses `substitute()` to provide more information inside the function body when viewing [#129](https://github.com/jmbarbone/mark/issues/129)
+* `round_to()` added to round values to a set [#142](https://github.com/jmbarbone/mark/issues/142)
 
 # mark 0.8.3
 
