@@ -11,7 +11,7 @@ utilize that.  No reason to reinvent the wheel."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">mark</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.3.9001</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.3.9002</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,7 +33,7 @@ utilize that.  No reason to reinvent the wheel."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Fizz Buzz</h1>
-      <small class="dont-index">Source: <a href="https://github.com/jmbarbone/mark/blob/v0.8.3.9001/R/fizzbuzz.R" class="external-link"><code>R/fizzbuzz.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/jmbarbone/mark/blob/main/R/fizzbuzz.R" class="external-link"><code>R/fizzbuzz.R</code></a></small>
       <div class="d-none name"><code>fizzbuzz.Rd</code></div>
     </div>
 
@@ -130,10 +130,10 @@ with default parameters up to <code>1e6</code></p>
 <span class="r-in"><span>  <span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="https://bench.r-lib.org/reference/mark.html" class="external-link">mark</a></span><span class="op">(</span><span class="fu">fizzbuzz</span><span class="op">(</span><span class="fl">1e5</span><span class="op">)</span>, <span class="fu">fizzbuzz_lazy</span><span class="op">(</span><span class="fl">1e5</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 13</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   expression     min  median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_time</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:t&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:t&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> fizzbuzz(…  35.2ms  36.2ms      27.1    5.19MB     4.92    11     2      406ms</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> fizzbuzz_… 586.7µs 601.5µs    <span style="text-decoration: underline;">1</span>639.    38.21MB    56.8    433    15      264ms</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   expression      min median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_time</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;bch:t&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> fizzbuzz(1…  36.5ms   37ms      26.5    5.19MB     4.82    11     2      415ms</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> fizzbuzz_l… 587.9µs  605µs    <span style="text-decoration: underline;">1</span>621.    38.21MB    60.8    400    15      247ms</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 4 more variables: result &lt;list&gt;, memory &lt;list&gt;, time &lt;list&gt;, gc &lt;list&gt;</span></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
