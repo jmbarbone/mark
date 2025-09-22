@@ -1,5 +1,17 @@
 # mark (development version)
 
+* substantial changes to _conditions_
+  * all _conditions_ previously created with [`fuj::new_condition()`](https://jmbarbone.github.io/fuj/reference/new_condition.html) have been rewritten with [`cnd::condition()`](https://jmbarbone.github.io/cnd/reference/condition.html) [#259]
+  * all of these condition now use different class names, generated through [`cnd::condition()`](https://jmbarbone.github.io/cnd/reference/condition.html)
+  * for more information, see https://jmbarbone.github.io/cnd
+
+* the following arguments were deprecated and unused, and have now been removed completely:
+  * `list2df(show_NA)`
+  * `vector2df(show_NA)`
+  * `t_df(id)`
+
+* `merge_list(sort)` included to toggle name sorting in result
+
 * `make_sf()` now uses `substitute()` to provide more information inside the function body when viewing [#129](https://github.com/jmbarbone/mark/issues/129)
 * `round_to()` added to round values to a set [#142](https://github.com/jmbarbone/mark/issues/142)
 
