@@ -2,6 +2,8 @@
 
 * `make_sf()` now uses `substitute()` to provide more information inside the function body when viewing [#129](https://github.com/jmbarbone/mark/issues/129)
 * `round_to()` added to round values to a set [#142](https://github.com/jmbarbone/mark/issues/142)
+* `md5(bytes)` added to use `tools::md5sum(bytpes)` for **R > 4.2.0** [#258](https://github.com/jmbarbone/mark/issues/258)
+* `md5()` now uses little-endian serialization (_i.e._, `serialize(xdr = FALSE)`) for more consistent results across platforms and faster speed; which may cause hashes created prior to _change_
 
 # mark 0.8.3
 
