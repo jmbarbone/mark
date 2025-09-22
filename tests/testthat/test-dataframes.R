@@ -29,8 +29,8 @@ test_that("to_row_names()", {
 
 
 test_that("col_to_rn()", {
-  expect_error(col_to_rn(data.frame(), 1:2), class = "colToRnRownamesError")
-  expect_error(col_to_rn(data.frame(), NA), class = "colToRnRownamesNaError")
+  expect_error(to_row_names(data.frame(), 1:2), class = "mark:to_row_names_single")
+  expect_error(to_row_names(data.frame(), NA), class = "mark:to_row_names_na")
 })
 
 test_that("vector2df()", {
@@ -42,11 +42,6 @@ test_that("vector2df()", {
   expect_equal(vector2df(set_names(x)), df)
   expect_named(vector2df(x, "one", "two"), c("one", "two"))
 
-  expect_warning(
-    vector2df(x, show_NA = NULL),
-    class = "vector2dfShowNaWarning"
-  )
-
   expect_error(vector2df(list(a = 1)), class = "simpleError")
 })
 
@@ -57,7 +52,7 @@ test_that("list2df()", {
     value = c(1, 2:4, letters[10:20])
   )
 
-  expect_warning(list2df(x), class = "list2dfClassesWarning")
+  expect_warning(list2df(x), class = "mark:list2df_classes")
   expect_warning(list2df(x, warn = FALSE), NA)
   expect_equal(list2df(x, warn = FALSE), exp)
 
@@ -67,10 +62,6 @@ test_that("list2df()", {
   expect_warning(list2df(x), NA)
   expect_equal(list2df(x), exp)
   expect_named(list2df(x, "hello", "world"), c("hello", "world"))
-  expect_warning(
-    list2df(x, show_NA = NULL),
-    class = "list2dfShowNaWarning"
-  )
 
   # Unnamed
   x <- list(a = 1, 0, 2)
@@ -109,7 +100,6 @@ test_that("t_df()", {
   )
 
   expect_equal(t_df(x), y)
-  expect_warning(t_df(x, id = 1))
   expect_error(t_df(1L))
 })
 

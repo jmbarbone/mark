@@ -4,14 +4,12 @@
 \alias{list2df}
 \title{List to data.frame}
 \usage{
-list2df(x, name = "name", value = "value", show_NA, warn = TRUE)
+list2df(x, name = "name", value = "value", warn = TRUE)
 }
 \arguments{
 \item{x}{A (preferably) named \code{list} with any number of values}
 
 \item{name, value}{Names of the new key and value columns, respectively}
-
-\item{show_NA}{Ignored; if set will trigger a warning}
 
 \item{warn}{Logical; if TRUE will show a warning when}
 }

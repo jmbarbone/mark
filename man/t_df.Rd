@@ -4,12 +4,10 @@
 \alias{t_df}
 \title{Data frame transpose}
 \usage{
-t_df(x, id = NULL)
+t_df(x)
 }
 \arguments{
 \item{x}{A data.frame}
-
-\item{id}{No longer used}
 }
 \value{
 A transposed \code{data.frame} with columns (\code{"colname"}, \code{"row_1"}, ...,
