@@ -1,6 +1,6 @@
 test_that("find_author() works", {
   withr::local_options(list(mark.author = NULL))
-  expect_error(find_author(), class = "findAuthorError")
+  expect_error(find_author(), class = "mark:no_author_found")
 })
 
 test_that("use_author() works", {
