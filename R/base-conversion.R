@@ -30,7 +30,7 @@ base_alpha_single <- function(x, base) {
   a <- match(a, letters[1:base], nomatch = NA_integer_)
 
   if (anyNA(a)) {
-    stop(cond_base_alpha_limit(base, x))
+    stop(base_alpha_limit(base, x))
   }
 
   n <- length(a)
@@ -62,7 +62,7 @@ base_n <- function(x, from = 10, to = 10) {
   }
 
   if (to != 10) {
-    stop(cond_base_n_ten())
+    stop(base_n_ten())
   }
 
   check_base(from)
@@ -73,7 +73,7 @@ base_n_single <- function(x, base) {
   ints <- as.integer(chr_split(x))
 
   if (any(ints >= base, na.rm = TRUE)) {
-    stop(cond_base_n_single_limit(base, x))
+    stop(base_n_single_limit(base, x))
   }
 
   seqs <- (length(ints) - 1L):0L
@@ -85,7 +85,7 @@ check_base_alpha <- function(b, high = 26) {
     b <- chr_split(b)
 
     if (length(b) != 1) {
-      stop(cond_check_base_alpha_length())
+      stop(base_alpha_length())
     }
 
     b <- match(tolower(b), letters)
@@ -96,66 +96,68 @@ check_base_alpha <- function(b, high = 26) {
 
 check_base <- function(b, high = 9) {
   if (b %% 1 != 0) {
-    stop(cond_check_base_integer())
+    stop(base_integer())
   }
 
   if (b > high || b <= 1) {
-    stop(cond_check_base_limit(high))
+    stop(base_limit(high))
   }
 }
 
 
 # conditions --------------------------------------------------------------
 
-cond_base_alpha_limit <- function(base, x) {
-  new_condition(
+base_alpha_limit := condition(
+  type = "error",
+  message = function(base, x) {
     sprintf(
       'Cannot calculate alpha base "%s" for "%s" which has letters beyond "%s"',
-      base, x, x[base]
-    ),
-    "base_alpha_limit"
-  )
-}
+      base,
+      x,
+      x[base]
+    )
+  },
+  exports = "base_alpha"
+)
 
-cond_base_n_ten <- function() {
-  new_condition(
-    "base_n() is currently only valid for conversions to base 10",
-    "base_n_ten"
-  )
-}
 
-cond_base_n_single_limit <- function(base, x) {
-  new_condition(
+base_n_ten := condition(
+  type = "error",
+  message = "base_n() is currently only valid for conversions to base 10",
+  exports = "base_n"
+)
+
+base_n_single_limit := condition(
+  type = "error",
+  message = function(base, x) {
     sprintf(
       paste0(
         "Cannot caluclate base \"%s\" for \"%s\" which has numbers greater",
         " than or equal to the base value"
       ),
       base, x
-    ),
-    "base_n_single_limit"
-  )
-}
+    )
+  },
+  exports = "base_n"
+)
 
-cond_check_base_alpha_length <- function() {
-  new_condition(
-    "base must be of length 1",
-    "check_base_alpha_length"
-  )
-}
+base_alpha_length := condition(
+  type = "error",
+  message = "base must be of length 1",
+  exports = "base_alpha"
+)
 
-cond_check_base_integer <- function() {
-  new_condition(
-    "base must be an integer",
-    "check_base_integer"
-  )
-}
+base_integer := condition(
+  type = "error",
+  message = "base must be an integer",
+  exports = c("base_alpha", "base_n")
+)
 
-cond_check_base_limit <- function(high) {
-  new_condition(
-    paste("base must be between 1 and", high),
-    "check_base_limit"
-  )
-}
+base_limit := condition(
+  type = "error",
+  message = function(high) {
+    sprintf("base must be between 1 and %s", high)
+  },
+  exports = c("base_alpha", "base_n")
+)
 
-# terminal line
