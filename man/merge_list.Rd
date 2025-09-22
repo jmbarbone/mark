@@ -4,7 +4,13 @@
 \alias{merge_list}
 \title{Merge lists}
 \usage{
-merge_list(x, y, keep = c("x", "y"), null = c("ignore", "drop", "keep")[1:2])
+merge_list(
+  x,
+  y,
+  keep = c("x", "y"),
+  null = c("ignore", "drop", "keep")[1:2],
+  sort = TRUE
+)
 }
 \arguments{
 \item{x, y}{Lists to merge}
@@ -24,6 +30,9 @@ output.
 \item \code{"keep"}: \code{NULL} values are retained in the output and can override other
 values.
 }}
+
+\item{sort}{When \code{TRUE} (default) will sort the output by names; otherwise
+will retain the order of \code{x} and \code{y} with \code{x} values first.}
 }
 \description{
 Merge lists with different or intersecting names
