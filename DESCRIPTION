@@ -23,6 +23,7 @@ Depends:
     R (>= 3.6)
 Imports:
     cli,
+    cnd,
     fs (>= 1.6.2),
     fuj (>= 0.2.1),
     magrittr (>= 2.0.1),
@@ -54,7 +55,7 @@ Suggests:
     arrow (>= 16.1.0),
     readMDTable (>= 0.2.0),
     clipr (>= 0.8.0)
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 Roxygen: list(markdown = TRUE)
 Config/testthat/edition: 3
 Config/testthat/parallel: true

@@ -11,3 +11,6 @@ na_list <- list(
 )
 
 options(mark.na_list = na_list)
+
+cnd_create_registry()
+

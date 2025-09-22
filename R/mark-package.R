@@ -3,6 +3,7 @@
 #' Miscellaneous, Analytic R Kernels
 #'
 #' @import fuj
+#' @import cnd
 #' @docType package
 #' @name mark
 "_PACKAGE"

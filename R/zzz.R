@@ -5,3 +5,6 @@
 .onDetach <- function(libpath) {
   invisible()
 }
+
+# FIXME include:
+# cnd_document()
