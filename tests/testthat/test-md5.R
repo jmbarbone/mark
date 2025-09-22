@@ -1,20 +1,28 @@
 test_that("md5() works", {
   expect_identical(
     md5(letters),
-    "d50f072f51db46c1736ee43adbba195f",
+    "efdb4b76073d1962b351692972a8d9e3",
     ignore_attr = "class"
   )
 
   expect_identical(
     md5(1:100),
-    "9d6257190ff5b50a0242cea93afda52f",
+    "e7d409fa912dd31c9a9da6cb9eb21b32",
     ignore_attr = "class"
   )
 
   expect_identical(
     md5(quick_dfl(a = 1)),
-    "45aa38750405b63fd8cb81b938cdf76b",
+    "34e2f3ac0f1ba4794d0cd0160fe80c6e",
     ignore_attr = "class"
+  )
+})
+
+test_that("md5(btyes) return the same", {
+  skip_if_not(getRversion() >= "4.5.0")
+  expect_identical(
+    md5(letters, bytes = TRUE),
+    md5(letters, bytes = FALSE)
   )
 })
 
