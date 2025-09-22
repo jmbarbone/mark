@@ -98,7 +98,7 @@ detail.data.frame <- function(x, factor_n = 5L, ...) {
   x <- x[, !vap_lgl(x, is.list), drop = FALSE]
 
   if (!ncol(x)) {
-    stop(cond_detail_data_frame_list())
+    stop(no_non_list_columns())
   }
 
   details <- lapply(x, detail, factor_n = factor_n)
@@ -113,9 +113,8 @@ detail.data.frame <- function(x, factor_n = 5L, ...) {
 
 # conditions --------------------------------------------------------------
 
-cond_detail_data_frame_list <- function() {
-  new_condition(
-    "x does not have any non-list columns",
-    "detail_data_frame_list"
-  )
-}
+no_non_list_columns := condition(
+  "x does not have any non-list columns",
+  type = "error",
+  exports = "detail.data.frame"
+)
