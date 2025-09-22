@@ -1,5 +1,3 @@
-# nolint start: line_length_linter.
-
 #' Diff time wrappers
 #'
 #' Wrappers for computing diff times
@@ -45,15 +43,21 @@
 #'
 #' @export
 #' @name diff_time
-
-# nolint end: lien_length_linter.
-
 diff_time <- function(
   x,
   y,
-  method = c("secs", "mins", "hours",
-             "days", "weeks", "months",
-             "years", "dyears", "wyears", "myears"),
+  method = c(
+    "secs",
+    "mins",
+    "hours",
+    "days",
+    "weeks",
+    "months",
+    "years",
+    "dyears",
+    "wyears",
+    "myears"
+  ),
   tzx = NULL,
   tzy = tzx
 ) {
@@ -92,7 +96,7 @@ extract_numeric_time <- function(x, tz) {
 
   if (is.null(tz)) {
     if (is.numeric(x)) {
-      stop(cond_extract_numeric_time_numeric())
+      stop(numeric_datetime_tz())
     }
 
     gmt <- NULL
@@ -136,7 +140,7 @@ to_numeric_with_tz <- function(x, tz) {
   nas <- is.na(tz)
 
   if (any(nas)) {
-    warning(cond_to_numeric_with_tz_na())
+    warning(na_timezone_found())
     tz[nas] <- default_tz()
   }
 
@@ -171,7 +175,7 @@ check_tz <- function(x) {
   bad <- ux %out% OlsonNames()
 
   if (any(bad)) {
-    stop(cond_check_tz_timezones(ux[bad]))
+    stop(timezone_not_found(ux[bad]))
   }
 
   invisible(NULL)
@@ -309,7 +313,7 @@ default_tz <- function() {
   }
 
   if (!is.character(tz) || length(tz) != 1L) {
-    stop(cond_default_tz_tz())
+    stop(default_tz_value())
   }
 
   tz
@@ -337,42 +341,48 @@ sys_tz <- function(method = 1) {
 
 # conditions --------------------------------------------------------------
 
-cond_extract_numeric_time_numeric <- function() { # nolint: object_length_linter, line_length_linter.
-  new_condition(
-    "Date times cannot be numeric when tz is NULL",
-    "extract_numeric_time_numeric"
-  )
-}
+numeric_datetime_tz := condition(
+  "Date times cannot be numeric when tz is NULL",
+  type = "error",
+  exports = "diff_time",
+  help = "```r
+# Instead of this:
+diff_time(100, 200, tz = NULL)
 
-cond_to_numeric_with_tz_na <- function() {
-  new_condition(
-    paste("NA found in timezones; setting to", default_tz()),
-    "to_numeric_with_tz_na",
-    type = "warning"
-  )
-}
+# do this:
+diff_time(100, 200, tz = 'America/New_York')
 
-cond_check_tz_timezones <- function(x) {
-  msg <- sprintf(
-    paste0(
-      "Timezone(s) not found: %s\n",
-      "Please check timezones in `OlsonNames()`"
-    ),
-    collapse(x, sep = ", ")
-  )
+# or:
+diff_time(100, 200, tz = 0)
+```"
+)
 
-  new_condition(msg, "check_tz_timezone_olson")
-}
+na_timezone_found := condition(
+  function() {
+    paste("NA found in timezones; setting to default timezone:",  default_tz())
+  },
+  type = "warning",
+  exports = "diff_time"
+)
 
-cond_default_tz_tz <- function() {
-  new_condition(
-    paste0(
-      "option(mark.default_tz) must be",
-      " a character vector of length 1L,",
-      " a function that returns a character vector of length 1L,",
-      " NULL (defaults to UTC),",
-      ' or "system" to set to system timezone'
-    ),
-    "default_tz_tz"
+timezone_not_found := condition(
+  function(x) paste0("Timezone(s) not found: ", collapse(x, sep = ", "), "\n"),
+  type = "error",
+  exports = "diff_time",
+  help = c(
+    "When using a string for a timezone, this value must be found within",
+    " `OlsonNames()`"
   )
-}
+)
+
+default_tz_value := condition(
+  "Invalid value for default timezone",
+  type = "error",
+  exports = "diff_time",
+  help = c(
+    "option(mark.default_tz) must be a character vector of length 1L,",
+    " a function that returns a character vector of length 1L,",
+    " NULL (defaults to UTC),",
+    ' or "system" to set to system timezone'
+  )
+)
