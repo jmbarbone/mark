@@ -17,5 +17,5 @@ test_that("not_available() works", {
 
   # reset list
   options(mark.na_list = NULL)
-  expect_identical(get_na_list(), na_list)
+  expect_identical(get_na_list(), op.mark$mark.na_list)
 })

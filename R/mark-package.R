@@ -8,7 +8,8 @@
 #' @name mark
 "_PACKAGE"
 
-op.mark <- list( # nolint: object_name_linter.
+# nolint next: object_name_linter.
+op.mark <- list(
   mark.author            = NULL,
   # control for check_interactive() to return interactive() or TRUE
   mark.check_interactive = TRUE,
@@ -20,5 +21,14 @@ op.mark <- list( # nolint: object_name_linter.
   mark.days_in_year      = 365,
   mark.weeks_inn_year    = 52,
   mark.default_tz        = "UTC",
-  mark.na_list           = na_list
+  mark.na_list           = list(
+    logical   = logical(),
+    character = character(),
+    integer   = integer(),
+    double    = double(),
+    numeric   = numeric(),
+    Date      = as.Date(NA),
+    POSIXct   = as.POSIXct(NA),
+    POSIXlt   = as.POSIXlt(NA)[[1]]
+  )
 )

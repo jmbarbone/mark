@@ -15,6 +15,8 @@
 #'  output.
 #' * `"keep"`: `NULL` values are retained in the output and can override other
 #'  values.
+#' @param sort When `TRUE` (default) will sort the output by names; otherwise
+#'  will retain the order of `x` and `y` with `x` values first.
 #' @examples
 #' x <- list(a = 1, b = 2,    c = NULL, d = NULL)
 #' y <- list(a = 2, b = NULL, c = 3)
@@ -28,30 +30,33 @@
 #' merge_list(x, y, null = "drop")
 #' @export
 merge_list <- function(
-    x,
-    y,
-    keep = c("x", "y"),
-    null = c("ignore", "drop", "keep")[1:2]
+  x,
+  y,
+  keep = c("x", "y"),
+  null = c("ignore", "drop", "keep")[1:2],
+  sort = TRUE
 ) {
   if (length(null) == 1L) {
     null <- c(null, null)
   }
 
-  stopifnot(length(null) == 2)
+  stopifnot(length(null) == 2L)
   keep <- match_param(keep)
   x <- x %||% list()
   y <- y %||% list()
-  xx <- x
+
   stopifnot(is.list(x), is.list(y))
+  xx <- x
+
   x <- switch(
-    null[1],
+    null[1L],
     keep = x,
     ignore = remove_null(x),
     drop = remove_null(x)
   )
 
   y <- switch(
-    null[2],
+    null[2L],
     keep = y,
     ignore = remove_null(y),
     drop = remove_null(y)
@@ -59,13 +64,18 @@ merge_list <- function(
 
   res <- c(x, y)[!duplicated(c(names(x), names(y)), fromLast = keep == "y")]
 
-  if (null[1] == "ignore") {
+  if (null[1L] == "ignore") {
     return(merge_list(
       x = xx[names(xx) %out% names(res)],
       y = res,
-      null = c("keep", "ignore")
+      null = c("keep", "ignore"),
+      sort = sort
     ))
   }
 
-  res[order(names(res))]
+  if (sort) {
+    res <- res[order(names(res))]
+  }
+
+  res
 }
