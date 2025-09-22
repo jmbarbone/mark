@@ -22,7 +22,7 @@ array_extract <- function(.arr, ..., default = "1") {
   nm <- wuffle(as.integer(names(ls) %||% seq_along(ls)))
 
   if (anyNA(nm)) {
-    stop(cond_arary_extract_names())
+    stop(array_extract_names())
   }
 
   ds <- dim(.arr)
@@ -54,9 +54,10 @@ array_extract <- function(.arr, ..., default = "1") {
 
 # conditions --------------------------------------------------------------
 
-cond_arary_extract_names <- function() {
-  new_condition(
-    "... must be fully named by integers or have no names",
-    "array_extract_names"
-  )
-}
+array_extract_names := condition(
+  type = "error",
+  message = "... must be fully named by integers or have no names",
+  package = "mark",
+  exports = "array_extract"
+)
+
