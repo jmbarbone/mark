@@ -20,7 +20,7 @@ append0.list <- function(x, values, pos = NULL, expand = FALSE, ...) {
     n <- unique(lengths(x))
 
     if (length(n) > 1) {
-      warning(cond_append_expand())
+      warning(append_expand_warning())
       n <- max(n)
     }
 
@@ -64,6 +64,9 @@ append0.default <- function(x, values, pos = NULL, ...) {
 
 # conditions --------------------------------------------------------------
 
-cond_append_expand <- function() {
-  new_condition("expanding to the largest n", "append0", type = "warning")
-}
+append_expand_warning := condition(
+  message = "expanding to the largest n",
+  type = "warning",
+  package = "mark",
+  exports = "insert"
+)
