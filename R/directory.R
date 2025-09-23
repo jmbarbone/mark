@@ -92,7 +92,7 @@ get_recent_file <- function(x, exclude_temp = TRUE, ...) {
   }
 
   if (no_length(files)) {
-    stop(cond_get_recent_file_none())
+    stop(no_recent_file_found())
   }
 
   newest_file(files)
@@ -122,7 +122,7 @@ norm_path <- function(x = ".", check = FALSE, remove = check) {
   ind <- !fs::file_exists(x)
 
   if (check && any(ind)) {
-    warning(cond_norm_path_found(x[ind]))
+    warning(path_not_found(x[ind]))
   }
 
   if (remove) {
@@ -398,7 +398,7 @@ is_file <- function(x) {
 file_create <- function(x, overwrite = FALSE) {
   dirs <- is_dir(x)
   if (any(dirs)) {
-    warning(cond_file_create_dir(x[dirs]))
+    warning(paths_are_directories(x[dirs]))
     x <- x[!dirs]
   }
 
@@ -475,27 +475,40 @@ add_file_timestamp <- function(
 
 # conditions --------------------------------------------------------------
 
-cond_get_recent_file_none <- function() {
-  new_condition("No files found", "get_recent_file_none")
-}
+no_recent_file_found := condition(
+  "No recent file found",
+  type = "error",
+  exports = "get_recent_file"
+)
 
-cond_norm_path_found <- function(paths) {
-  new_condition(
-    paste0("Paths not found:\n  '", collapse(paths, sep = "'\n  '"), "'"),
-    "norm_path_found",
-    type = "warning"
+path_not_found := condition(
+  function(x) {
+    ngettext(
+      length(x),
+      paste("Path not found:", norm_path(x)),
+      paste0(
+        "Paths not found:",
+        paste0("\n   ", norm_path(x), collapse = "\n")
+      )
+    )
+  },
+  type = "warning",
+  exports = "norm_path"
+)
+
+paths_are_directories := condition(
+  function(x) {
+    ngettext(
+      length(x),
+      paste("File is a directory:", norm_path(x)),
+      paste0(
+        "Files are directories:",
+        paste0("\n   ", norm_path(x), collapse = "\n")
+      )
+    )
+  },
+  type = "warning",
+  help = (
+    "File creation cannot be performed when the path is an existing directory"
   )
-}
-
-cond_file_create_dir <- function(x) {
-  new_condition(
-    paste0(
-      "Cannot create files that are directories:",
-      paste0("\n   ", norm_path(x))
-    ),
-    "file_create_dir",
-    type = "warning"
-  )
-}
-
-# terminal line
+)
