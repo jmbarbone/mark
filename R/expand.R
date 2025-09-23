@@ -127,11 +127,11 @@ reindex <- function(
   }
 
   if (anyNA(xi)) {
-    warning(cond_reindex_na())
+    warning(reindex_na_index(which(is.na(xi))))
   }
 
   if (is.null(xi)) {
-    stop(cond_reindex_index())
+    stop(reindex_null_index())
   }
 
   ro <- expand_by(xi, new_index, expand = expand, sort = sort)
@@ -142,18 +142,20 @@ reindex <- function(
   out
 }
 
-# FUNS --------------------------------------------------------------------
+# helpers -----------------------------------------------------------------
 
 unique_name_check <- function(x) {
   # Checks that names are unique in the vector
   nm <- names(x) %||% x
   lens <- counts(nm)
-  int <- lens > 1
+  int <- lens > 1L
 
   if (any(int)) {
-    warning("These names are duplicated: ",
-            collapse0(names(lens[int]), sep = ", "),
-            call. = FALSE)
+    warning(
+      "These names are duplicated: ",
+      collapse0(names(lens[int]), sep = ", "),
+      call. = FALSE
+    )
     return(invisible(FALSE))
   }
 
@@ -162,16 +164,45 @@ unique_name_check <- function(x) {
 
 # conditions --------------------------------------------------------------
 
-cond_reindex_na <- function() {
-  new_condition(
-    "NA values detected in index this may cause errors with expansion",
-    "reindex_na",
-    type = "warning"
-  )
-}
+reindex_na_index := condition(
+  function(x) {
+    paste(
+      ngettext(
+        length(x),
+        "NA value detected in index at position:",
+        "NA values detected in index at positions:"
+      ),
+      collapse(x, sep = ", ")
+    )
+  },
+  type = "warning",
+  exports = "reindex",
+  help = "NA values in index may cause errors with expansion
 
-cond_reindex_index <- function() {
-  new_condition("x[[index]] returned `NULL`", "reindex_index")
-}
+`reindex()` will not match on NA values but instead will return a row of NAs
+
+```r
+x <- data.frame(index = c(1:2, NA, 4:5), values = letters[1:5])
+reindex(x, 'index', c(1, 2, 5))
+#>   index values
+#> 1     1      a
+#> 2     2      b
+#> 5     5      e
+
+reindex(x, 'index', c(1, 2, 5, NA))
+#>      index values
+#> 1        1      a
+#> 2        2      b
+#> 5        5      e
+#> <NA>    NA   <NA>
+````
+"
+)
+
+reindex_null_index := condition(
+  "x[[index]] returned `NULL`",
+  type = "error",
+  exports = "reindex"
+)
 
 # terminal line
