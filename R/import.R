@@ -18,23 +18,30 @@ import <- function(pkg, fun, overwrite = FALSE) {
   require_namespace(pkg)
 
   if (!overwrite && fun %in% ls(envir = e)) {
-    stop(cond_import_assigned(fun))
+    stop(import_already_assigned(fun))
   }
 
-  assign(fun, pkg %colons% fun, envir = e)
+  assign(fun, pkg %::% fun, envir = e)
 }
 
 # conditions --------------------------------------------------------------
 
-cond_import_assigned <- function(fun) {
-  new_condition(
-    sprintf(
-      paste(
-        "`%s` has already been assigned.",
-        "Use `overwite = TRUE` to overwrite assignment."
-      ),
-      fun
-    ),
-    "import_assigned"
-  )
-}
+import_already_assigned := condition(
+  message = function(fun) sprintf("'%s' has already been assigned", fun),
+  type = "error",
+  exports = "import",
+  help = "
+The object you are trying to import has already been assigned in the environment you are importing to.  Use the `overwrite` option to replace the object.
+
+For example:
+
+```r
+# instead of
+foo <- NULL
+import('package', 'foo')
+
+# do this
+foo <- NULL
+import('package', 'foo', overwrite = TRUE)
+```
+")
