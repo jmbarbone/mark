@@ -23,16 +23,12 @@ are_identical <- function(..., params = NULL) {
   x <- rlang::list2(...)
   n <- length(x)
 
-  if (length(unique(lengths(x))) != 1L) {
-    stop(cond_are_identical_none())
-  }
-
-  if (n < 2L) {
-    stop(cond_are_identical_two())
+  if (length(unique(lengths(x))) != 1L || n < 2L) {
+    stop(dots_specified_correctly())
   }
 
   if (n == 2L) {
-    return(do_map_identical(x[[1]], x[[2]], params))
+    return(do_map_identical(x[[1L]], x[[2L]], params))
   }
 
   res <- list()
@@ -41,16 +37,14 @@ are_identical <- function(..., params = NULL) {
     res[[i]] <- do_map_identical(x[[i]], x[[i + 1L]], params)
   }
 
-  apply(Reduce(cbind, res), 1, all)
+  apply(Reduce(cbind, res), 1L, all)
 }
 
 do_map_identical <- function(x, y, params = NULL) {
   mapply(
-    function(.x, .y) {
-      do.call(identical, c(list(x = .x, y = .y), params))
-    },
-    x,
-    y,
+    function(.x, .y) do.call(identical, c(list(x = .x, y = .y), params)),
+    .x = x,
+    .y = y,
     USE.NAMES = FALSE,
     SIMPLIFY = TRUE
   )
@@ -58,16 +52,8 @@ do_map_identical <- function(x, y, params = NULL) {
 
 # conditions --------------------------------------------------------------
 
-cond_are_identical_none <- function() {
-  new_condition(
-    "... must have equal length vectors",
-    "are_identical_none"
-  )
-}
-
-cond_are_identical_two <- function() {
-  new_condition(
-    "... must have length of 2 or more",
-    "are_identical_two"
-  )
-}
+dots_specified_correctly := condition(
+  "... must have at least two arguments and be equal length vectors",
+  type = "error",
+  exports = "are_identical"
+)
