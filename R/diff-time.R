@@ -359,7 +359,7 @@ diff_time(100, 200, tz = 0)
 
 na_timezone_found := condition(
   function() {
-    paste("NA found in timezones; setting to default timezone:",  default_tz())
+    paste("NA found in timezones; setting to default timezone:", default_tz())
   },
   type = "warning",
   exports = "diff_time"
