@@ -508,7 +508,7 @@ paths_are_directories := condition(
     )
   },
   type = "warning",
-  help = (
+  help = {
     "File creation cannot be performed when the path is an existing directory"
-  )
+  }
 )
