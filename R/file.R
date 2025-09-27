@@ -15,9 +15,9 @@ file_copy_md5 <- function(path, new_path, overwrite = NA, quiet = FALSE) {
   msg <- if (quiet) {
     function(...) invisible()
   } else if (utils::packageVersion("fuj") < "0.2.2") {
-    function(...) message(...)
+    function(...) cat(..., "\n")
   } else {
-    function(...) message(cond_file_copy_md5(...))
+    function(...) cnd(md5_status(.makeMessage(...)))
   }
 
   # not as pretty, but pretty reasonable
@@ -48,10 +48,4 @@ file_copy_md5 <- function(path, new_path, overwrite = NA, quiet = FALSE) {
   invisible(new_path)
 }
 
-cond_file_copy_md5 <- function(...) {
-  fuj::new_condition(
-    .makeMessage(...),
-    class = "file_copy_md5",
-    type = "message"
-  )
-}
+md5_status := condition(function(x) x)
