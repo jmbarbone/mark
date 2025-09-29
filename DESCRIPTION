@@ -23,7 +23,7 @@ Depends:
     R (>= 3.6)
 Imports:
     cli,
-    cnd,
+    cnd (>= 0.1.0.9001),
     fs (>= 1.6.2),
     fuj (>= 0.2.1),
     magrittr (>= 2.0.1),
@@ -50,11 +50,13 @@ Suggests:
     waldo (>= 0.2.5),
     withr (>= 2.3.0),
     xopen,
-    yaml,
+    yaml (>= 2.3.9),
     jsonlite,
     arrow (>= 16.1.0),
     readMDTable (>= 0.2.0),
     clipr (>= 0.8.0)
+Remotes:
+    github::jmbarbone/cnd@v0.1.0.9001
 RoxygenNote: 7.3.3
 Roxygen: list(markdown = TRUE)
 Config/testthat/edition: 3
