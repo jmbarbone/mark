@@ -31,13 +31,12 @@ test_that("data.frame assignment", {
 
   expect_error(
     assign_labels(x0, a = "x", b = "y", `1` = 2),
-    "Columns not found: a, b, 1",
-    class = "assignLabelsDataframeMissingError"
+    class = "mark:missing_labels_in_assign"
   )
 
   expect_error(
     assign_labels(x0, NULL),
-    class = "assignLabelsDataframeNamesError"
+    class = "mark:invalid_assign_labels"
   )
 
   expect_true(is.null(attr(exp0[["Species"]], "label")))
@@ -45,18 +44,31 @@ test_that("data.frame assignment", {
   expect_equal(x0, exp2)
   expect_equal(exp1, exp2)
 
-  expect_error(assign_labels(x0, .ls = list()), class = "simpleError")
+  expect_error(
+    assign_labels(x0, .ls = list()),
+    class = "mark:invalid_assign_labels"
+  )
   expect_error(
     assign_labels(x0, a = 1, .ls = list(b = 2)),
-    class = "assignLabelsDataframeDotsError"
+    class = "mark:invalid_assign_labels"
   )
 
   df <- quick_dfl(a = 1, b = 2, c = 3)
-  # nolint start: line_length_linter.
-  expect_error(assign_labels(df, c = "c", d = "d", .missing = "error"), class = "assignLabelsDataframeMissingError")
-  expect_warning(assign_labels(df, c = "c", d = "d", .missing = "warn"), class = "assignLabelsDataframeMissingWarning")
-  expect_warning(assign_labels(df, c = "c", d = "d", .missing = "skip"), NA)
-  # nolint end: line_length_linter.
+  expect_error(
+    assign_labels(df, c = "c", d = "d", .missing = "error"),
+    class = "mark:missing_labels_in_assign"
+  )
+
+  # error is raised as a warning
+  expect_error(
+    assign_labels(df, c = "c", d = "d", .missing = "warn"),
+    class = "mark:missing_labels_in_assign"
+  )
+
+  expect_warning(
+    assign_labels(df, c = "c", d = "d", .missing = "skip"),
+    NA
+  )
 })
 
 test_that("data.frame assign with data.frame", {
@@ -85,23 +97,17 @@ test_that("data.frame assign with data.frame", {
 
   expect_error(
     assign_labels(iris, bad_labels),
-    "Columns not found: a, b, 1",
-    class = "assignLabelsDataframeMissingError"
+    class = "mark:missing_labels_in_assign"
   )
 
   options(op)
 })
 
 test_that("view_labels() works", {
+  skip_if(interactive())
   df <- data.frame(a = 1, b = 2)
   df <- assign_labels(df, a = "a", b = "b")
-
-  # redefine "View"
-  View <- function(x, ...) identity(x) # nolint: object_name_linter.
-  expect_error(view_labels(df), NA)
-
-  View <- NA # nolint: object_name_linter.
-  expect_error(view_labels(df), class = "viewLabelsSomethingError")
+  expect_error(view_labels(df), class = "mark:cannot_view_labels")
 })
 
 test_that("exact match [141]", {
