@@ -152,7 +152,7 @@ test_that("Timezones", {
 
   expect_warning(
     diff_time(Sys.Date(), Sys.Date(), tzx = NA, tzy = "GMT"),
-    "NA found in timezones"
+    class = "mark:na_timezone_found"
   )
 })
 
@@ -190,7 +190,6 @@ test_that("class coehersion", {
 
   expect_warning(
     to_numeric_with_tz("2021-01-01", NA),
-    "NA found in timezones",
     class = "mark:na_timezone_found"
   )
 
