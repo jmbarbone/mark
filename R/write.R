@@ -301,10 +301,7 @@ get_list_hook <- function(hook) {
     false = function(x) NA_character_,
     none = NULL,
     # nolint next: brace_linter.
-    na = function(x) stop(new_condition(
-      "options(mark.list.hook) is NA but list columns detected",
-      class = "writeFileMd5ListHook"
-    )),
+    na = function(x) stop(write_na_hook()),
     match.fun(hook)
   )
 }
@@ -351,17 +348,7 @@ mark_write_yaml <- function(
     unicode = unicode,
     precision = digits,
     indent.mapping.sequence = FALSE,
-    handlers = list(
-      boolean = function(x) {
-        # nocov start
-        if (x %in% c("n", "y")) {
-          x
-        } else {
-          tolower(x) == "true"
-        }
-        # nocov end
-      }
-    )
+    handlers = list(logical = yaml::verbatim_logical)
   )
   mark_write_lines(string, con)
 }
@@ -421,6 +408,45 @@ mark_write_arrow <- function(
   }
 
   write(x, sink = con, ...)
+}
+
+mark_write_md <- function(x, con, ...) {
+  # TODO include:
+  # @align
+  # @pad
+  # @format "default", "compact"
+  m <- rbind(NA, NA, unname(as.matrix(x)))
+  numeric <- vap_lgl(x, is.numeric)
+  align <- rep("left", ncol(x))
+  align[numeric] <- "right"
+
+  for (i in seq_along(x)) {
+    m[, i] <- format(c(colnames(x)[i], "", m[-(1:2), i]), justify = align[i])
+  }
+
+  # for 'center', subtract 2 from the total
+  m[2L, ] <- strrep("-", nchar(m[1L, ]) - 1L)
+  m[2L, numeric] <- paste0(m[2L, numeric], ":")
+  m[2L, !numeric] <- paste0(":", m[2L, !numeric])
+
+  cat(
+    paste0(
+      "|",
+      apply(m, 1L, paste0, collapse = "|"),
+      "|",
+      collapse = "\n"
+    ),
+    file = con
+  )
+}
+
+mark_read_md <- function(file, text) {
+  if (!missing(text)) {
+    file <- textConnection(text)
+  }
+
+  x <- readLines(file)
+
 }
 
 # helpers -----------------------------------------------------------------
@@ -570,3 +596,11 @@ safe_fs_delete <- function(x) {
     fs::file_delete(x)
   }
 }
+
+
+# conditions --------------------------------------------------------------
+
+write_na_hook := condition(
+  "options(mark.list.hook) is NA but list columns detected",
+  type = "error",
+)

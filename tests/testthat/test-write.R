@@ -2,8 +2,11 @@ test_that("write_file_md5() works", {
   df <- quick_dfl(a = 1, b = 2)
   temp <- withr::local_tempfile()
   expect_output(write_file_md5(df))
-  expect_message(write_file_md5(df, temp), class = fuj_message())
-  expect_message(write_file_md5(df, temp), class = fuj_message())
+  muffle_cnd_conditions({
+    expect_condition(write_file_md5(df, temp), class = "mark:md5_status")
+    expect_condition(write_file_md5(df, temp), class = "mark:md5_status")
+
+  })
 
   # atomic
   expect_output(write_file_md5("lines"))
@@ -20,10 +23,13 @@ test_that("write_file_md5() types", {
       } else {
         quick_dfl(a = 1, b = "n", c = TRUE)
       }
-      expect_message(
+
+    muffle_cnd_conditions(
+      expect_condition(
         write_file_md5(x, temp, method = !!method),
-        class = fuj_message()
+        class = "mark:md5_status"
       )
+    )
   }
 
   for (method in unlist0(mark_write_methods())) {
@@ -34,13 +40,15 @@ test_that("write_file_md5() types", {
 test_that("path warning", {
   temp <- withr::local_tempfile()
   x <- structure(quick_dfl(a = 1), path = temp)
-  expect_message(
-    expect_warning(
-      write_file_md5(x, temp),
-      "attr(x, \"path\") is being overwritten",
-      fixed = TRUE
-    ),
-    class = fuj_message()
+  muffle_cnd_conditions(
+    expect_condition(
+      expect_warning(
+        write_file_md5(x, temp),
+        "attr(x, \"path\") is being overwritten",
+        fixed = TRUE
+      ),
+      class = "mark:md5_status"
+    )
   )
 })
 
@@ -104,7 +112,7 @@ test_that("list columns", {
     "unimplemented type 'list' in 'EncodeElement'",
     fixed = TRUE
   )
-  expect_error(foo(NA), class = "writeFileMd5ListHookError")
+  expect_error(foo(NA), class = "mark:write_na_hook")
 })
 
 test_that("arrow prints something to stdout()", {

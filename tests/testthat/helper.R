@@ -1,5 +1,6 @@
-fuj_message <- function() {
-  if (packageVersion("fuj") >= "2.2.0") {
-    "mark:fileCopyMd5Message"
-  }
+muffle_cnd_conditions <- function(expr) {
+  withCallingHandlers(
+    expr,
+    "cnd::condition" = function(cond) tryInvokeRestart("muffleCondition")
+  )
 }

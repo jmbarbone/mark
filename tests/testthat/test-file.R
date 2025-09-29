@@ -1,4 +1,6 @@
-test_that("file_copy_md5() works", {
+
+
+muffle_cnd_conditions(test_that("file_copy_md5() works", {
   x <- c(tempfile("one"), tempfile("two"), tempfile("three"))
   y <- c(tempfile("one"), tempfile("two"), tempfile("three"))
   on.exit(fs::file_delete(c(x, y)))
@@ -8,36 +10,37 @@ test_that("file_copy_md5() works", {
   writeLines("three", x[3L])
 
   # none of y exists
-  expect_message(
+  expect_condition(
     file_copy_md5(x, y, overwrite = FALSE),
-    class = fuj_message()
+    class = "mark:md5_status"
   )
-  expect_message(
+
+  expect_condition(
     file_copy_md5(x, y, overwrite = FALSE),
-    class = fuj_message()
+    class = "mark:md5_status"
   )
 
   # all of y exists
-  expect_message(
+  expect_condition(
     file_copy_md5(x, y, overwrite = TRUE),
-    class = fuj_message()
+    class = "mark:md5_status"
   )
 
   # mix
   writeLines("twotwo", y[2L])
   fs::file_delete(y[3L])
 
-  expect_message(
+  expect_condition(
     expect_identical(
       attr(file_copy_md5(x, y), "changed"),
       c(FALSE, TRUE, NA)
     ),
-    class = fuj_message(),
+    class = "mark:md5_status",
     regexp = paste(
       "one", "md5 same", "two", "md5 change", "three", "new file",
       sep = ".*"
     )
   )
 
-  expect_message(file_copy_md5(x, y, quiet = TRUE), NA)
-})
+  expect_condition(file_copy_md5(x, y, quiet = TRUE), NA)
+}))
