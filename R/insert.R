@@ -15,13 +15,10 @@
 insert <- function(x, positions, values) {
   stopifnot(!anyNA(positions))
   positions <- as.integer(positions)
+  stopifnot(length(positions) >= 1)
 
   nval <- length(values)
   npos <- length(positions)
-
-  if (npos == 0L) {
-    stop(cond_insert_npos())
-  }
 
   if (nval == 1L && !is.list(values)) {
     values <- rep.int(values, npos)
@@ -30,7 +27,7 @@ insert <- function(x, positions, values) {
     positions <- positions[o]
     values <- values[o]
   } else {
-    stop(cond_insert_length())
+    stop(unequal_lengths())
   }
 
   seqs <- seq_along(positions)
@@ -46,16 +43,12 @@ insert <- function(x, positions, values) {
 
 # conditions --------------------------------------------------------------
 
-cond_insert_npos <- function() {
-  new_condition(
-    "positions has no length",
-    "insert_npos"
+unequal_lengths := condition(
+  "lengths of positions and values are unequal",
+  type = "error",
+  exports = "insert",
+  help = c(
+    "insert() requires that `positions` and `values` are the same length or",
+    " that `values` is length 1"
   )
-}
-
-cond_insert_length <- function() {
-  new_condition(
-    "length(values) must be equal to length(positions) or 1",
-    "insert_length"
-  )
-}
+)
