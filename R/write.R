@@ -410,24 +410,44 @@ mark_write_arrow <- function(
   write(x, sink = con, ...)
 }
 
-mark_write_md <- function(x, con, ...) {
-  # TODO include:
-  # @align
-  # @pad
-  # @format "default", "compact"
+mark_write_md <- function(
+    x,
+    con,
+    format = c("default", "compact"),
+    na = NA_character_,
+    ...
+  ) {
+  format <- match_param(format)
   m <- rbind(NA, NA, unname(as.matrix(x)))
+  n <- ncol(x)
   numeric <- vap_lgl(x, is.numeric)
-  align <- rep("left", ncol(x))
+  align <- rep("left", n)
   align[numeric] <- "right"
+  m[is.na(m)] <- na
 
   for (i in seq_along(x)) {
-    m[, i] <- format(c(colnames(x)[i], "", m[-(1:2), i]), justify = align[i])
+    m[, i] <- base::format(
+      c(colnames(x)[i], "", m[-(1:2), i]),
+      trim = format == "compact",
+      justify = align[i]
+    )
   }
 
-  # for 'center', subtract 2 from the total
-  m[2L, ] <- strrep("-", nchar(m[1L, ]) - 1L)
+  m[2L, ] <- strrep(
+    "-",
+    switch(
+      format,
+      default = nchar(m[1L, ]) - 1L,
+      compact = rep(2L, n)
+    )
+  )
+
   m[2L, numeric] <- paste0(m[2L, numeric], ":")
   m[2L, !numeric] <- paste0(":", m[2L, !numeric])
+
+  if (format == "compact") {
+    m <- trimws(m)
+  }
 
   cat(
     paste0(
