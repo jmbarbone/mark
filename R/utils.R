@@ -2,10 +2,6 @@
 which0 <- function(x) {
   which(x) %len% 0L
 }
-# isTRUE, isFALSE, ...
-isNA <- function(x) { # nolint: object_name_linter.
-  is.logical(x) && length(x) == 1L && is.na(x)
-}
 
 # modified from https://github.com/tidyverse/purrr/blob/5aca9df41452f272fcef792dbc6d584be8be7167/R/utils.R # nolint: line_length_linter.
 use_color <- function() {
