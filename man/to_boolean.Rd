@@ -4,6 +4,7 @@
 \alias{to_boolean}
 \alias{to_boolean.logical}
 \alias{to_boolean.numeric}
+\alias{to_boolean.integer}
 \alias{to_boolean.character}
 \alias{to_boolean.factor}
 \title{To Boolean}
@@ -12,11 +13,19 @@ to_boolean(x, ...)
 
 \method{to_boolean}{logical}(x, ...)
 
-\method{to_boolean}{numeric}(x, true = 1L, false = 0L, ...)
+\method{to_boolean}{numeric}(x, true = 1, false = 0, na = NULL, ...)
 
-\method{to_boolean}{character}(x, true = NULL, false = NULL, ...)
+\method{to_boolean}{integer}(x, true = 1L, false = 0L, ...)
 
-\method{to_boolean}{factor}(x, true = NULL, false = NULL, ...)
+\method{to_boolean}{character}(
+  x,
+  true = c("TRUE", "true", "T", "t", "YES", "yes", "Y", "y"),
+  false = c("FALSE", "false", "F", "f", "NO", "no", "N", "n"),
+  na = NULL,
+  ...
+)
+
+\method{to_boolean}{factor}(x, ...)
 }
 \arguments{
 \item{x}{A vector of values}
@@ -26,10 +35,19 @@ to_boolean(x, ...)
 \item{true}{A vector of values to convert to \code{TRUE}}
 
 \item{false}{A vector of values to convert to \code{FALSE}}
+
+\item{na}{An optional vector of values to convert to \code{NA}; if set, an error
+will be thrown when any values in \code{x} are not matched to \code{true}, \code{false},
+or \code{na}.}
 }
 \value{
-A \code{logical} vector of equal length as \code{x}
+A \code{logical} vector of equal length as \code{x}.
 }
 \description{
 Convert a vector to boolean/logical
+}
+\details{
+\code{\link[=to_boolean.integer]{to_boolean.integer()}} is passed to \code{\link[=to_boolean.numeric]{to_boolean.numeric()}} with
+integer-specific \code{true} and \code{false} defaults.  \code{\link[=to_boolean.factor]{to_boolean.factor()}} converts
+the factor levels via \code{\link[=to_boolean.character]{to_boolean.character()}}.
 }

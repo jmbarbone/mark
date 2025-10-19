@@ -9,12 +9,16 @@
 \alias{is_false.default}
 \alias{is_false.logical}
 \alias{\%xor\%}
+\alias{nor}
+\alias{nand}
+\alias{xnandr}
 \alias{OR}
 \alias{AND}
 \alias{either}
 \alias{is_boolean}
 \alias{none}
-\title{Logic - Extension'}
+\alias{isNA}
+\title{Logic - Extensions}
 \usage{
 is_true(x)
 
@@ -30,6 +34,12 @@ is_false(x)
 
 x \%xor\% y
 
+nor(x, y)
+
+nand(x, y)
+
+xnandr(x, y)
+
 OR(..., na.rm = FALSE)
 
 AND(..., na.rm = FALSE)
@@ -39,10 +49,11 @@ either(x, y)
 is_boolean(x)
 
 none(..., na.rm = FALSE)
+
+isNA(x)
 }
 \arguments{
-\item{x, y}{A vector of logical values.  If \code{NULL} will generate a warning.
-If not a logical value, will return \code{NA} equal to the vector length}
+\item{x, y}{A vector of values.  \verb{\%xor}, \code{nor}, \code{nand}, and \code{xnandr}}
 
 \item{...}{Vectors or a list of logical values}
 
@@ -50,10 +61,10 @@ If not a logical value, will return \code{NA} equal to the vector length}
 }
 \value{
 \itemize{
-\item \code{is_true()}, \code{is_false()}, \code{either()}, \verb{\%or\%}, \code{AND()}, \code{OR()}: A \code{logical}
-vector, equal length of \code{x} (or \code{y} or of all \code{...} lengths)
-\item \code{is_boolean()}: \code{TRUE} or \code{FALSE}
-\item \code{none()}: \code{TRUE}, \code{FALSE}, or \code{NA}
+\item \code{is_true()}, \code{is_false()}, \code{either()}, \verb{\%or\%}, \code{nor}, \code{nand}, \code{xandr},
+\code{AND()}, \code{OR()}: A \code{logical} vector, equal length of \code{x} (or \code{y} or of all
+\code{...} lengths)
+\item \code{is_boolean()}, \code{isNA()}, \code{none()}: A single \code{logical} value
 }
 }
 \description{
@@ -69,7 +80,7 @@ back by \code{NA} values, \code{is_true} and \code{is_false} will always provide
 \code{FALSE} when the vector is logical or return \code{NA} is the vector \code{x} is not
 logical.
 
-\verb{\%or\%} is just a wrapper for \code{\link[base:Logic]{base::xor()}}
+\verb{\%xor\%} is just a wrapper for \code{\link[base:Logic]{base::xor()}}
 }
 \details{
 Logical operations, extended
