@@ -93,7 +93,6 @@ do_to_boolean <- function(x, true, false, na) {
 cond <- function(..., class = NULL, call = NULL) {
   struct(
     list(paste0(..., collapse = ""), call),
-    # list(collapse(...), call),
     class = c(class, "condition"),
     names = c("message", "call")
   )
