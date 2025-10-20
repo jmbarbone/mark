@@ -4,10 +4,14 @@
 \alias{md5}
 \title{Compute the MD5 hash of an object}
 \usage{
-md5(x)
+md5(x, bytes = getOption("mark.md5.bytes"))
 }
 \arguments{
 \item{x}{An object}
+
+\item{bytes}{If \code{TRUE} will use the \code{bytes} argument in \code{\link[tools:md5sum]{tools::md5sum()}},
+available in R >= 4.5.0. If \code{NA} (the default) will use \code{TRUE} if
+available.}
 }
 \value{
 A \code{md5sum} object
