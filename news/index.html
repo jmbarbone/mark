@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">mark</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.3.9002</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.3.9003</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,6 +40,19 @@
 <li>
 <code><a href="../reference/round_to.html">round_to()</a></code> added to round values to a set <a href="https://github.com/jmbarbone/mark/issues/142" class="external-link">#142</a>
 </li>
+<li>
+<code><a href="../reference/logic_ext.html">is_true()</a></code>, <code><a href="../reference/logic_ext.html">is_false()</a></code> now works as documented <a href="https://github.com/jmbarbone/mark/issues/262" class="external-link">#262</a>
+</li>
+<li>
+<code><a href="../reference/to_boolean.html">to_boolean()</a></code> now works as documented <a href="https://github.com/jmbarbone/mark/issues/262" class="external-link">#262</a>
+<ul><li>
+<code><a href="../reference/to_boolean.html">to_boolean.character()</a></code>, and <code><a href="../reference/to_boolean.html">to_boolean.factor()</a></code> have been improved; they will also now require exact matches; cleanup (e.g., trimming whitespace and lowercasing) are not longer performed</li>
+<li>
+<code><a href="../reference/to_boolean.html">to_boolean.integer()</a></code> added</li>
+<li>
+<code><a href="../reference/to_boolean.html">to_boolean.numeric()</a></code>, <code><a href="../reference/to_boolean.html">to_boolean.integer()</a></code> will now return <code>NA</code>
+</li>
+</ul></li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.8.3" id="mark-083">mark 0.8.3<a class="anchor" aria-label="anchor" href="#mark-083"></a></h2><p class="text-muted">CRAN release: 2025-04-23</p>
@@ -622,7 +635,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
     </footer></div>

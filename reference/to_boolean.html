@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">mark</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.3.9002</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.3.9003</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,13 +45,22 @@
 <span><span class="fu">to_boolean</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'numeric'</span></span>
+<span><span class="fu">to_boolean</span><span class="op">(</span><span class="va">x</span>, true <span class="op">=</span> <span class="fl">1</span>, false <span class="op">=</span> <span class="fl">0</span>, na <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for class 'integer'</span></span>
 <span><span class="fu">to_boolean</span><span class="op">(</span><span class="va">x</span>, true <span class="op">=</span> <span class="fl">1L</span>, false <span class="op">=</span> <span class="fl">0L</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'character'</span></span>
-<span><span class="fu">to_boolean</span><span class="op">(</span><span class="va">x</span>, true <span class="op">=</span> <span class="cn">NULL</span>, false <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">to_boolean</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  true <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"TRUE"</span>, <span class="st">"true"</span>, <span class="st">"T"</span>, <span class="st">"t"</span>, <span class="st">"YES"</span>, <span class="st">"yes"</span>, <span class="st">"Y"</span>, <span class="st">"y"</span><span class="op">)</span>,</span>
+<span>  false <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"FALSE"</span>, <span class="st">"false"</span>, <span class="st">"F"</span>, <span class="st">"f"</span>, <span class="st">"NO"</span>, <span class="st">"no"</span>, <span class="st">"N"</span>, <span class="st">"n"</span><span class="op">)</span>,</span>
+<span>  na <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'factor'</span></span>
-<span><span class="fu">to_boolean</span><span class="op">(</span><span class="va">x</span>, true <span class="op">=</span> <span class="cn">NULL</span>, false <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">to_boolean</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -73,10 +82,22 @@
 <dt id="arg-false">false<a class="anchor" aria-label="anchor" href="#arg-false"></a></dt>
 <dd><p>A vector of values to convert to <code>FALSE</code></p></dd>
 
+
+<dt id="arg-na">na<a class="anchor" aria-label="anchor" href="#arg-na"></a></dt>
+<dd><p>An optional vector of values to convert to <code>NA</code>; if set, an error
+will be thrown when any values in <code>x</code> are not matched to <code>true</code>, <code>false</code>,
+or <code>na</code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A <code>logical</code> vector of equal length as <code>x</code></p>
+    <p>A <code>logical</code> vector of equal length as <code>x</code>.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p><code>to_boolean.integer()</code> is passed to <code>to_boolean.numeric()</code> with
+integer-specific <code>true</code> and <code>false</code> defaults.  <code>to_boolean.factor()</code> converts
+the factor levels via <code>to_boolean.character()</code>.</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
@@ -88,7 +109,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
     </footer></div>
