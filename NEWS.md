@@ -9,6 +9,8 @@ they will also now require exact matches;
 cleanup (e.g., trimming whitespace and lowercasing) are not longer performed
   * `to_boolean.integer()` added
   * `to_boolean.numeric()`, `to_boolean.integer()` will now return `NA`
+* `md5(bytes)` added to use `tools::md5sum(bytpes)` for **R > 4.2.0** [#258](https://github.com/jmbarbone/mark/issues/258)
+* `md5()` now uses little-endian serialization (_i.e._, `serialize(xdr = FALSE)`) for more consistent results across platforms and faster speed; which may cause hashes created prior to _change_
 
 # mark 0.8.3
 
