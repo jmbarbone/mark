@@ -31,7 +31,7 @@ md5 <- function(x, bytes = getOption("mark.md5.bytes")) {
       " 4.5.0",
       call. = FALSE
     )
-    btypes <- FALSE
+    bytes <- FALSE
     # nocov end
   }
 
