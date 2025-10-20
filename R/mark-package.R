@@ -19,5 +19,6 @@ op.mark <- list( # nolint: object_name_linter.
   mark.days_in_year      = 365,
   mark.weeks_inn_year    = 52,
   mark.default_tz        = "UTC",
-  mark.na_list           = na_list
+  mark.na_list           = na_list,
+  mark.md5.bytes         = NULL
 )
