@@ -37,7 +37,8 @@ test_that("Logical extension work", {
   expect_equal(is_true(x), sapply(x, isTRUE, USE.NAMES = FALSE))
   expect_equal(is_false(x), sapply(x, isFALSE, USE.NAMES = FALSE))
 
-  expect_identical(is_true(c( TRUE, FALSE, NA)), c(TRUE,  FALSE, FALSE)) # nolint: spaces_inside_linter, line_length_linter.
+  # nolint next: spaces_inside_linter.
+  expect_identical(is_true(c( TRUE, FALSE, NA)), c(TRUE,  FALSE, FALSE))
   expect_identical(is_false(c(TRUE, FALSE, NA)), c(FALSE,  TRUE, FALSE))
 
   expect_true(is_boolean(x))
@@ -57,10 +58,61 @@ test_that("Logical extension work", {
   expect_equal(OR(x, y, z, na.rm = TRUE), res_xyz_or_na)
 })
 
-test_that("logical helpers", {
-  expect_error(null_check(NULL), class = "nullCheckError")
-  expect_error(null_check(integer()), class = "nullCheckError")
+test_that("is_true()/is_false()", {
+  expect_identical(
+    is_true(c(TRUE, FALSE, NA)),
+    c(TRUE, FALSE, FALSE)
+  )
 
+  expect_identical(
+    is_false(c(TRUE, FALSE, NA)),
+    c(FALSE, TRUE, FALSE)
+  )
+
+  expect_identical(is_true(1:10), rep(NA, 10))
+  expect_identical(is_false(1:10), rep(NA, 10))
+})
+
+test_that("logic gates works", {
+  x <- rep(c(TRUE, FALSE, NA), 4)
+  y <- rep(c(FALSE, TRUE, NA), each = 4)
+
+  expect_identical(
+    nor(x, y),
+    !((x & y) | xor(x, y) | x | y)
+  )
+
+  expect_identical(
+    nand(x, y),
+    (!x & !y) | (!x & (y | is.na(y))) | ((x | is.na(x)) & !y)
+  )
+
+  expect_identical(
+    xnandr(x, y),
+    (x & y) | (!x & !y)
+  )
+})
+
+test_that("either() works", {
+  x <- c(TRUE, NA, FALSE, FALSE)
+  y <- c(TRUE, TRUE, FALSE, NA)
+
+  res <- either(x, y)
+  exp <- c(TRUE, TRUE, FALSE, FALSE)
+  expect_identical(res, exp)
+})
+
+test_that("none() works", {
+  x <- c(FALSE, FALSE, NA)
+  expect_identical(none(x), NA)
+  expect_true(none(x, na.rm = TRUE))
+
+  x <- c(TRUE, NA)
+  expect_false(none(x))
+  expect_false(none(x, na.rm = TRUE))
+})
+
+test_that("logical helpers", {
   expect_error(apply_logical_matrix(1L, mean, TRUE), class = "simpleError")
   # nolint start: line_length_linter.
   expect_error(apply_logical_matrix(matrix("a"), mean, TRUE), class = "simpleError")
