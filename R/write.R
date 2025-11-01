@@ -106,8 +106,12 @@ write_file_md5 <- function(
     temp <- fs::file_temp(ext = ext)
     attributes(temp) <- attributes(path)
     on.exit(safe_fs_delete(temp), add = TRUE)
-    params$con <- compress(temp, compression)
-    on.exit(safe_close(params$con), add = TRUE)
+    if (method %in% c("feather", "parquet")) {
+      params$con <- temp
+    } else {
+      params$con <- compress(temp, compression)
+      on.exit(safe_close(params$con), add = TRUE)
+    }
   }
 
   do.call(write_function, params)
@@ -381,46 +385,56 @@ mark_write_parquet <- function(x, con, ...) {
 }
 
 mark_write_arrow <- function(
-    x,
-    con,
-    ...,
-    .method = c("feather", "parquet")
+  x,
+  con,
+  ...,
+  .method = c("feather", "parquet")
 ) {
-  require_namespace("arrow")
   .method <- mark::match_param(.method)
 
   switch(
     .method,
     feather = {
-      read <- arrow::read_feather
-      write <- arrow::write_feather
+      require_namespace("feather")
+      read <- feather::feather_metadata
+      write <- feather::write_feather
       clean <- function() NULL
     },
     parquet = {
-      read <- arrow::read_parquet
-      write <- arrow::write_parquet
+      require_namespace("nanoparquet")
+      read <- nanoparquet::read_parquet_schema
+      write <- nanoparquet::write_parquet
       clean <- base::gc
     }
   )
 
   if (identical(con, stdout())) {
-    temp <- tempfile()
-    con <- file(temp, open = "wb", encoding = "UTF-8")
+    # temp <- tempfile()
+    # con <- file(temp, open = "wb", encoding = "UTF-8")
+    con <- tempfile()
     on.exit({
-      co <- utils::capture.output(read(temp, as_data_frame = FALSE))
-      # Something weird was happening after reading the parquet object on
-      # windows; fs::file_delete() was throwing an EPERM error but file.remove()
-      # wasn't. Adding an explicit gc() seems to do the trick...
+      print(read(con))
       clean()
-      co <- grep("See $metadata", co, value = TRUE, invert = TRUE, fixed = TRUE)
-      co <- co[nzchar(co)]
-      writeLines(co)
-      safe_close(con)
-      safe_fs_delete(temp)
+      # safe_close(con)
+      # safe_fs_delete(temp)
+      safe_fs_delete(con)
     })
+  } else if (inherits(con, "connection")) {
+    warning(
+      sprintf(
+        "Connections are not supported when writing with '%s'",
+        .method
+      ),
+      call. = FALSE,
+      immediate. = TRUE
+    )
   }
 
-  write(x, sink = con, ...)
+  args <- set_names(
+    list(x, con),
+    names(formals(write)[1:2])
+  )
+  do.call(write, c(args, list(...)))
 }
 
 # helpers -----------------------------------------------------------------
