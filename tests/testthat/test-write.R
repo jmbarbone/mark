@@ -14,16 +14,17 @@ test_that("write_file_md5() works", {
 test_that("write_file_md5() types", {
   foo <- function(method) {
     temp <- withr::local_tempfile()
-    x <-
-      if (method %in% c(mark_write_methods()$lines, "write")) {
-        letters
-      } else {
-        quick_dfl(a = 1, b = "n", c = TRUE)
-      }
-      expect_message(
-        write_file_md5(x, temp, method = !!method),
-        class = fuj_message()
-      )
+    x <- if (method %in% c(mark_write_methods()$lines, "write")) {
+      letters
+    } else {
+      quick_dfl(a = 1, b = "n", c = TRUE)
+    }
+
+    # browser(expr = method == "feather")
+    expect_message(
+      write_file_md5(x, temp, method = !!method),
+      class = fuj_message()
+    )
   }
 
   for (method in unlist0(mark_write_methods())) {
@@ -108,6 +109,18 @@ test_that("list columns", {
 })
 
 test_that("arrow prints something to stdout()", {
-  expect_snapshot(write_file_md5(quick_dfl(a = 1), method = "feather"))
-  expect_snapshot(write_file_md5(quick_dfl(a = 1), method = "parquet"))
+  censor <- function(x, pattern) {
+    m <- gregexpr(pattern, x)
+    regmatches(x, m) <- "<temp>"
+    x
+  }
+
+  expect_snapshot(
+    write_file_md5(quick_dfl(a = 1), method = "feather"),
+    transform = function(x) censor(x, "(Rtmp|file)[a-z0-9]+")
+  )
+  expect_snapshot(
+    write_file_md5(quick_dfl(a = 1), method = "parquet"),
+    transform = function(x) censor(x, "(Rtmp|file)[a-z0-9]+")
+  )
 })
