@@ -64,7 +64,7 @@ is_true <- function(x) {
 #' @export
 #' @rdname logic_ext
 is_true.default <- function(x) {
-  null_check(x)
+  check_null(x)
   out <- to_boolean(x)
 
   # TODO is !is_boolean(x) needed?
@@ -93,7 +93,7 @@ is_false <- function(x) {
 #' @export
 #' @rdname logic_ext
 is_false.default <- function(x) {
-  null_check(x)
+  check_null(x)
   out <- to_boolean(x)
 
   # TODO is !is_boolean(x) needed?
@@ -153,9 +153,9 @@ none <- function(..., na.rm = FALSE) { # nolint: object_name_linter.
 
 # FUNS --------------------------------------------------------------------
 
-null_check <- function(x) {
+check_null <- function(x) {
   if (no_length(x)) {
-    stop(cond_null_check())
+    stop(null_or_zero())
   }
 
   invisible()
@@ -196,9 +196,7 @@ apply_logical_matrix <- function(mat, FUN, na.rm) { # nolint: object_name_linter
 
 # conditions --------------------------------------------------------------
 
-cond_null_check <- function() {
-  new_condition(
-    "Cannot accept `NULL` or 0 length values",
-    "null_check"
-  )
-}
+null_or_zero := condition(
+  message = "Cannot accept `NULL` or 0 length values",
+  type = "error"
+)
