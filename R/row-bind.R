@@ -17,7 +17,7 @@ row_bind <- function(...) {
   }
 
   if (!all(vap_lgl(ls, is.data.frame))) {
-    stop(cond_row_bind_dataframes())
+    stop(row_bind_object())
   }
 
   names <- lapply(ls, names)
@@ -63,6 +63,7 @@ rbind2 <- function(...) {
 
 # conditions --------------------------------------------------------------
 
-cond_row_bind_dataframes <- function() {
-  new_condition("... must only be data.frames", "row_bind_dataframes")
-}
+row_bind_object := condition(
+  message = "... must only be data.frames",
+  type = "error"
+)
