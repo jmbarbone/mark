@@ -53,7 +53,7 @@ recode_by <- function(x, by, vals = NULL, mode = "any") {
   vals <- vals %||% names(by)
 
   if (is.null(vals)) {
-    stop(cond_recode_values())
+    stop(recode_values_set_bad())
   }
 
   if (length(vals) == 1) {
@@ -79,7 +79,7 @@ recode_only <- function(x, by, vals = NULL) {
   vals <- vals %||% names(by)
 
   if (is.null(vals)) {
-    stop(cond_recode_values())
+    stop(recode_values_set_bad())
   }
 
   if (is.list(vals)) {
@@ -125,9 +125,7 @@ clean_na_coercion <- function(expr) {
 
 # conditions --------------------------------------------------------------
 
-cond_recode_values <- function() {
-  new_condition(
-    "values to recode by were not properly set",
-    "recode_values"
-  )
-}
+recode_values_set_bad := condition(
+  message = "values to recode by were not properly set",
+  type = "error"
+)
