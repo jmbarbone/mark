@@ -246,7 +246,7 @@ match_arg_param_match := condition(
       )
     }
 
-    msg <- sprintf(
+    sprintf(
       paste0(
         "`match_param(%s)` failed in `%s`:\n",
         "  param    %s\n",
@@ -257,8 +257,6 @@ match_arg_param_match := condition(
       to_value(param),
       to_options(choices)
     )
-
-    new_condition(msg, "match_param_match")
   },
   type = "error"
 )
@@ -293,12 +291,9 @@ match_param_duplicates := condition(
       )
     }
 
-    new_condition(
-      msg = paste0(
-        "duplicate values found in `choices`:\n  ",
-        to_choices(choices)
-      ),
-      class = "match_param_dupes"
+    paste0(
+      "duplicate values found in `choices`:\n  ",
+      to_choices(choices)
     )
   },
   type = "error"
