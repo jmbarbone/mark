@@ -44,7 +44,7 @@ match_arg <- function(x, table) {
 
   if (!length(out)) {
     csx <- as.character(substitute(x))
-    stop(cond_match_arg(csx, x, table))
+    stop(match_arg_no_match(csx, x, table))
   }
 
   out
@@ -105,12 +105,12 @@ match_arg <- function(x, table) {
 #' sapply(0:5, match_param, choices = ls)
 #' @export
 match_param <- function(
-    param,
-    choices,
-    null = TRUE,
-    partial = getOption("mark.match_param.partial", FALSE),
-    multiple = FALSE,
-    simplify = TRUE
+  param,
+  choices,
+  null = TRUE,
+  partial = getOption("mark.match_param.partial", FALSE),
+  multiple = FALSE,
+  simplify = TRUE
 ) {
   param_c <- charexpr(substitute(param))
   force(param)
@@ -120,7 +120,7 @@ match_param <- function(
       return(NULL)
     }
 
-    stop(cond_match_param_null())
+    stop(match_arg_null_param())
   }
 
   missing_choices <- missing(choices)
@@ -135,7 +135,7 @@ match_param <- function(
 
   if (anyDuplicated(unlist(mchoices$choices))) {
     # TODO implement cond_match_param_dupes()
-    stop(cond_match_param_dupes(choices))
+    stop(match_param_duplicates(choices))
   }
 
   fun <- if (partial) pmatch else match
@@ -151,12 +151,7 @@ match_param <- function(
       param <- deparse(param)
     }
 
-    stop(cond_match_param_match(
-      input = param_c,
-      argument = ocall,
-      param = param,
-      choices = choices
-    ))
+    stop(match_arg_param_match(param_c, ocall, param, choices))
   }
 
   res <- lapply(m, function(i) mchoices$values[[i]])
@@ -195,110 +190,116 @@ cleanup_param_list <- function(x) {
 
 # conditions --------------------------------------------------------------
 
-cond_match_arg <- function(csx, x, table) {
-  table <-  collapse(table, sep = "\', \'")
-  new_condition(
+match_arg_no_match := condition(
+  message = function(csx, x, table) {
     sprintf(
       "%s : '%s' did not match of of the following:\n   '%s'",
-      csx, x, table
-    ),
-    "cond_match_arg"
-  )
-}
+      csx,
+      x,
+      table
+    )
+  },
+  type = "error"
+)
 
-cond_match_param_null <- function() {
-  new_condition(
-    "match_param() requires non-NULL params",
-    "cond_match_param_null"
-  )
-}
+match_arg_null_param := condition(
+  message = "match_param() requires non-NULL params",
+  type = "error"
+)
 
-cond_match_param_match <- function(
-    input,
-    argument,
-    param,
-    choices
-) {
-  to_value <- function(x) {
-    if (all(names(x) == as.character(x))) {
-      return(toString(x))
+match_arg_param_match := condition(
+  message = function(input, argument, param, choices) {
+    to_value <- function(x) {
+      if (all(names(x) == as.character(x))) {
+        return(toString(x))
+      }
+
+      nms <- names(x)
+      if (is.null(nms)) {
+        return(toString(x))
+      }
+
+      ok <- nzchar(nms)
+      nms[ok] <- paste(nms[ok], "= ")
+      toString(paste0(nms, x))
     }
 
-    nms <- names(x)
-    if (is.null(nms)) {
-      return(toString(x))
+    to_options <- function(x) {
+      if (all(names(x) == as.character(x))) {
+        return(toString(x))
+      }
+
+      collapse(
+        mapply(
+          function(x, nm) {
+            if (nzchar(nm)) {
+              sprintf("%s = %s", nm, toString(x))
+            } else {
+              toString(x)
+            }
+          },
+          x = x,
+          nm = names(x),
+          USE.NAMES = FALSE
+        ),
+        sep = " | "
+      )
     }
 
-    ok <- nzchar(nms)
-    nms[ok] <- paste(nms[ok], "= ")
-    toString(paste0(nms, x))
-  }
-
-  to_options <- function(x) {
-    if (all(names(x) == as.character(x))) {
-      return(toString(x))
-    }
-
-    collapse(mapply(
-      function(x, nm) {
-        if (nzchar(nm)) {
-          sprintf("%s = %s", nm, toString(x))
-        } else {
-          toString(x)
-        }
-      },
-      x = x,
-      nm = names(x),
-      USE.NAMES = FALSE
-    ), sep = " | ")
-  }
-
-  msg <- sprintf(
-    paste0(
-      "`match_param(%s)` failed in `%s`:\n",
-      "  param    %s\n",
-      "  choices  %s"
-    ),
-    input,
-    argument,
-    to_value(param),
-    to_options(choices)
-  )
-
-  new_condition(msg, "match_param_match")
-}
-
-cond_match_param_dupes <- function(choices) {
-  to_choices <- function(x) {
-    if (all(names(x) == as.character(x))) {
-      dupe <- duplicated(x)
-      x[dupe] <- paste0(x[dupe], "*")
-      return(toString(x))
-    }
-
-    collapse(mapply(
-      function(x, nm, d) {
-        sprintf(
-          "%s = %s",
-          nm,
-          toString(paste0(x, ifelse(d, "*", "")))
-        )
-      },
-      x = x,
-      nm = names(x),
-      d = split(
-        duplicated(unlist(x)),
-        rep(seq_along(x), lengths(x))
+    msg <- sprintf(
+      paste0(
+        "`match_param(%s)` failed in `%s`:\n",
+        "  param    %s\n",
+        "  choices  %s"
       ),
-      USE.NAMES = FALSE
-    ), sep = "\n  ")
-  }
+      input,
+      argument,
+      to_value(param),
+      to_options(choices)
+    )
 
-  new_condition(
-    msg = paste0(
-      "duplicate values found in `choices`:\n  ",
-      to_choices(choices)
-    ),
-    class = "match_param_dupes"
-  )
-}
+    new_condition(msg, "match_param_match")
+  },
+  type = "error"
+)
+
+match_param_duplicates := condition(
+  message = function(choices) {
+    to_choices <- function(x) {
+      if (all(names(x) == as.character(x))) {
+        dupe <- duplicated(x)
+        x[dupe] <- paste0(x[dupe], "*")
+        return(toString(x))
+      }
+
+      collapse(
+        mapply(
+          function(x, nm, d) {
+            sprintf(
+              "%s = %s",
+              nm,
+              toString(paste0(x, ifelse(d, "*", "")))
+            )
+          },
+          x = x,
+          nm = names(x),
+          d = split(
+            duplicated(unlist(x)),
+            rep(seq_along(x), lengths(x))
+          ),
+          USE.NAMES = FALSE
+        ),
+        sep = "\n  "
+      )
+    }
+
+    new_condition(
+      msg = paste0(
+        "duplicate values found in `choices`:\n  ",
+        to_choices(choices)
+      ),
+      class = "match_param_dupes"
+    )
+  },
+  type = "error"
+)

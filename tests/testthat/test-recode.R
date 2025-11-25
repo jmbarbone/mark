@@ -4,7 +4,7 @@ test_that("recode_by() examples works", {
   expect_identical(res, exp)
 
   res <- recode_by(letters[1:3], c(`1` = "a", `2` = "b"))
-  exp <-  c("1", "2", NA_character_)
+  exp <- c("1", "2", NA_character_)
   expect_identical(res, exp)
 
   res <- recode_by(letters[1:3], c(`1` = "a", `2` = "b"), mode = "integer")
@@ -37,8 +37,8 @@ test_that("clean_na_coercion() works", {
 
 test_that("errors", {
   txt <- "values to recode by were not properly set"
-  expect_error(recode_by(1, 1), class = "recodeValuesError")
-  expect_error(recode_only(1, 1), class = "recodeValuesError")
+  expect_error(recode_by(1, 1), class = "mark:recode_values_set_bad")
+  expect_error(recode_only(1, 1), class = "mark:recode_values_set_bad")
 })
 
 test_that("single value", {

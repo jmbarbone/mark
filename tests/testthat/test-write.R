@@ -5,7 +5,6 @@ test_that("write_file_md5() works", {
   muffle_cnd_conditions({
     expect_condition(write_file_md5(df, temp), class = "mark:md5_status")
     expect_condition(write_file_md5(df, temp), class = "mark:md5_status")
-
   })
 
   # atomic
@@ -56,7 +55,7 @@ test_that("write_file_md5() errors", {
   df <- quick_dfl(a = 1)
   expect_error(
     write_file_md5(df, method = "foo"),
-    class = "matchParamMatchError"
+    class = "mark:match_arg_param_match"
   )
 })
 
