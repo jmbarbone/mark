@@ -149,7 +149,7 @@ na_if_length := condition(
   type = "error"
 )
 
-cond_na_if_logical := condition(
+na_if_logical := condition(
   message = "y must be logical",
   type = "error"
 )
