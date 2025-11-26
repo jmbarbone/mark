@@ -1,71 +1,42 @@
-need_clipr <- function() {
-  testthat::skip_if_not_installed("clipr")
-
-  # not sure if this is needed
-  withr::with_envvar(c(CLIPR_ALLOW = TRUE), {
-    testthat::skip_if_not(clipr::clipr_available())
-  })
-
-  testthat::skip_on_cran()
-}
-
 test_that("clipboard", {
   need_clipr()
-  clear_clipboard()
-
-  test_clipboard <- function(x, ...) {
-    expect_error(write_clipboard(x), NA)
-    expect_equal(read_clipboard(), x, ...)
-  }
-
   test_clipboard(c(TRUE, FALSE, NA))
   test_clipboard(c(0.1234, -0.1586, 0.0001200))
   test_clipboard(-1:4)
   test_clipboard(as.Date("2020-01-02") + 0:4)
   test_clipboard(runif(1e4))
 
-  expect_error(clear_clipboard(), NA)
-  expect_equal(read_clipboard(), NULL) # previously ""
+  with_clip({
+    expect_error(clear_clipboard(), NA)
+    expect_equal(read_clipboard(), NULL) # previously ""
+  })
 
-  x <- quick_dfl(
-    var1 = 1:3,
-    var2 = letters[1:3],
-    var3 = as.Date("2020-01-03") + 1:3,
-    var4 = c(TRUE, FALSE, NA)
-  )
+  with_clip({
+    x <- quick_dfl(
+      var1 = 1:3,
+      var2 = letters[1:3],
+      var3 = as.Date("2020-01-03") + 1:3,
+      var4 = c(TRUE, FALSE, NA)
+    )
 
-  expect_error(write_clipboard(x), NA)
-  res <- read_clipboard("data.frame")
-  expect_s3_class(res, "data.frame")
-  if (package_available("tibble"))
-  expect_equal(as.data.frame(res), x)
+    write_clipboard(x)
 
-  # finally test tibble
-  skip_if_not_installed("tibble")
-  expect_s3_class(res, "tbl_df")
-  expect_equal(read_clipboard("tibble"), tibble::as_tibble(x))
+    res <- read_clipboard("data.frame")
+
+    expect_s3_class(res, "data.frame")
+    if (package_available("tibble")) {
+      expect_equal(as.data.frame(res), x)
+    }
+
+    # finally test tibble
+    skip_if_not_installed("tibble")
+    expect_s3_class(res, "tbl_df")
+    expect_equal(read_clipboard("tibble"), tibble::as_tibble(x))
+  })
 })
 
 test_that("clipboard methods", {
   need_clipr()
-  expect_clip <- function(input, method) {
-    write_clipboard(input)
-    res <- if (package_available("tibble")) {
-      tibble::tibble(a = 1L, b = 2L, c = 3L)
-    } else {
-      fuj::quick_dfl(a = 1L, b = 2L, c = 3L)
-    }
-    expect_identical(read_clipboard(method), res)
-  }
-
-  simple_tbl <- function(delim) {
-    paste(
-      paste(letters[1:3], collapse = delim),
-      paste(1:3, collapse = delim),
-      sep = "\n"
-    )
-  }
-
   expect_clip(simple_tbl("\t"), "data.frame")
   expect_clip(simple_tbl("\t"), "excel")
   expect_clip(simple_tbl("\t"), "calc")
