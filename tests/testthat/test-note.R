@@ -81,7 +81,7 @@ test_that("note() errors", {
   withr::local_options(list(mark.check_interactive = NA))
   expect_error(print_note(1L), class = "simpleError")
   x <- struct(1L, "noted", note = struct("hi", "note_a_note"))
-  expect_error(print_note(x), class = "printNoteNotedError")
+  expect_error(print_note(x), class = "mark:note_not_note")
 })
 
 test_that("note() snapshots", {
