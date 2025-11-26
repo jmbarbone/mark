@@ -40,18 +40,22 @@ get_not_available <- function(type = NULL) {
   out <- get_na_list()[[type]]
 
   if (is.null(out)) {
-    stop(cond_get_not_available(type))
+    stop(not_available_not_found(type))
   }
 
   if (is.function(out) || is.call(out)) {
-    stop(cond_get_not_available_type())
+    stop(not_available_invalid_type())
   }
 
   out
 }
 
 get_na_list <- function() {
-  merge_list(op.mark$mark.na_list, getOption("mark.na_list"), sort = FALSE)
+  merge_list(
+    op.mark$mark.na_list,
+    getOption("mark.na_list"),
+    sort = FALSE
+  )
 }
 
 #' @export
@@ -71,19 +75,21 @@ delayedAssign("NA_POSIXlt_", not_available("POSIXlt", 1L))
 
 # conditions --------------------------------------------------------------
 
-cond_get_not_available <- function(x) {
-  msg <- sprintf(
-    paste0(
-      "\"%s\" not found\n",
-      "Can be set with `mark::set_not_available(%s, value = .)`"
-    ),
-    x,
-    x
-  )
+not_available_not_found := condition(
+  function(x) {
+    sprintf(
+      paste0(
+        "\"%s\" not found\n",
+        "Can be set with `mark::set_not_available(%s, value = .)`"
+      ),
+      x,
+      x
+    )
+  },
+  type = "error"
+)
 
-  new_condition(msg, "get_not_available")
-}
-
-cond_get_not_available_type <- function() {
-  new_condition("type is not valid", "get_not_available_type")
-}
+not_available_invalid_type := condition(
+  "type is not valid",
+  type = "error"
+)
