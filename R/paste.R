@@ -35,7 +35,7 @@ paste_combine <- function(..., collate = TRUE, sep = "") {
   n <- length(ls)
 
   if (n < 2) {
-    stop(cond_paste_combine_length())
+    stop(paste_combined_dots_lenth())
   }
 
   out <- do_paste_combine(ls[[1]], ls[[2]], collate = collate, sep = sep)
@@ -81,6 +81,9 @@ do_paste_combine <- function(x, y, collate = TRUE, sep = "") {
 
 # conditions --------------------------------------------------------------
 
-cond_paste_combine_length <- function() {
-  new_condition("length of ... must be at least 2", "paste_combine_length")
-}
+paste_combined_dots_lenth := condition(
+  message = "length of ... must be at least 2",
+  type = "error",
+  package = "mark",
+  exports = "paste_combine"
+)

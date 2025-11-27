@@ -10,14 +10,21 @@ test_that("paste_combine() works", {
 
   expect_equal(
     paste_combine(x, y, z),
-    c("a1Jan", "a1Feb", "a2Jan", "a2Feb",
-      "b1Jan", "b1Feb", "b2Jan", "b2Feb")
+    c("a1Jan", "a1Feb", "a2Jan", "a2Feb", "b1Jan", "b1Feb", "b2Jan", "b2Feb")
   )
 
   expect_equal(
     paste_combine(x, y, z, sep = "."),
-    c("a.1.Jan", "a.1.Feb", "a.2.Jan", "a.2.Feb",
-      "b.1.Jan", "b.1.Feb", "b.2.Jan", "b.2.Feb")
+    c(
+      "a.1.Jan",
+      "a.1.Feb",
+      "a.2.Jan",
+      "a.2.Feb",
+      "b.1.Jan",
+      "b.1.Feb",
+      "b.2.Jan",
+      "b.2.Feb"
+    )
   )
 
   expect_equal(
@@ -32,13 +39,12 @@ test_that("paste_combine() works", {
 
   expect_equal(
     paste_combine(x, y, z, collate = FALSE),
-    c("a1Jan", "b1Jan", "a2Jan", "b2Jan",
-      "a1Feb", "b1Feb", "a2Feb", "b2Feb")
+    c("a1Jan", "b1Jan", "a2Jan", "b2Jan", "a1Feb", "b1Feb", "a2Feb", "b2Feb")
   )
 })
 
 test_that("paste_combine() fails", {
-  expect_error(paste_combine(1), class = "pasteCombineLengthError")
+  expect_error(paste_combine(1), class = "mark:paste_combined_dots_lenth")
 })
 
 test_that("collapse0()", {
