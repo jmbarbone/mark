@@ -9,5 +9,5 @@ test_that("checkOptions() works", {
   expect_identical(getOption("mark.test.option2"), 2L)
 
   expect_error(checkOptions(1), info = "is.list(x)")
-  expect_error(checkOptions(list(1)), class = "checkOptionsNamesError")
+  expect_error(checkOptions(list(1)), class = "mark:unnamed_options")
 })

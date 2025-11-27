@@ -19,12 +19,13 @@
 #'
 #' options(op)
 #' @export
-checkOptions <- function(x) { # nolint: object_name_linter.
+checkOptions <- function(x) {
+  # nolint: object_name_linter.
   stopifnot(is.list(x))
 
   nm <- names(x)
   if (is.null(nm) || any(nm == "")) {
-    stop(cond_check_options_names())
+    stop(unnamed_options())
   }
 
   msg <- NULL
@@ -41,12 +42,15 @@ checkOptions <- function(x) { # nolint: object_name_linter.
         msg <- "Option(s) updated :"
       }
 
-      msg <- c(msg, sprintf(
-        '\n "%s"\n   old : %s\n   new : %s',
-        nm[i],
-        go,
-        x[[i]]
-      ))
+      msg <- c(
+        msg,
+        sprintf(
+          '\n "%s"\n   old : %s\n   new : %s',
+          nm[i],
+          go,
+          x[[i]]
+        )
+      )
     }
   }
 
@@ -59,8 +63,7 @@ checkOptions <- function(x) { # nolint: object_name_linter.
 
 # conditions --------------------------------------------------------------
 
-cond_check_options_names <- function() {
-  new_condition("All options must be named", "check_options_names")
-}
-
-# terminal line
+unnamed_options := condition(
+  "All options must be named",
+  type = "error"
+)
