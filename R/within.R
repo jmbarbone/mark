@@ -29,7 +29,7 @@
 #' within(2:10, bounds = "(]")
 #' within(1:5, c(3, 3, 2, 2, 1), 5)
 #' @name within
-#' @aliases between betwee_more
+#' @aliases between between_more
 NULL
 
 # TODO consider deprecating `between_more()` in favor of `within()``
@@ -104,7 +104,7 @@ between_more_lr := condition(
   type = "warning"
 )
 
-with_lr := condition(
+within_lr := condition(
   "`left` > `right`",
   type = "warning"
 )
