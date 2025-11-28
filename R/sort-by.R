@@ -18,12 +18,14 @@
 #' @export
 sort_by <- function(x, by, ...) {
   if (!is_atomic0(x) || !is_atomic0(by)) {
-    stop(cond_sort_by_atomic())
+    stop(sort_by_atomic())
   }
 
   x[order(by, ...)]
 }
 
-cond_sort_by_atomic <- function() {
-  new_condition("`x` and `by` must be atomic vectors", "sort_by_atomic")
-}
+
+sort_by_atomic := condition(
+  "`x` and `by` must be atomic vectors",
+  type = "error"
+)
