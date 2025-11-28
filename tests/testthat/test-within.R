@@ -6,14 +6,14 @@ test_that("Examples are accurate", {
 test_that("between_more() works", {
   x <- 1:20
   gele <- x >= 5 & x <= 10
-  gel  <- x >= 5 & x <  10
-  gle  <- x >  5 & x <= 10
-  gl   <- x >  5 & x <  10
+  gel <- x >= 5 & x < 10
+  gle <- x > 5 & x <= 10
+  gl <- x > 5 & x < 10
 
   expect_equal(between_more(x, 5, 10, "gele"), gele)
-  expect_equal(between_more(x, 5, 10, "gel"),  gel)
-  expect_equal(between_more(x, 5, 10, "gle"),  gle)
-  expect_equal(between_more(x, 5, 10, "gl"),   gl)
+  expect_equal(between_more(x, 5, 10, "gel"), gel)
+  expect_equal(between_more(x, 5, 10, "gle"), gle)
+  expect_equal(between_more(x, 5, 10, "gl"), gl)
 
   # vectors for left or right
 
@@ -33,7 +33,7 @@ test_that("between_more() works", {
   expect_warning(
     between_more(1:2, 3, 2),
     "`left` > `right`",
-    class = "betweenMoreLrWarning"
+    class = "mark:between_more_lr"
   )
 })
 
@@ -41,9 +41,9 @@ test_that("between_more() works", {
 test_that("within()", {
   x <- 1:20
   ss <- x >= 5 & x <= 10
-  sr <- x >= 5 & x <  10
-  rs <- x >  5 & x <= 10
-  rr <- x >  5 & x <  10
+  sr <- x >= 5 & x < 10
+  rs <- x > 5 & x <= 10
+  rr <- x > 5 & x < 10
 
   expect_equal(within(x, 5, 10, "[]"), ss)
   expect_equal(within(x, 5, 10, "[)"), sr)
@@ -70,6 +70,6 @@ test_that("within()", {
   expect_warning(
     within(1:2, 3, 2),
     "`left` > `right`",
-    class = "withinLrWarning"
+    class = "mark:within_lr"
   )
 })
