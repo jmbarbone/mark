@@ -42,15 +42,15 @@ between_more <- function(x, left, right, type = c("gele", "gel", "gle", "gl")) {
   type <- match_param(type)
 
   if (any(left > right, na.rm = TRUE)) {
-    warning(cond_between_more_lr())
+    warning(between_more_lr())
   }
 
   switch(
     type,
     gele = x >= left & x <= right,
-    gel  = x >= left & x < right,
-    gle  = x > left & x <= right,
-    gl   = x > left & x < right
+    gel = x >= left & x < right,
+    gle = x > left & x <= right,
+    gl = x > left & x < right
   )
 }
 
@@ -58,10 +58,10 @@ between_more <- function(x, left, right, type = c("gele", "gel", "gle", "gl")) {
 #' @export
 #' @param bounds Boundaries for comparisons of `left` and `right` (see details)
 within <- function(
-    x,
-    left = NULL,
-    right = NULL,
-    bounds = c("[]", "[)", "(]", "()")
+  x,
+  left = NULL,
+  right = NULL,
+  bounds = c("[]", "[)", "(]", "()")
 ) {
   left_null <- is.null(left)
   right_null <- is.null(right)
@@ -71,7 +71,7 @@ within <- function(
   }
 
   if (any(left > right, na.rm = TRUE)) {
-    warning(cond_within_lr())
+    warning(within_lr())
   }
 
   funs <- switch(
@@ -99,18 +99,12 @@ within <- function(
 
 # conditions --------------------------------------------------------------
 
-cond_between_more_lr <- function() {
-  new_condition(
-    "`left` > `right`",
-    "between_more_lr",
-    type = "warning"
-  )
-}
+between_more_lr := condition(
+  "`left` > `right`",
+  type = "warning"
+)
 
-cond_within_lr <- function() {
-  new_condition(
-    "`left` > `right`",
-    "within_lr",
-    type = "warning"
-  )
-}
+with_lr := condition(
+  "`left` > `right`",
+  type = "warning"
+)
