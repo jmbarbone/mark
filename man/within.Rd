@@ -3,7 +3,6 @@
 \name{within}
 \alias{within}
 \alias{between}
-\alias{betwee_more}
 \alias{between_more}
 \title{within boundaries}
 \usage{

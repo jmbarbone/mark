@@ -98,7 +98,7 @@ do_todo <- function(
     length(path) != 1 ||
     !is.character(path)
   ) {
-    stop(cond_do_todo_path())
+    stop(todo_error("path"))
   }
 
   stopifnot(fs::file_exists(path))
@@ -250,10 +250,14 @@ string_dots <- function(x, width = getOption("width")) {
 
 # conditions --------------------------------------------------------------
 
-cond_do_todo_path <- function() {
-  new_condition("path must be a character vector of length 1L", "do_todo_path")
-}
-
-cond_do_todo_path_r <- function() {
-  new_condition("path is not a .R or .Rmd file", "do_todo_path_r")
-}
+todo_error := condition(
+  function(x) {
+    switch(
+      x,
+      path = "path must be a character vector of length 1L",
+      stop("something went wrong")
+    )
+  },
+  type = "error",
+  exports = c("todos", "fixmes")
+)
