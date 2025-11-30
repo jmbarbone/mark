@@ -128,20 +128,20 @@ switch_in_case <- function(x, ..., .default = NULL, .envir = parent.frame()) {
     cres <- as.character(res)
     if (cres[1L] == ":") {
       if (!exists("xrange")) {
-        stop(cond_switch_in_case_numeric())
+        stop(switch_error("numeric"))
       }
 
       cres[cres == "-Inf"] <- xrange[1L]
       cres[cres == "Inf"] <- xrange[2L]
       if (any(cres %in% c("-Inf", "inf"))) {
-        stop(cond_switch_in_case_ambiguous())
+        stop(switch_error("ambiguous_infinity"))
       }
     }
 
     tryCatch(
       do.call(cres[1L], as.list(cres[-1L])),
       error = function(e) {
-        stop(cond_switch_in_case_evaluate(e$message))
+        stop(switch_error("evaluate", e$message))
       }
     )
   })
@@ -233,7 +233,7 @@ switch_length_check <- function(ls) {
     return(ls),
     {
       if (u[1L] == 0L) {
-        stop(cond_switch_length_check_0())
+        stop(switch_error("lengths_check_0"))
       }
 
       if (u[1L] == 1L) {
@@ -245,11 +245,11 @@ switch_length_check <- function(ls) {
 
         return(ls)
       }
-      stop(cond_switch_length_check_2())
+      stop(switch_error("lengths_check_2"))
     },
-    stop(cond_switch_length_check_3())
+    stop(switch_error("lengths_check_3")),
   )
-  stop(cond_switch_length_check_bad())
+  stop(switch_error("lengths_check_bad"))
 }
 
 switch_lengths_check <- function(lhs, rhs) {
@@ -261,7 +261,7 @@ switch_lengths_check <- function(lhs, rhs) {
   }
 
   if (!identical(llens, rlens)) {
-    stop(cond_switch_lengths_check())
+    stop(switch_errors("lengths_check"))
   }
 
   invisible(NULL)
@@ -269,48 +269,19 @@ switch_lengths_check <- function(lhs, rhs) {
 
 # conditions --------------------------------------------------------------
 
-cond_switch_in_case_numeric <- function() {
-  new_condition(
-    "x did not appear to be numeric, cannot continue evaluating lhs",
-    "switch_in_case_numeric"
-  )
-}
-
-cond_switch_in_case_ambiguous <- function() {
-  new_condition(
-    "Ambiguous infinity, cannot calculate",
-    "switch_in_case_ambiguous"
-  )
-}
-
-cond_switch_in_case_evaluate <- function(x) {
-  new_condition(
-    paste0("Could not evaluate lhs\n", x),
-    "switch_in_case_evaluate"
-  )
-}
-
-cond_switch_lengths_check <- function() {
-  new_condition("statements have different lengths", "switch_lengths_check")
-}
-
-cond_switch_length_check_0 <- function() {
-  new_condition("Cannot have 0 length rhs", "switch_length_check_0")
-}
-
-cond_switch_length_check_2 <- function() {
-  new_condition(
-    "2 lengths found, one of which was not 1",
-    "switch_length_check_1"
-  )
-}
-
-cond_switch_length_check_3 <- function() {
-  new_condition("3 or more lengths found, stopping", "switch_length_check_3")
-}
-
-cond_switch_length_check_bad <- function() {
-  new_condition("Something really went wrong", "switch_length_check_bad")
-}
-
-# terminal line
+switch_error := condition(
+  function(x, params = NULL) {
+    switch(
+      x,
+      numeric = "x did not appear to be numeric, cannot continue evaluating lhs",
+      ambiguous_infinity = "Ambiguous infinity, cannot calculate",
+      evaluate = paste0("Could not evaluate lhs\n", params),
+      lengths_check = "statements have different lengths",
+      lengths_check_0 = "Cannot have 0 length rhs",
+      lengths_check_2 = "2 lengths found, one of which was not 1",
+      lengths_check_3 = "3 or more lengths found, stopping",
+      lengths_check_bad = "Something really went wrong; please submit an issue at https://github.com/jmbarbone/mark/issues",
+      stop("something went wrong, bad input: ", x)
+    )
+  }
+)
