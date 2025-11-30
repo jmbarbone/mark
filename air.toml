@@ -1,0 +1,14 @@
+line-width = 80
+indent-width = 2
+indent-style = "space"
+line-ending = "lf"
+persistent-line-breaks = true
+exclude = []
+default-exclude = true
+skip = [
+  "crayon_blue",
+  "crayon_green",
+  "crayon_cyan",
+]
+table = []
+default-table = true

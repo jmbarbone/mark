@@ -1,9 +1,10 @@
-
 which0 <- function(x) {
   which(x) %len% 0L
 }
+
 # isTRUE, isFALSE, ...
-isNA <- function(x) { # nolint: object_name_linter.
+# nolint next: object_name_linter.
+isNA <- function(x) {
   is.logical(x) && length(x) == 1L && is.na(x)
 }
 
@@ -47,7 +48,8 @@ print_no_attr <- function(x, ...) {
 #'
 #' @export
 #' @seealso [base::which()]
-that <- function(x, arr.ind = FALSE, useNames = TRUE) { # nolint: object_name_linter, line_length_linter.
+# nolint next: object_name_linter.
+that <- function(x, arr.ind = FALSE, useNames = TRUE) {
   # TODO consider that() as #seq_along(x)[x]?
   which(x, arr.ind = arr.ind, useNames = useNames)
 }
@@ -92,11 +94,17 @@ is_atomic0 <- function(x) {
   is.atomic(x) && !is.null(x)
 }
 
-# nolint start: brace_linter.
-cat0 <- function(...) { cat(..., sep = "") }
-catln <- function(...) { cat(..., sep = "\n") }
-charexpr <- function(x) { as.character(as.expression(x)) }
-# nolint end: brace_linter.
+cat0 <- function(...) {
+  cat(..., sep = "")
+}
+
+catln <- function(...) {
+  cat(..., sep = "\n")
+}
+
+charexpr <- function(x) {
+  as.character(as.expression(x))
+}
 
 mark_temp <- function(ext = "") {
   if (!grepl("^[.]", ext) && !identical(ext, "") && !is.na(ext)) {
@@ -116,23 +124,20 @@ mark_temp <- function(ext = "") {
 check_is_vector <- function(x, mode = "any") {
   if (
     isS4(x) ||
-    inherits(x, c("data.frame", "matrix", "array")) ||
-    !is.vector(remove_attributes(x), mode)
+      inherits(x, c("data.frame", "matrix", "array")) ||
+      !is.vector(remove_attributes(x), mode)
   ) {
     x <- deparse1(substitute(x))
-    stop(cond_check_is_vector_mode(x, mode))
+    stop(vector_required(x, mode))
   }
 
   invisible()
 }
 
-cond_check_is_vector_mode <- function(x, mode) {
-  new_condition(
-    paste(x, "must be a vector of mode", mode),
-    "check_is_vector_mode"
-  )
-}
-
+vector_required := condition(
+  function(x, mode) paste(x, "must be a vector of mode", mode),
+  type = "error"
+)
 
 add_attributes <- function(x, ...) {
   attributes(x) <- c(attributes(x), rlang::list2(...))
@@ -178,15 +183,19 @@ check_interactive <- function() {
     return(FALSE)
   }
 
-  stop(cond_check_interactive())
+  stop(options_error("interactive"))
 }
 
-cond_check_interactive <- function() {
-  new_condition(
-    "mark.check_interactive must be TRUE, FALSE, or NA",
-    "check_interactive"
-  )
-}
+options_error := condition(
+  function(x) {
+    switch(
+      x,
+      interaction = "mark.check_interactive must be TRUE, FALSE, or NA",
+      stop("something went wrong, bad value: ", x)
+    )
+  },
+  type = "error"
+)
 
 try_formats <- function(date = FALSE) {
   x <- c(
@@ -220,19 +229,24 @@ dupe_check <- function(x, n = getOption("mark.dupe.n", 5)) {
   dupes <- utils::head(dupes, n)
 
   if (n_dupes) {
-    stop(cond_dupe_check(x, dupes, n_dupes, n))
+    stop(duplicate_error(x, dupes, n_dupes, n))
   }
 
   invisible(NULL)
 }
 
-cond_dupe_check <- function(x, dupes, n_dupes, n) {
-  msg <- paste0(
-    "Duplicate values found in ", n_dupes, " location(s) :\n",
-    if (n_dupes > n) sprintf("(first %i)\n", n),
-    paste0("  > ", sprintf("[%s] %s", format(dupes), format(x[dupes])), "\n"),
-    if (n_dupes > n) "... and ", n_dupes - n, " more"
-  )
-
-  new_condition(msg, "dupe_check")
-}
+duplicate_error := condition(
+  function(x, dupes, n_dupes, n) {
+    paste0(
+      "Duplicate values found in ",
+      n_dupes,
+      " location(s) :\n",
+      if (n_dupes > n) sprintf("(first %i)\n", n),
+      paste0("  > ", sprintf("[%s] %s", format(dupes), format(x[dupes])), "\n"),
+      if (n_dupes > n) "... and ",
+      n_dupes - n,
+      " more"
+    )
+  },
+  type = "error"
+)
