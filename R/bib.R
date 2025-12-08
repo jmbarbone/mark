@@ -70,7 +70,7 @@ read_bib <- function(file, skip = 0L, max_lines = NULL, encoding = "UTF-8") {
   from <- grep("[@]", bib)
 
   if (!length(from)) {
-    stop(read_bib_entries())
+    stop(bib_error("no_entries"))
   }
 
   # shift over (may contain white space?)
@@ -160,7 +160,7 @@ process_bib_dataframe <- function(categories, values, fields, keys) {
       bad <- lens > 1L
 
       if (any(bad)) {
-        stop(process_bib_dataframe_dupe(key, names(lens)[bad]))
+        stop(bib_error("duplicate_categories", key, names(lens)[bad]))
       }
 
       # Append vectors
@@ -214,7 +214,7 @@ process_bib_list <- function(keys, fields, categories, values) {
 
 as_bib_list <- function(x, names = NULL) {
   if (!is.list(x)) {
-    stop(as_bib_list_class())
+    stop(type_error("list", class(x), "x"))
   }
 
   class(x) <- c("list", "mark_bib_list")
@@ -223,7 +223,7 @@ as_bib_list <- function(x, names = NULL) {
 
 as_bib <- function(x, bib_list = NULL) {
   if (!is.data.frame(x)) {
-    stop(as_bib_class())
+    stop(type_error("data.frame", class(x), "x"))
   }
 
   class(x) <- c("mark_bib_df", "data.frame")
@@ -304,32 +304,24 @@ print.mark_bib_df <- function(x, list = FALSE, ...) {
 
 # conditions --------------------------------------------------------------
 
-read_bib_entries := condition(
-  type = "error",
-  message = "No entries detected",
-  exports = "read_bib"
-)
-
-process_bib_dataframe_dupe := condition(
-  type = "error",
-  message = function(key, categories) {
-    sprintf(
-      "The key `%s` has duplicate categories of `%s`",
-      key,
-      categories
+bib_error := condition(
+  function(type, key, categories) {
+    switch(
+      type,
+      no_entries = "No entries detected in bib file",
+      duplicate_categories = sprintf(
+        "The key `%s` has duplicate categories of `%s`",
+        key,
+        categories
+      ),
+      stop(internal_error(c(
+        "Unknown error error type: ",
+        type
+      )))
     )
   },
+  type = "error",
   exports = "read_bib"
+  # TODO include help
 )
 
-as_bib_list_class := condition(
-  type = "error",
-  message = "`x` must be a list",
-  exports = "read_bib"
-)
-
-as_bib_class := condition(
-  type = "error",
-  message = "`x` must be a data.frame",
-  exports = "read_bib"
-)
