@@ -249,7 +249,7 @@ switch_length_check <- function(ls) {
     },
     stop(switch_error("lengths_check_3")),
   )
-  stop(switch_error("lengths_check_bad"))
+  stop(internal_error("Unexpected lengths found"))
 }
 
 switch_lengths_check <- function(lhs, rhs) {
@@ -261,7 +261,7 @@ switch_lengths_check <- function(lhs, rhs) {
   }
 
   if (!identical(llens, rlens)) {
-    stop(switch_errors("lengths_check"))
+    stop(switch_error("lengths_check"))
   }
 
   invisible(NULL)
@@ -280,8 +280,7 @@ switch_error := condition(
       lengths_check_0 = "Cannot have 0 length rhs",
       lengths_check_2 = "2 lengths found, one of which was not 1",
       lengths_check_3 = "3 or more lengths found, stopping",
-      lengths_check_bad = "Something really went wrong; please submit an issue at https://github.com/jmbarbone/mark/issues",
-      stop("something went wrong, bad input: ", x)
+      stop(internal_error(c("Unexpected switch_error(type): ", x))),
     )
   }
 )
