@@ -22,3 +22,49 @@ walrus <- function(sym, val) {
 # either side, making it a more flexible alternative to =. It is used in
 # data.table for similar reasons.
 `:=` <- `%:=%` <- walrus
+
+
+# standard conditions -----------------------------------------------------
+
+input_error := condition(
+  function(x) collapse(x),
+  type = "error",
+  help = "Generic error to indicate a bad input value."
+)
+
+type_error := condition(
+  function(expected, actual, object) {
+    sprintf(
+      ngettext(
+        length(actual),
+        "Expected %stype '%s' but got type '%s'",
+        "Expected %stype '%s' but got types '%s'"
+      ),
+      if (missing(object)) "" else sprintf("object '%s' to be ", object),
+      expected,
+      collapse(actual, sep = "', '")
+    )
+  },
+  type = "error",
+  help = "Generic error to indicate a type mismatch."
+)
+
+conversion_error := condition(
+  function(x) collapse(x),
+  type = "error",
+  help = "Generic error to indicate a conversion failure."
+)
+
+internal_error := condition(
+  function(x) c(
+    collapse(x),
+    "\nThis is an internal `{mark}` error.  If you encounter this, please",
+    " report an issue at <https://github.com/jmbarbone/mark/issues>"
+  ),
+  type = "error",
+  help = c(
+    "Generic error to capture internal `{mark}` errors.  If any of these are",
+    " encountered, please report an issue at",
+    " <https://github.com/jmbarbone/mark/issues>"
+  )
+)
