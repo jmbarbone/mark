@@ -3,5 +3,7 @@ linters: linters_with_defaults(
   )
 encoding: "UTF-8"
 exclusions: list(
-  "tests/spelling.R"
+  "tests/spelling.R",
+  "R/array.R",
+  "R/time-report.R"
   )

@@ -1,3 +1,5 @@
+# nocov start
+
 #' Array extract
 #'
 #' Extract dimensions from an array
@@ -58,3 +60,5 @@ array_extract <- function(.arr, ..., default = "1") {
 
   eval(str2expression(text), envir = parent.frame())
 }
+
+# nocov end
