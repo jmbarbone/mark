@@ -14,10 +14,10 @@ test_that("read_bib()", {
 
   temp <- tempfile()
   writeLines("bad", temp)
-  expect_error(read_bib(temp), class = "mark:read_bib_entries")
+  expect_error(read_bib(temp), class = "mark:bib_error")
 
-  expect_error(as_bib(1:3), "data.frame", class = "mark:as_bib_class")
-  expect_error(as_bib_list(1:3), "list",  class = "mark:as_bib_list_class")
+  expect_error(as_bib(1:3), "data.frame", class = "mark:type_error")
+  expect_error(as_bib_list(1:3), "list",  class = "mark:type_error")
 
   expect_error(
     process_bib_dataframe(
@@ -26,7 +26,7 @@ test_that("read_bib()", {
       fields = "this",
       keys = "key"
     ),
-    class = "mark:process_bib_dataframe_dupe"
+    class = "mark:bib_error"
   )
 })
 
