@@ -55,3 +55,7 @@ simple_tbl <- function(delim) {
     sep = "\n"
   )
 }
+
+expect_deprecated <- function(expr) {
+  expect_warning(expr, class = "deprecatedWarning")
+}
