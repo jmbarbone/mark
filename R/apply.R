@@ -1,4 +1,5 @@
 
+# TODO these will be deprecated by fuj::vap
 
 # vaps --------------------------------------------------------------------
 
@@ -70,46 +71,6 @@ do_vap <- function(.x, .f, .value, ..., .nm) {
   vapply(X = .x, FUN = .f, FUN.VALUE = .value, ..., USE.NAMES = .nm)
 }
 
-# This can take multiple elements, so can be a little dangerous
-capply <- function(.x, .f, ..., .nm = FALSE) {
-  res <- do.call("c", lapply(X = .x, FUN = .f, ...))
-  if (.nm) {
-    set_names(res, names(.x) %||% res)
-  } else {
-    remove_names(res)
-  }
-}
-
-# A simplier implementation of sapply?
-slapply <- function(x, fun, ..., .simplify = TRUE, .names = TRUE) {
-  res <- lapply(x, fun, ...)
-
-  if (.simplify) {
-    res <- simplify2array(res, higher = FALSE)
-  }
-
-  names(res) <- if (.names) {
-    if (is.null(nm <- names(x))) x else nm
-  } else {
-    NULL
-  }
-
-  res
-}
-
-if (FALSE) {
-  x <- 1:10
-  y <- setNames(x, x)
-  lapply(x, sqrt)
-  lapply(y, sqrt)
-  sapply(x, sqrt)
-  sapply(y, sqrt)
-  sapply(y, sqrt, USE.NAMES = FALSE)
-  sapply(x, sqrt, USE.NAMES = TRUE)
-  sapply(y, sqrt, USE.NAMES = TRUE)
-  slapply(x, sqrt)
-  slapply(y, sqrt)
-  slapply(y, sqrt, .names = FALSE)
-
-  lapply(setNames(nm = 1:10), sqrt)
+capply <- function(x, f) {
+  do.call(base::c, lapply(x, f))
 }

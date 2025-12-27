@@ -40,7 +40,7 @@ expect_my_date <- function(res, exp_char, ...) {
 expect_my_datetime <- function(res, exp_char, ...) {
   testthat::expect_equal(
     str_extract_datetime(res, ...),
-    capply(exp_char, strptime, format = "%Y-%m-%d %H%M%S", tz = ""),
+    capply(exp_char, \(ec) strptime(ec, format = "%Y-%m-%d %H%M%S", tz = "")),
     label = as.character(res),
     expected.label = exp_char
   )
