@@ -7,7 +7,7 @@ test_that("details() works", {
   expect_error(detail(x), NA)
   expect_error(detail(df), NA)
 
-  expect_error(detail(data.frame()), class = "mark:no_non_list_columns")
+  expect_error(detail(data.frame()), class = "mark:input_error")
 
   exp <- quick_dfl(
     class   = "logical",
@@ -38,7 +38,7 @@ test_that("details() and tibbles", {
   expect_error(detail(tibble::tibble(a = 1, b = list(1:3))), NA)
   expect_error(
     detail(tibble::tibble(a = NULL, b = list(1:3))),
-    class = "mark:no_non_list_columns"
+    class = "mark:input_error"
   )
 })
 

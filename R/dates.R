@@ -71,11 +71,11 @@ verify_format <- function(format) {
   m <- match(c("y", "m", "d"), s)
 
   if (length(unique(s)) != 3L) {
-    stop(verify_format_chrs())
+    stop(input_error("format must be 3 characters"))
   }
 
   if (anyNA(m)) {
-    stop(verify_format_ymd())
+    stop(input_error('format must contain "y", "m", and "d"'))
   }
 
   s
@@ -248,17 +248,3 @@ strp_format <- function(fmt) {
   fmt[fmt == "y"] <- "Y"
   sprintf("%%%s-%%%s-%%%s", fmt[1], fmt[2], fmt[3])
 }
-
-# conditions --------------------------------------------------------------
-
-verify_format_chrs := condition(
-  "format must be 3 characters",
-  type = "error",
-  exports = "date_from_partial"
-)
-
-verify_format_ymd := condition(
-  'format must contain "y", "m", and "d"',
-  type = "error",
-  exports = "date_from_partial"
-)

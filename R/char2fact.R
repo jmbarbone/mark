@@ -14,7 +14,7 @@ char2fact <- function(x, n = 5) {
 #' @rdname char2fact
 #' @export
 char2fact.default <- function(x, n = 5) {
-  stop(char2fact_class(x))
+  stop(class_error("not_supported", x))
 }
 
 #' @rdname char2fact
@@ -63,11 +63,3 @@ fact2char <- function(data, threshold = 10) {
   data[bad] <- lapply(data[bad], as.character)
   data
 }
-
-# conditions --------------------------------------------------------------
-
-char2fact_class := condition(
-  function(x) paste("char2fact does not support class", toString(class(x))),
-  type = "error",
-  exports = "char2fact"
-)

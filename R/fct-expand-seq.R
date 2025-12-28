@@ -43,10 +43,11 @@ fct_expand_seq <- function(
 
   if (is.na(min_lvl)) {
     stop(fct_expand_seq_na("min_lvl"))
+    stop(fct_expand_seq_error("min"))
   }
 
   if (is.na(max_lvl)) {
-    stop(fct_expand_seq_na("max_lvl"))
+    stop(fct_expand_seq_error("max"))
   }
 
   int <- seq(from = min_lvl, to = max_lvl, by = by)
@@ -55,8 +56,8 @@ fct_expand_seq <- function(
 
 # condition ---------------------------------------------------------------
 
-fct_expand_seq_na := condition(
-  function(x = c("min_lvl", "max_lvl")) paste(match_param(x), "cannot be `NA`"),
+fct_expand_seq_error := condition(
+  function(x = c("min", "max")) paste0(match_param(x), "_lvl cannot be `NA`"),
   type = "error",
   exports = "fct_expand_seq"
 )

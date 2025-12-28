@@ -92,7 +92,7 @@ get_recent_file <- function(x, exclude_temp = TRUE, ...) {
   }
 
   if (no_length(files)) {
-    stop(no_recent_file_found())
+    stop(file_error())
   }
 
   newest_file(files)
@@ -122,7 +122,7 @@ norm_path <- function(x = ".", check = FALSE, remove = check) {
   ind <- !fs::file_exists(x)
 
   if (check && any(ind)) {
-    warning(path_not_found(x[ind]))
+    warning(file_warning("not_found", x[ind]))
   }
 
   if (remove) {
@@ -395,10 +395,11 @@ is_file <- function(x) {
   !is.na(isdir) & !isdir
 }
 
+# FIXME remove -- unused, unexported
 file_create <- function(x, overwrite = FALSE) {
   dirs <- is_dir(x)
   if (any(dirs)) {
-    warning(paths_are_directories(x[dirs]))
+    warning(file_warning("directories", x[dirs]))
     x <- x[!dirs]
   }
 
@@ -475,39 +476,41 @@ add_file_timestamp <- function(
 
 # conditions --------------------------------------------------------------
 
-no_recent_file_found := condition(
+path_error := condition(
   "No recent file found",
   type = "error",
   exports = "get_recent_file"
 )
 
-path_not_found := condition(
-  function(x) {
-    ngettext(
-      length(x),
-      paste("Path not found:", norm_path(x)),
-      paste0(
-        "Paths not found:",
-        paste0("\n   ", norm_path(x), collapse = "\n")
-      )
+path_warning := condition(
+  function(type, x) {
+    switch(
+      type,
+      not_found = function(x) {
+        ngettext(
+          length(x),
+          paste("Path not found:", norm_path(x)),
+          paste0(
+            "Paths not found:",
+            paste0("\n   ", norm_path(x), collapse = "\n")
+          )
+        )
+      },
+      directories = function(x) {
+        ngettext(
+          length(x),
+          paste("File is a directory:", norm_path(x)),
+          paste0(
+            "Files are directories:",
+            paste0("\n   ", norm_path(x), collapse = "\n")
+          )
+        )
+      },
+      stop(internal_error())
     )
   },
   type = "warning",
-  exports = "norm_path"
-)
-
-paths_are_directories := condition(
-  function(x) {
-    ngettext(
-      length(x),
-      paste("File is a directory:", norm_path(x)),
-      paste0(
-        "Files are directories:",
-        paste0("\n   ", norm_path(x), collapse = "\n")
-      )
-    )
-  },
-  type = "warning",
+  exports = c("get_recent_file", "norm_path"),
   help = {
     "File creation cannot be performed when the path is an existing directory"
   }

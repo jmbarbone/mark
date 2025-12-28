@@ -58,8 +58,8 @@ test_that("Logical extension work", {
 })
 
 test_that("logical helpers", {
-  expect_error(check_null(NULL), class = "mark:null_or_zero")
-  expect_error(check_null(integer()), class = "mark:null_or_zero")
+  expect_error(check_null(NULL), class = "mark:input_error")
+  expect_error(check_null(integer()), class = "mark:input_error")
 
   expect_error(
     apply_logical_matrix(1L, mean, TRUE),

@@ -29,8 +29,8 @@ test_that("to_row_names()", {
 
 
 test_that("col_to_rn()", {
-  expect_error(to_row_names(data.frame(), 1:2), class = "mark:to_row_names_single")
-  expect_error(to_row_names(data.frame(), NA), class = "mark:to_row_names_na")
+  expect_error(to_row_names(data.frame(), 1:2), class = "mark:input_error")
+  expect_error(to_row_names(data.frame(), NA), class = "mark:input_error")
 })
 
 test_that("vector2df()", {
@@ -52,7 +52,7 @@ test_that("list2df()", {
     value = c(1, 2:4, letters[10:20])
   )
 
-  expect_warning(list2df(x), class = "mark:list2df_classes")
+  expect_warning(list2df(x), class = "mark:list2df_warning")
   expect_warning(list2df(x, warn = FALSE), NA)
   expect_equal(list2df(x, warn = FALSE), exp)
 

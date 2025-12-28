@@ -24,7 +24,9 @@ are_identical <- function(..., params = NULL) {
   n <- length(x)
 
   if (length(unique(lengths(x))) != 1L || n < 2L) {
-    stop(dots_specified_correctly())
+    stop(input_error(
+      "... must have at least two arguments and be equal length vectors"
+    ))
   }
 
   if (n == 2L) {
@@ -49,11 +51,3 @@ do_map_identical <- function(x, y, params = NULL) {
     SIMPLIFY = TRUE
   )
 }
-
-# conditions --------------------------------------------------------------
-
-dots_specified_correctly := condition(
-  "... must have at least two arguments and be equal length vectors",
-  type = "error",
-  exports = "are_identical"
-)

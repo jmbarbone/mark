@@ -31,12 +31,14 @@ test_that("data.frame assignment", {
 
   expect_error(
     assign_labels(x0, a = "x", b = "y", `1` = 2),
-    class = "mark:missing_labels_in_assign"
+    "not found",
+    class = "mark:assign_labels_error"
   )
 
   expect_error(
     assign_labels(x0, NULL),
-    class = "mark:invalid_assign_labels"
+    "malformed",
+    class = "mark:assign_labels_error"
   )
 
   expect_true(is.null(attr(exp0[["Species"]], "label")))
@@ -46,23 +48,27 @@ test_that("data.frame assignment", {
 
   expect_error(
     assign_labels(x0, .ls = list()),
-    class = "mark:invalid_assign_labels"
+    "malformed",
+    class = "mark:assign_labels_error"
   )
   expect_error(
     assign_labels(x0, a = 1, .ls = list(b = 2)),
-    class = "mark:invalid_assign_labels"
+    "set",
+    class = "mark:assign_labels_error"
   )
 
   df <- quick_dfl(a = 1, b = 2, c = 3)
   expect_error(
     assign_labels(df, c = "c", d = "d", .missing = "error"),
-    class = "mark:missing_labels_in_assign"
+    "not found",
+    class = "mark:assign_labels_error"
   )
 
   # error is raised as a warning
   expect_error(
     assign_labels(df, c = "c", d = "d", .missing = "warn"),
-    class = "mark:missing_labels_in_assign"
+    "not found",
+    class = "mark:assign_labels_error"
   )
 
   expect_warning(
@@ -97,17 +103,21 @@ test_that("data.frame assign with data.frame", {
 
   expect_error(
     assign_labels(iris, bad_labels),
-    class = "mark:missing_labels_in_assign"
+    class = "mark:assign_labels_error"
   )
 
   options(op)
 })
 
 test_that("view_labels() works", {
-  skip_if(interactive())
   df <- data.frame(a = 1, b = 2)
   df <- assign_labels(df, a = "a", b = "b")
-  expect_error(view_labels(df), class = "mark:cannot_view_labels")
+  if (interactive()) {
+    skip("interactive session open new view")
+    expect_no_error(view_labels(df)) # opens a viewer
+  } else {
+    expect_output(view_labels(df), "a", fixed = TRUE)
+  }
 })
 
 test_that("exact match [141]", {

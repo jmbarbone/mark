@@ -111,11 +111,11 @@ reindex <- function(
   expand <- match_param(expand)
 
   if (!inherits(x, "data.frame")) {
-    stop("`x` must be a data.frame", call. = FALSE)
+    stop(class_error("must_be", x, "data.frame"))
   }
 
   if (no_length(new_index)) {
-    stop("new_index must not be NULL or 0 length", call. = FALSE)
+    stop(input_error("`new_index` cannot be NULL or 0 length"))
   }
 
   xi <- if (is.null(index)) {
@@ -127,11 +127,11 @@ reindex <- function(
   }
 
   if (anyNA(xi)) {
-    warning(reindex_na_index(which(is.na(xi))))
+    warning(reindex_warning(which(is.na(xi))))
   }
 
   if (is.null(xi)) {
-    stop(reindex_null_index())
+    stop(reindex_error())
   }
 
   ro <- expand_by(xi, new_index, expand = expand, sort = sort)
@@ -151,12 +151,10 @@ unique_name_check <- function(x) {
   int <- lens > 1L
 
   if (any(int)) {
-    warning(
-      "These names are duplicated: ",
-      collapse0(names(lens[int]), sep = ", "),
-      call. = FALSE
-    )
-    return(invisible(FALSE))
+    warning(unique_name_check(names(lens[int])))
+    FALSE
+  } else {
+    TRUE
   }
 
   invisible(TRUE)
@@ -164,7 +162,13 @@ unique_name_check <- function(x) {
 
 # conditions --------------------------------------------------------------
 
-reindex_na_index := condition(
+unique_name_warning := condition(
+  function(x) paste0("These names are duplicated:", toString(x)),
+  type = "warning",
+  exports = "expand_by"
+)
+
+reindex_warning := condition(
   function(x) {
     paste(
       ngettext(
@@ -199,7 +203,7 @@ reindex(x, 'index', c(1, 2, 5, NA))
 "
 )
 
-reindex_null_index := condition(
+reindex_error := condition(
   "x[[index]] returned `NULL`",
   type = "error",
   exports = "reindex"

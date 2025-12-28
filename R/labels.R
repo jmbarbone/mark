@@ -70,7 +70,7 @@ assign_labels.data.frame <- function(
     is.null(.ls) ||
     any(vap_lgl(.ls, is.null))
   ) {
-    stop(invalid_assign_labels(rlang::list2(...), .ls))
+    stop(assign_labels_error("dots", dots = rlang::list2(...), ls = .ls))
   }
 
   if (inherits(.ls[[1L]], "data.frame")) {
@@ -93,7 +93,7 @@ assign_labels.data.frame <- function(
       warn  = warning,
       skip = function(cond) return()
     )(
-      missing_labels_in_assign(nm[nas])
+      assign_labels_error("columns", cols = nm[nas])
     )
 
     nm  <-  nm[!nas]
@@ -136,17 +136,18 @@ view_labels <- function(x, title) {
     title <- paste0(cesx, " - Labels")
   }
 
-
-  view <-
-    if ("tools:rstudio" %in% search()) {
-      get0("View", as.environment("tools:rstudio"))
-    } %||%
-    utils::View
+  if (!interactive()) {
+    view <- function(x, title) print(x)
+  } else if ("tools:rstudio" %in% search()) {
+    view <- get("View", as.environment("tools:rstudio"))
+  } else {
+    view <- utils::View
+  }
 
   tryCatch(
     view(x = get_labels(x), title = title),
     error = function(cond) {
-      stop(cannot_view_labels())
+      stop(view_labels_error())
     }
   )
 }
@@ -173,7 +174,7 @@ remove_labels.data.frame <- function(x, cols, ...) {
     bad <- cols %wo% colnames(x)
 
     if (length(bad)) {
-      stop(column_not_found(bad))
+      stop(assign_labels_error(bad))
     }
   }
 
@@ -186,81 +187,73 @@ remove_labels.data.frame <- function(x, cols, ...) {
 
 # conditions --------------------------------------------------------------
 
-invalid_assign_labels := condition(
-  message = function(dots, list) {
-    if (identical(dots, list)) {
-      paste0(
-        "labels provide are malformed: ",
-        toString(dots)
-      )
-    } else {
-      paste0(
-        "`.ls` and `...` were both set and/or malformed",
-        "\n  ...  ",
-        toString(dots),
-        "\n  .ls ",
-        toString(list)
-      )
-    }
+assign_labels_error := condition(
+  function(type, ..., cols, dots, ls) {
+    switch(
+      type,
+      columns = sprintf(
+        ngettext(
+          length(cols),
+          "Columns not found: %s",
+          "Column not found: %s"
+        ),
+        toString(cols)
+      ),
+      dots = if (identical(dots, ls)) {
+        sprintf("labels provided are malformed: %s", toString(dots))
+      } else {
+        sprintf(
+          "`.ls` and `...` were both set and/or malformed\n ... %s\n .ls %s",
+          toString(dots),
+          toString(ls)
+        )
+      },
+      stop(internal_error())
+    )
   },
   type = "error",
-  exports = "assign_labels",
-  help = c(
-    "If passing labels as `.ls`, `...` must be empty.",
-    "  Columns in `...` must be entered as `name = value`; `column = label`.",
-    "\n\n",
-    paste(
-      "```r",
-      "# instead of this:",
-      "assign_labels(df, a = 'AAA', .ls = list(b = 'BBB'))",
-      "",
-      "# do this:",
-      "assign_labels(df, a = 'AAA', b = 'BBB')",
-      "# or this:",
-      "assign_labels(df, .ls = list(a = 'AAA', b = 'BBB'))",
-      "```",
-      sep = "\n"
-    ),
-    "\n\n",
-    "Labels must not be null; to remove lavels, use `remove_labels()`.",
-    "\n\n",
-    paste(
-      "```r",
-      "# instead of this",
-      "assign_labels(df, a = 'AAA', b = NULL)",
-      "",
-      "# do this",
-      "df <- assign_labels(df, a = 'AAA')",
-      "df <- remove_labels(df, 'b')",
-      "```",
-      sep = "\n"
-    )
-  )
+  exports = c("assign_labels", "remove_labels"),
+  help = r"(
+**Columns not found**
+You can set `.missing` to `warn` to get a warning instead of an error, or `skip` to silently skip those labels.
+
+**Malformed labels**
+If passing labels as `.ls`, `...` must be empty. Columns in `...` must be entered as `name = value`; `column = label`.
+
+```r
+# instead of this:
+assign_labels(df, a = 'AAA', .ls = list(b = 'BBB'))
+
+# do this:
+assign_labels(df, a = 'AAA', b = 'BBB')
+# or this:
+assign_labels(df, .ls = list(a = 'AAA', b = 'BBB'))
+```
+Labels must not be null; to remove lavels, use `remove_labels()`.
+
+```r
+# instead of this
+assign_labels(df, a = 'AAA', b = NULL)
+
+# do this
+df <- assign_labels(df, a = 'AAA')
+df <- remove_labels(df, 'b')
+```)"
 )
 
-missing_labels_in_assign := condition(
-  function(x) paste("Columns not found:", toString(x)),
-  type = "error",
-  exports = "assign_labels",
-  help = c(
-    "You can set `.missing` to `warn` to get a warning instead of an error,",
-    "or `skip` to silently skip those labels."
-  )
-)
-
-cannot_view_labels := condition(
+view_labels_error := condition(
   "Cannot use `View()`",
   type = "error",
   exports = "view_labels",
   help = c(
-    "This may be because you are using Rstudio :",
-    "  https://community.rstudio.com/t/view-is-causing-an-error/75297/4",
+    "This may be because you are using RStudio :",
+    "  https://community.rstudio.com/t/view-is-causing-an-error/75297/4 ",
     "You can try :",
-    '  `View(get_labels(x), title = "Labels")`'
+    '  `utils::View(get_labels(x), title = "Labels")`'
   )
 )
 
-column_not_found := condition(
+remove_labels_error := condition(
   function(x) {
     sprintf(
       ngettext(

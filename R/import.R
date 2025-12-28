@@ -18,7 +18,7 @@ import <- function(pkg, fun, overwrite = FALSE) {
   require_namespace(pkg)
 
   if (!overwrite && fun %in% ls(envir = e)) {
-    stop(import_already_assigned(fun))
+    stop(import_error(fun))
   }
 
   assign(fun, pkg %::% fun, envir = e)
@@ -26,7 +26,7 @@ import <- function(pkg, fun, overwrite = FALSE) {
 
 # conditions --------------------------------------------------------------
 
-import_already_assigned := condition(
+import_error := condition(
   message = function(fun) sprintf("'%s' has already been assigned", fun),
   type = "error",
   exports = "import",
@@ -44,4 +44,5 @@ import('package', 'foo')
 foo <- NULL
 import('package', 'foo', overwrite = TRUE)
 ```
-")
+"
+)

@@ -297,9 +297,9 @@ is_diff_time <- function(x) {
 
 default_tz <- function() {
   # op.mark contains default_tz
-  tz <- getOption("mark.default_tz", "UTC")
+  tz <- getOption("mark.default_tz")
 
-  if (identical(tz, "UTC")) {
+  if (is.null(tz) || identical(tz, "UTC")) {
     return("UTC")
   }
 
@@ -313,7 +313,7 @@ default_tz <- function() {
   }
 
   if (!is.character(tz) || length(tz) != 1L) {
-    stop(default_tz_value())
+    stop(value_error("Invalid value for options('mark.default_tz')"))
   }
 
   tz
@@ -340,6 +340,28 @@ sys_tz <- function(method = 1) {
 }
 
 # conditions --------------------------------------------------------------
+
+diff_time_error := condition(
+  function(type) {
+    switch(
+      type,
+      tz_null = "Date times cannot be numeric when tz is NULL",
+    )
+  }
+)
+
+diff_time_warning := condition(
+  function(type) {
+    switch(
+      type,
+      na_tz = paste(
+        "NA found in timezones; setting to default timezone:",
+        default_tz()
+      ),
+      stop(internal_error())
+    )
+  }
+)
 
 numeric_datetime_tz := condition(
   "Date times cannot be numeric when tz is NULL",

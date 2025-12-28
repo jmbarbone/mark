@@ -155,7 +155,7 @@ none <- function(..., na.rm = FALSE) { # nolint: object_name_linter.
 
 check_null <- function(x) {
   if (no_length(x)) {
-    stop(null_or_zero())
+    stop(input_error("`x` cannot be `NULL` or 0 length values"))
   }
 
   invisible()
@@ -193,10 +193,3 @@ apply_logical_matrix <- function(mat, FUN, na.rm) { # nolint: object_name_linter
     }
   )
 }
-
-# conditions --------------------------------------------------------------
-
-null_or_zero := condition(
-  message = "Cannot accept `NULL` or 0 length values",
-  type = "error"
-)

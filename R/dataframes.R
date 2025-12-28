@@ -20,7 +20,7 @@ to_row_names <- function(data, row_names = 1L) {
   row_names0 <- row_names
 
   if (length(row_names) != 1) {
-    stop(to_row_names_single())
+    stop(input_error("row_names must be a single element vector"))
   }
 
   if (is.character(row_names)) {
@@ -28,7 +28,7 @@ to_row_names <- function(data, row_names = 1L) {
   }
 
   if (is.na(row_names)) {
-    stop(to_row_names_na(row_names0))
+    stop(input_error("`row_names` cannot be NA"))
   }
 
   x <- data[[row_names]]
@@ -95,7 +95,7 @@ list2df <- function(x, name = "name", value = "value", warn = TRUE) {
   n_cl <- length(unique(cl))
 
   if (n_cl > 1L && warn) {
-    warning(list2df_classes(cl))
+    warning(list2df_warning(cl))
   }
 
   ulist <- unlist(x, use.names = FALSE)
@@ -104,8 +104,7 @@ list2df <- function(x, name = "name", value = "value", warn = TRUE) {
   nm[blanks] <- which(blanks)
 
   out <- quick_df(
-    list(name = rep(make.unique(nm), lengths(x)),
-         value = unname(ulist))
+    list(name = rep(make.unique(nm), lengths(x)), value = unname(ulist))
   )
 
   names(out) <- c(name, value)
@@ -206,7 +205,7 @@ complete_cases <- function(data, cols = NULL, invert = FALSE) {
   ds <- dim(data)
 
   if (ds[1L] == 0L || ds[2L] == 0L) {
-    stop(complete_cases_dims())
+    stop(input_error("`data` must have at least 1 row and 1 column"))
   }
 
   x <- data[, cols %||% 1:ds[2L], drop = FALSE]
@@ -263,23 +262,9 @@ reset_rownames <- function(data, n = nrow(data)) {
   data
 }
 
-
 # conditions --------------------------------------------------------------
 
-to_row_names_single := condition(
-  "row_names must be a single element vector",
-  type = "error",
-  exports = "to_row_names"
-)
-
-to_row_names_na := condition(
-  function(x) sprintf("`row_names` of `%s` is invalid", x),
-  type = "error",
-  exports = "to_row_names"
-)
-
-
-list2df_classes := condition(
+list2df_warning := condition(
   function(x) {
     ngettext(
       any(c("character", "factor") %in% x),
@@ -289,10 +274,4 @@ list2df_classes := condition(
   },
   type = "warning",
   exports = "list2df"
-)
-
-complete_cases_dims := condition(
-  "`data` must have at least 1 row and 1 column",
-  type = "error",
-  exports = "complete_cases"
 )

@@ -19,7 +19,10 @@ use_author <- function(author_info = find_author()) {
   start <- grep("^[Aa]uthor", lines)
 
   if (!length(start)) {
-    stop("Jordan needs to review this, sorry")
+    warning(
+      "No Author field found; adding Authors@R at the top of the file",
+      call. = FALSE
+    )
     start <- grep("^[Vv]ersion", lines)
     lines <- c(lines[1:start], "Author: ", lines[(start + 1):length(lines)])
   }
@@ -70,7 +73,10 @@ author_info_to_text <- function(x) {
 }
 
 find_author <- function() {
-  getOption("mark.author", stop(no_author_found()))
+  getOption(
+    "mark.author",
+    stop(value_error("Author information not found in options."))
+  )
 }
 
 # Version -----------------------------------------------------------------
@@ -101,7 +107,7 @@ get_version <- function() {
   line <- grep("^[Vv]ersion.*[[:punct:][:digit:]]+$", description)
 
   if (length(line) != 1L) {
-    stop(multiple_versions_found())
+    stop(description_version_error())
   }
 
   as.package_version(gsub("[Vv]ersion|[:]|[[:space:]]", "", description[line]))
@@ -129,7 +135,7 @@ update_version <- function(version = NULL, date = FALSE) {
   line <- grep("^[Vv]ersion.*[[:punct:][:digit:]]+$", description)
 
   if (length(line) != 1L) {
-    stop(multiple_versions_found())
+    stop(description_version_error())
   }
 
   # Get the old version
@@ -214,18 +220,8 @@ today_as_version <- function(zero = FALSE) {
 
 # conditions --------------------------------------------------------------
 
-no_author_found := condition(
-  "Author information not found in options.",
-  type = "error",
-  exports = "use_author",
-  help = c(
-    "You can try to set the author information with options(mark.author = .)",
-    " probably within an .Rprofile"
-  )
-)
-
-multiple_versions_found := condition(
+description_version_error := condition(
   "Multiple version lines found in DESCRIPTION",
   type = "error",
-  exports = "get_version"
+  exports = c("get_version", "update_version")
 )
