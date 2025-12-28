@@ -1,4 +1,3 @@
-
 cnd_create_registry()
 
 # nolint next: line_length_linter.
@@ -26,10 +25,18 @@ walrus <- function(sym, val) {
 
 # standard conditions -----------------------------------------------------
 
+# caused by user inputs
 input_error := condition(
   function(x) collapse(x),
   type = "error",
   help = "Generic error to indicate a bad input value."
+)
+
+# caused by processing
+value_error := condition(
+  function(x) collapse(x),
+  type = "error",
+  help = "Generic error to indicate a value mismatch."
 )
 
 type_error := condition(
@@ -55,12 +62,41 @@ conversion_error := condition(
   help = "Generic error to indicate a conversion failure."
 )
 
+class_error := condition(
+  function(type, x, must) {
+    cls <- class(x)
+    switch(
+      type,
+      not_supported = ngettext(
+        length(cls),
+        "Class not supported: %s",
+        "Classes not supported: %s",
+        toString(cls)
+      ),
+      must_be = sprintf(
+        ngettext(
+          length(cls),
+          "Object must be of class '%s', not '%s'",
+          "Object must be of class '%s', not classes '%s'"
+        ),
+        toString(must),
+        toString(cls)
+      ),
+      stop(internal_error())
+    )
+  },
+  type = "error",
+  help = "Generic error to indicate a class mismatch."
+)
+
 internal_error := condition(
-  function(x) c(
-    collapse(x),
-    "\nThis is an internal `{mark}` error.  If you encounter this, please",
-    " report an issue at <https://github.com/jmbarbone/mark/issues>"
-  ),
+  function(x = character()) {
+    c(
+      collapse(x),
+      "\nThis is an internal `{mark}` error.  If you encounter this, please",
+      " report an issue at <https://github.com/jmbarbone/mark/issues>"
+    )
+  },
   type = "error",
   help = c(
     "Generic error to capture internal `{mark}` errors.  If any of these are",
