@@ -32,7 +32,8 @@ print.mark_environments <- function(x, ...) {
 #' @return
 #' * `ls_all()`, `objects_all()`: A named list for each of the environments
 #'    the `search()` path with all the objects found in that environment
-ls_all <- function(all.names = FALSE) { # nolint: object_name_linter, line_length_linter.
+# nolint next: object_name_linter.
+ls_all <- function(all.names = FALSE) {
   sapply(search(), function(s) ls(as.environment(s), all.names = all.names))
 }
 
@@ -81,7 +82,8 @@ ls_function <- make_do_ls(is.function)
 #' @rdname ls_ext
 ls_object <- make_do_ls(is.object)
 
-do_ls <- function(FUN, pattern, all.names = FALSE, envir = parent.frame()) { # nolint: object_name_linter, line_length_linter.
+# nolint next: object_name_linter
+do_ls <- function(FUN, pattern, all.names = FALSE, envir = parent.frame()) {
   .ls <- ls(envir = envir, pattern = pattern, all.names = all.names)
   .ls[vap_lgl(.ls, function(x) FUN(get0(x, envir = envir)))]
 }
