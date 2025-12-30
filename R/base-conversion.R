@@ -14,7 +14,7 @@
 #' base_alpha(c("JMB", "Jordan Mark", "XKCD"))
 #' sum(base_alpha(c("x", "k", "c", "d")))
 
-base_alpha <- function(x, base = 26)  {
+base_alpha <- function(x, base = 26) {
   stopifnot(is.character(x))
   check_base_alpha(base, high = 26)
   vap_int(x, base_alpha_single, base = base)
@@ -112,7 +112,7 @@ base_conversion_error := condition(
     switch(
       type,
       alpha_limit = sprintf(
-        'Cannot calculate alpha base "%s" for "%s" which has letters beyond "%s"',
+        'Cannot calculate alpha base "%s" for "%s" which has letters beyond "%s"', # nolint: line_length_linter.
         base,
         x,
         x[base]

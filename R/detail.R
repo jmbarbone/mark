@@ -64,10 +64,10 @@ detail.default <- function(x, factor_n = 5L, ...) {
 
   res <- quick_dfl(
     class = collapse0(class(x), sep = "; "),
-    type  = collapse0(typeof(x), sep = "; "),
+    type = collapse0(typeof(x), sep = "; "),
     label = exattr(x, "label") %||% NA_character_,
-    n     = length(x2),
-    na    = sum(nas),
+    n = length(x2),
+    na = sum(nas),
     # These are a little funky
     min_c = as.character(min(if (quants) x2 else nc)),
     max_c = as.character(max(if (quants) x2 else nc))
@@ -80,6 +80,7 @@ detail.default <- function(x, factor_n = 5L, ...) {
     res$level_n <- NA_integer_
   }
 
+  # fmt: skip
   text <- quick_dfl(
     note    = note(x)    %||% NA_character_,
     comment = comment(x) %||% NA_character_

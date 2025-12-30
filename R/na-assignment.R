@@ -33,8 +33,8 @@ NULL
 
 #' @rdname na_assignments
 #' @export
+# nolint next: object_name_linter.
 NA_at <- function(x, y, ...) {
-  # nolint: object_name_linter.
   nx <- length(x)
 
   if (nx == 0L) {
@@ -65,8 +65,8 @@ NA_at <- function(x, y, ...) {
 
 #' @rdname na_assignments
 #' @export
+# nolint next: object_name_linter.
 NA_if <- function(x, y, ...) {
-  # nolint: object_name_linter.
   nx <- length(x)
 
   if (nx == 0L) {
@@ -93,8 +93,8 @@ NA_if <- function(x, y, ...) {
 
 #' @rdname na_assignments
 #' @export
+# nolint next: object_name_linter.
 NA_in <- function(x, y, ...) {
-  # nolint: object_name_linter.
   if (length(x) == 0L) {
     return(x)
   }
@@ -110,8 +110,8 @@ NA_in <- function(x, y, ...) {
 
 #' @rdname na_assignments
 #' @export
+# nolint next: object_name_linter.
 NA_out <- function(x, y, ...) {
-  # nolint: object_name_linter.
   if (length(x) == 0L) {
     return(x)
   }

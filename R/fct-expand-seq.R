@@ -20,12 +20,11 @@
 #' # from the first inherit level to the last observed
 #' fct_expand_seq(x, min(levels(x)))
 #' @export
-
 fct_expand_seq <- function(
-    x,
-    min_lvl = min(x, na.rm = TRUE),
-    max_lvl = max(x, na.rm = TRUE),
-    by = 1L
+  x,
+  min_lvl = min(x, na.rm = TRUE),
+  max_lvl = max(x, na.rm = TRUE),
+  by = 1L
 ) {
   stopifnot(
     inherits(x, "ordered"),

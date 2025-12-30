@@ -6,8 +6,7 @@
 #' @param ... Additional arguments passed to [mark::list_dirs()]
 #' @return The full path of the most recent directory
 #' @export
-
-get_recent_dir <- function(x = ".",  ...) {
+get_recent_dir <- function(x = ".", ...) {
   stopifnot(dir.exists(x))
   dirs <- list_dirs(x, ...)
   newest_dir(dirs)
@@ -23,12 +22,11 @@ get_recent_dir <- function(x = ".",  ...) {
 #' @param all Logical, if `TRUE` will recursively search for directories
 #' @return A full path to a directory
 #' @export
-
 get_dir_recent_date <- function(
-    x = ".",
-    dt_pattern = NULL,
-    dt_format = NULL,
-    all = FALSE
+  x = ".",
+  dt_pattern = NULL,
+  dt_format = NULL,
+  all = FALSE
 ) {
   dt_pattern <- dt_pattern %||% .default_dt_pattern
   dt_format <- dt_format %||% .default_dt_format
@@ -54,7 +52,7 @@ get_dir_recent_date <- function(
   "%Y %m %d %H%M%S",
   "%Y%m%d %H %M %S",
   "%Y%m%d %H%M%S"
-  )
+)
 
 #' Get recent directory by number name
 #'
@@ -81,7 +79,6 @@ get_dir_max_number <- function(x) {
 #' @return The full name of the most recent file from the stated directory
 #'
 #' @export
-
 get_recent_file <- function(x, exclude_temp = TRUE, ...) {
   stopifnot(is_dir(x))
 
@@ -92,7 +89,7 @@ get_recent_file <- function(x, exclude_temp = TRUE, ...) {
   }
 
   if (no_length(files)) {
-    stop(file_error())
+    stop(path_error())
   }
 
   newest_file(files)
@@ -114,7 +111,6 @@ remove_temp_files <- function(x) {
 #' @return A vector of full file paths
 #'
 #' @export
-
 norm_path <- function(x = ".", check = FALSE, remove = check) {
   stopifnot(is.character(x))
 
@@ -122,7 +118,7 @@ norm_path <- function(x = ".", check = FALSE, remove = check) {
   ind <- !fs::file_exists(x)
 
   if (check && any(ind)) {
-    warning(file_warning("not_found", x[ind]))
+    warning(path_warning("not_found", x[ind]))
   }
 
   if (remove) {
@@ -273,7 +269,6 @@ list_files <- function(
   negate = FALSE,
   basename = FALSE
 ) {
-
   pattern <- force(pattern) %|||% NULL
   path <- norm_path(x, check = TRUE)
 
@@ -285,21 +280,21 @@ list_files <- function(
     if (basename) {
       # default behavior
       fs::dir_ls(
-        path        = path,
-        regexp      = pattern,
-        all         = all,
-        recurse     = all,
+        path = path,
+        regexp = pattern,
+        all = all,
+        recurse = all,
         ignore.case = ignore_case,
-        invert      = negate,
-        type        = "file"
+        invert = negate,
+        type = "file"
       )
     } else {
       # If we want the regular expression applied to the entire file
       fs::dir_ls(
-        path    = path,
-        all     = all,
+        path = path,
+        all = all,
         recurse = all,
-        type    = "file"
+        type = "file"
       )
     }
 
@@ -331,12 +326,12 @@ list_files <- function(
 #' @rdname file_utils
 #' @export
 list_dirs <- function(
-    x = ".",
-    pattern = NULL,
-    ignore_case = FALSE,
-    all = FALSE,
-    basename = FALSE,
-    negate = FALSE
+  x = ".",
+  pattern = NULL,
+  ignore_case = FALSE,
+  all = FALSE,
+  basename = FALSE,
+  negate = FALSE
 ) {
   path <- norm_path(x, check = TRUE)
 
@@ -455,10 +450,10 @@ file_name <- function(x, compression = FALSE) {
 #'
 #' file.remove(file1, file2)
 add_file_timestamp <- function(
-    x,
-    ts = Sys.time(),
-    format = "%Y-%m-%d %H%M%S",
-    sep = " "
+  x,
+  ts = Sys.time(),
+  format = "%Y-%m-%d %H%M%S",
+  sep = " "
 ) {
   if (!is.null(format)) {
     ts <- format(ts, format = format)

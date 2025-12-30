@@ -114,7 +114,7 @@ switch_in_case <- function(x, ..., .default = NULL, .envir = parent.frame()) {
     )
   }
 
-  rhs <- lapply(splits, function(i)  {
+  rhs <- lapply(splits, function(i) {
     eval(parse(text = i[2L]), envir = parent.frame())
   })
 
@@ -205,7 +205,7 @@ switch_case <- function(..., .default = NULL, .envir = parent.frame()) {
       rmat[inds]
     } else {
       rmat[inds[, 2, drop = FALSE]]
-  }
+    }
   out[rowSums(lmat) == 0L] <- res0
   as.vector(out, mode(res0))
 }
@@ -273,7 +273,7 @@ switch_error := condition(
   function(x, params = NULL) {
     switch(
       x,
-      numeric = "x did not appear to be numeric, cannot continue evaluating lhs",
+      numeric = "x did not appear to be numeric, cannot continue evaluating lhs", # nolint: line_length_linter.
       ambiguous_infinity = "Ambiguous infinity, cannot calculate",
       evaluate = paste0("Could not evaluate lhs\n", params),
       lengths_check = "statements have different lengths",

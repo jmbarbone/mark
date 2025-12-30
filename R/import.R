@@ -12,7 +12,6 @@
 #' @examples
 #' # assigns `add` -- test with caution
 #' import("magrittr", "add")
-
 import <- function(pkg, fun, overwrite = FALSE) {
   e <- parent.frame()
   require_namespace(pkg)
@@ -26,6 +25,7 @@ import <- function(pkg, fun, overwrite = FALSE) {
 
 # conditions --------------------------------------------------------------
 
+# nolint start: line_length_linter.
 import_error := condition(
   message = function(fun) sprintf("'%s' has already been assigned", fun),
   type = "error",
@@ -46,3 +46,4 @@ import('package', 'foo', overwrite = TRUE)
 ```
 "
 )
+# nolint end: line_length_linter.

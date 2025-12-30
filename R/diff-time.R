@@ -1,3 +1,5 @@
+# nolint start: line_length_linter.
+
 #' Diff time wrappers
 #'
 #' Wrappers for computing diff times
@@ -43,6 +45,7 @@
 #'
 #' @export
 #' @name diff_time
+# nolint end: line_length_linter.
 diff_time <- function(
   x,
   y,
@@ -72,6 +75,7 @@ diff_time <- function(
   # NB: This is time from X to Y
   z <- uy - ux
 
+  # fmt: skip
   out <- switch(
     method,
     secs   = z,
@@ -79,11 +83,12 @@ diff_time <- function(
     hours  = z / 3600,
     days   = z / 86400,
     weeks  = z / 604800,
-    months = z / getOption("mark.days_in_month", 30) / 86400,
-    years  = z / getOption("mark.days_in_year", 365) / 86400,
-    dyears = z / getOption("mark.days_in_year", 365) / 86400,
+    months = z / getOption("mark.days_in_month", 30) /   86400,
+    years  = z / getOption("mark.days_in_year", 365) /   86400,
+    dyears = z / getOption("mark.days_in_year", 365) /   86400,
     myears = z / getOption("mark.days_in_month", 30) / 1036800,
-    wyears = z / getOption("mark.weeks_in_year", 52) / 604800
+    wyears = z / getOption("mark.weeks_in_year", 52) /  604800,
+    stop(internal_error()) # nocov
   )
 
   struct(out, c("numeric", "diff_time"), units = method)
@@ -184,10 +189,11 @@ check_tz <- function(x) {
 #' @export
 print.diff_time <- function(x, digits = getOption("digits"), ...) {
   xu <- attr(x, "units")
+  # fmt: skip
   u <- switch(
     xu,
-    secs = "seconds",
-    mins = "minutes",
+    secs   = "seconds",
+    mins   = "minutes",
     # nolint start: line_length_linter.
     months = sprintf("months (%s days)",      getOption("mark.days_in_month", 30)),
     years  = sprintf("years (%s days)",       getOption("mark.days_in_year", 365)),
@@ -277,13 +283,15 @@ diff_time_myears <- function(x, y, ...) {
 #' @seealso [mark::diff_time]
 #' @name time_inherits
 #' @noRd
-is_POSIXlt <- function(x) { # nolint: object_name_linter.
+# nolint next: object_name_linter.
+is_POSIXlt <- function(x) {
   inherits(x, "POSIXlt")
 }
 
 #' @rdname time_inherits
 #' @noRd
-is_POSIXct <- function(x) { # nolint: object_name_linter.
+# nolint next: object_name_linter.
+is_POSIXct <- function(x) {
   inherits(x, "POSIXct")
 }
 

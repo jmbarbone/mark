@@ -30,10 +30,10 @@
 #' @export
 
 date_from_partial <- function(
-    x,
-    format = "ymd",
-    method = c("min", "max"),
-    year_replacement = NA_integer_
+  x,
+  format = "ymd",
+  method = c("min", "max"),
+  year_replacement = NA_integer_
 ) {
   x <- as.character(x)
   fmt <- verify_format(format)
@@ -154,7 +154,6 @@ parse_date_strings <- function(.x, fmt, method, year_replacement) {
       }
 
       if (method == "min") {
-
         if (x["d"] == 0L) {
           x["d"] <- 1L
         }
@@ -164,7 +163,6 @@ parse_date_strings <- function(.x, fmt, method, year_replacement) {
         }
 
         if (x["y"] == 0L) {
-
           if (is.na(year_replacement)) {
             return(ints)
           }

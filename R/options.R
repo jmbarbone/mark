@@ -19,8 +19,8 @@
 #'
 #' options(op)
 #' @export
+# nolint next: object_name_linter.
 checkOptions <- function(x) {
-  # nolint: object_name_linter.
   stopifnot(is.list(x))
 
   nm <- names(x)

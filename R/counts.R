@@ -107,7 +107,12 @@ props <- function(x, ...) {
 #' @rdname counts
 #' @export
 #' @param na.rm If `TRUE` will remove NA values from proportions
-props.default <- function(x, sort = FALSE, na.rm = FALSE, ...) { # nolint: object_name_linter, line_length_linter.
+props.default <- function(
+  x,
+  sort = FALSE,
+  na.rm = FALSE, # nolint: object_name_linter.
+  ...
+) {
   res <- counts(x, sort = sort)
 
   n <- length(res)
@@ -141,7 +146,9 @@ props.data.frame <- function(
       props_n(values, sort = sort, name = .name, na_ind = na_ind)
     } else {
       vector2df(
-        props(x[[cols]], sort = sort, na.rm = na.rm), cols, .name %||% "prop"
+        x = props(x[[cols]], sort = sort, na.rm = na.rm),
+        name = cols,
+        value = .name %||% "prop"
       )
     }
 

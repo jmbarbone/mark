@@ -26,11 +26,7 @@ depth <- function(x, ...) {
 #' @export
 #' @rdname depth
 depth.default <- function(x, ...) {
-  if (is.null(x)) {
-    0L
-  } else {
-    1L
-  }
+  if (is.null(x)) 0L else 1L
 }
 
 #' @export

@@ -67,10 +67,12 @@ class_error := condition(
     cls <- class(x)
     switch(
       type,
-      not_supported = ngettext(
-        length(cls),
-        "Class not supported: %s",
-        "Classes not supported: %s",
+      not_supported = sprintf(
+        ngettext(
+          length(cls),
+          "Class not supported: %s",
+          "Classes not supported: %s",
+        ),
         toString(cls)
       ),
       must_be = sprintf(

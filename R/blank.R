@@ -38,14 +38,15 @@ select_blank_cols <- function(x, na_blank = FALSE, ws = TRUE) {
 remove_blank_cols <- function(x, na_blank = FALSE, ws = TRUE) {
   x[, !is_blank_cols(x, na_blank = na_blank, ws = ws), drop = FALSE]
 }
-
 #' @rdname blank_values
 #' @export
 is_blank_cols <- function(x, names = TRUE, na_blank = FALSE, ws = TRUE) {
   stopifnot(is.data.frame(x))
-  vap_lgl(x, function(i) {
-    all(is_blank(i, na_blank = na_blank, ws = ws))
-  },
-  .nm = names
+  vap_lgl(
+    x,
+    function(i) {
+      all(is_blank(i, na_blank = na_blank, ws = ws))
+    },
+    .nm = names
   )
 }

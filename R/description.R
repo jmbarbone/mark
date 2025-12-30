@@ -8,7 +8,6 @@
 #' @param author_info Author information as a named list
 #' @return None, called for side effects
 #' @export
-
 use_author <- function(author_info = find_author()) {
   stopifnot(
     is.list(author_info),
@@ -24,11 +23,11 @@ use_author <- function(author_info = find_author()) {
       call. = FALSE
     )
     start <- grep("^[Vv]ersion", lines)
-    lines <- c(lines[1:start], "Author: ", lines[(start + 1):length(lines)])
+    lines <- c(lines[1:start], "Author@R: ", lines[(start + 1L):length(lines)])
   }
 
   spaces <- grepl("^\\s", lines)
-  end <- which.max(!spaces[-c(1:start)]) + start - 1
+  end <- which.max(!spaces[-c(1:start)]) + start - 1L
 
   names(author_info) <- tolower(names(author_info))
   valid_names <- c("given", "family", "middle", "email", "role", "comment")
@@ -37,15 +36,20 @@ use_author <- function(author_info = find_author()) {
 
   body <- author_info_to_text(author_info)
   n <- length(body)
-  new_body <- c("Authors@R:",
+
+  # TODO maybe some expression() handling here?
+  new_body <- c(
+    "Authors@R:",
     paste0("    person(", trimws(body[1], "left")),
-    if (n > 2) paste0("           ", body[2:(n - 1)]) else NULL,
-    paste0("           ", sub("[,]$", "", body[n]), ")"))
+    if (n > 2) paste0("           ", body[2:(n - 1L)]) else NULL,
+    paste0("           ", sub("[,]$", "", body[n]), ")")
+  )
 
-  out <- c(lines[1:(start - 1)],
+  out <- c(
+    lines[1:(start - 1L)],
     new_body,
-    lines[(end + 1):length(lines)])
-
+    lines[(end + 1L):length(lines)]
+  )
   writeLines(out, "DESCRIPTION")
 }
 
@@ -62,11 +66,12 @@ author_info_to_text <- function(x) {
 
   ind <- !comment & len
   x[ind] <- paste0('"', x[ind], '"')
-  x[comment] <-  paste0(
+  x[comment] <- paste0(
     "c(",
     names(x[comment][[1]]),
     " = ",
-    paste0('"', x[comment][1], '"'), ")"
+    paste0('"', x[comment][1], '"'),
+    ")"
   )
 
   paste0(format(nm, width = width), " = ", x, ",")
@@ -213,7 +218,9 @@ today_as_version <- function(zero = FALSE) {
   char <- if (zero) {
     paste(0, x[["year"]] + 1900, x[["mon"]] + 1, x[["mday"]], sep = ".")
   } else {
-    paste(   x[["year"]] + 1900, x[["mon"]] + 1, x[["mday"]], sep = ".") # nolint: spaces_inside_linter, line_length_linter.
+    # fmt: skip
+    # nolint next: spaces_inside_linter.
+    paste(   x[["year"]] + 1900, x[["mon"]] + 1, x[["mday"]], sep = ".")
   }
   as.package_version(char)
 }

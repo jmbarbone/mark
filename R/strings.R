@@ -60,7 +60,6 @@ str_slice_by_word <- function(x, n = 80L) {
     starts <- c(starts, st)
     ends <- c(ends, end)
     st <- end + 2L
-
   }
 
   mapply(
@@ -143,7 +142,7 @@ format_to_regex <- function(x) {
   x
 }
 
-month_abbr_regex <- sprintf("(%s)", paste(month.abb,  collapse = "|"))
+month_abbr_regex <- sprintf("(%s)", paste(month.abb, collapse = "|"))
 month_name_regex <- sprintf("(%s)", paste(month.name, collapse = "|"))
 
 #' Character split
@@ -183,7 +182,6 @@ chr_split <- function(x) {
 #' @export
 print_c <- function(x = read_clipboard(), sorted = TRUE, null = TRUE) {
   check_is_vector(x)
-
   x <- unique(unlist(x))
 
   if (sorted) {

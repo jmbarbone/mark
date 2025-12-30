@@ -121,13 +121,15 @@ is_false.logical <- function(x) {
 
 #' @export
 #' @rdname logic_ext
-OR <- function(..., na.rm = FALSE) { # nolint: object_name_linter.
+# nolint next: object_name_linter.
+OR <- function(..., na.rm = FALSE) {
   apply_logical_matrix(cbind(...), "|", na.rm = na.rm)
 }
 
 #' @export
 #' @rdname logic_ext
-AND <- function(..., na.rm = FALSE) { # nolint: object_name_linter.
+# nolint next: object_name_linter.
+AND <- function(..., na.rm = FALSE) {
   apply_logical_matrix(cbind(...), "&", na.rm = na.rm)
 }
 
@@ -147,7 +149,8 @@ is_boolean <- function(x) {
 
 #' @export
 #' @rdname logic_ext
-none <- function(..., na.rm = FALSE) { # nolint: object_name_linter.
+# nolint next: object_name_linter.
+none <- function(..., na.rm = FALSE) {
   !any(..., na.rm = na.rm)
 }
 
@@ -157,12 +160,11 @@ check_null <- function(x) {
   if (no_length(x)) {
     stop(input_error("`x` cannot be `NULL` or 0 length values"))
   }
-
-  invisible()
 }
 
-apply_logical_matrix <- function(mat, FUN, na.rm) { # nolint: object_name_linter, line_length_linter.
   stopifnot(is.matrix(mat), is_boolean(mat))
+# nolint next: object_name_linter.
+apply_logical_matrix <- function(mat, FUN, na.rm) {
 
   na_val <-
     if (na.rm) {
@@ -175,7 +177,7 @@ apply_logical_matrix <- function(mat, FUN, na.rm) { # nolint: object_name_linter
 
   apply(
     mat,
-    1,
+    1L,
     function(x) {
       if (na.rm) {
         x <- remove_na(x)

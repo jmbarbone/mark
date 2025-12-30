@@ -7,7 +7,6 @@
 #'   function is applied to each element of the list.  The default `"auto"`
 #'   uses `toJSON()` if the package `jsonlite` is available, otherwise
 #'
-#'
 #' @param x An object to write to file
 #' @param path The file or connection to write to (dependent on part by method)
 #' @param method The method of saving the file.  When `default`, the method is
@@ -37,14 +36,14 @@
 #' fs::file_delete(temp)
 #' @export
 write_file_md5 <- function(
-    x,
-    path = NULL,
-    method = mark_write_methods(),
-    overwrite = NA,
-    quiet = FALSE,
-    encoding = "UTF-8",
-    compression = getOption("mark.compress.method", mark_compress_methods()),
-    ...
+  x,
+  path = NULL,
+  method = mark_write_methods(),
+  overwrite = NA,
+  quiet = FALSE,
+  encoding = "UTF-8",
+  compression = getOption("mark.compress.method", mark_compress_methods()),
+  ...
 ) {
   compression <- match_param(compression, mark_compress_methods())
   op <- options(
@@ -54,10 +53,11 @@ write_file_md5 <- function(
   )
   on.exit(options(op), add = TRUE)
 
+  # fmt: skip
   if (
     !isTRUE(nzchar(path, keepNA = TRUE)) ||
     inherits(path, "terminal")
-  )  {
+  ) {
     null_path <- TRUE
     ext <- ""
   } else {
@@ -172,12 +172,12 @@ mark_write_rds <- function(x, con, version = 3) {
 }
 
 mark_write_csv <- function(
-    x,
-    con,
-    sep = ",",
-    dec = ".",
-    qmethod = "double",
-    ...
+  x,
+  con,
+  sep = ",",
+  dec = ".",
+  qmethod = "double",
+  ...
 ) {
   mark_write_table(
     x = x,
@@ -190,12 +190,12 @@ mark_write_csv <- function(
 }
 
 mark_write_csv2 <- function(
-    x,
-    con,
-    sep = ";",
-    dec = ",",
-    qmethod = "double",
-    ...
+  x,
+  con,
+  sep = ";",
+  dec = ",",
+  qmethod = "double",
+  ...
 ) {
   mark_write_table(
     x = x,
@@ -208,12 +208,12 @@ mark_write_csv2 <- function(
 }
 
 mark_write_csv3 <- function(
-    x,
-    con,
-    sep = "|",
-    dec = ".",
-    qmethod = "double",
-    ...
+  x,
+  con,
+  sep = "|",
+  dec = ".",
+  qmethod = "double",
+  ...
 ) {
   mark_write_table(
     x = x,
@@ -234,19 +234,17 @@ mark_write_tsv2 <- function(x, con, sep = "|", qmethod = "double", ...) {
 }
 
 mark_write_table <- function(
-    x,
-    con = "",
-    quote = TRUE,
-    sep = " ",
-    eol = "\n",
-    na = "",
-    dec = ".",
-    # nolint next: object_name_linter.
-    row.names = FALSE,
-    # nolint next: object_name_linter.
-    col.names = NA,
-    qmethod = "escape",
-    list_hook = getOption("mark.list.hook", "auto")
+  x,
+  con = "",
+  quote = TRUE,
+  sep = " ",
+  eol = "\n",
+  na = "",
+  dec = ".",
+  row.names = FALSE, # nolint: object_name_linter.
+  col.names = NA, # nolint: object_name_linter.
+  qmethod = "escape",
+  list_hook = getOption("mark.list.hook", "auto")
 ) {
   if (isFALSE(row.names) && isNA(col.names)) {
     # nolint next: object_name_linter.
@@ -307,14 +305,12 @@ get_list_hook <- function(hook) {
 }
 
 mark_write_dcf <- function(
-    x,
-    con = "",
-    # nolint next: object_name_linter.
-    useBytes = FALSE,
-    indent = 4,
-    width = Inf,
-    # nolint next: object_name_linter.
-    keep.white = NULL
+  x,
+  con = "",
+  useBytes = FALSE, # nolint: object_name_linter.
+  indent = 4,
+  width = Inf,
+  keep.white = NULL # nolint: object_name_linter.
 ) {
   write.dcf(
     x = x,
@@ -332,11 +328,11 @@ mark_write_lines <- function(x, con, sep = "\n") {
 }
 
 mark_write_yaml <- function(
-    x,
-    con,
-    unicode = TRUE,
-    digits = getOption("digits"),
-    ordered_lists = TRUE
+  x,
+  con,
+  unicode = TRUE,
+  digits = getOption("digits"),
+  ordered_lists = TRUE
 ) {
   require_namespace("yaml")
   string <- yaml::as.yaml(
@@ -368,10 +364,10 @@ mark_write_parquet <- function(x, con, ...) {
 }
 
 mark_write_arrow <- function(
-    x,
-    con,
-    ...,
-    .method = c("feather", "parquet")
+  x,
+  con,
+  ...,
+  .method = c("feather", "parquet")
 ) {
   require_namespace("arrow")
   .method <- mark::match_param(.method)
@@ -411,12 +407,12 @@ mark_write_arrow <- function(
 }
 
 mark_write_md <- function(
-    x,
-    con,
-    format = c("default", "compact"),
-    na = NA_character_,
-    ...
-  ) {
+  x,
+  con,
+  format = c("default", "compact"),
+  na = NA_character_,
+  ...
+) {
   format <- match_param(format)
   m <- rbind(NA, NA, unname(as.matrix(x)))
   n <- ncol(x)
@@ -460,15 +456,6 @@ mark_write_md <- function(
   )
 }
 
-mark_read_md <- function(file, text) {
-  if (!missing(text)) {
-    file <- textConnection(text)
-  }
-
-  x <- readLines(file)
-
-}
-
 # helpers -----------------------------------------------------------------
 
 mark_to_json <- function(x) {
@@ -491,10 +478,10 @@ mark_to_json <- function(x) {
 }
 
 compress <- function(
-    x = "",
-    method = getOption("mark.compress.method", "default"),
-    encoding = getOption("mark.write_table.encoding", "UTF-8"),
-    ...
+  x = "",
+  method = getOption("mark.compress.method", "default"),
+  encoding = getOption("mark.write_table.encoding", "UTF-8"),
+  ...
 ) {
   op <- options(encoding = encoding)
   on.exit(options(op), add = TRUE)

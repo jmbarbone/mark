@@ -18,13 +18,15 @@
 #' expand_by(x, y, "both")
 #' @export
 expand_by <- function(
-    x,
-    y,
-    expand = c("x", "y", "intersect", "both"),
-    sort = FALSE
+  x,
+  y,
+  expand = c("x", "y", "intersect", "both"),
+  sort = FALSE
 ) {
   expand <- match_param(expand)
+  # fmt: skip
   if (!is_named(x)) names(x) <- x
+  # fmt: skip
   if (!is_named(y)) names(y) <- y
 
   nx <- names(x)
@@ -102,11 +104,11 @@ expand_by <- function(
 #' reindex(iris1, "index", seq(2, 8, 2), expand = "both")
 #' @export
 reindex <- function(
-    x,
-    index = NULL,
-    new_index,
-    expand = c("intersect", "both"),
-    sort = FALSE
+  x,
+  index = NULL,
+  new_index,
+  expand = c("intersect", "both"),
+  sort = FALSE
 ) {
   expand <- match_param(expand)
 
@@ -156,8 +158,6 @@ unique_name_check <- function(x) {
   } else {
     TRUE
   }
-
-  invisible(TRUE)
 }
 
 # conditions --------------------------------------------------------------

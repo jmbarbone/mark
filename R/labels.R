@@ -57,13 +57,14 @@ assign_labels.default <- function(x, label, ...) {
 #'   `skip` to silently skip those labels.
 #' @param .ls A named list of columns and labels to be set if `...` is empty
 assign_labels.data.frame <- function(
-    x,
-    ...,
-    .missing = c("error", "warn", "skip"),
-    .ls = rlang::list2(...)
+  x,
+  ...,
+  .missing = c("error", "warn", "skip"),
+  .ls = rlang::list2(...)
 ) {
   .missing <- match_param(.missing)
 
+  # fmt: skip
   if (
     identical(.ls, list()) ||
     (...length() && !identical(rlang::list2(...), .ls)) ||
@@ -90,14 +91,14 @@ assign_labels.data.frame <- function(
     switch(
       .missing,
       error = stop,
-      warn  = warning,
-      skip = function(cond) return()
+      warn = warning,
+      skip = function(cond) NULL
     )(
       assign_labels_error("columns", cols = nm[nas])
     )
 
-    nm  <-  nm[!nas]
-    ma  <-  ma[!nas]
+    nm <- nm[!nas]
+    ma <- ma[!nas]
     .ls <- .ls[!nas]
   }
 
@@ -213,6 +214,7 @@ assign_labels_error := condition(
   },
   type = "error",
   exports = c("assign_labels", "remove_labels"),
+  # nolint start: line_length_linter.
   help = r"(
 **Columns not found**
 You can set `.missing` to `warn` to get a warning instead of an error, or `skip` to silently skip those labels.
@@ -240,6 +242,7 @@ df <- assign_labels(df, a = 'AAA')
 df <- remove_labels(df, 'b')
 ```)"
 )
+# nolint end: line_length_linter.
 
 view_labels_error := condition(
   "Cannot use `View()`",
