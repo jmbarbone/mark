@@ -6,7 +6,10 @@ test_that("base_alpha() works as expected", {
   letter_vec <- paste_combine(c("", letters), letters, collate = TRUE)
   expect_equal(base_alpha(letter_vec), 1:702)
 
-  expect_error(base_alpha(letters[1:10], 9), class = "mark:base_conversion_error")
+  expect_error(
+    base_alpha(letters[1:10], 9),
+    class = "mark:base_conversion_error"
+  )
   expect_warning(alpha_base(letters), "deprecated")
 
   expect_identical(base_alpha_single("a", 26), 1L)

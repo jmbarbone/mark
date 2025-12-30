@@ -26,8 +26,14 @@ test_that("expand_by() work", {
   expect_equal(exp, res)
 
   # nolint start: line_length_linter.
-  expect_error(expect_warning(expand_by(c(a = 1, a = 1), c(a = 1))), class = "simpleError")
-  expect_error(expect_warning(expand_by(c(a = 1), c(a = 1, a = 1))), class = "simpleError")
+  expect_error(
+    expect_warning(expand_by(c(a = 1, a = 1), c(a = 1))),
+    class = "simpleError"
+  )
+  expect_error(
+    expect_warning(expand_by(c(a = 1), c(a = 1, a = 1))),
+    class = "simpleError"
+  )
   # nolint end: line_length_linter.
 })
 

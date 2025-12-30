@@ -1,5 +1,3 @@
-
-
 muffle_cnd_conditions(test_that("file_copy_md5() works", {
   x <- c(tempfile("one"), tempfile("two"), tempfile("three"))
   y <- c(tempfile("one"), tempfile("two"), tempfile("three"))
@@ -37,7 +35,12 @@ muffle_cnd_conditions(test_that("file_copy_md5() works", {
     ),
     class = "mark:md5_status",
     regexp = paste(
-      "one", "md5 same", "two", "md5 change", "three", "new file",
+      "one",
+      "md5 same",
+      "two",
+      "md5 change",
+      "three",
+      "new file",
       sep = ".*"
     )
   )

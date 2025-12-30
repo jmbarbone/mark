@@ -3,7 +3,6 @@ test_that("are_identical() works", {
   y[2] <- 3L
   z[5] <- NA_integer_
 
-
   res <- are_identical(x, y)
   exp <- c(TRUE, FALSE, TRUE, TRUE, TRUE)
   expect_identical(res, exp)

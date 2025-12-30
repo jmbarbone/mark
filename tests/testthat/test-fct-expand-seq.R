@@ -23,8 +23,11 @@ test_that("Sequences correctly", {
 })
 
 test_that("fct_expand_seq() fails", {
-  expect_error(fct_expand_seq("a"), class = "simpleError")
-  expect_error(fct_expand_seq(as.ordered("a"), by = NA), class = "simpleError")
+  expect_error(fct_expand_seq("a"), class = "mark:class_error")
+  expect_error(
+    fct_expand_seq(as.ordered("a"), by = NA),
+    class = "mark:input_error"
+  )
 
   expect_error(
     fct_expand_seq(as.ordered("a"), min_lvl = NA),

@@ -42,7 +42,7 @@ test_that("vector2df()", {
   expect_equal(vector2df(set_names(x)), df)
   expect_named(vector2df(x, "one", "two"), c("one", "two"))
 
-  expect_error(vector2df(list(a = 1)), class = "simpleError")
+  expect_error(vector2df(list(a = 1)), class = "mark:class_error")
 })
 
 test_that("list2df()", {
@@ -57,8 +57,7 @@ test_that("list2df()", {
   expect_equal(list2df(x, warn = FALSE), exp)
 
   x <- list(a = 1, b = seq(2, 9, 1.0), c = 20)
-  exp <- quick_df(list(name = c("a", rep("b", 8), "c"),
-                       value = c(1:9, 20)))
+  exp <- quick_df(list(name = c("a", rep("b", 8), "c"), value = c(1:9, 20)))
   expect_warning(list2df(x), NA)
   expect_equal(list2df(x), exp)
   expect_named(list2df(x, "hello", "world"), c("hello", "world"))
@@ -68,7 +67,7 @@ test_that("list2df()", {
   res <- quick_dfl(name = c("a", 2, 3), value = c(1, 0, 2))
   expect_equal(list2df(x), res)
 
-  expect_error(list2df(1), class = "simpleError")
+  expect_error(list2df(1), class = "mark:class_error")
 
   # Not sure this will continue to be the case
   expect_identical(quick_df(NULL), data.frame())
@@ -91,11 +90,11 @@ test_that("t_df()", {
   y <- quick_dfl(
     colname = c("a", "b"),
     # nolint start: spaces_inside_linter.
-    row_1   = c(  1, "a"),
-    row_2   = c(  2, "b"),
-    row_3   = c(  3, "c"),
-    row_4   = c(  4, "d"),
-    row_5   = c(  5, "e")
+    row_1 = c(1, "a"),
+    row_2 = c(2, "b"),
+    row_3 = c(3, "c"),
+    row_4 = c(4, "d"),
+    row_5 = c(5, "e")
     # nolint end: spaces_inside_linter.
   )
 
