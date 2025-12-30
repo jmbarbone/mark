@@ -47,13 +47,26 @@ objects_all <- ls_all
 #' @name ls_ext
 NULL
 
-# nolint start: object_name_linter.
-make_do_ls <- function(FUN) {
-  FUN <- match.fun(FUN)
-  function(pattern, all.names = FALSE, envir = parent.frame()) {
-    # nolint end: object_name_linter.
-    do_ls(FUN, pattern = pattern, all.names = all.names, envir = envir)
-  }
+make_do_ls <- function(fun) {
+  fun <- substitute(fun)
+  # nolint next: object_usage_linter. False positive
+  expr <- substitute(
+    do_ls(..fun.., pattern = pattern, all.names = all.names, envir = envir),
+    list(..fun.. = fun)
+  )
+
+  eval(
+    substitute(
+      as.function(
+        alist(
+          pattern = ,
+          all.names = FALSE,
+          envir = parent.frame(),
+          expr
+        )
+      )
+    )
+  )
 }
 
 #' @export
