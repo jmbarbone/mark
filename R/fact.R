@@ -1,3 +1,4 @@
+# NOTE I'll eventually replace these with jmbarbone/facts (or jmbarbone/fctrs)
 
 # fact --------------------------------------------------------------------
 
