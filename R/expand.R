@@ -153,7 +153,7 @@ unique_name_check <- function(x) {
   int <- lens > 1L
 
   if (any(int)) {
-    warning(unique_name_check(names(lens[int])))
+    warning(expand_by_warning(names(lens[int])))
     FALSE
   } else {
     TRUE
@@ -162,7 +162,7 @@ unique_name_check <- function(x) {
 
 # conditions --------------------------------------------------------------
 
-unique_name_warning := condition(
+expand_by_warning := condition(
   function(x) paste0("These names are duplicated:", toString(x)),
   type = "warning",
   exports = "expand_by"

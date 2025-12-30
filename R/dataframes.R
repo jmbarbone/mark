@@ -15,9 +15,10 @@
 #' to_row_names(x)
 #' to_row_names(x, "b")
 #' @export
-
 to_row_names <- function(data, row_names = 1L) {
-  row_names0 <- row_names
+  if (!is.data.frame(data)) {
+    stop(class_error("must_be", data, "data.frame"))
+  }
 
   if (length(row_names) != 1) {
     stop(input_error("row_names must be a single element vector"))
@@ -49,9 +50,10 @@ to_row_names <- function(data, row_names = 1L) {
 #' @param name,value Character strings for the name and value columns
 #' @return A `data.frame` with `name` (optional) and `value` columns
 #' @export
-
 vector2df <- function(x, name = "name", value = "value") {
-  stopifnot(!is.list(x))
+  if (is.list(x)) {
+    stop(class_error("not_supported", x))
+  }
   ls <- list(names(x) %||% rep(NA, length(x)), remove_names(x))
   ls <- ls[!vap_lgl(list(name, value), is.null)]
   names(ls) <- c(name, value)
@@ -89,7 +91,9 @@ vector2df <- function(x, name = "name", value = "value") {
 
 # nolint next: object_name_linter.
 list2df <- function(x, name = "name", value = "value", warn = TRUE) {
-  stopifnot(is.list(x))
+  if (!is.list(x)) {
+    stop(class_error("must_be", x, "list"))
+  }
 
   cl <- lapply(x, class)
   n_cl <- length(unique(cl))
@@ -114,7 +118,13 @@ list2df <- function(x, name = "name", value = "value", warn = TRUE) {
 # base::list2DF() -- but this wasn't introduced until 4.0.0
 # And an update prevents recycling
 list2df2 <- function(x = list(), nrow = NULL) {
-  stopifnot(is.list(x), is.null(nrow) || nrow >= 0L)
+  if (!is.list(x)) {
+    stop(class_error("must_be", x, "list"))
+  }
+
+  if (!(is.null(nrow) || nrow >= 0L)) {
+    stop(input_error("`nrow` must be NULL or a non-negative integer"))
+  }
 
   if (n <- length(x)) {
     if (is.null(nrow)) {
@@ -153,9 +163,10 @@ list2df2 <- function(x = list(), nrow = NULL) {
 #' x <- data.frame(col_a = Sys.Date() + 1:5, col_b = letters[1:5], col_c = 1:5)
 #' t_df(x)
 #' @export
-
 t_df <- function(x) {
-  stopifnot(is.data.frame(x))
+  if (!is.data.frame(x)) {
+    stop(class_error("must_be", x, "data.frame"))
+  }
 
   out <- as.data.frame(
     t(x),
@@ -169,7 +180,9 @@ t_df <- function(x) {
 }
 
 rn_to_col <- function(data, name = "row.name") {
-  stopifnot(is.data.frame(data))
+  if (!is.data.frame(data)) {
+    stop(class_error("must_be", data, "data.frame"))
+  }
   n <- length(data) + 1
   data[[n]] <- attr(data, "row.names")
   data <- reset_rownames(data)
@@ -201,7 +214,9 @@ rn_to_col <- function(data, name = "row.name") {
 #' complete_cases(x, "c")
 #' @export
 complete_cases <- function(data, cols = NULL, invert = FALSE) {
-  stopifnot(is.data.frame(data))
+  if (!is.data.frame(data)) {
+    stop(class_error("must_be", data, "data.frame"))
+  }
   ds <- dim(data)
 
   if (ds[1L] == 0L || ds[2L] == 0L) {
@@ -239,7 +254,9 @@ complete_cases <- function(data, cols = NULL, invert = FALSE) {
 #' unique_rows(df, c("a", "b"), from_last = TRUE, invert = TRUE)
 #' @export
 unique_rows <- function(data, cols = NULL, from_last = FALSE, invert = FALSE) {
-  stopifnot(is.data.frame(data))
+  if (!is.data.frame(data)) {
+    stop(class_error("must_be", data, "data.frame"))
+  }
   cn <- names(data)
   cols <- cols %||% cn
 
@@ -255,7 +272,6 @@ unique_rows <- function(data, cols = NULL, from_last = FALSE, invert = FALSE) {
 
   reset_rownames(data[keep, ])
 }
-
 
 reset_rownames <- function(data, n = nrow(data)) {
   attr(data, "row.names") <- .set_row_names(n)

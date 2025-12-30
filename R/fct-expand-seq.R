@@ -26,10 +26,16 @@ fct_expand_seq <- function(
   max_lvl = max(x, na.rm = TRUE),
   by = 1L
 ) {
-  stopifnot(
-    inherits(x, "ordered"),
-    is.integer(by) || by < 1L
-  )
+  if (!inherits(x, "ordered")) {
+    stop(class_error("must_be", x, "ordered"))
+  }
+
+  by <- as.integer(by)
+
+  if (!isTRUE(by >= 0L)) {
+    stop(input_error("`by` must be a positive integer"))
+  }
+
   lvls <- levels(x)
 
   if (is.character(min_lvl) || inherits(min_lvl, "factor")) {
@@ -41,7 +47,6 @@ fct_expand_seq <- function(
   }
 
   if (is.na(min_lvl)) {
-    stop(fct_expand_seq_na("min_lvl"))
     stop(fct_expand_seq_error("min"))
   }
 

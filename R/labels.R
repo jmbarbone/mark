@@ -45,7 +45,9 @@ assign_labels <- function(x, ...) {
 #' @export
 #' @rdname labels
 assign_labels.default <- function(x, label, ...) {
-  stopifnot(length(label) == 1)
+  if (length(label) != 1L) {
+    stop(input_error("`label` must be a single length vector"))
+  }
   attr(x, "label") <- label
   x
 }

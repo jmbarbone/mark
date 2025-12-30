@@ -144,7 +144,7 @@ either <- function(x, y) {
 #' @export
 #' @rdname logic_ext
 is_boolean <- function(x) {
-  is.logical(x) | (is.numeric(x) & !anyNA(match(x, c(NA, 0, 1))))
+  is.logical(x) || (is.numeric(x) && !anyNA(match(x, c(NA, 0, 1))))
 }
 
 #' @export
@@ -162,9 +162,11 @@ check_null <- function(x) {
   }
 }
 
-  stopifnot(is.matrix(mat), is_boolean(mat))
 # nolint next: object_name_linter.
 apply_logical_matrix <- function(mat, FUN, na.rm) {
+  if (!(is.matrix(mat) && is_boolean(mat))) {
+    stop(input_error("`...` must be logical or logical-like matrix"))
+  }
 
   na_val <-
     if (na.rm) {

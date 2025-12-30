@@ -66,5 +66,5 @@ quiet_stop <- function() {
   op <- options()
   options(show.error.messages = FALSE)
   on.exit(options(op), add = TRUE)
-  stop()
+  stop(condition("quiet_stop", "quiet stop", type = "error")())
 }
