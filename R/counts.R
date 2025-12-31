@@ -204,7 +204,13 @@ props_n <- function(
 }
 
 remake_df <- function(new, old) {
-  stopifnot(is.data.frame(new), is.data.frame(old))
+  if (!is.data.frame(new)) {
+    stop(class_error("must_be", new, "data.frame"))
+  }
+
+  if (!is.data.frame(old)) {
+    stop(class_error("must_be", old, "data.frame"))
+  }
 
   new_cn <- colnames(new)
   old_cn <- colnames(old)
