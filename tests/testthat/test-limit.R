@@ -4,9 +4,9 @@ test_that("limit() works", {
 })
 
 test_that("limit() errors", {
-  expect_error(limit(1, "a", 1), class = "simpleError")
-  expect_error(limit(1, 1:2, 1), class = "simpleError")
-  expect_error(limit(1, 1, "a"), class = "simpleError")
-  expect_error(limit(1, 1, 1:2), class = "simpleError")
-  expect_error(limit(1, 2, 1),   class = "simpleError")
+  expect_error(limit(1, "a", 1), class = "mark:class_error")
+  expect_error(limit(1, 1, "a"), class = "mark:class_error")
+  expect_error(limit(1, 1:2, 1), class = "mark:input_error")
+  expect_error(limit(1, 1, 1:2), class = "mark:input_error")
+  expect_error(limit(1, 2, 1), class = "mark:input_error")
 })
