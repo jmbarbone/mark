@@ -15,7 +15,7 @@
 #' sum(base_alpha(c("x", "k", "c", "d")))
 
 base_alpha <- function(x, base = 26) {
-  stopifnot(is.character(x))
+  x <- as.character(x)
   check_base_alpha(base, high = 26)
   vap_int(x, base_alpha_single, base = base)
 }
@@ -55,7 +55,9 @@ base_alpha_single <- function(x, base) {
 #' @examples
 #' base_n(c(24, 22, 16), from = 7)
 base_n <- function(x, from = 10, to = 10) {
-  stopifnot(is.numeric(x))
+  if (!is.numeric(x)) {
+    stop(class_error("must_be", x, "numeric"))
+  }
 
   if (from == to) {
     return(x)
