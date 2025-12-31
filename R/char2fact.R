@@ -57,7 +57,9 @@ char2fact.data.frame <- function(x, n = 5) {
 #' @family factors
 #' @export
 fact2char <- function(data, threshold = 10) {
-  stopifnot(is.data.frame(data))
+  if (!is.data.frame(data)) {
+    stop(class_error("must_be", data, "data.frame"))
+  }
   # for factors with more than threshold levels, convert back to character
   bad <- lengths(lapply(data, levels)) >= threshold
   data[bad] <- lapply(data[bad], as.character)
