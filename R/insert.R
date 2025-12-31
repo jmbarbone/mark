@@ -33,7 +33,7 @@ insert <- function(x, positions, values) {
     positions <- positions[o]
     values <- values[o]
   } else {
-    stop(insert_error())
+    stop(input_error("lengths of positions and values are unequal"))
   }
 
   seqs <- seq_along(positions)
@@ -45,15 +45,3 @@ insert <- function(x, positions, values) {
 
   x
 }
-
-# conditions --------------------------------------------------------------
-
-insert_error := condition(
-  "lengths of positions and values are unequal",
-  type = "error",
-  exports = "insert",
-  help = c(
-    "insert() requires that `positions` and `values` are the same length or",
-    " that `values` is length 1"
-  )
-)

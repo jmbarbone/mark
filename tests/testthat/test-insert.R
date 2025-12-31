@@ -7,9 +7,10 @@ test_that("insert.default() works", {
   exp <- c("z", "a", "b", "z", "c", "d")
   expect_identical(res, exp)
 
-  expect_error(insert(1, NA, 1), class = "simpleError")
-  expect_error(insert(1, integer(), 1), class = "simpleError")
-  expect_error(insert(1, 1, integer()), class = "mark:insert_error")
+  expect_error(insert(1, NA, 1), class = "mark:input_error")
+  expect_error(insert(1, integer(), 1), NA) # this is actually fine
+  expect_error(insert(1, integer(), integer()), NA) # this is actually fine
+  expect_error(insert(1, 1, integer()), class = "mark:input_error")
 })
 
 test_that("insert.data.frame() works", {
