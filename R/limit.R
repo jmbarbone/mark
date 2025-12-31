@@ -11,13 +11,15 @@
 #'
 #' @export
 limit <- function(x, lower = min(x), upper = max(x)) {
-  stopifnot(
-    length(lower) == 1L,
-    length(upper) == 1L,
-    is.numeric(lower),
-    is.numeric(upper),
-    lower <= upper
-  )
+  if (!(is.numeric(lower) && is.numeric(upper))) {
+    stop(class_error("must_be", c(lower, upper), "numeric"))
+  }
+
+  if (!(length(lower) == 1L && length(upper) == 1L && lower <= upper)) {
+    stop(input_error(
+      "`lower` and `upper` must be single numeric values with `lower <= upper`"
+    ))
+  }
 
   x[x < lower] <- lower
   x[x > upper] <- upper
