@@ -63,24 +63,38 @@ conversion_error := condition(
 )
 
 class_error := condition(
-  function(type, x, must) {
+  function(type, x, must, name) {
+    if (missing(name)) {
+      name <- sprintf(
+        "`%s`",
+        deparse(
+          match.call(
+            sys.function(sys.parent(1L)),
+            sys.call(sys.parent(1L)),
+            envir = parent.frame(3L)
+          )$x
+        )
+      )
+    }
     cls <- class(x)
     switch(
       type,
       not_supported = sprintf(
         ngettext(
           length(cls),
-          "Class not supported: %s",
-          "Classes not supported: %s",
+          "%s cannot be of class: %s",
+          "%s cannot be of classes: %s",
         ),
+        name %||% "Object",
         toString(cls)
       ),
       must_be = sprintf(
         ngettext(
           length(cls),
-          "Object must be of class '%s', not '%s'",
-          "Object must be of class '%s', not classes '%s'"
+          "%s must be of class '%s', not '%s'",
+          "%s must be of class '%s', not classes '%s'"
         ),
+        name %||% "Object",
         toString(must),
         toString(cls)
       ),
