@@ -13,9 +13,15 @@
 #'
 #' @export
 insert <- function(x, positions, values) {
-  stopifnot(!anyNA(positions))
+  if (anyNA(positions)) {
+    stop(input_error("positions cannot contain NA values"))
+  }
+
   positions <- as.integer(positions)
-  stopifnot(length(positions) >= 1)
+
+  if (any(positions < 1L)) {
+    stop(input_error("positions must be positive integers"))
+  }
 
   nval <- length(values)
   npos <- length(positions)
