@@ -394,7 +394,7 @@ is_file <- function(x) {
 file_create <- function(x, overwrite = FALSE) {
   dirs <- is_dir(x)
   if (any(dirs)) {
-    warning(file_warning("directories", x[dirs]))
+    warning(path_warning("directories", x[dirs]))
     x <- x[!dirs]
   }
 
