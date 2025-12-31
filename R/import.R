@@ -4,7 +4,7 @@
 #'
 #' @param pkg String, name of the package
 #' @param fun String, fun name of the function
-#' @param overwrite Logical, if TRUE and `fun` is also found in the current
+#' @param overwrite Logical, if `TRUE` and `fun` is also found in the current
 #'   environment, will overwrite assignment
 #' @return None, called for side effects
 #' @export

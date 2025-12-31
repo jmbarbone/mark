@@ -38,7 +38,7 @@ rn <- function(namespace) {
 
 #' Check if package is available
 #'
-#' A wrapped requireNamespace
+#' A wrapped [base::requireNamespace()]
 #'
 #' @param namespace One or more packages to to require.
 #' @export

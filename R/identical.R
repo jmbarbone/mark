@@ -1,6 +1,6 @@
 #' Identical extensions
 #'
-#' Extensions for the use of `base::identical()`
+#' Extensions for the use of [base::identical()]
 #'
 #' @param ... Vectors of values to compare, element-wise of equal length
 #' @param params Additional params (as a named list of arguments for
@@ -18,7 +18,6 @@
 #' are_identical(x, y)    # element-wise
 #' are_identical(x, y, z) # 3 or more vectors
 #' @export
-
 are_identical <- function(..., params = NULL) {
   x <- rlang::list2(...)
   n <- length(x)

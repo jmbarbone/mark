@@ -1,6 +1,6 @@
-#' Lines of R code
+#' Lines of **R** code
 #'
-#' Find the total number of lines of R code
+#' Find the total number of lines of **R** code
 #'
 #' @details
 #' Tries to read each file in the directory that ends in .R or .r and sums
@@ -18,7 +18,6 @@
 #' lines_of_r_code(system.file())
 #' lines_of_r_code(system.file(), skip_empty = FALSE)
 #' }
-
 lines_of_r_code <- function(x = ".", skip_empty = TRUE) {
   if (dir.exists(x)) {
     x <- list_r_files(x)
