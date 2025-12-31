@@ -41,12 +41,13 @@ remove_blank_cols <- function(x, na_blank = FALSE, ws = TRUE) {
 #' @rdname blank_values
 #' @export
 is_blank_cols <- function(x, names = TRUE, na_blank = FALSE, ws = TRUE) {
-  stopifnot(is.data.frame(x))
+  if (!is.data.frame(x)) {
+    stop(class_error("must_be", x, "data.frame"))
+  }
+
   vap_lgl(
     x,
-    function(i) {
-      all(is_blank(i, na_blank = na_blank, ws = ws))
-    },
+    function(i) all(is_blank(i, na_blank = na_blank, ws = ws)),
     .nm = names
   )
 }
