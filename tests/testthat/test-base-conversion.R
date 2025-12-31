@@ -10,7 +10,6 @@ test_that("base_alpha() works as expected", {
     base_alpha(letters[1:10], 9),
     class = "mark:base_conversion_error"
   )
-  expect_warning(alpha_base(letters), "deprecated")
 
   expect_identical(base_alpha_single("a", 26), 1L)
   expect_identical(base_alpha_single("j", 26), 10L)
@@ -27,8 +26,8 @@ test_that("base_n() works as expected", {
 })
 
 test_that("base_alpha(), base_n() fails", {
-  expect_error(base_alpha(1), class = "simpleError")
-  expect_error(base_n("a"), class = "simpleError")
+  expect_error(base_alpha(1), class = "mark:class_error")
+  expect_error(base_n("a"), class = "mark:class_error")
   expect_error(base_n(1, 10, 12), class = "mark:base_conversion_error")
 })
 

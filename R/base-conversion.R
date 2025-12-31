@@ -13,16 +13,12 @@
 #' base_alpha("XFD")
 #' base_alpha(c("JMB", "Jordan Mark", "XKCD"))
 #' sum(base_alpha(c("x", "k", "c", "d")))
-
-base_alpha <- function(x, base = 26) {
-  x <- as.character(x)
-  check_base_alpha(base, high = 26)
+base_alpha <- function(x, base = 26L) {
+  if (!is.character(x)) {
+    stop(class_error("must_be", x, "character"))
+  }
+  check_base_alpha(base, high = 26L)
   vap_int(x, base_alpha_single, base = base)
-}
-
-alpha_base <- function(x, base = 26) {
-  .Deprecated("base_alpha")
-  base_alpha(x, base = base)
 }
 
 base_alpha_single <- function(x, base) {
@@ -35,11 +31,11 @@ base_alpha_single <- function(x, base) {
 
   n <- length(a)
 
-  if (n == 0) {
+  if (n == 0L) {
     return(NA_integer_)
   }
 
-  as.integer(sum(c(a[-n] * base^(1:(n - 1)), a[n])))
+  as.integer(sum(c(a[-n] * base^(1:(n - 1L)), a[n])))
 }
 
 #' Base N conversion
@@ -54,16 +50,19 @@ base_alpha_single <- function(x, base) {
 #' @export
 #' @examples
 #' base_n(c(24, 22, 16), from = 7)
-base_n <- function(x, from = 10, to = 10) {
+base_n <- function(x, from = 10L, to = 10L) {
   if (!is.numeric(x)) {
     stop(class_error("must_be", x, "numeric"))
   }
+
+  from <- as.integer(from)
+  to <- as.integer(to)
 
   if (from == to) {
     return(x)
   }
 
-  if (to != 10) {
+  if (to != 10L) {
     stop(base_conversion_error("ten"))
   }
 
@@ -82,11 +81,11 @@ base_n_single <- function(x, base) {
   as.integer(sum(mapply(function(i, s) i * base^s, i = ints, s = seqs)))
 }
 
-check_base_alpha <- function(b, high = 26) {
+check_base_alpha <- function(b, high = 26L) {
   if (is.character(b)) {
     b <- chr_split(b)
 
-    if (length(b) != 1) {
+    if (length(b) != 1L) {
       stop(base_conversion_error("alpha_length"))
     }
 
@@ -96,12 +95,12 @@ check_base_alpha <- function(b, high = 26) {
   check_base(b, high = high)
 }
 
-check_base <- function(b, high = 9) {
-  if (b %% 1 != 0) {
+check_base <- function(b, high = 9L) {
+  if (b %% 1L != 0L) {
     stop(base_conversion_error("integer"))
   }
 
-  if (b > high || b <= 1) {
+  if (b > high || b <= 1L) {
     stop(base_conversion_error("limit", high = high))
   }
 }
