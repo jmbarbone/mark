@@ -55,7 +55,7 @@ test_that("write_file_md5() errors", {
   df <- quick_dfl(a = 1)
   expect_error(
     write_file_md5(df, method = "foo"),
-    class = "mark:match_arg_param_match"
+    class = "mark:match_param_error"
   )
 })
 
