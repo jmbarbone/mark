@@ -15,16 +15,16 @@ test_that("match_param() works", {
       sep = "\n"
     ),
     fixed = TRUE,
-    class = "mark:match_arg_param_match"
+    class = "mark:match_param_error"
   )
 
   foo2 <- function(y = 1:3) {
     match_param(y)
   }
 
-  expect_equal(foo2(1), 1)
-  expect_equal(foo2(1L), 1L)
-  expect_equal(foo2("1"), 1)
+  expect_identical(foo2(1), 1L)
+  expect_identical(foo2(1L), 1L)
+  expect_identical(foo2("1"), 1L)
 
   foo <- function(x = NULL) {
     match_param(tolower(x), c("a", "b", "c"))
@@ -38,7 +38,7 @@ test_that("match_param() works", {
       "  choices  a, b, c",
       sep = "\n"
     ),
-    class = "mark:match_arg_param_match",
+    class = "mark:match_param_error",
     fixed = TRUE
   )
 
@@ -46,7 +46,7 @@ test_that("match_param() works", {
     match_param(x, null = null)
   }
 
-  expect_error(foo(NULL), class = "mark:match_arg_null_param")
+  expect_error(foo(NULL), class = "mark:input_error")
   expect_null(foo(NULL, null = TRUE))
 })
 
@@ -56,7 +56,7 @@ test_that("match_param() can partialy match", {
   }
 
   expect_identical(fruits(), "apple")
-  expect_error(fruits("a"), class = "mark:match_arg_param_match")
+  expect_error(fruits("a"), class = "mark:match_param_error")
   expect_identical(fruits("app"), "apple")
 
   fruits <- function(x = list("apple" = 1:2, "apricot" = 3, "banana" = 4)) {
@@ -64,7 +64,7 @@ test_that("match_param() can partialy match", {
   }
 
   expect_identical(fruits(), "apple")
-  expect_error(fruits(c(a = 0)), class = "mark:match_arg_param_match")
+  expect_error(fruits(c(a = 0)), class = "mark:match_param_error")
   expect_identical(fruits(1), "apple")
 })
 
@@ -78,7 +78,7 @@ test_that("match_param() accepts can return multiple", {
 
 test_that("match_arg() works", {
   foo <- function(x = c("a", "b"), table) {
-    match_arg(x, table)
+    suppressWarnings(match_arg(x, table), "deprecatedWarning")
   }
 
   expect_null(foo(NULL))
@@ -115,11 +115,11 @@ test_that("match_param() accepts formula lists", {
 test_that("match_param() finds duplicate choices", {
   expect_error(
     match_param("a", c("a", "a")),
-    class = "mark:match_param_duplicates"
+    class = "mark:input_error"
   )
 
   expect_error(
     match_param(1, c(a = 1:2, b = 3:4, c = c(1, 3))),
-    class = "mark:match_param_duplicates"
+    class = "mark:input_error"
   )
 })
