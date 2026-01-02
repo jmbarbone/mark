@@ -30,6 +30,7 @@
 #' try(foo(1, 0))
 #' @export
 match_arg <- function(x, table) {
+  .Deprecated("match_param()")
   if (is.null(x)) {
     return(NULL)
   }
@@ -120,7 +121,7 @@ match_param <- function(
       return(NULL)
     }
 
-    stop(match_arg_null_param())
+    stop(input_error("match_param() requires non-NULL params"))
   }
 
   missing_choices <- missing(choices)
@@ -135,7 +136,38 @@ match_param <- function(
 
   if (anyDuplicated(unlist(mchoices$choices))) {
     # TODO implement cond_match_param_dupes()
-    stop(match_param_duplicates(choices))
+    to_choices <- function(x) {
+      if (all(names(x) == as.character(x))) {
+        dupe <- duplicated(x)
+        x[dupe] <- paste0(x[dupe], "*")
+        return(toString(x))
+      }
+
+      collapse(
+        mapply(
+          function(x, nm, d) {
+            sprintf(
+              "%s = %s",
+              nm,
+              toString(paste0(x, ifelse(d, "*", "")))
+            )
+          },
+          x = x,
+          nm = names(x),
+          d = split(
+            duplicated(unlist(x)),
+            rep(seq_along(x), lengths(x))
+          ),
+          USE.NAMES = FALSE
+        ),
+        sep = "\n  "
+      )
+    }
+
+    stop(input_error(paste0(
+      "duplicate values found in `choices`:\n  ",
+      to_choices(choices)
+    )))
   }
 
   fun <- if (partial) pmatch else match
@@ -151,7 +183,12 @@ match_param <- function(
       param <- deparse(param)
     }
 
-    stop(match_arg_param_match(param_c, ocall, param, choices))
+    stop(match_param_error(
+      input = param_c,
+      argument = ocall,
+      param = param,
+      choices = choices
+    ))
   }
 
   res <- lapply(m, function(i) mchoices$values[[i]])
@@ -190,6 +227,7 @@ cleanup_param_list <- function(x) {
 
 # conditions --------------------------------------------------------------
 
+# TODO remove
 match_arg_no_match := condition(
   message = function(csx, x, table) {
     sprintf(
@@ -202,12 +240,7 @@ match_arg_no_match := condition(
   type = "error"
 )
 
-match_arg_null_param := condition(
-  message = "match_param() requires non-NULL params",
-  type = "error"
-)
-
-match_arg_param_match := condition(
+match_param_error := condition(
   message = function(input, argument, param, choices) {
     to_value <- function(x) {
       if (all(names(x) == as.character(x))) {
@@ -256,44 +289,6 @@ match_arg_param_match := condition(
       argument,
       to_value(param),
       to_options(choices)
-    )
-  },
-  type = "error"
-)
-
-match_param_duplicates := condition(
-  message = function(choices) {
-    to_choices <- function(x) {
-      if (all(names(x) == as.character(x))) {
-        dupe <- duplicated(x)
-        x[dupe] <- paste0(x[dupe], "*")
-        return(toString(x))
-      }
-
-      collapse(
-        mapply(
-          function(x, nm, d) {
-            sprintf(
-              "%s = %s",
-              nm,
-              toString(paste0(x, ifelse(d, "*", "")))
-            )
-          },
-          x = x,
-          nm = names(x),
-          d = split(
-            duplicated(unlist(x)),
-            rep(seq_along(x), lengths(x))
-          ),
-          USE.NAMES = FALSE
-        ),
-        sep = "\n  "
-      )
-    }
-
-    paste0(
-      "duplicate values found in `choices`:\n  ",
-      to_choices(choices)
     )
   },
   type = "error"
