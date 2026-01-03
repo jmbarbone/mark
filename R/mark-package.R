@@ -9,6 +9,7 @@
 "_PACKAGE"
 
 # nolint next: object_name_linter.
+# fmt: skip
 op.mark <- list(
   mark.author            = NULL,
   # control for check_interactive() to return interactive() or TRUE
