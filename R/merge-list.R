@@ -40,12 +40,19 @@ merge_list <- function(
     null <- c(null, null)
   }
 
-  stopifnot(length(null) == 2L)
+  if (!length(null) == 2L) {
+    stop(input_error("`null` must be length 1 or 2"))
+  }
+
   keep <- match_param(keep)
   x <- x %||% list()
   y <- y %||% list()
 
-  stopifnot(is.list(x), is.list(y))
+  # TODO report `x` vs `y`
+  if (!is.list(x) || !is.list(y)) {
+    stop(class_error("must_be", x = if (!is.list(x)) x else y, "list"))
+  }
+
   xx <- x
 
   x <- switch(
