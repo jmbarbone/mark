@@ -46,17 +46,16 @@ NA_at <- function(x, y, ...) {
     y <- FUN(x, ...)
   }
 
-  # FIXME replace with a single condition
   if (any(y %% 1 > 0, na.rm = TRUE)) {
-    stop(na_at_integer())
+    stop(na_error("integer"))
   }
 
   if (!isTRUE(max(y, na.rm = TRUE) <= nx)) {
-    stop(na_at_max())
+    stop(na_error("max"))
   }
 
   if (!isTRUE(length(y) <= nx)) {
-    stop(na_at_length())
+    stop(na_error("length"))
   }
 
   x[y] <- NA
@@ -80,11 +79,11 @@ NA_if <- function(x, y, ...) {
 
   # FIXME replace with a single condition
   if (length(y) != nx) {
-    stop(na_if_length())
+    stop(na_error("length"))
   }
 
   if (!is.logical(y)) {
-    stop(na_if_logical())
+    stop(na_error("logical"))
   }
 
   x[y] <- NA
@@ -128,30 +127,16 @@ NA_out <- function(x, y, ...) {
 
 # conditions --------------------------------------------------------------
 
-na_at_integer := condition(
-  message = "y must be a vector of integers",
+na_error := condition(
+  function(type) {
+    switch(
+      type,
+      integer = "y must be a vector of integers",
+      max = "length of y must not be greater than length of x",
+      length = "length of y must not be greater than length of x",
+      logical = "y must be logical"
+    )
+  },
   type = "error"
+  # TODO include help
 )
-
-
-na_at_max := condition(
-  message = "length of y must not be greater than length of x",
-  type = "error"
-)
-
-na_at_length := condition(
-  message = "length of y must not be greater than length of x",
-  type = "error"
-)
-
-na_if_length := condition(
-  message = "y must be the same length as x",
-  type = "error"
-)
-
-na_if_logical := condition(
-  message = "y must be logical",
-  type = "error"
-)
-
-# terminal line
