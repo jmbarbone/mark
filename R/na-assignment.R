@@ -134,7 +134,8 @@ na_error := condition(
       integer = "y must be a vector of integers",
       max = "length of y must not be greater than length of x",
       length = "length of y must not be greater than length of x",
-      logical = "y must be logical"
+      logical = "y must be logical",
+      stop(internal_error())
     )
   },
   type = "error"
