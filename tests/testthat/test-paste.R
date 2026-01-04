@@ -44,7 +44,7 @@ test_that("paste_combine() works", {
 })
 
 test_that("paste_combine() fails", {
-  expect_error(paste_combine(1), class = "mark:paste_combined_dots_lenth")
+  expect_error(paste_combine(1), class = "mark:input_error")
 })
 
 test_that("collapse0()", {
@@ -60,5 +60,5 @@ test_that("collapse0()", {
 })
 
 test_that("deprecated", {
-  expect_warning(paste_c(1, 2), "deprecated")
+  expect_warning(paste_c(1, 2), class = "deprecatedWarning")
 })
