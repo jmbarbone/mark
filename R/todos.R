@@ -44,12 +44,12 @@ NULL
 #' @rdname todos
 #' @export
 todos <- function(
-    pattern = NULL,
-    path = ".",
-    force = getOption("mark.todos.force"),
-    ext = getOption("mark.todos.ext"),
-    ignore = NULL,
-    ...
+  pattern = NULL,
+  path = ".",
+  force = getOption("mark.todos.force"),
+  ext = getOption("mark.todos.ext"),
+  ignore = NULL,
+  ...
 ) {
   do_todo(
     "todo",
@@ -65,12 +65,12 @@ todos <- function(
 #' @rdname todos
 #' @export
 fixmes <- function(
-    pattern = NULL,
-    path = ".",
-    force = getOption("mark.todos.force"),
-    ext = getOption("mark.todos.ext"),
-    ignore = NULL,
-    ...
+  pattern = NULL,
+  path = ".",
+  force = getOption("mark.todos.force"),
+  ext = getOption("mark.todos.ext"),
+  ignore = NULL,
+  ...
 ) {
   do_todo(
     "fixme",
@@ -84,21 +84,22 @@ fixmes <- function(
 }
 
 do_todo <- function(
-    text = c("todo", "fixme"),
-    pattern = NULL,
-    path = ".",
-    force = getOption("mark.todos.force"),
-    ext = getOption("mark.todos.ext"),
-    ignore = NULL,
-    ...
+  text = c("todo", "fixme"),
+  pattern = NULL,
+  path = ".",
+  force = getOption("mark.todos.force"),
+  ext = getOption("mark.todos.ext"),
+  ignore = NULL,
+  ...
 ) {
   text <- match_param(text)
+  # fmt: skip
   if (
     missing(path) ||
     length(path) != 1 ||
     !is.character(path)
   ) {
-    stop(todo_error("path"))
+    stop(input_error("`path` must be a character vector of length 1L"))
   }
 
   stopifnot(fs::file_exists(path))
@@ -207,11 +208,12 @@ print.todos_df <- function(x, ...) {
 
   if (!isFALSE(getOption("mark.todos..norm_path"))) {
     # perform action on chunks as not to modify x
-    for (i in seq_along(chunks))
-    chunks <- lapply(chunks, function(chunk) {
-      chunk[["file"]] <- norm_path(chunk[["file"]])
-      chunk
-    })
+    for (i in seq_along(chunks)) {
+      chunks <- lapply(chunks, function(chunk) {
+        chunk[["file"]] <- norm_path(chunk[["file"]])
+        chunk
+      })
+    }
   }
 
   for (i in seq_along(nms)) {
@@ -247,17 +249,3 @@ string_dots <- function(x, width = getOption("width")) {
   x[long] <- paste(strtrim(x[long], width - 5), "[...]")
   x
 }
-
-# conditions --------------------------------------------------------------
-
-todo_error := condition(
-  function(x) {
-    switch(
-      x,
-      path = "path must be a character vector of length 1L",
-      stop("something went wrong")
-    )
-  },
-  type = "error",
-  exports = c("todos", "fixmes")
-)

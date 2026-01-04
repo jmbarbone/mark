@@ -63,8 +63,8 @@ test_that("todos() errors and messages", {
   path <- test_path("scripts")
 
   err <- "path must be a character vector of length 1L"
-  expect_error(todos(path = 1), class = "mark:todo_error")
-  expect_error(todos(path = c("a", "b")), class = "mark:todo_error")
+  expect_error(todos(path = 1), class = "mark:input_error")
+  expect_error(todos(path = c("a", "b")), class = "mark:input_error")
   expect_error(todos(path = "zzz"))
   expect_error(do_todo(c("todo", "fixme"), path = "."), NA)
 

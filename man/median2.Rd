@@ -22,7 +22,7 @@ q50(x, type = 7, na.rm = FALSE)
     are removed from \code{x} before the quantiles are computed.}
 }
 \value{
-See \code{stats::quantile()}
+See \code{\link[stats:quantile]{stats::quantile()}}
 }
 \description{
 Median as the 50th quantile with an option to select quantile algorithm
