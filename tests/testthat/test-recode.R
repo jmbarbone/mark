@@ -36,9 +36,8 @@ test_that("clean_na_coercion() works", {
 })
 
 test_that("errors", {
-  txt <- "values to recode by were not properly set"
-  expect_error(recode_by(1, 1), class = "mark:recode_values_set_bad")
-  expect_error(recode_only(1, 1), class = "mark:recode_values_set_bad")
+  expect_error(recode_by(1, 1), class = "mark:input_error")
+  expect_error(recode_only(1, 1), class = "mark:input_error")
 })
 
 test_that("single value", {
