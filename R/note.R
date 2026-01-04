@@ -87,7 +87,7 @@ print_note <- function(x, ...) {
   the_note <- note(x)
 
   if (!inherits(the_note, "note")) {
-    stop(note_not_note())
+    stop(class_error("must_be", the_note, "note", "x"))
   }
 
   if (!check_interactive()) {
@@ -106,10 +106,3 @@ print.noted <- function(x, ...) {
   print(set_note(x, NULL), ...)
   invisible(x)
 }
-
-# conditions --------------------------------------------------------------
-
-note_not_note := condition(
-  "note(x) must be class note",
-  type = "error"
-)
