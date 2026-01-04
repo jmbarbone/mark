@@ -2,7 +2,7 @@ test_that("not_available() works", {
   expect_error(get_not_available(), NA)
   expect_error(
     get_not_available("foo"),
-    class = "mark:not_available_not_found"
+    class = "mark:not_available_error"
   )
 
   val <- struct(NA, "foo")
@@ -18,7 +18,7 @@ test_that("not_available() works", {
   set_not_available("foo_fun", function() NULL)
   expect_error(
     get_not_available("foo_fun"),
-    class = "mark:not_available_invalid_type"
+    class = "mark:not_available_error"
   )
 
   # reset list
