@@ -17,7 +17,7 @@ row_bind <- function(...) {
   }
 
   if (!all(vap_lgl(ls, is.data.frame))) {
-    stop(row_bind_object())
+    stop(value_error("all elements of `...` must be of class data.frame"))
   }
 
   names <- lapply(ls, names)
@@ -60,10 +60,3 @@ rbind2 <- function(...) {
 
   quick_df(set_names(res, names(ls[[1]])))
 }
-
-# conditions --------------------------------------------------------------
-
-row_bind_object := condition(
-  message = "... must only be data.frames",
-  type = "error"
-)
