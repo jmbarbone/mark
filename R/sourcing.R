@@ -6,14 +6,14 @@
 #'
 #' @param file An R or Rmd file.
 #' @param quiet Logical; Determines whether to apply silence to [knitr::purl()]
-#' @param cd Logical; if TRUE, the R working directory is temporarily
+#' @param cd Logical; if `TRUE`, the **R** working directory is temporarily
 #'   changed to the directory containing file for evaluating
 #' @param env An environment determining where the parsed expressions are
 #'   evaluated
 #' @param ... Additional arguments passed to [base::source()]
 #'
 #' @details
-#' `try_source()` will output an error message rather than completely preventing
+#' [try_source()] will output an error message rather than completely preventing
 #'   the execution.
 #' This can be useful for when a script calls on multiple, independent files to
 #'   be sourced and a single failure shouldn't prevent the entire run to fail as
@@ -21,15 +21,17 @@
 #'
 #' @name sourcing
 #' @return
-#' * `ksource()`: Invisibly, the result of calling `source()` on the `.R` file conversion of `file`
-#' * `try_source()`, `try_ksource()`: attempts of `source()` and `ksource()` but converts errors to warnings
+#' * [ksource()]: Invisibly, the result of calling [base::source()] on the `.R` file conversion of `file`
+#' * [try_source()], [try_ksource()]: attempts of [base::source()] and [ksource()] but converts errors to warnings
 #' @export
 
 # nolint end: line_length_linter.
 
 ksource <- function(file, ..., quiet = TRUE, cd = FALSE, env = parent.frame()) {
   require_namespace("knitr")
-  stopifnot(is.environment(env))
+  if (!is.environment(env)) {
+    stop(class_error("must_be", env, "environment"))
+  }
   o <- mark_temp("R")
   on.exit(fs::file_delete(o), add = TRUE)
   source(knitr::purl(file, output = o, quiet = quiet), chdir = cd, local = env)
@@ -40,12 +42,8 @@ ksource <- function(file, ..., quiet = TRUE, cd = FALSE, env = parent.frame()) {
 try_source <- function(file, cd = FALSE, ...) {
   tryCatch(
     source(file, chdir = cd),
-    error = function(e) {
-      warning(e, call. = FALSE)
-    },
-    simpleWarning = function(e) {
-      warning(e, call. = FALSE)
-    }
+    error = function(e) warning(e, call. = FALSE),
+    simpleWarning = function(e) warning(e, call. = FALSE)
   )
 }
 
@@ -54,12 +52,8 @@ try_source <- function(file, cd = FALSE, ...) {
 try_ksource <- function(file, ...) {
   tryCatch(
     ksource(file = file, ...),
-    error = function(e) {
-      warning(e, call. = FALSE)
-    },
-    simpleWarning = function(e) {
-      warning(e, call. = FALSE)
-    }
+    error = function(e) warning(e, call. = FALSE),
+    simpleWarning = function(e) warning(e, call. = FALSE)
   )
 }
 
@@ -147,17 +141,17 @@ source_r_dir <- function(dir, echo = FALSE, quiet = FALSE, ...) {
 #' @inheritParams source_files
 source_r_file <- function(path, echo = FALSE, quiet = FALSE, ...) {
   if (!grepl("\\.[rR]$", path)) {
-    stop(source_error("file"))
+    stop(input_error("`path` must be an R script with .R extension"))
   }
 
-  stopifnot(is_file(path))
+  if (!is_file(path)) {
+    stop(input_error("`path` must be a valid file location"))
+  }
 
   st <- system.time(
     tryCatch(
       source(path, echo = echo, ..., chdir = FALSE),
-      error = function(e) {
-        stop("Error in ", path, "\n", e, call. = FALSE)
-      }
+      error = function(e) stop("Error in ", path, "\n", e, call. = FALSE)
     )
   )
 
@@ -185,7 +179,7 @@ source_r_file <- function(path, echo = FALSE, quiet = FALSE, ...) {
 #' Source an R script to an environment
 #'
 #' @param x An R script
-#' @param ops Options to be passed to [mark::rscript]
+#' @param ops Options to be passed to [mark::rscript()]
 #' @return Invisibly, and environment variable of the objects/results created
 #'   from `x`
 #' @export
@@ -233,12 +227,12 @@ source_to_env <- function(x, ops = NULL) {
 
 #' Rscript
 #'
-#' Implements `Rscript` with `system2`
+#' Implements `Rscript` with [base::system2()]
 #'
 #' @param x An R file to run
 #' @param ops A character vector of options (`"--"` is added to each)
 #' @param args A character vector of other arguments to pass
-#' @param ... Additional arguments passed to `system2`
+#' @param ... Additional arguments passed to [base::system2()]
 #' @return A `character` vector of the result from calling `Rscript` via
 #'   `system2()`
 #'
@@ -327,7 +321,6 @@ source_error := condition(
       x,
       rmd = "rmd_file does not appear to be an rmd file",
       label = "label not found in .Rmd file",
-      file = "Must be a .R file",
       source = paste0(
         "RDS file not succesfully saved here:\n  ",
         params$file,
@@ -339,14 +332,12 @@ source_error := condition(
         collapse0(readLines(params$out), sep = "\n"),
         "\n"
       ),
-      stop("something went wrong; bad input: ", x)
+      stop(internal_error())
     )
   },
   type = "error",
   package = "mark",
   exports = c(
-    "source_r_dir",
-    "source_r_file",
     "source_to_env",
     "eval_named_chunk"
   )
