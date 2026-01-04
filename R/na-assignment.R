@@ -42,20 +42,19 @@ NA_at <- function(x, y, ...) {
   }
 
   if (is.function(y)) {
-    FUN <- match.fun(y) # nolint: object_name_linter.
-    y <- FUN(x, ...)
+    y <- y(x, ...)
   }
 
-  if (any(y %% 1 > 0, na.rm = TRUE)) {
-    stop(na_error("integer"))
+  if (any(y %% 1L > 0, na.rm = TRUE)) {
+    stop(value_error("`y` must be a vector of integers"))
   }
 
   if (!isTRUE(max(y, na.rm = TRUE) <= nx)) {
-    stop(na_error("max"))
+    stop(value_error("`max(y)` cannot be greater than `length(x)`"))
   }
 
   if (!isTRUE(length(y) <= nx)) {
-    stop(na_error("length"))
+    stop(value_error("`length(y)` cannot be greater than `length(x)`"))
   }
 
   x[y] <- NA
@@ -73,17 +72,16 @@ NA_if <- function(x, y, ...) {
   }
 
   if (is.function(y)) {
-    FUN <- match.fun(y) # nolint: object_name_linter.
-    y <- FUN(x, ...)
+    y <- y(x, ...)
   }
 
   # FIXME replace with a single condition
   if (length(y) != nx) {
-    stop(na_error("length"))
+    stop(value_error("`length(y)` cannot be greater than `length(x)`"))
   }
 
   if (!is.logical(y)) {
-    stop(na_error("logical"))
+    stop(value_error("`y` must be logical"))
   }
 
   x[y] <- NA
@@ -99,8 +97,7 @@ NA_in <- function(x, y, ...) {
   }
 
   if (is.function(y)) {
-    FUN <- match.fun(y) # nolint: object_name_linter.
-    y <- FUN(x, ...)
+    y <- y(x, ...)
   }
 
   x[x %in% y] <- NA
@@ -116,28 +113,9 @@ NA_out <- function(x, y, ...) {
   }
 
   if (is.function(y)) {
-    FUN <- match.fun(y) # nolint: object_name_linter.
-    y <- FUN(x, ...)
+    y <- y(x, ...)
   }
 
   x[x %out% y] <- NA
   x
 }
-
-
-# conditions --------------------------------------------------------------
-
-na_error := condition(
-  function(type) {
-    switch(
-      type,
-      integer = "y must be a vector of integers",
-      max = "length of y must not be greater than length of x",
-      length = "length of y must not be greater than length of x",
-      logical = "y must be logical",
-      stop(internal_error())
-    )
-  },
-  type = "error"
-  # TODO include help
-)
