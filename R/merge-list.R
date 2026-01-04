@@ -36,13 +36,12 @@ merge_list <- function(
   null = c("ignore", "drop", "keep")[1:2],
   sort = TRUE
 ) {
-  if (length(null) == 1L) {
-    null <- c(null, null)
-  }
-
-  if (!length(null) == 2L) {
-    stop(input_error("`null` must be length 1 or 2"))
-  }
+  switch(
+    length(null),
+    null <- c(null, null),
+    null
+  ) %||%
+    stop(input_error("`length(null)` must be 1L or 2L"))
 
   keep <- match_param(keep)
   x <- x %||% list()
@@ -59,14 +58,16 @@ merge_list <- function(
     null[1L],
     keep = x,
     ignore = remove_null(x),
-    drop = remove_null(x)
+    drop = remove_null(x),
+    stop(internal_error()) # nocov
   )
 
   y <- switch(
     null[2L],
     keep = y,
     ignore = remove_null(y),
-    drop = remove_null(y)
+    drop = remove_null(y),
+    stop(internal_error()) # nocov
   )
 
   res <- c(x, y)[!duplicated(c(names(x), names(y)), fromLast = keep == "y")]
