@@ -25,7 +25,7 @@ checkOptions <- function(x) {
 
   nm <- names(x)
   if (is.null(nm) || any(nm == "")) {
-    stop(unnamed_options())
+    stop(input_error("all values of `x` must be named"))
   }
 
   msg <- NULL
@@ -60,10 +60,3 @@ checkOptions <- function(x) {
 
   invisible(op)
 }
-
-# conditions --------------------------------------------------------------
-
-unnamed_options := condition(
-  "All options must be named",
-  type = "error"
-)
