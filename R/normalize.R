@@ -7,7 +7,7 @@
 #'   minimum/maximum values and lower/upper bounds.  This allows for a vector of
 #'   more than two values to be passed.
 #'
-#'   The current implementation of `normalize.data.frame()` allows for `list` of
+#'   The current implementation of [normalize.data.frame()] allows for `list` of
 #'   parameters passed for each column.  However, it is probably best suited for
 #'   default values.
 #'
@@ -45,28 +45,32 @@ normalize <- function(x, ...) {
 #' @rdname normalize
 #' @export
 normalize.default <- function(
-    x,
-    range = base::range(x, na.rm = TRUE),
-    bounds = 0:1,
-    ...
+  x,
+  range = base::range(x, na.rm = TRUE),
+  bounds = 0:1,
+  ...
 ) {
   x[] <- as.double(x)
   range <- wuffle(base::range(range, na.rm = TRUE))
   bounds <- wuffle(base::range(bounds, na.rm = TRUE))
 
-  min <- range[1]
-  max <- range[2]
-  lower <- bounds[1]
-  upper <- bounds[2]
+  min <- range[1L]
+  max <- range[2L]
+  lower <- bounds[1L]
+  upper <- bounds[2L]
 
-  # these probably won't trigger unless there's a weird range method
+  # fmt: skip
   # nocov start
-  stopifnot(
-    length(range) == 2,
-    length(bounds) == 2,
-    min <= max,
+  # these probably won't trigger unless there's a weird range method
+  if (!(
+    length(range) == 2L &&
+    length(bounds) == 2L &&
+    min <= max &&
     lower <= upper
-  )
+  )) {
+    stop(value_error("invalid `range` or `bounds` supplied"))
+  }
+
   # nocov end
 
   x[] <- lower + (x - min) * (upper - lower) / (max - min)
