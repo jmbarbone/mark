@@ -79,7 +79,7 @@ do_percentile_rank <- function(u, w) {
     res <- (cumsum(p) - 0.5) / n
   } else {
     if (length(w) != length(u)) {
-      stop(percentile_rank_weights_length())
+      stop(input_error("length(weights) must be 1L or equal to length(x)"))
     }
 
     ok <- stats::complete.cases(u, w)
