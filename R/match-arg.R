@@ -14,13 +14,13 @@
 #' @seealso [match_param()]
 #' @examples
 #' x <- c("apple", "banana", "orange")
-#' match_arg("b", x)
+#' suppressWarnings(match_arg("b", x), "deprecatedWarning")
 #'
 #' # Produces error
-#' try(match_arg("pear", x))
+#' suppressWarnings(try(match_arg("pear", x)), "deprecatedWarning")
 #'
 #' foo <- function(x, op = c(1, 2, 3)) {
-#'   op <- match_arg(op)
+#'   op <- suppressWarnings(match_arg(op), "deprecatedWarning")
 #'   x / op
 #' }
 #'
