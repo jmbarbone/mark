@@ -40,13 +40,13 @@ respectively) or \code{data.frame} with columns for each column chosen and the
 \code{.name} chosen for the summary
 }
 \description{
-Variables will be return by the order in which they appear.  Even factors are
-shown by their order of appearance in the vector.
+Variables will be return by the order in which they appear.
+Even factors are shown by their order of appearance in the vector.
 
 There are 2 methods for counting vectors.  The \code{default} method uses
-\code{base::tabulate()} (the workhorse for \code{base::table()} with a call to
-\code{pseudo_id()} to transform all inputs into integers.  The \code{logical} method
-counts \code{TRUE}, \code{FALSE} and \code{NA} values, which is much quicker.
+\code{\link[base:tabulate]{base::tabulate()}} (the workhorse for \code{\link[base:table]{base::table()}} with a call to
+\code{\link[=pseudo_id]{pseudo_id()}} to transform all inputs into integers.  The \code{logical}
+method counts \code{TRUE}, \code{FALSE} and \code{NA} values, which is much quicker.
 }
 \details{
 Get counts or proportions of unique observations in a vector or columns in a

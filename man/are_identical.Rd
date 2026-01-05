@@ -17,7 +17,7 @@ A \code{logical} vector of \code{TRUE}/\code{FALSE} of equal length of each \cod
 vector
 }
 \description{
-Extensions for the use of \code{base::identical()}
+Extensions for the use of \code{\link[base:identical]{base::identical()}}
 }
 \examples{
 x <- y <- z <- 1:5

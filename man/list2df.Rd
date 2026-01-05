@@ -11,19 +11,19 @@ list2df(x, name = "name", value = "value", warn = TRUE)
 
 \item{name, value}{Names of the new key and value columns, respectively}
 
-\item{warn}{Logical; if TRUE will show a warning when}
+\item{warn}{Logical; if \code{TRUE} will show a warning when}
 }
 \value{
 a \code{data.frame} object with columns \code{"name"} and \code{"value"} for the
 names of the \code{list} and the values in each
 }
 \description{
-Converts a list object into a data.frame
+Converts a list object into a \code{data.frame}
 }
 \details{
-Unlike \code{base::list2DF()}, \code{list2df()} tries to format the data.frame by using
-the names of the list as values rather than variables.  This creates a
-longer form list that may be more tidy.
+Unlike \code{\link[base:list2DF]{base::list2DF()}}, \code{\link[=list2df]{list2df()}} tries to format the
+\code{data.frame} by using the names of the list as values rather than
+variables. This creates a longer form list that may be more tidy.
 }
 \examples{
 x <- list(a = 1, b = 2:4, c = letters[10:20], "unnamed", "unnamed2")

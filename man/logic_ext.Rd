@@ -14,7 +14,7 @@
 \alias{either}
 \alias{is_boolean}
 \alias{none}
-\title{Logic - Extension'}
+\title{Logic - Extensions}
 \usage{
 is_true(x)
 
@@ -50,26 +50,27 @@ If not a logical value, will return \code{NA} equal to the vector length}
 }
 \value{
 \itemize{
-\item \code{is_true()}, \code{is_false()}, \code{either()}, \verb{\%or\%}, \code{AND()}, \code{OR()}: A \code{logical}
-vector, equal length of \code{x} (or \code{y} or of all \code{...} lengths)
-\item \code{is_boolean()}: \code{TRUE} or \code{FALSE}
-\item \code{none()}: \code{TRUE}, \code{FALSE}, or \code{NA}
+\item \code{\link[=is_true]{is_true()}}, \code{\link[=is_false]{is_false()}}, \code{\link[=either]{either()}}, \link{\%or\%},
+\code{\link[=AND]{AND()}}, \code{\link[=OR]{OR()}}: A \code{logical} vector, equal length of \code{x} (or \code{y}
+or of all \code{...} lengths)
+\item \code{\link[=is_boolean]{is_boolean()}}: \code{TRUE} or \code{FALSE}
+\item \code{\link[=none]{none()}}: \code{TRUE}, \code{FALSE}, or \code{NA}
 }
 }
 \description{
-All functions take logical or logical-like (i.e., 1, 0, or NA as
-integer or doubles) and return logical values.
+All functions take logical or logical-like (i.e., \code{1}, \code{0}, or
+\code{NA} as integer or doubles) and return logical values.
 
 Extensions to the base logical operations to account for \code{NA} values.
 
-\code{\link[base:Logic]{base::isTRUE()}} and \code{\link[base:Logic]{base::isFALSE()}} will only return single length \code{TRUE}
-or \code{FALSE} as it checks for valid lengths in the evaluation.  When needing to
-check over a vector for the presence of \code{TRUE} or \code{FALSE} and not being held
-back by \code{NA} values, \code{is_true} and \code{is_false} will always provide a \code{TRUE}
-\code{FALSE} when the vector is logical or return \code{NA} is the vector \code{x} is not
-logical.
+\code{\link[base:Logic]{base::isTRUE()}} and \code{\link[base:Logic]{base::isFALSE()}} will only return single length
+\code{TRUE} or \code{FALSE} as it checks for valid lengths in the evaluation.  When
+needing to check over a vector for the presence of \code{TRUE} or \code{FALSE} and
+not being held back by \code{NA} values, \code{\link[=is_true]{is_true()}} and
+\code{\link[=is_false]{is_false()}} will always provide a \code{TRUE} \code{FALSE} when the vector is
+logical or return \code{NA} is the vector \code{x} is not logical.
 
-\verb{\%or\%} is just a wrapper for \code{\link[base:Logic]{base::xor()}}
+\link{\%or\%} is just a wrapper for \code{\link[base:Logic]{base::xor()}}
 }
 \details{
 Logical operations, extended

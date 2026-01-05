@@ -23,7 +23,7 @@ value when matched to the RHS of the formula.}
 
 \item{null}{If \code{TRUE} allows \code{NULL} to be passed a \code{param}}
 
-\item{partial}{If \code{TRUE} allows partial matching via \code{\link[=pmatch]{pmatch()}}}
+\item{partial}{If \code{TRUE} allows partial matching via \code{\link[base:pmatch]{base::pmatch()}}}
 
 \item{multiple}{If \code{TRUE} allows multiple values to be returned}
 

@@ -14,7 +14,8 @@ add_file_timestamp(
 \arguments{
 \item{x}{A vector of files}
 
-\item{ts}{A single timestamp or vector of timestamps (default: \code{Sys.time()})}
+\item{ts}{A single timestamp or vector of timestamps (default:
+\code{\link[base:Sys.time]{base::Sys.time()}})}
 
 \item{format}{A format to be applied to the times; set to \code{NULL} to skip
 formatting}

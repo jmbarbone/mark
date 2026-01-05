@@ -24,8 +24,8 @@ A single \code{integer}
 Functions to extract the 'depth' of an object
 }
 \details{
-This function does not count an empty lists (\code{list()}) as a level or \code{NULL}
-objects.
+This function does not count an empty lists (\code{\link[base:list]{base::list()}}) as a
+level or \code{NULL} objects.
 }
 \examples{
 a <- c(1, 2, 3)

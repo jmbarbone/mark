@@ -20,21 +20,24 @@ objects_all(all.names = FALSE)
 }
 \value{
 \itemize{
-\item \code{environments()}: Invisibly, a \code{character} vector of environment names
+\item \code{\link[=environments]{environments()}}: Invisibly, a \code{character} vector of environment
+names
 }
 
 \itemize{
-\item \code{ls_all()}, \code{objects_all()}: A named list for each of the environments
-the \code{search()} path with all the objects found in that environment
+\item \code{\link[=ls_all]{ls_all()}}, \code{\link[=objects_all]{objects_all()}}: A named list for each of the
+environments the \code{\link[base:search]{base::search()}} path with all the objects found in that
+environment
 }
 }
 \description{
 Functions to list out all environments and objects
 }
 \details{
-\code{environments()} is basically a printing wrapper for \code{base::search()}
+\code{\link[=environments]{environments()}} is basically a printing wrapper for
+\code{\link[base:search]{base::search()}}
 
-\code{ls_all()} and \code{objects_all()} can be used retrieved all objects from all
-environments in the \code{search()} path, which may print out a large result
-into the console.
+\code{\link[=ls_all]{ls_all()}} and \code{\link[=objects_all]{objects_all()}} can be used retrieved all
+objects from all environments in the \code{\link[base:search]{base::search()}} path, which may print
+out a large result into the console.
 }

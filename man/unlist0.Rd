@@ -25,8 +25,8 @@ Unlist without unique names; combine names for unique values
 }
 \details{
 \itemize{
-\item \code{\link[=unlist0]{unlist0()}} is much like \code{\link[=unlist]{unlist()}} expect that name are not made to be
-unique.
+\item \code{\link[=unlist0]{unlist0()}} is much like \code{\link[base:unlist]{base::unlist()}} expect that name are not
+made to be unique.
 \item \code{\link[=squash_vec]{squash_vec()}} works differently
 }
 }

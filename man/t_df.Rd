@@ -10,17 +10,17 @@ t_df(x)
 \item{x}{A data.frame}
 }
 \value{
-A transposed \code{data.frame} with columns (\code{"colname"}, \code{"row_1"}, ...,
-for each row in \code{x}.
+A transposed \code{data.frame} with columns (\code{"colname"}, \code{"row_1"},
+\code{...}, for each row in \code{x}.
 }
 \description{
-This transposes a data.frame with \code{t()} but transforms back into a data.frame
-with column and row names cleaned up.  Because the data types may be mixed
-and reduced to characters, this may only be useful for a visual viewing of
-the data.frame.
+This transposes a data.frame with \code{\link[base:t]{base::t()}} but transforms
+back into a data.frame with column and row names cleaned up.  Because the
+data types may be mixed and reduced to characters, this may only be useful
+for a visual viewing of the data.frame.
 }
 \details{
-Transposes a data.frame as a data.frame
+Transposes a \code{data.frame} as a \code{data.frame}
 }
 \examples{
 x <- data.frame(col_a = Sys.Date() + 1:5, col_b = letters[1:5], col_c = 1:5)

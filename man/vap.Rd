@@ -44,12 +44,12 @@ These are simply wrappers for \code{\link[base:lapply]{base::vapply()}} to short
 Each function is designed to use specific vector types:
 
 \describe{
-\item{vap_int}{integer}
-\item{vap_dbl}{double}
-\item{vap_chr}{character}
-\item{vap_lgl}{logical}
-\item{vap_cplx}{complex}
-\item{vap_date}{Date}
+\item{\code{\link[=vap_int]{vap_int()}}}{integer}
+\item{\code{\link[=vap_dbl]{vap_dbl()}}}{double}
+\item{\url{mark::vap_chr}}{character}
+\item{\url{mark::vap_lgl}}{logical}
+\item{\url{mark::vap_cplx}}{complex}
+\item{\url{mark::vap_date}}{Date}
 }
 }
 \seealso{

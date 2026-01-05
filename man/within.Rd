@@ -29,17 +29,21 @@ A logical vector
 Compare a vector within (between) other values
 }
 \details{
-\verb{type``, }bounds`` can be one of the below:
+\code{type}, \code{bounds} can be one of the below:
 
 \describe{
-\item{g,(}{is greater than (>)}
-\item{ge,[}{greater than or equal to (>=)}
-\item{l,))}{less than (<)}
-\item{le,[]}{less than or equal to (<=)}
+\item{\code{"g"}, \code{(}}{is greater than (\code{>})}
+\item{\code{"ge"}, \code{[}}{greater than or equal to (\code{>=})}
+\item{\code{"l"}, \verb{)}}{less than (\code{<})}
+\item{\code{"le"}, \verb{]}}{less than or equal to (\code{<=})}
 }
 
-Note: \code{\link[=between_more]{between_more()}} may be deprecated in the future in favor of just
-\code{\link[=within]{within()}}
+Note: [mark::between_more()] may be deprecated in the future in favor of
+just [mark::within()]
+
+[\verb{\}\{greater than or equal to (}>=\verb{)\} \\item\{}"l"\verb{, })\verb{\}\{less than (}<\verb{)\} \\item\{}"le"\verb{, }]: R:\%60\%7D\%7Bgreater\%20than\%20or\%20equal\%20to\%20(\%60\%3E=\%60)\%7D\%0A\%20\%5C\%5Citem\%7B\%60\%22l\%22\%60,\%20\%60)\%60\%7D\%7Bless\%20than\%20(\%60\%3C\%60)\%7D\%0A\%20\%5C\%5Citem\%7B\%60\%22le\%22\%60,\%20\%60
+[mark::between_more()]: R:mark::between_more()
+[mark::within()]: R:mark::within()
 }
 \examples{
 

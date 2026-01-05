@@ -10,7 +10,7 @@ expand_by(x, y, expand = c("x", "y", "intersect", "both"), sort = FALSE)
 \item{x, y}{Vectors}
 
 \item{expand}{Character switch to expand or keep only the values that
-intersect, all values in x or y, or retain all values found.}
+intersect, all values in \code{x} or \code{y}, or retain all values found.}
 
 \item{sort}{Logical, if \code{TRUE} will sort by names in output}
 }

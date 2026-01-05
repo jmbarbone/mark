@@ -7,7 +7,7 @@
 \method{print}{pseudo_id}(x, ..., all = FALSE)
 }
 \arguments{
-\item{x}{An object of class \link{pseudo_id}}
+\item{x}{An object of class \code{pseudo_id}}
 
 \item{...}{Not implemented}
 

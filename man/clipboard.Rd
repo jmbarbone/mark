@@ -40,18 +40,20 @@ read_clipboard_methods()
 \item{method}{Method switch for loading the clipboard}
 }
 \value{
-\code{write_clipboard()} None, called for side effects \code{read_clipboard()}
-Either a vector, \code{data.frame}, or \code{tibble} depending on the \code{method} chosen.
-Unlike \code{\link[utils:clipboard]{utils::readClipboard()}}, an empty clipboard value returns \code{NA} rather
-than \code{""}
+\itemize{
+\item \code{\link[=write_clipboard]{write_clipboard()}} None, called for side effects
+\item \code{\link[=read_clipboard]{read_clipboard()}} Either a vector, \code{data.frame}, or \code{tibble}
+depending on the \code{method} chosen.  Unlike \code{\link[utils:clipboard]{utils::readClipboard()}}, an
+empty clipboard value returns \code{NA} rather than \code{""}
+}
 }
 \description{
 Wrappers for working with the clipboard
 }
 \details{
 As these functions rely on \code{\link[clipr:read_clip]{clipr::read_clip()}} and
-\code{\link[utils:clipboard]{utils::writeClipboard()}} they are only available for Windows 10. For copying
-and pasting floats, there may be some rounding that can occur.
+\code{\link[utils:clipboard]{utils::writeClipboard()}} they are only available for Windows 10. For
+copying and pasting floats, there may be some rounding that can occur.
 }
 \examples{
 # Will only run on windows

@@ -43,24 +43,25 @@ Otherwise, see \code{\link[fs:copy]{fs::file_copy()}}.}
 }
 \value{
 \itemize{
-\item \code{\link[=write_file_md5]{write_file_md5()}}: \code{x}, invisibly.  When \code{path} is not the \code{stdout()}, \code{x}
-is returned with the attribute \code{"path"} set to the result of
-\code{\link[=file_copy_md5]{file_copy_md5()}}.
-\item \code{\link[=mark_write_methods]{mark_write_methods()}}: A list of applicable methods and their aliases
-\item \code{\link[=mark_compress_methods]{mark_compress_methods()}}: A character vector of applicable compression
-methods
+\item \code{\link[=write_file_md5]{write_file_md5()}}: \code{x}, invisibly.  When \code{path} is not the
+\code{\link[base:showConnections]{base::stdout()}}, \code{x} is returned with the attribute \code{"path"} set to the
+result of \code{\link[=file_copy_md5]{file_copy_md5()}}.
+\item \code{\link[=mark_write_methods]{mark_write_methods()}}: A list of applicable methods and their
+aliases
+\item \code{\link[=mark_compress_methods]{mark_compress_methods()}}: A character vector of applicable
+compression methods
 }
 }
 \description{
 Write file with md5 hash check
 }
-\section{\code{options()}}{
-
+\section{\code{\link[base}{
+options]{base::options()}}:
 \itemize{
 \item \code{mark.compress.method}: compression method to use when writing files
 \item \code{mark.list.hook}: when a \code{data.frame} contains a \code{list} column, this
-function is applied to each element of the list.  The default \code{"auto"}
-uses \code{toJSON()} if the package \code{jsonlite} is available, otherwise
+function is applied to each element of the list.  The default \code{"auto"} uses
+\code{jsonlite::toJSON()} if the package \code{jsonlite} is available, otherwise
 }
 }
 

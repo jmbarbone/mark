@@ -15,10 +15,10 @@ user_file(..., check = FALSE, remove = check)
 \arguments{
 \item{x}{A character vector of paths}
 
-\item{check}{Logical, if TRUE will check if the path exists and output a
+\item{check}{Logical, if \code{TRUE} will check if the path exists and output a
 warning if it does not.}
 
-\item{remove}{Logical, if TRUE will remove paths that are not found}
+\item{remove}{Logical, if \code{TRUE} will remove paths that are not found}
 
 \item{...}{Character vectors for creating a path}
 }

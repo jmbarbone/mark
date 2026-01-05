@@ -25,8 +25,9 @@ switch_case(..., .default = NULL, .envir = parent.frame())
 \code{\link[base:sys.parent]{base::parent.frame()}})}
 }
 \value{
-A named vector of values of same length \code{x}; or for \code{\link[=switch_case]{switch_case()}}, an
-unnamed vector of values matching the rhs of \code{...}
+A named vector of values of same length \code{x}; or for
+\code{\link[=switch_case]{switch_case()}}, an unnamed vector of values matching the rhs of
+\code{...}
 
 Inspired from:
 \itemize{
@@ -35,13 +36,15 @@ Inspired from:
 }
 }
 \description{
-\code{\link[=switch_params]{switch_params()}} is a vectorized version of \code{\link[base:switch]{base::switch()}}
+\code{\link[=switch_params]{switch_params()}} is a vectorized version of
+\code{\link[base:switch]{base::switch()}}
 
-\code{\link[=switch_case]{switch_case()}} uses a formula syntax to return the value to the right of the
-tilde (\code{~}) when \code{x} is \code{TRUE}
+\code{\link[=switch_case]{switch_case()}} uses a formula syntax to return the value to the
+right of the tilde (\code{~}) when \code{x} is \code{TRUE}
 
-\code{\link[=switch_in_case]{switch_in_case()}} is a special case of \code{\link[=switch_case]{switch_case()}} for \code{\link[base:match]{base::match()}}-ing \code{x}
-in the values on the left to return the value on the right.
+\code{\link[=switch_in_case]{switch_in_case()}} is a special case of \code{\link[=switch_case]{switch_case()}} for
+\code{\link[base:match]{base::match()}}-ing \code{x} in the values on the left to return the value on
+the right.
 }
 \details{
 Switch with a list of params

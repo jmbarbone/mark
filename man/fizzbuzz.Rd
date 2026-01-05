@@ -30,10 +30,10 @@ that the quickest way to do it is to just take the work someone else did and
 utilize that.  No reason to reinvent the wheel.
 }
 \details{
-Multiples of \code{3} are shown as \code{"Fizz"}; multiples of \code{5} as \code{"Buzz"};
-multiple of both (i.e., \code{15}) are \code{"FizzBuzz"}.
-\code{fizzbuzz_lazy()} subsets the \code{.fizzbuzz_vector} object, which is a solution
-with default parameters up to \code{1e6}
+Multiples of \code{3} are shown as \code{"Fizz"}; multiples of \code{5} as
+\code{"Buzz"}; multiple of both (i.e., \code{15}) are \code{"FizzBuzz"}.
+\code{\link[=fizzbuzz_lazy]{fizzbuzz_lazy()}} subsets the \code{.fizzbuzz_vector} object, which is a
+solution with default parameters up to \code{1e6}
 }
 \examples{
 fizzbuzz(15)
