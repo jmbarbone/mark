@@ -32,11 +32,23 @@ input_error := condition(
   help = "Generic error to indicate a bad input value."
 )
 
+input_warning := condition(
+  function(x) collapse(x),
+  type = "warning",
+  help = "Generic warning to indicate a bad input value."
+)
+
 # caused by processing
 value_error := condition(
   function(x) collapse(x),
   type = "error",
   help = "Generic error to indicate a value mismatch."
+)
+
+value_warning := condition(
+  function(x) collapse(x),
+  type = "warning",
+  help = "Generic warning to indicate a value mismatch."
 )
 
 type_error := condition(
