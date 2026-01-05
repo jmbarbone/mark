@@ -90,8 +90,11 @@ is_unique <- function(x) {
   anyDuplicated(x) == 0L
 }
 
-is_atomic0 <- function(x) {
-  is.atomic(x) && !is.null(x)
+# since 4.4.0 is.atomic(NULL) returns FALSE
+is_atomic0 <- if (getRversion() < "4.4.0") {
+  function(x) is.atomic(x) && !is.null(x)
+} else {
+  base::is.atomic
 }
 
 cat0 <- function(...) {
