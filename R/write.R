@@ -121,6 +121,7 @@ write_file_md5 <- function(
   temp <- hook(temp) %||% temp
 
   if (!is.null(attr(x, "path"))) {
+    # NOTE this should be fairly rare, right?
     warning("attr(x, \"path\") is being overwritten")
   }
 
@@ -299,7 +300,11 @@ get_list_hook <- function(hook) {
     false = function(x) NA_character_,
     none = NULL,
     # nolint next: brace_linter.
-    na = function(x) stop(write_na_hook()),
+    na = function(x) {
+      stop(value_error(
+        "options(mark.list.hook) is NA but list columns detected"
+      ))
+    },
     match.fun(hook)
   )
 }
@@ -499,10 +504,9 @@ compress <- function(
 
   if (identical(attr(path, "extra"), "tar")) {
     if (method == "zip") {
-      stop(
-        "'zip' is not a valid method when writing to a tar archive",
-        call. = FALSE
-      )
+      stop(input_error(
+        "'zip' is not a valid method when writing to a tar archive"
+      ))
     }
     # tar() can do the compression for us, so we move this to a temporary
     # option.  this is always cleaned up because it shouldn't be set manually
@@ -603,11 +607,3 @@ safe_fs_delete <- function(x) {
     fs::file_delete(x)
   }
 }
-
-
-# conditions --------------------------------------------------------------
-
-write_na_hook := condition(
-  "options(mark.list.hook) is NA but list columns detected",
-  type = "error",
-)
