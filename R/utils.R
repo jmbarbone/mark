@@ -128,21 +128,23 @@ mark_temp <- function(ext = "") {
 }
 
 check_is_vector <- function(x, mode = "any") {
+  nm <- deparse1(substitute(x))
   # fmt: skip
   if (
     isS4(x) ||
     inherits(x, c("data.frame", "matrix", "array")) ||
     !is.vector(remove_attributes(x), mode)
   ) {
-    x <- deparse1(substitute(x))
     stop(
       input_error(
-        sprintf("`%s` must be of mode `%s`", as.character(match.call()$x), mode)
+        switch(
+          mode,
+          any = sprintf("`%s` must be a vector", nm),
+          sprintf("`%s` must be a vector of mode '%s'", nm, mode)
+        )
       )
     )
   }
-
-  invisible()
 }
 
 add_attributes <- function(x, ...) {
