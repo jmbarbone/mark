@@ -1,4 +1,4 @@
-#' Add author to DESCRIPTION
+#' Add author to `DESCRIPTION`
 #'
 #' Adds author to description
 #'
@@ -91,20 +91,20 @@ find_author <- function() {
 #' Get and bump package version for dates
 #'
 #' @description Will read the `DESCRIPTION` file and to get and adjust the
-#' version
+#'   version
 #'
-#' `bump_date_version()` will not check if the version is actually a date.  When
-#' the current version is the same as today's date(equal by character strings)
-#' it will append a `.1`.
+#'   [mark::bump_date_version()] will not check if the version is actually a
+#'   date.  When the current version is the same as today's date (equal by
+#'   character strings) it will append a `.1`.
 #'
 #' @param version A new version to be added; default of `NULL` will
 #'   automatically update.
 #' @param date If `TRUE` will use a date as a version.
 #' @return
-#' * `get_version()`: A package_version
-#' * `bump_version()`: None, called for its side-effects
-#' * `bump_date_version()`: None, called for its side-effects
-#' * `update_version()`: None, called for its side-effects
+#' - [mark::get_version()]: A package_version
+#' - [mark::bump_version()]: None, called for its side-effects
+#' - [mark::bump_date_version()]: None, called for its side-effects
+#' - [mark::update_version()]`: None, called for its side-effects
 #'
 #' @export
 get_version <- function() {

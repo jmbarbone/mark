@@ -7,9 +7,9 @@
 #'   minimum/maximum values and lower/upper bounds.  This allows for a vector of
 #'   more than two values to be passed.
 #'
-#'   The current implementation of [normalize.data.frame()] allows for `list` of
-#'   parameters passed for each column.  However, it is probably best suited for
-#'   default values.
+#'   The current implementation of [mark::normalize.data.frame()] allows for
+#'   `list` of parameters passed for each column.  However, it is probably best
+#'   suited for default values.
 #'
 #' @param x An object that is (coercible to) `double`; `data.frames` are
 #'   transformed

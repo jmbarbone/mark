@@ -2,16 +2,19 @@
 #'
 #' Switch with a list of params
 #'
-#' @description [switch_params()] is a vectorized version of [base::switch()]
+#' @description [mark::switch_params()] is a vectorized version of
+#'   [base::switch()]
 #'
-#' [switch_case()] uses a formula syntax to return the value to the right of the
-#' tilde (`~`) when `x` is `TRUE`
+#'   [mark::switch_case()] uses a formula syntax to return the value to the
+#'   right of the tilde (`~`) when `x` is `TRUE`
 #'
-#' [switch_in_case()] is a special case of [switch_case()] for [base::match()]-ing `x`
-#' in the values on the left to return the value on the right.
+#'   [mark::switch_in_case()] is a special case of [mark::switch_case()] for
+#'   [base::match()]-ing `x` in the values on the left to return the value on
+#'   the right.
 #'
-#' @return A named vector of values of same length `x`; or for [switch_case()], an
-#'   unnamed vector of values matching the rhs of `...`
+#' @return A named vector of values of same length `x`; or for
+#'   [mark::switch_case()], an unnamed vector of values matching the rhs of
+#'   `...`
 #'
 #'   Inspired from:
 #' * https://stackoverflow.com/a/32835930/12126576
@@ -83,7 +86,7 @@
 NULL
 
 #' @param x A vector of values
-#' @param ... Case evaluations (named for [switch_params()])
+#' @param ... Case evaluations (named for [mark::switch_params()])
 #' @rdname switch-ext
 #' @export
 switch_params <- function(x, ...) {

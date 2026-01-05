@@ -4,7 +4,7 @@
 #'
 #' @param x,y Vectors
 #' @param expand Character switch to expand or keep only the values that
-#'   intersect, all values in x or y, or retain all values found.
+#'   intersect, all values in `x` or `y`, or retain all values found.
 #' @param sort Logical, if `TRUE` will sort by names in output
 #'
 #' @return A vector with expanded

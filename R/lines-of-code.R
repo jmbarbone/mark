@@ -2,12 +2,11 @@
 #'
 #' Find the total number of lines of **R** code
 #'
-#' @details
-#' Tries to read each file in the directory that ends in .R or .r and sums
-#'   together.  Files that fail to read are not counted.
+#' @details Tries to read each file in the directory that ends in `.R` or `.r`
+#' and sums together.  Files that fail to read are not counted.
 #'
 #' @param x Directory to search for files
-#' @param skip_empty Logical, if TRUE will not count lines that are empty or
+#' @param skip_empty Logical, if `TRUE` will not count lines that are empty or
 #'   only contain a bracket or quotation mark.
 #'
 #' @returns An `integer` for the number of lines in all applicable files

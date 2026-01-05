@@ -2,18 +2,19 @@
 #'
 #' Functions to list out all environments and objects
 #'
-#' @details
-#' `environments()` is basically a printing wrapper for `base::search()`
+#' @details [mark::environments()] is basically a printing wrapper for
+#'   [base::search()]
 #'
-#' `ls_all()` and `objects_all()` can be used retrieved all objects from all
-#'   environments in the `search()` path, which may print out a large result
-#'   into the console.
+#'   [mark::ls_all()] and [mark::objects_all()] can be used retrieved all
+#'   objects from all environments in the [base::search()] path, which may print
+#'   out a large result into the console.
 #'
 #' @inheritParams base::ls
 #'
 #' @export
 #' @return
-#' * `environments()`: Invisibly, a `character` vector of environment names
+#' - [mark::environments()]: Invisibly, a `character` vector of environment
+#' names
 #' @name list_environments
 environments <- function() {
   struct(search(), c("character", "mark_environments"))
@@ -30,8 +31,9 @@ print.mark_environments <- function(x, ...) {
 #' @export
 #' @rdname list_environments
 #' @return
-#' * `ls_all()`, `objects_all()`: A named list for each of the environments
-#'    the `search()` path with all the objects found in that environment
+#' - [mark::ls_all()], [mark::objects_all()]: A named list for each of the
+#'   environments the [base::search()] path with all the objects found in that
+#'   environment
 # nolint next: object_name_linter.
 ls_all <- function(all.names = FALSE) {
   sapply(search(), function(s) ls(as.environment(s), all.names = all.names))

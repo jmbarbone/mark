@@ -31,7 +31,7 @@ to_boolean.character <- function(x, true = NULL, false = NULL, ...) {
     return(to_boolean_default(x))
   }
 
-  stop("Not yet finished")
+  stop(internal_error("Not yet finished"))
 }
 
 #' @rdname to_boolean
@@ -41,7 +41,7 @@ to_boolean.factor <- function(x, true = NULL, false = NULL, ...) {
     return(to_boolean_default(x))
   }
 
-  stop("Not yet finished")
+  stop(internal_error("Not yet finished"))
 }
 
 to_boolean_default <- function(x) {

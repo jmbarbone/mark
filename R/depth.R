@@ -2,9 +2,8 @@
 #'
 #' Functions to extract the 'depth' of an object
 #'
-#' @details
-#' This function does not count an empty lists (`list()`) as a level or `NULL`
-#'   objects.
+#' @details This function does not count an empty lists ([base::list()]) as a
+#' level or `NULL` objects.
 #'
 #' @param x An object
 #' @param ... Possible additional arguments passed to methods (not in use)

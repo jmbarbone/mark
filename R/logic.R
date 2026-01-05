@@ -10,11 +10,11 @@
 #'   [base::isTRUE()] and [base::isFALSE()] will only return single length
 #'   `TRUE` or `FALSE` as it checks for valid lengths in the evaluation.  When
 #'   needing to check over a vector for the presence of `TRUE` or `FALSE` and
-#'   not being held back by `NA` values, [is_true()] and [is_false()] will
-#'   always provide a `TRUE` `FALSE` when the vector is logical or return `NA`
-#'   is the vector `x` is not logical.
+#'   not being held back by `NA` values, [mark::is_true()] and
+#'   [mark::is_false()] will always provide a `TRUE` `FALSE` when the vector is
+#'   logical or return `NA` is the vector `x` is not logical.
 #'
-#'   `%or%` is just a wrapper for [base::xor()]
+#'   [mark::%or%] is just a wrapper for [base::xor()]
 #'
 #' @param x,y  A vector of logical values.  If `NULL` will generate a warning.
 #'   If not a logical value, will return `NA` equal to the vector length
@@ -47,10 +47,11 @@
 #' is_boolean(c(1L, NA_integer_, 0L))
 #' is_boolean(c(1.01, 0, -1))
 #' @return
-#' * `is_true()`, `is_false()`, `either()`, `%or%`, `AND()`, `OR()`: A `logical`
-#' vector, equal length of `x` (or `y` or of all `...` lengths)
-#' * `is_boolean()`: `TRUE` or `FALSE`
-#' * `none()`: `TRUE`, `FALSE`, or `NA`
+#' - [mark::is_true()], [mark::is_false()], [mark::either()], [mark::%or%],
+#' [mark::AND()], [mark::OR()]: A `logical` vector, equal length of `x` (or `y`
+#' or of all `...` lengths)
+#' - [mark::is_boolean()]: `TRUE` or `FALSE`
+#' - [mark::none()]: `TRUE`, `FALSE`, or `NA`
 #'
 #' @name logic_ext
 NULL

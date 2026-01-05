@@ -20,7 +20,7 @@ append0.list <- function(x, values, pos = NULL, expand = FALSE, ...) {
     n <- unique(lengths(x))
 
     if (length(n) > 1) {
-      warning(append_expand_warning())
+      warning(append_warning())
       n <- max(n)
     }
 
@@ -65,7 +65,7 @@ append0.default <- function(x, values, pos = NULL, ...) {
 # conditions --------------------------------------------------------------
 
 # TODO does this need to be it's own condition?
-append_expand_warning := condition(
+append_warning := condition(
   message = "expanding to the largest n",
   type = "warning",
   package = "mark",

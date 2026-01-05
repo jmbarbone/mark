@@ -3,21 +3,21 @@
 #' Compare a vector within (between) other values
 #'
 #' @param x A numeric vector of values
-#' @param left,right Boundary values.  For [within()], when `NULL` no
+#' @param left,right Boundary values.  For [mark::within()], when `NULL` no
 #'   comparison is made for that boundary.  When both are `NULL`, `x` is just
 #'   returned.
 #'
-#' @details `type``, `bounds`` can be one of the below:
+#' @details `type`, `bounds` can be one of the below:
 #'
 #' \describe{
-#'  \item{g,(}{is greater than (>)}
-#'  \item{ge,[}{greater than or equal to (>=)}
-#'  \item{l,))}{less than (<)}
-#'  \item{le,[]}{less than or equal to (<=)}
+#'  \item{`"g"`, `(`}{is greater than (`>`)}
+#'  \item{`"ge"`, `[`}{greater than or equal to (`>=`)}
+#'  \item{`"l"`, `)`}{less than (`<`)}
+#'  \item{`"le"`, `]`}{less than or equal to (`<=`)}
 #' }
 #'
-#' Note: [between_more()] may be deprecated in the future in favor of just
-#' [within()]
+#'   Note: [mark::between_more()] may be deprecated in the future in favor of
+#'   just [mark::within()]
 #'
 #' @returns A logical vector
 #'

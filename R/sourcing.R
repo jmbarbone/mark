@@ -12,17 +12,17 @@
 #'   evaluated
 #' @param ... Additional arguments passed to [base::source()]
 #'
-#' @details
-#' [try_source()] will output an error message rather than completely preventing
-#'   the execution.
-#' This can be useful for when a script calls on multiple, independent files to
-#'   be sourced and a single failure shouldn't prevent the entire run to fail as
-#'   well.
+#' @details [mark::try_source()] will output an error message rather than
+#' completely preventing the execution. This can be useful for when a script
+#' calls on multiple, independent files to be sourced and a single failure
+#' shouldn't prevent the entire run to fail as well.
 #'
 #' @name sourcing
 #' @return
-#' * [ksource()]: Invisibly, the result of calling [base::source()] on the `.R` file conversion of `file`
-#' * [try_source()], [try_ksource()]: attempts of [base::source()] and [ksource()] but converts errors to warnings
+#' - [mark::ksource()]: Invisibly, the result of calling [base::source()] on
+#'   the `.R` file conversion of `file`
+#' - [mark::try_source()], [mark::try_ksource()]: attempts of [base::source()]
+#'   and [mark::ksource()] but converts errors to warnings
 #' @export
 
 # nolint end: line_length_linter.

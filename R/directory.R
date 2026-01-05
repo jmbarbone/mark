@@ -104,9 +104,9 @@ remove_temp_files <- function(x) {
 #' Normalize and check a vector of paths
 #'
 #' @param x A character vector of paths
-#' @param check Logical, if TRUE will check if the path exists and output a
+#' @param check Logical, if `TRUE` will check if the path exists and output a
 #'   warning if it does not.
-#' @param remove Logical, if TRUE will remove paths that are not found
+#' @param remove Logical, if `TRUE` will remove paths that are not found
 #' @param ... Character vectors for creating a path
 #' @return A vector of full file paths
 #'
@@ -195,34 +195,37 @@ smallest_file <- function(x) {
   x[which.min(file.size(x))]
 }
 
+# NOTE Using link for [base::shell.exec()] will fail on non-Windows
+
 #' Open a file using windows file associations
 #'
 #' Opens the given files(s)
 #'
-#' @details `open_file` is an alternative to `shell.exec()` that can take take
-#' multiple files. `list_files` and `list_dirs` are mostly wrappers for
-#' [fs::dir_ls()] with preferred defaults and pattern searching on the full file
-#' path.
+#' @details [mark::open_file()] is an alternative to `base::shell.exec()` that
+#'   can take take multiple files. [mark::list_files()] and [mark::list_dirs()]
+#'   are mostly wrappers for [fs::dir_ls()] with preferred defaults and pattern
+#'   searching on the full file path.
 #'
-#' `file_open` is simply an alias.
+#'   [mark::file_open()] is simply an alias.
 #'
 #' @inheritParams norm_path
 #' @inheritParams fs::dir_ls
 #' @param pattern,glob Pattern to search for files.  `glob` is absorbed into
 #'   `pattern`, through [utils::glob2rx()].
 #' @param ignore_case logical. Should pattern-matching be case-insensitive?
-#' @param all a logical value. If FALSE, only the names of visible files are
+#' @param all a logical value. If `FALSE`, only the names of visible files are
 #'   returned (following Unix-style visibility, that is files whose name does
-#'   not start with a dot). If TRUE, all file names will be returned.
+#'   not start with a dot). If `TRUE`, all file names will be returned.
 #' @param basename If `TRUE` only searches pattern on the basename, otherwise on
 #'   the entire path
 #' @param negate Logical, if `TRUE` will inversely select files that do not
 #'   match the provided pattern
 #'
 #' @return
-#' * `open_file()`, `shell_exec()`: A logical vector where `TRUE` successfully
-#' opened, `FALSE` did not and `NA` did not try to open (file not found)
-#' * `list_files()`, `list_dirs()`: A vector of full paths
+#' - [mark::open_file()], [mark::shell_exec()]: A logical vector where `TRUE`
+#'   successfully opened, `FALSE` did not and `NA` did not try to open (file not
+#'   found)
+#' - [mark::list_files()], [mark::list_dirs()]: A vector of full paths
 #' @name file_utils
 NULL
 
@@ -243,7 +246,8 @@ file_open <- open_file
 #' @export
 shell_exec <- function(x) {
   if (is_windows()) {
-    open_fun <- function(path) shell.exec(file = path) # nolint: object_usage_linter, line_length_linter.
+    # nolint next: object_usage_linter.
+    open_fun <- function(path) shell.exec(file = path)
   } else {
     require_namespace("xopen")
     open_fun <- function(path) xopen::xopen(target = path)
@@ -434,7 +438,8 @@ file_name <- function(x, compression = FALSE) {
 #' Adds a timestamp to a file
 #'
 #' @param x A vector of files
-#' @param ts A single timestamp or vector of timestamps (default: `Sys.time()`)
+#' @param ts A single timestamp or vector of timestamps (default:
+#'   [base::Sys.time()])
 #' @param format A format to be applied to the times; set to `NULL` to skip
 #'   formatting
 #' @param sep A `character` vector of length 1 to separate the timestamp from

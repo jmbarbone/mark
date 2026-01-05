@@ -1,16 +1,15 @@
 #' Count observations by unique values
 #'
 #' Get counts or proportions of unique observations in a vector or columns in a
-#'   `data.frame`
+#' `data.frame`
 #'
-#' @description
-#' Variables will be return by the order in which they appear.  Even factors are
-#'   shown by their order of appearance in the vector.
+#' @description Variables will be return by the order in which they appear.
+#' Even factors are shown by their order of appearance in the vector.
 #'
 #' There are 2 methods for counting vectors.  The `default` method uses
-#'   `base::tabulate()` (the workhorse for `base::table()` with a call to
-#'   `pseudo_id()` to transform all inputs into integers.  The `logical` method
-#'    counts `TRUE`, `FALSE` and `NA` values, which is much quicker.
+#' [base::tabulate()] (the workhorse for [base::table()] with a call to
+#' [mark::pseudo_id()] to transform all inputs into integers.  The `logical`
+#' method counts `TRUE`, `FALSE` and `NA` values, which is much quicker.
 #'
 #' @param x A vector or `data.frame`
 #' @param ... Arguments passed to other methods

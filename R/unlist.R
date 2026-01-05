@@ -3,9 +3,9 @@
 #' Unlist without unique names; combine names for unique values
 #'
 #' @details
-#' * [unlist0()] is much like [base::unlist()] expect that name are not made to
-#'   be unique.
-#' * [squash_vec()] works differently
+#' - [mark::unlist0()] is much like [base::unlist()] expect that name are not
+#'   made to be unique.
+#' - [mark::squash_vec()] works differently
 #'
 #' @param x A vector of values
 #' @examples
@@ -22,8 +22,8 @@
 #' squash_vec(y)
 #' @export
 #' @returns
-#' * [unlist0()]: a vector with the possibility of non-unique names
-#' * [squash_vec()]: A vector of unique values and names
+#' * [mark::unlist0()]: a vector with the possibility of non-unique names
+#' * [mark::squash_vec()]: A vector of unique values and names
 unlist0 <- function(x) {
   if (!is.list(x)) {
     return(x)

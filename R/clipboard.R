@@ -3,17 +3,18 @@
 #' Wrappers for working with the clipboard
 #'
 #' @details As these functions rely on [clipr::read_clip()] and
-#' [utils::writeClipboard()] they are only available for Windows 10. For copying
-#' and pasting floats, there may be some rounding that can occur.
+#'   [utils::writeClipboard()] they are only available for Windows 10. For
+#'   copying and pasting floats, there may be some rounding that can occur.
 #'
 #' @param x An object
 #' @param method Method switch for loading the clipboard
 #' @param ... Additional arguments sent to methods or to [utils::write.table()]
 #'
-#' @return `write_clipboard()` None, called for side effects `read_clipboard()`
-#' Either a vector, `data.frame`, or `tibble` depending on the `method` chosen.
-#' Unlike [utils::readClipboard()], an empty clipboard value returns `NA` rather
-#' than `""`
+#' @return
+#' - [mark::write_clipboard()] None, called for side effects
+#' - [mark::read_clipboard()] Either a vector, `data.frame`, or `tibble`
+#'   depending on the `method` chosen.  Unlike [utils::readClipboard()], an
+#'   empty clipboard value returns `NA` rather than `""`
 #'
 #' @name clipboard
 #' @examples
@@ -118,11 +119,13 @@ clipr_read_clip <- function(...) {
   res <- withCallingHandlers(
     clipr::read_clip(...),
     simpleWarning = function(e) {
-      if (grepl(
-        "System clipboard contained no readable text",
-        conditionMessage(e),
-        fixed = TRUE
-      )) {
+      if (
+        grepl(
+          "System clipboard contained no readable text",
+          conditionMessage(e),
+          fixed = TRUE
+        )
+      ) {
         tryInvokeRestart("muffleWarning")
       }
     }
@@ -163,39 +166,39 @@ read_clipboard_methods <- function() {
 #' @inheritParams utils::read.table
 #' @noRd
 do_read_table_clipboard <- function(
-    header           = TRUE,
-    # Copying form Excel produces tab separations
-    sep              = "\t",
-    # nolint next: object_name_linter.
-    row.names        = NULL,
-    # Excel formula for NA produces #N/A -- sometimes people use N/A...
-    # nolint next: object_name_linter.
-    na.strings       = c("", "NA", "N/A", "#N/A"),
-    # nolint next: object_name_linter.
-    check.names      = FALSE,
-    # nolint next: object_name_linter.
-    stringsAsFactors = FALSE,
-    encoding         = "UTF-8",
-    # occasionally "#' is used as a column name -- may cause issues
-    # nolint next: object_name_linter.
-    comment.char     = "",
-    # nolint next: object_name_linter.
-    blank.lines.skip = FALSE,
-    fill             = TRUE,
-    ...
+  header = TRUE,
+  # Copying form Excel produces tab separations
+  sep = "\t",
+  # nolint next: object_name_linter.
+  row.names = NULL,
+  # Excel formula for NA produces #N/A -- sometimes people use N/A...
+  # nolint next: object_name_linter.
+  na.strings = c("", "NA", "N/A", "#N/A"),
+  # nolint next: object_name_linter.
+  check.names = FALSE,
+  # nolint next: object_name_linter.
+  stringsAsFactors = FALSE,
+  encoding = "UTF-8",
+  # occasionally "#' is used as a column name -- may cause issues
+  # nolint next: object_name_linter.
+  comment.char = "",
+  # nolint next: object_name_linter.
+  blank.lines.skip = FALSE,
+  fill = TRUE,
+  ...
 ) {
   res <- utils::read.table(
     file = textConnection(clipr_read_clip(TRUE)),
-    header           = header,
-    sep              = sep,
-    row.names        = row.names,
-    na.strings       = na.strings,
-    check.names      = check.names,
+    header = header,
+    sep = sep,
+    row.names = row.names,
+    na.strings = na.strings,
+    check.names = check.names,
     stringsAsFactors = stringsAsFactors,
-    encoding         = encoding,
-    comment.char     = comment.char,
+    encoding = encoding,
+    comment.char = comment.char,
     blank.lines.skip = blank.lines.skip,
-    fill             = fill,
+    fill = fill,
     ...
   )
 

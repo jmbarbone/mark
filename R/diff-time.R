@@ -14,12 +14,11 @@
 #'   passed to the `tz` parameter as a character vector
 #'
 #' @section Units: Units can be used beyond those available in
-#'   `base::difftime()`.  Some of these use assumptions in how units of time
+#'   [base::difftime()].  Some of these use assumptions in how units of time
 #'   should be standardized and can be changed in the corresponding options. Any
-#'   of these can be calculated with `base::difftime()` through using `units =
-#'   "days"` but the `dtime` class will print out with these specifications into
-#'   the console for less potential confusion.
-#'
+#'   of these can be calculated with [base::difftime()] through using
+#'   `units = "days"` but the `dtime` class will print out with these
+#'   specifications into the console for less potential confusion.
 #'
 #' \describe{
 #'   \item{months}{Months by number of days `mark.days_in_month` (defaults: `30`)}
@@ -31,7 +30,7 @@
 #'
 #' @section Time zones: Time zones can be passed as either a numeric vector of
 #'   GMT/UTC offsets (the number of seconds from GMT) or as a character vector.
-#'   If the letter, these need to conform with values from `base::OlsonNames()`.
+#'   If the letter, these need to conform with values from [base::OlsonNames()].
 #'
 #'   A default timezone can be set with `options(mark.default_tz = .)`.  The
 #'   value can either be a numeric
@@ -40,7 +39,7 @@
 #' @param method A method to report the difference in units of time (see
 #'   **Units** section)
 #' @param tzx,tzy time zones (see **Time zones** section)
-#' @param ... Additional arguments passed to `diff_time()`
+#' @param ... Additional arguments passed to [mark::diff_time()]
 #' @return A `diff_time` vector, object
 #'
 #' @export

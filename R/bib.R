@@ -14,7 +14,7 @@
 #' @param file File or connection
 #' @param skip The lines to skip
 #' @param max_lines The maximum number of lines to read
-#' @param encoding Assumed encoding of file (passed to [readLines()]
+#' @param encoding Assumed encoding of file (passed to [base::readLines()]
 #'
 #' @return A `data.frame` with each row as a bib entry and each column as a
 #'   field
@@ -200,7 +200,6 @@ process_bib_list <- function(keys, fields, categories, values) {
         class = c("character", "mark_bib_entry"),
         names = c("key", "field", cats)
       )
-
     },
     key = keys[valid],
     field = fields[valid],
@@ -324,4 +323,3 @@ bib_error := condition(
   exports = "read_bib"
   # TODO include help
 )
-

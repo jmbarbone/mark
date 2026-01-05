@@ -29,8 +29,8 @@ q50 <- median2
 
 #' Range 2
 #'
-#' Employs `min()` and `max()`.  However, [base::range()], there is no argument
-#'   for removing `Inf` values.
+#' Employs [base::min()] and [base::max()].  However, [base::range()], there is
+#' no argument for removing `Inf` values.
 #'
 #' @param x A numeric (or character) vector (see Note in [base::min])
 #' @param na.rm Logical, if `TRUE` removes missing values

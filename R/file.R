@@ -1,4 +1,3 @@
-
 #' File copy with md5 hash check
 #'
 #' @inheritParams fs::file_copy

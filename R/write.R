@@ -1,28 +1,29 @@
 #' Write file with md5 hash check
 #'
-#' @section `options()`:
+#' @section [base::options()]:
 #'
 #' - `mark.compress.method`: compression method to use when writing files
 #' - `mark.list.hook`: when a `data.frame` contains a `list` column, this
-#'   function is applied to each element of the list.  The default `"auto"`
-#'   uses `toJSON()` if the package `jsonlite` is available, otherwise
+#'   function is applied to each element of the list.  The default `"auto"` uses
+#'   `jsonlite::toJSON()` if the package `jsonlite` is available, otherwise
 #'
 #' @param x An object to write to file
 #' @param path The file or connection to write to (dependent on part by method)
 #' @param method The method of saving the file.  When `default`, the method is
 #'   determined by file extension of `path`, if present, otherwise by the type
 #'   of object of `x`.
-#' @inheritParams file_copy_md5
 #' @param encoding The encoding to use when writing the file.
 #' @param compression The compression method to use when writing the file.
 #' @param ... Additional arguments passed to the write function.
+#' @inheritParams file_copy_md5
 #' @returns
-#' - [write_file_md5()]: `x`, invisibly.  When `path` is not the `stdout()`, `x`
-#' is returned with the attribute `"path"` set to the result of
-#' [file_copy_md5()].
-#' - [mark_write_methods()]: A list of applicable methods and their aliases
-#' - [mark_compress_methods()]: A character vector of applicable compression
-#' methods
+#' - [mark::write_file_md5()]: `x`, invisibly.  When `path` is not the
+#'   [base::stdout()], `x` is returned with the attribute `"path"` set to the
+#'   result of [mark::file_copy_md5()].
+#' - [mark::mark_write_methods()]: A list of applicable methods and their
+#'   aliases
+#' - [mark::mark_compress_methods()]: A character vector of applicable
+#'   compression methods
 #' @examples
 #' # just writes to stdout()
 #' df <- data.frame(a = 1, b = 2)

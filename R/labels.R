@@ -2,11 +2,10 @@
 #'
 #' Assign labels to a vector or data.frame.
 #'
-#' @details
-#' When labels are assigned to a data.frame they can make viewing the object
-#'  (with `View()` inside Rstudio).  [view_labels()] has a call to `View()`
-#'  inside and will retrieve the labels and show them in the viewer as a
-#'  data.frame.
+#' @details When labels are assigned to a data.frame they can make viewing the
+#' object (with `View()` inside Rstudio).  [mark::view_labels()] has a call to
+#' `View()` inside and will retrieve the labels and show them in the viewer as a
+#' data.frame.
 #'
 #' @param x A vector of data.frame
 #' @param ... One or more unquoted expressed separated by commas.  If assigning
@@ -55,8 +54,8 @@ assign_labels.default <- function(x, label, ...) {
 #' @export
 #' @rdname labels
 #' @param .missing A control setting for dealing missing columns in a list; can
-#'   be set to `"error"` to [stop()] the call, `"warn"` to provide a warning, or
-#'   `"skip"` to silently skip those labels.
+#'   be set to `"error"` to [base::stop()] the call, `"warn"` to provide a
+#'   warning, or `"skip"` to silently skip those labels.
 #' @param .ls A named list of columns and labels to be set if `...` is empty
 assign_labels.data.frame <- function(
   x,

@@ -11,7 +11,7 @@
 #' @param table A table of choices
 #' @return A single value from `x` matched on `table`
 #'
-#' @seealso [match_param()]
+#' @seealso [mark::match_param()]
 #' @examples
 #' x <- c("apple", "banana", "orange")
 #' suppressWarnings(match_arg("b", x), "deprecatedWarning")
@@ -65,12 +65,12 @@ match_arg <- function(x, table) {
 #'   of formula objects (preferred) retains the LHS of the formula as the return
 #'   value when matched to the RHS of the formula.
 #' @param null If `TRUE` allows `NULL` to be passed a `param`
-#' @param partial If `TRUE` allows partial matching via [pmatch()]
+#' @param partial If `TRUE` allows partial matching via [base::pmatch()]
 #' @param multiple If `TRUE` allows multiple values to be returned
 #' @param simplify If `TRUE` will simplify the output to a single value
 #' @return A single value from `param` matched on `choices`
 #'
-#' @seealso [match_arg()]
+#' @seealso [mark::match_arg()]
 #' @examples
 #' fruits <- function(x = c("apple", "banana", "orange")) {
 #'   match_param(x)

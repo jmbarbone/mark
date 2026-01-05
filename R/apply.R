@@ -1,4 +1,3 @@
-
 # TODO these will be deprecated by fuj::vap
 
 # vaps --------------------------------------------------------------------
@@ -13,12 +12,12 @@
 #' Each function is designed to use specific vector types:
 #'
 #' \describe{
-#'   \item{vap_int}{integer}
-#'   \item{vap_dbl}{double}
-#'   \item{vap_chr}{character}
-#'   \item{vap_lgl}{logical}
-#'   \item{vap_cplx}{complex}
-#'   \item{vap_date}{Date}
+#'   \item{[mark::vap_int()]}{integer}
+#'   \item{[mark::vap_dbl()]}{double}
+#'   \item{[mark::vap_chr]()}{character}
+#'   \item{[mark::vap_lgl]()}{logical}
+#'   \item{[mark::vap_cplx]()}{complex}
+#'   \item{[mark::vap_date]()}{Date}
 #' }
 #'
 #' @param .x A vector of values

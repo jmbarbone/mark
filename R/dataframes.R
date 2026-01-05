@@ -62,16 +62,15 @@ vector2df <- function(x, name = "name", value = "value") {
 
 #' List to data.frame
 #'
-#' Converts a list object into a data.frame
+#' Converts a list object into a `data.frame`
 #'
-#' @details
-#' Unlike `base::list2DF()`, `list2df()` tries to format the data.frame by using
-#'   the names of the list as values rather than variables.  This creates a
-#'   longer form list that may be more tidy.
+#' @details Unlike [base::list2DF()], [mark::list2df()] tries to format the
+#'   `data.frame` by using the names of the list as values rather than
+#'   variables. This creates a longer form list that may be more tidy.
 #'
 #' @param x A (preferably) named `list` with any number of values
 #' @param name,value Names of the new key and value columns, respectively
-#' @param warn Logical; if TRUE will show a warning when
+#' @param warn Logical; if `TRUE` will show a warning when
 #'
 #' @return a `data.frame` object with columns `"name"` and `"value"` for the
 #'   names of the `list` and the values in each
@@ -147,17 +146,16 @@ list2df2 <- function(x = list(), nrow = NULL) {
 
 #' Data frame transpose
 #'
-#' Transposes a data.frame as a data.frame
+#' Transposes a `data.frame` as a `data.frame`
 #'
-#' @description
-#' This transposes a data.frame with `t()` but transforms back into a data.frame
-#'   with column and row names cleaned up.  Because the data types may be mixed
-#'   and reduced to characters, this may only be useful for a visual viewing of
-#'   the data.frame.
+#' @description This transposes a data.frame with [base::t()] but transforms
+#' back into a data.frame with column and row names cleaned up.  Because the
+#' data types may be mixed and reduced to characters, this may only be useful
+#' for a visual viewing of the data.frame.
 #'
 #' @param x A data.frame
-#' @return A transposed `data.frame` with columns (`"colname"`, `"row_1"`, ...,
-#'   for each row in `x`.
+#' @return A transposed `data.frame` with columns (`"colname"`, `"row_1"`,
+#'   `...`, for each row in `x`.
 #'
 #' @examples
 #' x <- data.frame(col_a = Sys.Date() + 1:5, col_b = letters[1:5], col_c = 1:5)
@@ -194,7 +192,7 @@ rn_to_col <- function(data, name = "row.name") {
 #'
 #' Return completed cases of a data.frame
 #'
-#' @param data A data.frame
+#' @param data A `data.frame`
 #' @param cols Colnames or numbers to remove `NA` values from; `NULL` (default)
 #'   will use all columns
 #' @param invert Logical, if `TRUE` will return incomplete cases

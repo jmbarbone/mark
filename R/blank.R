@@ -12,11 +12,11 @@
 #'   as blanks
 #'
 #' @returns
-#' * `is_blank()` a `logical` vector indicating _blank_ elements in `x`
-#' * `select_blank_cols()` `x` with only columns that are all _blank_
-#' * `remove_blank_cols()` `x` without columns of only _blank_
-#' * `is_blank_cols()` a logical vector: `TRUE` all rows of column are _blank_,
-#' otherwise `FALSE`
+#' - [mark::is_blank()] a `logical` vector indicating _blank_ elements in `x`
+#' - [mark::select_blank_cols()] `x` with only columns that are all _blank_
+#' - [mark::remove_blank_cols()] `x` without columns of only _blank_
+#' - [mark::is_blank_cols()] a logical vector: `TRUE` all rows of column are
+#'   _blank_, otherwise `FALSE`
 #' @name blank_values
 NULL
 

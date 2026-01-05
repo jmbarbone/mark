@@ -6,19 +6,19 @@
 #'
 #' Quickly create a factor
 #'
-#' @details `fact()` can be about 5 times quicker than `factor()` or
-#'   `as.factor()` as it doesn't bother sorting the levels for non-numeric data
-#'   or have other checks or features.  It simply converts a vector to a factor
-#'   with all unique values as levels with `NA`s included.
+#' @details [mark::fact()] can be about 5 times quicker than [base::factor()] or
+#'   [base::as.factor()] as it doesn't bother sorting the levels for non-numeric
+#'   data or have other checks or features.  It simply converts a vector to a
+#'   factor with all unique values as levels with `NA`s included.
 #'
-#'   `fact.factor()` will perform several checks on a factor to include `NA`
-#'   levels and to check if the levels should be reordered to conform with the
-#'   other methods.  The `fact.fact()` method simple returns `x`.
+#'   [mark::fact.factor()] will perform several checks on a factor to include
+#'   `NA` levels and to check if the levels should be reordered to conform with
+#'   the other methods.  The [mark::fact.fact()] method simple returns `x`.
 #'
 #' @section level orders:
 #'
-#' The order of the levels may be adjusted to these rules depending on the class
-#' of `x`:
+#'   The order of the levels may be adjusted to these rules depending on the
+#'   class of `x`:
 #' \describe{
 #'   \item{`character`}{The order of appearance}
 #'   \item{`numeric`/`integer`/`Date`/`POSIXt`}{By the numeric order}
@@ -31,7 +31,7 @@
 #' @return A vector of equal length of `x` with class `fact` and `factor`.  If
 #'   `x` was `ordered`, that class is added in between.
 #'
-#' @seealso [as_ordered()]
+#' @seealso [mark::as_ordered()]
 #' @family factors
 #' @export
 fact <- function(x) {
@@ -250,13 +250,13 @@ print.fact <- function(
 #' As ordered
 #'
 #' @details Simple implementation of `ordered`.  If `x` is `ordered` it is
-#' simply returned.  If `x` is a `factor` the `ordered` class is added.
-#' Otherwise, `x` is made into a `factor` with [mark::fact()] and then the
-#' `ordered` class is added. Unlike just `fact`, `ordered` will replace the `NA`
-#' levels with `NA_integer_` to work appropriately with other functions.
+#'   simply returned.  If `x` is a `factor` the `ordered` class is added.
+#'   Otherwise, `x` is made into a `factor` with [mark::fact()] and then the
+#'   `ordered` class is added. Unlike just `fact`, `ordered` will replace the
+#'   `NA` levels with `NA_integer_` to work appropriately with other functions.
 #'
 #' @inheritParams fact
-#' @seealso [fact()]
+#' @seealso [mark::fact()]
 #' @family factors
 #' @export
 #' @returns An `ordered` vector
@@ -380,7 +380,7 @@ fact_na <- function(x, remove = FALSE) {
 #'
 #' Reverse the levels of a `fact`
 #'
-#' @param x A `fact` object (or passed to [fact()])
+#' @param x A `fact` object (or passed to [mark::fact()])
 fact_reverse <- function(x) {
   x <- fact(x)
   lvls <- flip(attr(x, "uniques"))

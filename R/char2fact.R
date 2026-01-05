@@ -4,7 +4,7 @@
 #'
 #' @param x A vector of characters
 #' @param n The limit to the number of unique values for the factor
-#' @seealso [fact2char()]
+#' @seealso [mark::fact2char()]
 #' @family factors
 #' @export
 char2fact <- function(x, n = 5) {
@@ -53,7 +53,7 @@ char2fact.data.frame <- function(x, n = 5) {
 #' @param threshold A threshold for the number of levels to be met/exceeded for
 #'   transforming into a character
 #' @returns The `data.frame` `data` with factors converted by the rule above
-#' @seealso [char2fact()]
+#' @seealso [mark::char2fact()]
 #' @family factors
 #' @export
 fact2char <- function(data, threshold = 10) {
