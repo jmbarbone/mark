@@ -193,7 +193,7 @@ options_error := condition(
   function(x) {
     switch(
       x,
-      interaction = "mark.check_interactive must be TRUE, FALSE, or NA",
+      interactive = "mark.check_interactive must be TRUE, FALSE, or NA",
       stop("something went wrong, bad value: ", x)
     )
   },
