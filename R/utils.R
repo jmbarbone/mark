@@ -14,8 +14,11 @@ use_color <- function() {
 }
 
 # nolint start: brace_linter.
+# fmt: skip
 crayon_blue  <- function(x) { if (use_color()) crayon::blue(x)  else x }
+# fmt: skip
 crayon_green <- function(x) { if (use_color()) crayon::green(x) else x }
+# fmt: skip
 crayon_cyan  <- function(x) { if (use_color()) crayon::cyan(x)  else x }
 # nolint end: brace_linter.
 
@@ -189,6 +192,7 @@ check_interactive <- function() {
   stop(options_error("interactive"))
 }
 
+# TODO is this even needed?  Maybe if options were active bindings
 options_error := condition(
   function(x) {
     switch(
@@ -238,6 +242,7 @@ dupe_check <- function(x, n = getOption("mark.dupe.n", 5)) {
   invisible(NULL)
 }
 
+# TODO maybe as a subclass of value_error?
 duplicate_error := condition(
   function(x, dupes, n_dupes, n) {
     paste0(

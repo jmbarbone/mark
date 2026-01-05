@@ -2,17 +2,18 @@
 #'
 #' Switch with a list of params
 #'
-#' @description
-#' `switch_params()` is a vectorized version of `switch`
-#' `switch_case()` uses a formula syntax to return the value to the right of the
-#'   tilde (`~`) when `x` is `TRUE`
-#' `switch_in_case()` is a special case of `switch_case()` for `match()`-ing `x`
-#'   in the values on the left to return the value on the right.
+#' @description [switch_params()] is a vectorized version of [base::switch()]
 #'
-#' @return A named vector of values of same length `x`; or for `switch_case`,
-#'   an unnamed vector of values matching the rhs of `...`
+#' [switch_case()] uses a formula syntax to return the value to the right of the
+#' tilde (`~`) when `x` is `TRUE`
 #'
-#' Inspired from:
+#' [switch_in_case()] is a special case of [switch_case()] for [base::match()]-ing `x`
+#' in the values on the left to return the value on the right.
+#'
+#' @return A named vector of values of same length `x`; or for [switch_case()], an
+#'   unnamed vector of values matching the rhs of `...`
+#'
+#'   Inspired from:
 #' * https://stackoverflow.com/a/32835930/12126576
 #' * https://github.com/tidyverse/dplyr/issues/5811
 #'
@@ -82,7 +83,7 @@
 NULL
 
 #' @param x A vector of values
-#' @param ... Case evaluations (named for `switch_params`)
+#' @param ... Case evaluations (named for [switch_params()])
 #' @rdname switch-ext
 #' @export
 switch_params <- function(x, ...) {
@@ -96,7 +97,7 @@ switch_params <- function(x, ...) {
 #' @param .default The default value if no matches are found in `...`
 #'   (default: `NULL` produces an `NA` value derived from `...`)
 #' @param .envir The environment in which to evaluate the LHS of `...` (default:
-#'   `parent.frame()`)
+#'   [base::parent.frame()])
 #' @rdname switch-ext
 #' @export
 switch_in_case <- function(x, ..., .default = NULL, .envir = parent.frame()) {
@@ -231,12 +232,10 @@ switch_length_check <- function(ls) {
   switch(
     length(u),
     return(ls),
-    {
-      if (u[1L] == 0L) {
-        stop(switch_error("lengths_check_0"))
-      }
-
-      if (u[1L] == 1L) {
+    switch(
+      u[1L] + 1L,
+      stop(switch_error("lengths_check_0")),
+      {
         ind <- which(lens == 1L)
 
         for (i in ind) {
@@ -245,9 +244,10 @@ switch_length_check <- function(ls) {
 
         return(ls)
       }
-      stop(switch_error("lengths_check_2"))
-    },
+    ),
+    stop(switch_error("lengths_check_2")),
     stop(switch_error("lengths_check_3")),
+    NULL
   )
   stop(internal_error("Unexpected lengths found"))
 }
@@ -269,18 +269,19 @@ switch_lengths_check <- function(lhs, rhs) {
 
 # conditions --------------------------------------------------------------
 
+# TODO review of these can be simplified
 switch_error := condition(
   function(x, params = NULL) {
     switch(
       x,
-      numeric = "x did not appear to be numeric, cannot continue evaluating lhs", # nolint: line_length_linter.
+      numeric = "`x` did not appear to be numeric, cannot continue evaluating lhs", # nolint: line_length_linter.
       ambiguous_infinity = "Ambiguous infinity, cannot calculate",
       evaluate = paste0("Could not evaluate lhs\n", params),
       lengths_check = "statements have different lengths",
       lengths_check_0 = "Cannot have 0 length rhs",
       lengths_check_2 = "2 lengths found, one of which was not 1",
       lengths_check_3 = "3 or more lengths found, stopping",
-      stop(internal_error(c("Unexpected switch_error(type): ", x))),
+      stop(internal_error()),
     )
   }
 )

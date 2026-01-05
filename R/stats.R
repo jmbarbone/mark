@@ -6,7 +6,7 @@
 #' `q50` is an alias for `median2`
 #'
 #' @inheritParams stats::quantile
-#' @return See `stats::quantile()`
+#' @return See [stats::quantile()]
 #'
 #' @examples
 #' set.seed(42)
@@ -18,7 +18,8 @@
 #' @export
 #' @seealso [stats::quantile()]
 
-median2 <- function(x, type = 7, na.rm = FALSE) { # nolint: object_name_linter.
+# nolint next: object_name_linter.
+median2 <- function(x, type = 7, na.rm = FALSE) {
   stats::quantile(x, probs = .5, type = type, na.rm = na.rm, names = FALSE)
 }
 
@@ -47,6 +48,7 @@ q50 <- median2
 #' system.time(rep(range2(x, na.rm = TRUE), 100))
 #' }
 #' @export
-range2 <- function(x, na.rm = FALSE) { # nolint: object_name_linter.
+# nolint next: object_name_linter.
+range2 <- function(x, na.rm = FALSE) {
   c(min(x, na.rm = na.rm), max(x, na.rm = na.rm))
 }

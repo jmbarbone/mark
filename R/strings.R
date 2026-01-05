@@ -112,7 +112,7 @@ string_extract <- function(x, pattern, perl = FALSE, ignore.case = FALSE) {
 #' Format string to a regular expression
 #'
 #' @param x A date or datetime format, assuming that entries follow the formats
-#'  described in [base::strptime]
+#'  described in [base::strptime()]
 #'
 #' @examples
 #' mark:::format_to_regex("%Y-%m-%d")
@@ -164,15 +164,15 @@ chr_split <- function(x) {
 #'
 #' Prints a vector to paste into an R script
 #'
-#' @details
-#' This sorts (if set) and provides unique values for each element in `x` and
-#'   prints then as a call to `c`.  This can be useful for copying data that you
-#'   want to save as a vector in an R script.
-#' The result is both called in `cat()` as well as copied to the clipboard.
+#' @details This sorts (if set) and provides unique values for each element in
+#'   `x` and prints then as a call to [base::c()].  This can be useful for
+#'   copying data that you want to save as a vector in an **R** script. The
+#'   result is both called in [base::cat()] as well as copied to the clipboard.
 #'
 #' @param x A vector (defaults to reading the clipboard)
-#' @param sorted If `TRUE` (default) applies `sort()` to `x`
-#' @param null If `TRUE` (default) adds `NULL` at the end of the `c()` print
+#' @param sorted If `TRUE` (default) applies [base::sort()] to `x`
+#' @param null If `TRUE` (default) adds `NULL` at the end of the [base::c()]
+#'   print
 #' @return Invisibly, as a `character` vector, the object printed to the console
 #' @examples
 #' print_c(1:10)
