@@ -27,7 +27,9 @@ detail <- function(x, ...) {
 #'   setting as `NA` will ignore this
 #' @export
 detail.default <- function(x, factor_n = 5L, ...) {
-  stopifnot(!is.list(x))
+  if (is.list(x)) {
+    stop(type_error("not_supported", x))
+  }
 
   op <- options(stringsAsFactors = FALSE)
   on.exit(options(op), add = TRUE)

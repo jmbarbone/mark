@@ -20,7 +20,10 @@ file_copy_md5 <- function(path, new_path, overwrite = NA, quiet = FALSE) {
   }
 
   # not as pretty, but pretty reasonable
-  stopifnot(length(path) == length(new_path))
+  if (length(path) != length(new_path)) {
+    stop(input_error("`length(path)` must be equal to `length(new_path)`"))
+  }
+
   # md5sum(nonexisting_file) produces NA
   md_old <- unname(tools::md5sum(path))
   md_new <- unname(tools::md5sum(new_path))

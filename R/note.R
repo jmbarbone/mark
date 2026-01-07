@@ -82,7 +82,9 @@ print.note <- function(x, ...) {
 }
 
 print_note <- function(x, ...) {
-  stopifnot(inherits(x, "noted"))
+  if (!inherits(x, "noted")) {
+    stop(class_error("must_be", x, "noted"))
+  }
 
   the_note <- note(x)
 

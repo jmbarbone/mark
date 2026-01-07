@@ -92,7 +92,9 @@ omit_na <- function(x) {
 #' remove_null(x)
 #' @export
 remove_null <- function(x) {
-  stopifnot(inherits(x, "list"))
+  if (!inherits(x, "list")) {
+    stop(type_error("must_be", x, "list"))
+  }
   x[!vap_lgl(x, is.null)]
 }
 
@@ -127,7 +129,9 @@ remove_na_cols <- function(x) {
 #' @rdname na_cols
 #' @export
 is_na_cols <- function(x, names = TRUE) {
-  stopifnot(is.data.frame(x))
+  if (!is.data.frame(x)) {
+    stop(class_error("must_be", x, "data.frame"))
+  }
   vap_lgl(x, function(xx) all(is.na(xx)), .nm = names)
 }
 
@@ -153,7 +157,8 @@ is_na_cols <- function(x, names = TRUE) {
 #' tableNA(x[1], x[2])
 #' tableNA(x[1], x[2], x[3]) # equivalent ot tableNA(x, .list = TRUE)
 
-tableNA <- function(..., .list = FALSE) { # nolint: object_name_linter
+# nolint next: object_name_linter.
+tableNA <- function(..., .list = FALSE) {
   ls <- if (.list) {
     as.list(...)
   } else {

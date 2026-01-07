@@ -102,7 +102,9 @@ do_todo <- function(
     stop(input_error("`path` must be a character vector of length 1L"))
   }
 
-  stopifnot(fs::file_exists(path))
+  if (!fs::file_exists(path)) {
+    stop(input_error("`path` does not exist: ", path))
+  }
 
   ls <- rlang::list2(...)
 

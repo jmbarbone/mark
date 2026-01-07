@@ -21,7 +21,9 @@
 #' @export
 # nolint next: object_name_linter.
 checkOptions <- function(x) {
-  stopifnot(is.list(x))
+  if (!is.list(x)) {
+    stop(type_error("must_be", x, "list"))
+  }
 
   nm <- names(x)
   if (is.null(nm) || any(nm == "")) {

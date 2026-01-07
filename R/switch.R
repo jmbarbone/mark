@@ -174,7 +174,9 @@ switch_in_case <- function(x, ..., .default = NULL, .envir = parent.frame()) {
   }
 
   res <- lapply(x, do_switches)
-  stopifnot(lengths(res) == 1L)
+  if (all(lengths(res) != 1L)) {
+    stop(switch_error("result"))
+  }
   res <- unlist(res)
   mode(res) <- mode(res[[1]])
   class(res) <- class(res[[1]])
@@ -284,6 +286,7 @@ switch_error := condition(
       lengths_check_0 = "Cannot have 0 length rhs",
       lengths_check_2 = "2 lengths found, one of which was not 1",
       lengths_check_3 = "3 or more lengths found, stopping",
+      result = "results must be of length 1L",
       stop(internal_error()),
     )
   }

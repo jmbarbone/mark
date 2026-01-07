@@ -9,10 +9,14 @@
 #' @return None, called for side effects
 #' @export
 use_author <- function(author_info = find_author()) {
-  stopifnot(
-    is.list(author_info),
+  # TODO allow for `person()` class?
+  # fmt: skip
+  if (!(
+    is.list(author_info) &&
     !inherits(author_info, "person")
-  )
+  )) {
+    stop(type_error("must_be", author_info, "list"))
+  }
 
   lines <- readLines("DESCRIPTION")
   start <- grep("^[Aa]uthor", lines)

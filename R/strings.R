@@ -156,8 +156,10 @@ month_name_regex <- sprintf("(%s)", paste(month.name, collapse = "|"))
 #' chr_split("split this")
 #' @export
 chr_split <- function(x) {
-  stopifnot(length(x) == 1L)
-  strsplit(as.character(x), "")[[1]]
+  if (length(x) != 1L) {
+    stop(input_error("`x` must be a single length character"))
+  }
+  strsplit(as.character(x), "")[[1L]]
 }
 
 #' Print as c

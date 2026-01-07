@@ -7,7 +7,9 @@
 #' @return The full path of the most recent directory
 #' @export
 get_recent_dir <- function(x = ".", ...) {
-  stopifnot(dir.exists(x))
+  if (!dir.exists(x)) {
+    stop(input_error("`x` must be an existing directory"))
+  }
   dirs <- list_dirs(x, ...)
   newest_dir(dirs)
 }
@@ -80,7 +82,9 @@ get_dir_max_number <- function(x) {
 #'
 #' @export
 get_recent_file <- function(x, exclude_temp = TRUE, ...) {
-  stopifnot(is_dir(x))
+  if (!is_dir(x)) {
+    stop(input_error("`x` must be a directory"))
+  }
 
   files <- list_files(x, ...)
 
@@ -112,7 +116,9 @@ remove_temp_files <- function(x) {
 #'
 #' @export
 norm_path <- function(x = ".", check = FALSE, remove = check) {
-  stopifnot(is.character(x))
+  if (!is.character(x)) {
+    stop(type_error("must_be", x, "character"))
+  }
 
   x <- fs::path_abs(x)
   ind <- !fs::file_exists(x)
@@ -381,7 +387,9 @@ list_dirs <- function(
 #' @export
 
 is_dir <- function(x) {
-  stopifnot(!no_length(x), is.character(x))
+  if (no_length(x) || !is.character(x)) {
+    stop(input_error("`x` must be a non-zero length character vector"))
+  }
   dir.exists(x)
 }
 
@@ -389,7 +397,9 @@ is_dir <- function(x) {
 #' @rdname is_dir
 #' @export
 is_file <- function(x) {
-  stopifnot(!no_length(x), is.character(x))
+  if (no_length(x) || !is.character(x)) {
+    stop(input_error("`x` must be a non-zero length character vector"))
+  }
   isdir <- file.info(x, extra_cols = FALSE)[["isdir"]]
   !is.na(isdir) & !isdir
 }
