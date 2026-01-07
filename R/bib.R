@@ -213,7 +213,7 @@ process_bib_list <- function(keys, fields, categories, values) {
 
 as_bib_list <- function(x, names = NULL) {
   if (!is.list(x)) {
-    stop(type_error("list", class(x), "x"))
+    stop(type_error("must_be", x, "list"))
   }
 
   class(x) <- c("list", "mark_bib_list")
@@ -222,7 +222,7 @@ as_bib_list <- function(x, names = NULL) {
 
 as_bib <- function(x, bib_list = NULL) {
   if (!is.data.frame(x)) {
-    stop(type_error("data.frame", class(x), "x"))
+    stop(class_error("must_be", x, "data.frame"))
   }
 
   class(x) <- c("mark_bib_df", "data.frame")
