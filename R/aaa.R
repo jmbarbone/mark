@@ -52,16 +52,38 @@ value_warning := condition(
 )
 
 type_error := condition(
-  function(expected, actual, object) {
-    sprintf(
-      ngettext(
-        length(actual),
-        "Expected %stype '%s' but got type '%s'",
-        "Expected %stype '%s' but got types '%s'"
+  function(type, x, expected, actual, name) {
+    if (missing(actual)) {
+      actual <- typeof(x)
+    }
+
+    if (missing(name)) {
+      name <- sprintf(
+        "`%s`",
+        deparse(
+          match.call(
+            sys.function(sys.parent(1L)),
+            sys.call(sys.parent(1L)),
+            envir = parent.frame(3L)
+          )$x
+        )
+      )
+    }
+
+    switch(
+      type,
+      not_supported = sprintf(
+        "Object `%s` cannot be of type: %s",
+        name,
+        actual
       ),
-      if (missing(object)) "" else sprintf("object '%s' to be ", object),
-      expected,
-      collapse(actual, sep = "', '")
+      must_be = sprintf(
+        "Object `%s` must be of type '%s', not '%s'",
+        name,
+        expected,
+        actual
+      ),
+      stop(internal_error())
     )
   },
   type = "error",
@@ -75,7 +97,11 @@ conversion_error := condition(
 )
 
 class_error := condition(
-  function(type, x, must, name) {
+  function(type, x, expected, actual, name) {
+    if (missing(actual)) {
+      actual <- class(x)
+    }
+
     if (missing(name)) {
       name <- sprintf(
         "`%s`",
@@ -88,27 +114,27 @@ class_error := condition(
         )
       )
     }
-    cls <- class(x)
+
     switch(
       type,
       not_supported = sprintf(
         ngettext(
-          length(cls),
-          "%s cannot be of class: %s",
-          "%s cannot be of classes: %s",
+          length(actual),
+          "Object `%s` cannot be of class: %s",
+          "Object `%s` cannot be of classes: %s"
         ),
-        name %||% "Object",
-        toString(cls)
+        name,
+        toString(actual)
       ),
       must_be = sprintf(
         ngettext(
-          length(cls),
-          "%s must be of class '%s', not '%s'",
-          "%s must be of class '%s', not classes '%s'"
+          length(actual),
+          "Object `%s` must be of class '%s', not '%s'",
+          "Object `%s` must be of class '%s', not classes '%s'"
         ),
-        name %||% "Object",
-        toString(must),
-        toString(cls)
+        name,
+        toString(expected),
+        toString(actual)
       ),
       stop(internal_error())
     )
