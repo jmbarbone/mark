@@ -1,6 +1,6 @@
 #' Write file with md5 hash check
 #'
-#' @section [base::options()]:
+#' @section Options:
 #'
 #' - `mark.compress.method`: compression method to use when writing files
 #' - `mark.list.hook`: when a `data.frame` contains a `list` column, this

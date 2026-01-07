@@ -14,7 +14,7 @@
 #'   [mark::is_false()] will always provide a `TRUE` `FALSE` when the vector is
 #'   logical or return `NA` is the vector `x` is not logical.
 #'
-#'   [mark::%or%] is just a wrapper for [base::xor()]
+#'   [mark::%xor%] is just a wrapper for [base::xor()]
 #'
 #' @param x,y  A vector of logical values.  If `NULL` will generate a warning.
 #'   If not a logical value, will return `NA` equal to the vector length
@@ -47,7 +47,7 @@
 #' is_boolean(c(1L, NA_integer_, 0L))
 #' is_boolean(c(1.01, 0, -1))
 #' @return
-#' - [mark::is_true()], [mark::is_false()], [mark::either()], [mark::%or%],
+#' - [mark::is_true()], [mark::is_false()], [mark::either()], [mark::%xor%],
 #' [mark::AND()], [mark::OR()]: A `logical` vector, equal length of `x` (or `y`
 #' or of all `...` lengths)
 #' - [mark::is_boolean()]: `TRUE` or `FALSE`
