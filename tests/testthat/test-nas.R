@@ -24,8 +24,8 @@ test_that("remove_null()", {
   x <- list(a = 1, b = NULL, c = 1)
   expect_equal(remove_null(x), list(a = 1, c = 1))
 
-  expect_error(remove_null(c(1, 2)), class = "simpleError")
-  expect_error(remove_null(quick_dfl(x = NULL)), class = "simpleError")
+  expect_error(remove_null(c(1, 2)), class = "mark:type_error")
+  expect_error(remove_null(quick_dfl(x = NULL)), class = "mark:type_error")
 })
 
 test_that("*_na_cols() works", {
@@ -52,9 +52,9 @@ test_that("*_na_cols() works", {
     c(first = FALSE, second = FALSE, all = TRUE, last = FALSE, all2 = TRUE)
   )
 
-  expect_error(select_na_cols(1), class = "simpleError")
-  expect_error(remove_na_cols(1), class = "simpleError")
-  expect_error(is_na_cols(1), class = "simpleError")
+  expect_error(select_na_cols(1), class = "mark:class_error")
+  expect_error(remove_na_cols(1), class = "mark:class_error")
+  expect_error(is_na_cols(1), class = "mark:class_error")
 })
 
 test_that("tableNA() works", {

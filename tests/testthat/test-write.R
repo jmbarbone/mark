@@ -111,7 +111,7 @@ test_that("list columns", {
     "unimplemented type 'list' in 'EncodeElement'",
     fixed = TRUE
   )
-  expect_error(foo(NA), class = "mark:write_na_hook")
+  expect_error(foo(NA), class = "mark:value_error")
 })
 
 test_that("arrow prints something to stdout()", {

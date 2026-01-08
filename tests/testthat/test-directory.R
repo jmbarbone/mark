@@ -1,4 +1,3 @@
-
 test_that("tests with temp dir", {
   expect_equal_path <- function(x, y) {
     x_short <- fs::path(basename(dirname(x)), basename(x))
@@ -45,11 +44,12 @@ test_that("tests with temp dir", {
   expect_equal_path(get_recent_file(td), most_recent_file)
 })
 
+# fmt: skip
 test_that("errors", {
-  expect_error(is_file(NULL),        class = "simpleError")
-  expect_error(is_file(character()), class = "simpleError")
-  expect_error(is_file(TRUE),        class = "simpleError")
-  expect_error(is_dir(NULL),         class = "simpleError")
-  expect_error(is_dir(character()),  class = "simpleError")
-  expect_error(is_dir(TRUE),         class = "simpleError")
+  expect_error(is_file(NULL),        class = "mark:input_error")
+  expect_error(is_file(character()), class = "mark:input_error")
+  expect_error(is_file(TRUE),        class = "mark:input_error")
+  expect_error(is_dir(NULL),         class = "mark:input_error")
+  expect_error(is_dir(character()),  class = "mark:input_error")
+  expect_error(is_dir(TRUE),         class = "mark:input_error")
 })

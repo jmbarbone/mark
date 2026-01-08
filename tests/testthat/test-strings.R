@@ -24,7 +24,7 @@ test_that("string slices", {
   )
 
   xx <- c(x, x)
-  expect_error(str_slice_by_word(xx, 80), class = "simpleError")
+  expect_error(str_slice_by_word(xx, 80), class = "mark:input_error")
 })
 
 # Better outputs
@@ -57,14 +57,17 @@ test_that("Extract dates", {
     c("2020-02-21", NA, "2014-09-15")
   )
   expect_my_date(
-    "Last saved 17 December 2019", "2019-12-17",
+    "Last saved 17 December 2019",
+    "2019-12-17",
     format = "%d %B %Y"
   )
 
   expect_my_datetime(
-    c("file date ending 2020-05-09 121212.xlsasdf",
+    c(
+      "file date ending 2020-05-09 121212.xlsasdf",
       "1960-04-07 233044 is the time",
-      "aaa 1984-12-14 001000"),
+      "aaa 1984-12-14 001000"
+    ),
     c("2020-05-09 121212", "1960-04-07 233044", "1984-12-14 001000")
   )
 })

@@ -79,7 +79,7 @@ test_that("print_note() works with data.frame", {
 
 test_that("note() errors", {
   withr::local_options(list(mark.check_interactive = NA))
-  expect_error(print_note(1L), class = "simpleError")
+  expect_error(print_note(1L), class = "mark:class_error")
   x <- struct(1L, "noted", note = struct("hi", "note_a_note"))
   expect_error(print_note(x), class = "mark:class_error")
 })
