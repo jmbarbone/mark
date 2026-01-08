@@ -20,7 +20,7 @@ BugReports: https://github.com/jmbarbone/mark/issues
 Encoding: UTF-8
 LazyData: true
 Depends:
-    R (>= 3.6)
+    R (>= 4.1.0)
 Imports:
     cli,
     cnd (>= 0.1.0.9001),
