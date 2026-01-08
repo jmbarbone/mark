@@ -55,8 +55,8 @@ compression methods
 \description{
 Write file with md5 hash check
 }
-\section{\code{\link[base}{
-options]{base::options()}}:
+\section{Options}{
+
 \itemize{
 \item \code{mark.compress.method}: compression method to use when writing files
 \item \code{mark.list.hook}: when a \code{data.frame} contains a \code{list} column, this

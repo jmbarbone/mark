@@ -46,10 +46,10 @@ Each function is designed to use specific vector types:
 \describe{
 \item{\code{\link[=vap_int]{vap_int()}}}{integer}
 \item{\code{\link[=vap_dbl]{vap_dbl()}}}{double}
-\item{\url{mark::vap_chr}}{character}
-\item{\url{mark::vap_lgl}}{logical}
-\item{\url{mark::vap_cplx}}{complex}
-\item{\url{mark::vap_date}}{Date}
+\item{\code{\link[=vap_chr]{vap_chr()}}}{character}
+\item{\code{\link[=vap_lgl]{vap_lgl()}}}{logical}
+\item{\code{\link[=vap_cplx]{vap_cplx()}}}{complex}
+\item{\code{\link[=vap_date]{vap_date()}}}{Date}
 }
 }
 \seealso{

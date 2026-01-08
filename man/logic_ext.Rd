@@ -50,7 +50,7 @@ If not a logical value, will return \code{NA} equal to the vector length}
 }
 \value{
 \itemize{
-\item \code{\link[=is_true]{is_true()}}, \code{\link[=is_false]{is_false()}}, \code{\link[=either]{either()}}, \link{\%or\%},
+\item \code{\link[=is_true]{is_true()}}, \code{\link[=is_false]{is_false()}}, \code{\link[=either]{either()}}, \link{\%xor\%},
 \code{\link[=AND]{AND()}}, \code{\link[=OR]{OR()}}: A \code{logical} vector, equal length of \code{x} (or \code{y}
 or of all \code{...} lengths)
 \item \code{\link[=is_boolean]{is_boolean()}}: \code{TRUE} or \code{FALSE}
@@ -70,7 +70,7 @@ not being held back by \code{NA} values, \code{\link[=is_true]{is_true()}} and
 \code{\link[=is_false]{is_false()}} will always provide a \code{TRUE} \code{FALSE} when the vector is
 logical or return \code{NA} is the vector \code{x} is not logical.
 
-\link{\%or\%} is just a wrapper for \code{\link[base:Logic]{base::xor()}}
+\link{\%xor\%} is just a wrapper for \code{\link[base:Logic]{base::xor()}}
 }
 \details{
 Logical operations, extended
