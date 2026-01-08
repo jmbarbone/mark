@@ -304,19 +304,16 @@ print.mark_bib_df <- function(x, list = FALSE, ...) {
 # conditions --------------------------------------------------------------
 
 bib_error := condition(
-  function(type, key, categories) {
+  function(s, key, categories) {
     switch(
-      type,
+      s,
       no_entries = "No entries detected in bib file",
       duplicate_categories = sprintf(
         "The key `%s` has duplicate categories of `%s`",
         key,
         categories
       ),
-      stop(internal_error(c(
-        "Unknown error error type: ",
-        type
-      )))
+      stop(internal_error())
     )
   },
   type = "error",

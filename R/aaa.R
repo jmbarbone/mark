@@ -27,32 +27,37 @@ walrus <- function(sym, val) {
 
 # caused by user inputs
 input_error := condition(
-  function(x) collapse(x),
+  function(x) x,
   type = "error",
   help = "Generic error to indicate a bad input value."
 )
 
 input_warning := condition(
-  function(x) collapse(x),
+  function(x) x,
   type = "warning",
   help = "Generic warning to indicate a bad input value."
 )
 
 # caused by processing
 value_error := condition(
-  function(x) collapse(x),
+  function(x) x,
   type = "error",
   help = "Generic error to indicate a value mismatch."
 )
 
 value_warning := condition(
-  function(x) collapse(x),
+  function(x) x,
   type = "warning",
   help = "Generic warning to indicate a value mismatch."
 )
 
+# FIXME for now, we can't use colliding variable names in condition(message),
+# but I'd rather use `type` instead of `s`
+#
+# https://github.com/jmbarbone/cnd/issues/23
+
 type_error := condition(
-  function(type, x, expected, actual, name) {
+  function(s, x, expected, actual, name) {
     if (missing(actual)) {
       actual <- typeof(x)
     }
@@ -71,7 +76,7 @@ type_error := condition(
     }
 
     switch(
-      type,
+      s,
       not_supported = sprintf(
         "Object `%s` cannot be of type: %s",
         name,
@@ -91,20 +96,20 @@ type_error := condition(
 )
 
 conversion_error := condition(
-  function(x) collapse(x),
+  function(x) x,
   type = "error",
   help = "Generic error to indicate a conversion failure."
 )
 
 class_error := condition(
-  function(type, x, expected, actual, name) {
+  function(s, x, expected, actual, name) {
     if (missing(actual)) {
       actual <- class(x)
     }
 
     if (missing(name)) {
       name <- sprintf(
-        "`%s`",
+        "%s",
         deparse(
           match.call(
             sys.function(sys.parent(1L)),
@@ -116,7 +121,7 @@ class_error := condition(
     }
 
     switch(
-      type,
+      s,
       not_supported = sprintf(
         ngettext(
           length(actual),
@@ -144,9 +149,9 @@ class_error := condition(
 )
 
 internal_error := condition(
-  function(x = character()) {
+  function(x) {
     c(
-      collapse(x),
+      x,
       "\nThis is an internal `{mark}` error.  If you encounter this, please",
       " report an issue at <https://github.com/jmbarbone/mark/issues>"
     )

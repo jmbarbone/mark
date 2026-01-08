@@ -109,9 +109,9 @@ check_base <- function(b, high = 9L) {
 # conditions --------------------------------------------------------------
 
 base_conversion_error := condition(
-  function(type, base, x, high) {
+  function(s, base, x, high) {
     switch(
-      type,
+      s,
       alpha_limit = sprintf(
         'Cannot calculate alpha base "%s" for "%s" which has letters beyond "%s"', # nolint: line_length_linter.
         base,
@@ -130,7 +130,7 @@ base_conversion_error := condition(
       alpha_length = "base must be of length 1",
       integer = "base must be an integer",
       limit = sprintf("base must be between 1 and %s", high),
-      stop(internal_error(c("Unknown base conversion error type: ", type)))
+      stop(internal_error("Unknown base conversion error type: ", type))
     )
   },
   type = "error",

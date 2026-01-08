@@ -349,18 +349,18 @@ sys_tz <- function(method = 1) {
 # conditions --------------------------------------------------------------
 
 diff_time_error := condition(
-  function(type) {
+  function(s) {
     switch(
-      type,
+      s,
       tz_null = "Date times cannot be numeric when tz is NULL",
     )
   }
 )
 
 diff_time_warning := condition(
-  function(type) {
+  function(s) {
     switch(
-      type,
+      s,
       na_tz = paste(
         "NA found in timezones; setting to default timezone:",
         default_tz()

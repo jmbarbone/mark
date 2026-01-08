@@ -190,9 +190,9 @@ remove_labels.data.frame <- function(x, cols, ...) {
 # conditions --------------------------------------------------------------
 
 assign_labels_error := condition(
-  function(type, ..., cols, dots, ls) {
+  function(s, ..., cols, dots, ls) {
     switch(
-      type,
+      s,
       columns = sprintf(
         ngettext(
           length(cols),

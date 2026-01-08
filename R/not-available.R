@@ -76,9 +76,9 @@ delayedAssign("NA_POSIXlt_", not_available("POSIXlt", 1L))
 # conditions --------------------------------------------------------------
 
 not_available_error := condition(
-  function(type, x) {
+  function(s, x) {
     switch(
-      type,
+      s,
       not_found = sprintf(
         paste0(
           "\"%s\" not found\n",

@@ -493,9 +493,9 @@ path_error := condition(
 )
 
 path_warning := condition(
-  function(type, x) {
+  function(s, x) {
     switch(
-      type,
+      s,
       not_found = function(x) {
         ngettext(
           length(x),
