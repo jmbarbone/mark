@@ -348,6 +348,8 @@ sys_tz <- function(method = 1) {
 
 # conditions --------------------------------------------------------------
 
+# TODO too many different condititons -- simplify
+
 diff_time_error := condition(
   function(s) {
     switch(

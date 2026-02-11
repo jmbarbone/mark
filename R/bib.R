@@ -318,5 +318,4 @@ bib_error := condition(
   },
   type = "error",
   exports = "read_bib"
-  # TODO include help
 )

@@ -486,6 +486,8 @@ add_file_timestamp <- function(
 
 # conditions --------------------------------------------------------------
 
+# TODO use value_error()
+
 path_error := condition(
   "No recent file found",
   type = "error",
