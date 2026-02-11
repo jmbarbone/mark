@@ -95,12 +95,6 @@ type_error := condition(
   help = "Generic error to indicate a type mismatch."
 )
 
-conversion_error := condition(
-  function(x) x,
-  type = "error",
-  help = "Generic error to indicate a conversion failure."
-)
-
 class_error := condition(
   function(s, x, expected, actual, name) {
     if (missing(actual)) {
