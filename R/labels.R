@@ -217,6 +217,8 @@ assign_labels_error := condition(
   exports = c("assign_labels", "remove_labels"),
   # nolint start: line_length_linter.
   help = r"(
+`assign_labels_error`
+
 **Columns not found**
 You can set `.missing` to `warn` to get a warning instead of an error, or `skip` to silently skip those labels.
 

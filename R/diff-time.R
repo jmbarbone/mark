@@ -356,7 +356,9 @@ diff_time_error := condition(
       s,
       tz_null = "Date times cannot be numeric when tz is NULL",
     )
-  }
+  },
+  type = "error",
+  exports = "diff_time"
 )
 
 diff_time_warning := condition(
@@ -369,7 +371,9 @@ diff_time_warning := condition(
       ),
       stop(internal_error())
     )
-  }
+  },
+  type = "warning",
+  exports = "diff_time"
 )
 
 numeric_datetime_tz := condition(

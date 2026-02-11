@@ -50,4 +50,7 @@ file_copy_md5 <- function(path, new_path, overwrite = NA, quiet = FALSE) {
   invisible(new_path)
 }
 
-md5_status := condition(function(x) x)
+md5_status := condition(
+  function(x) x,
+  exports = "file_copy_md5"
+)

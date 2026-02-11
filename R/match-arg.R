@@ -70,6 +70,9 @@ match_arg <- function(x, table) {
 #' @param simplify If `TRUE` will simplify the output to a single value
 #' @return A single value from `param` matched on `choices`
 #'
+#' @section Conditions:
+#' `r cnd::cnd_section("match_param")`
+#'
 #' @seealso [mark::match_arg()]
 #' @examples
 #' fruits <- function(x = c("apple", "banana", "orange")) {
@@ -292,5 +295,6 @@ match_param_error := condition(
       to_options(choices)
     )
   },
-  type = "error"
+  type = "error",
+  exports = "match_param"
 )
