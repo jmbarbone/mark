@@ -20,8 +20,8 @@ na_list <- list(
   POSIXlt = as.POSIXlt(NA)[[1]]
 )
 
+# nolint next: object_name_linter.
 op.mark <- list(
-  # nolint: object_name_linter.
   mark.author = NULL,
   # control for check_interactive() to return interactive() or TRUE
   mark.check_interactive = TRUE,
