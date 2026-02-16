@@ -12,7 +12,7 @@ status](https://www.r-pkg.org/badges/version/mark)](https://CRAN.R-project.org/p
 coverage](https://codecov.io/gh/jmbarbone/mark/graph/badge.svg)](https://app.codecov.io/gh/jmbarbone/mark)
 <!-- badges: end -->
 
-Miscellaneous, Analytic R Kernels
+Multipurpose Aids for R Kit
 
 An R package with a set of general use functions for data analytics.
 This is developed mostly for personal use and has no real *goal* other
