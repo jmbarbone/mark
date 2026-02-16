@@ -11,6 +11,7 @@ cleanup (e.g., trimming whitespace and lowercasing) are not longer performed
   * `to_boolean.numeric()`, `to_boolean.integer()` will now return `NA`
 * `md5(bytes)` added to use `tools::md5sum(bytpes)` for **R > 4.2.0** [#258](https://github.com/jmbarbone/mark/issues/258)
 * `md5()` now uses little-endian serialization (_i.e._, `serialize(xdr = FALSE)`) for more consistent results across platforms and faster speed; which may cause hashes created prior to _change_
+* `{mark}`'s title has been updated
 * `write_file_md5(method = "feather")`, `write_file_md5(method = "parquet")` now use `{feather}` and `{nanoparquet}`, respectively, rather than `{arrow}` [#245](https://github.com/jmbarbone/mark/issues/245)
 
 # mark 0.8.3
