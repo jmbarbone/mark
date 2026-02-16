@@ -23,7 +23,7 @@ Depends:
     R (>= 4.1.0)
 Imports:
     cli,
-    cnd (>= 0.1.0.9001),
+    cnd (>= 0.1.1.9001),
     fs (>= 1.6.2),
     fuj (>= 0.2.1),
     magrittr (>= 2.0.1),
@@ -56,7 +56,7 @@ Suggests:
     readMDTable (>= 0.2.0),
     clipr (>= 0.8.0)
 Remotes:
-    github::jmbarbone/cnd@v0.1.0.9001
+    github::jmbarbone/cnd@v0.1.1.9001
 RoxygenNote: 7.3.3
 Roxygen: list(markdown = TRUE)
 Config/testthat/edition: 3
