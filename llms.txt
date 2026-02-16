@@ -1,0 +1,676 @@
+# mark
+
+Miscellaneous, Analytic R Kernels
+
+An R package with a set of general use functions for data analytics.
+This is developed mostly for personal use and has no real *goal* other
+than to limit the time I spend searching where I did that thing that I
+think I could use again because it worked well but this problem might be
+slightly different and I know I had to change it before.
+
+Some parts happily ripped from and (hopefully) credited to others.
+
+## Installation
+
+You can download the current CRAN version with:
+
+``` r
+install.packages("mark")
+```
+
+You can the development version from
+[GitHub](https://github.com/jmbarbone/mark) with:
+
+``` r
+remotes::install_github("jmbarbone/mark")
+```
+
+## Select examples
+
+This package contains a many variety of functions, some useful, some not
+so much. Below are a selection of a few functions that could potential
+be useful for others:
+
+``` r
+library(mark)
+#> 
+#> Attaching package: 'mark'
+#> The following object is masked from 'package:usethis':
+#> 
+#>     use_author
+#> The following objects are masked from 'package:base':
+#> 
+#>     sort_by, within
+```
+
+Get dates from sloppy entries:
+
+``` r
+bad_dates <- c("2020 Dec 8th", "1970 May", "??", "1984 UNK UN")
+date_from_partial(bad_dates)
+#> [1] "2020-12-08" "1970-05-01" NA           "1984-01-01"
+date_from_partial(bad_dates, method = "max")
+#> [1] "2020-12-08" "1970-05-31" NA           "1984-12-31"
+date_from_partial(c("May 2000", "08Dec2020"), format = "dmy")
+#> [1] "2000-05-01" "2020-12-08"
+```
+
+Slice strings:
+
+``` r
+x <- stringi::stri_rand_lipsum(1)
+str_slice(x, n = 50L)
+#>  [1] "Lorem ipsum dolor sit amet, nisl eleifend sed proi"
+#>  [2] "n sed at. Class maximus, ante mi sed ridiculus eni"
+#>  [3] "m mus, sollicitudin. Maecenas penatibus luctus don"
+#>  [4] "ec turpis erat pretium in vulputate accumsan. Amet"
+#>  [5] " quis arcu phasellus facilisi facilisis odio integ"
+#>  [6] "er sit. Nunc venenatis duis vitae in non mauris ri"
+#>  [7] "sus. Vel consectetur sed sapien arcu sed massa nec"
+#>  [8] " egestas, malesuada condimentum felis a? Et ut pel"
+#>  [9] "lentesque consequat sed at torquent, sociosqu. Sod"
+#> [10] "ales donec arcu laoreet luctus auctor mauris mauri"
+#> [11] "s nisl primis nascetur feugiat scelerisque libero."
+#> [12] " Sed maximus vehicula dictum lacus libero pharetra"
+#> [13] " sed. Egestas maximus venenatis egestas leo orci, "
+#> [14] "tellus consectetur velit litora nascetur, a. Ferme"
+#> [15] "ntum aptent lobortis elementum netus integer variu"
+#> [16] "s euismod ac ornare porttitor non ut quam, mollis."
+#> [17] " Scelerisque cursus amet primis. Vestibulum non co"
+#> [18] "nsectetur aliquam mollis velit accumsan. Condiment"
+#> [19] "um sit sed eu dapibus habitant faucibus interdum. "
+#> [20] "Vel libero, amet lacus aliquam ac sit porta, leo l"
+#> [21] "eo."
+str_slice_by_word(x)
+#>  [1] "Lorem ipsum dolor sit amet, nisl eleifend sed proin sed at. Class maximus, ante" 
+#>  [2] "mi sed ridiculus enim mus, sollicitudin. Maecenas penatibus luctus donec turpis" 
+#>  [3] "erat pretium in vulputate accumsan. Amet quis arcu phasellus facilisi facilisis" 
+#>  [4] "odio integer sit. Nunc venenatis duis vitae in non mauris risus. Vel consectetur"
+#>  [5] "sed sapien arcu sed massa nec egestas, malesuada condimentum felis a? Et ut"     
+#>  [6] "pellentesque consequat sed at torquent, sociosqu. Sodales donec arcu laoreet"    
+#>  [7] "luctus auctor mauris mauris nisl primis nascetur feugiat scelerisque libero. Sed"
+#>  [8] "maximus vehicula dictum lacus libero pharetra sed. Egestas maximus venenatis"    
+#>  [9] "egestas leo orci, tellus consectetur velit litora nascetur, a. Fermentum aptent" 
+#> [10] "lobortis elementum netus integer varius euismod ac ornare porttitor non ut quam,"
+#> [11] "mollis. Scelerisque cursus amet primis. Vestibulum non consectetur aliquam"      
+#> [12] "mollis velit accumsan. Condimentum sit sed eu dapibus habitant faucibus"         
+#> [13] "interdum. Vel libero, amet lacus aliquam ac sit porta, leo leo."
+```
+
+Read in bibliographies:
+
+``` r
+file <- system.file("extdata", "example-bib.txt", package = "mark")
+bib <- read_bib(file)
+tibble::as_tibble(bib)
+#> # A tibble: 13 × 23
+#>    key          field author title journal year  number pages month note  volume
+#>    <chr>        <chr> <chr>  <chr> <chr>   <chr> <chr>  <chr> <chr> <chr> <chr> 
+#>  1 article      arti… Peter… The … The na… 1993  2      201-… 7     An o… 4     
+#>  2 book         book  Peter… The … <NA>    1993  <NA>   <NA>  7     An o… 4     
+#>  3 booklet      book… Peter… The … <NA>    1993  <NA>   <NA>  7     An o… <NA>  
+#>  4 conference   conf… Peter… The … <NA>    1993  <NA>   213   7     An o… 4     
+#>  5 inbook       inbo… Peter… The … <NA>    1993  <NA>   201-… 7     An o… 4     
+#>  6 incollection inco… Peter… The … <NA>    1993  <NA>   201-… 7     An o… 4     
+#>  7 manual       manu… Peter… The … <NA>    1993  <NA>   <NA>  7     An o… <NA>  
+#>  8 mastersthes… mast… Peter… The … <NA>    1993  <NA>   <NA>  7     An o… <NA>  
+#>  9 misc         misc  Peter… The … <NA>    1993  <NA>   <NA>  7     An o… <NA>  
+#> 10 phdthesis    phdt… Peter… The … <NA>    1993  <NA>   <NA>  7     An o… <NA>  
+#> 11 proceedings  proc… <NA>   The … <NA>    1993  <NA>   <NA>  7     An o… 4     
+#> 12 techreport   tech… Peter… The … <NA>    1993  2      <NA>  7     An o… <NA>  
+#> 13 unpublished  unpu… Peter… The … <NA>    1993  <NA>   <NA>  7     An o… <NA>  
+#> # ℹ 12 more variables: publisher <chr>, series <chr>, address <chr>,
+#> #   edition <chr>, isbn <chr>, howpublished <chr>, booktitle <chr>,
+#> #   editor <chr>, organization <chr>, chapter <chr>, school <chr>,
+#> #   institution <chr>
+```
+
+More matching:
+
+``` r
+1:10 %out% c(1, 3, 5, 9) # opposite of %in% 
+#>  [1] FALSE  TRUE FALSE  TRUE FALSE  TRUE  TRUE  TRUE FALSE  TRUE
+letters[1:5] %wo% letters[3:7]
+#> [1] "a" "b"
+letters[1:5] %wi% letters[3:7]
+#> [1] "c" "d" "e"
+```
+
+Small functions for working with data.frames:
+
+``` r
+x <- list(a = 1:5, b = letters[1:5])
+quick_df(x)
+#>   a b
+#> 1 1 a
+#> 2 2 b
+#> 3 3 c
+#> 4 4 d
+#> 5 5 e
+
+vector2df(x[["b"]], name = NULL)
+#>   value
+#> 1     a
+#> 2     b
+#> 3     c
+#> 4     d
+#> 5     e
+
+quick_dfl(a = 1:3, b = list(1:5, 6:10, 11:15))
+#>   a                  b
+#> 1 1      1, 2, 3, 4, 5
+#> 2 2     6, 7, 8, 9, 10
+#> 3 3 11, 12, 13, 14, 15
+```
+
+Counts and proportions:
+
+``` r
+set.seed(42)
+x <- sample(1:5, 20, TRUE, 5:1/2)
+counts(x)
+#> 4 5 1 3 2 
+#> 2 4 4 5 5
+props(x)
+#>    4    5    1    3    2 
+#> 0.10 0.20 0.20 0.25 0.25
+
+df <- as.data.frame(matrix(sample(1:2, 60, TRUE), byrow = TRUE, ncol = 3))
+counts(df, c("V1", "V2"))
+#>   V1 V2 freq
+#> 1  1  1    5
+#> 2  1  2    4
+#> 3  2  2    8
+#> 4  2  1    3
+props(df, 1:3)
+#>   V1 V2 V3      prop
+#> 1  1  1  1 0.4285714
+#> 2  1  1  2 0.2857143
+#> 3  1  2  2 0.4285714
+#> 4  2  2  1 0.7142857
+#> 5  2  1  2 0.4285714
+#> 6  2  2  2 0.4285714
+#> 7  1  2  1 0.1428571
+```
+
+Date time differences:
+
+``` r
+x <- as.POSIXlt("2021-02-13 05:02:30", tz = "America/New_York") + c(0, -1, 2) * 3600 * 24
+y <- as.POSIXlt("2020-02-13 05:02:30", tz = "America/New_York") + c(0, -2, 4) * 3600 * 24
+
+# comparison with base::difftime() (note the order of x and y)
+difftime(y, x, units = "days")
+#> Time differences in days
+#> [1] -366 -367 -364
+diff_time_days(x, y)
+#> Time differences in days
+#> [1] -366 -367 -364
+
+difftime(y, x, units = "secs")
+#> Time differences in secs
+#> [1] -31622400 -31708800 -31449600
+diff_time_secs(x, y)
+#> Time differences in seconds
+#> [1] -31622400 -31708800 -31449600
+
+# Year (by days, months, etc)
+diff_time_years(x, y)
+#> Time differences in years (365 days)
+#> [1] -1.0027397 -1.0054795 -0.9972603
+diff_time_myears(x, y)
+#> Time differences in years (30-day months)
+#> [1] -1.016667 -1.019444 -1.011111
+
+# Set time zones
+diff_time_hours(x, y, "GMT", "America/New_York")                         
+#> Time differences in hours
+#> [1] -8789 -8813 -8741
+diff_time_hours(x, x, "GMT", c("America/Los_Angeles", "America/New_York", "Europe/London")) # note x, x
+#> Time differences in hours
+#> [1] -8 -5  0
+diff_time_days(x, y, NULL, 31536000) 
+#> Time differences in days
+#> [1] -0.994213 -1.994213  1.005787
+```
+
+Simple factors:
+
+``` r
+fact(c("a", "c", NA, "a", "b", NA, "a", "c")) # no sorting
+#> [1] a    c    <NA> a    b    <NA> a    c   
+#> Levels: a c b <NA>
+fact(c(-1, 5, 2, NA, 3))                      # sorting
+#> [1] -1   5    2    <NA> 3   
+#> Levels: -1 2 3 5 <NA>
+fact(c(NA, FALSE, TRUE, FALSE, TRUE, NA))     # fixed
+#> [1] <NA>  FALSE TRUE  FALSE TRUE  <NA> 
+#> Levels: TRUE FALSE <NA>
+```
+
+# Package index
+
+## All functions
+
+- [`add_file_timestamp()`](https://jmbarbone.github.io/mark/reference/add_file_timestamp.md)
+  : Add file timestamp
+
+- [`are_identical()`](https://jmbarbone.github.io/mark/reference/are_identical.md)
+  : Identical extensions
+
+- [`array_extract()`](https://jmbarbone.github.io/mark/reference/array_extract.md)
+  : Array extract
+
+- [`as_ordered()`](https://jmbarbone.github.io/mark/reference/as_ordered.md)
+  : Ordered
+
+- [`base_alpha()`](https://jmbarbone.github.io/mark/reference/base_alpha.md)
+  : Alpha base
+
+- [`base_n()`](https://jmbarbone.github.io/mark/reference/base_n.md) :
+  Base N conversion
+
+- [`is_blank()`](https://jmbarbone.github.io/mark/reference/blank_values.md)
+  [`select_blank_cols()`](https://jmbarbone.github.io/mark/reference/blank_values.md)
+  [`remove_blank_cols()`](https://jmbarbone.github.io/mark/reference/blank_values.md)
+  [`is_blank_cols()`](https://jmbarbone.github.io/mark/reference/blank_values.md)
+  : Blank values
+
+- [`char2fact()`](https://jmbarbone.github.io/mark/reference/char2fact.md)
+  : Character to factor
+
+- [`checkOptions()`](https://jmbarbone.github.io/mark/reference/checkOptions.md)
+  : Check options
+
+- [`chr_split()`](https://jmbarbone.github.io/mark/reference/chr_split.md)
+  : Character split
+
+- [`write_clipboard()`](https://jmbarbone.github.io/mark/reference/clipboard.md)
+  [`read_clipboard()`](https://jmbarbone.github.io/mark/reference/clipboard.md)
+  [`read_clipboard_methods()`](https://jmbarbone.github.io/mark/reference/clipboard.md)
+  : Write to and read from the clipboard
+
+- [`complete_cases()`](https://jmbarbone.github.io/mark/reference/complete_cases.md)
+  : Complete cases
+
+- [`counts()`](https://jmbarbone.github.io/mark/reference/counts.md)
+  [`props()`](https://jmbarbone.github.io/mark/reference/counts.md) :
+  Count observations by unique values
+
+- [`date_from_partial()`](https://jmbarbone.github.io/mark/reference/date_from_partial.md)
+  : Partial dates
+
+- [`depth()`](https://jmbarbone.github.io/mark/reference/depth.md) :
+  Depth
+
+- [`detail()`](https://jmbarbone.github.io/mark/reference/detail.md) :
+  Details an object
+
+- [`diff_time()`](https://jmbarbone.github.io/mark/reference/diff_time.md)
+  [`diff_time_days()`](https://jmbarbone.github.io/mark/reference/diff_time.md)
+  [`diff_time_weeks()`](https://jmbarbone.github.io/mark/reference/diff_time.md)
+  [`diff_time_hours()`](https://jmbarbone.github.io/mark/reference/diff_time.md)
+  [`diff_time_mins()`](https://jmbarbone.github.io/mark/reference/diff_time.md)
+  [`diff_time_secs()`](https://jmbarbone.github.io/mark/reference/diff_time.md)
+  [`diff_time_months()`](https://jmbarbone.github.io/mark/reference/diff_time.md)
+  [`diff_time_years()`](https://jmbarbone.github.io/mark/reference/diff_time.md)
+  [`diff_time_dyears()`](https://jmbarbone.github.io/mark/reference/diff_time.md)
+  [`diff_time_wyears()`](https://jmbarbone.github.io/mark/reference/diff_time.md)
+  [`diff_time_myears()`](https://jmbarbone.github.io/mark/reference/diff_time.md)
+  : Diff time wrappers
+
+- [`drop_levels()`](https://jmbarbone.github.io/mark/reference/drop_levels.md)
+  : Drop levels
+
+- [`ept()`](https://jmbarbone.github.io/mark/reference/ept.md) : Parse
+  and evaluate text
+
+- [`eval_named_chunk()`](https://jmbarbone.github.io/mark/reference/eval_named_chunk.md)
+  : Evaluate a Named Chunk
+
+- [`expand_by()`](https://jmbarbone.github.io/mark/reference/expand_by.md)
+  : Expands a vector
+
+- [`fact()`](https://jmbarbone.github.io/mark/reference/fact.md) :
+  Factor
+
+- [`fact2char()`](https://jmbarbone.github.io/mark/reference/fact2char.md)
+  : Factor to character
+
+- [`fact_na()`](https://jmbarbone.github.io/mark/reference/fact_na.md) :
+
+  `fact` with `NA`
+
+- [`fact_reverse()`](https://jmbarbone.github.io/mark/reference/fact_reverse.md)
+  : Fact reverse levels
+
+- [`fct_expand_seq()`](https://jmbarbone.github.io/mark/reference/fct_expand_seq.md)
+  : Factor Expand by Sequence
+
+- [`file_copy_md5()`](https://jmbarbone.github.io/mark/reference/file_copy_md5.md)
+  : File copy with md5 hash check
+
+- [`newest_file()`](https://jmbarbone.github.io/mark/reference/file_info.md)
+  [`newest_dir()`](https://jmbarbone.github.io/mark/reference/file_info.md)
+  [`oldest_file()`](https://jmbarbone.github.io/mark/reference/file_info.md)
+  [`oldest_dir()`](https://jmbarbone.github.io/mark/reference/file_info.md)
+  [`largest_file()`](https://jmbarbone.github.io/mark/reference/file_info.md)
+  [`smallest_file()`](https://jmbarbone.github.io/mark/reference/file_info.md)
+  : File information utils
+
+- [`file_name()`](https://jmbarbone.github.io/mark/reference/file_name.md)
+  : File name
+
+- [`open_file()`](https://jmbarbone.github.io/mark/reference/file_utils.md)
+  [`file_open()`](https://jmbarbone.github.io/mark/reference/file_utils.md)
+  [`shell_exec()`](https://jmbarbone.github.io/mark/reference/file_utils.md)
+  [`list_files()`](https://jmbarbone.github.io/mark/reference/file_utils.md)
+  [`list_dirs()`](https://jmbarbone.github.io/mark/reference/file_utils.md)
+  : Open a file using windows file associations
+
+- [`fizzbuzz()`](https://jmbarbone.github.io/mark/reference/fizzbuzz.md)
+  [`fizzbuzz_lazy()`](https://jmbarbone.github.io/mark/reference/fizzbuzz.md)
+  [`.fizzbuzz_vector`](https://jmbarbone.github.io/mark/reference/fizzbuzz.md)
+  : Fizz Buzz
+
+- [`get_dir_max_number()`](https://jmbarbone.github.io/mark/reference/get_dir_max_number.md)
+  : Get recent directory by number name
+
+- [`get_dir_recent_date()`](https://jmbarbone.github.io/mark/reference/get_dir_recent_date.md)
+  : Get recent directory by date
+
+- [`get_recent_dir()`](https://jmbarbone.github.io/mark/reference/get_recent_dir.md)
+  : Get recent directory
+
+- [`get_recent_file()`](https://jmbarbone.github.io/mark/reference/get_recent_file.md)
+  : Get recent file
+
+- [`get_version()`](https://jmbarbone.github.io/mark/reference/get_version.md)
+  [`bump_version()`](https://jmbarbone.github.io/mark/reference/get_version.md)
+  [`bump_date_version()`](https://jmbarbone.github.io/mark/reference/get_version.md)
+  [`update_version()`](https://jmbarbone.github.io/mark/reference/get_version.md)
+  : Get and bump version
+
+- [`glob()`](https://jmbarbone.github.io/mark/reference/glob.md) :
+  Wildcard globbing
+
+- [`has_warning()`](https://jmbarbone.github.io/mark/reference/handlers.md)
+  [`has_error()`](https://jmbarbone.github.io/mark/reference/handlers.md)
+  [`has_message()`](https://jmbarbone.github.io/mark/reference/handlers.md)
+  [`get_warning()`](https://jmbarbone.github.io/mark/reference/handlers.md)
+  [`get_message()`](https://jmbarbone.github.io/mark/reference/handlers.md)
+  [`get_error()`](https://jmbarbone.github.io/mark/reference/handlers.md)
+  : Handlers
+
+- [`import()`](https://jmbarbone.github.io/mark/reference/import.md) :
+  Import
+
+- [`insert()`](https://jmbarbone.github.io/mark/reference/insert.md) :
+  Insert
+
+- [`is_dir()`](https://jmbarbone.github.io/mark/reference/is_dir.md)
+  [`is_file()`](https://jmbarbone.github.io/mark/reference/is_dir.md) :
+  Is File/Directory
+
+- [`assign_labels()`](https://jmbarbone.github.io/mark/reference/labels.md)
+  [`get_labels()`](https://jmbarbone.github.io/mark/reference/labels.md)
+  [`view_labels()`](https://jmbarbone.github.io/mark/reference/labels.md)
+  [`remove_labels()`](https://jmbarbone.github.io/mark/reference/labels.md)
+  : Dataframe labels
+
+- [`limit()`](https://jmbarbone.github.io/mark/reference/limit.md) :
+  Limit
+
+- [`lines_of_r_code()`](https://jmbarbone.github.io/mark/reference/lines_of_r_code.md)
+  : Lines of R code
+
+- [`list2df()`](https://jmbarbone.github.io/mark/reference/list2df.md) :
+  List to data.frame
+
+- [`environments()`](https://jmbarbone.github.io/mark/reference/list_environments.md)
+  [`ls_all()`](https://jmbarbone.github.io/mark/reference/list_environments.md)
+  [`objects_all()`](https://jmbarbone.github.io/mark/reference/list_environments.md)
+  : List all environments and objects
+
+- [`is_true()`](https://jmbarbone.github.io/mark/reference/logic_ext.md)
+  [`is_false()`](https://jmbarbone.github.io/mark/reference/logic_ext.md)
+  [`` `%xor%` ``](https://jmbarbone.github.io/mark/reference/logic_ext.md)
+  [`nor()`](https://jmbarbone.github.io/mark/reference/logic_ext.md)
+  [`nand()`](https://jmbarbone.github.io/mark/reference/logic_ext.md)
+  [`xnandr()`](https://jmbarbone.github.io/mark/reference/logic_ext.md)
+  [`OR()`](https://jmbarbone.github.io/mark/reference/logic_ext.md)
+  [`AND()`](https://jmbarbone.github.io/mark/reference/logic_ext.md)
+  [`either()`](https://jmbarbone.github.io/mark/reference/logic_ext.md)
+  [`is_boolean()`](https://jmbarbone.github.io/mark/reference/logic_ext.md)
+  [`none()`](https://jmbarbone.github.io/mark/reference/logic_ext.md)
+  [`isNA()`](https://jmbarbone.github.io/mark/reference/logic_ext.md) :
+  Logic - Extensions
+
+- [`ls_dataframe()`](https://jmbarbone.github.io/mark/reference/ls_ext.md)
+  [`ls_function()`](https://jmbarbone.github.io/mark/reference/ls_ext.md)
+  [`ls_object()`](https://jmbarbone.github.io/mark/reference/ls_ext.md)
+  : List Objects - extensions
+
+- [`make_sf()`](https://jmbarbone.github.io/mark/reference/make_sf.md) :
+  Make system file function
+
+- [`mark-package`](https://jmbarbone.github.io/mark/reference/mark.md)
+  [`mark`](https://jmbarbone.github.io/mark/reference/mark.md) : mark
+
+- [`match_arg()`](https://jmbarbone.github.io/mark/reference/match_arg.md)
+  : Match arguments
+
+- [`match_param()`](https://jmbarbone.github.io/mark/reference/match_param.md)
+  : Match params
+
+- [`md5()`](https://jmbarbone.github.io/mark/reference/md5.md) : Compute
+  the MD5 hash of an object
+
+- [`median2()`](https://jmbarbone.github.io/mark/reference/median2.md)
+  [`q50()`](https://jmbarbone.github.io/mark/reference/median2.md) :
+  Median (Q 50)
+
+- [`merge_list()`](https://jmbarbone.github.io/mark/reference/merge_list.md)
+  : Merge lists
+
+- [`multi_grepl()`](https://jmbarbone.github.io/mark/reference/multi_grepl.md)
+  [`multi_grep()`](https://jmbarbone.github.io/mark/reference/multi_grepl.md)
+  : Multiple searching
+
+- [`NA_at()`](https://jmbarbone.github.io/mark/reference/na_assignments.md)
+  [`NA_if()`](https://jmbarbone.github.io/mark/reference/na_assignments.md)
+  [`NA_in()`](https://jmbarbone.github.io/mark/reference/na_assignments.md)
+  [`NA_out()`](https://jmbarbone.github.io/mark/reference/na_assignments.md)
+  : NA at positions
+
+- [`select_na_cols()`](https://jmbarbone.github.io/mark/reference/na_cols.md)
+  [`remove_na_cols()`](https://jmbarbone.github.io/mark/reference/na_cols.md)
+  [`is_na_cols()`](https://jmbarbone.github.io/mark/reference/na_cols.md)
+  : Selecting NA columns
+
+- [`norm_path()`](https://jmbarbone.github.io/mark/reference/norm_path.md)
+  [`file_path()`](https://jmbarbone.github.io/mark/reference/norm_path.md)
+  [`user_file()`](https://jmbarbone.github.io/mark/reference/norm_path.md)
+  : Normalize paths
+
+- [`normalize()`](https://jmbarbone.github.io/mark/reference/normalize.md)
+  : Normalize values
+
+- [`not_available()`](https://jmbarbone.github.io/mark/reference/not_available.md)
+  [`set_not_available()`](https://jmbarbone.github.io/mark/reference/not_available.md)
+  [`NA_Date_`](https://jmbarbone.github.io/mark/reference/not_available.md)
+  [`NA_POSIXct_`](https://jmbarbone.github.io/mark/reference/not_available.md)
+  [`NA_POSIXlt_`](https://jmbarbone.github.io/mark/reference/not_available.md)
+  : Make not available
+
+- [`` `note<-`() ``](https://jmbarbone.github.io/mark/reference/note.md)
+  [`set_note()`](https://jmbarbone.github.io/mark/reference/note.md)
+  [`note()`](https://jmbarbone.github.io/mark/reference/note.md) :
+  Append a note to an object
+
+- [`omit_na()`](https://jmbarbone.github.io/mark/reference/omit_na.md) :
+  Omit NA values
+
+- [`package_available()`](https://jmbarbone.github.io/mark/reference/package_available.md)
+  : Check if package is available
+
+- [`percentile_rank()`](https://jmbarbone.github.io/mark/reference/percentile_rank.md)
+  : Percentile rank
+
+- [`print(`*`<mark_bib_df>`*`)`](https://jmbarbone.github.io/mark/reference/print.mark_bib_df.md)
+  : Print bib data frame
+
+- [`print(`*`<pseudo_id>`*`)`](https://jmbarbone.github.io/mark/reference/print.pseudo_id.md)
+  :
+
+  Print `pseudo_id`
+
+- [`print_c()`](https://jmbarbone.github.io/mark/reference/print_c.md) :
+  Print as c
+
+- [`process_bib_dataframe()`](https://jmbarbone.github.io/mark/reference/process_bib_dataframe.md)
+  : Process bib values
+
+- [`pseudo_id()`](https://jmbarbone.github.io/mark/reference/pseudo_id.md)
+  : Create an ID for a vector
+
+- [`quiet_stop()`](https://jmbarbone.github.io/mark/reference/quiet_stop.md)
+  : Quiet stop
+
+- [`range2()`](https://jmbarbone.github.io/mark/reference/range2.md) :
+  Range 2
+
+- [`read_bib()`](https://jmbarbone.github.io/mark/reference/read_bib.md)
+  : Read Bib file
+
+- [`recode_by()`](https://jmbarbone.github.io/mark/reference/recode_by.md)
+  [`recode_only()`](https://jmbarbone.github.io/mark/reference/recode_by.md)
+  : Recode by
+
+- [`reindex()`](https://jmbarbone.github.io/mark/reference/reindex.md) :
+  Reindex a data.frame
+
+- [`remove_na()`](https://jmbarbone.github.io/mark/reference/remove_na.md)
+  : Remove NA
+
+- [`remove_null()`](https://jmbarbone.github.io/mark/reference/remove_null.md)
+  : Remove NULL
+
+- [`round_by()`](https://jmbarbone.github.io/mark/reference/round_by.md)
+  : Rounding by a specific interval.
+
+- [`round_to()`](https://jmbarbone.github.io/mark/reference/round_to.md)
+  : Round to
+
+- [`row_bind()`](https://jmbarbone.github.io/mark/reference/row_bind.md)
+  : Row bind
+
+- [`rscript()`](https://jmbarbone.github.io/mark/reference/rscript.md) :
+  Rscript
+
+- [`save_source()`](https://jmbarbone.github.io/mark/reference/save_source.md)
+  : Save source
+
+- [`set_names0()`](https://jmbarbone.github.io/mark/reference/set_names0.md)
+  [`names_switch()`](https://jmbarbone.github.io/mark/reference/set_names0.md)
+  : Set names
+
+- [`simpleTimeReport()`](https://jmbarbone.github.io/mark/reference/simpleTimeReport.md)
+  **\[experimental\]** : Time reports
+
+- [`sort_by()`](https://jmbarbone.github.io/mark/reference/sort_by.md) :
+  Sort by
+
+- [`sort_names()`](https://jmbarbone.github.io/mark/reference/sort_names.md)
+  : Sort by names
+
+- [`source_r_dir()`](https://jmbarbone.github.io/mark/reference/source_files.md)
+  [`source_r_file()`](https://jmbarbone.github.io/mark/reference/source_files.md)
+  : Source file from directory
+
+- [`source_to_env()`](https://jmbarbone.github.io/mark/reference/source_to_env.md)
+  : Source to environment
+
+- [`ksource()`](https://jmbarbone.github.io/mark/reference/sourcing.md)
+  [`try_source()`](https://jmbarbone.github.io/mark/reference/sourcing.md)
+  [`try_ksource()`](https://jmbarbone.github.io/mark/reference/sourcing.md)
+  : Sourcing extensions
+
+- [`str_extract_date()`](https://jmbarbone.github.io/mark/reference/str_extract_date.md)
+  [`str_extract_datetime()`](https://jmbarbone.github.io/mark/reference/str_extract_date.md)
+  : Extract date from string
+
+- [`str_slice()`](https://jmbarbone.github.io/mark/reference/str_slice.md)
+  [`str_slice_by_word()`](https://jmbarbone.github.io/mark/reference/str_slice.md)
+  : String Slice
+
+- [`switch_params()`](https://jmbarbone.github.io/mark/reference/switch-ext.md)
+  [`switch_in_case()`](https://jmbarbone.github.io/mark/reference/switch-ext.md)
+  [`switch_case()`](https://jmbarbone.github.io/mark/reference/switch-ext.md)
+  : Switch with a list of parameters
+
+- [`t_df()`](https://jmbarbone.github.io/mark/reference/t_df.md) : Data
+  frame transpose
+
+- [`tableNA()`](https://jmbarbone.github.io/mark/reference/tableNA.md) :
+  Table NA values
+
+- [`that()`](https://jmbarbone.github.io/mark/reference/that.md) : That
+
+- [`to_boolean()`](https://jmbarbone.github.io/mark/reference/to_boolean.md)
+  : To Boolean
+
+- [`to_row_names()`](https://jmbarbone.github.io/mark/reference/to_row_names.md)
+  : To row names
+
+- [`todos()`](https://jmbarbone.github.io/mark/reference/todos.md)
+  [`fixmes()`](https://jmbarbone.github.io/mark/reference/todos.md) :
+  Get TODOs
+
+- [`tryn()`](https://jmbarbone.github.io/mark/reference/tryn.md) : Try
+  an expression a set number of times
+
+- [`unique_rows()`](https://jmbarbone.github.io/mark/reference/unique_rows.md)
+  : Unique rows
+
+- [`unlist0()`](https://jmbarbone.github.io/mark/reference/unlist0.md)
+  [`squash_vec()`](https://jmbarbone.github.io/mark/reference/unlist0.md)
+  : Unlist and squash
+
+- [`use_author()`](https://jmbarbone.github.io/mark/reference/use_author.md)
+  : Add author to DESCRIPTION
+
+- [`paste_c()`](https://jmbarbone.github.io/mark/reference/utils-paste.md)
+  [`paste_combine()`](https://jmbarbone.github.io/mark/reference/utils-paste.md)
+  [`collapse0()`](https://jmbarbone.github.io/mark/reference/utils-paste.md)
+  : Paste combine
+
+- [`vap_int()`](https://jmbarbone.github.io/mark/reference/vap.md)
+  [`vap_dbl()`](https://jmbarbone.github.io/mark/reference/vap.md)
+  [`vap_chr()`](https://jmbarbone.github.io/mark/reference/vap.md)
+  [`vap_lgl()`](https://jmbarbone.github.io/mark/reference/vap.md)
+  [`vap_cplx()`](https://jmbarbone.github.io/mark/reference/vap.md)
+  [`vap_date()`](https://jmbarbone.github.io/mark/reference/vap.md) :
+  Vaps!
+
+- [`vector2df()`](https://jmbarbone.github.io/mark/reference/vector2df.md)
+  : Vector to data.frame
+
+- [`with_par()`](https://jmbarbone.github.io/mark/reference/with_par.md)
+  : Temporary plotting
+
+- [`between_more()`](https://jmbarbone.github.io/mark/reference/within.md)
+  [`within()`](https://jmbarbone.github.io/mark/reference/within.md) :
+  within boundaries
+
+- [`within_call()`](https://jmbarbone.github.io/mark/reference/within_call.md)
+  [`within_fun()`](https://jmbarbone.github.io/mark/reference/within_call.md)
+  [`outer_call()`](https://jmbarbone.github.io/mark/reference/within_call.md)
+  [`outer_fun()`](https://jmbarbone.github.io/mark/reference/within_call.md)
+  : Function within
+
+- [`write_file_md5()`](https://jmbarbone.github.io/mark/reference/write_file_md5.md)
+  [`mark_write_methods()`](https://jmbarbone.github.io/mark/reference/write_file_md5.md)
+  [`mark_compress_methods()`](https://jmbarbone.github.io/mark/reference/write_file_md5.md)
+  : Write file with md5 hash check
+
