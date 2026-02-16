@@ -60,7 +60,6 @@ str_slice_by_word <- function(x, n = 80L) {
     starts <- c(starts, st)
     ends <- c(ends, end)
     st <- end + 2L
-
   }
 
   mapply(
@@ -100,10 +99,12 @@ str_extract_date <- function(x, format = "%Y-%m-%d") {
 str_extract_datetime <- function(x, format = "%Y-%m-%d %H%M%S") {
   frex <- format_to_regex(format)
   text <- string_extract(x, frex, ignore.case = TRUE)
-  capply(text, strptime, format = format, tz = "")
+  capply(text, \(x) strptime(x, format = format, tz = ""))
 }
 
-string_extract <- function(x, pattern, perl = FALSE, ignore.case = FALSE) { # nolint: object_name_linter, line_length_linter.
+# nolint next: object_name_linter.
+string_extract <- function(x, pattern, perl = FALSE, ignore.case = FALSE) {
+  # nolint: object_name_linter, line_length_linter.
   re <- regexpr(pattern, x, perl = perl, ignore.case = ignore.case)
   starts <- as.vector(re, "integer")
   substr(x, starts, starts + attr(re, "match.length") - 1L)
@@ -142,7 +143,7 @@ format_to_regex <- function(x) {
   x
 }
 
-month_abbr_regex <- sprintf("(%s)", paste(month.abb,  collapse = "|"))
+month_abbr_regex <- sprintf("(%s)", paste(month.abb, collapse = "|"))
 month_name_regex <- sprintf("(%s)", paste(month.name, collapse = "|"))
 
 #' Character split
