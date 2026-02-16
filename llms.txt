@@ -1,6 +1,6 @@
 # mark
 
-Miscellaneous, Analytic R Kernels
+Multipurpose Aids for R Kit
 
 An R package with a set of general use functions for data analytics.
 This is developed mostly for personal use and has no real *goal* other
@@ -455,7 +455,8 @@ fact(c(NA, FALSE, TRUE, FALSE, TRUE, NA))     # fixed
   Make system file function
 
 - [`mark-package`](https://jmbarbone.github.io/mark/reference/mark.md)
-  [`mark`](https://jmbarbone.github.io/mark/reference/mark.md) : mark
+  [`mark`](https://jmbarbone.github.io/mark/reference/mark.md) : mark:
+  Multipurpose Aids for R Kit
 
 - [`match_arg()`](https://jmbarbone.github.io/mark/reference/match_arg.md)
   : Match arguments

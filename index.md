@@ -1,6 +1,6 @@
 # mark
 
-Miscellaneous, Analytic R Kernels
+Multipurpose Aids for R Kit
 
 An R package with a set of general use functions for data analytics.
 This is developed mostly for personal use and has no real *goal* other

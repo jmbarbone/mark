@@ -90,10 +90,10 @@ if (package_available("bench")) {
   bench::mark(fizzbuzz(1e5), fizzbuzz_lazy(1e5))
 }
 #> # A tibble: 2 × 13
-#>   expression     min  median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_time
-#>   <bch:expr> <bch:t> <bch:t>     <dbl> <bch:byt>    <dbl> <int> <dbl>   <bch:tm>
-#> 1 fizzbuzz(…  33.7ms  34.9ms      28.2    5.19MB     4.70    12     2      425ms
-#> 2 fizzbuzz_… 567.4µs 581.6µs    1698.    38.21MB    67.0    507    20      299ms
+#>   expression      min median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_time
+#>   <bch:expr>  <bch:t> <bch:>     <dbl> <bch:byt>    <dbl> <int> <dbl>   <bch:tm>
+#> 1 fizzbuzz(1…  33.6ms   34ms      28.4    5.19MB     4.74    12     2      422ms
+#> 2 fizzbuzz_l… 564.8µs  581µs    1697.    38.21MB    66.9    507    20      299ms
 #> # ℹ 4 more variables: result <list>, memory <list>, time <list>, gc <list>
 # }
 ```

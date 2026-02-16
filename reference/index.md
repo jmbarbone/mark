@@ -205,7 +205,8 @@
   Make system file function
 
 - [`mark-package`](https://jmbarbone.github.io/mark/reference/mark.md)
-  [`mark`](https://jmbarbone.github.io/mark/reference/mark.md) : mark
+  [`mark`](https://jmbarbone.github.io/mark/reference/mark.md) : mark:
+  Multipurpose Aids for R Kit
 
 - [`match_arg()`](https://jmbarbone.github.io/mark/reference/match_arg.md)
   : Match arguments

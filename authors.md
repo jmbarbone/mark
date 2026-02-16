@@ -8,15 +8,15 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/jmbarbone/mark/blob/v0.8.3.9004/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/jmbarbone/mark/blob/v0.8.3.9006/DESCRIPTION)
 
-Barbone J (2026). *mark: Miscellaneous, Analytic R Kernels*. R package
-version 0.8.3.9004, <https://CRAN.R-project.org/package=mark>.
+Barbone J (2026). *mark: Multipurpose Aids for R Kit*. R package version
+0.8.3.9006, <https://CRAN.R-project.org/package=mark>.
 
     @Manual{,
-      title = {mark: Miscellaneous, Analytic R Kernels},
+      title = {mark: Multipurpose Aids for R Kit},
       author = {Jordan Mark Barbone},
       year = {2026},
-      note = {R package version 0.8.3.9004},
+      note = {R package version 0.8.3.9006},
       url = {https://CRAN.R-project.org/package=mark},
     }

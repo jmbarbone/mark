@@ -1,6 +1,7 @@
-# mark
+# mark: Multipurpose Aids for R Kit
 
-Miscellaneous, Analytic R Kernels
+Miscellaneous functions and wrappers for development in other packages
+created, maintained by Jordan Mark Barbone.
 
 ## See also
 

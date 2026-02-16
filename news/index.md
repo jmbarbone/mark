@@ -33,6 +33,8 @@
   little-endian serialization (*i.e.*, `serialize(xdr = FALSE)`) for
   more consistent results across platforms and faster speed; which may
   cause hashes created prior to *change*
+- [mark](https://CRAN.R-project.org/package=mark)’s title has been
+  updated
 
 ## mark 0.8.3
 

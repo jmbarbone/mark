@@ -44,12 +44,12 @@ file1 <- tempfile(fileext = ".txt")
 file2 <- tempfile()
 
 add_file_timestamp(file1)
-#> /tmp/Rtmpa6TE80/file1a366cd58537 2026-02-16 221759.txt
+#> /tmp/RtmpRAAeSi/file1a0b3935fb4f 2026-02-16 222017.txt
 add_file_timestamp(file2)
-#> /tmp/Rtmpa6TE80/file1a367151b618 2026-02-16 221759
+#> /tmp/RtmpRAAeSi/file1a0b7505906a 2026-02-16 222017
 
 file.remove(file1, file2)
-#> Warning: cannot remove file '/tmp/Rtmpa6TE80/file1a366cd58537.txt', reason 'No such file or directory'
-#> Warning: cannot remove file '/tmp/Rtmpa6TE80/file1a367151b618', reason 'No such file or directory'
+#> Warning: cannot remove file '/tmp/RtmpRAAeSi/file1a0b3935fb4f.txt', reason 'No such file or directory'
+#> Warning: cannot remove file '/tmp/RtmpRAAeSi/file1a0b7505906a', reason 'No such file or directory'
 #> [1] FALSE FALSE
 ```
