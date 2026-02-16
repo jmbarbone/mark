@@ -4,9 +4,9 @@
 \name{mark}
 \alias{mark-package}
 \alias{mark}
-\title{mark}
+\title{mark: Multipurpose Aids for R Kit}
 \description{
-Miscellaneous, Analytic R Kernels
+Miscellaneous functions and wrappers for development in other packages created, maintained by Jordan Mark Barbone.
 }
 \seealso{
 Useful links:
