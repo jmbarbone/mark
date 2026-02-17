@@ -106,7 +106,7 @@ read_clipboard <- function(method = read_clipboard_methods(), ...) {
       on.exit(fs::file_delete(temp), add = TRUE)
       writeLines(read_clipboard(), temp)
       params <- list0(...)
-      params$file <- temp
+      params$file <- I(temp)
       params$show_col_types <- params$show_col_types %||% FALSE
       params$col_types <- params$col_types %||% list(.default = "character")
       type_convert2(do.call(readMDTable::read_md_table, params))
