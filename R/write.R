@@ -37,14 +37,14 @@
 #' fs::file_delete(temp)
 #' @export
 write_file_md5 <- function(
-    x,
-    path = NULL,
-    method = mark_write_methods(),
-    overwrite = NA,
-    quiet = FALSE,
-    encoding = "UTF-8",
-    compression = getOption("mark.compress.method", mark_compress_methods()),
-    ...
+  x,
+  path = NULL,
+  method = mark_write_methods(),
+  overwrite = NA,
+  quiet = FALSE,
+  encoding = "UTF-8",
+  compression = getOption("mark.compress.method", mark_compress_methods()),
+  ...
 ) {
   compression <- match_param(compression, mark_compress_methods())
   op <- options(
@@ -56,8 +56,8 @@ write_file_md5 <- function(
 
   if (
     !isTRUE(nzchar(path, keepNA = TRUE)) ||
-    inherits(path, "terminal")
-  )  {
+      inherits(path, "terminal")
+  ) {
     null_path <- TRUE
     ext <- ""
   } else {
@@ -176,12 +176,12 @@ mark_write_rds <- function(x, con, version = 3) {
 }
 
 mark_write_csv <- function(
-    x,
-    con,
-    sep = ",",
-    dec = ".",
-    qmethod = "double",
-    ...
+  x,
+  con,
+  sep = ",",
+  dec = ".",
+  qmethod = "double",
+  ...
 ) {
   mark_write_table(
     x = x,
@@ -194,12 +194,12 @@ mark_write_csv <- function(
 }
 
 mark_write_csv2 <- function(
-    x,
-    con,
-    sep = ";",
-    dec = ",",
-    qmethod = "double",
-    ...
+  x,
+  con,
+  sep = ";",
+  dec = ",",
+  qmethod = "double",
+  ...
 ) {
   mark_write_table(
     x = x,
@@ -212,12 +212,12 @@ mark_write_csv2 <- function(
 }
 
 mark_write_csv3 <- function(
-    x,
-    con,
-    sep = "|",
-    dec = ".",
-    qmethod = "double",
-    ...
+  x,
+  con,
+  sep = "|",
+  dec = ".",
+  qmethod = "double",
+  ...
 ) {
   mark_write_table(
     x = x,
@@ -238,19 +238,19 @@ mark_write_tsv2 <- function(x, con, sep = "|", qmethod = "double", ...) {
 }
 
 mark_write_table <- function(
-    x,
-    con = "",
-    quote = TRUE,
-    sep = " ",
-    eol = "\n",
-    na = "",
-    dec = ".",
-    # nolint next: object_name_linter.
-    row.names = FALSE,
-    # nolint next: object_name_linter.
-    col.names = NA,
-    qmethod = "escape",
-    list_hook = getOption("mark.list.hook", "auto")
+  x,
+  con = "",
+  quote = TRUE,
+  sep = " ",
+  eol = "\n",
+  na = "",
+  dec = ".",
+  # nolint next: object_name_linter.
+  row.names = FALSE,
+  # nolint next: object_name_linter.
+  col.names = NA,
+  qmethod = "escape",
+  list_hook = getOption("mark.list.hook", "auto")
 ) {
   if (isFALSE(row.names) && isNA(col.names)) {
     # nolint next: object_name_linter.
@@ -305,23 +305,25 @@ get_list_hook <- function(hook) {
     false = function(x) NA_character_,
     none = NULL,
     # nolint next: brace_linter.
-    na = function(x) stop(new_condition(
-      "options(mark.list.hook) is NA but list columns detected",
-      class = "writeFileMd5ListHook"
-    )),
+    na = function(x) {
+      stop(new_condition(
+        "options(mark.list.hook) is NA but list columns detected",
+        class = "writeFileMd5ListHook"
+      ))
+    },
     match.fun(hook)
   )
 }
 
 mark_write_dcf <- function(
-    x,
-    con = "",
-    # nolint next: object_name_linter.
-    useBytes = FALSE,
-    indent = 4,
-    width = Inf,
-    # nolint next: object_name_linter.
-    keep.white = NULL
+  x,
+  con = "",
+  # nolint next: object_name_linter.
+  useBytes = FALSE,
+  indent = 4,
+  width = Inf,
+  # nolint next: object_name_linter.
+  keep.white = NULL
 ) {
   write.dcf(
     x = x,
@@ -339,11 +341,11 @@ mark_write_lines <- function(x, con, sep = "\n") {
 }
 
 mark_write_yaml <- function(
-    x,
-    con,
-    unicode = TRUE,
-    digits = getOption("digits"),
-    ordered_lists = TRUE
+  x,
+  con,
+  unicode = TRUE,
+  digits = getOption("digits"),
+  ordered_lists = TRUE
 ) {
   require_namespace("yaml")
   string <- yaml::as.yaml(
@@ -409,14 +411,10 @@ mark_write_arrow <- function(
   )
 
   if (identical(con, stdout())) {
-    # temp <- tempfile()
-    # con <- file(temp, open = "wb", encoding = "UTF-8")
     con <- tempfile()
     on.exit({
       print(read(con))
       clean()
-      # safe_close(con)
-      # safe_fs_delete(temp)
       safe_fs_delete(con)
     })
   } else if (inherits(con, "connection")) {
@@ -459,10 +457,10 @@ mark_to_json <- function(x) {
 }
 
 compress <- function(
-    x = "",
-    method = getOption("mark.compress.method", "default"),
-    encoding = getOption("mark.write_table.encoding", "UTF-8"),
-    ...
+  x = "",
+  method = getOption("mark.compress.method", "default"),
+  encoding = getOption("mark.write_table.encoding", "UTF-8"),
+  ...
 ) {
   op <- options(encoding = encoding)
   on.exit(options(op), add = TRUE)

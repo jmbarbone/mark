@@ -20,7 +20,6 @@ test_that("write_file_md5() types", {
       quick_dfl(a = 1, b = "n", c = TRUE)
     }
 
-    # browser(expr = method == "feather")
     expect_message(
       write_file_md5(x, temp, method = !!method),
       class = fuj_message()
@@ -117,10 +116,10 @@ test_that("arrow prints something to stdout()", {
 
   expect_snapshot(
     write_file_md5(quick_dfl(a = 1), method = "feather"),
-    transform = function(x) censor(x, "(Rtmp|file)[a-z0-9]+")
+    transform = function(x) censor(x, "(Rtmp|file)[A-Za-z0-9]+")
   )
   expect_snapshot(
     write_file_md5(quick_dfl(a = 1), method = "parquet"),
-    transform = function(x) censor(x, "(Rtmp|file)[a-z0-9]+")
+    transform = function(x) censor(x, "(Rtmp|file)[A-Za-z0-9]+")
   )
 })
