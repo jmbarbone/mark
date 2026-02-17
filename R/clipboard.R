@@ -2,17 +2,17 @@
 #'
 #' Wrappers for working with the clipboard
 #'
-#' @details For copying
-#' and pasting floats, there may be some rounding that can occur.
+#' @details For copying and pasting floats, there may be some rounding that can
+#'   occur.
 #'
-#' @param x An object 
+#' @param x An object to write to the clipboard
 #' @param method Method switch for loading the clipboard
 #' @param ... Additional arguments sent to methods or to [utils::write.table()]
 #'
 #' @return [mark::write_clipboard()] None, called for side effects
-#' [mark::read_clipboard()] Either a vector or `data.frame` (or `tibble`, if
-#' depending on the `method` chosen. An empty clipboard value returns `NA`
-#' (rather than `""`)
+#'   [mark::read_clipboard()] Either a vector or `data.frame` (or `tibble`, if
+#'   depending on the `method` chosen. An empty clipboard value returns `NA`
+#'   (rather than `""`)
 #'
 #' @name clipboard
 #' @examples

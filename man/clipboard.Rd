@@ -26,7 +26,7 @@ read_clipboard(method = read_clipboard_methods(), ...)
 read_clipboard_methods()
 }
 \arguments{
-\item{x}{An object}
+\item{x}{An object to write to the clipboard}
 
 \item{...}{Additional arguments sent to methods or to \code{\link[utils:write.table]{utils::write.table()}}}
 
@@ -49,8 +49,8 @@ depending on the \code{method} chosen. An empty clipboard value returns \code{NA
 Wrappers for working with the clipboard
 }
 \details{
-For copying
-and pasting floats, there may be some rounding that can occur.
+For copying and pasting floats, there may be some rounding that can
+occur.
 }
 \examples{
 # Will only run on windows
