@@ -579,6 +579,6 @@ safe_close <- function(con, ...) {
 
 safe_fs_delete <- function(x) {
   if (fs::file_exists(x)) {
-    fs::file_delete(x)
+    tryCatch(fs::file_delete(x), fs_error = \(e) NA_character_)
   }
 }

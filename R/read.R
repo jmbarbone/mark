@@ -4,7 +4,7 @@
 mark_read_md <- function(
   file,
   sep = "|",
-  strip.white = TRUE,
+  strip.white = TRUE, # nolint: object_name_linter.
   ...
 ) {
   if (inherits(file, "AsIs")) {
