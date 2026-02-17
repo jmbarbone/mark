@@ -46,7 +46,6 @@ Suggests:
     knitr (>= 1.30),
     nanoparquet,
     rcmdcheck (>= 1.3.3),
-    readMDTable (>= 0.2.0),
     stringi (>= 1.5.3),
     spelling (>= 2.2),
     testthat (>= 3.0.0),
@@ -112,6 +111,7 @@ Collate:
     'percentile-rank.R'
     'plot.R'
     'pseudo-id.R'
+    'read.R'
     'recode.R'
     'reexports-fuj.R'
     'reexports-magrittr.R'

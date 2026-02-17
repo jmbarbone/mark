@@ -13,6 +13,8 @@ cleanup (e.g., trimming whitespace and lowercasing) are not longer performed
 * `md5()` now uses little-endian serialization (_i.e._, `serialize(xdr = FALSE)`) for more consistent results across platforms and faster speed; which may cause hashes created prior to _change_
 * `{mark}`'s title has been updated
 * `write_file_md5(method = "feather")`, `write_file_md5(method = "parquet")` now use `{feather}` and `{nanoparquet}`, respectively, rather than `{arrow}` [#245](https://github.com/jmbarbone/mark/issues/245)
+* `read_clipboard("md")` no longer needs `{readMdTable}`
+* `read_clibpboard()` will always return a `tibble` if `{tibble}` is available (this can be turned off if `options(mark.tibble = FALSE)`)
 
 # mark 0.8.3
 

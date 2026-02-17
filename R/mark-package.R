@@ -33,7 +33,8 @@ op.mark <- list(
   mark.weeks_inn_year = 52,
   mark.default_tz = "UTC",
   mark.na_list = na_list,
-  mark.md5.bytes = NULL
+  mark.md5.bytes = NULL,
+  mark.tibble = TRUE
 )
 
 .onLoad <- function(libname, pkgname) {

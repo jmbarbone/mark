@@ -87,7 +87,7 @@ write_clipboard.list <- function(x, sep = "\t", ...) {
 #' @rdname clipboard
 read_clipboard <- function(method = read_clipboard_methods(), ...) {
   fuj::require_namespace("clipr")
-  switch(
+  res <- switch(
     match_param(method),
     default = type_convert2(clipr_read_clip(TRUE)),
     tibble = ,
@@ -100,18 +100,15 @@ read_clipboard <- function(method = read_clipboard_methods(), ...) {
     bsv = ,
     psv = read_clipboard("data.frame", sep = "|", ...),
     tsv = read_clipboard("data.frame", sep = "\t", ...),
-    md = {
-      fuj::require_namespace("readMDTable")
-      temp <- fs::file_temp()
-      on.exit(fs::file_delete(temp), add = TRUE)
-      writeLines(read_clipboard(), temp)
-      params <- list0(...)
-      params$file <- I(temp)
-      params$show_col_types <- params$show_col_types %||% FALSE
-      params$col_types <- params$col_types %||% list(.default = "character")
-      type_convert2(do.call(readMDTable::read_md_table, params))
-    }
+    markdown = ,
+    md = type_convert2(mark_read_md(I(read_clipboard())))
   )
+
+  if (inherits(res, "data.frame")) {
+    tibble(res)
+  } else {
+    res
+  }
 }
 
 clipr_read_clip <- function(...) {
@@ -149,6 +146,7 @@ read_clipboard_methods <- function() {
     "bsv",
     "psv",
     "tsv",
+    "markdown",
     "md",
     NULL
   )
@@ -198,12 +196,6 @@ do_read_table_clipboard <- function(
     fill             = fill,
     ...
   )
-
-  if (package_available("tibble")) {
-    tibble::as_tibble(res)
-  } else {
-    res
-  }
 }
 
 clear_clipboard <- function() {
@@ -253,4 +245,12 @@ type_convert2 <- function(x) {
   }
 
   res
+}
+
+tibble <- function(x) {
+  if (getOption("mark.tibble", TRUE) && package_available("tibble")) {
+    tibble::as_tibble(x)
+  } else {
+    x
+  }
 }
