@@ -5,7 +5,8 @@
 #' @details For copying
 #' and pasting floats, there may be some rounding that can occur.
 #'
-#' @param x An object @param method Method switch for loading the clipboard
+#' @param x An object 
+#' @param method Method switch for loading the clipboard
 #' @param ... Additional arguments sent to methods or to [utils::write.table()]
 #'
 #' @return [mark::write_clipboard()] None, called for side effects

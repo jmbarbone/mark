@@ -26,7 +26,7 @@ read_clipboard(method = read_clipboard_methods(), ...)
 read_clipboard_methods()
 }
 \arguments{
-\item{x}{An object @param method Method switch for loading the clipboard}
+\item{x}{An object}
 
 \item{...}{Additional arguments sent to methods or to \code{\link[utils:write.table]{utils::write.table()}}}
 
@@ -36,6 +36,8 @@ read_clipboard_methods()
 \item{row.names}{either a logical value indicating whether the row
     names of \code{x} are to be written along with \code{x}, or a
     character vector of row names to be written.}
+
+\item{method}{Method switch for loading the clipboard}
 }
 \value{
 \code{\link[=write_clipboard]{write_clipboard()}} None, called for side effects
