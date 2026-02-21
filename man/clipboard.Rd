@@ -26,7 +26,7 @@ read_clipboard(method = read_clipboard_methods(), ...)
 read_clipboard_methods()
 }
 \arguments{
-\item{x}{An object}
+\item{x}{An object to write to the clipboard}
 
 \item{...}{Additional arguments sent to methods or to \code{\link[utils:write.table]{utils::write.table()}}}
 
@@ -40,39 +40,37 @@ read_clipboard_methods()
 \item{method}{Method switch for loading the clipboard}
 }
 \value{
-\code{write_clipboard()} None, called for side effects \code{read_clipboard()}
-Either a vector, \code{data.frame}, or \code{tibble} depending on the \code{method} chosen.
-Unlike \code{\link[utils:clipboard]{utils::readClipboard()}}, an empty clipboard value returns \code{NA} rather
-than \code{""}
+\code{\link[=write_clipboard]{write_clipboard()}} None, called for side effects
+\code{\link[=read_clipboard]{read_clipboard()}} Either a vector or \code{data.frame} (or \code{tibble}, if
+depending on the \code{method} chosen. An empty clipboard value returns \code{NA}
+(rather than \code{""})
 }
 \description{
 Wrappers for working with the clipboard
 }
 \details{
-As these functions rely on \code{\link[clipr:read_clip]{clipr::read_clip()}} and
-\code{\link[utils:clipboard]{utils::writeClipboard()}} they are only available for Windows 10. For copying
-and pasting floats, there may be some rounding that can occur.
+For copying and pasting floats, there may be some rounding that can
+occur.
 }
 \examples{
 # Will only run on windows
-if (Sys.info()[["sysname"]] == "Windows") {
-  foo <- function(x) {
-    write_clipboard(x)
-    y <- read_clipboard()
-    res <- all.equal(x, y)
-    if (isTRUE(res)) return("All equal")
-    print(x)
-    print(y)
-  }
-  foo(1:4)
-  foo(seq(-1, 1, .02))
-  foo(Sys.Date() + 1:4)
-
-  # May have some rounding issues
-  x <- "0.316362437326461129"
+foo <- function(x) {
   write_clipboard(x)
-  res <- as.character(read_clipboard())
-  all.equal(x, res)
-  x; res
+  y <- read_clipboard()
+  res <- all.equal(x, y)
+  if (isTRUE(res)) return("All equal")
+  print(x)
+  print(y)
 }
+
+foo(1:4)
+foo(seq(-1, 1, .02))
+foo(Sys.Date() + 1:4)
+
+# May have some rounding issues
+x <- "0.316362437326461129"
+write_clipboard(x)
+res <- as.character(read_clipboard())
+all.equal(x, res)
+x; res
 }
