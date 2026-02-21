@@ -60,18 +60,19 @@ get_na_list <- function() {
 
 #' @export
 #' @rdname not_available
-NA_Date_ <- function() NULL # nolint: object_name_linter.
+NA_Date_ <- function() {} # nolint: object_name_linter.
 delayedAssign("NA_Date_", not_available("Date", 1L))
 
 #' @export
 #' @rdname not_available
-NA_POSIXct_ <- function() NULL # nolint: object_name_linter.
+NA_POSIXct_ <- function() {} # nolint: object_name_linter.
 delayedAssign("NA_POSIXct_", not_available("POSIXct", 1L))
 
 #' @export
 #' @rdname not_available
-NA_POSIXlt_ <- function() NULL # nolint: object_name_linter.
-delayedAssign("NA_POSIXlt_", not_available("POSIXlt", 1L))
+NA_POSIXlt_ <- function() {} # nolint: object_name_linter.
+delayedAssign("NA_POSIXlt_", not_available("logical", 1L))
+
 
 # conditions --------------------------------------------------------------
 

@@ -47,7 +47,6 @@ test_that("clipboard methods", {
   expect_clip(simple_tbl("|"), "bsv")
   expect_clip(simple_tbl("|"), "psv")
   expect_clip(simple_tbl("\t"), "tsv")
-  skip_if_not_installed("readMDTable")
   expect_clip("| a | b | c |\n|--:|--:|--:|\n| 1 | 2 | 3 |", "md")
 })
 

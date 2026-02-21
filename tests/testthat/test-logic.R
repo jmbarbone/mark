@@ -78,4 +78,68 @@ test_that("logical helpers", {
   )
 })
 
-# nolint end: spaces_inside_linter.
+test_that("is_true()/is_false()", {
+  expect_identical(
+    is_true(c(TRUE, FALSE, NA)),
+    c(TRUE, FALSE, FALSE)
+  )
+
+  expect_identical(
+    is_false(c(TRUE, FALSE, NA)),
+    c(FALSE, TRUE, FALSE)
+  )
+
+  expect_identical(is_true(1:10), rep(NA, 10))
+  expect_identical(is_false(1:10), rep(NA, 10))
+})
+
+test_that("logic gates works", {
+  x <- rep(c(TRUE, FALSE, NA), 4)
+  y <- rep(c(FALSE, TRUE, NA), each = 4)
+
+  expect_identical(
+    nor(x, y),
+    !((x & y) | xor(x, y) | x | y)
+  )
+
+  expect_identical(
+    nand(x, y),
+    (!x & !y) | (!x & (y | is.na(y))) | ((x | is.na(x)) & !y)
+  )
+
+  expect_identical(
+    xnandr(x, y),
+    (x & y) | (!x & !y)
+  )
+})
+
+test_that("either() works", {
+  x <- c(TRUE, NA, FALSE, FALSE)
+  y <- c(TRUE, TRUE, FALSE, NA)
+
+  res <- either(x, y)
+  exp <- c(TRUE, TRUE, FALSE, FALSE)
+  expect_identical(res, exp)
+})
+
+test_that("none() works", {
+  x <- c(FALSE, FALSE, NA)
+  expect_identical(none(x), NA)
+  expect_true(none(x, na.rm = TRUE))
+
+  x <- c(TRUE, NA)
+  expect_false(none(x))
+  expect_false(none(x, na.rm = TRUE))
+})
+
+test_that("logical helpers", {
+  expect_error(apply_logical_matrix(1L, mean, TRUE), class = "mark:input_error")
+  expect_error(
+    apply_logical_matrix(matrix("a"), mean, TRUE),
+    class = "mark:input_error"
+  )
+  expect_error(
+    apply_logical_matrix(matrix(3L), mean, TRUE),
+    class = "mark:input_error"
+  )
+})

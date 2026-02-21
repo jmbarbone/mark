@@ -99,7 +99,7 @@ str_extract_date <- function(x, format = "%Y-%m-%d") {
 str_extract_datetime <- function(x, format = "%Y-%m-%d %H%M%S") {
   frex <- format_to_regex(format)
   text <- string_extract(x, frex, ignore.case = TRUE)
-  capply(text, function(x) strptime(x, format = format, tz = ""))
+  capply(text, \(x) strptime(x, format = format, tz = ""))
 }
 
 # nolint next: object_name_linter.

@@ -6,7 +6,7 @@
 #'   [utils::writeClipboard()] they are only available for Windows 10. For
 #'   copying and pasting floats, there may be some rounding that can occur.
 #'
-#' @param x An object
+#' @param x An object to write to the clipboard
 #' @param method Method switch for loading the clipboard
 #' @param ... Additional arguments sent to methods or to [utils::write.table()]
 #'
@@ -19,26 +19,25 @@
 #' @name clipboard
 #' @examples
 #' # Will only run on windows
-#' if (Sys.info()[["sysname"]] == "Windows") {
-#'   foo <- function(x) {
-#'     write_clipboard(x)
-#'     y <- read_clipboard()
-#'     res <- all.equal(x, y)
-#'     if (isTRUE(res)) return("All equal")
-#'     print(x)
-#'     print(y)
-#'   }
-#'   foo(1:4)
-#'   foo(seq(-1, 1, .02))
-#'   foo(Sys.Date() + 1:4)
-#'
-#'   # May have some rounding issues
-#'   x <- "0.316362437326461129"
+#' foo <- function(x) {
 #'   write_clipboard(x)
-#'   res <- as.character(read_clipboard())
-#'   all.equal(x, res)
-#'   x; res
+#'   y <- read_clipboard()
+#'   res <- all.equal(x, y)
+#'   if (isTRUE(res)) return("All equal")
+#'   print(x)
+#'   print(y)
 #' }
+#'
+#' foo(1:4)
+#' foo(seq(-1, 1, .02))
+#' foo(Sys.Date() + 1:4)
+#'
+#' # May have some rounding issues
+#' x <- "0.316362437326461129"
+#' write_clipboard(x)
+#' res <- as.character(read_clipboard())
+#' all.equal(x, res)
+#' x; res
 
 # nocov start
 
@@ -88,7 +87,7 @@ write_clipboard.list <- function(x, sep = "\t", ...) {
 #' @rdname clipboard
 read_clipboard <- function(method = read_clipboard_methods(), ...) {
   fuj::require_namespace("clipr")
-  switch(
+  res <- switch(
     match_param(method),
     default = type_convert2(clipr_read_clip(TRUE)),
     tibble = ,
@@ -101,18 +100,15 @@ read_clipboard <- function(method = read_clipboard_methods(), ...) {
     bsv = ,
     psv = read_clipboard("data.frame", sep = "|", ...),
     tsv = read_clipboard("data.frame", sep = "\t", ...),
-    md = {
-      fuj::require_namespace("readMDTable")
-      temp <- fs::file_temp()
-      on.exit(fs::file_delete(temp), add = TRUE)
-      writeLines(read_clipboard(), temp)
-      params <- list0(...)
-      params$file <- temp
-      params$show_col_types <- params$show_col_types %||% FALSE
-      params$col_types <- params$col_types %||% list(.default = "character")
-      type_convert2(do.call(readMDTable::read_md_table, params))
-    }
+    markdown = ,
+    md = type_convert2(mark_read_md(I(read_clipboard())))
   )
+
+  if (inherits(res, "data.frame")) {
+    tibble(res)
+  } else {
+    res
+  }
 }
 
 clipr_read_clip <- function(...) {
@@ -152,6 +148,7 @@ read_clipboard_methods <- function() {
     "bsv",
     "psv",
     "tsv",
+    "markdown",
     "md",
     NULL
   )
@@ -169,25 +166,19 @@ do_read_table_clipboard <- function(
   header = TRUE,
   # Copying form Excel produces tab separations
   sep = "\t",
-  # nolint next: object_name_linter.
-  row.names = NULL,
+  row.names = NULL, # nolint: object_name_linter.
   # Excel formula for NA produces #N/A -- sometimes people use N/A...
-  # nolint next: object_name_linter.
-  na.strings = c("", "NA", "N/A", "#N/A"),
-  # nolint next: object_name_linter.
-  check.names = FALSE,
-  # nolint next: object_name_linter.
-  stringsAsFactors = FALSE,
+  na.strings = c("", "NA", "N/A", "#N/A"), # nolint: object_name_linter.
+  check.names = FALSE, # nolint: object_name_linter.
+  stringsAsFactors = FALSE, # nolint: object_name_linter.
   encoding = "UTF-8",
   # occasionally "#' is used as a column name -- may cause issues
-  # nolint next: object_name_linter.
-  comment.char = "",
-  # nolint next: object_name_linter.
-  blank.lines.skip = FALSE,
+  comment.char = "", # nolint: object_name_linter.
+  blank.lines.skip = FALSE, # nolint: object_name_linter.
   fill = TRUE,
   ...
 ) {
-  res <- utils::read.table(
+  utils::read.table(
     file = textConnection(clipr_read_clip(TRUE)),
     header = header,
     sep = sep,
@@ -201,12 +192,6 @@ do_read_table_clipboard <- function(
     fill = fill,
     ...
   )
-
-  if (package_available("tibble")) {
-    tibble::as_tibble(res)
-  } else {
-    res
-  }
 }
 
 clear_clipboard <- function() {
@@ -256,4 +241,12 @@ type_convert2 <- function(x) {
   }
 
   res
+}
+
+tibble <- function(x) {
+  if (getOption("mark.tibble", TRUE) && package_available("tibble")) {
+    tibble::as_tibble(x)
+  } else {
+    x
+  }
 }

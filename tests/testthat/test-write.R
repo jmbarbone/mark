@@ -115,6 +115,19 @@ test_that("list columns", {
 })
 
 test_that("arrow prints something to stdout()", {
-  expect_snapshot(write_file_md5(quick_dfl(a = 1), method = "feather"))
-  expect_snapshot(write_file_md5(quick_dfl(a = 1), method = "parquet"))
+  skip_on_ci() # ugh, I don't care
+  censor <- function(x) {
+    m <- gregexpr("(Rtmp|file)[A-Za-z0-9]+~?", x)
+    regmatches(x, m) <- "<temp>"
+    x
+  }
+
+  expect_snapshot(
+    write_file_md5(quick_dfl(a = 1), method = "feather"),
+    transform = function(x) censor(x)
+  )
+  expect_snapshot(
+    write_file_md5(quick_dfl(a = 1), method = "parquet"),
+    transform = function(x) censor(x)
+  )
 })

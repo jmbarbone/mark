@@ -9,11 +9,15 @@
 \alias{is_false.default}
 \alias{is_false.logical}
 \alias{\%xor\%}
+\alias{nor}
+\alias{nand}
+\alias{xnandr}
 \alias{OR}
 \alias{AND}
 \alias{either}
 \alias{is_boolean}
 \alias{none}
+\alias{isNA}
 \title{Logic - Extensions}
 \usage{
 is_true(x)
@@ -30,6 +34,12 @@ is_false(x)
 
 x \%xor\% y
 
+nor(x, y)
+
+nand(x, y)
+
+xnandr(x, y)
+
 OR(..., na.rm = FALSE)
 
 AND(..., na.rm = FALSE)
@@ -39,10 +49,11 @@ either(x, y)
 is_boolean(x)
 
 none(..., na.rm = FALSE)
+
+isNA(x)
 }
 \arguments{
-\item{x, y}{A vector of logical values.  If \code{NULL} will generate a warning.
-If not a logical value, will return \code{NA} equal to the vector length}
+\item{x, y}{A vector of values.  \verb{\%xor}, \code{nor}, \code{nand}, and \code{xnandr}}
 
 \item{...}{Vectors or a list of logical values}
 
