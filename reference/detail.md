@@ -54,7 +54,7 @@ detail(df)
 #> 3 1   x fact; factor integer  <NA> 10  0          1          1     c       1
 #> 4 1   x fact; factor integer  <NA> 10  0          1          1     d       3
 #> 5 2   y      numeric  double  <NA> 10  0       0.07       0.83  <NA>      NA
-#> 6 3   z         Date  double  <NA> 10  0 2026-02-18 2026-05-21  <NA>      NA
+#> 6 3   z         Date  double  <NA> 10  0 2026-02-23 2026-05-26  <NA>      NA
 #>   note comment
 #> 1 <NA>    <NA>
 #> 2 <NA>    <NA>

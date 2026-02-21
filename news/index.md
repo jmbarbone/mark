@@ -35,6 +35,16 @@
   cause hashes created prior to *change*
 - [mark](https://CRAN.R-project.org/package=mark)’s title has been
   updated
+- `write_file_md5(method = "feather")`,
+  `write_file_md5(method = "parquet")` now use
+  [feather](https://github.com/wesm/feather) and
+  [nanoparquet](https://github.com/r-lib/nanoparquet), respectively,
+  rather than [arrow](https://github.com/apache/arrow/)
+  [\#245](https://github.com/jmbarbone/mark/issues/245)
+- `read_clipboard("md")` no longer needs `{readMdTable}`
+- `read_clibpboard()` will always return a `tibble` if
+  [tibble](https://tibble.tidyverse.org/) is available (this can be
+  turned off if `options(mark.tibble = FALSE)`)
 
 ## mark 0.8.3
 

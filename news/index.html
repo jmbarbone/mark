@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">mark</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.3.9006</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.3.9007</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,7 +29,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/jmbarbone/mark/blob/v0.8.3.9006/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/jmbarbone/mark/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
     <div class="section level2">
@@ -61,6 +61,14 @@
 </li>
 <li>
 <a href="https://CRAN.R-project.org/package=mark" class="external-link">mark</a>’s title has been updated</li>
+<li>
+<code>write_file_md5(method = "feather")</code>, <code>write_file_md5(method = "parquet")</code> now use <a href="https://github.com/wesm/feather" class="external-link">feather</a> and <a href="https://github.com/r-lib/nanoparquet" class="external-link">nanoparquet</a>, respectively, rather than <a href="https://github.com/apache/arrow/" class="external-link">arrow</a> <a href="https://github.com/jmbarbone/mark/issues/245" class="external-link">#245</a>
+</li>
+<li>
+<code>read_clipboard("md")</code> no longer needs <code>{readMdTable}</code>
+</li>
+<li>
+<code>read_clibpboard()</code> will always return a <code>tibble</code> if <a href="https://tibble.tidyverse.org/" class="external-link">tibble</a> is available (this can be turned off if <code>options(mark.tibble = FALSE)</code>)</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.8.3" id="mark-083">mark 0.8.3<a class="anchor" aria-label="anchor" href="#mark-083"></a></h2><p class="text-muted">CRAN release: 2025-04-23</p>

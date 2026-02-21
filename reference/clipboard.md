@@ -28,7 +28,7 @@ read_clipboard_methods()
 
 - x:
 
-  An object
+  An object to write to the clipboard
 
 - ...:
 
@@ -53,41 +53,44 @@ read_clipboard_methods()
 ## Value
 
 `write_clipboard()` None, called for side effects `read_clipboard()`
-Either a vector, `data.frame`, or `tibble` depending on the `method`
-chosen. Unlike
-[`utils::readClipboard()`](https://rdrr.io/r/utils/clipboard.html), an
-empty clipboard value returns `NA` rather than `""`
+Either a vector or `data.frame` (or `tibble`, if depending on the
+`method` chosen. An empty clipboard value returns `NA` (rather than
+`""`)
 
 ## Details
 
-As these functions rely on
-[`clipr::read_clip()`](http://matthewlincoln.net/clipr/reference/read_clip.md)
-and [`utils::writeClipboard()`](https://rdrr.io/r/utils/clipboard.html)
-they are only available for Windows 10. For copying and pasting floats,
-there may be some rounding that can occur.
+For copying and pasting floats, there may be some rounding that can
+occur.
 
 ## Examples
 
 ``` r
 # Will only run on windows
-if (Sys.info()[["sysname"]] == "Windows") {
-  foo <- function(x) {
-    write_clipboard(x)
-    y <- read_clipboard()
-    res <- all.equal(x, y)
-    if (isTRUE(res)) return("All equal")
-    print(x)
-    print(y)
-  }
-  foo(1:4)
-  foo(seq(-1, 1, .02))
-  foo(Sys.Date() + 1:4)
-
-  # May have some rounding issues
-  x <- "0.316362437326461129"
+foo <- function(x) {
   write_clipboard(x)
-  res <- as.character(read_clipboard())
-  all.equal(x, res)
-  x; res
+  y <- read_clipboard()
+  res <- all.equal(x, y)
+  if (isTRUE(res)) return("All equal")
+  print(x)
+  print(y)
 }
+
+foo(1:4)
+#> Error: Clipboard on X11 requires 'xclip' (recommended) or 'xsel'; Clipboard on Wayland requires 'wl-copy' and 'wl-paste'.
+foo(seq(-1, 1, .02))
+#> Error: Clipboard on X11 requires 'xclip' (recommended) or 'xsel'; Clipboard on Wayland requires 'wl-copy' and 'wl-paste'.
+foo(Sys.Date() + 1:4)
+#> Error: Clipboard on X11 requires 'xclip' (recommended) or 'xsel'; Clipboard on Wayland requires 'wl-copy' and 'wl-paste'.
+
+# May have some rounding issues
+x <- "0.316362437326461129"
+write_clipboard(x)
+#> Error: Clipboard on X11 requires 'xclip' (recommended) or 'xsel'; Clipboard on Wayland requires 'wl-copy' and 'wl-paste'.
+res <- as.character(read_clipboard())
+#> Error: Clipboard on X11 requires 'xclip' (recommended) or 'xsel'; Clipboard on Wayland requires 'wl-copy' and 'wl-paste'.
+all.equal(x, res)
+#> Error: object 'res' not found
+x; res
+#> [1] "0.316362437326461129"
+#> Error: object 'res' not found
 ```

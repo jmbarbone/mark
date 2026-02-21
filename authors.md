@@ -8,15 +8,15 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/jmbarbone/mark/blob/v0.8.3.9006/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/jmbarbone/mark/blob/main/DESCRIPTION)
 
 Barbone J (2026). *mark: Multipurpose Aids for R Kit*. R package version
-0.8.3.9006, <https://CRAN.R-project.org/package=mark>.
+0.8.3.9007, <https://CRAN.R-project.org/package=mark>.
 
     @Manual{,
       title = {mark: Multipurpose Aids for R Kit},
       author = {Jordan Mark Barbone},
       year = {2026},
-      note = {R package version 0.8.3.9006},
+      note = {R package version 0.8.3.9007},
       url = {https://CRAN.R-project.org/package=mark},
     }
