@@ -1,6 +1,6 @@
 test_that("find_author() works", {
   withr::local_options(list(mark.author = NULL))
-  expect_error(find_author(), class = "mark:value_error")
+  expect_error(find_author(), class = "value_error")
 })
 
 test_that("use_author() works", {
@@ -46,6 +46,6 @@ test_that("use_author() works", {
 
   writeLines(original, "DESCRIPTION")
 
-  expect_error(use_author(NULL), class = "mark:type_error")
-  expect_error(use_author(person()), class = "mark:type_error")
+  expect_error(use_author(NULL), class = "type_error")
+  expect_error(use_author(person()), class = "type_error")
 })

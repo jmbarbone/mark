@@ -26,8 +26,8 @@ test_that("base_n() works as expected", {
 })
 
 test_that("base_alpha(), base_n() fails", {
-  expect_error(base_alpha(1), class = "mark:class_error")
-  expect_error(base_n("a"), class = "mark:class_error")
+  expect_error(base_alpha(1), class = "class_error")
+  expect_error(base_n("a"), class = "class_error")
   expect_error(base_n(1, 10, 12), class = "mark:base_conversion_error")
 })
 

@@ -30,7 +30,7 @@ test_that("between_more() works", {
   res <- c(FALSE, TRUE, TRUE, FALSE, FALSE)
   expect_identical(between_more(x, left, right), res)
 
-  expect_warning(between_more(1:2, 3, 2), class = "mark:input_warning")
+  expect_warning(between_more(1:2, 3, 2), class = "input_warning")
 })
 
 
@@ -63,5 +63,5 @@ test_that("within()", {
 
   expect_identical(within(x), x)
 
-  expect_warning(within(1:2, 3, 2), class = "mark:input_warning")
+  expect_warning(within(1:2, 3, 2), class = "input_warning")
 })

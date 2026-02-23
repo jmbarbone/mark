@@ -9,5 +9,5 @@ test_that("checkOptions() works", {
   expect_identical(getOption("mark.test.option2"), 2L)
 
   expect_error(checkOptions(1), info = "is.list(x)")
-  expect_error(checkOptions(list(1)), class = "mark:input_error")
+  expect_error(checkOptions(list(1)), class = "input_error")
 })

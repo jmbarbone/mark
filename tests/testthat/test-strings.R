@@ -24,7 +24,7 @@ test_that("string slices", {
   )
 
   xx <- c(x, x)
-  expect_error(str_slice_by_word(xx, 80), class = "mark:input_error")
+  expect_error(str_slice_by_word(xx, 80), class = "input_error")
 })
 
 # Better outputs

@@ -29,8 +29,8 @@ test_that("to_row_names()", {
 
 
 test_that("col_to_rn()", {
-  expect_error(to_row_names(data.frame(), 1:2), class = "mark:input_error")
-  expect_error(to_row_names(data.frame(), NA), class = "mark:input_error")
+  expect_error(to_row_names(data.frame(), 1:2), class = "input_error")
+  expect_error(to_row_names(data.frame(), NA), class = "input_error")
 })
 
 test_that("vector2df()", {
@@ -42,7 +42,7 @@ test_that("vector2df()", {
   expect_equal(vector2df(set_names(x)), df)
   expect_named(vector2df(x, "one", "two"), c("one", "two"))
 
-  expect_error(vector2df(list(a = 1)), class = "mark:class_error")
+  expect_error(vector2df(list(a = 1)), class = "class_error")
 })
 
 test_that("list2df()", {
@@ -67,7 +67,7 @@ test_that("list2df()", {
   res <- quick_dfl(name = c("a", 2, 3), value = c(1, 0, 2))
   expect_equal(list2df(x), res)
 
-  expect_error(list2df(1), class = "mark:class_error")
+  expect_error(list2df(1), class = "class_error")
 
   # Not sure this will continue to be the case
   expect_identical(quick_df(NULL), data.frame())

@@ -56,7 +56,7 @@ test_that("reindex() work", {
   reindex(iris1, "index", seq(2, 8, 2))
   reindex(iris1, "index", seq(2, 8, 2), expand = "both")
 
-  expect_error(reindex(1), class = "mark:class_error")
+  expect_error(reindex(1), class = "class_error")
   expect_error(
     reindex(quick_dfl(a = 1), index = integer()),
     class = if (getRversion() >= "4.5") "missingArgError" else "simpleError",

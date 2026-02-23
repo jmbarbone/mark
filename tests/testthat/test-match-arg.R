@@ -46,7 +46,7 @@ test_that("match_param() works", {
     match_param(x, null = null)
   }
 
-  expect_error(foo(NULL), class = "mark:input_error")
+  expect_error(foo(NULL), class = "input_error")
   expect_null(foo(NULL, null = TRUE))
 })
 
@@ -115,11 +115,11 @@ test_that("match_param() accepts formula lists", {
 test_that("match_param() finds duplicate choices", {
   expect_error(
     match_param("a", c("a", "a")),
-    class = "mark:input_error"
+    class = "input_error"
   )
 
   expect_error(
     match_param(1, c(a = 1:2, b = 3:4, c = c(1, 3))),
-    class = "mark:input_error"
+    class = "input_error"
   )
 })

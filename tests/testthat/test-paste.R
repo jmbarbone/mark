@@ -44,7 +44,7 @@ test_that("paste_combine() works", {
 })
 
 test_that("paste_combine() fails", {
-  expect_error(paste_combine(1), class = "mark:input_error")
+  expect_error(paste_combine(1), class = "input_error")
 })
 
 test_that("collapse0()", {

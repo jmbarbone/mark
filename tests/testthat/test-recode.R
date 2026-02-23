@@ -36,8 +36,8 @@ test_that("clean_na_coercion() works", {
 })
 
 test_that("errors", {
-  expect_error(recode_by(1, 1), class = "mark:input_error")
-  expect_error(recode_only(1, 1), class = "mark:input_error")
+  expect_error(recode_by(1, 1), class = "input_error")
+  expect_error(recode_only(1, 1), class = "input_error")
 })
 
 test_that("single value", {

@@ -46,10 +46,10 @@ test_that("tests with temp dir", {
 
 # fmt: skip
 test_that("errors", {
-  expect_error(is_file(NULL),        class = "mark:input_error")
-  expect_error(is_file(character()), class = "mark:input_error")
-  expect_error(is_file(TRUE),        class = "mark:input_error")
-  expect_error(is_dir(NULL),         class = "mark:input_error")
-  expect_error(is_dir(character()),  class = "mark:input_error")
-  expect_error(is_dir(TRUE),         class = "mark:input_error")
+  expect_error(is_file(NULL),        class = "input_error")
+  expect_error(is_file(character()), class = "input_error")
+  expect_error(is_file(TRUE),        class = "input_error")
+  expect_error(is_dir(NULL),         class = "input_error")
+  expect_error(is_dir(character()),  class = "input_error")
+  expect_error(is_dir(TRUE),         class = "input_error")
 })

@@ -16,8 +16,8 @@ test_that("read_bib()", {
   writeLines("bad", temp)
   expect_error(read_bib(temp), class = "mark:bib_error")
 
-  expect_error(as_bib(1:3), class = "mark:class_error")
-  expect_error(as_bib_list(1:3), class = "mark:type_error")
+  expect_error(as_bib(1:3), class = "class_error")
+  expect_error(as_bib_list(1:3), class = "type_error")
 
   expect_error(
     process_bib_dataframe(

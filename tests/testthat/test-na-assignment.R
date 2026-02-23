@@ -14,7 +14,7 @@ test_that("NA_at() and NA_if() work as expected", {
   expect_equal(NA_if(-1:3, foo), c(-1, 0, NA, NA, NA))
 
   # y cannot be longer than x
-  expect_error(NA_at(x, 1:10), class = "mark:value_error")
+  expect_error(NA_at(x, 1:10), class = "value_error")
 
   res <- NA_at(1:4, function(i) which(i %% 2 == 0))
   exp <- c(1L, NA, 3L, NA)
