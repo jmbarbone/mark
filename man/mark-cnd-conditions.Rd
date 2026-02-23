@@ -6,7 +6,6 @@
 \alias{mark:assign_labels_error}
 \alias{mark:base_conversion_error}
 \alias{mark:bib_error}
-\alias{mark:class_error}
 \alias{mark:default_tz_value}
 \alias{mark:description_version_error}
 \alias{mark:diff_time_error}
@@ -15,8 +14,6 @@
 \alias{mark:expand_by_warning}
 \alias{mark:fct_expand_seq_error}
 \alias{mark:import_error}
-\alias{mark:input_error}
-\alias{mark:input_warning}
 \alias{mark:internal_error}
 \alias{mark:list2df_warning}
 \alias{mark:match_arg_no_match}
@@ -35,15 +32,11 @@
 \alias{mark:source_error}
 \alias{mark:switch_error}
 \alias{mark:timezone_not_found}
-\alias{mark:type_error}
-\alias{mark:value_error}
-\alias{mark:value_warning}
 \alias{mark:view_labels_error}
 \alias{append_warning}
 \alias{assign_labels_error}
 \alias{base_conversion_error}
 \alias{bib_error}
-\alias{class_error}
 \alias{default_tz_value}
 \alias{description_version_error}
 \alias{diff_time_error}
@@ -52,8 +45,6 @@
 \alias{expand_by_warning}
 \alias{fct_expand_seq_error}
 \alias{import_error}
-\alias{input_error}
-\alias{input_warning}
 \alias{internal_error}
 \alias{list2df_warning}
 \alias{match_arg_no_match}
@@ -72,15 +63,11 @@
 \alias{source_error}
 \alias{switch_error}
 \alias{timezone_not_found}
-\alias{type_error}
-\alias{value_error}
-\alias{value_warning}
 \alias{view_labels_error}
 \alias{mark:append_warning/warning}
 \alias{mark:assign_labels_error/error}
 \alias{mark:base_conversion_error/error}
 \alias{mark:bib_error/error}
-\alias{mark:class_error/error}
 \alias{mark:default_tz_value/error}
 \alias{mark:description_version_error/error}
 \alias{mark:diff_time_error/error}
@@ -89,8 +76,6 @@
 \alias{mark:expand_by_warning/warning}
 \alias{mark:fct_expand_seq_error/error}
 \alias{mark:import_error/error}
-\alias{mark:input_error/error}
-\alias{mark:input_warning/warning}
 \alias{mark:internal_error/error}
 \alias{mark:list2df_warning/warning}
 \alias{mark:match_arg_no_match/error}
@@ -109,9 +94,6 @@
 \alias{mark:source_error/error}
 \alias{mark:switch_error/condition}
 \alias{mark:timezone_not_found/error}
-\alias{mark:type_error/error}
-\alias{mark:value_error/error}
-\alias{mark:value_warning/warning}
 \alias{mark:view_labels_error/error}
 \title{Conditions for \code{mark}}
 \description{
@@ -186,14 +168,6 @@ df <- remove_labels(df, 'b')
 \item{type}{\strong{error}}
 }
 \emph{no help documentation provided}
-}
-\subsection{\code{mark:class_error/error}}{
-\describe{
-\item{package}{\code{{mark}}}
-\item{class}{\code{mark:class_error}}
-\item{type}{\strong{error}}
-}
-Generic error to indicate a class mismatch.
 }
 \subsection{\code{mark:default_tz_value/error}}{
 \describe{
@@ -270,22 +244,6 @@ foo <- NULL
 import('package', 'foo', overwrite = TRUE)
 }\if{html}{\out{</div>}}
 
-}
-\subsection{\code{mark:input_error/error}}{
-\describe{
-\item{package}{\code{{mark}}}
-\item{class}{\code{mark:input_error}}
-\item{type}{\strong{error}}
-}
-Generic error to indicate a bad input value.
-}
-\subsection{\code{mark:input_warning/warning}}{
-\describe{
-\item{package}{\code{{mark}}}
-\item{class}{\code{mark:input_warning}}
-\item{type}{\strong{warning}}
-}
-Generic warning to indicate a bad input value.
 }
 \subsection{\code{mark:internal_error/error}}{
 \describe{
@@ -458,30 +416,6 @@ reindex(x, 'index', c(1, 2, 5, NA))
 \item{type}{\strong{error}}
 }
 When using a string for a timezone, this value must be found within \code{OlsonNames()}
-}
-\subsection{\code{mark:type_error/error}}{
-\describe{
-\item{package}{\code{{mark}}}
-\item{class}{\code{mark:type_error}}
-\item{type}{\strong{error}}
-}
-Generic error to indicate a type mismatch.
-}
-\subsection{\code{mark:value_error/error}}{
-\describe{
-\item{package}{\code{{mark}}}
-\item{class}{\code{mark:value_error}}
-\item{type}{\strong{error}}
-}
-Generic error to indicate a value mismatch.
-}
-\subsection{\code{mark:value_warning/warning}}{
-\describe{
-\item{package}{\code{{mark}}}
-\item{class}{\code{mark:value_warning}}
-\item{type}{\strong{warning}}
-}
-Generic warning to indicate a value mismatch.
 }
 \subsection{\code{mark:view_labels_error/error}}{
 \describe{
