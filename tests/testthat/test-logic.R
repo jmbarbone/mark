@@ -1,7 +1,6 @@
-# nolint start: spaces_inside_linter.
-
 # fmt: skip
 test_that("Logical extension work", {
+  # nolint start: spaces_inside_linter.
   x <- c(TRUE, TRUE,  TRUE,  FALSE, FALSE, FALSE, NA,   NA,    NA)
   y <- c(TRUE, FALSE, NA,    TRUE,  FALSE, NA,    TRUE, FALSE, NA)
   z <- c(TRUE, TRUE,  FALSE, FALSE, NA,    NA,    TRUE, FALSE, NA)
@@ -56,6 +55,7 @@ test_that("Logical extension work", {
 
   expect_equal(OR(x, y,    na.rm = TRUE), res_xy_or_na)
   expect_equal(OR(x, y, z, na.rm = TRUE), res_xyz_or_na)
+  # nolint end: spaces_inside_linter.
 })
 
 test_that("logical helpers", {

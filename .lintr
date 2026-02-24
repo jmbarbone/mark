@@ -5,5 +5,6 @@ encoding: "UTF-8"
 exclusions: list(
   "tests/spelling.R",
   "R/array.R",
-  "R/time-report.R"
+  "R/time-report.R",
+  "R/mark-cnd-conditions.R"
   )
