@@ -100,7 +100,7 @@ extract_numeric_time <- function(x, tz) {
 
   if (is.null(tz)) {
     if (is.numeric(x)) {
-      stop(numeric_datetime_tz())
+      stop(numeric_datetime_tz_error())
     }
 
     gmt <- NULL
@@ -144,7 +144,7 @@ to_numeric_with_tz <- function(x, tz) {
   nas <- is.na(tz)
 
   if (any(nas)) {
-    warning(na_timezone_found())
+    warning(na_timezone_found_warning())
     tz[nas] <- default_tz()
   }
 
@@ -179,7 +179,7 @@ check_tz <- function(x) {
   bad <- ux %out% OlsonNames()
 
   if (any(bad)) {
-    stop(timezone_not_found(ux[bad]))
+    stop(timezone_not_found_error(ux[bad]))
   }
 
   invisible(NULL)
@@ -350,35 +350,7 @@ sys_tz <- function(method = 1) {
 
 # TODO too many different condititons -- simplify
 
-diff_time_error := condition(
-  function(s) {
-    switch(
-      s,
-      tz_null = "Date times cannot be numeric when tz is NULL",
-    )
-  },
-  type = "error",
-  classes = "type_error",
-  exports = "diff_time"
-)
-
-diff_time_warning := condition(
-  function(s) {
-    switch(
-      s,
-      na_tz = paste(
-        "NA found in timezones; setting to default timezone:",
-        default_tz()
-      ),
-      stop(internal_error())
-    )
-  },
-  type = "warning",
-  classes = "value_warning",
-  exports = "diff_time"
-)
-
-numeric_datetime_tz := condition(
+numeric_datetime_tz_error := condition(
   "Date times cannot be numeric when tz is NULL",
   type = "error",
   exports = "diff_time",
@@ -395,7 +367,7 @@ diff_time(100, 200, tz = 0)
 ```"
 )
 
-na_timezone_found := condition(
+na_timezone_found_warning := condition(
   function() {
     paste("NA found in timezones; setting to default timezone:", default_tz())
   },
@@ -404,7 +376,7 @@ na_timezone_found := condition(
   exports = "diff_time"
 )
 
-timezone_not_found := condition(
+timezone_not_found_error := condition(
   function(x) paste0("Timezone(s) not found: ", collapse(x, sep = ", "), "\n"),
   type = "error",
   exports = "diff_time",
@@ -412,18 +384,5 @@ timezone_not_found := condition(
   help = c(
     "When using a string for a timezone, this value must be found within",
     " `OlsonNames()`"
-  )
-)
-
-default_tz_value := condition(
-  "Invalid value for default timezone",
-  type = "error",
-  classes = "value_error",
-  exports = "diff_time",
-  help = c(
-    "option(mark.default_tz) must be a character vector of length 1L,",
-    " a function that returns a character vector of length 1L,",
-    " NULL (defaults to UTC),",
-    ' or "system" to set to system timezone'
   )
 )
