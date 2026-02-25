@@ -200,9 +200,10 @@ options_error := condition(
     switch(
       x,
       interactive = "mark.check_interactive must be TRUE, FALSE, or NA",
-      stop("something went wrong, bad value: ", x)
+      stop(internal_error(paste("bad value:", x)))
     )
   },
+  classes = "value_error",
   type = "error"
 )
 
@@ -258,5 +259,6 @@ duplicate_error := condition(
       " more"
     )
   },
+  classes = "value_error",
   type = "error"
 )

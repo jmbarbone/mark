@@ -289,5 +289,6 @@ switch_error := condition(
       result = "results must be of length 1L",
       stop(internal_error()),
     )
-  }
+  },
+  classes = "input_error"
 )

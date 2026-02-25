@@ -491,6 +491,7 @@ add_file_timestamp <- function(
 path_error := condition(
   "No recent file found",
   type = "error",
+  classes = "value_error",
   exports = "get_recent_file"
 )
 
@@ -522,6 +523,7 @@ path_warning := condition(
     )
   },
   type = "warning",
+  classes = "value_warning",
   exports = c("get_recent_file", "norm_path"),
   help = {
     "File creation cannot be performed when the path is an existing directory"

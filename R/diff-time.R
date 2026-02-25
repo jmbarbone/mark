@@ -358,6 +358,7 @@ diff_time_error := condition(
     )
   },
   type = "error",
+  classes = "type_error",
   exports = "diff_time"
 )
 
@@ -373,6 +374,7 @@ diff_time_warning := condition(
     )
   },
   type = "warning",
+  classes = "value_warning",
   exports = "diff_time"
 )
 
@@ -380,6 +382,7 @@ numeric_datetime_tz := condition(
   "Date times cannot be numeric when tz is NULL",
   type = "error",
   exports = "diff_time",
+  classes = "type_error",
   help = "```r
 # Instead of this:
 diff_time(100, 200, tz = NULL)
@@ -397,6 +400,7 @@ na_timezone_found := condition(
     paste("NA found in timezones; setting to default timezone:", default_tz())
   },
   type = "warning",
+  classes = "value_warning",
   exports = "diff_time"
 )
 
@@ -404,6 +408,7 @@ timezone_not_found := condition(
   function(x) paste0("Timezone(s) not found: ", collapse(x, sep = ", "), "\n"),
   type = "error",
   exports = "diff_time",
+  classes = "value_error",
   help = c(
     "When using a string for a timezone, this value must be found within",
     " `OlsonNames()`"
@@ -413,6 +418,7 @@ timezone_not_found := condition(
 default_tz_value := condition(
   "Invalid value for default timezone",
   type = "error",
+  classes = "value_error",
   exports = "diff_time",
   help = c(
     "option(mark.default_tz) must be a character vector of length 1L,",

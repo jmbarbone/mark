@@ -206,6 +206,7 @@ reindex(x, 'index', c(1, 2, 5, NA))
 reindex_error := condition(
   "x[[index]] returned `NULL`",
   type = "error",
+  classes = "value_error",
   exports = "reindex"
 )
 

@@ -317,5 +317,6 @@ bib_error := condition(
     )
   },
   type = "error",
+  classes = "value_error",
   exports = "read_bib"
 )
