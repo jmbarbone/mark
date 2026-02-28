@@ -93,10 +93,3 @@ do_percentile_rank <- function(u, w) {
   out[ok] <- res
   out
 }
-
-# conditions --------------------------------------------------------------
-
-percentile_rank_weights_length := condition(
-  message = "length(weights) must be 1L or equal to length(x)",
-  type = "error"
-)
