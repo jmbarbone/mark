@@ -16,7 +16,7 @@ file_copy_md5 <- function(path, new_path, overwrite = NA, quiet = FALSE) {
   } else if (utils::packageVersion("fuj") < "0.2.2") {
     function(...) cat(..., "\n")
   } else {
-    function(...) cnd(md5_status(.makeMessage(...)))
+    function(...) cnd(md5_condition(...))
   }
 
   # not as pretty, but pretty reasonable
@@ -50,7 +50,7 @@ file_copy_md5 <- function(path, new_path, overwrite = NA, quiet = FALSE) {
   invisible(new_path)
 }
 
-md5_status := condition(
-  function(x) x,
+md5_condition := condition(
+  function(...) paste(..., collapse = ""),
   exports = "file_copy_md5"
 )

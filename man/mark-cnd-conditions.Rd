@@ -13,16 +13,15 @@
 \alias{mark:import_error}
 \alias{mark:internal_error}
 \alias{mark:list2df_warning}
-\alias{mark:match_arg_no_match}
+\alias{mark:match_arg_error}
 \alias{mark:match_param_error}
-\alias{mark:md5_status}
+\alias{mark:md5_condition}
 \alias{mark:na_timezone_found_warning}
 \alias{mark:not_available_error}
 \alias{mark:numeric_datetime_tz_error}
 \alias{mark:options_error}
 \alias{mark:path_error}
 \alias{mark:path_warning}
-\alias{mark:percentile_rank_weights_length}
 \alias{mark:reindex_error}
 \alias{mark:reindex_warning}
 \alias{mark:remove_labels_error}
@@ -41,16 +40,15 @@
 \alias{import_error}
 \alias{internal_error}
 \alias{list2df_warning}
-\alias{match_arg_no_match}
+\alias{match_arg_error}
 \alias{match_param_error}
-\alias{md5_status}
+\alias{md5_condition}
 \alias{na_timezone_found_warning}
 \alias{not_available_error}
 \alias{numeric_datetime_tz_error}
 \alias{options_error}
 \alias{path_error}
 \alias{path_warning}
-\alias{percentile_rank_weights_length}
 \alias{reindex_error}
 \alias{reindex_warning}
 \alias{remove_labels_error}
@@ -69,16 +67,15 @@
 \alias{mark:import_error/error}
 \alias{mark:internal_error/error}
 \alias{mark:list2df_warning/warning}
-\alias{mark:match_arg_no_match/error}
+\alias{mark:match_arg_error/error}
 \alias{mark:match_param_error/error}
-\alias{mark:md5_status/condition}
+\alias{mark:md5_condition/condition}
 \alias{mark:na_timezone_found_warning/warning}
 \alias{mark:not_available_error/error}
 \alias{mark:numeric_datetime_tz_error/error}
 \alias{mark:options_error/error}
 \alias{mark:path_error/error}
 \alias{mark:path_warning/warning}
-\alias{mark:percentile_rank_weights_length/error}
 \alias{mark:reindex_error/error}
 \alias{mark:reindex_warning/warning}
 \alias{mark:remove_labels_error/error}
@@ -228,10 +225,10 @@ Generic error to capture internal \code{{mark}} errors.  If any of these are enc
 }
 \emph{no help documentation provided}
 }
-\subsection{\code{mark:match_arg_no_match/error}}{
+\subsection{\code{mark:match_arg_error/error}}{
 \describe{
 \item{package}{\code{{mark}}}
-\item{class}{\code{mark:match_arg_no_match}}
+\item{class}{\code{mark:match_arg_error}}
 \item{type}{\strong{error}}
 }
 \emph{no help documentation provided}
@@ -244,10 +241,10 @@ Generic error to capture internal \code{{mark}} errors.  If any of these are enc
 }
 \emph{no help documentation provided}
 }
-\subsection{\code{mark:md5_status/condition}}{
+\subsection{\code{mark:md5_condition/condition}}{
 \describe{
 \item{package}{\code{{mark}}}
-\item{class}{\code{mark:md5_status}}
+\item{class}{\code{mark:md5_condition}}
 \item{type}{\strong{condition}}
 }
 \emph{no help documentation provided}
@@ -309,14 +306,6 @@ diff_time(100, 200, tz = 0)
 \item{type}{\strong{warning}}
 }
 File creation cannot be performed when the path is an existing directory
-}
-\subsection{\code{mark:percentile_rank_weights_length/error}}{
-\describe{
-\item{package}{\code{{mark}}}
-\item{class}{\code{mark:percentile_rank_weights_length}}
-\item{type}{\strong{error}}
-}
-\emph{no help documentation provided}
 }
 \subsection{\code{mark:reindex_error/error}}{
 \describe{

@@ -10,18 +10,18 @@ muffle_cnd_conditions(test_that("file_copy_md5() works", {
   # none of y exists
   expect_condition(
     file_copy_md5(x, y, overwrite = FALSE),
-    class = "mark:md5_status"
+    class = "mark:md5_condition"
   )
 
   expect_condition(
     file_copy_md5(x, y, overwrite = FALSE),
-    class = "mark:md5_status"
+    class = "mark:md5_condition"
   )
 
   # all of y exists
   expect_condition(
     file_copy_md5(x, y, overwrite = TRUE),
-    class = "mark:md5_status"
+    class = "mark:md5_condition"
   )
 
   # mix
@@ -33,7 +33,7 @@ muffle_cnd_conditions(test_that("file_copy_md5() works", {
       attr(file_copy_md5(x, y), "changed"),
       c(FALSE, TRUE, NA)
     ),
-    class = "mark:md5_status",
+    class = "mark:md5_condition",
     regexp = paste(
       "one",
       "md5 same",
