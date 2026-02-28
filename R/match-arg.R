@@ -30,7 +30,12 @@
 #' try(foo(1, 0))
 #' @export
 match_arg <- function(x, table) {
-  .Deprecated("match_param()")
+  warning(deprecated_warning(
+    deprecated = "mark::match_arg()",
+    replacement = "mark::match_param()",
+    version = "0.10.0"
+  ))
+
   if (is.null(x)) {
     return(NULL)
   }
@@ -45,7 +50,7 @@ match_arg <- function(x, table) {
 
   if (!length(out)) {
     csx <- as.character(substitute(x))
-    stop(match_arg_no_match(csx, x, table))
+    stop(match_arg_error(csx, x, table))
   }
 
   out
@@ -232,7 +237,7 @@ cleanup_param_list <- function(x) {
 # conditions --------------------------------------------------------------
 
 # TODO remove
-match_arg_no_match := condition(
+match_arg_error := condition(
   message = function(csx, x, table) {
     sprintf(
       "%s : '%s' did not match of of the following:\n   '%s'",
