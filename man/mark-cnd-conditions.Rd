@@ -6,10 +6,7 @@
 \alias{mark:assign_labels_error}
 \alias{mark:base_conversion_error}
 \alias{mark:bib_error}
-\alias{mark:default_tz_value}
 \alias{mark:description_version_error}
-\alias{mark:diff_time_error}
-\alias{mark:diff_time_warning}
 \alias{mark:duplicate_error}
 \alias{mark:expand_by_warning}
 \alias{mark:fct_expand_seq_error}
@@ -19,9 +16,9 @@
 \alias{mark:match_arg_no_match}
 \alias{mark:match_param_error}
 \alias{mark:md5_status}
-\alias{mark:na_timezone_found}
+\alias{mark:na_timezone_found_warning}
 \alias{mark:not_available_error}
-\alias{mark:numeric_datetime_tz}
+\alias{mark:numeric_datetime_tz_error}
 \alias{mark:options_error}
 \alias{mark:path_error}
 \alias{mark:path_warning}
@@ -31,16 +28,13 @@
 \alias{mark:remove_labels_error}
 \alias{mark:source_error}
 \alias{mark:switch_error}
-\alias{mark:timezone_not_found}
+\alias{mark:timezone_not_found_error}
 \alias{mark:view_labels_error}
 \alias{append_warning}
 \alias{assign_labels_error}
 \alias{base_conversion_error}
 \alias{bib_error}
-\alias{default_tz_value}
 \alias{description_version_error}
-\alias{diff_time_error}
-\alias{diff_time_warning}
 \alias{duplicate_error}
 \alias{expand_by_warning}
 \alias{fct_expand_seq_error}
@@ -50,9 +44,9 @@
 \alias{match_arg_no_match}
 \alias{match_param_error}
 \alias{md5_status}
-\alias{na_timezone_found}
+\alias{na_timezone_found_warning}
 \alias{not_available_error}
-\alias{numeric_datetime_tz}
+\alias{numeric_datetime_tz_error}
 \alias{options_error}
 \alias{path_error}
 \alias{path_warning}
@@ -62,16 +56,13 @@
 \alias{remove_labels_error}
 \alias{source_error}
 \alias{switch_error}
-\alias{timezone_not_found}
+\alias{timezone_not_found_error}
 \alias{view_labels_error}
 \alias{mark:append_warning/warning}
 \alias{mark:assign_labels_error/error}
 \alias{mark:base_conversion_error/error}
 \alias{mark:bib_error/error}
-\alias{mark:default_tz_value/error}
 \alias{mark:description_version_error/error}
-\alias{mark:diff_time_error/error}
-\alias{mark:diff_time_warning/warning}
 \alias{mark:duplicate_error/error}
 \alias{mark:expand_by_warning/warning}
 \alias{mark:fct_expand_seq_error/error}
@@ -81,9 +72,9 @@
 \alias{mark:match_arg_no_match/error}
 \alias{mark:match_param_error/error}
 \alias{mark:md5_status/condition}
-\alias{mark:na_timezone_found/warning}
+\alias{mark:na_timezone_found_warning/warning}
 \alias{mark:not_available_error/error}
-\alias{mark:numeric_datetime_tz/error}
+\alias{mark:numeric_datetime_tz_error/error}
 \alias{mark:options_error/error}
 \alias{mark:path_error/error}
 \alias{mark:path_warning/warning}
@@ -93,7 +84,7 @@
 \alias{mark:remove_labels_error/error}
 \alias{mark:source_error/error}
 \alias{mark:switch_error/condition}
-\alias{mark:timezone_not_found/error}
+\alias{mark:timezone_not_found_error/error}
 \alias{mark:view_labels_error/error}
 \title{Conditions for \code{mark}}
 \description{
@@ -169,35 +160,11 @@ df <- remove_labels(df, 'b')
 }
 \emph{no help documentation provided}
 }
-\subsection{\code{mark:default_tz_value/error}}{
-\describe{
-\item{package}{\code{{mark}}}
-\item{class}{\code{mark:default_tz_value}}
-\item{type}{\strong{error}}
-}
-option(mark.default_tz) must be a character vector of length 1L, a function that returns a character vector of length 1L, NULL (defaults to UTC), or "system" to set to system timezone
-}
 \subsection{\code{mark:description_version_error/error}}{
 \describe{
 \item{package}{\code{{mark}}}
 \item{class}{\code{mark:description_version_error}}
 \item{type}{\strong{error}}
-}
-\emph{no help documentation provided}
-}
-\subsection{\code{mark:diff_time_error/error}}{
-\describe{
-\item{package}{\code{{mark}}}
-\item{class}{\code{mark:diff_time_error}}
-\item{type}{\strong{error}}
-}
-\emph{no help documentation provided}
-}
-\subsection{\code{mark:diff_time_warning/warning}}{
-\describe{
-\item{package}{\code{{mark}}}
-\item{class}{\code{mark:diff_time_warning}}
-\item{type}{\strong{warning}}
 }
 \emph{no help documentation provided}
 }
@@ -285,10 +252,10 @@ Generic error to capture internal \code{{mark}} errors.  If any of these are enc
 }
 \emph{no help documentation provided}
 }
-\subsection{\code{mark:na_timezone_found/warning}}{
+\subsection{\code{mark:na_timezone_found_warning/warning}}{
 \describe{
 \item{package}{\code{{mark}}}
-\item{class}{\code{mark:na_timezone_found}}
+\item{class}{\code{mark:na_timezone_found_warning}}
 \item{type}{\strong{warning}}
 }
 \emph{no help documentation provided}
@@ -301,10 +268,10 @@ Generic error to capture internal \code{{mark}} errors.  If any of these are enc
 }
 \emph{no help documentation provided}
 }
-\subsection{\code{mark:numeric_datetime_tz/error}}{
+\subsection{\code{mark:numeric_datetime_tz_error/error}}{
 \describe{
 \item{package}{\code{{mark}}}
-\item{class}{\code{mark:numeric_datetime_tz}}
+\item{class}{\code{mark:numeric_datetime_tz_error}}
 \item{type}{\strong{error}}
 }
 
@@ -409,10 +376,10 @@ reindex(x, 'index', c(1, 2, 5, NA))
 }
 \emph{no help documentation provided}
 }
-\subsection{\code{mark:timezone_not_found/error}}{
+\subsection{\code{mark:timezone_not_found_error/error}}{
 \describe{
 \item{package}{\code{{mark}}}
-\item{class}{\code{mark:timezone_not_found}}
+\item{class}{\code{mark:timezone_not_found_error}}
 \item{type}{\strong{error}}
 }
 When using a string for a timezone, this value must be found within \code{OlsonNames()}
