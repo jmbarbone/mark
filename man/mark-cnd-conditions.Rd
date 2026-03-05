@@ -5,10 +5,7 @@
 \alias{mark:append_warning}
 \alias{mark:assign_labels_error}
 \alias{mark:base_conversion_error}
-\alias{mark:bib_error}
 \alias{mark:description_version_error}
-\alias{mark:duplicate_error}
-\alias{mark:expand_by_warning}
 \alias{mark:fct_expand_seq_error}
 \alias{mark:import_error}
 \alias{mark:internal_error}
@@ -24,7 +21,6 @@
 \alias{mark:path_warning}
 \alias{mark:reindex_error}
 \alias{mark:reindex_warning}
-\alias{mark:remove_labels_error}
 \alias{mark:source_error}
 \alias{mark:switch_error}
 \alias{mark:timezone_not_found_error}
@@ -32,10 +28,7 @@
 \alias{append_warning}
 \alias{assign_labels_error}
 \alias{base_conversion_error}
-\alias{bib_error}
 \alias{description_version_error}
-\alias{duplicate_error}
-\alias{expand_by_warning}
 \alias{fct_expand_seq_error}
 \alias{import_error}
 \alias{internal_error}
@@ -51,7 +44,6 @@
 \alias{path_warning}
 \alias{reindex_error}
 \alias{reindex_warning}
-\alias{remove_labels_error}
 \alias{source_error}
 \alias{switch_error}
 \alias{timezone_not_found_error}
@@ -59,10 +51,7 @@
 \alias{mark:append_warning/warning}
 \alias{mark:assign_labels_error/error}
 \alias{mark:base_conversion_error/error}
-\alias{mark:bib_error/error}
 \alias{mark:description_version_error/error}
-\alias{mark:duplicate_error/error}
-\alias{mark:expand_by_warning/warning}
 \alias{mark:fct_expand_seq_error/error}
 \alias{mark:import_error/error}
 \alias{mark:internal_error/error}
@@ -78,7 +67,6 @@
 \alias{mark:path_warning/warning}
 \alias{mark:reindex_error/error}
 \alias{mark:reindex_warning/warning}
-\alias{mark:remove_labels_error/error}
 \alias{mark:source_error/error}
 \alias{mark:switch_error/condition}
 \alias{mark:timezone_not_found_error/error}
@@ -149,35 +137,11 @@ df <- remove_labels(df, 'b')
 }
 \emph{no help documentation provided}
 }
-\subsection{\code{mark:bib_error/error}}{
-\describe{
-\item{package}{\code{{mark}}}
-\item{class}{\code{mark:bib_error}}
-\item{type}{\strong{error}}
-}
-\emph{no help documentation provided}
-}
 \subsection{\code{mark:description_version_error/error}}{
 \describe{
 \item{package}{\code{{mark}}}
 \item{class}{\code{mark:description_version_error}}
 \item{type}{\strong{error}}
-}
-\emph{no help documentation provided}
-}
-\subsection{\code{mark:duplicate_error/error}}{
-\describe{
-\item{package}{\code{{mark}}}
-\item{class}{\code{mark:duplicate_error}}
-\item{type}{\strong{error}}
-}
-\emph{no help documentation provided}
-}
-\subsection{\code{mark:expand_by_warning/warning}}{
-\describe{
-\item{package}{\code{{mark}}}
-\item{class}{\code{mark:expand_by_warning}}
-\item{type}{\strong{warning}}
 }
 \emph{no help documentation provided}
 }
@@ -247,7 +211,9 @@ Generic error to capture internal \code{{mark}} errors.  If any of these are enc
 \item{class}{\code{mark:md5_condition}}
 \item{type}{\strong{condition}}
 }
-\emph{no help documentation provided}
+Produces messages on md5 checks when \code{file_copy_md5(quiet = FALSE)}.
+The message will indicate whether the file was new, or if the md5 hash was the same or different.
+When \code{quiet = TRUE}, no messages will be produced.
 }
 \subsection{\code{mark:na_timezone_found_warning/warning}}{
 \describe{
@@ -340,14 +306,6 @@ reindex(x, 'index', c(1, 2, 5, NA))
 #> <NA>    NA   <NA>
 }\if{html}{\out{</div>}}
 
-}
-\subsection{\code{mark:remove_labels_error/error}}{
-\describe{
-\item{package}{\code{{mark}}}
-\item{class}{\code{mark:remove_labels_error}}
-\item{type}{\strong{error}}
-}
-\emph{no help documentation provided}
 }
 \subsection{\code{mark:source_error/error}}{
 \describe{
