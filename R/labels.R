@@ -259,18 +259,3 @@ view_labels_error := condition(
     '  `utils::View(get_labels(x), title = "Labels")`'
   )
 )
-
-remove_labels_error := condition(
-  function(x) {
-    sprintf(
-      ngettext(
-        length(x),
-        "Column not found in data.frame: %s",
-        "Columns not found in data.frame: %s"
-      ),
-      toString(x)
-    )
-  },
-  type = "error",
-  exports = "remove_labels"
-)

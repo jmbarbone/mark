@@ -233,32 +233,11 @@ has_char <- function(x) {
 
 dupe_check <- function(x, n = getOption("mark.dupe.n", 5)) {
   n <- as.integer(n)
+  dupes <- duplicated(x)
 
-  dupes <- which(duplicated(x))
-  n_dupes <- length(dupes)
-  dupes <- utils::head(dupes, n)
-
-  if (n_dupes) {
-    stop(duplicate_error(x, dupes, n_dupes, n))
+  if (any(dupes)) {
+    stop(duplicate_error(x = x, positions = which(dupes)))
   }
 
   invisible(NULL)
 }
-
-# TODO maybe as a subclass of value_error?
-duplicate_error := condition(
-  function(x, dupes, n_dupes, n) {
-    paste0(
-      "Duplicate values found in ",
-      n_dupes,
-      " location(s) :\n",
-      if (n_dupes > n) sprintf("(first %i)\n", n),
-      paste0("  > ", sprintf("[%s] %s", format(dupes), format(x[dupes])), "\n"),
-      if (n_dupes > n) "... and ",
-      n_dupes - n,
-      " more"
-    )
-  },
-  classes = "value_error",
-  type = "error"
-)

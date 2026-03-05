@@ -70,7 +70,7 @@ read_bib <- function(file, skip = 0L, max_lines = NULL, encoding = "UTF-8") {
   from <- grep("[@]", bib)
 
   if (!length(from)) {
-    stop(bib_error("no_entries"))
+    stop(value_error("No entries detected in bib file"))
   }
 
   # shift over (may contain white space?)
@@ -160,7 +160,13 @@ process_bib_dataframe <- function(categories, values, fields, keys) {
       bad <- lens > 1L
 
       if (any(bad)) {
-        stop(bib_error("duplicate_categories", key, names(lens)[bad]))
+        stop(duplicate_error(
+          sprintf(
+            "The key `%s` has duplicate categories of `%s`",
+            key,
+            names(lens)[bad]
+          )
+        ))
       }
 
       # Append vectors
@@ -299,24 +305,3 @@ print.mark_bib_df <- function(x, list = FALSE, ...) {
 
   invisible(x)
 }
-
-
-# conditions --------------------------------------------------------------
-
-bib_error := condition(
-  function(s, key, categories) {
-    switch(
-      s,
-      no_entries = "No entries detected in bib file",
-      duplicate_categories = sprintf(
-        "The key `%s` has duplicate categories of `%s`",
-        key,
-        categories
-      ),
-      stop(internal_error())
-    )
-  },
-  type = "error",
-  classes = "value_error",
-  exports = "read_bib"
-)

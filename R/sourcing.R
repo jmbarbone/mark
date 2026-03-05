@@ -101,7 +101,7 @@ try_ksource <- function(file, ...) {
 
 eval_named_chunk <- function(rmd_file, label_name) {
   if (!grepl("\\.[Rr][Mm][Dd]$", rmd_file)) {
-    stop(source_error("rmd"))
+    stop(input_error("rmd_file does not appear to be an rmd file: ", rmd_file))
   }
 
   lines <- readLines(rmd_file)
@@ -319,8 +319,8 @@ source_error := condition(
   function(x, params = NULL) {
     switch(
       x,
-      rmd = "rmd_file does not appear to be an rmd file",
       label = "label not found in .Rmd file",
+      # NOTE maybe 'source' is a different type of error
       source = paste0(
         "RDS file not succesfully saved here:\n  ",
         params$file,

@@ -172,11 +172,7 @@ match_param <- function(
       )
     }
 
-    # TODO use duplicate_error()
-    stop(input_error(paste0(
-      "duplicate values found in `choices`:\n  ",
-      to_choices(choices)
-    )))
+    stop(duplicate_error(x = choices))
   }
 
   fun <- if (partial) pmatch else match

@@ -149,11 +149,10 @@ reindex <- function(
 unique_name_check <- function(x) {
   # Checks that names are unique in the vector
   nm <- names(x) %||% x
-  lens <- counts(nm)
-  int <- lens > 1L
+  dupes <- duplicated(nm)
 
-  if (any(int)) {
-    warning(expand_by_warning(names(lens[int])))
+  if (any(dupes)) {
+    warning(duplicate_warning(x = nm, name = "names"))
     FALSE
   } else {
     TRUE
@@ -162,12 +161,7 @@ unique_name_check <- function(x) {
 
 # conditions --------------------------------------------------------------
 
-expand_by_warning := condition(
-  function(x) paste0("These names are duplicated:", toString(x)),
-  type = "warning",
-  exports = "expand_by"
-)
-
+# TODO use na_warning(); move information to function docs
 reindex_warning := condition(
   function(x) {
     paste(

@@ -40,11 +40,14 @@ get_not_available <- function(type = NULL) {
   out <- get_na_list()[[type]]
 
   if (is.null(out)) {
-    stop(not_available_error("not_found", type))
+    stop(not_available_error(type))
   }
 
   if (is.function(out) || is.call(out)) {
-    stop(not_available_error("invalid"))
+    stop(class_error(sprintf(
+      "Type '%s' cannot be set to class 'function' or 'call'",
+      type
+    )))
   }
 
   out
@@ -77,19 +80,13 @@ delayedAssign("NA_POSIXlt_", not_available("logical", 1L))
 # conditions --------------------------------------------------------------
 
 not_available_error := condition(
-  function(s, x) {
-    switch(
-      s,
-      not_found = sprintf(
-        paste0(
-          "\"%s\" not found\n",
-          "Can be set with `mark::set_not_available(%s, value = .)`"
-        ),
-        x,
-        x
+  function(x) {
+    sprintf(
+      paste0(
+        "\"%1$s\" not found\n",
+        "Can be set with `mark::set_not_available(%1$s, value = .)`"
       ),
-      invalid = "type is not valid",
-      stop(internal_error())
+      x
     )
   },
   type = "error",
