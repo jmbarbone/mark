@@ -18,7 +18,7 @@ test_that("not_available() works", {
   set_not_available("foo_fun", function() NULL)
   expect_error(
     get_not_available("foo_fun"),
-    class = "mark:not_available_error"
+    class = "class_error"
   )
 
   # reset list

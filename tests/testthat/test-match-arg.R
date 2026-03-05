@@ -115,11 +115,11 @@ test_that("match_param() accepts formula lists", {
 test_that("match_param() finds duplicate choices", {
   expect_error(
     match_param("a", c("a", "a")),
-    class = "input_error"
+    class = "duplicate_error"
   )
 
   expect_error(
     match_param(1, c(a = 1:2, b = 3:4, c = c(1, 3))),
-    class = "input_error"
+    class = "duplicate_error"
   )
 })

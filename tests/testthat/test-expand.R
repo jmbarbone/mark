@@ -64,5 +64,8 @@ test_that("reindex() work", {
 })
 
 test_that("expand helpers work", {
-  expect_warning(unique_name_check(c(a = 1, a = 2)))
+  expect_warning(
+    unique_name_check(c(a = 1, a = 2)),
+    class = "duplicate_warning"
+  )
 })

@@ -14,7 +14,7 @@ test_that("read_bib()", {
 
   temp <- withr::local_tempfile()
   writeLines("bad", temp)
-  expect_error(read_bib(temp), class = "mark:bib_error")
+  expect_error(read_bib(temp), class = "value_error")
 
   expect_error(as_bib(1:3), class = "class_error")
   expect_error(as_bib_list(1:3), class = "type_error")
@@ -26,7 +26,7 @@ test_that("read_bib()", {
       fields = "this",
       keys = "key"
     ),
-    class = "mark:bib_error"
+    class = "duplicate_error"
   )
 })
 

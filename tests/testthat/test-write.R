@@ -3,8 +3,8 @@ test_that("write_file_md5() works", {
   temp <- withr::local_tempfile()
   expect_output(write_file_md5(df))
   muffle_cnd_conditions({
-    expect_condition(write_file_md5(df, temp), class = "mark:md5_status")
-    expect_condition(write_file_md5(df, temp), class = "mark:md5_status")
+    expect_condition(write_file_md5(df, temp), class = "mark:md5_condition")
+    expect_condition(write_file_md5(df, temp), class = "mark:md5_condition")
   })
 
   # atomic
@@ -26,7 +26,7 @@ test_that("write_file_md5() types", {
     muffle_cnd_conditions(
       expect_condition(
         write_file_md5(x, temp, method = !!method),
-        class = "mark:md5_status"
+        class = "mark:md5_condition"
       )
     )
   }
@@ -46,7 +46,7 @@ test_that("path warning", {
         "attr(x, \"path\") is being overwritten",
         fixed = TRUE
       ),
-      class = "mark:md5_status"
+      class = "mark:md5_condition"
     )
   )
 })
