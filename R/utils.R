@@ -203,7 +203,7 @@ options_error := condition(
       stop(internal_error(paste("bad value:", x)))
     )
   },
-  classes = "value_error",
+  classes = "input_error",
   type = "error"
 )
 

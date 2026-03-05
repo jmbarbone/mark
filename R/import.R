@@ -30,6 +30,7 @@ import_error := condition(
   message = function(fun) sprintf("'%s' has already been assigned", fun),
   type = "error",
   exports = "import",
+  classes = "value_error", # NOTE maybe assign_error()?
   help = "
 The object you are trying to import has already been assigned in the environment you are importing to.  Use the `overwrite` option to replace the object.
 

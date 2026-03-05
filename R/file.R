@@ -52,5 +52,11 @@ file_copy_md5 <- function(path, new_path, overwrite = NA, quiet = FALSE) {
 
 md5_condition := condition(
   function(...) paste(..., collapse = ""),
-  exports = "file_copy_md5"
+  type = "condition",
+  exports = "file_copy_md5",
+  help = "
+Produces messages on md5 checks when `file_copy_md5(quiet = FALSE)`.
+The message will indicate whether the file was new, or if the md5 hash was the same or different.
+When `quiet = TRUE`, no messages will be produced.
+"
 )

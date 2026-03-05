@@ -246,7 +246,8 @@ match_arg_error := condition(
       table
     )
   },
-  type = "error"
+  type = "error",
+  classes = "input_error"
 )
 
 match_param_error := condition(
@@ -301,5 +302,6 @@ match_param_error := condition(
     )
   },
   type = "error",
+  classes = "input_error",
   exports = "match_param"
 )

@@ -336,7 +336,7 @@ source_error := condition(
     )
   },
   type = "error",
-  classes = "type_error",
+  classes = "value_error",
   package = "mark",
   exports = c(
     "source_to_env",

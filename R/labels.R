@@ -215,6 +215,7 @@ assign_labels_error := condition(
   },
   type = "error",
   exports = c("assign_labels", "remove_labels"),
+  classes = "value_error", # NOTE maybe assign_error()?
   # nolint start: line_length_linter.
   help = r"(
 `assign_labels_error`

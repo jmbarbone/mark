@@ -285,5 +285,6 @@ list2df_warning := condition(
     )
   },
   type = "warning",
+  classes = "class_warning",
   exports = "list2df"
 )

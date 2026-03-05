@@ -60,8 +60,10 @@ fct_expand_seq <- function(
 
 # condition ---------------------------------------------------------------
 
+# TODO use na_error()
 fct_expand_seq_error := condition(
   function(x = c("min", "max")) paste0(match_param(x), "_lvl cannot be `NA`"),
   type = "error",
+  classes = "na_error",
   exports = "fct_expand_seq"
 )

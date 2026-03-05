@@ -92,5 +92,6 @@ not_available_error := condition(
       stop(internal_error())
     )
   },
-  type = "error"
+  type = "error",
+  classes = "value_error"
 )

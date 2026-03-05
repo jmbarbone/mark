@@ -290,5 +290,5 @@ switch_error := condition(
       stop(internal_error()),
     )
   },
-  classes = "input_error"
+  classes = "value_error"
 )
