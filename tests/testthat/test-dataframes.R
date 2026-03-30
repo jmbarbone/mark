@@ -1,9 +1,9 @@
 test_that("to_row_names()", {
-  x <- quick_dfl(a = 1:4, b = letters[1:4])
+  x <- dataframe(a = 1:4, b = letters[1:4])
 
   expect_equal(
     to_row_names(x),
-    quick_dfl(b = letters[1:4])
+    dataframe(b = letters[1:4])
   )
 
   expect_equal(
@@ -18,7 +18,7 @@ test_that("to_row_names()", {
 
   # non-integers to character
   foo <- function(x) {
-    out <- to_row_names(quick_dfl(a = 1, b = x), "b")
+    out <- to_row_names(dataframe(a = 1, b = x), "b")
     class(attr(out, "row.names"))
   }
 
@@ -35,7 +35,7 @@ test_that("col_to_rn()", {
 
 test_that("vector2df()", {
   x <- c(1.0, 3.1, 8.2)
-  df <- quick_dfl(name = c(NA, NA, NA), value = x)
+  df <- dataframe(name = c(NA, NA, NA), value = x)
 
   expect_equal(vector2df(x), df)
   df$name <- as.character(x)
@@ -47,7 +47,7 @@ test_that("vector2df()", {
 
 test_that("list2df()", {
   x <- list(a = 1, b = 2:4, c = letters[10:20])
-  exp <- quick_dfl(
+  exp <- dataframe(
     name = letters[c(1, rep(2, 3), rep(3, 11))],
     value = c(1, 2:4, letters[10:20])
   )
@@ -64,7 +64,7 @@ test_that("list2df()", {
 
   # Unnamed
   x <- list(a = 1, 0, 2)
-  res <- quick_dfl(name = c("a", 2, 3), value = c(1, 0, 2))
+  res <- dataframe(name = c("a", 2, 3), value = c(1, 0, 2))
   expect_equal(list2df(x), res)
 
   expect_error(list2df(1), class = "class_error")
@@ -85,9 +85,9 @@ test_that("list2df2()", {
 })
 
 test_that("t_df()", {
-  x <- quick_dfl(a = 1:5, b = letters[1:5])
+  x <- dataframe(a = 1:5, b = letters[1:5])
 
-  y <- quick_dfl(
+  y <- dataframe(
     colname = c("a", "b"),
     # nolint start: spaces_inside_linter.
     row_1 = c(1, "a"),
@@ -112,9 +112,9 @@ test_that("complete_cases()", {
   expect_error(complete_cases(1L))
   expect_error(complete_cases(quick_df(NULL)))
 
-  df <- quick_dfl(a = c(1, 2, NA, 4), b = c(NA, 2, 3, NA))
-  res1 <- quick_dfl(a = c(1, 2, 4), b = c(NA, 2, NA))
-  res2 <- quick_dfl(a = 2, b = 2)
+  df <- dataframe(a = c(1, 2, NA, 4), b = c(NA, 2, 3, NA))
+  res1 <- dataframe(a = c(1, 2, 4), b = c(NA, 2, NA))
+  res2 <- dataframe(a = 2, b = 2)
 
   expect_identical(complete_cases(df, "a"), res1)
   expect_identical(complete_cases(df), res2)
@@ -123,7 +123,7 @@ test_that("complete_cases()", {
 test_that("unique_rows()", {
   expect_error(unique_rows(1L))
 
-  df <- quick_dfl(
+  df <- dataframe(
     id = 1:4,
     a = rep(1:2, 2L),
     b = rep("a", 4L)

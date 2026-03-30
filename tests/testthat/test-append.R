@@ -25,12 +25,12 @@ test_that("append0.list() works", {
 })
 
 test_that("append.data.frame() works", {
-  x <- quick_dfl(a = 1:2, b = 0:1)
+  x <- dataframe(a = 1:2, b = 0:1)
   res <- append0(x, list(c = c(TRUE, FALSE)))
-  exp <- quick_dfl(a = 1:2, b = 0:1, c = c(TRUE, FALSE))
+  exp <- dataframe(a = 1:2, b = 0:1, c = c(TRUE, FALSE))
   expect_identical(res, exp)
 
   res <- append0(x, list(c = c(TRUE, FALSE)), 2)
-  exp <- quick_dfl(a = 1:2, c = c(TRUE, FALSE), b = 0:1)
+  exp <- dataframe(a = 1:2, c = c(TRUE, FALSE), b = 0:1)
   expect_identical(res, exp)
 })

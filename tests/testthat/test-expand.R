@@ -58,7 +58,7 @@ test_that("reindex() work", {
 
   expect_error(reindex(1), class = "class_error")
   expect_error(
-    reindex(quick_dfl(a = 1), index = integer()),
+    reindex(dataframe(a = 1), index = integer()),
     class = if (getRversion() >= "4.5") "missingArgError" else "simpleError",
   )
 })

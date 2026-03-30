@@ -12,7 +12,7 @@ test_that("clipboard", {
   })
 
   with_clip({
-    x <- quick_dfl(
+    x <- dataframe(
       var1 = 1:3,
       var2 = letters[1:3],
       var3 = as.Date("2020-01-03") + 1:3,

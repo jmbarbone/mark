@@ -241,3 +241,7 @@ dupe_check <- function(x, n = getOption("mark.dupe.n", 5)) {
 
   invisible(NULL)
 }
+
+dataframe <- function(...) {
+  fuj::quick_df(list(...))
+}

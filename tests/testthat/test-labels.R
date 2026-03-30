@@ -17,7 +17,7 @@ test_that("data.frame assignment", {
   x0 <- head(iris)
   x <- assign_labels(x0, Sepal.Length = "a", Species = "b")
 
-  exp <- quick_dfl(
+  exp <- dataframe(
     column = colnames(x0),
     label = c("a", NA, NA, NA, "b")
   )
@@ -57,7 +57,7 @@ test_that("data.frame assignment", {
     class = "mark:assign_labels_error"
   )
 
-  df <- quick_dfl(a = 1, b = 2, c = 3)
+  df <- dataframe(a = 1, b = 2, c = 3)
   expect_error(
     assign_labels(df, c = "c", d = "d", .missing = "error"),
     "not found",
@@ -82,21 +82,21 @@ test_that("data.frame assign with data.frame", {
 
   x <- assign_labels(iris, Sepal.Length = "a", Species = "b")
 
-  labels <- quick_dfl(
+  labels <- dataframe(
     name = c("Sepal.Length", "Species"),
     label = c("a", "b")
   )
 
   y <- assign_labels(iris, labels)
 
-  exp <- quick_dfl(
+  exp <- dataframe(
     column = colnames(iris),
     label = c("a", NA, NA, NA, "b")
   )
 
   expect_equal(get_labels(y), get_labels(y))
 
-  bad_labels <- quick_dfl(
+  bad_labels <- dataframe(
     v1 = c("a", "b", 1),
     v2 = c("x", "y", 2)
   )

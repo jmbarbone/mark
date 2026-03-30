@@ -1,5 +1,5 @@
 test_that("write_file_md5() works", {
-  df <- quick_dfl(a = 1, b = 2)
+  df <- dataframe(a = 1, b = 2)
   temp <- withr::local_tempfile()
   expect_output(write_file_md5(df))
   muffle_cnd_conditions({
@@ -20,7 +20,7 @@ test_that("write_file_md5() types", {
       if (method %in% c(mark_write_methods()$lines, "write")) {
         letters
       } else {
-        quick_dfl(a = 1, b = "n", c = TRUE)
+        dataframe(a = 1, b = "n", c = TRUE)
       }
 
     muffle_cnd_conditions(
@@ -38,7 +38,7 @@ test_that("write_file_md5() types", {
 
 test_that("path warning", {
   temp <- withr::local_tempfile()
-  x <- structure(quick_dfl(a = 1), path = temp)
+  x <- structure(dataframe(a = 1), path = temp)
   muffle_cnd_conditions(
     expect_condition(
       expect_warning(
@@ -52,7 +52,7 @@ test_that("path warning", {
 })
 
 test_that("write_file_md5() errors", {
-  df <- quick_dfl(a = 1)
+  df <- dataframe(a = 1)
   expect_error(
     write_file_md5(df, method = "foo"),
     class = "mark:match_param_error"
@@ -63,7 +63,7 @@ test_that("compression works", {
   foo <- function(ext = "") {
     file <- tempfile(fileext = ext)
     on.exit(unlink(file, recursive = TRUE))
-    df <- quick_dfl(a = 1)
+    df <- dataframe(a = 1)
     write_file_md5(df, file, quiet = TRUE)
   }
 
@@ -89,7 +89,7 @@ test_that("list columns", {
     op <- options(mark.list.hook = method)
     on.exit(options(op))
 
-    df <- quick_dfl(x = c("a", "b"))
+    df <- dataframe(x = c("a", "b"))
     df$y <- list(1:2, 2)
 
     write_file_md5(df, temp, quiet = TRUE)
@@ -123,11 +123,11 @@ test_that("arrow prints something to stdout()", {
   }
 
   expect_snapshot(
-    write_file_md5(quick_dfl(a = 1), method = "feather"),
+    write_file_md5(dataframe(a = 1), method = "feather"),
     transform = function(x) censor(x)
   )
   expect_snapshot(
-    write_file_md5(quick_dfl(a = 1), method = "parquet"),
+    write_file_md5(dataframe(a = 1), method = "parquet"),
     transform = function(x) censor(x)
   )
 })

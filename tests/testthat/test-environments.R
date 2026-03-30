@@ -10,7 +10,7 @@ test_that("environments() and friends works", {
     {
       foo_obj <- structure(list(), class = "foo")
       foo_fun <- function() NULL
-      foo_df <- quick_dfl(a = 1)
+      foo_df <- dataframe(a = 1)
     },
     envir = ne
   )

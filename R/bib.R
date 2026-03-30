@@ -143,7 +143,7 @@ parse_bib_val <- function(x) {
 process_bib_dataframe <- function(categories, values, fields, keys) {
   # Determine all categories for missing values inside Map
   ucats <- unique(remove_na(unlist(categories)))
-  ucats_df <- quick_dfl(
+  ucats_df <- dataframe(
     category = ucats,
     value = rep(NA_character_, length(ucats))
   )
@@ -174,7 +174,7 @@ process_bib_dataframe <- function(categories, values, fields, keys) {
       vals <- c(key, field, vals)
 
       # Create data.frame
-      data <- quick_dfl(category = cats, value = vals)
+      data <- dataframe(category = cats, value = vals)
 
       # Check for missing categories
       toadd <- ucats %out% cats

@@ -240,11 +240,11 @@ complete_cases <- function(data, cols = NULL, invert = FALSE) {
 #' @param invert If `TRUE` returns the duplicated rows
 #' @returns `data` will duplicates removes
 #' @examples
-#' df <- quick_dfl(
+#' df <- dataframe(
 #'   i = 1:4,
 #'   a = rep(1:2, 2L),
-#'   b = rep("a", 4L),
-#' )
+#'   b = rep("a", 4L)
+#' ))
 #'
 #' unique_rows(df, 2:3)
 #' unique_rows(df, c("a", "b"), from_last = TRUE, invert = TRUE)

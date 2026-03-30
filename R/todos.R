@@ -147,7 +147,7 @@ do_todo <- function(
     function(x, regex) {
       x <- enc2utf8(x)
       ind <- grep(pattern = regex, x = x)
-      quick_dfl(ind = ind, todo = x[ind])
+      dataframe(ind = ind, todo = x[ind])
     },
     regex = sprintf("[#]\\s+%s[:]?\\s+", toupper(text))
   )

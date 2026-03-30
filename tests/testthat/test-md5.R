@@ -12,7 +12,7 @@ test_that("md5() works", {
   )
 
   expect_identical(
-    md5(quick_dfl(a = 1)),
+    md5(dataframe(a = 1)),
     "34e2f3ac0f1ba4794d0cd0160fe80c6e",
     ignore_attr = "class"
   )
@@ -29,5 +29,5 @@ test_that("md5(btyes) return the same", {
 test_that("snapshots", {
   expect_snapshot(md5(letters))
   expect_snapshot(md5(1:100))
-  expect_snapshot(md5(quick_dfl(a = 1)))
+  expect_snapshot(md5(dataframe(a = 1)))
 })

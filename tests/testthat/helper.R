@@ -42,7 +42,7 @@ expect_clip <- function(input, method) {
     res <- if (package_available("tibble")) {
       tibble::tibble(a = 1L, b = 2L, c = 3L)
     } else {
-      fuj::quick_dfl(a = 1L, b = 2L, c = 3L)
+      fuj::dataframe(a = 1L, b = 2L, c = 3L)
     }
     expect_identical(read_clipboard(method), res)
   })

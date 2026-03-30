@@ -8,11 +8,11 @@
 #' x <- sample(letters[1:4], 10, TRUE)
 #' detail(x)
 #'
-#' df <- quick_df(list(
+#' df <- dataframe(
 #'   x = x,
 #'   y = round(runif(10), 2),
 #'   z = Sys.Date() + runif(10) * 100
-#' ))
+#' )
 #'
 #' detail(df)
 #' @export
@@ -64,7 +64,7 @@ detail.default <- function(x, factor_n = 5L, ...) {
     facts <- TRUE
   }
 
-  res <- quick_dfl(
+  res <- dataframe(
     class = collapse0(class(x), sep = "; "),
     type = collapse0(typeof(x), sep = "; "),
     label = exattr(x, "label") %||% NA_character_,
@@ -83,7 +83,7 @@ detail.default <- function(x, factor_n = 5L, ...) {
   }
 
   # fmt: skip
-  text <- quick_dfl(
+  text <- dataframe(
     note    = note(x)    %||% NA_character_,
     comment = comment(x) %||% NA_character_
   )
@@ -108,8 +108,8 @@ detail.data.frame <- function(x, factor_n = 5L, ...) {
   reps <- vap_int(details, nrow)
 
   cbind(
-    quick_dfl(i = rep(seq_along(x), reps)),
-    quick_dfl(col = rep(names(x), reps)),
+    dataframe(i = rep(seq_along(x), reps)),
+    dataframe(col = rep(names(x), reps)),
     Reduce(rbind, details)
   )
 }

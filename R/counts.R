@@ -28,11 +28,11 @@
 #' counts(x)
 #' props(x)
 #'
-#' x <- quick_df(list(
+#' x <- dataframe(
 #'   a = c("a", "c", "a", "c", "d", "b"),
 #'   b = c("a", "a", "a", "c", "c", "b"),
 #'   c = c("a", "a", "a", "c", "b", "b")
-#' ))
+#' )
 #'
 #' counts(x, "a")
 #' counts(x, c("a", "b", "c"))

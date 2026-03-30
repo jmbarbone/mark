@@ -260,8 +260,8 @@ test_that("drop_levels() works", {
   exp <- factor(1, 1)
   expect_equal(drop_levels(x), exp)
 
-  df <- quick_dfl(x = x, y = 1)
-  df_exp <- quick_dfl(x = exp, y = 1)
+  df <- dataframe(x = x, y = 1)
+  df_exp <- dataframe(x = exp, y = 1)
   expect_equal(drop_levels(df), df_exp)
 
   # facts and ordered

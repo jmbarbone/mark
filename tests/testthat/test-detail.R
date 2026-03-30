@@ -3,13 +3,13 @@ test_that("details() works", {
   y <- factor(letters[1:3])
   z <- c("x", NA_character_, "z")
   attr(z, "label") <- "information"
-  df <- quick_dfl(x = x, y = factor(letters[1:3]))
+  df <- dataframe(x = x, y = factor(letters[1:3]))
   expect_error(detail(x), NA)
   expect_error(detail(df), NA)
 
   expect_error(detail(data.frame()), class = "input_error")
 
-  exp <- quick_dfl(
+  exp <- dataframe(
     class = "logical",
     type = "logical",
     label = NA_character_,
@@ -43,5 +43,5 @@ test_that("details() and tibbles", {
 })
 
 test_that("details.data.frame() passes with single column [48]", {
-  expect_error(quick_dfl(a = 1), NA)
+  expect_error(dataframe(a = 1), NA)
 })

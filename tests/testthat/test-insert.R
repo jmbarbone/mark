@@ -14,13 +14,13 @@ test_that("insert.default() works", {
 })
 
 test_that("insert.data.frame() works", {
-  x <- quick_dfl(
+  x <- dataframe(
     a = c(1, 2, 3),
     b = c("a", "b", "c"),
     c = c(-1.5, 0, 1.5)
   )
 
-  exp <- quick_dfl(
+  exp <- dataframe(
     a = c(1, 2, 3),
     x = 1:3,
     b = c("a", "b", "c"),
