@@ -143,35 +143,6 @@ match_param <- function(
   mchoices <- cleanup_param_list(choices)
 
   if (anyDuplicated(unlist(mchoices$choices))) {
-    # TODO implement cond_match_param_dupes()
-    to_choices <- function(x) {
-      if (all(names(x) == as.character(x))) {
-        dupe <- duplicated(x)
-        x[dupe] <- paste0(x[dupe], "*")
-        return(toString(x))
-      }
-
-      collapse(
-        mapply(
-          function(x, nm, d) {
-            sprintf(
-              "%s = %s",
-              nm,
-              toString(paste0(x, ifelse(d, "*", "")))
-            )
-          },
-          x = x,
-          nm = names(x),
-          d = split(
-            duplicated(unlist(x)),
-            rep(seq_along(x), lengths(x))
-          ),
-          USE.NAMES = FALSE
-        ),
-        sep = "\n  "
-      )
-    }
-
     stop(duplicate_error(x = choices))
   }
 
