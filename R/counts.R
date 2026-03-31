@@ -28,7 +28,7 @@
 #' counts(x)
 #' props(x)
 #'
-#' x <- dataframe(
+#' x <- data.frame(
 #'   a = c("a", "c", "a", "c", "d", "b"),
 #'   b = c("a", "a", "a", "c", "c", "b"),
 #'   c = c("a", "a", "a", "c", "b", "b")
