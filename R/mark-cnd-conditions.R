@@ -44,7 +44,7 @@
 #'   # or this:
 #'   assign_labels(df, .ls = list(a = 'AAA', b = 'BBB'))
 #'   ```
-#'   Labels must not be null; to remove lavels, use `remove_labels()`.
+#'   Labels must not be null; to remove labels, use `remove_labels()`.
 #'
 #'   ```r
 #'   # instead of this
