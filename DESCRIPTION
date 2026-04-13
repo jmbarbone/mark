@@ -23,15 +23,16 @@ Depends:
     R (>= 4.1.0)
 Imports:
     cli,
-    cnd (>= 0.1.1.9002),
-    fs (>= 0.2.2.9009),
-    fuj (>= 0.2.1),
+    cnd,
+    fs (>= 0.2.0),
+    fuj,
     magrittr (>= 2.0.1),
     rlang,
     stats (>= 3.6),
     tools (>= 3.6),
     utils (>= 3.6)
 Suggests:
+    arrow (>= 16.1.0),
     bench (>= 1.1.1),
     bib2df (>= 1.1.1),
     clipr (>= 0.8.0),
@@ -55,13 +56,9 @@ Suggests:
     withr (>= 2.3.0),
     xopen,
     yaml (>= 2.3.9),
-    jsonlite,
-    arrow (>= 16.1.0),
-    readMDTable (>= 0.2.0),
-    clipr (>= 0.8.0)
 Remotes:
     github::jmbarbone/cnd@v0.1.1.9002,
-    github::jmbarbone/fuj@v0.2.2.9009
+    github::jmbarbone/fuj@v0.2.2.9010
 RoxygenNote: 7.3.3
 Roxygen: list(markdown = TRUE)
 Config/testthat/edition: 3
