@@ -118,7 +118,7 @@ assign_labels(df, a = 'AAA', b = 'BBB')
 assign_labels(df, .ls = list(a = 'AAA', b = 'BBB'))
 }\if{html}{\out{</div>}}
 
-Labels must not be null; to remove lavels, use \code{remove_labels()}.
+Labels must not be null; to remove labels, use \code{remove_labels()}.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{# instead of this
 assign_labels(df, a = 'AAA', b = NULL)
