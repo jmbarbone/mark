@@ -36,7 +36,7 @@ test_that("counts() works with NAs", {
 
 
 test_that("counts.data.frame() adds new name", {
-  df <- quick_dfl(a = 1, b = 2)
+  df <- dataframe(a = 1, b = 2)
   res <- counts(df, 1)
   expect_equal(colnames(res), c("a", "freq"))
 
@@ -81,23 +81,23 @@ test_that("counts() NAs are last", {
 })
 
 test_that("counts.data.frame() works", {
-  df <- quick_dfl(a = rep("x", 3), b = fact(c("a", "a", "b")))
+  df <- dataframe(a = rep("x", 3), b = fact(c("a", "a", "b")))
 
   res <- counts(df, 1)
-  exp <- quick_dfl(a = "x", freq = 3)
+  exp <- dataframe(a = "x", freq = 3)
   expect_equal(res, exp)
 
   res <- counts(df, 2)
-  exp <- quick_dfl(b = fact(c("a", "b")), freq = 2:1)
+  exp <- dataframe(b = fact(c("a", "b")), freq = 2:1)
   expect_equal(res, exp)
 
   res <- counts(df, 1:2)
-  exp <- quick_dfl(a = rep("x", 2), b = fact(c("a", "b")), freq = 2:1)
+  exp <- dataframe(a = rep("x", 2), b = fact(c("a", "b")), freq = 2:1)
   expect_equal(res, exp)
 
   df[["b"]] <- as_ordered(df[["b"]])
   res <- counts(df, 1:2)
-  exp <- quick_dfl(a = rep("x", 2), b = as_ordered(c("a", "b")), freq = 2:1)
+  exp <- dataframe(a = rep("x", 2), b = as_ordered(c("a", "b")), freq = 2:1)
   expect_equal(res, exp)
 })
 
@@ -120,19 +120,19 @@ test_that("props() handles NA", {
   # data frame
   x <- c(1, 2, 2, 3, NA)
   y <- flip(x)
-  df <- quick_dfl(x = x, y = y)
+  df <- dataframe(x = x, y = y)
 
-  res_x1 <- quick_dfl(x = c(1, 2, 3, NA), prop = c(.20, .40, .20, .20))
-  res_x2 <- quick_dfl(x = c(1, 2, 3, NA), prop = c(.25, .50, .25,  NA))
+  res_x1 <- dataframe(x = c(1, 2, 3, NA), prop = c(.20, .40, .20, .20))
+  res_x2 <- dataframe(x = c(1, 2, 3, NA), prop = c(.25, .50, .25,  NA))
   expect_identical(props(df, "x"), res_x1)
   expect_identical(props(df, "x", na.rm = TRUE), res_x2)
 
-  res_xy1 <- quick_dfl(
+  res_xy1 <- dataframe(
     x = c(1, 2, 2, 3, NA),
     y = c(NA, 3, 2, 2, 1),
     prop = rep(.2, 5)
   )
-  res_xy2 <- quick_dfl(
+  res_xy2 <- dataframe(
     x = c(1, 2, 2, 3, NA),
     y = c(NA, 3, 2, 2, 1),
     prop = c(NA, 1, 1, 1, NA) / 3

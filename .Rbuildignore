@@ -19,3 +19,4 @@ revdep
 ^CRAN-SUBMISSION$
 ^\.lintr$
 ^\.git$
+^air\.toml$

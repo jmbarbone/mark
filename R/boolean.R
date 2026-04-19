@@ -30,25 +30,25 @@ to_boolean.logical <- function(x, ...) {
 #' @rdname to_boolean
 #' @export
 to_boolean.numeric <- function(x, true = 1, false = 0, na = NULL, ...) {
-  do_to_boolean(x, true, false, na, ...)
+  do_to_boolean(x, true, false, na)
 }
 
 #' @rdname to_boolean
 #' @export
-to_boolean.integer <- function(x, true = 1L, false = 0L, ...) {
-  to_boolean.numeric(x, true, false, ...)
+to_boolean.integer <- function(x, true = 1L, false = 0L, na = NULL, ...) {
+  do_to_boolean(x, true, false, na)
 }
 
 #' @rdname to_boolean
 #' @export
 to_boolean.character <- function(
-    x,
-    true = c("TRUE", "true", "T", "t", "YES", "yes", "Y", "y"),
-    false = c("FALSE", "false", "F", "f", "NO", "no", "N", "n"),
-    na = NULL,
-    ...
+  x,
+  true = c("TRUE", "true", "T", "t", "YES", "yes", "Y", "y"),
+  false = c("FALSE", "false", "F", "f", "NO", "no", "N", "n"),
+  na = NULL,
+  ...
 ) {
-  do_to_boolean(x, true, false, na, ...)
+  do_to_boolean(x, true, false, na)
 }
 
 #' @rdname to_boolean
@@ -66,7 +66,7 @@ do_to_boolean <- function(x, true, false, na) {
   if (anyDuplicated(c(true, false, na))) {
     stop(cond(
       "Cannot convert to boolean/logical: overlapping `true`, `false`, or ",
-     "`na` values found",
+      "`na` values found",
       class = c("bad_bools_input", "error")
     ))
   }
@@ -78,6 +78,7 @@ do_to_boolean <- function(x, true, false, na) {
   if (!is.null(na)) {
     m <- match(x, c(true, false, na))
     if (anyNA(m)) {
+      # FIXME this issue
       error <- cond(
         "Cannot convert to boolean/logical: unmatched values found in `x`: ",
         collapse(unique(x[is.na(m)]), ", "),
@@ -90,6 +91,7 @@ do_to_boolean <- function(x, true, false, na) {
   bool
 }
 
+# TODO fix condition
 cond <- function(..., class = NULL, call = NULL) {
   struct(
     list(paste0(..., collapse = ""), call),

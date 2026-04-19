@@ -38,13 +38,13 @@ rn <- function(namespace) {
 
 #' Check if package is available
 #'
-#' A wrapped requireNamespace
+#' A wrapped [base::requireNamespace()]
 #'
 #' @param namespace One or more packages to to require.
 #' @export
 #' @return
-#' * `require_namespace()`: None, called for side effects
-#' * `package_available()`: Visibly, `TRUE` or `FALSE`
+#' - [mark::require_namespace()]: None, called for side effects
+#' - [mark::package_available()]: Visibly, `TRUE` or `FALSE`
 #' @export
 package_available <- function(namespace) {
   vap_lgl(namespace, requireNamespace, quietly = TRUE)
@@ -58,7 +58,7 @@ rn_soft <- function(namespace) {
 
 #' Quiet stop
 #'
-#' Quietly calls stop
+#' Quietly calls [base::stop()]
 #'
 #' @return None, called for side effects
 #' @export
@@ -66,5 +66,5 @@ quiet_stop <- function() {
   op <- options()
   options(show.error.messages = FALSE)
   on.exit(options(op), add = TRUE)
-  stop()
+  stop(condition("quiet_stop", "quiet stop", type = "error")())
 }

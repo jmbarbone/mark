@@ -1,4 +1,3 @@
-
 is_named <- function(x) {
   !is.null(names(x))
 }

@@ -20,17 +20,22 @@
 #' # from the first inherit level to the last observed
 #' fct_expand_seq(x, min(levels(x)))
 #' @export
-
 fct_expand_seq <- function(
-    x,
-    min_lvl = min(x, na.rm = TRUE),
-    max_lvl = max(x, na.rm = TRUE),
-    by = 1L
+  x,
+  min_lvl = min(x, na.rm = TRUE),
+  max_lvl = max(x, na.rm = TRUE),
+  by = 1L
 ) {
-  stopifnot(
-    inherits(x, "ordered"),
-    is.integer(by) || by < 1L
-  )
+  if (!inherits(x, "ordered")) {
+    stop(class_error("must_be", x, "ordered"))
+  }
+
+  by <- as.integer(by)
+
+  if (!isTRUE(by >= 0L)) {
+    stop(input_error("`by` must be a positive integer"))
+  }
+
   lvls <- levels(x)
 
   if (is.character(min_lvl) || inherits(min_lvl, "factor")) {
@@ -42,11 +47,11 @@ fct_expand_seq <- function(
   }
 
   if (is.na(min_lvl)) {
-    stop(cond_fct_expand_seq_na("min_lvl"))
+    stop(fct_expand_seq_error("min"))
   }
 
   if (is.na(max_lvl)) {
-    stop(cond_fct_expand_seq_na("max_lvl"))
+    stop(fct_expand_seq_error("max"))
   }
 
   int <- seq(from = min_lvl, to = max_lvl, by = by)
@@ -55,7 +60,10 @@ fct_expand_seq <- function(
 
 # condition ---------------------------------------------------------------
 
-cond_fct_expand_seq_na <- function(x = c("min_lvl", "max_lvl")) {
-  x <- match_param(x)
-  new_condition(paste(x, "cannot be `NA`"), "fct_expand_seq_na")
-}
+# TODO use na_error()
+fct_expand_seq_error := condition(
+  function(x = c("min", "max")) paste0(match_param(x), "_lvl cannot be `NA`"),
+  type = "error",
+  classes = "na_error",
+  exports = "fct_expand_seq"
+)

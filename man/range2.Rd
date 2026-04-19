@@ -16,8 +16,8 @@ A \code{numeric} vector of length 2 of the minimum and maximum values,
 respectively
 }
 \description{
-Employs \code{min()} and \code{max()}.  However, \code{\link[base:range]{base::range()}}, there is no argument
-for removing \code{Inf} values.
+Employs \code{\link[base:Extremes]{base::min()}} and \code{\link[base:Extremes]{base::max()}}.  However, \code{\link[base:range]{base::range()}}, there is
+no argument for removing \code{Inf} values.
 }
 \examples{
 \donttest{

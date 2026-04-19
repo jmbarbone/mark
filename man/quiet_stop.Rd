@@ -10,5 +10,5 @@ quiet_stop()
 None, called for side effects
 }
 \description{
-Quietly calls stop
+Quietly calls \code{\link[base:stop]{base::stop()}}
 }

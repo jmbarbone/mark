@@ -15,7 +15,7 @@ to_boolean(x, ...)
 
 \method{to_boolean}{numeric}(x, true = 1, false = 0, na = NULL, ...)
 
-\method{to_boolean}{integer}(x, true = 1L, false = 0L, ...)
+\method{to_boolean}{integer}(x, true = 1L, false = 0L, na = NULL, ...)
 
 \method{to_boolean}{character}(
   x,

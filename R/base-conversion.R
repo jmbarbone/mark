@@ -13,16 +13,12 @@
 #' base_alpha("XFD")
 #' base_alpha(c("JMB", "Jordan Mark", "XKCD"))
 #' sum(base_alpha(c("x", "k", "c", "d")))
-
-base_alpha <- function(x, base = 26)  {
-  stopifnot(is.character(x))
-  check_base_alpha(base, high = 26)
+base_alpha <- function(x, base = 26L) {
+  if (!is.character(x)) {
+    stop(class_error("must_be", x, "character"))
+  }
+  check_base_alpha(base, high = 26L)
   vap_int(x, base_alpha_single, base = base)
-}
-
-alpha_base <- function(x, base = 26) {
-  .Deprecated("base_alpha")
-  base_alpha(x, base = base)
 }
 
 base_alpha_single <- function(x, base) {
@@ -30,16 +26,16 @@ base_alpha_single <- function(x, base) {
   a <- match(a, letters[1:base], nomatch = NA_integer_)
 
   if (anyNA(a)) {
-    stop(cond_base_alpha_limit(base, x))
+    stop(base_conversion_error("alpha_limit", base = base, x = x))
   }
 
   n <- length(a)
 
-  if (n == 0) {
+  if (n == 0L) {
     return(NA_integer_)
   }
 
-  as.integer(sum(c(a[-n] * base^(1:(n - 1)), a[n])))
+  as.integer(sum(c(a[-n] * base^(1:(n - 1L)), a[n])))
 }
 
 #' Base N conversion
@@ -54,15 +50,20 @@ base_alpha_single <- function(x, base) {
 #' @export
 #' @examples
 #' base_n(c(24, 22, 16), from = 7)
-base_n <- function(x, from = 10, to = 10) {
-  stopifnot(is.numeric(x))
+base_n <- function(x, from = 10L, to = 10L) {
+  if (!is.numeric(x)) {
+    stop(class_error("must_be", x, "numeric"))
+  }
+
+  from <- as.integer(from)
+  to <- as.integer(to)
 
   if (from == to) {
     return(x)
   }
 
-  if (to != 10) {
-    stop(cond_base_n_ten())
+  if (to != 10L) {
+    stop(base_conversion_error("ten"))
   }
 
   check_base(from)
@@ -73,19 +74,19 @@ base_n_single <- function(x, base) {
   ints <- as.integer(chr_split(x))
 
   if (any(ints >= base, na.rm = TRUE)) {
-    stop(cond_base_n_single_limit(base, x))
+    stop(base_conversion_error("single_limit", base = base, x = x))
   }
 
   seqs <- (length(ints) - 1L):0L
   as.integer(sum(mapply(function(i, s) i * base^s, i = ints, s = seqs)))
 }
 
-check_base_alpha <- function(b, high = 26) {
+check_base_alpha <- function(b, high = 26L) {
   if (is.character(b)) {
     b <- chr_split(b)
 
-    if (length(b) != 1) {
-      stop(cond_check_base_alpha_length())
+    if (length(b) != 1L) {
+      stop(base_conversion_error("alpha_length"))
     }
 
     b <- match(tolower(b), letters)
@@ -94,68 +95,45 @@ check_base_alpha <- function(b, high = 26) {
   check_base(b, high = high)
 }
 
-check_base <- function(b, high = 9) {
-  if (b %% 1 != 0) {
-    stop(cond_check_base_integer())
+check_base <- function(b, high = 9L) {
+  if (b %% 1L != 0L) {
+    stop(base_conversion_error("integer"))
   }
 
-  if (b > high || b <= 1) {
-    stop(cond_check_base_limit(high))
+  if (b > high || b <= 1L) {
+    stop(base_conversion_error("limit", high = high))
   }
 }
 
 
 # conditions --------------------------------------------------------------
 
-cond_base_alpha_limit <- function(base, x) {
-  new_condition(
-    sprintf(
-      'Cannot calculate alpha base "%s" for "%s" which has letters beyond "%s"',
-      base, x, x[base]
-    ),
-    "base_alpha_limit"
-  )
-}
-
-cond_base_n_ten <- function() {
-  new_condition(
-    "base_n() is currently only valid for conversions to base 10",
-    "base_n_ten"
-  )
-}
-
-cond_base_n_single_limit <- function(base, x) {
-  new_condition(
-    sprintf(
-      paste0(
-        "Cannot caluclate base \"%s\" for \"%s\" which has numbers greater",
-        " than or equal to the base value"
+base_conversion_error := condition(
+  function(s, base, x, high) {
+    switch(
+      s,
+      alpha_limit = sprintf(
+        'Cannot calculate alpha base "%s" for "%s" which has letters beyond "%s"', # nolint: line_length_linter.
+        base,
+        x,
+        x[base]
       ),
-      base, x
-    ),
-    "base_n_single_limit"
-  )
-}
-
-cond_check_base_alpha_length <- function() {
-  new_condition(
-    "base must be of length 1",
-    "check_base_alpha_length"
-  )
-}
-
-cond_check_base_integer <- function() {
-  new_condition(
-    "base must be an integer",
-    "check_base_integer"
-  )
-}
-
-cond_check_base_limit <- function(high) {
-  new_condition(
-    paste("base must be between 1 and", high),
-    "check_base_limit"
-  )
-}
-
-# terminal line
+      ten = "base_n() is currently only valid for conversions to base 10",
+      single_limit = sprintf(
+        paste0(
+          "Cannot caluclate base \"%s\" for \"%s\" which has numbers greater",
+          " than or equal to the base value"
+        ),
+        base,
+        x
+      ),
+      alpha_length = "base must be of length 1",
+      integer = "base must be an integer",
+      limit = sprintf("base must be between 1 and %s", high),
+      stop(internal_error("Unknown base conversion error type: ", type))
+    )
+  },
+  type = "error",
+  exports = c("base_alpha", "base_n")
+  # TODO include help
+)

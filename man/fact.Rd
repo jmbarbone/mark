@@ -50,20 +50,20 @@ A vector of equal length of \code{x} with class \code{fact} and \code{factor}.  
 Quickly create a factor
 }
 \details{
-\code{fact()} can be about 5 times quicker than \code{factor()} or
-\code{as.factor()} as it doesn't bother sorting the levels for non-numeric data
-or have other checks or features.  It simply converts a vector to a factor
-with all unique values as levels with \code{NA}s included.
+\code{\link[=fact]{fact()}} can be about 5 times quicker than \code{\link[base:factor]{base::factor()}} or
+\code{\link[base:factor]{base::as.factor()}} as it doesn't bother sorting the levels for non-numeric
+data or have other checks or features.  It simply converts a vector to a
+factor with all unique values as levels with \code{NA}s included.
 
-\code{fact.factor()} will perform several checks on a factor to include \code{NA}
-levels and to check if the levels should be reordered to conform with the
-other methods.  The \code{fact.fact()} method simple returns \code{x}.
+\code{\link[=fact.factor]{fact.factor()}} will perform several checks on a factor to include
+\code{NA} levels and to check if the levels should be reordered to conform with
+the other methods.  The \code{\link[=fact.fact]{fact.fact()}} method simple returns \code{x}.
 }
 \section{level orders}{
 
 
-The order of the levels may be adjusted to these rules depending on the class
-of \code{x}:
+The order of the levels may be adjusted to these rules depending on the
+class of \code{x}:
 \describe{
 \item{\code{character}}{The order of appearance}
 \item{\code{numeric}/\code{integer}/\code{Date}/\code{POSIXt}}{By the numeric order}

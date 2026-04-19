@@ -8,11 +8,11 @@
 #' x <- sample(letters[1:4], 10, TRUE)
 #' detail(x)
 #'
-#' df <- quick_df(list(
+#' df <- data.frame(
 #'   x = x,
 #'   y = round(runif(10), 2),
 #'   z = Sys.Date() + runif(10) * 100
-#' ))
+#' )
 #'
 #' detail(df)
 #' @export
@@ -27,7 +27,9 @@ detail <- function(x, ...) {
 #'   setting as `NA` will ignore this
 #' @export
 detail.default <- function(x, factor_n = 5L, ...) {
-  stopifnot(!is.list(x))
+  if (is.list(x)) {
+    stop(type_error("not_supported", x))
+  }
 
   op <- options(stringsAsFactors = FALSE)
   on.exit(options(op), add = TRUE)
@@ -62,12 +64,12 @@ detail.default <- function(x, factor_n = 5L, ...) {
     facts <- TRUE
   }
 
-  res <- quick_dfl(
+  res <- dataframe(
     class = collapse0(class(x), sep = "; "),
-    type  = collapse0(typeof(x), sep = "; "),
+    type = collapse0(typeof(x), sep = "; "),
     label = exattr(x, "label") %||% NA_character_,
-    n     = length(x2),
-    na    = sum(nas),
+    n = length(x2),
+    na = sum(nas),
     # These are a little funky
     min_c = as.character(min(if (quants) x2 else nc)),
     max_c = as.character(max(if (quants) x2 else nc))
@@ -80,7 +82,8 @@ detail.default <- function(x, factor_n = 5L, ...) {
     res$level_n <- NA_integer_
   }
 
-  text <- quick_dfl(
+  # fmt: skip
+  text <- dataframe(
     note    = note(x)    %||% NA_character_,
     comment = comment(x) %||% NA_character_
   )
@@ -98,24 +101,15 @@ detail.data.frame <- function(x, factor_n = 5L, ...) {
   x <- x[, !vap_lgl(x, is.list), drop = FALSE]
 
   if (!ncol(x)) {
-    stop(cond_detail_data_frame_list())
+    stop(input_error("`x` does not have any non-list columns"))
   }
 
   details <- lapply(x, detail, factor_n = factor_n)
   reps <- vap_int(details, nrow)
 
   cbind(
-    quick_dfl(i = rep(seq_along(x), reps)),
-    quick_dfl(col = rep(names(x), reps)),
+    dataframe(i = rep(seq_along(x), reps)),
+    dataframe(col = rep(names(x), reps)),
     Reduce(rbind, details)
-  )
-}
-
-# conditions --------------------------------------------------------------
-
-cond_detail_data_frame_list <- function() {
-  new_condition(
-    "x does not have any non-list columns",
-    "detail_data_frame_list"
   )
 }

@@ -1,13 +1,12 @@
-#' Lines of R code
+#' Lines of **R** code
 #'
-#' Find the total number of lines of R code
+#' Find the total number of lines of **R** code
 #'
-#' @details
-#' Tries to read each file in the directory that ends in .R or .r and sums
-#'   together.  Files that fail to read are not counted.
+#' @details Tries to read each file in the directory that ends in `.R` or `.r`
+#' and sums together.  Files that fail to read are not counted.
 #'
 #' @param x Directory to search for files
-#' @param skip_empty Logical, if TRUE will not count lines that are empty or
+#' @param skip_empty Logical, if `TRUE` will not count lines that are empty or
 #'   only contain a bracket or quotation mark.
 #'
 #' @returns An `integer` for the number of lines in all applicable files
@@ -18,7 +17,6 @@
 #' lines_of_r_code(system.file())
 #' lines_of_r_code(system.file(), skip_empty = FALSE)
 #' }
-
 lines_of_r_code <- function(x = ".", skip_empty = TRUE) {
   if (dir.exists(x)) {
     x <- list_r_files(x)

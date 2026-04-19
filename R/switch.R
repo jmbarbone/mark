@@ -2,17 +2,21 @@
 #'
 #' Switch with a list of params
 #'
-#' @description
-#' `switch_params()` is a vectorized version of `switch`
-#' `switch_case()` uses a formula syntax to return the value to the right of the
-#'   tilde (`~`) when `x` is `TRUE`
-#' `switch_in_case()` is a special case of `switch_case()` for `match()`-ing `x`
-#'   in the values on the left to return the value on the right.
+#' @description [mark::switch_params()] is a vectorized version of
+#'   [base::switch()]
 #'
-#' @return A named vector of values of same length `x`; or for `switch_case`,
-#'   an unnamed vector of values matching the rhs of `...`
+#'   [mark::switch_case()] uses a formula syntax to return the value to the
+#'   right of the tilde (`~`) when `x` is `TRUE`
 #'
-#' Inspired from:
+#'   [mark::switch_in_case()] is a special case of [mark::switch_case()] for
+#'   [base::match()]-ing `x` in the values on the left to return the value on
+#'   the right.
+#'
+#' @return A named vector of values of same length `x`; or for
+#'   [mark::switch_case()], an unnamed vector of values matching the rhs of
+#'   `...`
+#'
+#'   Inspired from:
 #' * https://stackoverflow.com/a/32835930/12126576
 #' * https://github.com/tidyverse/dplyr/issues/5811
 #'
@@ -82,7 +86,7 @@
 NULL
 
 #' @param x A vector of values
-#' @param ... Case evaluations (named for `switch_params`)
+#' @param ... Case evaluations (named for [mark::switch_params()])
 #' @rdname switch-ext
 #' @export
 switch_params <- function(x, ...) {
@@ -96,7 +100,7 @@ switch_params <- function(x, ...) {
 #' @param .default The default value if no matches are found in `...`
 #'   (default: `NULL` produces an `NA` value derived from `...`)
 #' @param .envir The environment in which to evaluate the LHS of `...` (default:
-#'   `parent.frame()`)
+#'   [base::parent.frame()])
 #' @rdname switch-ext
 #' @export
 switch_in_case <- function(x, ..., .default = NULL, .envir = parent.frame()) {
@@ -114,7 +118,7 @@ switch_in_case <- function(x, ..., .default = NULL, .envir = parent.frame()) {
     )
   }
 
-  rhs <- lapply(splits, function(i)  {
+  rhs <- lapply(splits, function(i) {
     eval(parse(text = i[2L]), envir = parent.frame())
   })
 
@@ -128,20 +132,20 @@ switch_in_case <- function(x, ..., .default = NULL, .envir = parent.frame()) {
     cres <- as.character(res)
     if (cres[1L] == ":") {
       if (!exists("xrange")) {
-        stop(cond_switch_in_case_numeric())
+        stop(switch_error("numeric"))
       }
 
       cres[cres == "-Inf"] <- xrange[1L]
       cres[cres == "Inf"] <- xrange[2L]
       if (any(cres %in% c("-Inf", "inf"))) {
-        stop(cond_switch_in_case_ambiguous())
+        stop(switch_error("ambiguous_infinity"))
       }
     }
 
     tryCatch(
       do.call(cres[1L], as.list(cres[-1L])),
       error = function(e) {
-        stop(cond_switch_in_case_evaluate(e$message))
+        stop(switch_error("evaluate", e$message))
       }
     )
   })
@@ -170,7 +174,9 @@ switch_in_case <- function(x, ..., .default = NULL, .envir = parent.frame()) {
   }
 
   res <- lapply(x, do_switches)
-  stopifnot(lengths(res) == 1L)
+  if (all(lengths(res) != 1L)) {
+    stop(switch_error("result"))
+  }
   res <- unlist(res)
   mode(res) <- mode(res[[1]])
   class(res) <- class(res[[1]])
@@ -205,7 +211,7 @@ switch_case <- function(..., .default = NULL, .envir = parent.frame()) {
       rmat[inds]
     } else {
       rmat[inds[, 2, drop = FALSE]]
-  }
+    }
   out[rowSums(lmat) == 0L] <- res0
   as.vector(out, mode(res0))
 }
@@ -231,12 +237,10 @@ switch_length_check <- function(ls) {
   switch(
     length(u),
     return(ls),
-    {
-      if (u[1L] == 0L) {
-        stop(cond_switch_length_check_0())
-      }
-
-      if (u[1L] == 1L) {
+    switch(
+      u[1L] + 1L,
+      stop(switch_error("lengths_check_0")),
+      {
         ind <- which(lens == 1L)
 
         for (i in ind) {
@@ -245,11 +249,12 @@ switch_length_check <- function(ls) {
 
         return(ls)
       }
-      stop(cond_switch_length_check_2())
-    },
-    stop(cond_switch_length_check_3())
+    ),
+    stop(switch_error("lengths_check_2")),
+    stop(switch_error("lengths_check_3")),
+    NULL
   )
-  stop(cond_switch_length_check_bad())
+  stop(internal_error("Unexpected lengths found"))
 }
 
 switch_lengths_check <- function(lhs, rhs) {
@@ -261,7 +266,7 @@ switch_lengths_check <- function(lhs, rhs) {
   }
 
   if (!identical(llens, rlens)) {
-    stop(cond_switch_lengths_check())
+    stop(switch_error("lengths_check"))
   }
 
   invisible(NULL)
@@ -269,48 +274,21 @@ switch_lengths_check <- function(lhs, rhs) {
 
 # conditions --------------------------------------------------------------
 
-cond_switch_in_case_numeric <- function() {
-  new_condition(
-    "x did not appear to be numeric, cannot continue evaluating lhs",
-    "switch_in_case_numeric"
-  )
-}
-
-cond_switch_in_case_ambiguous <- function() {
-  new_condition(
-    "Ambiguous infinity, cannot calculate",
-    "switch_in_case_ambiguous"
-  )
-}
-
-cond_switch_in_case_evaluate <- function(x) {
-  new_condition(
-    paste0("Could not evaluate lhs\n", x),
-    "switch_in_case_evaluate"
-  )
-}
-
-cond_switch_lengths_check <- function() {
-  new_condition("statements have different lengths", "switch_lengths_check")
-}
-
-cond_switch_length_check_0 <- function() {
-  new_condition("Cannot have 0 length rhs", "switch_length_check_0")
-}
-
-cond_switch_length_check_2 <- function() {
-  new_condition(
-    "2 lengths found, one of which was not 1",
-    "switch_length_check_1"
-  )
-}
-
-cond_switch_length_check_3 <- function() {
-  new_condition("3 or more lengths found, stopping", "switch_length_check_3")
-}
-
-cond_switch_length_check_bad <- function() {
-  new_condition("Something really went wrong", "switch_length_check_bad")
-}
-
-# terminal line
+# TODO review of these can be simplified
+switch_error := condition(
+  function(x, params = NULL) {
+    switch(
+      x,
+      numeric = "`x` did not appear to be numeric, cannot continue evaluating lhs", # nolint: line_length_linter.
+      ambiguous_infinity = "Ambiguous infinity, cannot calculate",
+      evaluate = paste0("Could not evaluate lhs\n", params),
+      lengths_check = "statements have different lengths",
+      lengths_check_0 = "Cannot have 0 length rhs",
+      lengths_check_2 = "2 lengths found, one of which was not 1",
+      lengths_check_3 = "3 or more lengths found, stopping",
+      result = "results must be of length 1L",
+      stop(internal_error()),
+    )
+  },
+  classes = "value_error"
+)

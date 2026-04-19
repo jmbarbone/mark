@@ -6,30 +6,32 @@
 #'
 #' @param file An R or Rmd file.
 #' @param quiet Logical; Determines whether to apply silence to [knitr::purl()]
-#' @param cd Logical; if TRUE, the R working directory is temporarily
+#' @param cd Logical; if `TRUE`, the **R** working directory is temporarily
 #'   changed to the directory containing file for evaluating
 #' @param env An environment determining where the parsed expressions are
 #'   evaluated
 #' @param ... Additional arguments passed to [base::source()]
 #'
-#' @details
-#' `try_source()` will output an error message rather than completely preventing
-#'   the execution.
-#' This can be useful for when a script calls on multiple, independent files to
-#'   be sourced and a single failure shouldn't prevent the entire run to fail as
-#'   well.
+#' @details [mark::try_source()] will output an error message rather than
+#' completely preventing the execution. This can be useful for when a script
+#' calls on multiple, independent files to be sourced and a single failure
+#' shouldn't prevent the entire run to fail as well.
 #'
 #' @name sourcing
 #' @return
-#' * `ksource()`: Invisibly, the result of calling `source()` on the `.R` file conversion of `file`
-#' * `try_source()`, `try_ksource()`: attempts of `source()` and `ksource()` but converts errors to warnings
+#' - [mark::ksource()]: Invisibly, the result of calling [base::source()] on
+#'   the `.R` file conversion of `file`
+#' - [mark::try_source()], [mark::try_ksource()]: attempts of [base::source()]
+#'   and [mark::ksource()] but converts errors to warnings
 #' @export
 
 # nolint end: line_length_linter.
 
 ksource <- function(file, ..., quiet = TRUE, cd = FALSE, env = parent.frame()) {
   require_namespace("knitr")
-  stopifnot(is.environment(env))
+  if (!is.environment(env)) {
+    stop(class_error("must_be", env, "environment"))
+  }
   o <- mark_temp("R")
   on.exit(fs::file_delete(o), add = TRUE)
   source(knitr::purl(file, output = o, quiet = quiet), chdir = cd, local = env)
@@ -40,12 +42,9 @@ ksource <- function(file, ..., quiet = TRUE, cd = FALSE, env = parent.frame()) {
 try_source <- function(file, cd = FALSE, ...) {
   tryCatch(
     source(file, chdir = cd),
-    error = function(e) {
-      warning(e, call. = FALSE)
-    },
-    simpleWarning = function(e) {
-      warning(e, call. = FALSE)
-    })
+    error = function(e) warning(e, call. = FALSE),
+    simpleWarning = function(e) warning(e, call. = FALSE)
+  )
 }
 
 #' @rdname sourcing
@@ -53,12 +52,9 @@ try_source <- function(file, cd = FALSE, ...) {
 try_ksource <- function(file, ...) {
   tryCatch(
     ksource(file = file, ...),
-    error = function(e) {
-      warning(e, call. = FALSE)
-    },
-    simpleWarning = function(e) {
-      warning(e, call. = FALSE)
-    })
+    error = function(e) warning(e, call. = FALSE),
+    simpleWarning = function(e) warning(e, call. = FALSE)
+  )
 }
 
 # nolint start: commented_code_linter.
@@ -105,14 +101,14 @@ try_ksource <- function(file, ...) {
 
 eval_named_chunk <- function(rmd_file, label_name) {
   if (!grepl("\\.[Rr][Mm][Dd]$", rmd_file)) {
-    stop(cond_eval_named_chunk_rmd())
+    stop(input_error("rmd_file does not appear to be an rmd file: ", rmd_file))
   }
 
   lines <- readLines(rmd_file)
   label_line <- grep(paste0("\\{r ", label_name), lines)[1]
 
   if (is.na(label_line)) {
-    stop(cond_eval_named_chunk_label())
+    stop(source_error("chunk"))
   }
 
   lines <- lines[(label_line + 1):length(lines)]
@@ -145,23 +141,24 @@ source_r_dir <- function(dir, echo = FALSE, quiet = FALSE, ...) {
 #' @inheritParams source_files
 source_r_file <- function(path, echo = FALSE, quiet = FALSE, ...) {
   if (!grepl("\\.[rR]$", path)) {
-    stop(cond_source_r_file_r())
+    stop(input_error("`path` must be an R script with .R extension"))
   }
 
-  stopifnot(is_file(path))
+  if (!is_file(path)) {
+    stop(input_error("`path` must be a valid file location"))
+  }
 
   st <- system.time(
     tryCatch(
       source(path, echo = echo, ..., chdir = FALSE),
-      error = function(e) {
-        stop("Error in ", path, "\n", e, call. = FALSE)
-      }
+      error = function(e) stop("Error in ", path, "\n", e, call. = FALSE)
     )
   )
 
   if (!quiet) {
     message(
-      sprintf("Successfully sourced: %s [%s]",
+      sprintf(
+        "Successfully sourced: %s [%s]",
         basename(path),
         round(st[["elapsed"]], 2)
       )
@@ -182,15 +179,15 @@ source_r_file <- function(path, echo = FALSE, quiet = FALSE, ...) {
 #' Source an R script to an environment
 #'
 #' @param x An R script
-#' @param ops Options to be passed to [mark::rscript]
+#' @param ops Options to be passed to [mark::rscript()]
 #' @return Invisibly, and environment variable of the objects/results created
 #'   from `x`
 #' @export
 source_to_env <- function(x, ops = NULL) {
   rds_file <- mark_temp("Rds")
-  r_temp   <- mark_temp("R")
-  std_out  <- mark_temp("md")
-  std_err  <- mark_temp("md")
+  r_temp <- mark_temp("R")
+  std_out <- mark_temp("md")
+  std_err <- mark_temp("md")
 
   file.copy(x, r_temp)
 
@@ -204,32 +201,38 @@ source_to_env <- function(x, ops = NULL) {
   rscript(r_temp, ops, wait = TRUE, stdout = std_out, stderr = std_err)
 
   if (!is_file(rds_file)) {
-    stop(cond_source_to_env_fail(
-      file = rds_file,
-      err = std_err,
-      out = std_out
+    stop(source_error(
+      "source",
+      list(
+        file = rds_file,
+        err = std_err,
+        out = std_out
+      )
     ))
   }
 
   con <- file(rds_file)
   res <- readRDS(con)
 
-  on.exit({
-    close(con)
-    file.remove(r_temp, rds_file, std_out, std_err)
-  }, add = TRUE)
+  on.exit(
+    {
+      close(con)
+      file.remove(r_temp, rds_file, std_out, std_err)
+    },
+    add = TRUE
+  )
 
   invisible(res)
 }
 
 #' Rscript
 #'
-#' Implements `Rscript` with `system2`
+#' Implements `Rscript` with [base::system2()]
 #'
 #' @param x An R file to run
 #' @param ops A character vector of options (`"--"` is added to each)
 #' @param args A character vector of other arguments to pass
-#' @param ... Additional arguments passed to `system2`
+#' @param ... Additional arguments passed to [base::system2()]
 #' @return A `character` vector of the result from calling `Rscript` via
 #'   `system2()`
 #'
@@ -241,7 +244,8 @@ rscript <- function(x, ops = NULL, args = NULL, ...) {
   }
 
   rs <- file_path(
-    R.home("bin"), if (is_windows()) "Rscript.exe" else "Rscript",
+    R.home("bin"),
+    if (is_windows()) "Rscript.exe" else "Rscript",
     check = TRUE
   )
 
@@ -260,9 +264,9 @@ rscript <- function(x, ops = NULL, args = NULL, ...) {
 #'
 #' @export
 save_source <- function(
-    env = parent.frame(),
-    file = mark_temp("Rds"),
-    name = NULL
+  env = parent.frame(),
+  file = mark_temp("Rds"),
+  name = NULL
 ) {
   ls <- ls(envir = env, all.name = TRUE)
   out <- lapply(ls, get, envir = env)
@@ -270,17 +274,16 @@ save_source <- function(
 
   res <- struct(
     list2env(out, parent = baseenv()),
-    class       = c("source_env", "environment"),
+    class = c("source_env", "environment"),
     sessionInfo = utils::sessionInfo(),
-    search      = search(),
-    options     = options(),
-    file        = file,
-    env         = env,
-    name        = name %||% file_name(file)
+    search = search(),
+    options = options(),
+    file = file,
+    env = env,
+    name = name %||% file_name(file)
   )
 
   if (!is.null(file)) {
-
     if (!is_dir(dirname(file))) {
       dir.create(dirname(file), recursive = TRUE)
     }
@@ -297,8 +300,14 @@ save_source <- function(
 print.source_env <- function(x, ...) {
   a <- attributes(x)
   cat(
-    "<", crayon_green("sourced env: "), a$name, ">\n",
-    "<", crayon_green("parent env: "), environmentName(a$env), ">\n",
+    "<",
+    crayon_green("sourced env: "),
+    a$name,
+    ">\n",
+    "<",
+    crayon_green("parent env: "),
+    environmentName(a$env),
+    ">\n",
     sep = ""
   )
   invisible(x)
@@ -306,34 +315,35 @@ print.source_env <- function(x, ...) {
 
 # conditions --------------------------------------------------------------
 
-cond_eval_named_chunk_rmd <- function() {
-  new_condition(
-    "rmd_file does not appear to be an rmd file",
-    "eval_named_chunk_rmd"
+source_error := condition(
+  function(x, params = NULL) {
+    switch(
+      x,
+      label = "label not found in .Rmd file",
+      # NOTE maybe 'source' is a different type of error
+      source = paste0(
+        "RDS file not succesfully saved here:\n  ",
+        params$file,
+        "\n",
+        "\nRscript stderr:\n",
+        collapse0(readLines(params$err), sep = "\n"),
+        "\n",
+        "\nRscript stdout:\n",
+        collapse0(readLines(params$out), sep = "\n"),
+        "\n"
+      ),
+      stop(internal_error())
+    )
+  },
+  type = "error",
+  classes = "value_error",
+  package = "mark",
+  exports = c(
+    "source_to_env",
+    "eval_named_chunk"
   )
-}
-
-cond_eval_named_chunk_label <- function() {
-  new_condition("label not found in .Rmd file", "eval_named_chunk_label")
-}
-
-cond_source_r_file_r <- function() {
-  new_condition("Must be a .R file", "source_r_file_r")
-}
-
-cond_source_to_env_fail <- function(file, err, out) {
-  msg <- paste0(
-    "RDS file not succesfully saved here:\n  ", file,
-    "\n",
-    "\nRscript stderr:\n",
-    collapse0(readLines(err), sep = "\n"),
-    "\n",
-    "\nRscript stdout:\n",
-    collapse0(readLines(out), sep = "\n"),
-    "\n"
-  )
-  new_condition(msg, "source_to_env_fail")
-}
+  # TODO include help
+)
 
 # globalVariables ---------------------------------------------------------
 

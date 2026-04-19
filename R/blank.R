@@ -12,11 +12,11 @@
 #'   as blanks
 #'
 #' @returns
-#' * `is_blank()` a `logical` vector indicating _blank_ elements in `x`
-#' * `select_blank_cols()` `x` with only columns that are all _blank_
-#' * `remove_blank_cols()` `x` without columns of only _blank_
-#' * `is_blank_cols()` a logical vector: `TRUE` all rows of column are _blank_,
-#' otherwise `FALSE`
+#' - [mark::is_blank()] a `logical` vector indicating _blank_ elements in `x`
+#' - [mark::select_blank_cols()] `x` with only columns that are all _blank_
+#' - [mark::remove_blank_cols()] `x` without columns of only _blank_
+#' - [mark::is_blank_cols()] a logical vector: `TRUE` all rows of column are
+#'   _blank_, otherwise `FALSE`
 #' @name blank_values
 NULL
 
@@ -38,14 +38,16 @@ select_blank_cols <- function(x, na_blank = FALSE, ws = TRUE) {
 remove_blank_cols <- function(x, na_blank = FALSE, ws = TRUE) {
   x[, !is_blank_cols(x, na_blank = na_blank, ws = ws), drop = FALSE]
 }
-
 #' @rdname blank_values
 #' @export
 is_blank_cols <- function(x, names = TRUE, na_blank = FALSE, ws = TRUE) {
-  stopifnot(is.data.frame(x))
-  vap_lgl(x, function(i) {
-    all(is_blank(i, na_blank = na_blank, ws = ws))
-  },
-  .nm = names
+  if (!is.data.frame(x)) {
+    stop(class_error("must_be", x, "data.frame"))
+  }
+
+  vap_lgl(
+    x,
+    function(i) all(is_blank(i, na_blank = na_blank, ws = ws)),
+    .nm = names
   )
 }

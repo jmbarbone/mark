@@ -104,7 +104,6 @@ str_extract_datetime <- function(x, format = "%Y-%m-%d %H%M%S") {
 
 # nolint next: object_name_linter.
 string_extract <- function(x, pattern, perl = FALSE, ignore.case = FALSE) {
-  # nolint: object_name_linter, line_length_linter.
   re <- regexpr(pattern, x, perl = perl, ignore.case = ignore.case)
   starts <- as.vector(re, "integer")
   substr(x, starts, starts + attr(re, "match.length") - 1L)
@@ -113,7 +112,7 @@ string_extract <- function(x, pattern, perl = FALSE, ignore.case = FALSE) {
 #' Format string to a regular expression
 #'
 #' @param x A date or datetime format, assuming that entries follow the formats
-#'  described in [base::strptime]
+#'  described in [base::strptime()]
 #'
 #' @examples
 #' mark:::format_to_regex("%Y-%m-%d")
@@ -157,23 +156,25 @@ month_name_regex <- sprintf("(%s)", paste(month.name, collapse = "|"))
 #' chr_split("split this")
 #' @export
 chr_split <- function(x) {
-  stopifnot(length(x) == 1L)
-  strsplit(as.character(x), "")[[1]]
+  if (length(x) != 1L) {
+    stop(input_error("`x` must be a single length character"))
+  }
+  strsplit(as.character(x), "")[[1L]]
 }
 
 #' Print as c
 #'
 #' Prints a vector to paste into an R script
 #'
-#' @details
-#' This sorts (if set) and provides unique values for each element in `x` and
-#'   prints then as a call to `c`.  This can be useful for copying data that you
-#'   want to save as a vector in an R script.
-#' The result is both called in `cat()` as well as copied to the clipboard.
+#' @details This sorts (if set) and provides unique values for each element in
+#'   `x` and prints then as a call to [base::c()].  This can be useful for
+#'   copying data that you want to save as a vector in an **R** script. The
+#'   result is both called in [base::cat()] as well as copied to the clipboard.
 #'
 #' @param x A vector (defaults to reading the clipboard)
-#' @param sorted If `TRUE` (default) applies `sort()` to `x`
-#' @param null If `TRUE` (default) adds `NULL` at the end of the `c()` print
+#' @param sorted If `TRUE` (default) applies [base::sort()] to `x`
+#' @param null If `TRUE` (default) adds `NULL` at the end of the [base::c()]
+#'   print
 #' @return Invisibly, as a `character` vector, the object printed to the console
 #' @examples
 #' print_c(1:10)
@@ -183,7 +184,6 @@ chr_split <- function(x) {
 #' @export
 print_c <- function(x = read_clipboard(), sorted = TRUE, null = TRUE) {
   check_is_vector(x)
-
   x <- unique(unlist(x))
 
   if (sorted) {

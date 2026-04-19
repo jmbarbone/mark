@@ -26,8 +26,14 @@ test_that("expand_by() work", {
   expect_equal(exp, res)
 
   # nolint start: line_length_linter.
-  expect_error(expect_warning(expand_by(c(a = 1, a = 1), c(a = 1))), class = "simpleError")
-  expect_error(expect_warning(expand_by(c(a = 1), c(a = 1, a = 1))), class = "simpleError")
+  expect_error(
+    expect_warning(expand_by(c(a = 1, a = 1), c(a = 1))),
+    class = "simpleError"
+  )
+  expect_error(
+    expect_warning(expand_by(c(a = 1), c(a = 1, a = 1))),
+    class = "simpleError"
+  )
   # nolint end: line_length_linter.
 })
 
@@ -50,13 +56,16 @@ test_that("reindex() work", {
   reindex(iris1, "index", seq(2, 8, 2))
   reindex(iris1, "index", seq(2, 8, 2), expand = "both")
 
-  expect_error(reindex(1), "data.frame", class = "simpleError")
+  expect_error(reindex(1), class = "class_error")
   expect_error(
-    reindex(quick_dfl(a = 1), index = integer()),
-    "new_index"
+    reindex(dataframe(a = 1), index = integer()),
+    class = if (getRversion() >= "4.5") "missingArgError" else "simpleError",
   )
 })
 
 test_that("expand helpers work", {
-  expect_warning(unique_name_check(c(a = 1, a = 2)))
+  expect_warning(
+    unique_name_check(c(a = 1, a = 2)),
+    class = "duplicate_warning"
+  )
 })

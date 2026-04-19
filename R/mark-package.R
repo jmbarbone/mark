@@ -5,6 +5,7 @@
 #' Miscellaneous, Analytic R Kernels
 #'
 #' @import fuj
+#' @import cnd
 #' @docType package
 #' @name mark
 "_PACKAGE"
@@ -38,9 +39,5 @@ op.mark <- list(
 )
 
 .onLoad <- function(libname, pkgname) {
-  options(op.mark[!names(op.mark) %in% names(options())])
-}
-
-.onDetach <- function(libpath) {
-  invisible()
+  options(op.mark[!names(op.mark) %in% names(options())]) # nocov
 }

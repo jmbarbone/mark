@@ -13,14 +13,14 @@ rscript(x, ops = NULL, args = NULL, ...)
 
 \item{args}{A character vector of other arguments to pass}
 
-\item{...}{Additional arguments passed to \code{system2}}
+\item{...}{Additional arguments passed to \code{\link[base:system2]{base::system2()}}}
 }
 \value{
 A \code{character} vector of the result from calling \code{Rscript} via
 \code{system2()}
 }
 \description{
-Implements \code{Rscript} with \code{system2}
+Implements \code{Rscript} with \code{\link[base:system2]{base::system2()}}
 }
 \seealso{
 \link{source_to_env}

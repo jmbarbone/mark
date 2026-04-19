@@ -40,25 +40,25 @@ get_not_available <- function(type = NULL) {
   out <- get_na_list()[[type]]
 
   if (is.null(out)) {
-    stop(cond_get_not_available(type))
+    stop(not_available_error(type))
   }
 
   if (is.function(out) || is.call(out)) {
-    stop(cond_get_not_available_type())
+    stop(class_error(sprintf(
+      "Type '%s' cannot be set to class 'function' or 'call'",
+      type
+    )))
   }
 
   out
 }
 
 get_na_list <- function() {
-  ls <- getOption("mark.na_list", list())
-
-  if (identical(ls, list())) {
-    options(mark.na_list = na_list)
-    ls <- na_list
-  }
-
-  ls
+  merge_list(
+    op.mark$mark.na_list,
+    getOption("mark.na_list"),
+    sort = FALSE
+  )
 }
 
 #' @export
@@ -79,19 +79,16 @@ delayedAssign("NA_POSIXlt_", not_available("logical", 1L))
 
 # conditions --------------------------------------------------------------
 
-cond_get_not_available <- function(x) {
-  msg <- sprintf(
-    paste0(
-      "\"%s\" not found\n",
-      "Can be set with `mark::set_not_available(%s, value = .)`"
-    ),
-    x,
-    x
-  )
-
-  new_condition(msg, "get_not_available")
-}
-
-cond_get_not_available_type <- function() {
-  new_condition("type is not valid", "get_not_available_type")
-}
+not_available_error := condition(
+  function(x) {
+    sprintf(
+      paste0(
+        "\"%1$s\" not found\n",
+        "Can be set with `mark::set_not_available(%1$s, value = .)`"
+      ),
+      x
+    )
+  },
+  type = "error",
+  classes = "value_error"
+)

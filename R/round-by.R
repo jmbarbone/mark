@@ -22,10 +22,10 @@
 #' )
 
 round_by <- function(
-    x,
-    by = 1,
-    method = c("round", "ceiling", "floor"),
-    include0 = TRUE
+  x,
+  by = 1,
+  method = c("round", "ceiling", "floor"),
+  include0 = TRUE
 ) {
   res <- do.call(match_param(method), list(x / by)) * by
 

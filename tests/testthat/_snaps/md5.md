@@ -15,7 +15,7 @@
 ---
 
     Code
-      md5(quick_dfl(a = 1))
+      md5(dataframe(a = 1))
     Output
-      34e2f3ac0f1ba4794d0cd0160fe80c6e
+      f16311aa3f99060be519c8e9b38101e6
 

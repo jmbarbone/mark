@@ -53,7 +53,7 @@ recode_by <- function(x, by, vals = NULL, mode = "any") {
   vals <- vals %||% names(by)
 
   if (is.null(vals)) {
-    stop(cond_recode_values())
+    stop(input_error("`vals` must be set if `by` has no names"))
   }
 
   if (length(vals) == 1) {
@@ -66,7 +66,6 @@ recode_by <- function(x, by, vals = NULL, mode = "any") {
 #' @export
 #' @rdname recode_by
 recode_only <- function(x, by, vals = NULL) {
-
   if (is.factor(x)) {
     levels(x) <- recode_only(levels(x), by = by, vals = vals)
     return(x)
@@ -79,7 +78,7 @@ recode_only <- function(x, by, vals = NULL) {
   vals <- vals %||% names(by)
 
   if (is.null(vals)) {
-    stop(cond_recode_values())
+    stop(input_error("`vals` must be set if `by` has no names"))
   }
 
   if (is.list(vals)) {
@@ -120,14 +119,4 @@ clean_na_coercion <- function(expr) {
   }
 
   res
-}
-
-
-# conditions --------------------------------------------------------------
-
-cond_recode_values <- function() {
-  new_condition(
-    "values to recode by were not properly set",
-    "recode_values"
-  )
 }

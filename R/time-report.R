@@ -1,3 +1,5 @@
+# nocov start
+
 #' Time reports
 #'
 #' Evaluate code and report on the time difference
@@ -25,7 +27,6 @@
 #' })
 #' @export
 
-# nolint next: object_name_linter.
 simpleTimeReport <- function(title = NULL, expr, envir = parent.frame()) {
   mc <- match.call()
   cat0(trimws(title), "\n", rep("-", getOption("width")), "\n")
@@ -137,7 +138,7 @@ simpleTimeReport <- function(title = NULL, expr, envir = parent.frame()) {
 #' @param threshold A threshold for reporting the difference, if `stop - start`
 #'   is less than this, a empty character vector (`""`) is returned
 #' @noRd
-formatTimeDiff <- function(start, stop = Sys.time(), threshold = .1) { # nolint: object_name_linter, line_length_linter.
+formatTimeDiff <- function(start, stop = Sys.time(), threshold = .1) {
   difference <- stop - start
 
   threshold <- as.difftime(threshold, units = "secs")
@@ -186,3 +187,5 @@ split_expression <- function(expr) {
   x <- strsplit(x, "\\s{0,}\n\\s{0,}")[[1]]
   str2expression(x)
 }
+
+# nocov end

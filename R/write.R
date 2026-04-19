@@ -1,29 +1,29 @@
 #' Write file with md5 hash check
 #'
-#' @section `options()`:
+#' @section Options:
 #'
 #' - `mark.compress.method`: compression method to use when writing files
 #' - `mark.list.hook`: when a `data.frame` contains a `list` column, this
-#'   function is applied to each element of the list.  The default `"auto"`
-#'   uses `toJSON()` if the package `jsonlite` is available, otherwise
-#'
+#'   function is applied to each element of the list.  The default `"auto"` uses
+#'   `jsonlite::toJSON()` if the package `jsonlite` is available, otherwise
 #'
 #' @param x An object to write to file
 #' @param path The file or connection to write to (dependent on part by method)
 #' @param method The method of saving the file.  When `default`, the method is
 #'   determined by file extension of `path`, if present, otherwise by the type
 #'   of object of `x`.
-#' @inheritParams file_copy_md5
 #' @param encoding The encoding to use when writing the file.
 #' @param compression The compression method to use when writing the file.
 #' @param ... Additional arguments passed to the write function.
+#' @inheritParams file_copy_md5
 #' @returns
-#' - [write_file_md5()]: `x`, invisibly.  When `path` is not the `stdout()`, `x`
-#' is returned with the attribute `"path"` set to the result of
-#' [file_copy_md5()].
-#' - [mark_write_methods()]: A list of applicable methods and their aliases
-#' - [mark_compress_methods()]: A character vector of applicable compression
-#' methods
+#' - [mark::write_file_md5()]: `x`, invisibly.  When `path` is not the
+#'   [base::stdout()], `x` is returned with the attribute `"path"` set to the
+#'   result of [mark::file_copy_md5()].
+#' - [mark::mark_write_methods()]: A list of applicable methods and their
+#'   aliases
+#' - [mark::mark_compress_methods()]: A character vector of applicable
+#'   compression methods
 #' @examples
 #' # just writes to stdout()
 #' df <- data.frame(a = 1, b = 2)
@@ -54,6 +54,7 @@ write_file_md5 <- function(
   )
   on.exit(options(op), add = TRUE)
 
+  # fmt: skip
   if (
     !isTRUE(nzchar(path, keepNA = TRUE)) ||
       inherits(path, "terminal")
@@ -125,6 +126,7 @@ write_file_md5 <- function(
   temp <- hook(temp) %||% temp
 
   if (!is.null(attr(x, "path"))) {
+    # NOTE this should be fairly rare, right?
     warning("attr(x, \"path\") is being overwritten")
   }
 
@@ -245,10 +247,8 @@ mark_write_table <- function(
   eol = "\n",
   na = "",
   dec = ".",
-  # nolint next: object_name_linter.
-  row.names = FALSE,
-  # nolint next: object_name_linter.
-  col.names = NA,
+  row.names = FALSE, # nolint: object_name_linter.
+  col.names = NA, # nolint: object_name_linter.
   qmethod = "escape",
   list_hook = getOption("mark.list.hook", "auto")
 ) {
@@ -306,9 +306,8 @@ get_list_hook <- function(hook) {
     none = NULL,
     # nolint next: brace_linter.
     na = function(x) {
-      stop(new_condition(
-        "options(mark.list.hook) is NA but list columns detected",
-        class = "writeFileMd5ListHook"
+      stop(value_error(
+        "options(mark.list.hook) is NA but list columns detected"
       ))
     },
     match.fun(hook)
@@ -318,12 +317,10 @@ get_list_hook <- function(hook) {
 mark_write_dcf <- function(
   x,
   con = "",
-  # nolint next: object_name_linter.
-  useBytes = FALSE,
+  useBytes = FALSE, # nolint: object_name_linter.
   indent = 4,
   width = Inf,
-  # nolint next: object_name_linter.
-  keep.white = NULL
+  keep.white = NULL # nolint: object_name_linter.
 ) {
   write.dcf(
     x = x,
@@ -357,17 +354,7 @@ mark_write_yaml <- function(
     unicode = unicode,
     precision = digits,
     indent.mapping.sequence = FALSE,
-    handlers = list(
-      boolean = function(x) {
-        # nocov start
-        if (x %in% c("n", "y")) {
-          x
-        } else {
-          tolower(x) == "true"
-        }
-        # nocov end
-      }
-    )
+    handlers = list(logical = yaml::verbatim_logical)
   )
   mark_write_lines(string, con)
 }
@@ -435,6 +422,56 @@ mark_write_arrow <- function(
   do.call(write, c(args, list(...)))
 }
 
+mark_write_md <- function(
+  x,
+  con,
+  format = c("default", "compact"),
+  na = NA_character_,
+  ...
+) {
+  format <- match_param(format)
+  m <- rbind(NA, NA, unname(as.matrix(x)))
+  n <- ncol(x)
+  numeric <- vap_lgl(x, is.numeric)
+  align <- rep("left", n)
+  align[numeric] <- "right"
+  m[is.na(m)] <- na
+
+  for (i in seq_along(x)) {
+    m[, i] <- base::format(
+      c(colnames(x)[i], "", m[-(1:2), i]),
+      trim = format == "compact",
+      justify = align[i]
+    )
+  }
+
+  m[2L, ] <- strrep(
+    "-",
+    switch(
+      format,
+      default = nchar(m[1L, ]) - 1L,
+      compact = rep(2L, n)
+    )
+  )
+
+  m[2L, numeric] <- paste0(m[2L, numeric], ":")
+  m[2L, !numeric] <- paste0(":", m[2L, !numeric])
+
+  if (format == "compact") {
+    m <- trimws(m)
+  }
+
+  cat(
+    paste0(
+      "|",
+      apply(m, 1L, paste0, collapse = "|"),
+      "|",
+      collapse = "\n"
+    ),
+    file = con
+  )
+}
+
 # helpers -----------------------------------------------------------------
 
 mark_to_json <- function(x) {
@@ -478,10 +515,9 @@ compress <- function(
 
   if (identical(attr(path, "extra"), "tar")) {
     if (method == "zip") {
-      stop(
-        "'zip' is not a valid method when writing to a tar archive",
-        call. = FALSE
-      )
+      stop(input_error(
+        "'zip' is not a valid method when writing to a tar archive"
+      ))
     }
     # tar() can do the compression for us, so we move this to a temporary
     # option.  this is always cleaned up because it shouldn't be set manually

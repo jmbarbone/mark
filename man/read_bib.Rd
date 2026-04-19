@@ -13,7 +13,7 @@ read_bib(file, skip = 0L, max_lines = NULL, encoding = "UTF-8")
 
 \item{max_lines}{The maximum number of lines to read}
 
-\item{encoding}{Assumed encoding of file (passed to \code{\link[=readLines]{readLines()}}}
+\item{encoding}{Assumed encoding of file (passed to \code{\link[base:readLines]{base::readLines()}}}
 }
 \value{
 A \code{data.frame} with each row as a bib entry and each column as a

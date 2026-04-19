@@ -44,13 +44,13 @@ remove_labels(x, ...)
 
 \item{...}{One or more unquoted expressed separated by commas.  If assigning
 to a data.frame, \code{...} can be replaced with a \code{data.frame} where the first
-column is the targeted colname and the second is the desired label.}
+column is the targeted column name and the second is the desired label.}
 
 \item{label}{A single length string of a label to be assigned}
 
-\item{.missing}{A control setting for dealing missing columns in a list;
-can be set to \code{error} to \code{stop()} the call, \code{warn} to provide a warning, or
-\code{skip} to silently skip those labels.}
+\item{.missing}{A control setting for dealing missing columns in a list; can
+be set to \code{"error"} to \code{\link[base:stop]{base::stop()}} the call, \code{"warn"} to provide a
+warning, or \code{"skip"} to silently skip those labels.}
 
 \item{.ls}{A named list of columns and labels to be set if \code{...} is empty}
 
@@ -67,9 +67,9 @@ A labelled vector or \code{data.frame}
 Assign labels to a vector or data.frame.
 }
 \details{
-When labels are assigned to a data.frame they can make viewing the object
-(with \code{View()} inside Rstudio).  The \code{view_labels()} has a call to \code{View()}
-inside and will retrieve the labels and show them in the viewer as a
+When labels are assigned to a data.frame they can make viewing the
+object (with \code{View()} inside Rstudio).  \code{\link[=view_labels]{view_labels()}} has a call to
+\code{View()} inside and will retrieve the labels and show them in the viewer as a
 data.frame.
 }
 \examples{

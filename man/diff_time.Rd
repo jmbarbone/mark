@@ -51,7 +51,7 @@ diff_time_myears(x, y, ...)
 
 \item{tzx, tzy}{time zones (see \strong{Time zones} section)}
 
-\item{...}{Additional arguments passed to \code{diff_time()}}
+\item{...}{Additional arguments passed to \code{\link[=diff_time]{diff_time()}}}
 }
 \value{
 A \code{diff_time} vector, object
@@ -71,10 +71,11 @@ passed to the \code{tz} parameter as a character vector
 }
 \section{Units}{
  Units can be used beyond those available in
-\code{base::difftime()}.  Some of these use assumptions in how units of time
+\code{\link[base:difftime]{base::difftime()}}.  Some of these use assumptions in how units of time
 should be standardized and can be changed in the corresponding options. Any
-of these can be calculated with \code{base::difftime()} through using \code{units = "days"} but the \code{dtime} class will print out with these specifications into
-the console for less potential confusion.
+of these can be calculated with \code{\link[base:difftime]{base::difftime()}} through using
+\code{units = "days"} but the \code{dtime} class will print out with these
+specifications into the console for less potential confusion.
 
 \describe{
 \item{months}{Months by number of days \code{mark.days_in_month} (defaults: \code{30})}
@@ -88,7 +89,7 @@ the console for less potential confusion.
 \section{Time zones}{
  Time zones can be passed as either a numeric vector of
 GMT/UTC offsets (the number of seconds from GMT) or as a character vector.
-If the letter, these need to conform with values from \code{base::OlsonNames()}.
+If the letter, these need to conform with values from \code{\link[base:timezones]{base::OlsonNames()}}.
 
 A default timezone can be set with \code{options(mark.default_tz = .)}.  The
 value can either be a numeric

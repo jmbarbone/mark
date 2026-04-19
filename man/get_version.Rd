@@ -23,19 +23,19 @@ automatically update.}
 }
 \value{
 \itemize{
-\item \code{get_version()}: A package_version
-\item \code{bump_version()}: None, called for its side-effects
-\item \code{bump_date_version()}: None, called for its side-effects
-\item \code{update_version()}: None, called for its side-effects
+\item \code{\link[=get_version]{get_version()}}: A package_version
+\item \code{\link[=bump_version]{bump_version()}}: None, called for its side-effects
+\item \code{\link[=bump_date_version]{bump_date_version()}}: None, called for its side-effects
+\item \code{\link[=update_version]{update_version()}}`: None, called for its side-effects
 }
 }
 \description{
 Will read the \code{DESCRIPTION} file and to get and adjust the
 version
 
-\code{bump_date_version()} will not check if the version is actually a date.  When
-the current version is the same as today's date(equal by character strings)
-it will append a \code{.1}.
+\code{\link[=bump_date_version]{bump_date_version()}} will not check if the version is actually a
+date.  When the current version is the same as today's date (equal by
+character strings) it will append a \code{.1}.
 }
 \details{
 Get and bump package version for dates

@@ -4,14 +4,12 @@
 \alias{vector2df}
 \title{Vector to data.frame}
 \usage{
-vector2df(x, name = "name", value = "value", show_NA)
+vector2df(x, name = "name", value = "value")
 }
 \arguments{
 \item{x}{A vector of values.}
 
 \item{name, value}{Character strings for the name and value columns}
-
-\item{show_NA}{Ignored; will trigger a warning if set}
 }
 \value{
 A \code{data.frame} with \code{name} (optional) and \code{value} columns

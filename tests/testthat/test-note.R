@@ -36,7 +36,7 @@ test_that("note() work", {
 })
 
 test_that("print.noted() passes to next methods [67] (data.frame)", {
-  x <- quick_dfl(a = 1:50)
+  x <- dataframe(a = 1:50)
   original <- capture.output(print(x, max = 5))
   note(x) <- "note"
 
@@ -68,20 +68,20 @@ test_that("print.noted() passes to next methods [67] (tibble)", {
 test_that("print_note() works with data.frame", {
   withr::local_options(list(mark.check_interactive = NA))
 
-  x <- quick_dfl(a = 1:2, b = 1:2)
+  x <- dataframe(a = 1:2, b = 1:2)
   note(x) <- "This should work"
   expect_identical(print_note(x), x)
 
-  x <- list(a = 1:3, b = 2, c = quick_dfl(a = 1))
+  x <- list(a = 1:3, b = 2, c = dataframe(a = 1))
   note(x) <- "This is a list"
   expect_identical(print_note(x), x)
 })
 
 test_that("note() errors", {
   withr::local_options(list(mark.check_interactive = NA))
-  expect_error(print_note(1L), class = "simpleError")
+  expect_error(print_note(1L), class = "class_error")
   x <- struct(1L, "noted", note = struct("hi", "note_a_note"))
-  expect_error(print_note(x), class = "printNoteNotedError")
+  expect_error(print_note(x), class = "class_error")
 })
 
 test_that("note() snapshots", {
@@ -91,11 +91,11 @@ test_that("note() snapshots", {
   note(x) <- "snapshot vector"
   expect_snapshot(x)
 
-  x <- quick_dfl(a = 1:2, b = 1:2)
+  x <- dataframe(a = 1:2, b = 1:2)
   note(x) <- "snapshot data.frame"
   expect_snapshot(x)
 
-  x <- list(a = 1:2, b = 1:2, c = quick_dfl(a = 1, b = 2))
+  x <- list(a = 1:2, b = 1:2, c = dataframe(a = 1, b = 2))
   note(x) <- "snapshot list"
   expect_snapshot(x)
 

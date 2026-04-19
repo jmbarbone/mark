@@ -11,10 +11,10 @@ package_available(namespace)
 }
 \value{
 \itemize{
-\item \code{require_namespace()}: None, called for side effects
-\item \code{package_available()}: Visibly, \code{TRUE} or \code{FALSE}
+\item \code{\link[=require_namespace]{require_namespace()}}: None, called for side effects
+\item \code{\link[=package_available]{package_available()}}: Visibly, \code{TRUE} or \code{FALSE}
 }
 }
 \description{
-A wrapped requireNamespace
+A wrapped \code{\link[base:ns-load]{base::requireNamespace()}}
 }

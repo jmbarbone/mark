@@ -4,7 +4,7 @@
 #'
 #' @param x A vector of characters
 #' @param n The limit to the number of unique values for the factor
-#' @seealso [fact2char()]
+#' @seealso [mark::fact2char()]
 #' @family factors
 #' @export
 char2fact <- function(x, n = 5) {
@@ -14,7 +14,7 @@ char2fact <- function(x, n = 5) {
 #' @rdname char2fact
 #' @export
 char2fact.default <- function(x, n = 5) {
-  stop(cond_char2fact_class(x))
+  stop(class_error("not_supported", x))
 }
 
 #' @rdname char2fact
@@ -53,22 +53,15 @@ char2fact.data.frame <- function(x, n = 5) {
 #' @param threshold A threshold for the number of levels to be met/exceeded for
 #'   transforming into a character
 #' @returns The `data.frame` `data` with factors converted by the rule above
-#' @seealso [char2fact()]
+#' @seealso [mark::char2fact()]
 #' @family factors
 #' @export
 fact2char <- function(data, threshold = 10) {
-  stopifnot(is.data.frame(data))
+  if (!is.data.frame(data)) {
+    stop(class_error("must_be", data, "data.frame"))
+  }
   # for factors with more than threshold levels, convert back to character
   bad <- lengths(lapply(data, levels)) >= threshold
   data[bad] <- lapply(data[bad], as.character)
   data
-}
-
-# conditions --------------------------------------------------------------
-
-cond_char2fact_class <- function(x) {
-  new_condition(
-    paste("char2fact does not support class", toString(class(x))),
-    "char2fact_class"
-  )
 }

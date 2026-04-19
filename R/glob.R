@@ -4,8 +4,9 @@
 #'
 #' @param x A vector of characters
 #' @param pattern Wildcard globbing pattern
-#' @param value,... Additional parameters passed to `grep`. Note: `value` is by
-#'   default `TRUE`; when `NA`, `...` is passed to `grepl`.
+#' @param value,... Additional parameters passed to [base::grep()]. Note:
+#'   `value` is by default `TRUE`; when `NA`, `...` is passed to
+#'   [base::grep()]`.
 #' @examples
 #' x <- c("apple", "banana", "peach", "pear", "orange")
 #' glob(x, "*e")

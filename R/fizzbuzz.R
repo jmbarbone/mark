@@ -4,11 +4,10 @@
 #' that the quickest way to do it is to just take the work someone else did and
 #' utilize that.  No reason to reinvent the wheel.
 #'
-#' @details
-#' Multiples of `3` are shown as `"Fizz"`; multiples of `5` as `"Buzz"`;
-#'   multiple of both (i.e., `15`) are `"FizzBuzz"`.
-#' `fizzbuzz_lazy()` subsets the `.fizzbuzz_vector` object, which is a solution
-#'   with default parameters up to `1e6`
+#' @details Multiples of `3` are shown as `"Fizz"`; multiples of `5` as
+#'   `"Buzz"`; multiple of both (i.e., `15`) are `"FizzBuzz"`.
+#'   [mark::fizzbuzz_lazy()] subsets the `.fizzbuzz_vector` object, which is a
+#'   solution with default parameters up to `1e6`
 #'
 #' @param n The number of numbers
 #' @param show_numbers If `TRUE` shows no

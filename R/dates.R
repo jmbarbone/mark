@@ -30,10 +30,10 @@
 #' @export
 
 date_from_partial <- function(
-    x,
-    format = "ymd",
-    method = c("min", "max"),
-    year_replacement = NA_integer_
+  x,
+  format = "ymd",
+  method = c("min", "max"),
+  year_replacement = NA_integer_
 ) {
   x <- as.character(x)
   fmt <- verify_format(format)
@@ -71,11 +71,11 @@ verify_format <- function(format) {
   m <- match(c("y", "m", "d"), s)
 
   if (length(unique(s)) != 3L) {
-    stop(cond_verify_format_chrs())
+    stop(input_error("format must be 3 characters"))
   }
 
   if (anyNA(m)) {
-    stop(cond_verify_format_ymd())
+    stop(input_error('format must contain "y", "m", and "d"'))
   }
 
   s
@@ -154,7 +154,6 @@ parse_date_strings <- function(.x, fmt, method, year_replacement) {
       }
 
       if (method == "min") {
-
         if (x["d"] == 0L) {
           x["d"] <- 1L
         }
@@ -164,7 +163,6 @@ parse_date_strings <- function(.x, fmt, method, year_replacement) {
         }
 
         if (x["y"] == 0L) {
-
           if (is.na(year_replacement)) {
             return(ints)
           }
@@ -247,20 +245,4 @@ as_date_strptime <- function(x, format = "%Y-%m-%d") {
 strp_format <- function(fmt) {
   fmt[fmt == "y"] <- "Y"
   sprintf("%%%s-%%%s-%%%s", fmt[1], fmt[2], fmt[3])
-}
-
-# conditions --------------------------------------------------------------
-
-cond_verify_format_chrs <- function() {
-  new_condition(
-    "format must be 3 characters",
-    "verify_format_chrs"
-  )
-}
-
-cond_verify_format_ymd <- function() {
-  new_condition(
-    "format must contain \"y\", \"m\", and \"d\"",
-    "verify_format_ymd"
-  )
 }

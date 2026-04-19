@@ -1,4 +1,3 @@
-
 #' File copy with md5 hash check
 #'
 #' @inheritParams fs::file_copy
@@ -15,13 +14,16 @@ file_copy_md5 <- function(path, new_path, overwrite = NA, quiet = FALSE) {
   msg <- if (quiet) {
     function(...) invisible()
   } else if (utils::packageVersion("fuj") < "0.2.2") {
-    function(...) message(...)
+    function(...) cat(..., "\n")
   } else {
-    function(...) message(cond_file_copy_md5(...))
+    function(...) cnd(md5_condition(...))
   }
 
   # not as pretty, but pretty reasonable
-  stopifnot(length(path) == length(new_path))
+  if (length(path) != length(new_path)) {
+    stop(input_error("`length(path)` must be equal to `length(new_path)`"))
+  }
+
   # md5sum(nonexisting_file) produces NA
   md_old <- unname(tools::md5sum(path))
   md_new <- unname(tools::md5sum(new_path))
@@ -48,10 +50,15 @@ file_copy_md5 <- function(path, new_path, overwrite = NA, quiet = FALSE) {
   invisible(new_path)
 }
 
-cond_file_copy_md5 <- function(...) {
-  fuj::new_condition(
-    .makeMessage(...),
-    class = "file_copy_md5",
-    type = "message"
-  )
-}
+md5_condition := condition(
+  function(...) paste(..., collapse = ""),
+  type = "condition",
+  exports = "file_copy_md5",
+  # nolint start: line_length_linter.
+  help = "
+Produces messages on md5 checks when `file_copy_md5(quiet = FALSE)`.
+The message will indicate whether the file was new, or if the md5 hash was the same or different.
+When `quiet = TRUE`, no messages will be produced.
+"
+  # nolint ends: line_length_linter.
+)

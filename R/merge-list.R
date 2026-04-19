@@ -15,6 +15,8 @@
 #'  output.
 #' * `"keep"`: `NULL` values are retained in the output and can override other
 #'  values.
+#' @param sort When `TRUE` (default) will sort the output by names; otherwise
+#'  will retain the order of `x` and `y` with `x` values first.
 #' @examples
 #' x <- list(a = 1, b = 2,    c = NULL, d = NULL)
 #' y <- list(a = 2, b = NULL, c = 3)
@@ -28,44 +30,60 @@
 #' merge_list(x, y, null = "drop")
 #' @export
 merge_list <- function(
-    x,
-    y,
-    keep = c("x", "y"),
-    null = c("ignore", "drop", "keep")[1:2]
+  x,
+  y,
+  keep = c("x", "y"),
+  null = c("ignore", "drop", "keep")[1:2],
+  sort = TRUE
 ) {
-  if (length(null) == 1L) {
-    null <- c(null, null)
-  }
+  switch(
+    length(null),
+    null <- c(null, null),
+    null
+  ) %||%
+    stop(input_error("`length(null)` must be 1L or 2L"))
 
-  stopifnot(length(null) == 2)
   keep <- match_param(keep)
   x <- x %||% list()
   y <- y %||% list()
+
+  # TODO report `x` vs `y`
+  if (!is.list(x) || !is.list(y)) {
+    stop(class_error("must_be", x = if (!is.list(x)) x else y, "list"))
+  }
+
   xx <- x
-  stopifnot(is.list(x), is.list(y))
+
   x <- switch(
-    null[1],
+    null[1L],
     keep = x,
     ignore = remove_null(x),
-    drop = remove_null(x)
+    drop = remove_null(x),
+    stop(internal_error()) # nocov
   )
 
   y <- switch(
-    null[2],
+    null[2L],
     keep = y,
     ignore = remove_null(y),
-    drop = remove_null(y)
+    drop = remove_null(y),
+    stop(internal_error()) # nocov
   )
 
   res <- c(x, y)[!duplicated(c(names(x), names(y)), fromLast = keep == "y")]
 
-  if (null[1] == "ignore") {
+  if (null[1L] == "ignore") {
     return(merge_list(
       x = xx[names(xx) %out% names(res)],
       y = res,
-      null = c("keep", "ignore")
+      null = c("keep", "ignore"),
+      sort = sort
     ))
   }
 
-  res[order(names(res))]
+  if (sort) {
+    res <- res[order(names(res))]
+  }
+
+  res
 }

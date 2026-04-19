@@ -1,3 +1,4 @@
+# NOTE I'll eventually replace these with jmbarbone/facts (or jmbarbone/fctrs)
 
 # fact --------------------------------------------------------------------
 
@@ -5,19 +6,19 @@
 #'
 #' Quickly create a factor
 #'
-#' @details `fact()` can be about 5 times quicker than `factor()` or
-#'   `as.factor()` as it doesn't bother sorting the levels for non-numeric data
-#'   or have other checks or features.  It simply converts a vector to a factor
-#'   with all unique values as levels with `NA`s included.
+#' @details [mark::fact()] can be about 5 times quicker than [base::factor()] or
+#'   [base::as.factor()] as it doesn't bother sorting the levels for non-numeric
+#'   data or have other checks or features.  It simply converts a vector to a
+#'   factor with all unique values as levels with `NA`s included.
 #'
-#'   `fact.factor()` will perform several checks on a factor to include `NA`
-#'   levels and to check if the levels should be reordered to conform with the
-#'   other methods.  The `fact.fact()` method simple returns `x`.
+#'   [mark::fact.factor()] will perform several checks on a factor to include
+#'   `NA` levels and to check if the levels should be reordered to conform with
+#'   the other methods.  The [mark::fact.fact()] method simple returns `x`.
 #'
 #' @section level orders:
 #'
-#' The order of the levels may be adjusted to these rules depending on the class
-#' of `x`:
+#'   The order of the levels may be adjusted to these rules depending on the
+#'   class of `x`:
 #' \describe{
 #'   \item{`character`}{The order of appearance}
 #'   \item{`numeric`/`integer`/`Date`/`POSIXt`}{By the numeric order}
@@ -30,7 +31,7 @@
 #' @return A vector of equal length of `x` with class `fact` and `factor`.  If
 #'   `x` was `ordered`, that class is added in between.
 #'
-#' @seealso [as_ordered()]
+#' @seealso [mark::as_ordered()]
 #' @family factors
 #' @export
 fact <- function(x) {
@@ -206,7 +207,7 @@ print.fact <- function(
     T0 <- "Levels: " # nolint: object_name_linter.
     if (is.logical(max_levels)) {
       max_levels <- {
-        width <- width - (nchar(T0, "w") + 3L +  1L + 3L)
+        width <- width - (nchar(T0, "w") + 3L + 1L + 3L)
         lenl <- cumsum(nchar(lev, "w") + nchar(colsep, "w"))
 
         if (n <= 1L || lenl[n] <= width) {
@@ -222,7 +223,7 @@ print.fact <- function(
       T0,
       paste(
         if (drop) {
-          c(lev[1L:max(1, max_levels - 1)], "...", if (max_levels >  1) lev[n])
+          c(lev[1:max(1L, max_levels - 1L)], "...", if (max_levels > 1L) lev[n])
         } else {
           lev
         },
@@ -249,13 +250,13 @@ print.fact <- function(
 #' As ordered
 #'
 #' @details Simple implementation of `ordered`.  If `x` is `ordered` it is
-#' simply returned.  If `x` is a `factor` the `ordered` class is added.
-#' Otherwise, `x` is made into a `factor` with [mark::fact()] and then the
-#' `ordered` class is added. Unlike just `fact`, `ordered` will replace the `NA`
-#' levels with `NA_integer_` to work appropriately with other functions.
+#'   simply returned.  If `x` is a `factor` the `ordered` class is added.
+#'   Otherwise, `x` is made into a `factor` with [mark::fact()] and then the
+#'   `ordered` class is added. Unlike just `fact`, `ordered` will replace the
+#'   `NA` levels with `NA_integer_` to work appropriately with other functions.
 #'
 #' @inheritParams fact
-#' @seealso [fact()]
+#' @seealso [mark::fact()]
 #' @family factors
 #' @export
 #' @returns An `ordered` vector
@@ -284,10 +285,10 @@ as_ordered.default <- function(x) {
   res <- fact_na(x, remove = TRUE)
 
   if (!is.ordered(x)) {
-    res <- add_class(res, "ordered", 2L)
+    add_class(res, "ordered", 2L)
+  } else {
+    res
   }
-
-  res
 }
 
 
@@ -361,7 +362,7 @@ fact_na <- function(x, remove = FALSE) {
   }
 
   if (remove) {
-    attr(x, "levels")  <- attr(x, "levels")[-na]
+    attr(x, "levels") <- attr(x, "levels")[-na]
     attr(x, "uniques") <- attr(x, "uniques")[-na]
   }
 
@@ -379,8 +380,8 @@ fact_na <- function(x, remove = FALSE) {
 #'
 #' Reverse the levels of a `fact`
 #'
-#' @param x A `fact` object (or passed to [fact()])
-fact_reverse  <- function(x) {
+#' @param x A `fact` object (or passed to [mark::fact()])
+fact_reverse <- function(x) {
   x <- fact(x)
   lvls <- flip(attr(x, "uniques"))
   seq <- flip(seq_along(lvls))
@@ -436,7 +437,7 @@ as.Date.fact <- function(x, ...) {
 }
 
 #' @export
-`[.fact` <- function(x, ...)  {
+`[.fact` <- function(x, ...) {
   y <- NextMethod("[")
   attributes(y) <- attributes(x)
   y
@@ -501,12 +502,11 @@ fact_coerce_levels <- function(x) {
     numbers <- as.numeric(x[!nas])
     dates <- as.Date(x[!nas], optional = TRUE)
     posix <- as.POSIXct(
-      x          = x[!nas],
+      x = x[!nas],
       tryFormats = try_formats(),
-      tz         = tz,
-      optional   = TRUE
+      tz = tz,
+      optional = TRUE
     )
-
   })
 
   n <- length(x)
@@ -516,12 +516,14 @@ fact_coerce_levels <- function(x) {
     x[!nas] <- dates
   } else if (!anyNA(posix)) {
     x <- rep(NA_real_, n)
-    stopifnot(all(!nas))
+    if (any(nas)) {
+      stop()
+    }
     x[] <- as.double(posix)
     x <- as.POSIXct(
-      x          = x,
-      origin     = "1970-01-01",
-      tz         = tz
+      x = x,
+      origin = "1970-01-01",
+      tz = tz
     )
   } else if (!anyNA(numbers)) {
     x <- rep(NA_real_, n)
@@ -538,6 +540,7 @@ fact_coerce_levels <- function(x) {
   new_fact(match(levels, value)[x], value, is.ordered(x))
 }
 
-is.fact <- function(x) { # nolint: object_name_linter.
+# nolint next: object_name_linter.
+is.fact <- function(x) {
   inherits(x, "fact")
 }

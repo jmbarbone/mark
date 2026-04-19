@@ -10,7 +10,7 @@ make_sf(package)
 \item{package}{The name of the package}
 }
 \value{
-A \code{function} wrapping \code{\link[=system.file]{system.file()}} which will always use the
+A \code{function} wrapping \code{system.file()} which will always use the
 package name provided in \code{package}
 }
 \description{

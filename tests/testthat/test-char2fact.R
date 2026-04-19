@@ -15,7 +15,7 @@ test_that("char2fact() works", {
 })
 
 test_that("char2fact.data.frame() works", {
-  x <- quick_dfl(
+  x <- dataframe(
     a = letters[c(1, 2, 2, 2, 3, 4, 4, 5, 5)],
     b = letters[c(1, 2, 3, 4, 5, 6, 7, 8, 9)]
   )
@@ -27,9 +27,9 @@ test_that("char2fact.data.frame() works", {
 })
 
 test_that("fact2char() works", {
-  expect_error(fact2char(letters), class = "simpleError")
+  expect_error(fact2char(letters), class = "class_error")
 
-  df <- quick_dfl(
+  df <- dataframe(
     a = 1:5,
     b = factor(1:5),
     c = letters[1:5],

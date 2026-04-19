@@ -9,7 +9,7 @@ source_to_env(x, ops = NULL)
 \arguments{
 \item{x}{An R script}
 
-\item{ops}{Options to be passed to \link{rscript}}
+\item{ops}{Options to be passed to \code{\link[=rscript]{rscript()}}}
 }
 \value{
 Invisibly, and environment variable of the objects/results created

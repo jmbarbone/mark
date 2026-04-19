@@ -14,12 +14,11 @@
 #'   passed to the `tz` parameter as a character vector
 #'
 #' @section Units: Units can be used beyond those available in
-#'   `base::difftime()`.  Some of these use assumptions in how units of time
+#'   [base::difftime()].  Some of these use assumptions in how units of time
 #'   should be standardized and can be changed in the corresponding options. Any
-#'   of these can be calculated with `base::difftime()` through using `units =
-#'   "days"` but the `dtime` class will print out with these specifications into
-#'   the console for less potential confusion.
-#'
+#'   of these can be calculated with [base::difftime()] through using
+#'   `units = "days"` but the `dtime` class will print out with these
+#'   specifications into the console for less potential confusion.
 #'
 #' \describe{
 #'   \item{months}{Months by number of days `mark.days_in_month` (defaults: `30`)}
@@ -31,7 +30,7 @@
 #'
 #' @section Time zones: Time zones can be passed as either a numeric vector of
 #'   GMT/UTC offsets (the number of seconds from GMT) or as a character vector.
-#'   If the letter, these need to conform with values from `base::OlsonNames()`.
+#'   If the letter, these need to conform with values from [base::OlsonNames()].
 #'
 #'   A default timezone can be set with `options(mark.default_tz = .)`.  The
 #'   value can either be a numeric
@@ -40,20 +39,27 @@
 #' @param method A method to report the difference in units of time (see
 #'   **Units** section)
 #' @param tzx,tzy time zones (see **Time zones** section)
-#' @param ... Additional arguments passed to `diff_time()`
+#' @param ... Additional arguments passed to [mark::diff_time()]
 #' @return A `diff_time` vector, object
 #'
 #' @export
 #' @name diff_time
-
-# nolint end: lien_length_linter.
-
+# nolint end: line_length_linter.
 diff_time <- function(
   x,
   y,
-  method = c("secs", "mins", "hours",
-             "days", "weeks", "months",
-             "years", "dyears", "wyears", "myears"),
+  method = c(
+    "secs",
+    "mins",
+    "hours",
+    "days",
+    "weeks",
+    "months",
+    "years",
+    "dyears",
+    "wyears",
+    "myears"
+  ),
   tzx = NULL,
   tzy = tzx
 ) {
@@ -68,6 +74,7 @@ diff_time <- function(
   # NB: This is time from X to Y
   z <- uy - ux
 
+  # fmt: skip
   out <- switch(
     method,
     secs   = z,
@@ -75,11 +82,12 @@ diff_time <- function(
     hours  = z / 3600,
     days   = z / 86400,
     weeks  = z / 604800,
-    months = z / getOption("mark.days_in_month", 30) / 86400,
-    years  = z / getOption("mark.days_in_year", 365) / 86400,
-    dyears = z / getOption("mark.days_in_year", 365) / 86400,
+    months = z / getOption("mark.days_in_month", 30) /   86400,
+    years  = z / getOption("mark.days_in_year", 365) /   86400,
+    dyears = z / getOption("mark.days_in_year", 365) /   86400,
     myears = z / getOption("mark.days_in_month", 30) / 1036800,
-    wyears = z / getOption("mark.weeks_in_year", 52) / 604800
+    wyears = z / getOption("mark.weeks_in_year", 52) /  604800,
+    stop(internal_error()) # nocov
   )
 
   struct(out, c("numeric", "diff_time"), units = method)
@@ -92,7 +100,7 @@ extract_numeric_time <- function(x, tz) {
 
   if (is.null(tz)) {
     if (is.numeric(x)) {
-      stop(cond_extract_numeric_time_numeric())
+      stop(numeric_datetime_tz_error())
     }
 
     gmt <- NULL
@@ -136,7 +144,7 @@ to_numeric_with_tz <- function(x, tz) {
   nas <- is.na(tz)
 
   if (any(nas)) {
-    warning(cond_to_numeric_with_tz_na())
+    warning(na_timezone_found_warning())
     tz[nas] <- default_tz()
   }
 
@@ -171,7 +179,7 @@ check_tz <- function(x) {
   bad <- ux %out% OlsonNames()
 
   if (any(bad)) {
-    stop(cond_check_tz_timezones(ux[bad]))
+    stop(timezone_not_found_error(ux[bad]))
   }
 
   invisible(NULL)
@@ -180,10 +188,11 @@ check_tz <- function(x) {
 #' @export
 print.diff_time <- function(x, digits = getOption("digits"), ...) {
   xu <- attr(x, "units")
+  # fmt: skip
   u <- switch(
     xu,
-    secs = "seconds",
-    mins = "minutes",
+    secs   = "seconds",
+    mins   = "minutes",
     # nolint start: line_length_linter.
     months = sprintf("months (%s days)",      getOption("mark.days_in_month", 30)),
     years  = sprintf("years (%s days)",       getOption("mark.days_in_year", 365)),
@@ -273,13 +282,15 @@ diff_time_myears <- function(x, y, ...) {
 #' @seealso [mark::diff_time]
 #' @name time_inherits
 #' @noRd
-is_POSIXlt <- function(x) { # nolint: object_name_linter.
+# nolint next: object_name_linter.
+is_POSIXlt <- function(x) {
   inherits(x, "POSIXlt")
 }
 
 #' @rdname time_inherits
 #' @noRd
-is_POSIXct <- function(x) { # nolint: object_name_linter.
+# nolint next: object_name_linter.
+is_POSIXct <- function(x) {
   inherits(x, "POSIXct")
 }
 
@@ -293,9 +304,9 @@ is_diff_time <- function(x) {
 
 default_tz <- function() {
   # op.mark contains default_tz
-  tz <- getOption("mark.default_tz", "UTC")
+  tz <- getOption("mark.default_tz")
 
-  if (identical(tz, "UTC")) {
+  if (is.null(tz) || identical(tz, "UTC")) {
     return("UTC")
   }
 
@@ -309,7 +320,7 @@ default_tz <- function() {
   }
 
   if (!is.character(tz) || length(tz) != 1L) {
-    stop(cond_default_tz_tz())
+    stop(value_error("Invalid value for options('mark.default_tz')"))
   }
 
   tz
@@ -337,42 +348,41 @@ sys_tz <- function(method = 1) {
 
 # conditions --------------------------------------------------------------
 
-cond_extract_numeric_time_numeric <- function() { # nolint: object_length_linter, line_length_linter.
-  new_condition(
-    "Date times cannot be numeric when tz is NULL",
-    "extract_numeric_time_numeric"
-  )
-}
+# TODO too many different condititons -- simplify
 
-cond_to_numeric_with_tz_na <- function() {
-  new_condition(
-    paste("NA found in timezones; setting to", default_tz()),
-    "to_numeric_with_tz_na",
-    type = "warning"
-  )
-}
+numeric_datetime_tz_error := condition(
+  "Date times cannot be numeric when tz is NULL",
+  type = "error",
+  exports = "diff_time",
+  classes = "type_error",
+  help = "```r
+# Instead of this:
+diff_time(100, 200, tz = NULL)
 
-cond_check_tz_timezones <- function(x) {
-  msg <- sprintf(
-    paste0(
-      "Timezone(s) not found: %s\n",
-      "Please check timezones in `OlsonNames()`"
-    ),
-    collapse(x, sep = ", ")
-  )
+# do this:
+diff_time(100, 200, tz = 'America/New_York')
 
-  new_condition(msg, "check_tz_timezone_olson")
-}
+# or:
+diff_time(100, 200, tz = 0)
+```"
+)
 
-cond_default_tz_tz <- function() {
-  new_condition(
-    paste0(
-      "option(mark.default_tz) must be",
-      " a character vector of length 1L,",
-      " a function that returns a character vector of length 1L,",
-      " NULL (defaults to UTC),",
-      ' or "system" to set to system timezone'
-    ),
-    "default_tz_tz"
+na_timezone_found_warning := condition(
+  function() {
+    paste("NA found in timezones; setting to default timezone:", default_tz())
+  },
+  type = "warning",
+  classes = "value_warning",
+  exports = "diff_time"
+)
+
+timezone_not_found_error := condition(
+  function(x) paste0("Timezone(s) not found: ", collapse(x, sep = ", "), "\n"),
+  type = "error",
+  exports = "diff_time",
+  classes = "value_error",
+  help = c(
+    "When using a string for a timezone, this value must be found within",
+    " `OlsonNames()`"
   )
-}
+)

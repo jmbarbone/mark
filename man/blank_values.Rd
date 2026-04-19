@@ -29,11 +29,11 @@ of vector}
 }
 \value{
 \itemize{
-\item \code{is_blank()} a \code{logical} vector indicating \emph{blank} elements in \code{x}
-\item \code{select_blank_cols()} \code{x} with only columns that are all \emph{blank}
-\item \code{remove_blank_cols()} \code{x} without columns of only \emph{blank}
-\item \code{is_blank_cols()} a logical vector: \code{TRUE} all rows of column are \emph{blank},
-otherwise \code{FALSE}
+\item \code{\link[=is_blank]{is_blank()}} a \code{logical} vector indicating \emph{blank} elements in \code{x}
+\item \code{\link[=select_blank_cols]{select_blank_cols()}} \code{x} with only columns that are all \emph{blank}
+\item \code{\link[=remove_blank_cols]{remove_blank_cols()}} \code{x} without columns of only \emph{blank}
+\item \code{\link[=is_blank_cols]{is_blank_cols()}} a logical vector: \code{TRUE} all rows of column are
+\emph{blank}, otherwise \code{FALSE}
 }
 }
 \description{

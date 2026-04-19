@@ -24,7 +24,7 @@ test_that("string slices", {
   )
 
   xx <- c(x, x)
-  expect_error(str_slice_by_word(xx, 80), class = "simpleError")
+  expect_error(str_slice_by_word(xx, 80), class = "input_error")
 })
 
 # Better outputs
@@ -40,7 +40,7 @@ expect_my_date <- function(res, exp_char, ...) {
 expect_my_datetime <- function(res, exp_char, ...) {
   testthat::expect_equal(
     str_extract_datetime(res, ...),
-    capply(exp_char, \(x) strptime(x, format = "%Y-%m-%d %H%M%S", tz = "")),
+    capply(exp_char, \(ec) strptime(ec, format = "%Y-%m-%d %H%M%S", tz = "")),
     label = as.character(res),
     expected.label = exp_char
   )

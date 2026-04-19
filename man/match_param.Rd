@@ -23,7 +23,7 @@ value when matched to the RHS of the formula.}
 
 \item{null}{If \code{TRUE} allows \code{NULL} to be passed a \code{param}}
 
-\item{partial}{If \code{TRUE} allows partial matching via \code{\link[=pmatch]{pmatch()}}}
+\item{partial}{If \code{TRUE} allows partial matching via \code{\link[base:pmatch]{base::pmatch()}}}
 
 \item{multiple}{If \code{TRUE} allows multiple values to be returned}
 
@@ -42,6 +42,23 @@ Much like \code{\link[base:match.arg]{base::match.arg()}} with a few key differe
 \details{
 Param matching for an argument
 }
+\section{Conditions}{
+
+
+Conditions are generated through the \code{\link[cnd:cnd-package]{\{cnd\}}} package.
+The following conditions are associated with this function:
+
+\describe{
+
+\item{\code{\link[=mark-cnd-conditions]{mark:match_param_error/error}}}{
+
+}
+
+}
+
+For more conditions, see: \link{mark-cnd-conditions}
+}
+
 \examples{
 fruits <- function(x = c("apple", "banana", "orange")) {
   match_param(x)

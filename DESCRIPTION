@@ -1,7 +1,7 @@
 Package: mark
 Type: Package
 Title: Multipurpose Aids for R Kit
-Version: 0.8.3.9007
+Version: 0.8.3.9008
 Authors@R:
     person(given   = "Jordan Mark",
            family  = "Barbone",
@@ -20,17 +20,19 @@ BugReports: https://github.com/jmbarbone/mark/issues
 Encoding: UTF-8
 LazyData: true
 Depends:
-    R (>= 3.6)
+    R (>= 4.1.0)
 Imports:
     cli,
-    fs (>= 1.6.2),
-    fuj (>= 0.2.1),
+    cnd,
+    fs (>= 0.2.0),
+    fuj,
     magrittr (>= 2.0.1),
     rlang,
     stats (>= 3.6),
     tools (>= 3.6),
     utils (>= 3.6)
 Suggests:
+    arrow (>= 16.1.0),
     bench (>= 1.1.1),
     bib2df (>= 1.1.1),
     clipr (>= 0.8.0),
@@ -53,11 +55,15 @@ Suggests:
     waldo (>= 0.2.5),
     withr (>= 2.3.0),
     xopen,
-    yaml
+    yaml (>= 2.3.9),
+Remotes:
+    github::jmbarbone/cnd@v0.1.1.9002,
+    github::jmbarbone/fuj@v0.2.2.9010
 RoxygenNote: 7.3.3
 Roxygen: list(markdown = TRUE)
 Config/testthat/edition: 3
 Config/testthat/parallel: true
+Config/testthat/start-first: clipboard, sourcing, write, directory
 Language: en-US
 Collate: 
     'aaa.R'
@@ -81,7 +87,7 @@ Collate:
     'environments.R'
     'expand.R'
     'fact.R'
-    'fct_expand_seq.R'
+    'fct-expand-seq.R'
     'file.R'
     'fizzbuzz.R'
     'funs.R'
@@ -95,6 +101,7 @@ Collate:
     'lines-of-code.R'
     'logic.R'
     'map.R'
+    'mark-cnd-conditions.R'
     'not-available.R'
     'mark-package.R'
     'match-arg.R'
@@ -132,3 +139,4 @@ Collate:
     'utils.R'
     'within.R'
     'write.R'
+    'zzz.R'

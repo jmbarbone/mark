@@ -44,12 +44,12 @@ NULL
 #' @rdname todos
 #' @export
 todos <- function(
-    pattern = NULL,
-    path = ".",
-    force = getOption("mark.todos.force"),
-    ext = getOption("mark.todos.ext"),
-    ignore = NULL,
-    ...
+  pattern = NULL,
+  path = ".",
+  force = getOption("mark.todos.force"),
+  ext = getOption("mark.todos.ext"),
+  ignore = NULL,
+  ...
 ) {
   do_todo(
     "todo",
@@ -65,12 +65,12 @@ todos <- function(
 #' @rdname todos
 #' @export
 fixmes <- function(
-    pattern = NULL,
-    path = ".",
-    force = getOption("mark.todos.force"),
-    ext = getOption("mark.todos.ext"),
-    ignore = NULL,
-    ...
+  pattern = NULL,
+  path = ".",
+  force = getOption("mark.todos.force"),
+  ext = getOption("mark.todos.ext"),
+  ignore = NULL,
+  ...
 ) {
   do_todo(
     "fixme",
@@ -84,24 +84,27 @@ fixmes <- function(
 }
 
 do_todo <- function(
-    text = c("todo", "fixme"),
-    pattern = NULL,
-    path = ".",
-    force = getOption("mark.todos.force"),
-    ext = getOption("mark.todos.ext"),
-    ignore = NULL,
-    ...
+  text = c("todo", "fixme"),
+  pattern = NULL,
+  path = ".",
+  force = getOption("mark.todos.force"),
+  ext = getOption("mark.todos.ext"),
+  ignore = NULL,
+  ...
 ) {
   text <- match_param(text)
+  # fmt: skip
   if (
     missing(path) ||
     length(path) != 1 ||
     !is.character(path)
   ) {
-    stop(cond_do_todo_path())
+    stop(input_error("`path` must be a character vector of length 1L"))
   }
 
-  stopifnot(fs::file_exists(path))
+  if (!fs::file_exists(path)) {
+    stop(input_error("`path` does not exist: ", path))
+  }
 
   ls <- rlang::list2(...)
 
@@ -144,7 +147,7 @@ do_todo <- function(
     function(x, regex) {
       x <- enc2utf8(x)
       ind <- grep(pattern = regex, x = x)
-      quick_dfl(ind = ind, todo = x[ind])
+      dataframe(ind = ind, todo = x[ind])
     },
     regex = sprintf("[#]\\s+%s[:]?\\s+", toupper(text))
   )
@@ -207,11 +210,12 @@ print.todos_df <- function(x, ...) {
 
   if (!isFALSE(getOption("mark.todos..norm_path"))) {
     # perform action on chunks as not to modify x
-    for (i in seq_along(chunks))
-    chunks <- lapply(chunks, function(chunk) {
-      chunk[["file"]] <- norm_path(chunk[["file"]])
-      chunk
-    })
+    for (i in seq_along(chunks)) {
+      chunks <- lapply(chunks, function(chunk) {
+        chunk[["file"]] <- norm_path(chunk[["file"]])
+        chunk
+      })
+    }
   }
 
   for (i in seq_along(nms)) {
@@ -246,14 +250,4 @@ string_dots <- function(x, width = getOption("width")) {
   long <- nchar(x) > width
   x[long] <- paste(strtrim(x[long], width - 5), "[...]")
   x
-}
-
-# conditions --------------------------------------------------------------
-
-cond_do_todo_path <- function() {
-  new_condition("path must be a character vector of length 1L", "do_todo_path")
-}
-
-cond_do_todo_path_r <- function() {
-  new_condition("path is not a .R or .Rmd file", "do_todo_path_r")
 }

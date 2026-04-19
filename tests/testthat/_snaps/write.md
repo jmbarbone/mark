@@ -1,7 +1,7 @@
 # arrow prints something to stdout()
 
     Code
-      write_file_md5(quick_dfl(a = 1), method = "feather")
+      write_file_md5(dataframe(a = 1), method = "feather")
     Output
       Table
       1 rows x 1 columns
@@ -10,7 +10,7 @@
 ---
 
     Code
-      write_file_md5(quick_dfl(a = 1), method = "parquet")
+      write_file_md5(dataframe(a = 1), method = "parquet")
     Output
       # A data frame: 2 x 12
         file_name        name  r_type type  type_length repetition_type converted_type

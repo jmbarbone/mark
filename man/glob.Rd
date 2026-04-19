@@ -11,8 +11,9 @@ glob(x, pattern = NULL, value = TRUE, ...)
 
 \item{pattern}{Wildcard globbing pattern}
 
-\item{value, ...}{Additional parameters passed to \code{grep}. Note: \code{value} is by
-default \code{TRUE}; when \code{NA}, \code{...} is passed to \code{grepl}.}
+\item{value, ...}{Additional parameters passed to \code{\link[base:grep]{base::grep()}}. Note:
+\code{value} is by default \code{TRUE}; when \code{NA}, \code{...} is passed to
+\code{\link[base:grep]{base::grep()}}`.}
 }
 \description{
 Helper function for globbing character vectors

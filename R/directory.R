@@ -6,9 +6,10 @@
 #' @param ... Additional arguments passed to [mark::list_dirs()]
 #' @return The full path of the most recent directory
 #' @export
-
-get_recent_dir <- function(x = ".",  ...) {
-  stopifnot(dir.exists(x))
+get_recent_dir <- function(x = ".", ...) {
+  if (!dir.exists(x)) {
+    stop(input_error("`x` must be an existing directory"))
+  }
   dirs <- list_dirs(x, ...)
   newest_dir(dirs)
 }
@@ -23,12 +24,11 @@ get_recent_dir <- function(x = ".",  ...) {
 #' @param all Logical, if `TRUE` will recursively search for directories
 #' @return A full path to a directory
 #' @export
-
 get_dir_recent_date <- function(
-    x = ".",
-    dt_pattern = NULL,
-    dt_format = NULL,
-    all = FALSE
+  x = ".",
+  dt_pattern = NULL,
+  dt_format = NULL,
+  all = FALSE
 ) {
   dt_pattern <- dt_pattern %||% .default_dt_pattern
   dt_format <- dt_format %||% .default_dt_format
@@ -54,7 +54,7 @@ get_dir_recent_date <- function(
   "%Y %m %d %H%M%S",
   "%Y%m%d %H %M %S",
   "%Y%m%d %H%M%S"
-  )
+)
 
 #' Get recent directory by number name
 #'
@@ -81,9 +81,10 @@ get_dir_max_number <- function(x) {
 #' @return The full name of the most recent file from the stated directory
 #'
 #' @export
-
 get_recent_file <- function(x, exclude_temp = TRUE, ...) {
-  stopifnot(is_dir(x))
+  if (!is_dir(x)) {
+    stop(input_error("`x` must be a directory"))
+  }
 
   files <- list_files(x, ...)
 
@@ -92,7 +93,7 @@ get_recent_file <- function(x, exclude_temp = TRUE, ...) {
   }
 
   if (no_length(files)) {
-    stop(cond_get_recent_file_none())
+    stop(path_error())
   }
 
   newest_file(files)
@@ -107,22 +108,23 @@ remove_temp_files <- function(x) {
 #' Normalize and check a vector of paths
 #'
 #' @param x A character vector of paths
-#' @param check Logical, if TRUE will check if the path exists and output a
+#' @param check Logical, if `TRUE` will check if the path exists and output a
 #'   warning if it does not.
-#' @param remove Logical, if TRUE will remove paths that are not found
+#' @param remove Logical, if `TRUE` will remove paths that are not found
 #' @param ... Character vectors for creating a path
 #' @return A vector of full file paths
 #'
 #' @export
-
 norm_path <- function(x = ".", check = FALSE, remove = check) {
-  stopifnot(is.character(x))
+  if (!is.character(x)) {
+    stop(type_error("must_be", x, "character"))
+  }
 
   x <- fs::path_abs(x)
   ind <- !fs::file_exists(x)
 
   if (check && any(ind)) {
-    warning(cond_norm_path_found(x[ind]))
+    warning(path_warning("not_found", x[ind]))
   }
 
   if (remove) {
@@ -199,34 +201,37 @@ smallest_file <- function(x) {
   x[which.min(file.size(x))]
 }
 
+# NOTE Using link for [base::shell.exec()] will fail on non-Windows
+
 #' Open a file using windows file associations
 #'
 #' Opens the given files(s)
 #'
-#' @details `open_file` is an alternative to `shell.exec()` that can take take
-#' multiple files. `list_files` and `list_dirs` are mostly wrappers for
-#' [fs::dir_ls()] with preferred defaults and pattern searching on the full file
-#' path.
+#' @details [mark::open_file()] is an alternative to `base::shell.exec()` that
+#'   can take take multiple files. [mark::list_files()] and [mark::list_dirs()]
+#'   are mostly wrappers for [fs::dir_ls()] with preferred defaults and pattern
+#'   searching on the full file path.
 #'
-#' `file_open` is simply an alias.
+#'   [mark::file_open()] is simply an alias.
 #'
 #' @inheritParams norm_path
 #' @inheritParams fs::dir_ls
 #' @param pattern,glob Pattern to search for files.  `glob` is absorbed into
 #'   `pattern`, through [utils::glob2rx()].
 #' @param ignore_case logical. Should pattern-matching be case-insensitive?
-#' @param all a logical value. If FALSE, only the names of visible files are
+#' @param all a logical value. If `FALSE`, only the names of visible files are
 #'   returned (following Unix-style visibility, that is files whose name does
-#'   not start with a dot). If TRUE, all file names will be returned.
+#'   not start with a dot). If `TRUE`, all file names will be returned.
 #' @param basename If `TRUE` only searches pattern on the basename, otherwise on
 #'   the entire path
 #' @param negate Logical, if `TRUE` will inversely select files that do not
 #'   match the provided pattern
 #'
 #' @return
-#' * `open_file()`, `shell_exec()`: A logical vector where `TRUE` successfully
-#' opened, `FALSE` did not and `NA` did not try to open (file not found)
-#' * `list_files()`, `list_dirs()`: A vector of full paths
+#' - [mark::open_file()], [mark::shell_exec()]: A logical vector where `TRUE`
+#'   successfully opened, `FALSE` did not and `NA` did not try to open (file not
+#'   found)
+#' - [mark::list_files()], [mark::list_dirs()]: A vector of full paths
 #' @name file_utils
 NULL
 
@@ -247,7 +252,8 @@ file_open <- open_file
 #' @export
 shell_exec <- function(x) {
   if (is_windows()) {
-    open_fun <- function(path) shell.exec(file = path) # nolint: object_usage_linter, line_length_linter.
+    # nolint next: object_usage_linter.
+    open_fun <- function(path) shell.exec(file = path)
   } else {
     require_namespace("xopen")
     open_fun <- function(path) xopen::xopen(target = path)
@@ -273,7 +279,6 @@ list_files <- function(
   negate = FALSE,
   basename = FALSE
 ) {
-
   pattern <- force(pattern) %|||% NULL
   path <- norm_path(x, check = TRUE)
 
@@ -285,21 +290,21 @@ list_files <- function(
     if (basename) {
       # default behavior
       fs::dir_ls(
-        path        = path,
-        regexp      = pattern,
-        all         = all,
-        recurse     = all,
+        path = path,
+        regexp = pattern,
+        all = all,
+        recurse = all,
         ignore.case = ignore_case,
-        invert      = negate,
-        type        = "file"
+        invert = negate,
+        type = "file"
       )
     } else {
       # If we want the regular expression applied to the entire file
       fs::dir_ls(
-        path    = path,
-        all     = all,
+        path = path,
+        all = all,
         recurse = all,
-        type    = "file"
+        type = "file"
       )
     }
 
@@ -331,12 +336,12 @@ list_files <- function(
 #' @rdname file_utils
 #' @export
 list_dirs <- function(
-    x = ".",
-    pattern = NULL,
-    ignore_case = FALSE,
-    all = FALSE,
-    basename = FALSE,
-    negate = FALSE
+  x = ".",
+  pattern = NULL,
+  ignore_case = FALSE,
+  all = FALSE,
+  basename = FALSE,
+  negate = FALSE
 ) {
   path <- norm_path(x, check = TRUE)
 
@@ -382,7 +387,9 @@ list_dirs <- function(
 #' @export
 
 is_dir <- function(x) {
-  stopifnot(!no_length(x), is.character(x))
+  if (no_length(x) || !is.character(x)) {
+    stop(input_error("`x` must be a non-zero length character vector"))
+  }
   dir.exists(x)
 }
 
@@ -390,15 +397,18 @@ is_dir <- function(x) {
 #' @rdname is_dir
 #' @export
 is_file <- function(x) {
-  stopifnot(!no_length(x), is.character(x))
+  if (no_length(x) || !is.character(x)) {
+    stop(input_error("`x` must be a non-zero length character vector"))
+  }
   isdir <- file.info(x, extra_cols = FALSE)[["isdir"]]
   !is.na(isdir) & !isdir
 }
 
+# FIXME remove -- unused, unexported
 file_create <- function(x, overwrite = FALSE) {
   dirs <- is_dir(x)
   if (any(dirs)) {
-    warning(cond_file_create_dir(x[dirs]))
+    warning(path_warning("directories", x[dirs]))
     x <- x[!dirs]
   }
 
@@ -438,7 +448,8 @@ file_name <- function(x, compression = FALSE) {
 #' Adds a timestamp to a file
 #'
 #' @param x A vector of files
-#' @param ts A single timestamp or vector of timestamps (default: `Sys.time()`)
+#' @param ts A single timestamp or vector of timestamps (default:
+#'   [base::Sys.time()])
 #' @param format A format to be applied to the times; set to `NULL` to skip
 #'   formatting
 #' @param sep A `character` vector of length 1 to separate the timestamp from
@@ -454,10 +465,10 @@ file_name <- function(x, compression = FALSE) {
 #'
 #' file.remove(file1, file2)
 add_file_timestamp <- function(
-    x,
-    ts = Sys.time(),
-    format = "%Y-%m-%d %H%M%S",
-    sep = " "
+  x,
+  ts = Sys.time(),
+  format = "%Y-%m-%d %H%M%S",
+  sep = " "
 ) {
   if (!is.null(format)) {
     ts <- format(ts, format = format)
@@ -475,27 +486,46 @@ add_file_timestamp <- function(
 
 # conditions --------------------------------------------------------------
 
-cond_get_recent_file_none <- function() {
-  new_condition("No files found", "get_recent_file_none")
-}
+# TODO use value_error()
 
-cond_norm_path_found <- function(paths) {
-  new_condition(
-    paste0("Paths not found:\n  '", collapse(paths, sep = "'\n  '"), "'"),
-    "norm_path_found",
-    type = "warning"
-  )
-}
+path_error := condition(
+  "No recent file found",
+  type = "error",
+  classes = "value_error",
+  exports = "get_recent_file"
+)
 
-cond_file_create_dir <- function(x) {
-  new_condition(
-    paste0(
-      "Cannot create files that are directories:",
-      paste0("\n   ", norm_path(x))
-    ),
-    "file_create_dir",
-    type = "warning"
-  )
-}
-
-# terminal line
+path_warning := condition(
+  function(s, x) {
+    switch(
+      s,
+      not_found = function(x) {
+        ngettext(
+          length(x),
+          paste("Path not found:", norm_path(x)),
+          paste0(
+            "Paths not found:",
+            paste0("\n   ", norm_path(x), collapse = "\n")
+          )
+        )
+      },
+      directories = function(x) {
+        ngettext(
+          length(x),
+          paste("File is a directory:", norm_path(x)),
+          paste0(
+            "Files are directories:",
+            paste0("\n   ", norm_path(x), collapse = "\n")
+          )
+        )
+      },
+      stop(internal_error())
+    )
+  },
+  type = "warning",
+  classes = "value_warning",
+  exports = c("get_recent_file", "norm_path"),
+  help = {
+    "File creation cannot be performed when the path is an existing directory"
+  }
+)

@@ -59,10 +59,9 @@ test_that("diff_time_*() identical to difftime()", {
 })
 
 test_that("Timezones", {
-
   st <- as.POSIXct("2021-04-06 11:12:45", tz = "America/Chicago")
 
-  dftz <- quick_dfl(
+  dftz <- dataframe(
     a = rep(st, 4),
     b = rep(st, 4),
     tza = c("GMT", "UTC", "America/New_York", "Pacific/Auckland"),
@@ -72,7 +71,8 @@ test_that("Timezones", {
 
   # No difference
   expect_identical(
-    with(dftz, diff_time_hours(a, b)), rep(0, 4),
+    with(dftz, diff_time_hours(a, b)),
+    rep(0, 4),
     ignore_attr = TRUE
   )
 
@@ -153,19 +153,19 @@ test_that("Timezones", {
 
   expect_warning(
     diff_time(Sys.Date(), Sys.Date(), tzx = NA, tzy = "GMT"),
-    "NA found in timezones"
+    class = "mark:na_timezone_found_warning"
   )
 })
 
 test_that("Error checking", {
   expect_error(
     diff_time_secs(1:10, 1:10),
-    class = "extractNumericTimeNumericError"
+    class = "mark:numeric_datetime_tz_error"
   )
 
   expect_error(
     diff_time_secs(st, st, "Not good"),
-    class = "checkTzTimezoneOlsonError"
+    class = "mark:timezone_not_found_error"
   )
 
   # Don't throw error because of NA tz
@@ -177,7 +177,6 @@ test_that("Error checking", {
 })
 
 test_that("class coehersion", {
-
   expect_identical(
     diff_time(as.Date("2021-07-26"), "2021-07-26"),
     diff_time(as.Date("2021-07-26"), as.Date("2021-07-26"))
@@ -191,8 +190,7 @@ test_that("class coehersion", {
 
   expect_warning(
     to_numeric_with_tz("2021-01-01", NA),
-    "NA found in timezones",
-    class = "toNumericWithTzNaWarning"
+    class = "mark:na_timezone_found_warning"
   )
 
   expect_identical(check_tz(NULL), NULL)

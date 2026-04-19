@@ -35,7 +35,7 @@ paste_combine <- function(..., collate = TRUE, sep = "") {
   n <- length(ls)
 
   if (n < 2) {
-    stop(cond_paste_combine_length())
+    stop(input_error("length(...) must be at least 2L"))
   }
 
   out <- do_paste_combine(ls[[1]], ls[[2]], collate = collate, sep = sep)
@@ -77,10 +77,4 @@ do_paste_combine <- function(x, y, collate = TRUE, sep = "") {
 
   dim(out) <- c(xn, yn)
   as.vector(apply(out, 1, c), "character")
-}
-
-# conditions --------------------------------------------------------------
-
-cond_paste_combine_length <- function() {
-  new_condition("length of ... must be at least 2", "paste_combine_length")
 }

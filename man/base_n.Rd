@@ -4,7 +4,7 @@
 \alias{base_n}
 \title{Base N conversion}
 \usage{
-base_n(x, from = 10, to = 10)
+base_n(x, from = 10L, to = 10L)
 }
 \arguments{
 \item{x}{A vector of integers}

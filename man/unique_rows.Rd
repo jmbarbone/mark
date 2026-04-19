@@ -23,10 +23,10 @@ rather than the first}
 Drops duplicated rows
 }
 \examples{
-df <- quick_dfl(
+df <- data.frame(
   i = 1:4,
   a = rep(1:2, 2L),
-  b = rep("a", 4L),
+  b = rep("a", 4L)
 )
 
 unique_rows(df, 2:3)
