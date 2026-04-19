@@ -1,3 +1,5 @@
+library(testthat)
+
 muffle_cnd_conditions <- function(expr) {
   withCallingHandlers(
     expr,
