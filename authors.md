@@ -8,7 +8,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/jmbarbone/mark/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/jmbarbone/mark/blob/v0.8.3.9008/DESCRIPTION)
 
 Barbone J (2026). *mark: Multipurpose Aids for R Kit*. R package version
 0.8.3.9008, <https://CRAN.R-project.org/package=mark>.

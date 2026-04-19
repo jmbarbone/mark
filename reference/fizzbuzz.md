@@ -92,8 +92,8 @@ if (package_available("bench")) {
 #> # A tibble: 2 × 13
 #>   expression     min  median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_time
 #>   <bch:expr> <bch:t> <bch:t>     <dbl> <bch:byt>    <dbl> <int> <dbl>   <bch:tm>
-#> 1 fizzbuzz(…  32.9ms  34.2ms      29.1    5.19MB     4.85    12     2      412ms
-#> 2 fizzbuzz_… 705.2µs 742.7µs    1340.    38.21MB    50.6    424    16      316ms
+#> 1 fizzbuzz(…  36.3ms  38.8ms      25.3    5.19MB     5.06    10     2      395ms
+#> 2 fizzbuzz_… 595.1µs   625µs    1570.    38.21MB    61.1    437    17      278ms
 #> # ℹ 4 more variables: result <list>, memory <list>, time <list>, gc <list>
 # }
 ```

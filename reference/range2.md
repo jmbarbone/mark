@@ -33,17 +33,17 @@ respectively
 x <- rep(1:1e5, 100)
 system.time(rep(range(x),  100))
 #>    user  system elapsed 
-#>   0.031   0.004   0.035 
+#>   0.025   0.003   0.028 
 system.time(rep(range2(x), 100))
 #>    user  system elapsed 
-#>   0.013   0.000   0.013 
+#>   0.014   0.000   0.014 
 x[sample(x, 1e5)] <- NA
 
 system.time(rep(range(x, na.rm = TRUE), 100))
 #>    user  system elapsed 
-#>   0.310   0.029   0.339 
+#>   0.385   0.018   0.403 
 system.time(rep(range2(x, na.rm = TRUE), 100))
 #>    user  system elapsed 
-#>   0.014   0.000   0.014 
+#>   0.015   0.000   0.014 
 # }
 ```
