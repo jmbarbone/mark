@@ -1,11 +1,11 @@
 # List to data.frame
 
-Converts a list object into a data.frame
+Converts a list object into a `data.frame`
 
 ## Usage
 
 ``` r
-list2df(x, name = "name", value = "value", show_NA, warn = TRUE)
+list2df(x, name = "name", value = "value", warn = TRUE)
 ```
 
 ## Arguments
@@ -18,13 +18,9 @@ list2df(x, name = "name", value = "value", show_NA, warn = TRUE)
 
   Names of the new key and value columns, respectively
 
-- show_NA:
-
-  Ignored; if set will trigger a warning
-
 - warn:
 
-  Logical; if TRUE will show a warning when
+  Logical; if `TRUE` will show a warning when
 
 ## Value
 
@@ -34,7 +30,7 @@ of the `list` and the values in each
 ## Details
 
 Unlike [`base::list2DF()`](https://rdrr.io/r/base/list2DF.html),
-`list2df()` tries to format the data.frame by using the names of the
+`list2df()` tries to format the `data.frame` by using the names of the
 list as values rather than variables. This creates a longer form list
 that may be more tidy.
 
@@ -62,13 +58,25 @@ list2df(x, "col1", "col2", warn = FALSE)
 #> 16    4  unnamed
 #> 17    5 unnamed2
 
-if (getRversion() >= as.package_version('4.0')) {
 # contrast with `base::list2DF()` and `base::as.data.frame()`
-  x <- list(a = 1:3, b = 2:4, c = letters[10:12])
-  list2df(x, warn = FALSE)
-  list2DF(x)
-  as.data.frame(x)
-}
+x <- list(a = 1:3, b = 2:4, c = letters[10:12])
+list2df(x, warn = FALSE)
+#>   name value
+#> 1    a     1
+#> 2    a     2
+#> 3    a     3
+#> 4    b     2
+#> 5    b     3
+#> 6    b     4
+#> 7    c     j
+#> 8    c     k
+#> 9    c     l
+list2DF(x)
+#>   a b c
+#> 1 1 2 j
+#> 2 2 3 k
+#> 3 3 4 l
+as.data.frame(x)
 #>   a b c
 #> 1 1 2 j
 #> 2 2 3 k

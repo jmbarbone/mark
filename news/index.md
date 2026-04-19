@@ -2,20 +2,47 @@
 
 ## mark (development version)
 
+- substantial changes to *conditions*
+
+  - all *conditions* previously created with
+    [`fuj::new_condition()`](https://jmbarbone.github.io/fuj/reference/new_condition.html)
+    have been rewritten with
+    [`cnd::condition()`](https://jmbarbone.github.io/cnd/reference/condition.html)
+    \[#259\]
+  - all of these condition now use different class names, generated
+    through
+    [`cnd::condition()`](https://jmbarbone.github.io/cnd/reference/condition.html)
+  - for more information, see <https://jmbarbone.github.io/cnd>
+  - FIXME: ensure names: `{rd_name}_{thing}` – and see about switching
+    messages around: (`message = function(type, params)`)
+
+- the following arguments were deprecated and unused, and have now been
+  removed completely:
+
+  - `list2df(show_NA)`
+  - `vector2df(show_NA)`
+  - `t_df(id)`
+
+- `merge_list(sort)` included to toggle name sorting in result
+
 - [`make_sf()`](https://jmbarbone.github.io/mark/reference/make_sf.md)
   now uses [`substitute()`](https://rdrr.io/r/base/substitute.html) to
   provide more information inside the function body when viewing
   [\#129](https://github.com/jmbarbone/mark/issues/129)
+
 - [`round_to()`](https://jmbarbone.github.io/mark/reference/round_to.md)
   added to round values to a set
   [\#142](https://github.com/jmbarbone/mark/issues/142)
+
 - [`is_true()`](https://jmbarbone.github.io/mark/reference/logic_ext.md),
   [`is_false()`](https://jmbarbone.github.io/mark/reference/logic_ext.md)
   now works as documented
   [\#262](https://github.com/jmbarbone/mark/issues/262)
+
 - [`to_boolean()`](https://jmbarbone.github.io/mark/reference/to_boolean.md)
   now works as documented
   [\#262](https://github.com/jmbarbone/mark/issues/262)
+
   - [`to_boolean.character()`](https://jmbarbone.github.io/mark/reference/to_boolean.md),
     and
     [`to_boolean.factor()`](https://jmbarbone.github.io/mark/reference/to_boolean.md)
@@ -27,21 +54,27 @@
   - [`to_boolean.numeric()`](https://jmbarbone.github.io/mark/reference/to_boolean.md),
     [`to_boolean.integer()`](https://jmbarbone.github.io/mark/reference/to_boolean.md)
     will now return `NA`
+
 - `md5(bytes)` added to use `tools::md5sum(bytpes)` for **R \> 4.2.0**
   [\#258](https://github.com/jmbarbone/mark/issues/258)
+
 - [`md5()`](https://jmbarbone.github.io/mark/reference/md5.md) now uses
   little-endian serialization (*i.e.*, `serialize(xdr = FALSE)`) for
   more consistent results across platforms and faster speed; which may
   cause hashes created prior to *change*
+
 - [mark](https://CRAN.R-project.org/package=mark)’s title has been
   updated
+
 - `write_file_md5(method = "feather")`,
   `write_file_md5(method = "parquet")` now use
   [feather](https://github.com/wesm/feather) and
   [nanoparquet](https://github.com/r-lib/nanoparquet), respectively,
   rather than [arrow](https://github.com/apache/arrow/)
   [\#245](https://github.com/jmbarbone/mark/issues/245)
+
 - `read_clipboard("md")` no longer needs `{readMdTable}`
+
 - `read_clibpboard()` will always return a `tibble` if
   [tibble](https://tibble.tidyverse.org/) is available (this can be
   turned off if `options(mark.tibble = FALSE)`)

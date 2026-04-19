@@ -47,7 +47,8 @@ remove_labels(x, cols, ...)
 
   One or more unquoted expressed separated by commas. If assigning to a
   data.frame, `...` can be replaced with a `data.frame` where the first
-  column is the targeted colname and the second is the desired label.
+  column is the targeted column name and the second is the desired
+  label.
 
 - label:
 
@@ -56,8 +57,9 @@ remove_labels(x, cols, ...)
 - .missing:
 
   A control setting for dealing missing columns in a list; can be set to
-  `error` to [`stop()`](https://rdrr.io/r/base/stop.html) the call,
-  `warn` to provide a warning, or `skip` to silently skip those labels.
+  `"error"` to [`base::stop()`](https://rdrr.io/r/base/stop.html) the
+  call, `"warn"` to provide a warning, or `"skip"` to silently skip
+  those labels.
 
 - .ls:
 
@@ -81,7 +83,7 @@ A labelled vector or `data.frame`
 
 When labels are assigned to a data.frame they can make viewing the
 object (with [`View()`](https://rdrr.io/r/utils/View.html) inside
-Rstudio). The `view_labels()` has a call to
+Rstudio). `view_labels()` has a call to
 [`View()`](https://rdrr.io/r/utils/View.html) inside and will retrieve
 the labels and show them in the viewer as a data.frame.
 

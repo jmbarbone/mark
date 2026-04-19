@@ -1,4 +1,4 @@
-# Add author to DESCRIPTION
+# Add author to `DESCRIPTION`
 
 Adds author to description
 

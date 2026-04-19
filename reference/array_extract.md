@@ -56,5 +56,6 @@ x
 #> [3,]   NA   NA   NA
 #> 
 array_extract(x, `2` = 2, `3` = 3)
+#> Warning: `array_extract()` is deprecated. Please use standard R array indexing instead, e.g., `arr[1, 2, 3]`.
 #> [1] TRUE
 ```

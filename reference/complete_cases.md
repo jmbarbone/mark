@@ -12,7 +12,7 @@ complete_cases(data, cols = NULL, invert = FALSE)
 
 - data:
 
-  A data.frame
+  A `data.frame`
 
 - cols:
 

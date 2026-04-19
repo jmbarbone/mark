@@ -1,7 +1,7 @@
 # Range 2
 
-Employs [`min()`](https://rdrr.io/r/base/Extremes.html) and
-[`max()`](https://rdrr.io/r/base/Extremes.html). However,
+Employs [`base::min()`](https://rdrr.io/r/base/Extremes.html) and
+[`base::max()`](https://rdrr.io/r/base/Extremes.html). However,
 [`base::range()`](https://rdrr.io/r/base/range.html), there is no
 argument for removing `Inf` values.
 
@@ -33,17 +33,17 @@ respectively
 x <- rep(1:1e5, 100)
 system.time(rep(range(x),  100))
 #>    user  system elapsed 
-#>   0.024   0.003   0.028 
+#>   0.031   0.004   0.035 
 system.time(rep(range2(x), 100))
 #>    user  system elapsed 
-#>   0.012   0.000   0.013 
+#>   0.013   0.000   0.013 
 x[sample(x, 1e5)] <- NA
 
 system.time(rep(range(x, na.rm = TRUE), 100))
 #>    user  system elapsed 
-#>   0.316   0.022   0.338 
+#>   0.310   0.029   0.339 
 system.time(rep(range2(x, na.rm = TRUE), 100))
 #>    user  system elapsed 
-#>   0.013   0.000   0.014 
+#>   0.014   0.000   0.014 
 # }
 ```

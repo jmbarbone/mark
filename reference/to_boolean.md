@@ -14,7 +14,7 @@ to_boolean(x, ...)
 to_boolean(x, true = 1, false = 0, na = NULL, ...)
 
 # S3 method for class 'integer'
-to_boolean(x, true = 1L, false = 0L, ...)
+to_boolean(x, true = 1L, false = 0L, na = NULL, ...)
 
 # S3 method for class 'character'
 to_boolean(

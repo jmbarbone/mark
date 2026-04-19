@@ -25,7 +25,7 @@ read_bib(file, skip = 0L, max_lines = NULL, encoding = "UTF-8")
 - encoding:
 
   Assumed encoding of file (passed to
-  [`readLines()`](https://rdrr.io/r/base/readLines.html)
+  [`base::readLines()`](https://rdrr.io/r/base/readLines.html)
 
 ## Value
 
@@ -85,7 +85,7 @@ if (package_available("bib2df") & package_available("bench")) {
 #> # A tibble: 3 × 9
 #>   expression      min median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_time
 #>   <bch:expr> <bch:tm> <bch:>     <dbl> <bch:byt>    <dbl> <int> <dbl>   <bch:tm>
-#> 1 read_bib     2.03ms 2.11ms      469.    9.41KB     6.73   209     3      445ms
-#> 2 bib2df       5.99ms 6.12ms      161.    2.83MB     6.80    71     3      441ms
-#> 3 foo          2.74ms 2.83ms      342.   348.1KB     6.59   156     3      456ms
+#> 1 read_bib     1.72ms 1.83ms      547.    9.41KB     6.54   251     3      459ms
+#> 2 bib2df       5.73ms 5.88ms      169.     2.9MB     6.68    76     3      449ms
+#> 3 foo          2.67ms 2.74ms      361.   348.1KB     6.60   164     3      454ms
 ```

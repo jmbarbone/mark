@@ -15,7 +15,7 @@ Will not return error messages with ugly quotation marks
 
     <a class="navbar-brand me-2" href="../index.html">mark</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.3.9007</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.3.9008</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -78,7 +78,7 @@ value when matched to the RHS of the formula.</p></dd>
 
 
 <dt id="arg-partial">partial<a class="anchor" aria-label="anchor" href="#arg-partial"></a></dt>
-<dd><p>If <code>TRUE</code> allows partial matching via <code><a href="https://rdrr.io/r/base/pmatch.html" class="external-link">pmatch()</a></code></p></dd>
+<dd><p>If <code>TRUE</code> allows partial matching via <code><a href="https://rdrr.io/r/base/pmatch.html" class="external-link">base::pmatch()</a></code></p></dd>
 
 
 <dt id="arg-multiple">multiple<a class="anchor" aria-label="anchor" href="#arg-multiple"></a></dt>
@@ -98,6 +98,22 @@ value when matched to the RHS of the formula.</p></dd>
     <p>Param matching for an argument</p>
     </div>
     <div class="section level2">
+    <h2 id="conditions">Conditions<a class="anchor" aria-label="anchor" href="#conditions"></a></h2>
+
+
+
+<p>Conditions are generated through the <code><a href="https://jmbarbone.github.io/cnd/reference/cnd-package.html" class="external-link">{cnd}</a></code> package.
+The following conditions are associated with this function:</p>
+<dl><dt><code><a href="mark-cnd-conditions.html">mark:match_param_error/error</a></code></dt>
+<dd>
+
+</dd>
+
+
+
+</dl><p>For more conditions, see: <a href="mark-cnd-conditions.html">mark-cnd-conditions</a></p>
+    </div>
+    <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="match_arg.html">match_arg()</a></code></p></div>
     </div>
@@ -111,10 +127,13 @@ value when matched to the RHS of the formula.</p></dd>
 <span class="r-in"><span><span class="fu">fruits</span><span class="op">(</span><span class="op">)</span>         <span class="co"># apple</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "apple"</span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="fu">fruits</span><span class="op">(</span><span class="st">"b"</span><span class="op">)</span><span class="op">)</span> <span class="co"># must be exact fruits("banana")</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Error : &lt;matchParamMatchError&gt; `match_param(x)` failed in `fruits("b")`:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Error in match_param() : &lt;mark:match_param_error&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> `match_param(x)` failed in `fruits("b")`:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   param    b</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   choices  apple, banana, orange</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> package:mark</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> See exports for more help:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ?mark::match_param</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">pfruits</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"apple"</span>, <span class="st">"apricot"</span>, <span class="st">"banana"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="fu">match_param</span><span class="op">(</span><span class="va">x</span>, partial <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
@@ -122,10 +141,13 @@ value when matched to the RHS of the formula.</p></dd>
 <span class="r-in"><span><span class="fu">pfruits</span><span class="op">(</span><span class="op">)</span>          <span class="co"># apple</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "apple"</span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="fu">pfruits</span><span class="op">(</span><span class="st">"ap"</span><span class="op">)</span><span class="op">)</span> <span class="co"># matchParamMatchError</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Error : &lt;matchParamMatchError&gt; `match_param(x)` failed in `pfruits("ap")`:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Error in match_param() : &lt;mark:match_param_error&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> `match_param(x)` failed in `pfruits("ap")`:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   param    ap</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   choices  apple, apricot, banana</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> package:mark</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> See exports for more help:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ?mark::match_param</span>
 <span class="r-in"><span><span class="fu">pfruits</span><span class="op">(</span><span class="st">"app"</span><span class="op">)</span>     <span class="co"># apple</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "apple"</span>
 <span class="r-in"><span></span></span>

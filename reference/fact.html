@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">mark</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.3.9007</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.3.9008</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -90,21 +90,21 @@
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p><code>fact()</code> can be about 5 times quicker than <code><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor()</a></code> or
-<code><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor()</a></code> as it doesn't bother sorting the levels for non-numeric data
-or have other checks or features.  It simply converts a vector to a factor
-with all unique values as levels with <code>NA</code>s included.</p>
-<p><code>fact.factor()</code> will perform several checks on a factor to include <code>NA</code>
-levels and to check if the levels should be reordered to conform with the
-other methods.  The <code>fact.fact()</code> method simple returns <code>x</code>.</p>
+    <p><code>fact()</code> can be about 5 times quicker than <code><a href="https://rdrr.io/r/base/factor.html" class="external-link">base::factor()</a></code> or
+<code><a href="https://rdrr.io/r/base/factor.html" class="external-link">base::as.factor()</a></code> as it doesn't bother sorting the levels for non-numeric
+data or have other checks or features.  It simply converts a vector to a
+factor with all unique values as levels with <code>NA</code>s included.</p>
+<p><code>fact.factor()</code> will perform several checks on a factor to include
+<code>NA</code> levels and to check if the levels should be reordered to conform with
+the other methods.  The <code>fact.fact()</code> method simple returns <code>x</code>.</p>
     </div>
     <div class="section level2">
     <h2 id="level-orders">level orders<a class="anchor" aria-label="anchor" href="#level-orders"></a></h2>
 
 
 
-<p>The order of the levels may be adjusted to these rules depending on the class
-of <code>x</code>:</p><dl><dt><code>character</code></dt>
+<p>The order of the levels may be adjusted to these rules depending on the
+class of <code>x</code>:</p><dl><dt><code>character</code></dt>
 <dd><p>The order of appearance</p></dd>
 
 <dt><code>numeric</code>/<code>integer</code>/<code>Date</code>/<code>POSIXt</code></dt>

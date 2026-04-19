@@ -20,7 +20,7 @@ import(pkg, fun, overwrite = FALSE)
 
 - overwrite:
 
-  Logical, if TRUE and `fun` is also found in the current environment,
+  Logical, if `TRUE` and `fun` is also found in the current environment,
   will overwrite assignment
 
 ## Value

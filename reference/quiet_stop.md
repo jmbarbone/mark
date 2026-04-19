@@ -1,6 +1,6 @@
 # Quiet stop
 
-Quietly calls stop
+Quietly calls [`base::stop()`](https://rdrr.io/r/base/stop.html)
 
 ## Usage
 

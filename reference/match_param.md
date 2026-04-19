@@ -40,7 +40,7 @@ match_param(
 - partial:
 
   If `TRUE` allows partial matching via
-  [`pmatch()`](https://rdrr.io/r/base/pmatch.html)
+  [`base::pmatch()`](https://rdrr.io/r/base/pmatch.html)
 
 - multiple:
 
@@ -58,6 +58,17 @@ A single value from `param` matched on `choices`
 
 Param matching for an argument
 
+## Conditions
+
+Conditions are generated through the
+[`{cnd}`](https://jmbarbone.github.io/cnd/reference/cnd-package.html)
+package. The following conditions are associated with this function:
+
+- [`mark:match_param_error/error`](https://jmbarbone.github.io/mark/reference/mark-cnd-conditions.md):
+
+For more conditions, see:
+[mark-cnd-conditions](https://jmbarbone.github.io/mark/reference/mark-cnd-conditions.md)
+
 ## See also
 
 [`match_arg()`](https://jmbarbone.github.io/mark/reference/match_arg.md)
@@ -72,10 +83,13 @@ fruits <- function(x = c("apple", "banana", "orange")) {
 fruits()         # apple
 #> [1] "apple"
 try(fruits("b")) # must be exact fruits("banana")
-#> Error : <matchParamMatchError> `match_param(x)` failed in `fruits("b")`:
+#> Error in match_param() : <mark:match_param_error>
+#> `match_param(x)` failed in `fruits("b")`:
 #>   param    b
 #>   choices  apple, banana, orange
-#> package:mark
+#> 
+#> See exports for more help:
+#>   ?mark::match_param
 
 pfruits <- function(x = c("apple", "apricot", "banana")) {
   match_param(x, partial = TRUE)
@@ -83,10 +97,13 @@ pfruits <- function(x = c("apple", "apricot", "banana")) {
 pfruits()          # apple
 #> [1] "apple"
 try(pfruits("ap")) # matchParamMatchError
-#> Error : <matchParamMatchError> `match_param(x)` failed in `pfruits("ap")`:
+#> Error in match_param() : <mark:match_param_error>
+#> `match_param(x)` failed in `pfruits("ap")`:
 #>   param    ap
 #>   choices  apple, apricot, banana
-#> package:mark
+#> 
+#> See exports for more help:
+#>   ?mark::match_param
 pfruits("app")     # apple
 #> [1] "apple"
 

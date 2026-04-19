@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">mark</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.3.9007</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.3.9008</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -83,9 +83,9 @@
 
 
 <dt id="arg-all">all<a class="anchor" aria-label="anchor" href="#arg-all"></a></dt>
-<dd><p>a logical value. If FALSE, only the names of visible files are
+<dd><p>a logical value. If <code>FALSE</code>, only the names of visible files are
 returned (following Unix-style visibility, that is files whose name does
-not start with a dot). If TRUE, all file names will be returned.</p></dd>
+not start with a dot). If <code>TRUE</code>, all file names will be returned.</p></dd>
 
 
 <dt id="arg-negate">negate<a class="anchor" aria-label="anchor" href="#arg-negate"></a></dt>
@@ -101,17 +101,18 @@ the entire path</p></dd>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
 
-<ul><li><p><code>open_file()</code>, <code>shell_exec()</code>: A logical vector where <code>TRUE</code> successfully
-opened, <code>FALSE</code> did not and <code>NA</code> did not try to open (file not found)</p></li>
+<ul><li><p><code>open_file()</code>, <code>shell_exec()</code>: A logical vector where <code>TRUE</code>
+successfully opened, <code>FALSE</code> did not and <code>NA</code> did not try to open (file not
+found)</p></li>
 <li><p><code>list_files()</code>, <code>list_dirs()</code>: A vector of full paths</p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p><code>open_file</code> is an alternative to <code>shell.exec()</code> that can take take
-multiple files. <code>list_files</code> and <code>list_dirs</code> are mostly wrappers for
-<code><a href="https://fs.r-lib.org/reference/dir_ls.html" class="external-link">fs::dir_ls()</a></code> with preferred defaults and pattern searching on the full file
-path.</p>
-<p><code>file_open</code> is simply an alias.</p>
+    <p><code>open_file()</code> is an alternative to <code>base::shell.exec()</code> that
+can take take multiple files. <code>list_files()</code> and <code>list_dirs()</code>
+are mostly wrappers for <code><a href="https://fs.r-lib.org/reference/dir_ls.html" class="external-link">fs::dir_ls()</a></code> with preferred defaults and pattern
+searching on the full file path.</p>
+<p><code>file_open()</code> is simply an alias.</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

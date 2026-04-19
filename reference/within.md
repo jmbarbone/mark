@@ -35,26 +35,31 @@ A logical vector
 
 ## Details
 
-``` type``,  ```bounds“ can be one of the below:
+`type`, `bounds` can be one of the below:
 
-- g,(:
+- `"g"`, `(`:
 
-  is greater than (\>)
+  is greater than (`>`)
 
-- ge,\[:
+- `"ge"`, `[`:
 
-  greater than or equal to (\>=)
+  greater than or equal to (`>=`)
 
-- l,)):
+- `"l"`, `)`:
 
-  less than (\<)
+  less than (`<`)
 
-- le,\[\]:
+- `"le"`, `]`:
 
-  less than or equal to (\<=)
+  less than or equal to (`<=`)
 
-Note: `between_more()` may be deprecated in the future in favor of just
-`within()`
+Note: \[mark::between_more()\] may be deprecated in the future in favor
+of just \[mark::within()\]
+
+\[`}{greater than or equal to (`\>=`)} \item{`"l"`, `)`}{less than (`\<`)} \item{`"le"`, `\]:
+R:%60%7D%7Bgreater%20than%20or%20equal%20to%20(%60%3E=%60)%7D%0A%20%5C%5Citem%7B%60%22l%22%60,%20%60)%60%7D%7Bless%20than%20(%60%3C%60)%7D%0A%20%5C%5Citem%7B%60%22le%22%60,%20%60
+\[mark::between_more()\]: R:mark::between_more() \[mark::within()\]:
+R:mark::within()
 
 ## Examples
 

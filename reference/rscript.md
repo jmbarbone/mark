@@ -1,6 +1,7 @@
 # Rscript
 
-Implements `Rscript` with `system2`
+Implements `Rscript` with
+[`base::system2()`](https://rdrr.io/r/base/system2.html)
 
 ## Usage
 
@@ -24,7 +25,8 @@ rscript(x, ops = NULL, args = NULL, ...)
 
 - ...:
 
-  Additional arguments passed to `system2`
+  Additional arguments passed to
+  [`base::system2()`](https://rdrr.io/r/base/system2.html)
 
 ## Value
 

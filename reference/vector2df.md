@@ -5,7 +5,7 @@ Transforms a vector (named) to a data.frame
 ## Usage
 
 ``` r
-vector2df(x, name = "name", value = "value", show_NA)
+vector2df(x, name = "name", value = "value")
 ```
 
 ## Arguments
@@ -17,10 +17,6 @@ vector2df(x, name = "name", value = "value", show_NA)
 - name, value:
 
   Character strings for the name and value columns
-
-- show_NA:
-
-  Ignored; will trigger a warning if set
 
 ## Value
 

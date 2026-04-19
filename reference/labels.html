@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">mark</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.3.9007</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.3.9008</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -82,7 +82,7 @@
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>One or more unquoted expressed separated by commas.  If assigning
 to a data.frame, <code>...</code> can be replaced with a <code>data.frame</code> where the first
-column is the targeted colname and the second is the desired label.</p></dd>
+column is the targeted column name and the second is the desired label.</p></dd>
 
 
 <dt id="arg-label">label<a class="anchor" aria-label="anchor" href="#arg-label"></a></dt>
@@ -90,9 +90,9 @@ column is the targeted colname and the second is the desired label.</p></dd>
 
 
 <dt id="arg--missing">.missing<a class="anchor" aria-label="anchor" href="#arg--missing"></a></dt>
-<dd><p>A control setting for dealing missing columns in a list;
-can be set to <code>error</code> to <code><a href="https://rdrr.io/r/base/stop.html" class="external-link">stop()</a></code> the call, <code>warn</code> to provide a warning, or
-<code>skip</code> to silently skip those labels.</p></dd>
+<dd><p>A control setting for dealing missing columns in a list; can
+be set to <code>"error"</code> to <code><a href="https://rdrr.io/r/base/stop.html" class="external-link">base::stop()</a></code> the call, <code>"warn"</code> to provide a
+warning, or <code>"skip"</code> to silently skip those labels.</p></dd>
 
 
 <dt id="arg--ls">.ls<a class="anchor" aria-label="anchor" href="#arg--ls"></a></dt>
@@ -115,9 +115,9 @@ label attribute across all columns</p></dd>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>When labels are assigned to a data.frame they can make viewing the object
-(with <code><a href="https://rdrr.io/r/utils/View.html" class="external-link">View()</a></code> inside Rstudio).  The <code>view_labels()</code> has a call to <code><a href="https://rdrr.io/r/utils/View.html" class="external-link">View()</a></code>
-inside and will retrieve the labels and show them in the viewer as a
+    <p>When labels are assigned to a data.frame they can make viewing the
+object (with <code><a href="https://rdrr.io/r/utils/View.html" class="external-link">View()</a></code> inside Rstudio).  <code>view_labels()</code> has a call to
+<code><a href="https://rdrr.io/r/utils/View.html" class="external-link">View()</a></code> inside and will retrieve the labels and show them in the viewer as a
 data.frame.</p>
     </div>
 

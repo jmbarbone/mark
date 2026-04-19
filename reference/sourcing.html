@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">mark</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.3.9007</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.3.9008</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,7 +63,7 @@
 
 
 <dt id="arg-cd">cd<a class="anchor" aria-label="anchor" href="#arg-cd"></a></dt>
-<dd><p>Logical; if TRUE, the R working directory is temporarily
+<dd><p>Logical; if <code>TRUE</code>, the <strong>R</strong> working directory is temporarily
 changed to the directory containing file for evaluating</p></dd>
 
 
@@ -75,16 +75,17 @@ evaluated</p></dd>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
 
-<ul><li><p><code>ksource()</code>: Invisibly, the result of calling <code><a href="https://rdrr.io/r/base/source.html" class="external-link">source()</a></code> on the <code>.R</code> file conversion of <code>file</code></p></li>
-<li><p><code>try_source()</code>, <code>try_ksource()</code>: attempts of <code><a href="https://rdrr.io/r/base/source.html" class="external-link">source()</a></code> and <code>ksource()</code> but converts errors to warnings</p></li>
+<ul><li><p><code>ksource()</code>: Invisibly, the result of calling <code><a href="https://rdrr.io/r/base/source.html" class="external-link">base::source()</a></code> on
+the <code>.R</code> file conversion of <code>file</code></p></li>
+<li><p><code>try_source()</code>, <code>try_ksource()</code>: attempts of <code><a href="https://rdrr.io/r/base/source.html" class="external-link">base::source()</a></code>
+and <code>ksource()</code> but converts errors to warnings</p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p><code>try_source()</code> will output an error message rather than completely preventing
-the execution.
-This can be useful for when a script calls on multiple, independent files to
-be sourced and a single failure shouldn't prevent the entire run to fail as
-well.</p>
+    <p><code>try_source()</code> will output an error message rather than
+completely preventing the execution. This can be useful for when a script
+calls on multiple, independent files to be sourced and a single failure
+shouldn't prevent the entire run to fail as well.</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

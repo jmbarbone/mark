@@ -52,15 +52,20 @@ read_clipboard_methods()
 
 ## Value
 
-`write_clipboard()` None, called for side effects `read_clipboard()`
-Either a vector or `data.frame` (or `tibble`, if depending on the
-`method` chosen. An empty clipboard value returns `NA` (rather than
-`""`)
+- `write_clipboard()` None, called for side effects
+
+- `read_clipboard()` Either a vector, `data.frame`, or `tibble`
+  depending on the `method` chosen. Unlike
+  [`utils::readClipboard()`](https://rdrr.io/r/utils/clipboard.html), an
+  empty clipboard value returns `NA` rather than `""`
 
 ## Details
 
-For copying and pasting floats, there may be some rounding that can
-occur.
+As these functions rely on
+[`clipr::read_clip()`](http://matthewlincoln.net/clipr/reference/read_clip.md)
+and [`utils::writeClipboard()`](https://rdrr.io/r/utils/clipboard.html)
+they are only available for Windows 10. For copying and pasting floats,
+there may be some rounding that can occur.
 
 ## Examples
 

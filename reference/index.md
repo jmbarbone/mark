@@ -172,7 +172,9 @@
   Limit
 
 - [`lines_of_r_code()`](https://jmbarbone.github.io/mark/reference/lines_of_r_code.md)
-  : Lines of R code
+  :
+
+  Lines of **R** code
 
 - [`list2df()`](https://jmbarbone.github.io/mark/reference/list2df.md) :
   List to data.frame
@@ -389,7 +391,9 @@
   : Unlist and squash
 
 - [`use_author()`](https://jmbarbone.github.io/mark/reference/use_author.md)
-  : Add author to DESCRIPTION
+  :
+
+  Add author to `DESCRIPTION`
 
 - [`paste_c()`](https://jmbarbone.github.io/mark/reference/utils-paste.md)
   [`paste_combine()`](https://jmbarbone.github.io/mark/reference/utils-paste.md)

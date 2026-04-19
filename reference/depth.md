@@ -31,8 +31,8 @@ A single `integer`
 ## Details
 
 This function does not count an empty lists
-([`list()`](https://rdrr.io/r/base/list.html)) as a level or `NULL`
-objects.
+([`base::list()`](https://rdrr.io/r/base/list.html)) as a level or
+`NULL` objects.
 
 ## Examples
 

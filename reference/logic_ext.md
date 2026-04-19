@@ -1,7 +1,7 @@
 # Logic - Extensions
 
-All functions take logical or logical-like (i.e., 1, 0, or NA as integer
-or doubles) and return logical values.
+All functions take logical or logical-like (i.e., `1`, `0`, or `NA` as
+integer or doubles) and return logical values.
 
 Extensions to the base logical operations to account for `NA` values.
 
@@ -9,11 +9,11 @@ Extensions to the base logical operations to account for `NA` values.
 [`base::isFALSE()`](https://rdrr.io/r/base/Logic.html) will only return
 single length `TRUE` or `FALSE` as it checks for valid lengths in the
 evaluation. When needing to check over a vector for the presence of
-`TRUE` or `FALSE` and not being held back by `NA` values, `is_true` and
-`is_false` will always provide a `TRUE` `FALSE` when the vector is
+`TRUE` or `FALSE` and not being held back by `NA` values, `is_true()`
+and `is_false()` will always provide a `TRUE` `FALSE` when the vector is
 logical or return `NA` is the vector `x` is not logical.
 
-`%xor%` is just a wrapper for
+%xor% is just a wrapper for
 [`base::xor()`](https://rdrr.io/r/base/Logic.html)
 
 ## Usage
@@ -72,11 +72,12 @@ isNA(x)
 
 ## Value
 
-- `is_true()`, `is_false()`, `either()`, `%or%`, `nor`, `nand`, `xandr`,
-  `AND()`, `OR()`: A `logical` vector, equal length of `x` (or `y` or of
-  all `...` lengths)
+- `is_true()`, `is_false()`, `either()`, %xor%, `AND()`, `OR()`: A
+  `logical` vector, equal length of `x` (or `y` or of all `...` lengths)
 
-- `is_boolean()`, `isNA()`, `none()`: A single `logical` value
+- `is_boolean()`: `TRUE` or `FALSE`
+
+- `none()`: `TRUE`, `FALSE`, or `NA`
 
 ## Details
 

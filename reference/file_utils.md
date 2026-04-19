@@ -48,9 +48,10 @@ list_dirs(
 
 - all:
 
-  a logical value. If FALSE, only the names of visible files are
+  a logical value. If `FALSE`, only the names of visible files are
   returned (following Unix-style visibility, that is files whose name
-  does not start with a dot). If TRUE, all file names will be returned.
+  does not start with a dot). If `TRUE`, all file names will be
+  returned.
 
 - negate:
 
@@ -72,9 +73,10 @@ list_dirs(
 
 ## Details
 
-`open_file` is an alternative to `shell.exec()` that can take take
-multiple files. `list_files` and `list_dirs` are mostly wrappers for
+`open_file()` is an alternative to `base::shell.exec()` that can take
+take multiple files. `list_files()` and `list_dirs()` are mostly
+wrappers for
 [`fs::dir_ls()`](https://fs.r-lib.org/reference/dir_ls.html) with
 preferred defaults and pattern searching on the full file path.
 
-`file_open` is simply an alias.
+`file_open()` is simply an alias.

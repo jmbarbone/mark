@@ -1,10 +1,14 @@
 # Switch with a list of parameters
 
-`switch_params()` is a vectorized version of `switch` `switch_case()`
-uses a formula syntax to return the value to the right of the tilde
-(`~`) when `x` is `TRUE` `switch_in_case()` is a special case of
-`switch_case()` for [`match()`](https://rdrr.io/r/base/match.html)-ing
-`x` in the values on the left to return the value on the right.
+`switch_params()` is a vectorized version of
+[`base::switch()`](https://rdrr.io/r/base/switch.html)
+
+`switch_case()` uses a formula syntax to return the value to the right
+of the tilde (`~`) when `x` is `TRUE`
+
+`switch_in_case()` is a special case of `switch_case()` for
+[`base::match()`](https://rdrr.io/r/base/match.html)-ing `x` in the
+values on the left to return the value on the right.
 
 ## Usage
 
@@ -24,7 +28,7 @@ switch_case(..., .default = NULL, .envir = parent.frame())
 
 - ...:
 
-  Case evaluations (named for `switch_params`)
+  Case evaluations (named for `switch_params()`)
 
 - .default:
 
@@ -34,11 +38,11 @@ switch_case(..., .default = NULL, .envir = parent.frame())
 - .envir:
 
   The environment in which to evaluate the LHS of `...` (default:
-  [`parent.frame()`](https://rdrr.io/r/base/sys.parent.html))
+  [`base::parent.frame()`](https://rdrr.io/r/base/sys.parent.html))
 
 ## Value
 
-A named vector of values of same length `x`; or for `switch_case`, an
+A named vector of values of same length `x`; or for `switch_case()`, an
 unnamed vector of values matching the rhs of `...`
 
 Inspired from:

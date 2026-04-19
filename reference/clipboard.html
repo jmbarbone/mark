@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">mark</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.3.9007</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.3.9008</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -87,15 +87,17 @@
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p><code>write_clipboard()</code> None, called for side effects
-<code>read_clipboard()</code> Either a vector or <code>data.frame</code> (or <code>tibble</code>, if
-depending on the <code>method</code> chosen. An empty clipboard value returns <code>NA</code>
-(rather than <code>""</code>)</p>
-    </div>
+
+<ul><li><p><code>write_clipboard()</code> None, called for side effects</p></li>
+<li><p><code>read_clipboard()</code> Either a vector, <code>data.frame</code>, or <code>tibble</code>
+depending on the <code>method</code> chosen.  Unlike <code><a href="https://rdrr.io/r/utils/clipboard.html" class="external-link">utils::readClipboard()</a></code>, an
+empty clipboard value returns <code>NA</code> rather than <code>""</code></p></li>
+</ul></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>For copying and pasting floats, there may be some rounding that can
-occur.</p>
+    <p>As these functions rely on <code><a href="http://matthewlincoln.net/clipr/reference/read_clip.html" class="external-link">clipr::read_clip()</a></code> and
+<code><a href="https://rdrr.io/r/utils/clipboard.html" class="external-link">utils::writeClipboard()</a></code> they are only available for Windows 10. For
+copying and pasting floats, there may be some rounding that can occur.</p>
     </div>
 
     <div class="section level2">

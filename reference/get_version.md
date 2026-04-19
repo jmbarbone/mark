@@ -3,7 +3,7 @@
 Will read the `DESCRIPTION` file and to get and adjust the version
 
 `bump_date_version()` will not check if the version is actually a date.
-When the current version is the same as today's date(equal by character
+When the current version is the same as today's date (equal by character
 strings) it will append a `.1`.
 
 ## Usage
@@ -37,7 +37,7 @@ update_version(version = NULL, date = FALSE)
 
 - `bump_date_version()`: None, called for its side-effects
 
-- `update_version()`: None, called for its side-effects
+- `update_version()`\`: None, called for its side-effects
 
 ## Details
 

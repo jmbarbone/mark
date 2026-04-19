@@ -20,12 +20,12 @@ user_file(..., check = FALSE, remove = check)
 
 - check:
 
-  Logical, if TRUE will check if the path exists and output a warning if
-  it does not.
+  Logical, if `TRUE` will check if the path exists and output a warning
+  if it does not.
 
 - remove:
 
-  Logical, if TRUE will remove paths that are not found
+  Logical, if `TRUE` will remove paths that are not found
 
 - ...:
 

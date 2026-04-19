@@ -30,8 +30,8 @@ try_ksource(file, ...)
 
 - cd:
 
-  Logical; if TRUE, the R working directory is temporarily changed to
-  the directory containing file for evaluating
+  Logical; if `TRUE`, the **R** working directory is temporarily changed
+  to the directory containing file for evaluating
 
 - env:
 
@@ -40,12 +40,12 @@ try_ksource(file, ...)
 ## Value
 
 - `ksource()`: Invisibly, the result of calling
-  [`source()`](https://rdrr.io/r/base/source.html) on the `.R` file
-  conversion of `file`
+  [`base::source()`](https://rdrr.io/r/base/source.html) on the `.R`
+  file conversion of `file`
 
 - `try_source()`, `try_ksource()`: attempts of
-  [`source()`](https://rdrr.io/r/base/source.html) and `ksource()` but
-  converts errors to warnings
+  [`base::source()`](https://rdrr.io/r/base/source.html) and `ksource()`
+  but converts errors to warnings
 
 ## Details
 

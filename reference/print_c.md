@@ -17,12 +17,12 @@ print_c(x = read_clipboard(), sorted = TRUE, null = TRUE)
 - sorted:
 
   If `TRUE` (default) applies
-  [`sort()`](https://rdrr.io/r/base/sort.html) to `x`
+  [`base::sort()`](https://rdrr.io/r/base/sort.html) to `x`
 
 - null:
 
   If `TRUE` (default) adds `NULL` at the end of the
-  [`c()`](https://rdrr.io/r/base/c.html) print
+  [`base::c()`](https://rdrr.io/r/base/c.html) print
 
 ## Value
 
@@ -31,10 +31,12 @@ Invisibly, as a `character` vector, the object printed to the console
 ## Details
 
 This sorts (if set) and provides unique values for each element in `x`
-and prints then as a call to `c`. This can be useful for copying data
-that you want to save as a vector in an R script. The result is both
-called in [`cat()`](https://rdrr.io/r/base/cat.html) as well as copied
-to the clipboard.
+and prints then as a call to
+[`base::c()`](https://rdrr.io/r/base/c.html). This can be useful for
+copying data that you want to save as a vector in an **R** script. The
+result is both called in
+[`base::cat()`](https://rdrr.io/r/base/cat.html) as well as copied to
+the clipboard.
 
 ## Examples
 

@@ -33,18 +33,13 @@ if (requireNamespace("stringi")) {
   str_slice(x)
   str_slice_by_word(x, n = 50L)
 }
-#>  [1] "Lorem ipsum dolor sit amet, sed lorem, mauris,"    
-#>  [2] "lacinia ac lobortis ultrices conubia. Sed at,"     
-#>  [3] "risus nec habitant, eu ac euismod congue. Id donec"
-#>  [4] "lorem vivamus id, nec. Euismod, phasellus sit est" 
-#>  [5] "mauris, lorem ipsum porttitor litora gravida."     
-#>  [6] "Dolor ac duis sit magna, iaculis tortor. Nam,"     
-#>  [7] "pellentesque ridiculus efficitur sed placerat"     
-#>  [8] "praesent cursus. Neque bibendum ex nullam in"      
-#>  [9] "quisque elementum in efficitur? Sed, vitae"        
-#> [10] "sagittis a conubia. Penatibus nullam pharetra,"    
-#> [11] "donec, sociosqu mus. Vitae pharetra velit aenean," 
-#> [12] "tellus quis massa ultrices et ut tellus ut aptent."
-#> [13] "Nisl nulla, lectus torquent lectus vitae varius"   
-#> [14] "est. Vitae, nisl quisque mauris interdum nec."     
+#> [1] "Lorem ipsum dolor sit amet, volutpat dapibus,"     
+#> [2] "egestas sagittis felis in leo efficitur felis enim"
+#> [3] "nisi! Eu libero, sed nullam metus mauris. Ipsum"   
+#> [4] "quisque sed velit neque urna. Vitae elementum sed" 
+#> [5] "ac sit a maximus dis ultrices, est, at id. Ac sed,"
+#> [6] "lorem, mauris lacinia ac lobortis ultrices"        
+#> [7] "conubia. Sed at. Risus nec habitant eu ac, euismod"
+#> [8] "congue id donec. Lorem vivamus id nec euismod"     
+#> [9] "phasellus sit est mauris lorem ipsum."             
 ```

@@ -61,8 +61,8 @@ mark_compress_methods()
 ## Value
 
 - `write_file_md5()`: `x`, invisibly. When `path` is not the
-  [`stdout()`](https://rdrr.io/r/base/showConnections.html), `x` is
-  returned with the attribute `"path"` set to the result of
+  [`base::stdout()`](https://rdrr.io/r/base/showConnections.html), `x`
+  is returned with the attribute `"path"` set to the result of
   [`file_copy_md5()`](https://jmbarbone.github.io/mark/reference/file_copy_md5.md).
 
 - `mark_write_methods()`: A list of applicable methods and their aliases
@@ -70,13 +70,15 @@ mark_compress_methods()
 - `mark_compress_methods()`: A character vector of applicable
   compression methods
 
-## [`options()`](https://rdrr.io/r/base/options.html)
+## Options
 
 - `mark.compress.method`: compression method to use when writing files
 
 - `mark.list.hook`: when a `data.frame` contains a `list` column, this
   function is applied to each element of the list. The default `"auto"`
-  uses `toJSON()` if the package `jsonlite` is available, otherwise
+  uses
+  [`jsonlite::toJSON()`](https://jeroen.r-universe.dev/jsonlite/reference/fromJSON.html)
+  if the package `jsonlite` is available, otherwise
 
 ## Examples
 
@@ -89,14 +91,17 @@ write_file_md5(df)
 
 temp <- tempfile()
 write_file_md5(df, temp) # new
-#> <fileCopyMd5Message> /tmp/RtmpPDZwuu/file1bef2ed5f100 (new file)
-#> package:mark
+#> mark:md5_condition/condition
+#> (mark:md5_condition/cnd::condition/condition)
+#> /tmp/RtmpRS3vFt/file1ae029f4d13 (new file)
 write_file_md5(df, temp) # same
-#> <fileCopyMd5Message> /tmp/RtmpPDZwuu/file1bef2ed5f100 (md5 same)
-#> package:mark
+#> mark:md5_condition/condition
+#> (mark:md5_condition/cnd::condition/condition)
+#> /tmp/RtmpRS3vFt/file1ae029f4d13 (md5 same)
 df$c <- 3
 write_file_md5(df, temp) # changes
-#> <fileCopyMd5Message> /tmp/RtmpPDZwuu/file1bef2ed5f100 (md5 change)
-#> package:mark
+#> mark:md5_condition/condition
+#> (mark:md5_condition/cnd::condition/condition)
+#> /tmp/RtmpRS3vFt/file1ae029f4d13 (md5 change)
 fs::file_delete(temp)
 ```

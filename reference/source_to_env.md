@@ -17,7 +17,7 @@ source_to_env(x, ops = NULL)
 - ops:
 
   Options to be passed to
-  [rscript](https://jmbarbone.github.io/mark/reference/rscript.md)
+  [`rscript()`](https://jmbarbone.github.io/mark/reference/rscript.md)
 
 ## Value
 

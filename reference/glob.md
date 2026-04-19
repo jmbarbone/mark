@@ -20,8 +20,10 @@ glob(x, pattern = NULL, value = TRUE, ...)
 
 - value, ...:
 
-  Additional parameters passed to `grep`. Note: `value` is by default
-  `TRUE`; when `NA`, `...` is passed to `grepl`.
+  Additional parameters passed to
+  [`base::grep()`](https://rdrr.io/r/base/grep.html). Note: `value` is
+  by default `TRUE`; when `NA`, `...` is passed to
+  [`base::grep()`](https://rdrr.io/r/base/grep.html)\`.
 
 ## Examples
 

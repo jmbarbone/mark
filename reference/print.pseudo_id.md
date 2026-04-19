@@ -13,8 +13,7 @@ print(x, ..., all = FALSE)
 
 - x:
 
-  An object of class
-  [pseudo_id](https://jmbarbone.github.io/mark/reference/pseudo_id.md)
+  An object of class `pseudo_id`
 
 - ...:
 

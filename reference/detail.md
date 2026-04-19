@@ -36,25 +36,25 @@ detail(x, factor_n = 5L, ...)
 x <- sample(letters[1:4], 10, TRUE)
 detail(x)
 #>          class    type label  n na min_c max_c level level_n note comment
-#> 1 fact; factor integer  <NA> 10  0     1     1     a       3 <NA>    <NA>
-#> 2 fact; factor integer  <NA> 10  0     1     1     b       3 <NA>    <NA>
-#> 3 fact; factor integer  <NA> 10  0     1     1     c       1 <NA>    <NA>
-#> 4 fact; factor integer  <NA> 10  0     1     1     d       3 <NA>    <NA>
+#> 1 fact; factor integer  <NA> 10  0     1     1     b       3 <NA>    <NA>
+#> 2 fact; factor integer  <NA> 10  0     1     1     c       3 <NA>    <NA>
+#> 3 fact; factor integer  <NA> 10  0     1     1     a       3 <NA>    <NA>
+#> 4 fact; factor integer  <NA> 10  0     1     1     d       1 <NA>    <NA>
 
-df <- quick_df(list(
+df <- data.frame(
   x = x,
   y = round(runif(10), 2),
   z = Sys.Date() + runif(10) * 100
-))
+)
 
 detail(df)
 #>   i col        class    type label  n na      min_c      max_c level level_n
-#> 1 1   x fact; factor integer  <NA> 10  0          1          1     a       3
-#> 2 1   x fact; factor integer  <NA> 10  0          1          1     b       3
-#> 3 1   x fact; factor integer  <NA> 10  0          1          1     c       1
-#> 4 1   x fact; factor integer  <NA> 10  0          1          1     d       3
-#> 5 2   y      numeric  double  <NA> 10  0       0.07       0.83  <NA>      NA
-#> 6 3   z         Date  double  <NA> 10  0 2026-02-23 2026-05-26  <NA>      NA
+#> 1 1   x fact; factor integer  <NA> 10  0          1          1     b       3
+#> 2 1   x fact; factor integer  <NA> 10  0          1          1     c       3
+#> 3 1   x fact; factor integer  <NA> 10  0          1          1     a       3
+#> 4 1   x fact; factor integer  <NA> 10  0          1          1     d       1
+#> 5 2   y      numeric  double  <NA> 10  0       0.18       0.95  <NA>      NA
+#> 6 3   z         Date  double  <NA> 10  0 2026-04-28 2026-07-27  <NA>      NA
 #>   note comment
 #> 1 <NA>    <NA>
 #> 2 <NA>    <NA>

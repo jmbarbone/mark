@@ -73,17 +73,17 @@ in a `data.frame`
 ``` r
 x <- sample(1:5, 10, TRUE)
 counts(x)
-#> 3 5 4 2 1 
-#> 2 3 2 2 1 
+#> 5 4 1 2 3 
+#> 5 2 1 1 1 
 props(x)
-#>   3   5   4   2   1 
-#> 0.2 0.3 0.2 0.2 0.1 
+#>   5   4   1   2   3 
+#> 0.5 0.2 0.1 0.1 0.1 
 
-x <- quick_df(list(
+x <- data.frame(
   a = c("a", "c", "a", "c", "d", "b"),
   b = c("a", "a", "a", "c", "c", "b"),
   c = c("a", "a", "a", "c", "b", "b")
-))
+)
 
 counts(x, "a")
 #>   a freq

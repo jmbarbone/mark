@@ -5,15 +5,15 @@ to see their documentation.
 
 - fuj:
 
-  [`%:::%`](https://jmbarbone.github.io/fuj/reference/colons.html),
   [`%::%`](https://jmbarbone.github.io/fuj/reference/colons.html),
-  [`%||%`](https://jmbarbone.github.io/fuj/reference/if_null.html),
+  [`%:::%`](https://jmbarbone.github.io/fuj/reference/colons.html),
   [`%colons%`](https://jmbarbone.github.io/fuj/reference/colons.html),
   [`%len%`](https://jmbarbone.github.io/fuj/reference/if_null.html),
   [`%names%`](https://jmbarbone.github.io/fuj/reference/names.html),
   [`%out%`](https://jmbarbone.github.io/fuj/reference/match_ext.html),
   [`%wi%`](https://jmbarbone.github.io/fuj/reference/match_ext.html),
   [`%wo%`](https://jmbarbone.github.io/fuj/reference/match_ext.html),
+  [`%||%`](https://jmbarbone.github.io/fuj/reference/if_null.html),
   [`any_match`](https://jmbarbone.github.io/fuj/reference/match_ext.html),
   [`exattr`](https://jmbarbone.github.io/fuj/reference/exattr.html),
   [`flip`](https://jmbarbone.github.io/fuj/reference/flip.html),

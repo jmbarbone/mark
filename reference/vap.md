@@ -48,27 +48,27 @@ These are simply wrappers for
 
 Each function is designed to use specific vector types:
 
-- vap_int:
+- `vap_int()`:
 
   integer
 
-- vap_dbl:
+- `vap_dbl()`:
 
   double
 
-- vap_chr:
+- `vap_chr()`:
 
   character
 
-- vap_lgl:
+- `vap_lgl()`:
 
   logical
 
-- vap_cplx:
+- `vap_cplx()`:
 
   complex
 
-- vap_date:
+- `vap_date()`:
 
   Date
 

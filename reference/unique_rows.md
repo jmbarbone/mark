@@ -34,10 +34,10 @@ unique_rows(data, cols = NULL, from_last = FALSE, invert = FALSE)
 ## Examples
 
 ``` r
-df <- quick_dfl(
+df <- data.frame(
   i = 1:4,
   a = rep(1:2, 2L),
-  b = rep("a", 4L),
+  b = rep("a", 4L)
 )
 
 unique_rows(df, 2:3)

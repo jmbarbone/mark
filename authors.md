@@ -11,12 +11,12 @@ Source:
 [`DESCRIPTION`](https://github.com/jmbarbone/mark/blob/main/DESCRIPTION)
 
 Barbone J (2026). *mark: Multipurpose Aids for R Kit*. R package version
-0.8.3.9007, <https://CRAN.R-project.org/package=mark>.
+0.8.3.9008, <https://CRAN.R-project.org/package=mark>.
 
     @Manual{,
       title = {mark: Multipurpose Aids for R Kit},
       author = {Jordan Mark Barbone},
       year = {2026},
-      note = {R package version 0.8.3.9007},
+      note = {R package version 0.8.3.9008},
       url = {https://CRAN.R-project.org/package=mark},
     }

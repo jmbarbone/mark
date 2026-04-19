@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">mark</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.3.9007</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.3.9008</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,11 +51,12 @@
 
 
 <dt id="arg-sorted">sorted<a class="anchor" aria-label="anchor" href="#arg-sorted"></a></dt>
-<dd><p>If <code>TRUE</code> (default) applies <code><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort()</a></code> to <code>x</code></p></dd>
+<dd><p>If <code>TRUE</code> (default) applies <code><a href="https://rdrr.io/r/base/sort.html" class="external-link">base::sort()</a></code> to <code>x</code></p></dd>
 
 
 <dt id="arg-null">null<a class="anchor" aria-label="anchor" href="#arg-null"></a></dt>
-<dd><p>If <code>TRUE</code> (default) adds <code>NULL</code> at the end of the <code><a href="https://rdrr.io/r/base/c.html" class="external-link">c()</a></code> print</p></dd>
+<dd><p>If <code>TRUE</code> (default) adds <code>NULL</code> at the end of the <code><a href="https://rdrr.io/r/base/c.html" class="external-link">base::c()</a></code>
+print</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -64,10 +65,10 @@
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>This sorts (if set) and provides unique values for each element in <code>x</code> and
-prints then as a call to <code>c</code>.  This can be useful for copying data that you
-want to save as a vector in an R script.
-The result is both called in <code><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat()</a></code> as well as copied to the clipboard.</p>
+    <p>This sorts (if set) and provides unique values for each element in
+<code>x</code> and prints then as a call to <code><a href="https://rdrr.io/r/base/c.html" class="external-link">base::c()</a></code>.  This can be useful for
+copying data that you want to save as a vector in an <strong>R</strong> script. The
+result is both called in <code><a href="https://rdrr.io/r/base/cat.html" class="external-link">base::cat()</a></code> as well as copied to the clipboard.</p>
     </div>
 
     <div class="section level2">

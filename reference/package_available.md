@@ -1,6 +1,7 @@
 # Check if package is available
 
-A wrapped requireNamespace
+A wrapped
+[`base::requireNamespace()`](https://rdrr.io/r/base/ns-load.html)
 
 ## Usage
 

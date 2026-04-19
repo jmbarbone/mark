@@ -22,7 +22,7 @@ add_file_timestamp(
 - ts:
 
   A single timestamp or vector of timestamps (default:
-  [`Sys.time()`](https://rdrr.io/r/base/Sys.time.html))
+  [`base::Sys.time()`](https://rdrr.io/r/base/Sys.time.html))
 
 - format:
 
@@ -44,12 +44,12 @@ file1 <- tempfile(fileext = ".txt")
 file2 <- tempfile()
 
 add_file_timestamp(file1)
-#> /tmp/RtmpPDZwuu/file1bef788a2639 2026-02-21 224709.txt
+#> /tmp/RtmpRS3vFt/file1ae0284ac22 2026-04-19 165108.txt
 add_file_timestamp(file2)
-#> /tmp/RtmpPDZwuu/file1bef34bcbab5 2026-02-21 224709
+#> /tmp/RtmpRS3vFt/file1ae0541a06a1 2026-04-19 165108
 
 file.remove(file1, file2)
-#> Warning: cannot remove file '/tmp/RtmpPDZwuu/file1bef788a2639.txt', reason 'No such file or directory'
-#> Warning: cannot remove file '/tmp/RtmpPDZwuu/file1bef34bcbab5', reason 'No such file or directory'
+#> Warning: cannot remove file '/tmp/RtmpRS3vFt/file1ae0284ac22.txt', reason 'No such file or directory'
+#> Warning: cannot remove file '/tmp/RtmpRS3vFt/file1ae0541a06a1', reason 'No such file or directory'
 #> [1] FALSE FALSE
 ```

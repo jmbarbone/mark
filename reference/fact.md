@@ -55,9 +55,9 @@ was `ordered`, that class is added in between.
 ## Details
 
 `fact()` can be about 5 times quicker than
-[`factor()`](https://rdrr.io/r/base/factor.html) or
-[`as.factor()`](https://rdrr.io/r/base/factor.html) as it doesn't bother
-sorting the levels for non-numeric data or have other checks or
+[`base::factor()`](https://rdrr.io/r/base/factor.html) or
+[`base::as.factor()`](https://rdrr.io/r/base/factor.html) as it doesn't
+bother sorting the levels for non-numeric data or have other checks or
 features. It simply converts a vector to a factor with all unique values
 as levels with `NA`s included.
 

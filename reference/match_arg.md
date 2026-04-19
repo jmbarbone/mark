@@ -37,26 +37,42 @@ Match arguments
 
 ``` r
 x <- c("apple", "banana", "orange")
-match_arg("b", x)
+suppressWarnings(match_arg("b", x), "deprecatedWarning")
+#> Warning: <deprecated_warning>
+#> mark::match_arg() is deprecated, use mark::match_param() instead and will be removed in 0.10.0
 #> [1] "banana"
 
 # Produces error
-try(match_arg("pear", x))
-#> Error : <condMatchArgError> pear : 'pear' did not match of of the following:
-#>    'apple', 'banana', 'orange'
-#> package:mark
+suppressWarnings(try(match_arg("pear", x)), "deprecatedWarning")
+#> Warning: <deprecated_warning>
+#> mark::match_arg() is deprecated, use mark::match_param() instead and will be removed in 0.10.0
+#> Error in match_arg() : <mark:match_arg_error>
+#> pear : 'pear' did not match of of the following:
+#>    'apple'
+#> pear : 'pear' did not match of of the following:
+#>    'banana'
+#> pear : 'pear' did not match of of the following:
+#>    'orange'
 
 foo <- function(x, op = c(1, 2, 3)) {
-  op <- match_arg(op)
+  op <- suppressWarnings(match_arg(op), "deprecatedWarning")
   x / op
 }
 
 foo(10, 3)
+#> Warning: <deprecated_warning>
+#> mark::match_arg() is deprecated, use mark::match_param() instead and will be removed in 0.10.0
 #> [1] 3.333333
 
 # Error
 try(foo(1, 0))
-#> Error : <condMatchArgError> op : '0' did not match of of the following:
-#>    '1', '2', '3'
-#> package:mark
+#> Warning: <deprecated_warning>
+#> mark::match_arg() is deprecated, use mark::match_param() instead and will be removed in 0.10.0
+#> Error in match_arg() : <mark:match_arg_error>
+#> op : '0' did not match of of the following:
+#>    '1'
+#> op : '0' did not match of of the following:
+#>    '2'
+#> op : '0' did not match of of the following:
+#>    '3'
 ```

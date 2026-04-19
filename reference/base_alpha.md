@@ -5,7 +5,7 @@ Base 26 conversion with letters
 ## Usage
 
 ``` r
-base_alpha(x, base = 26)
+base_alpha(x, base = 26L)
 ```
 
 ## Arguments

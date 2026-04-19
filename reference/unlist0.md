@@ -29,8 +29,8 @@ squash_vec(x, sep = ".")
 ## Details
 
 - `unlist0()` is much like
-  [`unlist()`](https://rdrr.io/r/base/unlist.html) expect that name are
-  not made to be unique.
+  [`base::unlist()`](https://rdrr.io/r/base/unlist.html) expect that
+  name are not made to be unique.
 
 - `squash_vec()` works differently
 

@@ -5,7 +5,13 @@ Merge lists with different or intersecting names
 ## Usage
 
 ``` r
-merge_list(x, y, keep = c("x", "y"), null = c("ignore", "drop", "keep")[1:2])
+merge_list(
+  x,
+  y,
+  keep = c("x", "y"),
+  null = c("ignore", "drop", "keep")[1:2],
+  sort = TRUE
+)
 ```
 
 ## Arguments
@@ -34,6 +40,11 @@ merge_list(x, y, keep = c("x", "y"), null = c("ignore", "drop", "keep")[1:2])
 
   - `"keep"`: `NULL` values are retained in the output and can override
     other values.
+
+- sort:
+
+  When `TRUE` (default) will sort the output by names; otherwise will
+  retain the order of `x` and `y` with `x` values first.
 
 ## Examples
 
