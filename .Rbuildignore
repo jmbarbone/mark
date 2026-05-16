@@ -17,3 +17,8 @@ revdep
 ^docs$
 ^pkgdown$
 ^CRAN-SUBMISSION$
+^\.lintr$
+^\.git$
+^air\.toml$
+^\.positai$
+^\.claude$
