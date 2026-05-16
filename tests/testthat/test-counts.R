@@ -4,14 +4,14 @@
 
 test_that("counts.default() work", {
   x <- rep(c("a", "b", "c"), c(3, 1, 4))
-  res <- set_names0(c(3, 1, 4), c("a", "b", "c"))
+  res <- set_names(c(3, 1, 4), c("a", "b", "c"))
   ans <- counts(x)
   expect_equal(ans, res)
 
   expect_equal(props(x), ans / sum(ans))
 
   x <- rep(c(2, 3, -1), c(3, 1, 4))
-  res <- set_names0(c(3, 1, 4), c(2, 3, -1))
+  res <- set_names(c(3, 1, 4), c(2, 3, -1))
   expect_equal(counts(x), res)
 
   res <- sort_names(res)
@@ -22,21 +22,21 @@ test_that("counts() works with NAs", {
 
   # Correct sort
   x <- c(FALSE, TRUE, NA)
-  res <- set_names0(c(1, 1, 1), x)
+  res <- set_names(c(1, 1, 1), x)
   expect_equal(counts(x), res)
 
   x <- c("false", "true", NA_character_)
-  res <- set_names0(c(1, 1, 1), x)
+  res <- set_names(c(1, 1, 1), x)
   expect_equal(counts(x), res)
 
   x <- c(1L, 0L, NA_integer_, NA_integer_)
-  res <- set_names0(c(1L, 1L, 2L), c(1, 0, NA))
+  res <- set_names(c(1L, 1L, 2L), c(1, 0, NA))
   expect_equal(counts(x), res)
 })
 
 
 test_that("counts.data.frame() adds new name", {
-  df <- quick_dfl(a = 1, b = 2)
+  df <- dataframe(a = 1, b = 2)
   res <- counts(df, 1)
   expect_equal(colnames(res), c("a", "freq"))
 
@@ -61,43 +61,43 @@ test_that("counts.data.frame() adds new name", {
 test_that("counts() NAs are last", {
   expect_equal(
     counts(c(NA, NA, 1, 2)),
-    set_names0(c(1, 1, 2), c(1, 2, NA))
+    set_names(c(1, 1, 2), c(1, 2, NA))
   )
 
   expect_equal(
     counts(c(NA, NA, 1)),
-    set_names0(c(1, 2), c(1, NA))
+    set_names(c(1, 2), c(1, NA))
   )
 
   expect_equal(
     counts(c("a", NA, NA)),
-    set_names0(c(1, 2), c("a", NA))
+    set_names(c(1, 2), c("a", NA))
   )
 
   expect_equal(
     counts(c(NA_real_, NA_real_)),
-    set_names0(2, NA)
+    set_names(2, NA)
   )
 })
 
 test_that("counts.data.frame() works", {
-  df <- quick_dfl(a = rep("x", 3), b = fact(c("a", "a", "b")))
+  df <- dataframe(a = rep("x", 3), b = fact(c("a", "a", "b")))
 
   res <- counts(df, 1)
-  exp <- quick_dfl(a = "x", freq = 3)
+  exp <- dataframe(a = "x", freq = 3)
   expect_equal(res, exp)
 
   res <- counts(df, 2)
-  exp <- quick_dfl(b = fact(c("a", "b")), freq = 2:1)
+  exp <- dataframe(b = fact(c("a", "b")), freq = 2:1)
   expect_equal(res, exp)
 
   res <- counts(df, 1:2)
-  exp <- quick_dfl(a = rep("x", 2), b = fact(c("a", "b")), freq = 2:1)
+  exp <- dataframe(a = rep("x", 2), b = fact(c("a", "b")), freq = 2:1)
   expect_equal(res, exp)
 
   df[["b"]] <- as_ordered(df[["b"]])
   res <- counts(df, 1:2)
-  exp <- quick_dfl(a = rep("x", 2), b = as_ordered(c("a", "b")), freq = 2:1)
+  exp <- dataframe(a = rep("x", 2), b = as_ordered(c("a", "b")), freq = 2:1)
   expect_equal(res, exp)
 })
 
@@ -112,27 +112,27 @@ test_that("missing upper levels", {
 
 test_that("props() handles NA", {
   x <- c(1, 1, 2, NA, 4)
-  res1 <- set_names0(c(.4, .2, .2, .2), c(1, 2, 4, NA))
-  res2 <- set_names0(c(.5, .25, .25, NA), c(1, 2, 4, NA))
+  res1 <- set_names(c(.4, .2, .2, .2), c(1, 2, 4, NA))
+  res2 <- set_names(c(.5, .25, .25, NA), c(1, 2, 4, NA))
   expect_identical(props(x), res1)
   expect_identical(props(x, na.rm = TRUE), res2)
 
   # data frame
   x <- c(1, 2, 2, 3, NA)
   y <- flip(x)
-  df <- quick_dfl(x = x, y = y)
+  df <- dataframe(x = x, y = y)
 
-  res_x1 <- quick_dfl(x = c(1, 2, 3, NA), prop = c(.20, .40, .20, .20))
-  res_x2 <- quick_dfl(x = c(1, 2, 3, NA), prop = c(.25, .50, .25,  NA))
+  res_x1 <- dataframe(x = c(1, 2, 3, NA), prop = c(.20, .40, .20, .20))
+  res_x2 <- dataframe(x = c(1, 2, 3, NA), prop = c(.25, .50, .25,  NA))
   expect_identical(props(df, "x"), res_x1)
   expect_identical(props(df, "x", na.rm = TRUE), res_x2)
 
-  res_xy1 <- quick_dfl(
+  res_xy1 <- dataframe(
     x = c(1, 2, 2, 3, NA),
     y = c(NA, 3, 2, 2, 1),
     prop = rep(.2, 5)
   )
-  res_xy2 <- quick_dfl(
+  res_xy2 <- dataframe(
     x = c(1, 2, 2, 3, NA),
     y = c(NA, 3, 2, 2, 1),
     prop = c(NA, 1, 1, 1, NA) / 3
@@ -141,4 +141,3 @@ test_that("props() handles NA", {
   expect_identical(props(df, c("x", "y")), res_xy1)
   expect_identical(props(df, c("x", "y"), na.rm = TRUE), res_xy2)
 })
-

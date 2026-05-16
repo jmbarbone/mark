@@ -33,7 +33,6 @@ set_not_available <- function(type, value) {
 }
 
 get_not_available <- function(type = NULL) {
-
   if (is.null(type)) {
     return(get_na_list())
   }
@@ -41,39 +40,55 @@ get_not_available <- function(type = NULL) {
   out <- get_na_list()[[type]]
 
   if (is.null(out)) {
-    stop(
-      '"', type, '" not found\n',
-      "Can be set with `mark::set_not_available(", type, ", value = .)`",
-      call. = FALSE
-    )
+    stop(not_available_error(type))
   }
 
   if (is.function(out) || is.call(out)) {
-    stop("type is not valid", call. = FALSE)
+    stop(class_error(sprintf(
+      "Type '%s' cannot be set to class 'function' or 'call'",
+      type
+    )))
   }
 
   out
 }
 
 get_na_list <- function() {
-  ls <- getOption("mark.na_list", list())
-
-  if (identical(ls, list())) {
-    options(mark.na_list = na_list)
-    ls <- na_list
-  }
-
-  ls
+  merge_list(
+    op.mark$mark.na_list,
+    getOption("mark.na_list"),
+    sort = FALSE
+  )
 }
 
 #' @export
 #' @rdname not_available
-NA_Date_ <- not_available("Date", 1L)
+NA_Date_ <- function() {} # nolint: object_name_linter.
+delayedAssign("NA_Date_", not_available("Date", 1L))
 
 #' @export
 #' @rdname not_available
-NA_POSIXct_ <- not_available("POSIXct", 1L)
+NA_POSIXct_ <- function() {} # nolint: object_name_linter.
+delayedAssign("NA_POSIXct_", not_available("POSIXct", 1L))
 
 #' @export
 #' @rdname not_available
-NA_POSIXlt_ <- not_available("POSIXlt", 1L)
+NA_POSIXlt_ <- function() {} # nolint: object_name_linter.
+delayedAssign("NA_POSIXlt_", not_available("logical", 1L))
+
+
+# conditions --------------------------------------------------------------
+
+not_available_error := condition(
+  function(x) {
+    sprintf(
+      paste0(
+        "\"%1$s\" not found\n",
+        "Can be set with `mark::set_not_available(%1$s, value = .)`"
+      ),
+      x
+    )
+  },
+  type = "error",
+  classes = "value_error"
+)

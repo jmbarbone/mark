@@ -15,8 +15,8 @@ reindex(
 \arguments{
 \item{x}{A data.frame}
 
-\item{index}{The column name or number of an index to use; if \code{NULL} will assume the
-first column; a value of \code{row.names} will use \code{row.names(x)}}
+\item{index}{The column name or number of an index to use; if \code{NULL} will
+assume the first column; a value of \code{row.names} will use \code{row.names(x)}}
 
 \item{new_index}{A column vector of the new index value}
 

@@ -13,7 +13,7 @@ An object of class \code{Date} of length 1.
 
 An object of class \code{POSIXct} (inherits from \code{POSIXt}) of length 1.
 
-An object of class \code{POSIXlt} (inherits from \code{POSIXt}) of length 1.
+An object of class \code{logical} of length 1.
 }
 \usage{
 not_available(type = "logical", length = 0L)

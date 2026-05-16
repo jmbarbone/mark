@@ -13,5 +13,6 @@ get_dir_max_number(x)
 A full path to a directory
 }
 \description{
-Finds the directory where the number is the greatest.  This can be useful for when folders are created as run IDs.
+Finds the directory where the number is the greatest.  This can be useful for
+when folders are created as run IDs.
 }

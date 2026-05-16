@@ -15,19 +15,7 @@ tz1 <- c(
   NULL
 )
 
-tz2 <- c(
-  2,
-  3,
-  6,
-  8,
-  -10,
-  -11,
-  12,
-  -13,
-  16,
-  -17,
-  NULL
-)
+tz2 <- c(2, 3, 6, 8, -10, -11, 12, -13, 16, -17)
 
 df <- quick_df(
   list(
@@ -71,20 +59,20 @@ test_that("diff_time_*() identical to difftime()", {
 })
 
 test_that("Timezones", {
+  st <- as.POSIXct("2021-04-06 11:12:45", tz = "America/Chicago")
 
-  st <- as.POSIXct("2021-04-06 11:12:45", tz = "US/Central")
-
-  dftz <- quick_dfl(
+  dftz <- dataframe(
     a = rep(st, 4),
     b = rep(st, 4),
-    tza = c("GMT", "UTC", "US/Eastern", "NZ"),
-    tzb = c("GMT", "Africa/Casablanca", "US/Central", "CET"),
+    tza = c("GMT", "UTC", "America/New_York", "Pacific/Auckland"),
+    tzb = c("GMT", "Africa/Casablanca", "America/Chicago", "Europe/Rome"),
     tzn = c(0, 1, -1, 6) * 3600
   )
 
   # No difference
   expect_identical(
-    with(dftz, diff_time_hours(a, b)), rep(0, 4),
+    with(dftz, diff_time_hours(a, b)),
+    rep(0, 4),
     ignore_attr = TRUE
   )
 
@@ -165,13 +153,20 @@ test_that("Timezones", {
 
   expect_warning(
     diff_time(Sys.Date(), Sys.Date(), tzx = NA, tzy = "GMT"),
-    "NA found in timezones"
+    class = "mark:na_timezone_found_warning"
   )
 })
 
 test_that("Error checking", {
-  expect_error(diff_time_secs(1:10, 1:10), "Date times cannot be numeric")
-  expect_error(diff_time_secs(st, st, "Not good"), "OlsonNames()")
+  expect_error(
+    diff_time_secs(1:10, 1:10),
+    class = "mark:numeric_datetime_tz_error"
+  )
+
+  expect_error(
+    diff_time_secs(st, st, "Not good"),
+    class = "mark:timezone_not_found_error"
+  )
 
   # Don't throw error because of NA tz
   expect_identical(
@@ -182,7 +177,6 @@ test_that("Error checking", {
 })
 
 test_that("class coehersion", {
-
   expect_identical(
     diff_time(as.Date("2021-07-26"), "2021-07-26"),
     diff_time(as.Date("2021-07-26"), as.Date("2021-07-26"))
@@ -196,7 +190,7 @@ test_that("class coehersion", {
 
   expect_warning(
     to_numeric_with_tz("2021-01-01", NA),
-    "NA found in timezones"
+    class = "mark:na_timezone_found_warning"
   )
 
   expect_identical(check_tz(NULL), NULL)
@@ -249,8 +243,6 @@ test_that("sys_tz() does not fail", {
 # printing ----------------------------------------------------------------
 
 test_that("snaps", {
-  # skip("not currently testing snaps")
-
   x <- struct(18842L, "Date")
   y <- x + 100L
 

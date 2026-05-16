@@ -1,24 +1,22 @@
-#' Logic - Extension'
+#' Logic - Extensions
 #'
 #' Logical operations, extended
 #'
-#' @description
-#' All functions take logical or logical-like (i.e., 1, 0, or NA as integer or
-#'   doubles) and return logical values.
+#' @description All functions take logical or logical-like (i.e., `1`, `0`, or
+#'   `NA` as integer or doubles) and return logical values.
 #'
-#' Extensions to the base logical operations to account for `NA` values.
+#'   Extensions to the base logical operations to account for `NA` values.
 #'
-#' [base::isTRUE()] and [base::isFALSE()] will only return single length `TRUE`
-#'   or `FALSE` as it checks for valid lengths in the evaluation.  When needing
-#'   to check over a vector for the presence of `TRUE` or `FALSE` and not being
-#'   held back by `NA` values, `is_true` and `is_false` will always provide a
-#'   `TRUE` `FALSE` when the vector is logical or return `NA` is the vector `x`
-#'   is not logical.
+#'   [base::isTRUE()] and [base::isFALSE()] will only return single length
+#'   `TRUE` or `FALSE` as it checks for valid lengths in the evaluation.  When
+#'   needing to check over a vector for the presence of `TRUE` or `FALSE` and
+#'   not being held back by `NA` values, [mark::is_true()] and
+#'   [mark::is_false()] will always provide a `TRUE` `FALSE` when the vector is
+#'   logical or return `NA` is the vector `x` is not logical.
 #'
-#' `%or%` is just a wrapper for [base::xor()]
+#'   [mark::%xor%] is just a wrapper for [base::xor()]
 #'
-#' @param x,y  A vector of logical values.  If `NULL` will generate a warning.  If
-#'   not a logical value, will return `NA` equal to the vector length
+#' @param x,y  A vector of values.  `%xor`, `nor`, `nand`, and `xnandr`
 #' @param ... Vectors or a list of logical values
 #' @param na.rm Logical, if `TRUE` will ignore `NA`
 #'
@@ -48,9 +46,11 @@
 #' is_boolean(c(1L, NA_integer_, 0L))
 #' is_boolean(c(1.01, 0, -1))
 #' @return
-#' * `is_true()`, `is_false()`, `either()`, `%or%`, `AND()`, `OR()`: A `logical` vector, equal length of `x` (or `y` or of all `...` lengths)
-#' * `is_boolean()`: `TRUE` or `FALSE`
-#' * `none()`: `TRUE`, `FALSE`, or `NA`
+#' - [mark::is_true()], [mark::is_false()], [mark::either()], [mark::%xor%],
+#' [mark::AND()], [mark::OR()]: A `logical` vector, equal length of `x` (or `y`
+#' or of all `...` lengths)
+#' - [mark::is_boolean()]: `TRUE` or `FALSE`
+#' - [mark::none()]: `TRUE`, `FALSE`, or `NA`
 #'
 #' @name logic_ext
 NULL
@@ -64,24 +64,13 @@ is_true <- function(x) {
 #' @export
 #' @rdname logic_ext
 is_true.default <- function(x) {
-  null_check(x)
-  out <- to_boolean(x)
-
-  # TODO is !is_boolean(x) needed?
-  if (!is_boolean(x)) {
-    return(out)
-  }
-
-  out[is.na(out)] <- FALSE
-  out
+  rep(NA, length(x))
 }
 
 #' @export
 #' @rdname logic_ext
 is_true.logical <- function(x) {
-  out <- logical(length(x))
-  out[which(x)] <- TRUE
-  out
+  !is.na(x) & x
 }
 
 #' @export
@@ -93,40 +82,56 @@ is_false <- function(x) {
 #' @export
 #' @rdname logic_ext
 is_false.default <- function(x) {
-  null_check(x)
-  out <- to_boolean(x)
-
-  # TODO is !is_boolean(x) needed?
-  if (!is_boolean(x)) {
-    return(out)
-  }
-
-  out[is.na(out)] <- TRUE
-  !out
+  rep(NA, length(x))
 }
 
 #' @export
 #' @rdname logic_ext
 is_false.logical <- function(x) {
-  out <- logical(length(x))
-  out[which(!x)] <- TRUE
-  out
+  !is.na(x) & !x
 }
 
+# nocov start
 #' @export
 #' @rdname logic_ext
 `%xor%` <- function(x, y) {
+  # this wasn't ever needed
+  .Deprecated(
+    msg = "`%xor%` is deprecated. Please use `xor()` instead.",
+    old = "%xor%"
+  )
   xor(x, y)
+}
+# nocov end
+
+#' @export
+#' @rdname logic_ext
+nor <- function(x, y) {
+  !(x | y)
 }
 
 #' @export
 #' @rdname logic_ext
+nand <- function(x, y) {
+  !(x & y)
+}
+
+#' @export
+#' @rdname logic_ext
+xnandr <- function(x, y) {
+  (!x & !y) | (x & y)
+}
+
+#' @export
+#' @rdname logic_ext
+# nolint next: object_name_linter.
 OR <- function(..., na.rm = FALSE) {
   apply_logical_matrix(cbind(...), "|", na.rm = na.rm)
 }
 
 #' @export
 #' @rdname logic_ext
+# nolint next: object_name_linter.
 AND <- function(..., na.rm = FALSE) {
   apply_logical_matrix(cbind(...), "&", na.rm = na.rm)
 }
@@ -134,67 +139,61 @@ AND <- function(..., na.rm = FALSE) {
 #' @export
 #' @rdname logic_ext
 either <- function(x, y) {
-  x[is.na(x)] <- FALSE
-  y[is.na(y)] <- FALSE
-  x | y
+  is_true(x) | is_true(y)
 }
 
 #' @export
 #' @rdname logic_ext
 is_boolean <- function(x) {
-  is.logical(x) | (is.numeric(x) & !anyNA(match(x, c(NA, 0, 1))))
+  is.logical(x) || (is.numeric(x) && !anyNA(match(x, c(NA, 0, 1))))
 }
 
 #' @export
 #' @rdname logic_ext
+# nolint next: object_name_linter.
 none <- function(..., na.rm = FALSE) {
   !any(..., na.rm = na.rm)
 }
 
+#' @export
+#' @rdname logic_ext
+# nolint next: object_name_linter.
+isNA <- function(x) {
+  is.logical(x) && length(x) == 1L && is.na(x)
+}
+
 # FUNS --------------------------------------------------------------------
 
-null_check <- function(x) {
+check_null <- function(x) {
   if (no_length(x)) {
-    stop("Cannot accept `NULL` or 0 length values",
-         call. = FALSE)
+    stop(input_error("`x` cannot be `NULL` or 0 length values"))
   }
 }
 
+# nolint next: object_name_linter.
 apply_logical_matrix <- function(mat, FUN, na.rm) {
-  if (!is.matrix(mat)) {
-    stop("`mat` must be a matrix", call. = FALSE)
+  if (!(is.matrix(mat) && is_boolean(mat))) {
+    stop(input_error("`...` must be logical or logical-like matrix"))
   }
 
-  if (!is_boolean(mat)) {
-    stop("`mat` must be boolean", call. = FALSE)
+  na_val <- if (na.rm) {
+    switch(FUN, `|` = FALSE, `&` = TRUE)
+  } else {
+    NA
   }
-
-  na_val <-
-    if (na.rm) {
-      switch(FUN, `|` = FALSE, `&` = TRUE)
-    } else {
-      NA
-    }
 
   use_fun <- match.fun(FUN)
 
-  apply(
-    mat,
-    1,
-    function(x) {
-      if (na.rm) {
-        x <- remove_na(x)
-      }
-
-      len <- length(x)
-
-      if (len == 0L) {
-        na_val
-      } else if (len == 1L) {
-        x
-      } else {
-        Reduce(use_fun, x)
-      }
+  apply(mat, 1L, function(x) {
+    if (na.rm) {
+      x <- remove_na(x)
     }
-  )
+
+    switch(
+      length(x) + 1L,
+      na_val,
+      x
+    ) %||%
+      Reduce(use_fun, x)
+  })
 }

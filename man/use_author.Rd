@@ -2,7 +2,7 @@
 % Please edit documentation in R/description.R
 \name{use_author}
 \alias{use_author}
-\title{Add author to DESCRIPTION}
+\title{Add author to \code{DESCRIPTION}}
 \usage{
 use_author(author_info = find_author())
 }

@@ -17,7 +17,7 @@ test_that("data.frame assignment", {
   x0 <- head(iris)
   x <- assign_labels(x0, Sepal.Length = "a", Species = "b")
 
-  exp <- quick_dfl(
+  exp <- dataframe(
     column = colnames(x0),
     label = c("a", NA, NA, NA, "b")
   )
@@ -28,24 +28,53 @@ test_that("data.frame assignment", {
   exp2 <- remove_labels(x)
 
   expect_equal(get_labels(x), exp)
-  expect_error(assign_labels(x0, a = "x", b = "y", `1` = 2),
-               "Columns not found: a, b, 1")
 
-  expect_error(assign_labels(x0, NULL))
+  expect_error(
+    assign_labels(x0, a = "x", b = "y", `1` = 2),
+    "not found",
+    class = "mark:assign_labels_error"
+  )
+
+  expect_error(
+    assign_labels(x0, NULL),
+    "malformed",
+    class = "mark:assign_labels_error"
+  )
 
   expect_true(is.null(attr(exp0[["Species"]], "label")))
   expect_equal(attr(exp0[["Sepal.Length"]], "label"), "a")
   expect_equal(x0, exp2)
   expect_equal(exp1, exp2)
 
-  expect_error(assign_labels(x0, .ls = list()))
-  expect_error(assign_labels(x0, a = 1, .ls = list(b = 2)))
+  expect_error(
+    assign_labels(x0, .ls = list()),
+    "malformed",
+    class = "mark:assign_labels_error"
+  )
+  expect_error(
+    assign_labels(x0, a = 1, .ls = list(b = 2)),
+    "set",
+    class = "mark:assign_labels_error"
+  )
 
+  df <- dataframe(a = 1, b = 2, c = 3)
+  expect_error(
+    assign_labels(df, c = "c", d = "d", .missing = "error"),
+    "not found",
+    class = "mark:assign_labels_error"
+  )
 
-  df <- data.frame(a = 1, b = 2, c = 3)
-  expect_error(assign_labels(df, c = "c", d = "d", .missing = "error"))
-  expect_warning(assign_labels(df, c = "c", d = "d", .missing = "warn"))
-  expect_warning(assign_labels(df, c = "c", d = "d", .missing = "skip"), NA)
+  # error is raised as a warning
+  expect_error(
+    assign_labels(df, c = "c", d = "d", .missing = "warn"),
+    "not found",
+    class = "mark:assign_labels_error"
+  )
+
+  expect_warning(
+    assign_labels(df, c = "c", d = "d", .missing = "skip"),
+    NA
+  )
 })
 
 test_that("data.frame assign with data.frame", {
@@ -53,26 +82,29 @@ test_that("data.frame assign with data.frame", {
 
   x <- assign_labels(iris, Sepal.Length = "a", Species = "b")
 
-  labels <- data.frame(
+  labels <- dataframe(
     name = c("Sepal.Length", "Species"),
     label = c("a", "b")
   )
 
   y <- assign_labels(iris, labels)
 
-  exp <- data.frame(
+  exp <- dataframe(
     column = colnames(iris),
     label = c("a", NA, NA, NA, "b")
   )
 
   expect_equal(get_labels(y), get_labels(y))
 
-  bad_labels <- data.frame(
+  bad_labels <- dataframe(
     v1 = c("a", "b", 1),
     v2 = c("x", "y", 2)
   )
-  expect_error(assign_labels(iris, bad_labels),
-               "Columns not found: a, b, 1")
+
+  expect_error(
+    assign_labels(iris, bad_labels),
+    class = "mark:assign_labels_error"
+  )
 
   options(op)
 })
@@ -80,13 +112,12 @@ test_that("data.frame assign with data.frame", {
 test_that("view_labels() works", {
   df <- data.frame(a = 1, b = 2)
   df <- assign_labels(df, a = "a", b = "b")
-
-  # redefine "View"
-  View <- function(x, ...) identity(x)
-  expect_error(view_labels(df), NA)
-
-  View <- NA
-  expect_error(view_labels(df), "Something went wrong")
+  if (interactive()) {
+    skip("interactive session open new view")
+    expect_no_error(view_labels(df)) # opens a viewer
+  } else {
+    expect_output(view_labels(df), "a", fixed = TRUE)
+  }
 })
 
 test_that("exact match [141]", {

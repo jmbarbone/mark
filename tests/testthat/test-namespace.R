@@ -6,3 +6,5 @@ test_that("loadAllNamespace() works", {
   muffle(expect_message(loadAllNamespace("magrittr")))
   detach("package:magrittr")
 })
+
+# lintr thinks there isn't a terminal line here?

@@ -11,7 +11,7 @@ import(pkg, fun, overwrite = FALSE)
 
 \item{fun}{String, fun name of the function}
 
-\item{overwrite}{Logical, if TRUE and \code{fun} is also found in the current
+\item{overwrite}{Logical, if \code{TRUE} and \code{fun} is also found in the current
 environment, will overwrite assignment}
 }
 \value{

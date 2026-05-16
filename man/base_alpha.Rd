@@ -4,7 +4,7 @@
 \alias{base_alpha}
 \title{Alpha base}
 \usage{
-base_alpha(x, base = 26)
+base_alpha(x, base = 26L)
 }
 \arguments{
 \item{x}{A string of letters.  Non characters are removed.}

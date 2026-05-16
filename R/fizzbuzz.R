@@ -4,11 +4,10 @@
 #' that the quickest way to do it is to just take the work someone else did and
 #' utilize that.  No reason to reinvent the wheel.
 #'
-#' @details
-#' Multiples of `3` are shown as `"Fizz"`; multiples of `5` as `"Buzz"`;
-#'   multiple of both (i.e., `15`) are `"FizzBuzz"`.
-#' `fizzbuzz_lazy()` subsets the `.fizzbuzz_vector` object, which is a solution
-#'   with default parameters up to `1e6`
+#' @details Multiples of `3` are shown as `"Fizz"`; multiples of `5` as
+#'   `"Buzz"`; multiple of both (i.e., `15`) are `"FizzBuzz"`.
+#'   [mark::fizzbuzz_lazy()] subsets the `.fizzbuzz_vector` object, which is a
+#'   solution with default parameters up to `1e6`
 #'
 #' @param n The number of numbers
 #' @param show_numbers If `TRUE` shows no
@@ -28,9 +27,7 @@
 #' }
 
 fizzbuzz <- function(n, show_numbers = TRUE) {
-  if (n < 1) {
-    stop("n must be at least 1", call. = FALSE)
-  }
+  stopifnot(n >= 1)
 
   x <- 1:n
 
@@ -53,10 +50,7 @@ fizzbuzz <- function(n, show_numbers = TRUE) {
 #' @rdname fizzbuzz
 #' @export
 fizzbuzz_lazy <- function(n) {
-  if (n > 1e6) {
-    stop("n must be <= 1e6", call. = FALSE)
-  }
-
+  stopifnot(n <= 1e6)
   .fizzbuzz_vector[1:n]
 }
 

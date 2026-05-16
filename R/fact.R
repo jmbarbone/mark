@@ -1,6 +1,8 @@
 # NOTE: I'll need to document this separately.  Something about changing the
 # scope so it's very limited
 
+# NOTE I'll eventually replace these with jmbarbone/facts (or jmbarbone/fctrs)
+
 # fact --------------------------------------------------------------------
 
 #' Factor

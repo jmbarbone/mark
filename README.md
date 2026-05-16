@@ -9,10 +9,10 @@
 status](https://www.r-pkg.org/badges/version/mark)](https://CRAN.R-project.org/package=mark)
 [![R-CMD-check](https://github.com/jmbarbone/mark/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/jmbarbone/mark/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
-coverage](https://codecov.io/gh/jmbarbone/mark/branch/main/graph/badge.svg)](https://app.codecov.io/gh/jmbarbone/mark?branch=main)
+coverage](https://codecov.io/gh/jmbarbone/mark/graph/badge.svg)](https://app.codecov.io/gh/jmbarbone/mark)
 <!-- badges: end -->
 
-Miscellaneous, Analytic R Kernels
+Multipurpose Aids for R Kit
 
 An R package with a set of general use functions for data analytics.
 This is developed mostly for personal use and has no real *goal* other
@@ -45,6 +45,14 @@ be useful for others:
 
 ``` r
 library(mark)
+#> 
+#> Attaching package: 'mark'
+#> The following object is masked from 'package:usethis':
+#> 
+#>     use_author
+#> The following objects are masked from 'package:base':
+#> 
+#>     sort_by, within
 ```
 
 Get dates from sloppy entries:
@@ -123,7 +131,7 @@ tibble::as_tibble(bib)
 #> 11 proceedings  proc… <NA>   The … <NA>    1993  <NA>   <NA>  7     An o… 4     
 #> 12 techreport   tech… Peter… The … <NA>    1993  2      <NA>  7     An o… <NA>  
 #> 13 unpublished  unpu… Peter… The … <NA>    1993  <NA>   <NA>  7     An o… <NA>  
-#> # … with 12 more variables: publisher <chr>, series <chr>, address <chr>,
+#> # ℹ 12 more variables: publisher <chr>, series <chr>, address <chr>,
 #> #   edition <chr>, isbn <chr>, howpublished <chr>, booktitle <chr>,
 #> #   editor <chr>, organization <chr>, chapter <chr>, school <chr>,
 #> #   institution <chr>
@@ -200,8 +208,8 @@ props(df, 1:3)
 Date time differences:
 
 ``` r
-x <- as.POSIXlt("2021-02-13 05:02:30", tz = "US/Eastern") + c(0, -1, 2) * 3600 * 24
-y <- as.POSIXlt("2020-02-13 05:02:30", tz = "US/Eastern") + c(0, -2, 4) * 3600 * 24
+x <- as.POSIXlt("2021-02-13 05:02:30", tz = "America/New_York") + c(0, -1, 2) * 3600 * 24
+y <- as.POSIXlt("2020-02-13 05:02:30", tz = "America/New_York") + c(0, -2, 4) * 3600 * 24
 
 # comparison with base::difftime() (note the order of x and y)
 difftime(y, x, units = "days")
@@ -227,10 +235,10 @@ diff_time_myears(x, y)
 #> [1] -1.016667 -1.019444 -1.011111
 
 # Set time zones
-diff_time_hours(x, y, "GMT", "US/Eastern")                         
+diff_time_hours(x, y, "GMT", "America/New_York")                         
 #> Time differences in hours
 #> [1] -8789 -8813 -8741
-diff_time_hours(x, x, "GMT", c("US/Pacific", "US/Eastern", "GB")) # note x, x
+diff_time_hours(x, x, "GMT", c("America/Los_Angeles", "America/New_York", "Europe/London")) # note x, x
 #> Time differences in hours
 #> [1] -8 -5  0
 diff_time_days(x, y, NULL, 31536000) 

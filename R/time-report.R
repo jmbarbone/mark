@@ -1,3 +1,5 @@
+# nocov start
+
 #' Time reports
 #'
 #' Evaluate code and report on the time difference
@@ -55,8 +57,9 @@ simpleTimeReport <- function(title = NULL, expr, envir = parent.frame()) {
         outputs[[i]] <<-
           utils::capture.output(results[[i]] <<-
               eval(exprs[i], envir)),
-        error = function(e)
-          stop("\n", e$message, call. = FALSE),
+        error = function(e) {
+          stop("\n", e$message, call. = FALSE)
+        },
         warning = function(e) {
           warnings[[i]] <<- e$message
           # Only invoke Restart if it is the same warning?
@@ -96,7 +99,10 @@ simpleTimeReport <- function(title = NULL, expr, envir = parent.frame()) {
     catln(calls[i])
   }
 
-  if (!identical(outputs, rep_len(list(), n)) && any(!vap_lgl(outputs, is.null))) {
+  if (
+    !identical(outputs, rep_len(list(), n)) &&
+    any(!vap_lgl(outputs, is.null))
+  ) {
     cat0("\nOutputs\n", line, "\n")
     for (i in seq_along(outputs)) {
       if (!is.null(outputs[[i]]) && !identical(outputs[[i]], character())) {
@@ -182,4 +188,4 @@ split_expression <- function(expr) {
   str2expression(x)
 }
 
-
+# nocov end

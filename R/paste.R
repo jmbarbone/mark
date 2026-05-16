@@ -31,11 +31,11 @@ paste_c <- function(x, y, collate = TRUE, sep = "") {
 #' @rdname utils-paste
 #' @export
 paste_combine <- function(..., collate = TRUE, sep = "") {
-  ls <- list(...)
+  ls <- rlang::list2(...)
   n <- length(ls)
 
   if (n < 2) {
-    stop("length of ... must be at least 2", call. = FALSE)
+    stop(input_error("length(...) must be at least 2L"))
   }
 
   out <- do_paste_combine(ls[[1]], ls[[2]], collate = collate, sep = sep)
@@ -54,7 +54,7 @@ paste_combine <- function(..., collate = TRUE, sep = "") {
 #' @rdname utils-paste
 #' @export
 collapse0 <- function(..., sep = "") {
-  ls <- list(...)
+  ls <- rlang::list2(...)
   paste0(unlist(ls), collapse = sep)
 }
 

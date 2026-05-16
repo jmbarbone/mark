@@ -20,10 +20,10 @@ set.seed(42)
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/mark)](https://CRAN.R-project.org/package=mark)
 [![R-CMD-check](https://github.com/jmbarbone/mark/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/jmbarbone/mark/actions/workflows/R-CMD-check.yaml)
-[![Codecov test coverage](https://codecov.io/gh/jmbarbone/mark/branch/main/graph/badge.svg)](https://app.codecov.io/gh/jmbarbone/mark?branch=main)
+[![Codecov test coverage](https://codecov.io/gh/jmbarbone/mark/graph/badge.svg)](https://app.codecov.io/gh/jmbarbone/mark)
 <!-- badges: end -->
 
-Miscellaneous, Analytic R Kernels
+Multipurpose Aids for R Kit
 
 An R package with a set of general use functions for data analytics.
 This is developed mostly for personal use and has no real _goal_ other than to limit the time I spend searching where I did that thing that I think I could use again because it worked well but this problem might be slightly different and I know I had to change it before.
@@ -113,8 +113,8 @@ props(df, 1:3)
 Date time differences:
 
 ```{r diff_time}
-x <- as.POSIXlt("2021-02-13 05:02:30", tz = "US/Eastern") + c(0, -1, 2) * 3600 * 24
-y <- as.POSIXlt("2020-02-13 05:02:30", tz = "US/Eastern") + c(0, -2, 4) * 3600 * 24
+x <- as.POSIXlt("2021-02-13 05:02:30", tz = "America/New_York") + c(0, -1, 2) * 3600 * 24
+y <- as.POSIXlt("2020-02-13 05:02:30", tz = "America/New_York") + c(0, -2, 4) * 3600 * 24
 
 # comparison with base::difftime() (note the order of x and y)
 difftime(y, x, units = "days")
@@ -128,8 +128,8 @@ diff_time_years(x, y)
 diff_time_myears(x, y)
 
 # Set time zones
-diff_time_hours(x, y, "GMT", "US/Eastern")                         
-diff_time_hours(x, x, "GMT", c("US/Pacific", "US/Eastern", "GB")) # note x, x
+diff_time_hours(x, y, "GMT", "America/New_York")                         
+diff_time_hours(x, x, "GMT", c("America/Los_Angeles", "America/New_York", "Europe/London")) # note x, x
 diff_time_days(x, y, NULL, 31536000) 
 ```
 

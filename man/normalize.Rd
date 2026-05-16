@@ -37,9 +37,9 @@ The largest and smallest values are then used to determine the
 minimum/maximum values and lower/upper bounds.  This allows for a vector of
 more than two values to be passed.
 
-The current implementation of \code{normalize.data.frame()} allows for \code{list} of
-parameters passed for each column.  However, it is probably best suited for
-default values.
+The current implementation of \code{\link[=normalize.data.frame]{normalize.data.frame()}} allows for
+\code{list} of parameters passed for each column.  However, it is probably best
+suited for default values.
 }
 \examples{
 x <- c(0.23, 0.32, 0.12, 0.61, 0.26, 0.24, 0.23, 0.32, 0.29, 0.27)

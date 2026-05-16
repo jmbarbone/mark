@@ -20,7 +20,7 @@ try_ksource(file, ...)
 
 \item{quiet}{Logical; Determines whether to apply silence to \code{\link[knitr:knit]{knitr::purl()}}}
 
-\item{cd}{Logical; if TRUE, the R working directory is temporarily
+\item{cd}{Logical; if \code{TRUE}, the \strong{R} working directory is temporarily
 changed to the directory containing file for evaluating}
 
 \item{env}{An environment determining where the parsed expressions are
@@ -28,17 +28,18 @@ evaluated}
 }
 \value{
 \itemize{
-\item \code{ksource()}: Invisibly, the result of calling \code{source()} on the \code{.R} file conversion of \code{file}
-\item \code{try_source()}, \code{try_ksource()}: attempts of \code{source()} and \code{ksource()} but converts errors to warnings
+\item \code{\link[=ksource]{ksource()}}: Invisibly, the result of calling \code{\link[base:source]{base::source()}} on
+the \code{.R} file conversion of \code{file}
+\item \code{\link[=try_source]{try_source()}}, \code{\link[=try_ksource]{try_ksource()}}: attempts of \code{\link[base:source]{base::source()}}
+and \code{\link[=ksource]{ksource()}} but converts errors to warnings
 }
 }
 \description{
 Functions for extending sourcing features
 }
 \details{
-\code{try_source()} will output an error message rather than completely preventing
-the execution.
-This can be useful for when a script calls on multiple, independent files to
-be sourced and a single failure shouldn't prevent the entire run to fail as
-well.
+\code{\link[=try_source]{try_source()}} will output an error message rather than
+completely preventing the execution. This can be useful for when a script
+calls on multiple, independent files to be sourced and a single failure
+shouldn't prevent the entire run to fail as well.
 }

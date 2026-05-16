@@ -9,9 +9,10 @@ print_c(x = read_clipboard(), sorted = TRUE, null = TRUE)
 \arguments{
 \item{x}{A vector (defaults to reading the clipboard)}
 
-\item{sorted}{If \code{TRUE} (default) applies \code{sort()} to \code{x}}
+\item{sorted}{If \code{TRUE} (default) applies \code{\link[base:sort]{base::sort()}} to \code{x}}
 
-\item{null}{If \code{TRUE} (default) adds \code{NULL} at the end of the \code{c()} print}
+\item{null}{If \code{TRUE} (default) adds \code{NULL} at the end of the \code{\link[base:c]{base::c()}}
+print}
 }
 \value{
 Invisibly, as a \code{character} vector, the object printed to the console
@@ -20,10 +21,10 @@ Invisibly, as a \code{character} vector, the object printed to the console
 Prints a vector to paste into an R script
 }
 \details{
-This sorts (if set) and provides unique values for each element in \code{x} and
-prints then as a call to \code{c}.  This can be useful for copying data that you
-want to save as a vector in an R script.
-The result is both called in \code{cat()} as well as copied to the clipboard.
+This sorts (if set) and provides unique values for each element in
+\code{x} and prints then as a call to \code{\link[base:c]{base::c()}}.  This can be useful for
+copying data that you want to save as a vector in an \strong{R} script. The
+result is both called in \code{\link[base:cat]{base::cat()}} as well as copied to the clipboard.
 }
 \examples{
 print_c(1:10)

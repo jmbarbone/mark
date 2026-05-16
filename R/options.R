@@ -19,30 +19,40 @@
 #'
 #' options(op)
 #' @export
+# nolint next: object_name_linter.
 checkOptions <- function(x) {
   if (!is.list(x)) {
-    stop("x must be a list", call. = FALSE)
+    stop(type_error("must_be", x, "list"))
   }
 
   nm <- names(x)
   if (is.null(nm) || any(nm == "")) {
-    stop("All options must be named", call. = FALSE)
+    stop(input_error("all values of `x` must be named"))
   }
 
   msg <- NULL
   op <- options()
   for (i in seq_along(x)) {
     go <- op[[nm[i]]]
-    if (is.null(go))
+
+    if (is.null(go)) {
       next
+    }
+
     if (!identical(x[[i]], go)) {
       if (is.null(msg)) {
         msg <- "Option(s) updated :"
       }
-      msg <- c(msg, sprintf(
-        '\n "%s"\n   old : %s\n   new : %s',
-        nm[i], go, x[[i]]
-      ))
+
+      msg <- c(
+        msg,
+        sprintf(
+          '\n "%s"\n   old : %s\n   new : %s',
+          nm[i],
+          go,
+          x[[i]]
+        )
+      )
     }
   }
 

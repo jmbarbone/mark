@@ -27,9 +27,10 @@ char2fact(x, n = 5)
 Converts characters to factors
 }
 \seealso{
-#' @seealso \code{\link[=fact2char]{fact2char()}}
+\code{\link[=fact2char]{fact2char()}}
 
-Other factors: 
-\code{\link{fact2char}()}
+Other factors:
+\code{\link[=fact]{fact()}},
+\code{\link[=fact2char]{fact2char()}}
 }
 \concept{factors}

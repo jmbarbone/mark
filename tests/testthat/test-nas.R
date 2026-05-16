@@ -2,7 +2,7 @@ test_that("remove_na()", {
   x <- c(1, 2, NA, 3, NaN)
   expect_equal(remove_na(x), c(1, 2, 3))
   expect_equal(remove_na(as.list(x)), list(1, 2, numeric(), 3, numeric()))
-  expect_error(remove_na(data.frame(x = 1)))
+  expect_error(remove_na(dataframe(x = 1)), class = "input_error")
 
   res <- remove_na(fact(x))
   exp <- struct(
@@ -24,19 +24,17 @@ test_that("remove_null()", {
   x <- list(a = 1, b = NULL, c = 1)
   expect_equal(remove_null(x), list(a = 1, c = 1))
 
-  expect_error(remove_null(c(1, 2)))
-  expect_error(remove_null(data.frame(x = NULL)))
+  expect_error(remove_null(c(1, 2)), class = "type_error")
+  expect_error(remove_null(dataframe(x = NULL)), class = "type_error")
 })
 
-
 test_that("*_na_cols() works", {
-  x <- data.frame(
+  x <- dataframe(
     first = c(NA, 2, 3, 4),
     second = c(1, NA, 3, 4),
     all = not_available(length = 4),
     last = c(1, 2, 3, NA),
-    all2 = not_available(length = 4),
-    stringsAsFactors = FALSE
+    all2 = not_available(length = 4)
   )
 
   expect_equal(
@@ -52,13 +50,12 @@ test_that("*_na_cols() works", {
   expect_equal(
     is_na_cols(x),
     c(first = FALSE, second = FALSE, all = TRUE, last = FALSE, all2 = TRUE)
-    )
+  )
 
-  expect_error(select_na_cols(1))
-  expect_error(remove_na_cols(1))
-  expect_error(is_na_cols(1))
+  expect_error(select_na_cols(1), class = "class_error")
+  expect_error(remove_na_cols(1), class = "class_error")
+  expect_error(is_na_cols(1), class = "class_error")
 })
-
 
 test_that("tableNA() works", {
   x <- list(
@@ -72,7 +69,7 @@ test_that("tableNA() works", {
     struct(
       c(`TRUE` = 0L, `FALSE` = 3L),
       dim = 2L,
-      dimnames = set_names0(list(c("TRUE", "FALSE")), "x"),
+      dimnames = set_names(list(c("TRUE", "FALSE")), "x"),
       class = "table"
     )
   )

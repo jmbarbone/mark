@@ -1,5 +1,5 @@
 test_that("within_*()", {
-  FOO <- function() foo()
+  FOO <- function() foo() # nolint: object_name_linter.
   foo <- function(x) within_call()
 
   expect_equal(foo(), "foo()")
@@ -26,7 +26,7 @@ test_that("outer_*()", {
 test_that("require_namespace()", {
   expect_error(
     require_namespace("impossible package"),
-    "Package .impossible package. is required."
+    class = "packageNotFoundError"
   )
 
   foo <- function() {
@@ -37,14 +37,12 @@ test_that("require_namespace()", {
     foo()
   }
 
-  err <- "Package .not-real. is required for .foo. to work"
-  # Returns function name that calls require_namespace()
-  expect_error(foo(), err)
-  expect_error(bar(), err)
+  expect_error(foo(), class = "packageNotFoundError")
+  expect_error(bar(), class = "packageNotFoundError")
 
   expect_error(
     require_namespace("this_one", "that_thing"),
-    "Packages .this_one., .that_thing. are required"
+    class = "packageNotFoundError"
   )
 })
 
@@ -52,17 +50,15 @@ test_that("quiet_stop()", {
   expect_error(quiet_stop(), NULL)
 
   foo <- function(x) {
-    tryCatch(quiet_stop(),
-             error = function(e) {
-               !is.null(e$message)
-             })
+    tryCatch(quiet_stop(), error = function(e) {
+      !is.null(e$message)
+    })
   }
 
   bar <- function(x) {
-    tryCatch(quiet_stop(),
-             error = function(e) {
-               warning(e$message)
-             })
+    tryCatch(quiet_stop(), error = function(e) {
+      warning(e$message)
+    })
   }
 
   # Message exists

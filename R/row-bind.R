@@ -10,14 +10,14 @@
 #' @seealso [dplyr::bind_rows()] [base::rbind()]
 #' @export
 row_bind <- function(...) {
-  ls <- remove_null(if (...length() == 1) ..1 else list(...))
+  ls <- remove_null(if (...length() == 1) ..1 else rlang::list2(...))
 
   if (!length(ls)) {
     return(quick_df(NULL))
   }
 
   if (!all(vap_lgl(ls, is.data.frame))) {
-    stop("... must only be data.frames", call. = FALSE)
+    stop(value_error("all elements of `...` must be of class data.frame"))
   }
 
   names <- lapply(ls, names)
@@ -34,7 +34,7 @@ row_bind <- function(...) {
       w <- which(is.na(b))
 
       if (length(w)) {
-        a <- quick_df(set_names0(insert(a, w, NA), all_names))
+        a <- quick_df(set_names(insert(a, w, NA), all_names))
       }
 
       a
@@ -45,17 +45,18 @@ row_bind <- function(...) {
     USE.NAMES = FALSE
   )
 
+  # TODO use mark:::type_convert2() ?
   utils::type.convert(do.call(rbind2, res), as.is = TRUE)
 }
 
 # This may be a little faster than rbind()
 rbind2 <- function(...) {
-  ls <- list(...)
+  ls <- rlang::list2(...)
   res <- list()
 
   for (i in seq_along(ls[[1]])) {
     res[[i]] <- Reduce(c, lapply(ls, `[[`, i))
   }
 
-  quick_df(set_names0(res, names(ls[[1]])))
+  quick_df(set_names(res, names(ls[[1]])))
 }

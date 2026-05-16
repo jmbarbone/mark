@@ -3,7 +3,7 @@ library(mark, warn.conflicts = TRUE)
 
 n <- 1e4
 
-x <- quick_df(list(
+x <- dataframe(
   a = sample(letters, n, TRUE),
   b = sample(letters, n, TRUE),
   c = sample(letters, n, TRUE)

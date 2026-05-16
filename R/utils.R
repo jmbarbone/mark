@@ -1,73 +1,27 @@
-#' @importFrom magrittr %>%
-magrittr::`%>%`
-
-# Like rlang::`%||%` but uses base is.null -- same thing
-
-#' Default value for NULL
-#'
-#' Replace if `NULL`
-#'
-#' @details
-#' A mostly copy of `rlang`'s `%||%` except does not use [rlang::is_null()],
-#'   which, currently, calls the same primitive `is.null` function as
-#'   [base::is.null()].
-#' This is not to be exported due to conflicts with `purrr`
-#'
-#' @param x,y If `x` is `NULL` returns `y`; otherwise `x`
-#'
-#' @name null_default
-#' @noRd
-`%||%` <- function(x, y) {
-  if (is.null(x)) y else x
-}
-`%len%` <- function(x, y) {
-  if (length(x)) x else y
-}
 which0 <- function(x) {
   which(x) %len% 0L
 }
+
 # isTRUE, isFALSE, ...
+# nolint next: object_name_linter.
 isNA <- function(x) {
   is.logical(x) && length(x) == 1L && is.na(x)
 }
 
-#' Colons
-#'
-#' Get an object from a package
-#'
-#' @details
-#' This is a work around to calling `:::`.
-#'
-#' @section WARNING:
-#' To reiterate from other documentation: it is not advised to use `:::` in
-#'   your code as it will retrieve non-exported objects that may be more
-#'   likely to change in their functionality that exported objects.
-#'
-#' @param package Name of the package
-#' @param name Name to retrieve
-#' @return The variable `name` from package `package`
-#'
-#' @export
-`%colons%` <- function(package, name) {
-  tryCatch(
-    get(name, envir = asNamespace(package)),
-    error = function(e) {
-      stop(sprintf("`%s` not found in package `%s`",
-        name, package),
-        call. = FALSE)
-    }
-  )
-}
-
-# modified from https://github.com/tidyverse/purrr/blob/5aca9df41452f272fcef792dbc6d584be8be7167/R/utils.R
+# modified from https://github.com/tidyverse/purrr/blob/5aca9df41452f272fcef792dbc6d584be8be7167/R/utils.R # nolint: line_length_linter.
 use_color <- function() {
   rn("crayon") && crayon::has_color()
 }
 
-use_color <- function() { rn("crayon") && crayon::has_color() }
+# nolint start: brace_linter.
+# fmt: skip
 crayon_blue  <- function(x) { if (use_color()) crayon::blue(x)  else x }
+# fmt: skip
 crayon_green <- function(x) { if (use_color()) crayon::green(x) else x }
+# fmt: skip
 crayon_cyan  <- function(x) { if (use_color()) crayon::cyan(x)  else x }
+# nolint end: brace_linter.
+
 #' Parse and evaluate text
 #'
 #' A wrapper for eval(parse(text = .))
@@ -97,6 +51,7 @@ print_no_attr <- function(x, ...) {
 #'
 #' @export
 #' @seealso [base::which()]
+# nolint next: object_name_linter.
 that <- function(x, arr.ind = FALSE, useNames = TRUE) {
   # TODO consider that() as #seq_along(x)[x]?
   which(x, arr.ind = arr.ind, useNames = useNames)
@@ -138,13 +93,25 @@ is_unique <- function(x) {
   anyDuplicated(x) == 0L
 }
 
-is_atomic0 <- function(x) {
-  is.atomic(x) && !is.null(x)
+# since 4.4.0 is.atomic(NULL) returns FALSE
+is_atomic0 <- if (getRversion() < "4.4.0") {
+  function(x) is.atomic(x) && !is.null(x)
+} else {
+  base::is.atomic
 }
 
-cat0 <- function(...) { cat(..., sep = "") }
-catln <- function(...) { cat(..., sep = "\n") }
-charexpr <- function(x) { as.character(as.expression(x)) }
+cat0 <- function(...) {
+  cat(..., sep = "")
+}
+
+catln <- function(...) {
+  cat(..., sep = "\n")
+}
+
+charexpr <- function(x) {
+  as.character(as.expression(x))
+}
+
 mark_temp <- function(ext = "") {
   if (!grepl("^[.]", ext) && !identical(ext, "") && !is.na(ext)) {
     ext <- paste0(".", ext)
@@ -161,13 +128,27 @@ mark_temp <- function(ext = "") {
 }
 
 check_is_vector <- function(x, mode = "any") {
-  if (isS4(x) | inherits(x, c("data.frame", "matrix", "array")) | !is.vector(remove_attributes(x), mode)) {
-    stop(deparse(substitute(x)), " must be a vector of mode ", mode, call. = FALSE)
+  nm <- deparse1(substitute(x))
+  # fmt: skip
+  if (
+    isS4(x) ||
+    inherits(x, c("data.frame", "matrix", "array")) ||
+    !is.vector(remove_attributes(x), mode)
+  ) {
+    stop(
+      input_error(
+        switch(
+          mode,
+          any = sprintf("`%s` must be a vector", nm),
+          sprintf("`%s` must be a vector of mode '%s'", nm, mode)
+        )
+      )
+    )
   }
 }
 
 add_attributes <- function(x, ...) {
-  attributes(x) <- c(attributes(x), list(...))
+  attributes(x) <- c(attributes(x), rlang::list2(...))
   x
 }
 
@@ -210,8 +191,21 @@ check_interactive <- function() {
     return(FALSE)
   }
 
-  stop("mark.check_interactive must be TRUE, FALSE, or NA")
+  stop(options_error("interactive"))
 }
+
+# TODO is this even needed?  Maybe if options were active bindings
+options_error := condition(
+  function(x) {
+    switch(
+      x,
+      interactive = "mark.check_interactive must be TRUE, FALSE, or NA",
+      stop(internal_error(paste("bad value:", x)))
+    )
+  },
+  classes = "input_error",
+  type = "error"
+)
 
 try_formats <- function(date = FALSE) {
   x <- c(
@@ -239,38 +233,15 @@ has_char <- function(x) {
 
 dupe_check <- function(x, n = getOption("mark.dupe.n", 5)) {
   n <- as.integer(n)
+  dupes <- duplicated(x)
 
-  dupes <- which(duplicated(x))
-  n_dupes <- length(dupes)
-  dupes <- utils::head(dupes, n)
-
-  if (n_dupes) {
-    stop(
-      "Duplicate values found in ", n_dupes, " location(s) :\n",
-      if (n_dupes > n) sprintf("(first %i)\n", n),
-      paste0("  > ", sprintf("[%s] %s", format(dupes), format(x[dupes])), "\n"),
-      if (n_dupes > n) "... and ", n_dupes - n, " more",
-      call. = FALSE
-    )
+  if (any(dupes)) {
+    stop(duplicate_error(x = x, positions = which(dupes)))
   }
 
   invisible(NULL)
 }
 
-exattr <- function(x, which) {
-  attr(x, which = which, exact = TRUE)
-}
-
-# operating systems -------------------------------------------------------
-
-is_windows <- function() {
-  Sys.info()[["sysname"]] == "Windows"
-}
-
-is_macos <- function() {
-  Sys.info()[["sysname"]] == "Darwin"
-}
-
-is_linux <- function() {
-  Sys.info()[["sysname"]] == "Linux"
+dataframe <- function(...) {
+  fuj::quick_df(list(...))
 }

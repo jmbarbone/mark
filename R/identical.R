@@ -1,6 +1,6 @@
 #' Identical extensions
 #'
-#' Extensions for the use of `base::identical()`
+#' Extensions for the use of [base::identical()]
 #'
 #' @param ... Vectors of values to compare, element-wise of equal length
 #' @param params Additional params (as a named list of arguments for
@@ -18,21 +18,18 @@
 #' are_identical(x, y)    # element-wise
 #' are_identical(x, y, z) # 3 or more vectors
 #' @export
-
 are_identical <- function(..., params = NULL) {
-  x <- list(...)
+  x <- rlang::list2(...)
   n <- length(x)
 
-  if (length(unique(lengths(x))) != 1L) {
-    stop("... must have equal length vectors", call. = FALSE)
-  }
-
-  if (n < 2L) {
-    stop("... must have length of 2 or more", call. = FALSE)
+  if (length(unique(lengths(x))) != 1L || n < 2L) {
+    stop(input_error(
+      "... must have at least two arguments and be equal length vectors"
+    ))
   }
 
   if (n == 2L) {
-    return(do_map_identical(x[[1]], x[[2]], params))
+    return(do_map_identical(x[[1L]], x[[2L]], params))
   }
 
   res <- list()
@@ -41,16 +38,14 @@ are_identical <- function(..., params = NULL) {
     res[[i]] <- do_map_identical(x[[i]], x[[i + 1L]], params)
   }
 
-  apply(Reduce(cbind, res), 1, all)
+  apply(Reduce(cbind, res), 1L, all)
 }
 
 do_map_identical <- function(x, y, params = NULL) {
   mapply(
-    function(.x, .y) {
-      do.call(identical, c(list(x = .x, y = .y), params))
-    },
-    x,
-    y,
+    function(.x, .y) do.call(identical, c(list(x = .x, y = .y), params)),
+    .x = x,
+    .y = y,
     USE.NAMES = FALSE,
     SIMPLIFY = TRUE
   )

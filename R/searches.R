@@ -1,3 +1,5 @@
+# nolint start: line_length_linter.
+
 #' Multiple searching
 #'
 #' Multiple search pattern searches
@@ -23,6 +25,8 @@
 #' multi_grepl(x, c("^[ab]", "e"), simplify = FALSE)
 #'
 #' @export
+
+# nolint end: line_length_linter.
 
 multi_grepl <- function(x, patterns, ..., simplify = TRUE) {
   nm <- names(patterns)
@@ -63,4 +67,3 @@ which_no_0 <- function(x, .simplify = TRUE) {
 
   res
 }
-

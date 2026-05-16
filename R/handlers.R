@@ -2,22 +2,20 @@
 #'
 #' Catch and report handlers
 #'
-#' @details
-#' These functions can be used to catch whether an evaluation will return an
-#'   error or warning without raising.
+#' @details These functions can be used to catch whether an evaluation will
+#' return an error or warning without raising.
 #'
-#' @return
-#' The `has_*()` functions will return `TRUE`/`FALSE` for if the handler is
-#'   found in the execution of the code.
-#' The `get_*()` functions provide the text of the message
+#' @return The `has_*()` functions will return `TRUE`/`FALSE` for if the handler
+#' is found in the execution of the code. The `get_*()` functions provide the
+#' text of the message
 #'
 #' @param x A vector
 #' @param FUN A function
 #' @param .null Logical, if `FALSE` will drop `NULL` results (for `get_*()`)
 #' @param ... Additional params passed to `FUN`
 #'
-#' @references
-#' Function for _catching_ has been adapted from https://stackoverflow.com/a/4952908/12126576
+#' @references Function for _catching_ has been adapted from
+#' https://stackoverflow.com/a/4952908/12126576
 #'
 #' @examples
 #' has_warning(c(1, "no"), as.integer)
@@ -47,60 +45,68 @@ NULL
 
 #' @export
 #' @rdname handlers
+# nolint next: object_name_linter
 has_warning <- function(x, FUN, ...) {
   has_catch(x, FUN, ..., type = "warning")
 }
 
 #' @export
 #' @rdname handlers
+# nolint next: object_name_linter
 has_error <- function(x, FUN, ...) {
   has_catch(x, FUN, ..., type = "error")
 }
 
 #' @export
 #' @rdname handlers
+# nolint next: object_name_linter
 has_message <- function(x, FUN, ...) {
   has_catch(x, FUN, ..., type = "message")
 }
 
 #' @export
 #' @rdname handlers
+# nolint next: object_name_linter
 get_warning <- function(x, FUN, ..., .null = TRUE) {
   get_catch(x, FUN, type = "warning", null = .null)
 }
 
 #' @export
 #' @rdname handlers
+# nolint next: object_name_linter
 get_message <- function(x, FUN, ..., .null = TRUE) {
   get_catch(x, FUN, type = "message", null = .null)
 }
 
 #' @export
 #' @rdname handlers
+# nolint next: object_name_linter
 get_error <- function(x, FUN, ..., .null = TRUE) {
   get_catch(x, FUN, type = "error", null = .null)
 }
 
+# nolint next: object_name_linter
 has_catch <- function(x, FUN, ..., type = c("error", "warning", "message")) {
   type <- match_param(type)
-  FUN <- match.fun(FUN)
+  FUN <- match.fun(FUN) # nolint: object_name_linter.
   res <- sapply(x, catch(FUN), ..., USE.NAMES = TRUE, simplify = FALSE)
   out <- vap_lgl(res, function(i) !is.null(i[[type]]))
   attr(out, "result") <- lapply(res, `[[`, "result")
   attr(out, "class") <- c("has_catch", "logical")
-  set_names0(out, x)
+  set_names(out, x)
 }
 
 #' @export
 print.has_catch <- function(x, ...) {
-  print(set_names0(remove_attributes(x), names(x)))
+  print(set_names(remove_attributes(x), names(x)))
   invisible(x)
 }
 
+# nolint next: object_name_linter
 get_catch <- function(x, FUN, type, ..., null = TRUE) {
   res <- sapply(x, catch(FUN), ..., USE.NAMES = TRUE, simplify = FALSE)
   out <- sapply(res, function(i) i[[type]], USE.NAMES = TRUE, simplify = FALSE)
-  out <- set_names0(out, x)
+  out <- set_names(out, x)
 
   if (!null) {
     out <- remove_null(out)
@@ -110,14 +116,14 @@ get_catch <- function(x, FUN, type, ..., null = TRUE) {
 }
 
 # Adapted from https://stackoverflow.com/a/4952908/12126576
-catch <- function(FUN) {
-  FUN <- match.fun(FUN)
+catch <- function(fun) {
+  fun <- match.fun(fun)
 
   function(...) {
     env <- list2env(list(error = NULL, warning = NULL, message = NULL))
     res <- withCallingHandlers(
       tryCatch(
-        FUN(...),
+        fun(...),
         error = function(e) {
           env$error <- c(env$error, e$message)
           NULL
@@ -140,29 +146,4 @@ catch <- function(FUN) {
       message = env$message
     )
   }
-}
-
-#' Muffle
-#'
-#' Suppress messages and warnings
-#'
-#' @details
-#' `muffle()` and `wuffle()` are aliases for [base::suppressMessages()]
-#'   and [base::suppressWarnings()], respectively, except the names are shorter
-#'   and therefore quicker to write.
-#'
-#' @param expr An expression to be evaluated
-#' @param ... Additional arguments passed to [base::suppressMessages()] or
-#'   [base::suppressWarnings()]
-#' @return The result of `expr`
-#'
-#' @export
-muffle <- function(expr, ...) {
-  suppressMessages(expr, ...)
-}
-
-#' @rdname muffle
-#' @export
-wuffle <- function(expr, ...) {
-  suppressWarnings(expr, ...)
 }

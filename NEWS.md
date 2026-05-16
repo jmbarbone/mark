@@ -1,5 +1,124 @@
 # mark (development version)
 
+* substantial changes to _conditions_
+  * all _conditions_ previously created with [`fuj::new_condition()`](https://jmbarbone.github.io/fuj/reference/new_condition.html) have been rewritten with [`cnd::condition()`](https://jmbarbone.github.io/cnd/reference/condition.html) [#259]
+  * all of these condition now use different class names, generated through [`cnd::condition()`](https://jmbarbone.github.io/cnd/reference/condition.html)
+  * for more information, see https://jmbarbone.github.io/cnd
+  * FIXME: ensure names: `{rd_name}_{thing}` -- and see about switching messages around: (`message = function(type, params)`)
+
+* the following arguments were deprecated and unused, and have now been removed completely:
+  * `list2df(show_NA)`
+  * `vector2df(show_NA)`
+  * `t_df(id)`
+
+* `merge_list(sort)` included to toggle name sorting in result
+
+* `make_sf()` now uses `substitute()` to provide more information inside the function body when viewing [#129](https://github.com/jmbarbone/mark/issues/129)
+* `round_to()` added to round values to a set [#142](https://github.com/jmbarbone/mark/issues/142)
+* `is_true()`, `is_false()` now works as documented [#262](https://github.com/jmbarbone/mark/issues/262)
+* `to_boolean()` now works as documented [#262](https://github.com/jmbarbone/mark/issues/262)
+  * `to_boolean.character()`, and `to_boolean.factor()` have been improved; 
+they will also now require exact matches;
+cleanup (e.g., trimming whitespace and lowercasing) are not longer performed
+  * `to_boolean.integer()` added
+  * `to_boolean.numeric()`, `to_boolean.integer()` will now return `NA`
+* `md5(bytes)` added to use `tools::md5sum(bytpes)` for **R > 4.2.0** [#258](https://github.com/jmbarbone/mark/issues/258)
+* `md5()` now uses little-endian serialization (_i.e._, `serialize(xdr = FALSE)`) for more consistent results across platforms and faster speed; which may cause hashes created prior to _change_
+* `{mark}`'s title has been updated
+* `write_file_md5(method = "feather")`, `write_file_md5(method = "parquet")` now use `{feather}` and `{nanoparquet}`, respectively, rather than `{arrow}` [#245](https://github.com/jmbarbone/mark/issues/245)
+* `read_clipboard("md")` no longer needs `{readMdTable}`
+* `read_clibpboard()` will always return a `tibble` if `{tibble}` is available (this can be turned off if `options(mark.tibble = FALSE)`)
+
+# mark 0.8.3
+
+* `file_copy_md5()` now produces more messages [#239](https://github.com/jmbarbone/mark/issues/239)
+* `file_copy_md5()` saves md5 sum checks as an attribute
+* removes tests for `struct()` [#252](https://github.com/jmbarbone/mark/issues/252)
+
+# mark 0.8.2
+
+* `read_clipboard()` and `write_clipboard()` now use `{clipr}` to work on non-Windows platforms [#125](https://github.com/jmbarbone/mark/issues/125)
+* `read_clipboard()` now works with more methods for reading `data.frame`s
+* `read_clipboard()` now defaults to a `tibble` return when `{tibble}` is available
+* timezone testing updated [#247](https://github.com/jmbarbone/mark/issues/247)
+* actions updated
+
+# mark 0.8.1
+
+* `write_file_md5()` now supports `"feather"` and `"parquet"` methods as wrappers for [`{arrow}`](https://arrow.apache.org/docs/r/) [#234](https://github.com/jmbarbone/mark/issues/234)
+* `md5()` added to provide MD5 check sums for objects [#233](https://github.com/jmbarbone/mark/issues/233)
+* `unique_rows()` added to subset on (non-)duplicated rows in a `data.frame` [#87](https://github.com/jmbarbone/mark/issues/87)
+* `within()` added as an alternative to `between_more()` [#120](https://github.com/jmbarbone/mark/issues/120)
+* test updated for upcoming R release [#240](https://github.com/jmbarbone/mark/issues/240)
+
+# mark 0.8.0
+
+## breaking changes
+
+* `echo()` is now removed; use `echo::echo()` instead [#214](https://github.com/jmbarbone/mark/issues/214)
+* includes `tryn()` for running an expression a maximum number of times before failure [#80](https://github.com/jmbarbone/mark/issues/80)
+
+## fixes
+
+* `unlist0()` no longer fails when input list is not named [#220](https://github.com/jmbarbone/mark/issues/220)
+
+## improvements
+
+* `match_param()` has been improved
+  * can now return multiple matches [#191](https://github.com/jmbarbone/mark/issues/191), and can return partial matches
+  * error message readability improved for `matchParamMatchError`[#194](https://github.com/jmbarbone/mark/issues/194)
+  * `choices` can now be a list of `formula` elements, preserving the return value
+
+## new features
+
+* `file_copy_md5()` added as a wrapper for `fs::file_copy()` but provides MD5 checks through `tools::md5sum()` to avoid overwriting files that had no content changes [#207](https://github.com/jmbarbone/mark/issues/207)
+* `write_file_md5()` added as a general writing function and utilizes `file_copy_md5()` for MD5 checks (including some compression options) [#207](https://github.com/jmbarbone/mark/issues/207), [#224](https://github.com/jmbarbone/mark/issues/224)
+
+# mark 0.7.0
+
+* `merge_list()` added for combining lists [#200](https://github.com/jmbarbone/mark/issues/200)
+* `glob()` added for basic wildcard globbing on character vectors [#167](https://github.com/jmbarbone/mark/issues/167)
+* adds greater use of `{fs}` over base file functions [#160](https://github.com/jmbarbone/mark/issues/160)
+* improvements in `todos()` and `fixmes()`
+  * File extension can now be set [#170](https://github.com/jmbarbone/mark/issues/170), which by default includes `qmd` ([#163](https://github.com/jmbarbone/mark/issues/163)) and `py` files
+  * new parameter `ignore` to ignore any files
+  * file paths and line numbers can now be _clicked_ within RStudio [#171](https://github.com/jmbarbone/mark/issues/171)
+* adds more use of `rlang::list2()` for internally [#199](https://github.com/jmbarbone/mark/issues/199)
+* GitHub action included to check version updates with pull requests [#211](https://github.com/jmbarbone/mark/issues/211)
+* `%::%` and `%:::%` now exported from `{fuj}`
+
+# mark 0.6.1
+
+* updates Timezone references for upcoming R release [#203](https://github.com/jmbarbone/mark/issues/203)
+
+# mark 0.6.0
+
+## New features
+
+* new functions for detecting _blank_ values in a vector or `data.frame`.  _Blank_ values are those which do not contain any text (controls for `NA`) or are entirely white space.
+  * `is_blank()` for detecting _blank_ values in a vector
+  * `is_blank_cols()` for detecting _blank_ columns
+  * `select_blank_cols()` for selecting _blank_ columns
+  * `remove_blank_cols()` for removing _blank_ columns
+* `match_param()` now accepts a named listed for alias matching [#104](https://github.com/jmbarbone/mark/issues/104)
+* `echo()` evaluates expressions and logs outputs [#164](https://github.com/jmbarbone/mark/issues/164)
+* `{fuj}` is now imported
+  * multiple functions now re-exported from `{fuj}` (see `?mark::reexports`)
+  * `set_names0()` is deprecated in favor of `set_names()`
+  * error messages are created with `fuj::new_condition()`;
+  * test for errors and warnings enhanced with class checks
+
+## Fixes and updates
+
+* `date_from_partial()` works again [#155](https://github.com/jmbarbone/mark/issues/155) after fixing an issue with an internal utility `is_valid_date_string()` that wasn't recognizing `%Y-%m-%d` (and potentially others)
+* `lintr` GitHub action updated [#173](https://github.com/jmbarbone/mark/issues/173); this includes plenty of internal improvements and code cleanup
+* package description in help files corrected [#165](https://github.com/jmbarbone/mark/issues/165)
+* GitHub pages updated with latest `{pkgdown}` action [#175](https://github.com/jmbarbone/mark/issues/175)
+* Update to GitHub R-CMD-check action [#178](https://github.com/jmbarbone/mark/issues/178)
+* `switch_in_case()` handles `NA`s better [#183](https://github.com/jmbarbone/mark/issues/183)
+* internal `switch` tests updated for `{waldo}` development [#182](https://github.com/jmbarbone/mark/pulls/182) thanks, `@hadley`
+* methods for `write_clipboard()` are now displayed in documentation [#186](https://github.com/jmbarbone/mark/issues/182)
+
 # mark 0.5.3
 
 * CRAN fix for new release [#151](https://github.com/jmbarbone/mark/issues/151)
@@ -11,11 +130,11 @@
 * `normalize()` added to normalize values in `vectors`, `matrices`, and `data.frame`s by specified ranges and boundaries [#143](https://github.com/jmbarbone/mark/issues/143)
 * `get_labels()` and other label related functions now get exact matches for `"label"` attributes [#141](https://github.com/jmbarbone/mark/issues/141)
 * `recode_only()`, and `recode_by()` now accept a named `list()` for `by` [#96](https://github.com/jmbarbone/mark/issues/96)]
-* `switch_in_case()` now handles functions in rh
+* `switch_in_case()` now handles functions in the right hand statements
 * `update_version()` now correctly checks result of embedded `utils::menu()` call for updating the version [#123](https://github.com/jmbarbone/mark/issues/121)
 * `require_namespace()` now accepts multiple namespaces [#121](https://github.com/jmbarbone/mark/issues/121)
 * `unique.fact()` S3 method [#86](https://github.com/jmbarbone/mark/issues/86)
-* `recode_only()` and `recode_by()` can accept a single value for `val` [#72](https://github.com/jmbarbone/mark/issues/72)
+* `recode_only()` and `recode_by()` can accept a single value for `val` [#73](https://github.com/jmbarbone/mark/issues/73)
 * `fact_reverse()` for reversing `fact` levels [#78](https://github.com/jmbarbone/mark/issues/78)
 * `as.Date.fact()` added [#108](https://github.com/jmbarbone/mark/issues/108)
 * `as.character.fact()` added

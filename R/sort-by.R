@@ -18,7 +18,7 @@
 #' @export
 sort_by <- function(x, by, ...) {
   if (!is_atomic0(x) || !is_atomic0(by)) {
-    stop("`x` and `by` must be atomic vectors", call. = FALSE)
+    stop(input_error("`x` and `by` must be atomic vectors"))
   }
 
   x[order(by, ...)]

@@ -60,7 +60,6 @@ str_slice_by_word <- function(x, n = 80L) {
     starts <- c(starts, st)
     ends <- c(ends, end)
     st <- end + 2L
-
   }
 
   mapply(
@@ -100,9 +99,10 @@ str_extract_date <- function(x, format = "%Y-%m-%d") {
 str_extract_datetime <- function(x, format = "%Y-%m-%d %H%M%S") {
   frex <- format_to_regex(format)
   text <- string_extract(x, frex, ignore.case = TRUE)
-  capply(text, strptime, format = format, tz = "")
+  capply(text, \(x) strptime(x, format = format, tz = ""))
 }
 
+# nolint next: object_name_linter.
 string_extract <- function(x, pattern, perl = FALSE, ignore.case = FALSE) {
   re <- regexpr(pattern, x, perl = perl, ignore.case = ignore.case)
   starts <- as.vector(re, "integer")
@@ -112,7 +112,7 @@ string_extract <- function(x, pattern, perl = FALSE, ignore.case = FALSE) {
 #' Format string to a regular expression
 #'
 #' @param x A date or datetime format, assuming that entries follow the formats
-#'  described in [base::strptime]
+#'  described in [base::strptime()]
 #'
 #' @examples
 #' mark:::format_to_regex("%Y-%m-%d")
@@ -142,7 +142,7 @@ format_to_regex <- function(x) {
   x
 }
 
-month_abbr_regex <- sprintf("(%s)", paste(month.abb,  collapse = "|"))
+month_abbr_regex <- sprintf("(%s)", paste(month.abb, collapse = "|"))
 month_name_regex <- sprintf("(%s)", paste(month.name, collapse = "|"))
 
 #' Character split
@@ -157,24 +157,24 @@ month_name_regex <- sprintf("(%s)", paste(month.name, collapse = "|"))
 #' @export
 chr_split <- function(x) {
   if (length(x) != 1L) {
-    stop("`x` must be a single element", call. = FALSE)
+    stop(input_error("`x` must be a single length character"))
   }
-  strsplit(as.character(x), "")[[1]]
+  strsplit(as.character(x), "")[[1L]]
 }
 
 #' Print as c
 #'
 #' Prints a vector to paste into an R script
 #'
-#' @details
-#' This sorts (if set) and provides unique values for each element in `x` and
-#'   prints then as a call to `c`.  This can be useful for copying data that you
-#'   want to save as a vector in an R script.
-#' The result is both called in `cat()` as well as copied to the clipboard.
+#' @details This sorts (if set) and provides unique values for each element in
+#'   `x` and prints then as a call to [base::c()].  This can be useful for
+#'   copying data that you want to save as a vector in an **R** script. The
+#'   result is both called in [base::cat()] as well as copied to the clipboard.
 #'
 #' @param x A vector (defaults to reading the clipboard)
-#' @param sorted If `TRUE` (default) applies `sort()` to `x`
-#' @param null If `TRUE` (default) adds `NULL` at the end of the `c()` print
+#' @param sorted If `TRUE` (default) applies [base::sort()] to `x`
+#' @param null If `TRUE` (default) adds `NULL` at the end of the [base::c()]
+#'   print
 #' @return Invisibly, as a `character` vector, the object printed to the console
 #' @examples
 #' print_c(1:10)
@@ -184,7 +184,6 @@ chr_split <- function(x) {
 #' @export
 print_c <- function(x = read_clipboard(), sorted = TRUE, null = TRUE) {
   check_is_vector(x)
-
   x <- unique(unlist(x))
 
   if (sorted) {

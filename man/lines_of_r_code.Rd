@@ -2,25 +2,25 @@
 % Please edit documentation in R/lines-of-code.R
 \name{lines_of_r_code}
 \alias{lines_of_r_code}
-\title{Lines of R code}
+\title{Lines of \strong{R} code}
 \usage{
 lines_of_r_code(x = ".", skip_empty = TRUE)
 }
 \arguments{
 \item{x}{Directory to search for files}
 
-\item{skip_empty}{Logical, if TRUE will not count lines that are empty or
+\item{skip_empty}{Logical, if \code{TRUE} will not count lines that are empty or
 only contain a bracket or quotation mark.}
 }
 \value{
 An \code{integer} for the number of lines in all applicable files
 }
 \description{
-Find the total number of lines of R code
+Find the total number of lines of \strong{R} code
 }
 \details{
-Tries to read each file in the directory that ends in .R or .r and sums
-together.  Files that fail to read are not counted.
+Tries to read each file in the directory that ends in \code{.R} or \code{.r}
+and sums together.  Files that fail to read are not counted.
 }
 \examples{
 \donttest{

@@ -12,13 +12,12 @@ test_that("read_bib()", {
   exp <- utils::head(exp, -1L)
   expect_identical(res, exp, ignore_attr = TRUE)
 
-  temp <- tempfile()
+  temp <- withr::local_tempfile()
   writeLines("bad", temp)
-  expect_error(read_bib(temp), "No entries")
+  expect_error(read_bib(temp), class = "value_error")
 
-
-  expect_error(as_bib(1:3), "data.frame")
-  expect_error(as_bib_list(1:3), "list")
+  expect_error(as_bib(1:3), class = "class_error")
+  expect_error(as_bib_list(1:3), class = "type_error")
 
   expect_error(
     process_bib_dataframe(
@@ -26,7 +25,8 @@ test_that("read_bib()", {
       values = 1,
       fields = "this",
       keys = "key"
-    )
+    ),
+    class = "duplicate_error"
   )
 })
 
@@ -41,15 +41,16 @@ test_that("snapshots()", {
 })
 
 test_that("= inside text [#117]", {
-  # debug(get_bib_values)
-  res <- read_bib(textConnection("
+  res <- read_bib(textConnection(
+    "
     @article{key,
     author     = {Barbone, Jordan Mark},
     title      = {I wrote a cool article},
     year       = {2020},
     month      = {Mar},
     note       = {This has an = and it's bad},
-  }"))
+  }"
+  ))
 
   exp <- structure(
     list(

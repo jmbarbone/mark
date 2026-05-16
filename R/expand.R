@@ -4,7 +4,7 @@
 #'
 #' @param x,y Vectors
 #' @param expand Character switch to expand or keep only the values that
-#'   intersect, all values in x or y, or retain all values found.
+#'   intersect, all values in `x` or `y`, or retain all values found.
 #' @param sort Logical, if `TRUE` will sort by names in output
 #'
 #' @return A vector with expanded
@@ -17,9 +17,16 @@
 #' expand_by(x, y, "intersect")
 #' expand_by(x, y, "both")
 #' @export
-expand_by <- function(x, y, expand = c("x","y", "intersect", "both"), sort = FALSE) {
+expand_by <- function(
+  x,
+  y,
+  expand = c("x", "y", "intersect", "both"),
+  sort = FALSE
+) {
   expand <- match_param(expand)
+  # fmt: skip
   if (!is_named(x)) names(x) <- x
+  # fmt: skip
   if (!is_named(y)) names(y) <- y
 
   nx <- names(x)
@@ -76,8 +83,8 @@ expand_by <- function(x, y, expand = c("x","y", "intersect", "both"), sort = FAL
 #' Reindexes a data.frame with a reference
 #'
 #' @param x A data.frame
-#' @param index The column name or number of an index to use; if `NULL` will assume the
-#'   first column; a value of `row.names` will use `row.names(x)`
+#' @param index The column name or number of an index to use; if `NULL` will
+#'   assume the first column; a value of `row.names` will use `row.names(x)`
 #' @param new_index A column vector of the new index value
 #' @param expand Character switch to expand or keep only the values that
 #'   intersect (none), all values in x or index, or retain all values found.
@@ -96,15 +103,21 @@ expand_by <- function(x, y, expand = c("x","y", "intersect", "both"), sort = FAL
 #' reindex(iris1, "index", seq(2, 8, 2))
 #' reindex(iris1, "index", seq(2, 8, 2), expand = "both")
 #' @export
-reindex <- function(x, index = NULL, new_index, expand = c("intersect", "both"),  sort = FALSE) {
+reindex <- function(
+  x,
+  index = NULL,
+  new_index,
+  expand = c("intersect", "both"),
+  sort = FALSE
+) {
   expand <- match_param(expand)
 
   if (!inherits(x, "data.frame")) {
-    stop("`x` must be a data.frame", call. = FALSE)
+    stop(class_error("must_be", x, "data.frame"))
   }
 
   if (no_length(new_index)) {
-    stop("new_index must not be NULL or 0 length", call. = FALSE)
+    stop(input_error("`new_index` cannot be NULL or 0 length"))
   }
 
   xi <- if (is.null(index)) {
@@ -116,36 +129,79 @@ reindex <- function(x, index = NULL, new_index, expand = c("intersect", "both"),
   }
 
   if (anyNA(xi)) {
-    warning("NA values detected in index this may cause errors with expansion",
-            call. = FALSE)
+    warning(reindex_warning(which(is.na(xi))))
   }
 
   if (is.null(xi)) {
-    stop("x[[index]] returned `NULL`", call. = FALSE)
+    stop(reindex_error())
   }
 
   ro <- expand_by(xi, new_index, expand = expand, sort = sort)
 
   nm <- names(ro)
   out <- x[nm, ]
-  attr(out, "row.names") <- nm
+  attr(out, "row.names") <- nm # nolint: object_name_linter
   out
 }
 
-# FUNS --------------------------------------------------------------------
+# helpers -----------------------------------------------------------------
 
 unique_name_check <- function(x) {
   # Checks that names are unique in the vector
   nm <- names(x) %||% x
-  lens <- counts(nm)
-  int <- lens > 1
+  dupes <- duplicated(nm)
 
-  if (any(int)) {
-    warning("These names are duplicated: ",
-            collapse0(names(lens[int]), sep = ", "),
-            call. = FALSE)
-    return(invisible(FALSE))
+  if (any(dupes)) {
+    warning(duplicate_warning(x = nm, name = "names"))
+    FALSE
+  } else {
+    TRUE
   }
-
-  invisible(TRUE)
 }
+
+# conditions --------------------------------------------------------------
+
+# TODO use na_warning(); move information to function docs
+reindex_warning := condition(
+  function(x) {
+    paste(
+      ngettext(
+        length(x),
+        "NA value detected in index at position:",
+        "NA values detected in index at positions:"
+      ),
+      collapse(x, sep = ", ")
+    )
+  },
+  type = "warning",
+  exports = "reindex",
+  help = "NA values in index may cause errors with expansion
+
+`reindex()` will not match on NA values but instead will return a row of NAs
+
+```r
+x <- data.frame(index = c(1:2, NA, 4:5), values = letters[1:5])
+reindex(x, 'index', c(1, 2, 5))
+#>   index values
+#> 1     1      a
+#> 2     2      b
+#> 5     5      e
+
+reindex(x, 'index', c(1, 2, 5, NA))
+#>      index values
+#> 1        1      a
+#> 2        2      b
+#> 5        5      e
+#> <NA>    NA   <NA>
+```
+"
+)
+
+reindex_error := condition(
+  "x[[index]] returned `NULL`",
+  type = "error",
+  classes = "value_error",
+  exports = "reindex"
+)
+
+# terminal line

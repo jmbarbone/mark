@@ -17,7 +17,8 @@ shell_exec(x)
 
 list_files(
   x = ".",
-  pattern = NULL,
+  pattern = utils::glob2rx(glob),
+  glob = NULL,
   ignore_case = FALSE,
   all = FALSE,
   negate = FALSE,
@@ -36,14 +37,14 @@ list_dirs(
 \arguments{
 \item{x}{A character vector of paths}
 
-\item{pattern}{an optional \link[base]{regular expression}.  Only file names
-    which match the regular expression will be returned.}
+\item{pattern, glob}{Pattern to search for files.  \code{glob} is absorbed into
+\code{pattern}, through \code{\link[utils:glob2rx]{utils::glob2rx()}}.}
 
 \item{ignore_case}{logical. Should pattern-matching be case-insensitive?}
 
-\item{all}{a logical value. If FALSE, only the names of visible files are
+\item{all}{a logical value. If \code{FALSE}, only the names of visible files are
 returned (following Unix-style visibility, that is files whose name does
-not start with a dot). If TRUE, all file names will be returned.}
+not start with a dot). If \code{TRUE}, all file names will be returned.}
 
 \item{negate}{Logical, if \code{TRUE} will inversely select files that do not
 match the provided pattern}
@@ -53,20 +54,20 @@ the entire path}
 }
 \value{
 \itemize{
-\item \code{open_file()}, \code{shell_exec()}: A logical vector where \code{TRUE} successfully
-opened, \code{FALSE} did not and \code{NA} did not try to open (file not found)
-\item \code{list_files()}, \code{list_dirs()}: A vector of full paths
+\item \code{\link[=open_file]{open_file()}}, \code{\link[=shell_exec]{shell_exec()}}: A logical vector where \code{TRUE}
+successfully opened, \code{FALSE} did not and \code{NA} did not try to open (file not
+found)
+\item \code{\link[=list_files]{list_files()}}, \code{\link[=list_dirs]{list_dirs()}}: A vector of full paths
 }
 }
 \description{
 Opens the given files(s)
 }
 \details{
-\code{open_file} is an alternative to \code{shell.exec()} that can take take
-multiple files.
-\code{list_files} and \code{list_dirs} are mostly wrappers for \code{\link[base:list.files]{base::list.files()}} and
-\code{\link[base:list.files]{base::list.dirs()}} with preferred defaults and pattern searching on the
-full file path.
+\code{\link[=open_file]{open_file()}} is an alternative to \code{base::shell.exec()} that
+can take take multiple files. \code{\link[=list_files]{list_files()}} and \code{\link[=list_dirs]{list_dirs()}}
+are mostly wrappers for \code{\link[fs:dir_ls]{fs::dir_ls()}} with preferred defaults and pattern
+searching on the full file path.
 
-\code{file_open} is simply an alias.
+\code{\link[=file_open]{file_open()}} is simply an alias.
 }

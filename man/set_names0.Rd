@@ -2,18 +2,12 @@
 % Please edit documentation in R/names.R
 \name{set_names0}
 \alias{set_names0}
-\alias{remove_names}
 \alias{names_switch}
-\alias{\%names\%}
 \title{Set names}
 \usage{
 set_names0(x, nm = x)
 
-remove_names(x)
-
 names_switch(x)
-
-x \%names\% nm
 }
 \arguments{
 \item{x}{A vector of values}
@@ -22,9 +16,11 @@ x \%names\% nm
 }
 \value{
 \itemize{
-\item \code{set_names0()}: \code{x} with \code{nm} values assigned to names (if \code{x} is \code{NULL}, \code{NULL} is returned)
+\item \code{set_names0()}: \code{x} with \code{nm} values assigned to names (if \code{x} is \code{NULL},
+\code{NULL} is returned)
 \item \code{remove_names()}: \code{x} without names
-\item \code{names_switch()}: \code{character} vector of equal length \code{x} where names and values are switched
+\item \code{names_switch()}: \code{character} vector of equal length \code{x} where names and
+values are switched
 }
 }
 \description{

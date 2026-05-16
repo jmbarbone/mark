@@ -11,7 +11,7 @@
 #'   * `NA_if` expects `y` (or the result of function `y`) to be `logical`
 #' * `NA_in` and `NA_out` expect some values to match on
 #'   * `NA_in` checks `x[x %in% y] <- NA`
-#'   * `NA_out` checks `x[x %out% y] <- NA` (see [mark::match_ext])
+#'   * `NA_out` checks `x[x %out% y] <- NA` (see [fuj::match_ext])
 #'
 #' @param x A vector of values
 #' @param y Either a suitable value (see `Details`) or a function which accepts
@@ -33,6 +33,7 @@ NULL
 
 #' @rdname na_assignments
 #' @export
+# nolint next: object_name_linter.
 NA_at <- function(x, y, ...) {
   nx <- length(x)
 
@@ -41,15 +42,20 @@ NA_at <- function(x, y, ...) {
   }
 
   if (is.function(y)) {
-    FUN <- match.fun(y)
-    y <- FUN(x, ...)
+    y <- y(x, ...)
   }
 
-  stopifnot(
-    "y must be a vector of integers" = isTRUE(all.equal(y, as.integer(y))),
-    "values of y must not be greater than length of x" = max(y, na.rm = TRUE) <= nx,
-    "length of y must not be greater than length of x" = length(y) <= nx
-  )
+  if (any(y %% 1L > 0, na.rm = TRUE)) {
+    stop(value_error("`y` must be a vector of integers"))
+  }
+
+  if (!isTRUE(max(y, na.rm = TRUE) <= nx)) {
+    stop(value_error("`max(y)` cannot be greater than `length(x)`"))
+  }
+
+  if (!isTRUE(length(y) <= nx)) {
+    stop(value_error("`length(y)` cannot be greater than `length(x)`"))
+  }
 
   x[y] <- NA
   x
@@ -57,6 +63,7 @@ NA_at <- function(x, y, ...) {
 
 #' @rdname na_assignments
 #' @export
+# nolint next: object_name_linter.
 NA_if <- function(x, y, ...) {
   nx <- length(x)
 
@@ -65,14 +72,17 @@ NA_if <- function(x, y, ...) {
   }
 
   if (is.function(y)) {
-    FUN <- match.fun(y)
-    y <- FUN(x, ...)
+    y <- y(x, ...)
   }
 
-  stopifnot(
-    "y must be the same length as x" = length(y) == nx,
-    "y must be logical" = is.logical(y)
-  )
+  # FIXME replace with a single condition
+  if (length(y) != nx) {
+    stop(value_error("`length(y)` cannot be greater than `length(x)`"))
+  }
+
+  if (!is.logical(y)) {
+    stop(value_error("`y` must be logical"))
+  }
 
   x[y] <- NA
   x
@@ -80,14 +90,14 @@ NA_if <- function(x, y, ...) {
 
 #' @rdname na_assignments
 #' @export
+# nolint next: object_name_linter.
 NA_in <- function(x, y, ...) {
   if (length(x) == 0L) {
     return(x)
   }
 
   if (is.function(y)) {
-    FUN <- match.fun(y)
-    y <- FUN(x, ...)
+    y <- y(x, ...)
   }
 
   x[x %in% y] <- NA
@@ -96,14 +106,14 @@ NA_in <- function(x, y, ...) {
 
 #' @rdname na_assignments
 #' @export
+# nolint next: object_name_linter.
 NA_out <- function(x, y, ...) {
   if (length(x) == 0L) {
     return(x)
   }
 
   if (is.function(y)) {
-    FUN <- match.fun(y)
-    y <- FUN(x, ...)
+    y <- y(x, ...)
   }
 
   x[x %out% y] <- NA

@@ -1,45 +1,53 @@
 test_that("clipboard", {
-  skip_if_not(interactive(), "Is not interactive")
-
-  if (!is_windows()) {
-    expect_error(write_clipboard())
-    skip("Not windows")
-  }
-
-  skip_if(
-    any(has_warning(integer(1e4), readClipboard)),
-    "Failed to access clipboard"
-  )
-
-  clear_clipboard()
-
-  test_clipboard <- function(x, ...) {
-    expect_error(write_clipboard(x), NA)
-    expect_equal(read_clipboard(), x, ...)
-  }
-
+  need_clipr()
   test_clipboard(c(TRUE, FALSE, NA))
   test_clipboard(c(0.1234, -0.1586, 0.0001200))
   test_clipboard(-1:4)
   test_clipboard(as.Date("2020-01-02") + 0:4)
-  test_clipboard(runif(1e6))
+  test_clipboard(runif(1e4))
 
-  x <- quick_dfl(
-    var1 = 1:3,
-    var2 = letters[1:3],
-    var3 = as.Date("2020-01-03") + 1:3,
-    var4 = c(TRUE, FALSE, NA)
-  )
+  with_clip({
+    expect_error(clear_clipboard(), NA)
+    expect_equal(read_clipboard(), NULL) # previously ""
+  })
 
-  expect_error(write_clipboard(x), NA)
-  expect_equal(read_clipboard("data.frame"), x)
+  with_clip({
+    x <- dataframe(
+      var1 = 1:3,
+      var2 = letters[1:3],
+      var3 = as.Date("2020-01-03") + 1:3,
+      var4 = c(TRUE, FALSE, NA)
+    )
 
-  expect_error(clear_clipboard(), NA)
-  expect_equal(read_clipboard(), NA) # previously ""
+    write_clipboard(x)
 
-  # finally test tibble
-  skip_if_not_installed("tibble")
-  expect_equal(read_clipboard("tibble"), tibble::as_tibble(x))
+    res <- read_clipboard("data.frame")
+
+    expect_s3_class(res, "data.frame")
+    if (package_available("tibble")) {
+      expect_equal(as.data.frame(res), x)
+    }
+
+    # finally test tibble
+    skip_if_not_installed("tibble")
+    expect_s3_class(res, "tbl_df")
+    expect_equal(read_clipboard("tibble"), tibble::as_tibble(x))
+  })
+})
+
+test_that("clipboard methods", {
+  need_clipr()
+  expect_clip(simple_tbl("\t"), "data.frame")
+  expect_clip(simple_tbl("\t"), "excel")
+  expect_clip(simple_tbl("\t"), "calc")
+  expect_clip(simple_tbl("\t"), "tibble")
+  expect_clip(simple_tbl(","), "csv")
+  expect_clip(simple_tbl(";"), "csv2")
+  expect_clip(simple_tbl(";"), "csv2")
+  expect_clip(simple_tbl("|"), "bsv")
+  expect_clip(simple_tbl("|"), "psv")
+  expect_clip(simple_tbl("\t"), "tsv")
+  expect_clip("| a | b | c |\n|--:|--:|--:|\n| 1 | 2 | 3 |", "md")
 })
 
 test_that("utils_type_convert()", {
@@ -50,7 +58,7 @@ test_that("utils_type_convert()", {
   xint <- c("121021", "-12191", "121001", "  ")
   xdat <- c("2020-05-01", "1900-10-10", "1655-06-07")
   xlgl <- c("TRUE", "  true", "FALSE", "fALSE", "na", "NA")
-  rchr <- xchr
+  rchr <- c("this", "that", NA, "121", "them", ".011", "2020", NA)
   rdbl <- as.double(xdbl)
   rint <- as.integer(xint)
   rdat <- as.Date(xdat)

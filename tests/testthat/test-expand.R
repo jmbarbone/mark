@@ -20,12 +20,21 @@ test_that("expand_by() work", {
   expect_equal(exp, res)
 
   res <- expand_by(x, y, "both", sort = TRUE)
-  exp <- sort_names(c(c = "c", b = "b", e = "e", i = "i", a = NA, d = NA, h = NA))
+  exp <- sort_names(
+    c(c = "c", b = "b", e = "e", i = "i", a = NA, d = NA, h = NA)
+  )
   expect_equal(exp, res)
 
-  expect_error(expect_warning(expand_by(c(a = 1, a = 1), c(a = 1))))
-  expect_error(expect_warning(expand_by(c(a = 1), c(a = 1, a = 1))))
-  expect_error()
+  # nolint start: line_length_linter.
+  expect_error(
+    expect_warning(expand_by(c(a = 1, a = 1), c(a = 1))),
+    class = "simpleError"
+  )
+  expect_error(
+    expect_warning(expand_by(c(a = 1), c(a = 1, a = 1))),
+    class = "simpleError"
+  )
+  # nolint end: line_length_linter.
 })
 
 test_that("reindex() work", {
@@ -47,10 +56,16 @@ test_that("reindex() work", {
   reindex(iris1, "index", seq(2, 8, 2))
   reindex(iris1, "index", seq(2, 8, 2), expand = "both")
 
-  expect_error(reindex(1), "data.frame")
-  expect_error(reindex(data.frame(a = 1), index = integer()), "new_index")
+  expect_error(reindex(1), class = "class_error")
+  expect_error(
+    reindex(dataframe(a = 1), index = integer()),
+    class = if (getRversion() >= "4.5") "missingArgError" else "simpleError",
+  )
 })
 
 test_that("expand helpers work", {
-  expect_warning(unique_name_check(c(a = 1, a = 2)))
+  expect_warning(
+    unique_name_check(c(a = 1, a = 2)),
+    class = "duplicate_warning"
+  )
 })

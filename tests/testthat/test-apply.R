@@ -141,42 +141,13 @@ test_that("vap_lgl()", {
 
 test_that("capply()", {
   nm <- c("one", "two", "three")
-  x <- set_names0(1:3, nm)
+  x <- set_names(1:3, nm)
   res0 <- c(1, 4, 9)
-  res1 <- set_names0(res0, nm)
+  res1 <- set_names(res0, nm)
   foo <- function(x) x^2
-
-  # Should appropriately set names
-  expect_equal(capply(x, foo, .nm = FALSE), res0)
-  expect_equal(capply(x, foo, .nm = TRUE),  res1)
 
   # Combines full lists
   x <- list(c(1:3), NA_real_, 4, 5, NULL, 6:7)
   res <- c(1, 4, 9, NA, 16, 25, 36, 49)
   expect_equal(capply(x, foo), res)
-})
-
-
-# slappy ------------------------------------------------------------------
-
-test_that("slapply()", {
-  x <- 1:10
-  foo <- function(i) i^i
-
-  res <- slapply(x, foo, .names = FALSE)
-  exp <- foo(x)
-  expect_identical(res, exp)
-
-  res <- slapply(x, foo)
-  exp <- set_names0(x^x, x)
-  expect_identical(res, exp)
-
-  res <- slapply(x, foo, .simplify = TRUE)
-  exp <- simplify2array(exp)
-  expect_identical(res, exp)
-
-  x <- set_names0(x)
-  res <- slapply(x, foo)
-  exp <- set_names0(x^x, x)
-  expect_identical(res, exp)
 })

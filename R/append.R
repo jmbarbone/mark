@@ -18,21 +18,27 @@ append0.list <- function(x, values, pos = NULL, expand = FALSE, ...) {
 
   if (expand) {
     n <- unique(lengths(x))
+
     if (length(n) > 1) {
-      warning("expanding to the largest n")
+      warning(append_warning())
       n <- max(n)
     }
+
     for (i in seq_along(values)) {
       values[[i]] <- rep_len(values[[i]], n)
     }
   }
+
   if (!is.list(values)) {
     values <- list(values)
   }
+
   len <- length(x)
+
   if (is.null(pos) || pos > len) {
     return(c(x, values))
   }
+
   if (pos == 1L) {
     return(c(values, x))
   }
@@ -54,3 +60,14 @@ append0.default <- function(x, values, pos = NULL, ...) {
   pos <- min(pos, n)
   c(x[1L:(pos - 1L)], values, x[pos:n])
 }
+
+
+# conditions --------------------------------------------------------------
+
+# TODO does this need to be it's own condition?
+append_warning := condition(
+  message = "expanding to the largest n",
+  type = "warning",
+  package = "mark",
+  exports = "insert"
+)

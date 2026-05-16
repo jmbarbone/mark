@@ -7,7 +7,7 @@
 complete_cases(data, cols = NULL, invert = FALSE)
 }
 \arguments{
-\item{data}{A data.frame}
+\item{data}{A \code{data.frame}}
 
 \item{cols}{Colnames or numbers to remove \code{NA} values from; \code{NULL} (default)
 will use all columns}

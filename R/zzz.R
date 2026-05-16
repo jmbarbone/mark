@@ -1,7 +1,3 @@
-.onAttach <- function(libname, pkgname) {
-  options(op.mark[names(op.mark) %out% names(options())])
-}
-
-.onDetach <- function(libpath) {
-
-}
+# FIXME include:
+cnd_exports()
+cnd_document()

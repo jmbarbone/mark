@@ -50,7 +50,6 @@ remove_na.factor <- function(x) {
 #' @rdname remove_na
 #' @export
 remove_na.fact <- function(x) {
-  # browser()
   x <- fact_na(x, remove = TRUE)
   at <- attributes(x)
   x <- x[!is.na(x)]
@@ -94,9 +93,8 @@ omit_na <- function(x) {
 #' @export
 remove_null <- function(x) {
   if (!inherits(x, "list")) {
-    stop("x must be a list", call. = FALSE)
+    stop(type_error("must_be", x, "list"))
   }
-
   x[!vap_lgl(x, is.null)]
 }
 
@@ -104,43 +102,36 @@ remove_null <- function(x) {
 #'
 #' Select or remove columns that are entirely NA
 #'
-#' @param x A data.frame
+#' @param x A `data.frame`
 #' @param names Logical, if `TRUE` (default) will return column names as names
 #'   of vector
 #'
 #' @returns
-#' * `select_na_cols()` the data.frame with only columns that are all `NA`
-#' * `remove_na_cols()` the data.frame without columns of only `NA`
+#' * `select_na_cols()` `x` with only columns that are all `NA`
+#' * `remove_na_cols()` `x` without columns of only `NA`
 #' * `is_na_cols()` a logical vector: `TRUE` all rows of column are `NA`,
 #'  otherwise `FALSE`
 #' @name na_cols
+NULL
+
+#' @rdname na_cols
 #' @export
-
 select_na_cols <- function(x) {
-  if (!is.data.frame(x)) {
-    stop("x must be a data.frame", call. = FALSE)
-  }
-
-  x[, is_na_cols(x)]
+  x[, is_na_cols(x), drop = FALSE]
 }
 
 #' @rdname na_cols
 #' @export
 remove_na_cols <- function(x) {
-  if (!is.data.frame(x)) {
-    stop("x must be a data.frame", call. = FALSE)
-  }
-
-  x[, !is_na_cols(x)]
+  x[, !is_na_cols(x), drop = FALSE]
 }
 
 #' @rdname na_cols
 #' @export
 is_na_cols <- function(x, names = TRUE) {
   if (!is.data.frame(x)) {
-    stop("x must be a data.frame", call. = FALSE)
+    stop(class_error("must_be", x, "data.frame"))
   }
-
   vap_lgl(x, function(xx) all(is.na(xx)), .nm = names)
 }
 
@@ -166,11 +157,12 @@ is_na_cols <- function(x, names = TRUE) {
 #' tableNA(x[1], x[2])
 #' tableNA(x[1], x[2], x[3]) # equivalent ot tableNA(x, .list = TRUE)
 
+# nolint next: object_name_linter.
 tableNA <- function(..., .list = FALSE) {
   ls <- if (.list) {
     as.list(...)
   } else {
-    list(...)
+    rlang::list2(...)
   }
 
   if (is.null(names(ls))) {

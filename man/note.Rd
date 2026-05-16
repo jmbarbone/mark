@@ -20,7 +20,8 @@ note(x)
 }
 \value{
 \itemize{
-\item \verb{note<-}, \code{set_note()} will return \code{x} (with the \code{"note"} attribute assigned)
+\item \verb{note<-}, \code{set_note()} will return \code{x} (with the \code{"note"} attribute
+assigned)
 \item \code{note()} will retrieve the \code{"note"} attribute
 }
 }
@@ -29,16 +30,16 @@ An alternative to the \code{\link[base:comment]{base::comment()}}.
 }
 \details{
 When the note is assigned to an object a new class will be added,
-\code{note}, so that a \code{print} function can call an S3 method.  The print for this
-can be adjusted for it's width by using the option \code{mark.note.width} which
-defaults to the option \code{width} when not set.
+\code{note}, so that a \code{print} function can call an S3 method.  The print for
+this can be adjusted for it's width by using the option \code{mark.note.width}
+which defaults to the option \code{width} when not set.
 
-The type of object assigned to the note is not restricted, so user beware of
-odd prints or additional features added to the notes fun.
+The type of object assigned to the note is not restricted, so user beware
+of odd prints or additional features added to the notes fun.
 
-When assigning a note (with \verb{note<-}, and its alias \code{set_note()}) the \code{noted}
-class is added to the object.  This allows the \code{print.noted} class to be
-dispatched and for the note to be printed every time the object is
+When assigning a note (with \verb{note<-}, and its alias \code{set_note()}) the
+\code{noted} class is added to the object.  This allows the \code{print.noted} class
+to be dispatched and for the note to be printed every time the object is
 called/printed and the next print method used.  However, it will not be
 called when not \code{interactive()}
 }

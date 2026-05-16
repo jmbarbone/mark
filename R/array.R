@@ -1,3 +1,5 @@
+# nocov start
+
 #' Array extract
 #'
 #' Extract dimensions from an array
@@ -16,16 +18,20 @@
 #' array_extract(x, `2` = 2, `3` = 3)
 
 array_extract <- function(.arr, ..., default = "1") {
-  ls <- dotlist(...)
+  # what was even the point of this?
+  .Deprecated(
+    msg = c(
+      "`array_extract()` is deprecated.",
+      " Please use standard R array indexing instead, e.g., `arr[1, 2, 3]`."
+    )
+  )
+  stopifnot(is.array(.arr))
 
-  if (!is.array(.arr)) {
-    stop(".arr must be an array", call. = FALSE)
-  }
-
+  ls <- rlang::list2(...)
   nm <- wuffle(as.integer(names(ls) %||% seq_along(ls)))
 
   if (anyNA(nm)) {
-    stop("... must be fully named by integers or have no names", call. = FALSE)
+    stop(input_error("... must be fully named by integers or have no names"))
   }
 
   ds <- dim(.arr)
@@ -55,10 +61,4 @@ array_extract <- function(.arr, ..., default = "1") {
   eval(str2expression(text), envir = parent.frame())
 }
 
-dotlist <- function(...) {
-  if (tryCatch(is.list(...), error = function(e) FALSE)) {
-    return(list(...)[[1]])
-  }
-
-  list(...)
-}
+# nocov end
