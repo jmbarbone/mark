@@ -16,5 +16,5 @@ package_available(namespace)
 }
 }
 \description{
-A wrapped \code{\link[base:ns-load]{base::requireNamespace()}}
+A wrapped \code{\link[base:requireNamespace]{base::requireNamespace()}}
 }

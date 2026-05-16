@@ -22,7 +22,7 @@ switch_case(..., .default = NULL, .envir = parent.frame())
 (default: \code{NULL} produces an \code{NA} value derived from \code{...})}
 
 \item{.envir}{The environment in which to evaluate the LHS of \code{...} (default:
-\code{\link[base:sys.parent]{base::parent.frame()}})}
+\code{\link[base:parent.frame]{base::parent.frame()}})}
 }
 \value{
 A named vector of values of same length \code{x}; or for

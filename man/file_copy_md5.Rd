@@ -12,7 +12,7 @@ file_copy_md5(path, new_path, overwrite = NA, quiet = FALSE)
 \item{new_path}{A character vector of paths to the new locations.}
 
 \item{overwrite}{When \code{NA}, only saves if the md5 hashes do not match.
-Otherwise, see \code{\link[fs:copy]{fs::file_copy()}}.}
+Otherwise, see \code{\link[fs:file_copy]{fs::file_copy()}}.}
 
 \item{quiet}{When \code{TRUE}, suppresses messages from md5 checks.}
 }

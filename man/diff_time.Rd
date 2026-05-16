@@ -89,7 +89,7 @@ specifications into the console for less potential confusion.
 \section{Time zones}{
  Time zones can be passed as either a numeric vector of
 GMT/UTC offsets (the number of seconds from GMT) or as a character vector.
-If the letter, these need to conform with values from \code{\link[base:timezones]{base::OlsonNames()}}.
+If the letter, these need to conform with values from \code{\link[base:OlsonNames]{base::OlsonNames()}}.
 
 A default timezone can be set with \code{options(mark.default_tz = .)}.  The
 value can either be a numeric

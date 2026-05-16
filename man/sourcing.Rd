@@ -18,7 +18,7 @@ try_ksource(file, ...)
 
 \item{...}{Additional arguments passed to \code{\link[base:source]{base::source()}}}
 
-\item{quiet}{Logical; Determines whether to apply silence to \code{\link[knitr:knit]{knitr::purl()}}}
+\item{quiet}{Logical; Determines whether to apply silence to \code{\link[knitr:purl]{knitr::purl()}}}
 
 \item{cd}{Logical; if \code{TRUE}, the \strong{R} working directory is temporarily
 changed to the directory containing file for evaluating}
