@@ -157,6 +157,7 @@ converter <- function(x) {
 #' @name fact
 `converter<-` <- function(x, value) {
   attr(x, "converter") <- match.fun(value)
+  x
 }
 
 #' @export
@@ -172,6 +173,7 @@ is.fact <- is_fact # nolint: object_name_linter.
 # helpers -----------------------------------------------------------------
 
 new_fact <- function(x, levels, fun) {
+  x <- as.integer(x)
   levels(x) <- as.character(levels)
   converter(x) <- fun
   # assign "factor" class _after_ levels()
@@ -218,16 +220,23 @@ as.ordered.fact <- function(x) {
   if (is.ordered(x)) {
     return(x)
   }
-  v <- values(x)
-  class(x) <- c("ordered", class(x))
-  values(x) <- v
+
+  x <- fact(x)
+  lev <- levels(x)
+  if (anyNA(levels(x))) {
+    # NA values just need to be shifted
+    m <- which(is.na(lev))
+    x <- as.integer(x)
+    x[x == m] <- NA_integer_
+    x <- x - (x > m)
+    levels(x) <- lev[-m]
+  }
+  class(x) <- c("ordered", "fact", "factor")
   x
 }
 
 #' @export
-as.factor.fact <- function(x) {
-  struct(x, c(if (is.ordered(x)) "ordered", "factor"), levels = levels(x))
-}
+as.factor.fact <- identity
 
 #' @export
 print.fact <- function(

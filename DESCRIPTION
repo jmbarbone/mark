@@ -24,6 +24,7 @@ Depends:
 Imports:
     cli,
     cnd,
+    facts,
     fs (>= 0.2.0),
     fuj,
     generics,
@@ -59,6 +60,7 @@ Suggests:
     xopen,
     yaml (>= 2.3.9),
 Remotes:
+    github::jmbarbone/facts@simplify,
     github::jmbarbone/cnd@v0.1.1.9002,
     github::jmbarbone/fuj@v0.2.2.9011
 Roxygen: list(markdown = TRUE)

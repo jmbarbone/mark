@@ -16,6 +16,11 @@
 #'
 #' @export
 pseudo_id <- function(x, ...) {
+  # TODO consider deprecating pseudo_id() in v0.9.0
+  # warning(deprecated_warning(
+  #   "pseudo_id() is deprecated and will be removed in a future version.",
+  #   " Use as.integer(fact(x)) instead."
+  # ))
   UseMethod("pseudo_id", x)
 }
 
