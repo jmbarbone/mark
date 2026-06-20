@@ -60,9 +60,9 @@ Suggests:
     xopen,
     yaml (>= 2.3.9),
 Remotes:
-    github::jmbarbone/facts@simplify,
+    github::jmbarbone/facts,
     github::jmbarbone/cnd@v0.1.1.9002,
-    github::jmbarbone/fuj@v0.2.2.9011
+    github::jmbarbone/fuj@105-defaults
 Roxygen: list(markdown = TRUE)
 Config/testthat/edition: 3
 Config/testthat/parallel: true
@@ -89,7 +89,6 @@ Collate:
     'directory.R'
     'environments.R'
     'expand.R'
-    'fact.R'
     'fct-expand-seq.R'
     'file.R'
     'fizzbuzz.R'
@@ -125,6 +124,7 @@ Collate:
     'recode.R'
     'reexports-fuj.R'
     'reexports-magrittr.R'
+    'rexports-facts.R'
     'round-by.R'
     'round.R'
     'row-bind.R'

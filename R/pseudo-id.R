@@ -46,7 +46,7 @@ pseudo_id.default <- function(x, na_last = TRUE, ...) {
 #' @export
 #' @rdname pseudo_id
 pseudo_id.factor <- function(x, ...) {
-  pseudo_id(fact_values(fact(x)))
+  pseudo_id(facts::values(fact(x)))
 }
 
 #' Print `pseudo_id`

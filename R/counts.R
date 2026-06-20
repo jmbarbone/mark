@@ -49,7 +49,7 @@ counts <- function(x, ...) {
 #' @export
 counts.default <- function(x, sort = FALSE, ...) {
   x <- pseudo_id(x)
-  u <- attr(x, "values")
+  u <- attr(x, "uniques")
   out <- tabulate(x, length(u))
   nas <- is.na(u)
   names(out) <- c(u[!nas], u[nas])

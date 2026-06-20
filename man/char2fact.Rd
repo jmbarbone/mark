@@ -30,7 +30,6 @@ Converts characters to factors
 \code{\link[=fact2char]{fact2char()}}
 
 Other factors:
-\code{\link[=fact]{fact()}},
 \code{\link[=fact2char]{fact2char()}}
 }
 \concept{factors}
