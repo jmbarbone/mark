@@ -10,13 +10,13 @@ multi_grepl(x, patterns, ..., simplify = TRUE)
 multi_grep(x, patterns, ..., simplify = TRUE)
 }
 \arguments{
-\item{x}{Passed to \code{\link[base:grep]{base::grepl()}}}
+\item{x}{Passed to \code{\link[base:grepl]{base::grepl()}}}
 
 \item{patterns}{A list or vector of patterns to search across \code{x}; if named
 value returned will be the name of the pattern -- otherwise the position.
 Pattern match reported will be the first in the list that is found}
 
-\item{...}{Additional arguments passed to \code{\link[base:grep]{base::grepl()}}}
+\item{...}{Additional arguments passed to \code{\link[base:grepl]{base::grepl()}}}
 
 \item{simplify}{if \code{FALSE} will return a list of all matches, otherwise the
 first match found}

@@ -20,9 +20,9 @@ char2fact.default <- function(x, n = 5) {
 #' @rdname char2fact
 #' @export
 char2fact.character <- function(x, n = 5) {
-  id <- pseudo_id(x)
+  fct <- factor(x)
 
-  if (length(.uniques(id)) <= n) {
+  if (length(attr(id, "uniques")) <= n) {
     x <- fact(id)
   }
 

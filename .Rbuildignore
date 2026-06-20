@@ -20,3 +20,5 @@ revdep
 ^\.lintr$
 ^\.git$
 ^air\.toml$
+^\.positai$
+^\.claude$

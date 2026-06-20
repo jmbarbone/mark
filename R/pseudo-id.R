@@ -16,6 +16,11 @@
 #'
 #' @export
 pseudo_id <- function(x, ...) {
+  # TODO consider deprecating pseudo_id() in v0.9.0
+  # warning(deprecated_warning(
+  #   "pseudo_id() is deprecated and will be removed in a future version.",
+  #   " Use as.integer(fact(x)) instead."
+  # ))
   UseMethod("pseudo_id", x)
 }
 
@@ -41,7 +46,7 @@ pseudo_id.default <- function(x, na_last = TRUE, ...) {
 #' @export
 #' @rdname pseudo_id
 pseudo_id.factor <- function(x, ...) {
-  pseudo_id(fact_values(fact(x)))
+  pseudo_id(facts::values(fact(x)))
 }
 
 #' Print `pseudo_id`

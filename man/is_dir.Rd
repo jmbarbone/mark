@@ -19,6 +19,6 @@ A \code{logical} vector
 Is the path a file/directory?
 }
 \details{
-These are essentially taken from \code{\link[utils:filetest]{utils::file_test()}} for \code{op = '-d'} and
+These are essentially taken from \code{\link[utils:file_test]{utils::file_test()}} for \code{op = '-d'} and
 \code{op = -f} but separated.
 }

@@ -45,6 +45,6 @@ squash_vec <- function(x, sep = ".") {
   x <- unlist0(x)
   id <- pseudo_id(x, na_last = FALSE)
   nm <- names(x)
-  squasher <- function(i) collapse(nm[i], sep = sep)
-  .uniques(id) %names% vap_chr(split(seq_along(id), id), squasher)
+  squasher <- function(i) collapse0(nm[i], sep = sep)
+  attr(id, "uniques") %names% vap_chr(split(seq_along(id), id), squasher)
 }

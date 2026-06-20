@@ -21,11 +21,7 @@ Convert factor columns to characters in a \code{data.frame}
 \seealso{
 \code{\link[=char2fact]{char2fact()}}
 
-Other factors: 
-\code{\link{as_ordered}()},
-\code{\link{char2fact}()},
-\code{\link{drop_levels}()},
-\code{\link{fact}()},
-\code{\link{fact_na}()}
+Other factors:
+\code{\link[=char2fact]{char2fact()}}
 }
 \concept{factors}

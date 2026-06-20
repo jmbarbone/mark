@@ -1,5 +1,3 @@
-
-
 # counts() ----------------------------------------------------------------
 
 test_that("counts.default() work", {
@@ -19,7 +17,6 @@ test_that("counts.default() work", {
 })
 
 test_that("counts() works with NAs", {
-
   # Correct sort
   x <- c(FALSE, TRUE, NA)
   res <- set_names(c(1, 1, 1), x)
@@ -123,7 +120,7 @@ test_that("props() handles NA", {
   df <- dataframe(x = x, y = y)
 
   res_x1 <- dataframe(x = c(1, 2, 3, NA), prop = c(.20, .40, .20, .20))
-  res_x2 <- dataframe(x = c(1, 2, 3, NA), prop = c(.25, .50, .25,  NA))
+  res_x2 <- dataframe(x = c(1, 2, 3, NA), prop = c(.25, .50, .25, NA))
   expect_identical(props(df, "x"), res_x1)
   expect_identical(props(df, "x", na.rm = TRUE), res_x2)
 
