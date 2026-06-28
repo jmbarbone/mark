@@ -23,11 +23,11 @@ This re-formats the \code{x} value so that \code{NA}s are found immediately with
 object rather than accessed through its attributes.
 }
 \seealso{
-Other factors: 
-\code{\link{as_ordered}()},
-\code{\link{char2fact}()},
-\code{\link{drop_levels}()},
-\code{\link{fact}()},
-\code{\link{fact2char}()}
+Other factors:
+\code{\link[=as_ordered]{as_ordered()}},
+\code{\link[=char2fact]{char2fact()}},
+\code{\link[=drop_levels]{drop_levels()}},
+\code{\link[=fact]{fact()}},
+\code{\link[=fact2char]{fact2char()}}
 }
 \concept{factors}

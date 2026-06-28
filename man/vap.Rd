@@ -39,7 +39,7 @@ A vector of type matching the intended value in the function name.
 Wrappers for vapply
 }
 \details{
-These are simply wrappers for \code{\link[base:lapply]{base::vapply()}} to shorten lines.
+These are simply wrappers for \code{\link[base:vapply]{base::vapply()}} to shorten lines.
 
 Each function is designed to use specific vector types:
 
@@ -53,5 +53,5 @@ Each function is designed to use specific vector types:
 }
 }
 \seealso{
-\code{\link[base:lapply]{base::vapply()}}
+\code{\link[base:vapply]{base::vapply()}}
 }

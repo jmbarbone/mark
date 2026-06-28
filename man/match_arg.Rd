@@ -23,14 +23,15 @@ to \code{character} vectors only.
 Match arguments
 }
 \examples{
+shh <- function(expr) suppressWarnings(expr, "deprecated_warning")
 x <- c("apple", "banana", "orange")
-suppressWarnings(match_arg("b", x), "deprecatedWarning")
+shh(match_arg("b", x))
 
 # Produces error
-suppressWarnings(try(match_arg("pear", x)), "deprecatedWarning")
+shh(try(match_arg("pear", x)))
 
 foo <- function(x, op = c(1, 2, 3)) {
-  op <- suppressWarnings(match_arg(op), "deprecatedWarning")
+  op <- shh(match_arg(op))
   x / op
 }
 

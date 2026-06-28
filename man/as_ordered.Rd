@@ -43,11 +43,11 @@ max(x, na.rm = TRUE) # returns b -- correct
 \seealso{
 \code{\link[=fact]{fact()}}
 
-Other factors: 
-\code{\link{char2fact}()},
-\code{\link{drop_levels}()},
-\code{\link{fact}()},
-\code{\link{fact2char}()},
-\code{\link{fact_na}()}
+Other factors:
+\code{\link[=char2fact]{char2fact()}},
+\code{\link[=drop_levels]{drop_levels()}},
+\code{\link[=fact]{fact()}},
+\code{\link[=fact2char]{fact2char()}},
+\code{\link[=fact_na]{fact_na()}}
 }
 \concept{factors}

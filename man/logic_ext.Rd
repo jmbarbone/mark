@@ -74,14 +74,14 @@ All functions take logical or logical-like (i.e., \code{1}, \code{0}, or
 
 Extensions to the base logical operations to account for \code{NA} values.
 
-\code{\link[base:Logic]{base::isTRUE()}} and \code{\link[base:Logic]{base::isFALSE()}} will only return single length
+\code{\link[base:isTRUE]{base::isTRUE()}} and \code{\link[base:isFALSE]{base::isFALSE()}} will only return single length
 \code{TRUE} or \code{FALSE} as it checks for valid lengths in the evaluation.  When
 needing to check over a vector for the presence of \code{TRUE} or \code{FALSE} and
 not being held back by \code{NA} values, \code{\link[=is_true]{is_true()}} and
 \code{\link[=is_false]{is_false()}} will always provide a \code{TRUE} \code{FALSE} when the vector is
 logical or return \code{NA} is the vector \code{x} is not logical.
 
-\link{\%xor\%} is just a wrapper for \code{\link[base:Logic]{base::xor()}}
+\link{\%xor\%} is just a wrapper for \code{\link[base:xor]{base::xor()}}
 }
 \details{
 Logical operations, extended
@@ -94,10 +94,6 @@ isTRUE(x)
 is_true(x)
 isFALSE(x)
 is_false(x)
-x \%xor\% TRUE
-TRUE \%xor\% TRUE
-TRUE \%xor\% FALSE
-NA \%xor\% FALSE
 OR(x, y, z)
 OR(x, y, z, na.rm = TRUE)
 AND(x, y, z)

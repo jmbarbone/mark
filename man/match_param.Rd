@@ -93,6 +93,3 @@ how_much(9)
 ls <- list(1L ~ 0:1, 2L, 3L ~ 3:5)
 sapply(0:5, match_param, choices = ls)
 }
-\seealso{
-\code{\link[=match_arg]{match_arg()}}
-}

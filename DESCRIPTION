@@ -59,7 +59,6 @@ Suggests:
 Remotes:
     github::jmbarbone/cnd@v0.1.1.9002,
     github::jmbarbone/fuj@v0.2.2.9010
-RoxygenNote: 7.3.3
 Roxygen: list(markdown = TRUE)
 Config/testthat/edition: 3
 Config/testthat/parallel: true
@@ -140,3 +139,4 @@ Collate:
     'within.R'
     'write.R'
     'zzz.R'
+Config/roxygen2/version: 8.0.0

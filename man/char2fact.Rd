@@ -29,11 +29,11 @@ Converts characters to factors
 \seealso{
 \code{\link[=fact2char]{fact2char()}}
 
-Other factors: 
-\code{\link{as_ordered}()},
-\code{\link{drop_levels}()},
-\code{\link{fact}()},
-\code{\link{fact2char}()},
-\code{\link{fact_na}()}
+Other factors:
+\code{\link[=as_ordered]{as_ordered()}},
+\code{\link[=drop_levels]{drop_levels()}},
+\code{\link[=fact]{fact()}},
+\code{\link[=fact2char]{fact2char()}},
+\code{\link[=fact_na]{fact_na()}}
 }
 \concept{factors}

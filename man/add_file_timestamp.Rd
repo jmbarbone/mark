@@ -35,6 +35,4 @@ file2 <- tempfile()
 
 add_file_timestamp(file1)
 add_file_timestamp(file2)
-
-file.remove(file1, file2)
 }

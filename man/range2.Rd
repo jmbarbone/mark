@@ -7,7 +7,7 @@
 range2(x, na.rm = FALSE)
 }
 \arguments{
-\item{x}{A numeric (or character) vector (see Note in \link[base:Extremes]{base::min})}
+\item{x}{A numeric (or character) vector (see Note in \link[base:min]{base::min})}
 
 \item{na.rm}{Logical, if \code{TRUE} removes missing values}
 }
@@ -16,7 +16,7 @@ A \code{numeric} vector of length 2 of the minimum and maximum values,
 respectively
 }
 \description{
-Employs \code{\link[base:Extremes]{base::min()}} and \code{\link[base:Extremes]{base::max()}}.  However, \code{\link[base:range]{base::range()}}, there is
+Employs \code{\link[base:min]{base::min()}} and \code{\link[base:max]{base::max()}}.  However, \code{\link[base:range]{base::range()}}, there is
 no argument for removing \code{Inf} values.
 }
 \examples{

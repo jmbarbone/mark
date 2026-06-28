@@ -31,7 +31,7 @@ determined by file extension of \code{path}, if present, otherwise by the type
 of object of \code{x}.}
 
 \item{overwrite}{When \code{NA}, only saves if the md5 hashes do not match.
-Otherwise, see \code{\link[fs:copy]{fs::file_copy()}}.}
+Otherwise, see \code{\link[fs:file_copy]{fs::file_copy()}}.}
 
 \item{quiet}{When \code{TRUE}, suppresses messages from md5 checks.}
 
@@ -44,7 +44,7 @@ Otherwise, see \code{\link[fs:copy]{fs::file_copy()}}.}
 \value{
 \itemize{
 \item \code{\link[=write_file_md5]{write_file_md5()}}: \code{x}, invisibly.  When \code{path} is not the
-\code{\link[base:showConnections]{base::stdout()}}, \code{x} is returned with the attribute \code{"path"} set to the
+\code{\link[base:stdout]{base::stdout()}}, \code{x} is returned with the attribute \code{"path"} set to the
 result of \code{\link[=file_copy_md5]{file_copy_md5()}}.
 \item \code{\link[=mark_write_methods]{mark_write_methods()}}: A list of applicable methods and their
 aliases

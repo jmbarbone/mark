@@ -51,7 +51,7 @@ Quickly create a factor
 }
 \details{
 \code{\link[=fact]{fact()}} can be about 5 times quicker than \code{\link[base:factor]{base::factor()}} or
-\code{\link[base:factor]{base::as.factor()}} as it doesn't bother sorting the levels for non-numeric
+\code{\link[base:as.factor]{base::as.factor()}} as it doesn't bother sorting the levels for non-numeric
 data or have other checks or features.  It simply converts a vector to a
 factor with all unique values as levels with \code{NA}s included.
 
@@ -76,11 +76,11 @@ they are}
 \seealso{
 \code{\link[=as_ordered]{as_ordered()}}
 
-Other factors: 
-\code{\link{as_ordered}()},
-\code{\link{char2fact}()},
-\code{\link{drop_levels}()},
-\code{\link{fact2char}()},
-\code{\link{fact_na}()}
+Other factors:
+\code{\link[=as_ordered]{as_ordered()}},
+\code{\link[=char2fact]{char2fact()}},
+\code{\link[=drop_levels]{drop_levels()}},
+\code{\link[=fact2char]{fact2char()}},
+\code{\link[=fact_na]{fact_na()}}
 }
 \concept{factors}
