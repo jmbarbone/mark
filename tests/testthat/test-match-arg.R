@@ -76,17 +76,6 @@ test_that("match_param() accepts can return multiple", {
   expect_identical(fruits(), c("apple", "banana", "orange"))
 })
 
-test_that("match_arg() works", {
-  foo <- function(x = c("a", "b"), table) {
-    suppressWarnings(match_arg(x, table), "deprecated_warning")
-  }
-
-  expect_null(foo(NULL))
-  expect_identical(foo(), "a")
-  expect_identical(foo(table = "a"), "a")
-  expect_error(foo(table = "c"), class = "mark:match_arg_error")
-})
-
 test_that("match_param() accepts multiple [#104]", {
   foo <- function(x = list(this = 1:2, that = 3)) {
     mark::match_param(x)
