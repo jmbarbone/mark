@@ -1,14 +1,17 @@
 #' @include not-available.R
-
 #' mark
 #'
 #' Miscellaneous, Analytic R Kernels
 #'
-#' @import fuj
-#' @import cnd
+#' @importFrom fuj %||% %|||% %out% collapse list0
+#' @importFrom cnd cnd condition cnd_create_registry cnd_exports cnd_document
+#' @importFrom cnd class_error duplicate_error input_error type_error value_error
+#' @importFrom cnd deprecated_warning duplicate_warning input_warning
+#'
 #' @docType package
 #' @name mark
 "_PACKAGE"
+
 
 na_list <- list(
   logical = logical(),
