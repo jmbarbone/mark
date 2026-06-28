@@ -28,6 +28,7 @@ cleanup (e.g., trimming whitespace and lowercasing) are not longer performed
 * `write_file_md5(method = "feather")`, `write_file_md5(method = "parquet")` now use `{feather}` and `{nanoparquet}`, respectively, rather than `{arrow}` [#245](https://github.com/jmbarbone/mark/issues/245)
 * `read_clipboard("md")` no longer needs `{readMdTable}`
 * `read_clibpboard()` will always return a `tibble` if `{tibble}` is available (this can be turned off if `options(mark.tibble = FALSE)`)
+* `outer_call()` uses `format()` for calls, reducing the size of very large object inputs; specifically from `match_param()`
 
 # mark 0.8.3
 

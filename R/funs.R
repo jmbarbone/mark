@@ -22,14 +22,14 @@ within_fun <- function() {
 #' @export
 outer_call <- function(n = 0) {
   s <- sys.call(-2 - n)
-  charexpr(s)
+  format(s)
 }
 
 #' @rdname within_call
 #' @export
 outer_fun <- function(n = 0) {
   s <- sys.call(-2 - n)
-  as.character(s)[1]
+  format(as.list(s)[[1L]])
 }
 
 rn <- function(namespace) {
