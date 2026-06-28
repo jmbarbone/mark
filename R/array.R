@@ -15,16 +15,15 @@
 #' x[1, 2, 3] <- TRUE
 #' x[1, 2, 3]
 #' x
-#' array_extract(x, `2` = 2, `3` = 3)
+#' suppressWarnings(array_extract(x, `2` = 2, `3` = 3), "deprecated_warning")
 
 array_extract <- function(.arr, ..., default = "1") {
   # what was even the point of this?
-  .Deprecated(
-    msg = c(
-      "`array_extract()` is deprecated.",
-      " Please use standard R array indexing instead, e.g., `arr[1, 2, 3]`."
-    )
-  )
+  warning(deprecated_warning(
+    deprecated = "array_extract(a)",
+    replacement = "a[]",
+    version = "0.10.0"
+  ))
   stopifnot(is.array(.arr))
 
   ls <- rlang::list2(...)

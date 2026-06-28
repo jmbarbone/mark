@@ -1,3 +1,5 @@
+# TODO replace mark::match_arg() with fuj::match_arg()
+
 #' Match arguments
 #'
 #' Match arguments
@@ -13,14 +15,15 @@
 #'
 #' @seealso [mark::match_param()]
 #' @examples
+#' shh <- function(expr) suppressWarnings(expr, "deprecated_warning")
 #' x <- c("apple", "banana", "orange")
-#' suppressWarnings(match_arg("b", x), "deprecatedWarning")
+#' shh(match_arg("b", x))
 #'
 #' # Produces error
-#' suppressWarnings(try(match_arg("pear", x)), "deprecatedWarning")
+#' shh(try(match_arg("pear", x)))
 #'
 #' foo <- function(x, op = c(1, 2, 3)) {
-#'   op <- suppressWarnings(match_arg(op), "deprecatedWarning")
+#'   op <- shh(match_arg(op))
 #'   x / op
 #' }
 #'
@@ -78,7 +81,6 @@ match_arg <- function(x, table) {
 #' @section Conditions:
 #' `r cnd::cnd_section("match_param")`
 #'
-#' @seealso [mark::match_arg()]
 #' @examples
 #' fruits <- function(x = c("apple", "banana", "orange")) {
 #'   match_param(x)

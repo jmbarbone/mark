@@ -25,8 +25,6 @@ walrus <- function(sym, val) {
 
 # standard conditions -----------------------------------------------------
 
-#' @importFrom cnd input_error input_warning value_error type_error class_error
-
 internal_error := condition(
   function(x) {
     c(

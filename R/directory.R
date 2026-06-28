@@ -462,8 +462,6 @@ file_name <- function(x, compression = FALSE) {
 #'
 #' add_file_timestamp(file1)
 #' add_file_timestamp(file2)
-#'
-#' file.remove(file1, file2)
 add_file_timestamp <- function(
   x,
   ts = Sys.time(),
