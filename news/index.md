@@ -79,6 +79,11 @@
   [tibble](https://tibble.tidyverse.org/) is available (this can be
   turned off if `options(mark.tibble = FALSE)`)
 
+- [`outer_call()`](https://jmbarbone.github.io/mark/reference/within_call.md)
+  uses [`format()`](https://rdrr.io/r/base/format.html) for calls,
+  reducing the size of very large object inputs; specifically from
+  [`match_param()`](https://jmbarbone.github.io/mark/reference/match_param.md)
+
 ## mark 0.8.3
 
 CRAN release: 2025-04-23

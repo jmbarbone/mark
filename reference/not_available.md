@@ -16,14 +16,6 @@ NA_POSIXct_
 NA_POSIXlt_
 ```
 
-## Format
-
-An object of class `Date` of length 1.
-
-An object of class `POSIXct` (inherits from `POSIXt`) of length 1.
-
-An object of class `logical` of length 1.
-
 ## Arguments
 
 - type:

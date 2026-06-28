@@ -36,16 +36,13 @@ Match arguments
 ## Examples
 
 ``` r
+shh <- function(expr) suppressWarnings(expr, "deprecated_warning")
 x <- c("apple", "banana", "orange")
-suppressWarnings(match_arg("b", x), "deprecatedWarning")
-#> Warning: <deprecated_warning>
-#> mark::match_arg() is deprecated, use mark::match_param() instead and will be removed in 0.10.0
+shh(match_arg("b", x))
 #> [1] "banana"
 
 # Produces error
-suppressWarnings(try(match_arg("pear", x)), "deprecatedWarning")
-#> Warning: <deprecated_warning>
-#> mark::match_arg() is deprecated, use mark::match_param() instead and will be removed in 0.10.0
+shh(try(match_arg("pear", x)))
 #> Error in match_arg() : <mark:match_arg_error>
 #> pear : 'pear' did not match of of the following:
 #>    'apple'
@@ -55,19 +52,15 @@ suppressWarnings(try(match_arg("pear", x)), "deprecatedWarning")
 #>    'orange'
 
 foo <- function(x, op = c(1, 2, 3)) {
-  op <- suppressWarnings(match_arg(op), "deprecatedWarning")
+  op <- shh(match_arg(op))
   x / op
 }
 
 foo(10, 3)
-#> Warning: <deprecated_warning>
-#> mark::match_arg() is deprecated, use mark::match_param() instead and will be removed in 0.10.0
 #> [1] 3.333333
 
 # Error
 try(foo(1, 0))
-#> Warning: <deprecated_warning>
-#> mark::match_arg() is deprecated, use mark::match_param() instead and will be removed in 0.10.0
 #> Error in match_arg() : <mark:match_arg_error>
 #> op : '0' did not match of of the following:
 #>    '1'

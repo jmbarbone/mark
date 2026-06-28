@@ -46,8 +46,8 @@ and the resulting `TRUE` or `FALSE` is are tabulated.
 
 ## References
 
-Becker, R. A., Chambers, J. M. and Wilks, A. R. (1988) *The New S
-Language*. Wadsworth & Brooks/Cole.
+Becker RA, Chambers JM, Wilks AR (1988). *The New S Language*. Chapman
+and Hall/CRC, London. ISBN 053409192X.
 
 ## See also
 

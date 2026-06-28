@@ -14,10 +14,6 @@ fizzbuzz_lazy(n)
 .fizzbuzz_vector
 ```
 
-## Format
-
-An object of class `character` of length 1000000.
-
 ## Arguments
 
 - n:
@@ -92,8 +88,8 @@ if (package_available("bench")) {
 #> # A tibble: 2 × 13
 #>   expression     min  median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_time
 #>   <bch:expr> <bch:t> <bch:t>     <dbl> <bch:byt>    <dbl> <int> <dbl>   <bch:tm>
-#> 1 fizzbuzz(…  36.3ms  38.8ms      25.3    5.19MB     5.06    10     2      395ms
-#> 2 fizzbuzz_… 595.1µs   625µs    1570.    38.21MB    61.1    437    17      278ms
+#> 1 fizzbuzz(…  34.1ms  35.5ms      27.9    5.19MB     5.06    11     2      395ms
+#> 2 fizzbuzz_… 566.4µs 587.9µs    1672.    38.21MB    60.6    414    15      248ms
 #> # ℹ 4 more variables: result <list>, memory <list>, time <list>, gc <list>
 # }
 ```

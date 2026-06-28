@@ -15,6 +15,7 @@ Some parts happily ripped from and (hopefully) credited to others.
 You can download the current CRAN version with:
 
 ``` r
+
 install.packages("mark")
 ```
 
@@ -22,6 +23,7 @@ You can the development version from
 [GitHub](https://github.com/jmbarbone/mark) with:
 
 ``` r
+
 remotes::install_github("jmbarbone/mark")
 ```
 
@@ -32,6 +34,7 @@ so much. Below are a selection of a few functions that could potential
 be useful for others:
 
 ``` r
+
 library(mark)
 #> 
 #> Attaching package: 'mark'
@@ -46,6 +49,7 @@ library(mark)
 Get dates from sloppy entries:
 
 ``` r
+
 bad_dates <- c("2020 Dec 8th", "1970 May", "??", "1984 UNK UN")
 date_from_partial(bad_dates)
 #> [1] "2020-12-08" "1970-05-01" NA           "1984-01-01"
@@ -58,6 +62,7 @@ date_from_partial(c("May 2000", "08Dec2020"), format = "dmy")
 Slice strings:
 
 ``` r
+
 x <- stringi::stri_rand_lipsum(1)
 str_slice(x, n = 50L)
 #>  [1] "Lorem ipsum dolor sit amet, nisl eleifend sed proi"
@@ -100,6 +105,7 @@ str_slice_by_word(x)
 Read in bibliographies:
 
 ``` r
+
 file <- system.file("extdata", "example-bib.txt", package = "mark")
 bib <- read_bib(file)
 tibble::as_tibble(bib)
@@ -128,6 +134,7 @@ tibble::as_tibble(bib)
 More matching:
 
 ``` r
+
 1:10 %out% c(1, 3, 5, 9) # opposite of %in% 
 #>  [1] FALSE  TRUE FALSE  TRUE FALSE  TRUE  TRUE  TRUE FALSE  TRUE
 letters[1:5] %wo% letters[3:7]
@@ -139,6 +146,7 @@ letters[1:5] %wi% letters[3:7]
 Small functions for working with data.frames:
 
 ``` r
+
 x <- list(a = 1:5, b = letters[1:5])
 quick_df(x)
 #>   a b
@@ -166,6 +174,7 @@ quick_dfl(a = 1:3, b = list(1:5, 6:10, 11:15))
 Counts and proportions:
 
 ``` r
+
 set.seed(42)
 x <- sample(1:5, 20, TRUE, 5:1/2)
 counts(x)
@@ -196,6 +205,7 @@ props(df, 1:3)
 Date time differences:
 
 ``` r
+
 x <- as.POSIXlt("2021-02-13 05:02:30", tz = "America/New_York") + c(0, -1, 2) * 3600 * 24
 y <- as.POSIXlt("2020-02-13 05:02:30", tz = "America/New_York") + c(0, -2, 4) * 3600 * 24
 
@@ -237,6 +247,7 @@ diff_time_days(x, y, NULL, 31536000)
 Simple factors:
 
 ``` r
+
 fact(c("a", "c", NA, "a", "b", NA, "a", "c")) # no sorting
 #> [1] a    c    <NA> a    b    <NA> a    c   
 #> Levels: a c b <NA>

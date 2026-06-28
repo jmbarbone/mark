@@ -97,18 +97,6 @@ isFALSE(x)
 #> [1] FALSE
 is_false(x)
 #> [1] FALSE  TRUE FALSE
-x %xor% TRUE
-#> Warning: `%xor%` is deprecated. Please use `xor()` instead.
-#> [1] FALSE  TRUE    NA
-TRUE %xor% TRUE
-#> Warning: `%xor%` is deprecated. Please use `xor()` instead.
-#> [1] FALSE
-TRUE %xor% FALSE
-#> Warning: `%xor%` is deprecated. Please use `xor()` instead.
-#> [1] TRUE
-NA %xor% FALSE
-#> Warning: `%xor%` is deprecated. Please use `xor()` instead.
-#> [1] NA
 OR(x, y, z)
 #> [1] TRUE   NA TRUE
 OR(x, y, z, na.rm = TRUE)

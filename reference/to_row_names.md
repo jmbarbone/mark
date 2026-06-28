@@ -25,6 +25,7 @@ A `data.frame`
 ## Examples
 
 ``` r
+
 x <- data.frame(
   a = 1:4,
   b = letters[1:4]

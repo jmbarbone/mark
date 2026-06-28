@@ -69,10 +69,6 @@ package. The following conditions are associated with this function:
 For more conditions, see:
 [mark-cnd-conditions](https://jmbarbone.github.io/mark/reference/mark-cnd-conditions.md)
 
-## See also
-
-[`match_arg()`](https://jmbarbone.github.io/mark/reference/match_arg.md)
-
 ## Examples
 
 ``` r

@@ -15,7 +15,8 @@ range2(x, na.rm = FALSE)
 
 - x:
 
-  A numeric (or character) vector (see Note in base::min)
+  A numeric (or character) vector (see Note in
+  [base::min](https://rdrr.io/r/base/Extremes.html))
 
 - na.rm:
 
@@ -33,17 +34,17 @@ respectively
 x <- rep(1:1e5, 100)
 system.time(rep(range(x),  100))
 #>    user  system elapsed 
-#>   0.025   0.003   0.028 
+#>   0.023   0.004   0.027 
 system.time(rep(range2(x), 100))
 #>    user  system elapsed 
-#>   0.014   0.000   0.014 
+#>   0.013   0.001   0.012 
 x[sample(x, 1e5)] <- NA
 
 system.time(rep(range(x, na.rm = TRUE), 100))
 #>    user  system elapsed 
-#>   0.385   0.018   0.403 
+#>   0.297   0.016   0.315 
 system.time(rep(range2(x, na.rm = TRUE), 100))
 #>    user  system elapsed 
-#>   0.015   0.000   0.014 
+#>   0.013   0.000   0.013 
 # }
 ```

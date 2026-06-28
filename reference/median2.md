@@ -26,8 +26,8 @@ q50(x, type = 7, na.rm = FALSE)
 
 - na.rm:
 
-  logical; if true, any [`NA`](https://rdrr.io/r/base/NA.html) and
-  `NaN`'s are removed from `x` before the quantiles are computed.
+  logical; if true, any [`NA`](https://rdrr.io/r/base/NA.html) and `NaN`
+  values are removed from `x` before the quantiles are computed.
 
 ## Value
 
