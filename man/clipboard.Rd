@@ -51,12 +51,10 @@ empty clipboard value returns \code{NA} rather than \code{""}
 Wrappers for working with the clipboard
 }
 \details{
-As these functions rely on \code{\link[clipr:read_clip]{clipr::read_clip()}} and
-\code{\link[utils:writeClipboard]{utils::writeClipboard()}} they are only available for Windows 10. For
+As these functions rely on \code{\link[clipr:read_clip]{clipr::read_clip()}}. For
 copying and pasting floats, there may be some rounding that can occur.
 }
 \examples{
-# Will only run on windows
 foo <- function(x) {
   write_clipboard(x)
   y <- read_clipboard()
