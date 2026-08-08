@@ -80,8 +80,8 @@ The following conditions are defined in the \code{{mark}} package.
 }
 \section{\code{{cnd}}}{
 
-These conditions are made with the \code{\link[cnd:cnd-package]{\{cnd\}}} package though the
-use of \code{\link[cnd:condition]{cnd::condition()}}.
+These conditions are made with the \code{\link[cnd:cnd-package]{\{cnd\}}} package though
+the use of \code{\link[cnd:condition]{cnd::condition()}}.
 }
 
 \section{\code{{mark}} conditions}{
