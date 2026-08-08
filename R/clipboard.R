@@ -2,8 +2,7 @@
 #'
 #' Wrappers for working with the clipboard
 #'
-#' @details As these functions rely on [clipr::read_clip()] and
-#'   [utils::writeClipboard()] they are only available for Windows 10. For
+#' @details As these functions rely on [clipr::read_clip()]. For
 #'   copying and pasting floats, there may be some rounding that can occur.
 #'
 #' @param x An object to write to the clipboard
@@ -18,7 +17,6 @@
 #'
 #' @name clipboard
 #' @examples
-#' # Will only run on windows
 #' foo <- function(x) {
 #'   write_clipboard(x)
 #'   y <- read_clipboard()

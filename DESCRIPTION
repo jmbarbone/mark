@@ -1,7 +1,7 @@
 Package: mark
 Type: Package
 Title: Multipurpose Aids for R Kit
-Version: 0.8.3.9008
+Version: 0.8.3.9009
 Authors@R:
     person(given   = "Jordan Mark",
            family  = "Barbone",
@@ -58,7 +58,7 @@ Suggests:
     yaml (>= 2.3.9),
 Remotes:
     github::jmbarbone/cnd@v0.1.1.9002,
-    github::jmbarbone/fuj@v0.2.2.9010
+    github::jmbarbone/fuj@v0.2.2.9013
 Roxygen: list(markdown = TRUE)
 Config/testthat/edition: 3
 Config/testthat/parallel: true

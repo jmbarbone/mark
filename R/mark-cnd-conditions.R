@@ -8,8 +8,8 @@
 #'   The following conditions are defined in the `{mark}` package.
 #'
 #' @section `{cnd}`:
-#'   These conditions are made with the [`{cnd}`][cnd-package] package though the
-#'   use of [cnd::condition()].
+#'   These conditions are made with the [`{cnd}`][cnd-package] package though
+#'   the use of [cnd::condition()].
 #'
 #' @section `{mark}` conditions:
 #'
