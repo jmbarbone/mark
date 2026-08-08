@@ -62,15 +62,13 @@ read_clipboard_methods()
 ## Details
 
 As these functions rely on
-[`clipr::read_clip()`](http://matthewlincoln.net/clipr/reference/read_clip.md)
-and [`utils::writeClipboard()`](https://rdrr.io/r/utils/clipboard.html)
-they are only available for Windows 10. For copying and pasting floats,
-there may be some rounding that can occur.
+[`clipr::read_clip()`](http://matthewlincoln.net/clipr/reference/read_clip.md).
+For copying and pasting floats, there may be some rounding that can
+occur.
 
 ## Examples
 
 ``` r
-# Will only run on windows
 foo <- function(x) {
   write_clipboard(x)
   y <- read_clipboard()

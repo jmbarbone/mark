@@ -84,6 +84,8 @@
   reducing the size of very large object inputs; specifically from
   [`match_param()`](https://jmbarbone.github.io/mark/reference/match_param.md)
 
+- internal: dependency updates
+
 ## mark 0.8.3
 
 CRAN release: 2025-04-23

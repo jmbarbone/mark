@@ -1,8 +1,8 @@
 pandoc: 3.8.3
-pkgdown: 2.2.0
+pkgdown: 2.2.1
 pkgdown_sha: ~
 articles: {}
-last_built: 2026-06-28T02:26Z
+last_built: 2026-08-08T05:50Z
 urls:
   reference: https://jmbarbone.github.io/mark/reference
   article: https://jmbarbone.github.io/mark/articles
