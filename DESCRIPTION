@@ -58,7 +58,7 @@ Suggests:
     yaml (>= 2.3.9),
 Remotes:
     github::jmbarbone/cnd@v0.1.1.9002,
-    github::jmbarbone/fuj@v0.2.2.9010
+    github::jmbarbone/fuj@v0.2.2.9013
 Roxygen: list(markdown = TRUE)
 Config/testthat/edition: 3
 Config/testthat/parallel: true

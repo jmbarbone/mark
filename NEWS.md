@@ -29,6 +29,7 @@ cleanup (e.g., trimming whitespace and lowercasing) are not longer performed
 * `read_clipboard("md")` no longer needs `{readMdTable}`
 * `read_clibpboard()` will always return a `tibble` if `{tibble}` is available (this can be turned off if `options(mark.tibble = FALSE)`)
 * `outer_call()` uses `format()` for calls, reducing the size of very large object inputs; specifically from `match_param()`
+* internal: dependency updates
 
 # mark 0.8.3
 
