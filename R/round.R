@@ -12,7 +12,7 @@
 round_to <- function(x, anchors) {
   x <- as.double(x)
   anchors <- as.double(anchors)
-  mat <- do.call(rbind, lapply(x, function(i) i - anchors))
+  mat <- do.call(rbind, lapply(x, \(i) i - anchors))
   mat[] <- abs(mat)
   anchors[apply(mat, 1, which.min)]
 }

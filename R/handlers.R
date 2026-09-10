@@ -90,7 +90,7 @@ has_catch <- function(x, FUN, ..., type = c("error", "warning", "message")) {
   type <- match_param(type)
   FUN <- match.fun(FUN) # nolint: object_name_linter.
   res <- sapply(x, catch(FUN), ..., USE.NAMES = TRUE, simplify = FALSE)
-  out <- vap_lgl(res, function(i) !is.null(i[[type]]))
+  out <- vap_lgl(res, \(i) !is.null(i[[type]]))
   attr(out, "result") <- lapply(res, `[[`, "result")
   attr(out, "class") <- c("has_catch", "logical")
   set_names(out, x)
@@ -105,7 +105,7 @@ print.has_catch <- function(x, ...) {
 # nolint next: object_name_linter
 get_catch <- function(x, FUN, type, ..., null = TRUE) {
   res <- sapply(x, catch(FUN), ..., USE.NAMES = TRUE, simplify = FALSE)
-  out <- sapply(res, function(i) i[[type]], USE.NAMES = TRUE, simplify = FALSE)
+  out <- sapply(res, \(i) i[[type]], USE.NAMES = TRUE, simplify = FALSE)
   out <- set_names(out, x)
 
   if (!null) {

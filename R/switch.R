@@ -191,8 +191,8 @@ switch_case <- function(..., .default = NULL, .envir = parent.frame()) {
 
   # split by the tilde
   splits <- strsplit(as.character(ls), "\\s?~\\s?")
-  lhs <- lapply(splits, function(i) eval(parse(text = i[1L]), envir = .envir))
-  rhs <- lapply(splits, function(i) eval(parse(text = i[2L]), envir = .envir))
+  lhs <- lapply(splits, \(i) eval(parse(text = i[1L]), envir = .envir))
+  rhs <- lapply(splits, \(i) eval(parse(text = i[2L]), envir = .envir))
 
   lhs <- switch_length_check(lhs)
   rhs <- switch_length_check(rhs)
@@ -204,7 +204,7 @@ switch_case <- function(..., .default = NULL, .envir = parent.frame()) {
   # create as matrices
   lmat <- Reduce(cbind, lhs, right = FALSE)
   rmat <- Reduce(cbind, rhs, right = TRUE)
-  w <- apply(lmat, 1L, function(x) which(x)[1])
+  w <- apply(lmat, 1L, \(x) which(x)[1])
   inds <- cbind(seq_along(w), w)
   out <-
     if (nrow(rmat) == nrow(inds)) {

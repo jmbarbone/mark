@@ -132,7 +132,7 @@ is_na_cols <- function(x, names = TRUE) {
   if (!is.data.frame(x)) {
     stop(class_error("must_be", x, "data.frame"))
   }
-  vap_lgl(x, function(xx) all(is.na(xx)), .nm = names)
+  vap_lgl(x, \(xx) all(is.na(xx)), .nm = names)
 }
 
 #' Table NA values
@@ -169,7 +169,7 @@ tableNA <- function(..., .list = FALSE) {
     names(ls) <- as.character(sys.call())[-1]
   }
 
-  out <- table(lapply(ls, function(x) mark::fact(is.na(x))))
+  out <- table(lapply(ls, \(x) mark::fact(is.na(x))))
   dn <- rep(list(c(TRUE, FALSE)), length(ls))
   names(dn) <- names(ls)
   dimnames(out) <- dn

@@ -18,7 +18,7 @@ test_that("tests with temp dir", {
 
   invisible(sapply(
     dirs,
-    function(x) dir_create(file_path(td, x), overwrite = TRUE)
+    \(x) dir_create(file_path(td, x), overwrite = TRUE)
   ))
 
   # Add a second so times are unique
@@ -28,7 +28,7 @@ test_that("tests with temp dir", {
 
   invisible(sapply(
     "no_ext",
-    function(x) file_create(file_path(td, x), overwrite = TRUE)
+    \(x) file_create(file_path(td, x), overwrite = TRUE)
   ))
 
   # Add a second so times are unique

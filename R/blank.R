@@ -47,7 +47,7 @@ is_blank_cols <- function(x, names = TRUE, na_blank = FALSE, ws = TRUE) {
 
   vap_lgl(
     x,
-    function(i) all(is_blank(i, na_blank = na_blank, ws = ws)),
+    \(i) all(is_blank(i, na_blank = na_blank, ws = ws)),
     .nm = names
   )
 }

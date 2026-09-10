@@ -43,7 +43,7 @@ are_identical <- function(..., params = NULL) {
 
 do_map_identical <- function(x, y, params = NULL) {
   mapply(
-    function(.x, .y) do.call(identical, c(list(x = .x, y = .y), params)),
+    \(.x, .y) do.call(identical, c(list(x = .x, y = .y), params)),
     .x = x,
     .y = y,
     USE.NAMES = FALSE,

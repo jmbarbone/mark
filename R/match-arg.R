@@ -169,7 +169,7 @@ match_param <- function(
     ))
   }
 
-  res <- lapply(m, function(i) mchoices$values[[i]])
+  res <- lapply(m, \(i) mchoices$values[[i]])
 
   if (simplify) {
     res <- unlist0(res)

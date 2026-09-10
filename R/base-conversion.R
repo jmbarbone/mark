@@ -78,7 +78,7 @@ base_n_single <- function(x, base) {
   }
 
   seqs <- (length(ints) - 1L):0L
-  as.integer(sum(mapply(function(i, s) i * base^s, i = ints, s = seqs)))
+  as.integer(sum(mapply(\(i, s) i * base^s, i = ints, s = seqs)))
 }
 
 check_base_alpha <- function(b, high = 26L) {

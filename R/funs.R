@@ -50,7 +50,7 @@ package_available <- function(namespace) {
   warning(cnd::deprecated_warning(
     deprecated = quote(mark::package_available()),
     replacement = quote(fuj::available_namespace()),
-    version = package_version("0.8.4")
+    version = package_version("0.9.0")
   ))
   vap_lgl(namespace, requireNamespace, quietly = TRUE)
 }

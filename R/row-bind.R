@@ -25,7 +25,7 @@ row_bind <- function(...) {
 
   cinds <- lapply(
     names,
-    function(x, y) match(y, x, nomatch = NA_integer_),
+    \(x, y) match(y, x, nomatch = NA_integer_),
     all_names
   )
 

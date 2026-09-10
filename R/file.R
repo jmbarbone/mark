@@ -12,11 +12,11 @@
 #'   sums.
 file_copy_md5 <- function(path, new_path, overwrite = NA, quiet = FALSE) {
   msg <- if (quiet) {
-    function(...) invisible()
+    \(...) invisible()
   } else if (utils::packageVersion("fuj") < "0.2.2") {
-    function(...) cat(..., "\n")
+    \(...) cat(..., "\n")
   } else {
-    function(...) cnd(md5_condition(...))
+    \(...) cnd(md5_condition(...))
   }
 
   # not as pretty, but pretty reasonable
@@ -51,7 +51,7 @@ file_copy_md5 <- function(path, new_path, overwrite = NA, quiet = FALSE) {
 }
 
 md5_condition := condition(
-  function(...) paste(..., collapse = ""),
+  \(...) paste(..., collapse = ""),
   type = "condition",
   exports = "file_copy_md5",
   # nolint start: line_length_linter.

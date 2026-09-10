@@ -76,7 +76,7 @@ read_bib <- function(file, skip = 0L, max_lines = NULL, encoding = "UTF-8") {
   # shift over (may contain white space?)
   to <- c(from[-1L] - 1L, length(bib))
 
-  item_list <- Map(function(x, y) bib[x:y], x = from, y = to - 1L)
+  item_list <- Map(\(x, y) bib[x:y], x = from, y = to - 1L)
 
   # Extract first line for speediness
   first_line <- sapply(item_list, `[`, 1L)

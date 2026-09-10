@@ -26,7 +26,7 @@ test_that("outer_*()", {
 test_that("require_namespace()", {
   expect_error(
     require_namespace("impossible package"),
-    class = "packageNotFoundError"
+    class = "input_error"
   )
 
   foo <- function() {
