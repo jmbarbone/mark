@@ -296,45 +296,49 @@ export(write_clipboard)
 export(write_file_md5)
 export(wuffle)
 export(xnandr)
-importFrom(cnd,class_error)
-importFrom(cnd,cnd)
-importFrom(cnd,cnd_create_registry)
-importFrom(cnd,cnd_document)
-importFrom(cnd,cnd_exports)
-importFrom(cnd,condition)
-importFrom(cnd,deprecated_warning)
-importFrom(cnd,duplicate_error)
-importFrom(cnd,duplicate_warning)
-importFrom(cnd,input_error)
-importFrom(cnd,input_warning)
-importFrom(cnd,type_error)
-importFrom(cnd,value_error)
-importFrom(fuj,"%::%")
-importFrom(fuj,"%:::%")
-importFrom(fuj,"%colons%")
-importFrom(fuj,"%len%")
-importFrom(fuj,"%names%")
-importFrom(fuj,"%out%")
-importFrom(fuj,"%wi%")
-importFrom(fuj,"%wo%")
-importFrom(fuj,"%||%")
-importFrom(fuj,"%|||%")
-importFrom(fuj,any_match)
-importFrom(fuj,collapse)
-importFrom(fuj,exattr)
-importFrom(fuj,flip)
-importFrom(fuj,is_linux)
-importFrom(fuj,is_macos)
-importFrom(fuj,is_named)
-importFrom(fuj,is_windows)
-importFrom(fuj,list0)
-importFrom(fuj,muffle)
-importFrom(fuj,no_match)
-importFrom(fuj,quick_df)
-importFrom(fuj,quick_dfl)
-importFrom(fuj,remove_names)
-importFrom(fuj,require_namespace)
-importFrom(fuj,set_names)
-importFrom(fuj,struct)
-importFrom(fuj,wuffle)
+importFrom(cnd,
+  class_error,
+  cnd,
+  cnd_create_registry,
+  cnd_document,
+  cnd_exports,
+  condition,
+  deprecated_warning,
+  duplicate_error,
+  duplicate_warning,
+  input_error,
+  input_warning,
+  type_error,
+  value_error
+)
+importFrom(fuj,
+  "%::%",
+  "%:::%",
+  "%colons%",
+  "%len%",
+  "%names%",
+  "%out%",
+  "%wi%",
+  "%wo%",
+  "%||%",
+  "%|||%",
+  any_match,
+  collapse,
+  exattr,
+  flip,
+  is_linux,
+  is_macos,
+  is_named,
+  is_windows,
+  list0,
+  muffle,
+  no_match,
+  quick_df,
+  quick_dfl,
+  remove_names,
+  require_namespace,
+  set_names,
+  struct,
+  wuffle
+)
 importFrom(magrittr,"%>%")
