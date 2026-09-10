@@ -153,19 +153,19 @@ test_that("Timezones", {
 
   expect_warning(
     diff_time(Sys.Date(), Sys.Date(), tzx = NA, tzy = "GMT"),
-    class = "mark:na_timezone_found_warning"
+    class = "mark::na_timezone_found_warning"
   )
 })
 
 test_that("Error checking", {
   expect_error(
     diff_time_secs(1:10, 1:10),
-    class = "mark:numeric_datetime_tz_error"
+    class = "mark::numeric_datetime_tz_error"
   )
 
   expect_error(
     diff_time_secs(st, st, "Not good"),
-    class = "mark:timezone_not_found_error"
+    class = "mark::timezone_not_found_error"
   )
 
   # Don't throw error because of NA tz
@@ -190,7 +190,7 @@ test_that("class coehersion", {
 
   expect_warning(
     to_numeric_with_tz("2021-01-01", NA),
-    class = "mark:na_timezone_found_warning"
+    class = "mark::na_timezone_found_warning"
   )
 
   expect_identical(check_tz(NULL), NULL)
