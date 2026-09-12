@@ -32,13 +32,13 @@ test_that("data.frame assignment", {
   expect_error(
     assign_labels(x0, a = "x", b = "y", `1` = 2),
     "not found",
-    class = "mark:assign_labels_error"
+    class = "mark::assign_labels_error"
   )
 
   expect_error(
     assign_labels(x0, NULL),
     "malformed",
-    class = "mark:assign_labels_error"
+    class = "mark::assign_labels_error"
   )
 
   expect_true(is.null(attr(exp0[["Species"]], "label")))
@@ -49,26 +49,26 @@ test_that("data.frame assignment", {
   expect_error(
     assign_labels(x0, .ls = list()),
     "malformed",
-    class = "mark:assign_labels_error"
+    class = "mark::assign_labels_error"
   )
   expect_error(
     assign_labels(x0, a = 1, .ls = list(b = 2)),
     "set",
-    class = "mark:assign_labels_error"
+    class = "mark::assign_labels_error"
   )
 
   df <- dataframe(a = 1, b = 2, c = 3)
   expect_error(
     assign_labels(df, c = "c", d = "d", .missing = "error"),
     "not found",
-    class = "mark:assign_labels_error"
+    class = "mark::assign_labels_error"
   )
 
   # error is raised as a warning
   expect_error(
     assign_labels(df, c = "c", d = "d", .missing = "warn"),
     "not found",
-    class = "mark:assign_labels_error"
+    class = "mark::assign_labels_error"
   )
 
   expect_warning(
@@ -103,7 +103,7 @@ test_that("data.frame assign with data.frame", {
 
   expect_error(
     assign_labels(iris, bad_labels),
-    class = "mark:assign_labels_error"
+    class = "mark::assign_labels_error"
   )
 
   options(op)

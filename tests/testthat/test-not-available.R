@@ -2,7 +2,7 @@ test_that("not_available() works", {
   expect_error(get_not_available(), NA)
   expect_error(
     get_not_available("foo"),
-    class = "mark:not_available_error"
+    class = "mark::not_available_error"
   )
 
   val <- struct(NA, "foo")
@@ -15,7 +15,7 @@ test_that("not_available() works", {
   expect_true(is.na(not_available("Date", 1)))
 
   set_not_available("foo", NULL)
-  set_not_available("foo_fun", function() NULL)
+  set_not_available("foo_fun", \() NULL)
   expect_error(
     get_not_available("foo_fun"),
     class = "class_error"

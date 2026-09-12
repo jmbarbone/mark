@@ -2,29 +2,29 @@
 % Please edit documentation in R/mark-cnd-conditions.R
 \name{mark-cnd-conditions}
 \alias{mark-cnd-conditions}
-\alias{mark:append_warning}
-\alias{mark:assign_labels_error}
-\alias{mark:base_conversion_error}
-\alias{mark:description_version_error}
-\alias{mark:fct_expand_seq_error}
-\alias{mark:import_error}
-\alias{mark:internal_error}
-\alias{mark:list2df_warning}
-\alias{mark:match_arg_error}
-\alias{mark:match_param_error}
-\alias{mark:md5_condition}
-\alias{mark:na_timezone_found_warning}
-\alias{mark:not_available_error}
-\alias{mark:numeric_datetime_tz_error}
-\alias{mark:options_error}
-\alias{mark:path_error}
-\alias{mark:path_warning}
-\alias{mark:reindex_error}
-\alias{mark:reindex_warning}
-\alias{mark:source_error}
-\alias{mark:switch_error}
-\alias{mark:timezone_not_found_error}
-\alias{mark:view_labels_error}
+\alias{mark::append_warning}
+\alias{mark::assign_labels_error}
+\alias{mark::base_conversion_error}
+\alias{mark::description_version_error}
+\alias{mark::fct_expand_seq_error}
+\alias{mark::import_error}
+\alias{mark::internal_error}
+\alias{mark::list2df_warning}
+\alias{mark::match_arg_error}
+\alias{mark::match_param_error}
+\alias{mark::md5_condition}
+\alias{mark::na_timezone_found_warning}
+\alias{mark::not_available_error}
+\alias{mark::numeric_datetime_tz_error}
+\alias{mark::options_error}
+\alias{mark::path_error}
+\alias{mark::path_warning}
+\alias{mark::reindex_error}
+\alias{mark::reindex_warning}
+\alias{mark::source_error}
+\alias{mark::switch_error}
+\alias{mark::timezone_not_found_error}
+\alias{mark::view_labels_error}
 \alias{append_warning}
 \alias{assign_labels_error}
 \alias{base_conversion_error}
@@ -90,7 +90,7 @@ the use of \code{\link[cnd:condition]{cnd::condition()}}.
 \subsection{\code{mark:append_warning/warning}}{
 \describe{
 \item{package}{\code{{mark}}}
-\item{class}{\code{mark:append_warning}}
+\item{class}{\code{mark::append_warning}}
 \item{type}{\strong{warning}}
 }
 \emph{no help documentation provided}
@@ -98,7 +98,7 @@ the use of \code{\link[cnd:condition]{cnd::condition()}}.
 \subsection{\code{mark:assign_labels_error/error}}{
 \describe{
 \item{package}{\code{{mark}}}
-\item{class}{\code{mark:assign_labels_error}}
+\item{class}{\code{mark::assign_labels_error}}
 \item{type}{\strong{error}}
 }
 \code{assign_labels_error}
@@ -132,7 +132,7 @@ df <- remove_labels(df, 'b')
 \subsection{\code{mark:base_conversion_error/error}}{
 \describe{
 \item{package}{\code{{mark}}}
-\item{class}{\code{mark:base_conversion_error}}
+\item{class}{\code{mark::base_conversion_error}}
 \item{type}{\strong{error}}
 }
 \emph{no help documentation provided}
@@ -140,7 +140,7 @@ df <- remove_labels(df, 'b')
 \subsection{\code{mark:description_version_error/error}}{
 \describe{
 \item{package}{\code{{mark}}}
-\item{class}{\code{mark:description_version_error}}
+\item{class}{\code{mark::description_version_error}}
 \item{type}{\strong{error}}
 }
 \emph{no help documentation provided}
@@ -148,7 +148,7 @@ df <- remove_labels(df, 'b')
 \subsection{\code{mark:fct_expand_seq_error/error}}{
 \describe{
 \item{package}{\code{{mark}}}
-\item{class}{\code{mark:fct_expand_seq_error}}
+\item{class}{\code{mark::fct_expand_seq_error}}
 \item{type}{\strong{error}}
 }
 \emph{no help documentation provided}
@@ -156,7 +156,7 @@ df <- remove_labels(df, 'b')
 \subsection{\code{mark:import_error/error}}{
 \describe{
 \item{package}{\code{{mark}}}
-\item{class}{\code{mark:import_error}}
+\item{class}{\code{mark::import_error}}
 \item{type}{\strong{error}}
 }
 The object you are trying to import has already been assigned in the environment you are importing to.  Use the \code{overwrite} option to replace the object.
@@ -176,7 +176,7 @@ import('package', 'foo', overwrite = TRUE)
 \subsection{\code{mark:internal_error/error}}{
 \describe{
 \item{package}{\code{{mark}}}
-\item{class}{\code{mark:internal_error}}
+\item{class}{\code{mark::internal_error}}
 \item{type}{\strong{error}}
 }
 Generic error to capture internal \code{{mark}} errors.  If any of these are encountered, please report an issue at \url{https://github.com/jmbarbone/mark/issues}
@@ -184,7 +184,7 @@ Generic error to capture internal \code{{mark}} errors.  If any of these are enc
 \subsection{\code{mark:list2df_warning/warning}}{
 \describe{
 \item{package}{\code{{mark}}}
-\item{class}{\code{mark:list2df_warning}}
+\item{class}{\code{mark::list2df_warning}}
 \item{type}{\strong{warning}}
 }
 \emph{no help documentation provided}
@@ -192,7 +192,7 @@ Generic error to capture internal \code{{mark}} errors.  If any of these are enc
 \subsection{\code{mark:match_arg_error/error}}{
 \describe{
 \item{package}{\code{{mark}}}
-\item{class}{\code{mark:match_arg_error}}
+\item{class}{\code{mark::match_arg_error}}
 \item{type}{\strong{error}}
 }
 \emph{no help documentation provided}
@@ -200,7 +200,7 @@ Generic error to capture internal \code{{mark}} errors.  If any of these are enc
 \subsection{\code{mark:match_param_error/error}}{
 \describe{
 \item{package}{\code{{mark}}}
-\item{class}{\code{mark:match_param_error}}
+\item{class}{\code{mark::match_param_error}}
 \item{type}{\strong{error}}
 }
 \emph{no help documentation provided}
@@ -208,7 +208,7 @@ Generic error to capture internal \code{{mark}} errors.  If any of these are enc
 \subsection{\code{mark:md5_condition/condition}}{
 \describe{
 \item{package}{\code{{mark}}}
-\item{class}{\code{mark:md5_condition}}
+\item{class}{\code{mark::md5_condition}}
 \item{type}{\strong{condition}}
 }
 Produces messages on md5 checks when \code{file_copy_md5(quiet = FALSE)}.
@@ -218,7 +218,7 @@ When \code{quiet = TRUE}, no messages will be produced.
 \subsection{\code{mark:na_timezone_found_warning/warning}}{
 \describe{
 \item{package}{\code{{mark}}}
-\item{class}{\code{mark:na_timezone_found_warning}}
+\item{class}{\code{mark::na_timezone_found_warning}}
 \item{type}{\strong{warning}}
 }
 \emph{no help documentation provided}
@@ -226,7 +226,7 @@ When \code{quiet = TRUE}, no messages will be produced.
 \subsection{\code{mark:not_available_error/error}}{
 \describe{
 \item{package}{\code{{mark}}}
-\item{class}{\code{mark:not_available_error}}
+\item{class}{\code{mark::not_available_error}}
 \item{type}{\strong{error}}
 }
 \emph{no help documentation provided}
@@ -234,7 +234,7 @@ When \code{quiet = TRUE}, no messages will be produced.
 \subsection{\code{mark:numeric_datetime_tz_error/error}}{
 \describe{
 \item{package}{\code{{mark}}}
-\item{class}{\code{mark:numeric_datetime_tz_error}}
+\item{class}{\code{mark::numeric_datetime_tz_error}}
 \item{type}{\strong{error}}
 }
 
@@ -252,7 +252,7 @@ diff_time(100, 200, tz = 0)
 \subsection{\code{mark:options_error/error}}{
 \describe{
 \item{package}{\code{{mark}}}
-\item{class}{\code{mark:options_error}}
+\item{class}{\code{mark::options_error}}
 \item{type}{\strong{error}}
 }
 \emph{no help documentation provided}
@@ -260,7 +260,7 @@ diff_time(100, 200, tz = 0)
 \subsection{\code{mark:path_error/error}}{
 \describe{
 \item{package}{\code{{mark}}}
-\item{class}{\code{mark:path_error}}
+\item{class}{\code{mark::path_error}}
 \item{type}{\strong{error}}
 }
 \emph{no help documentation provided}
@@ -268,7 +268,7 @@ diff_time(100, 200, tz = 0)
 \subsection{\code{mark:path_warning/warning}}{
 \describe{
 \item{package}{\code{{mark}}}
-\item{class}{\code{mark:path_warning}}
+\item{class}{\code{mark::path_warning}}
 \item{type}{\strong{warning}}
 }
 File creation cannot be performed when the path is an existing directory
@@ -276,7 +276,7 @@ File creation cannot be performed when the path is an existing directory
 \subsection{\code{mark:reindex_error/error}}{
 \describe{
 \item{package}{\code{{mark}}}
-\item{class}{\code{mark:reindex_error}}
+\item{class}{\code{mark::reindex_error}}
 \item{type}{\strong{error}}
 }
 \emph{no help documentation provided}
@@ -284,7 +284,7 @@ File creation cannot be performed when the path is an existing directory
 \subsection{\code{mark:reindex_warning/warning}}{
 \describe{
 \item{package}{\code{{mark}}}
-\item{class}{\code{mark:reindex_warning}}
+\item{class}{\code{mark::reindex_warning}}
 \item{type}{\strong{warning}}
 }
 NA values in index may cause errors with expansion
@@ -310,7 +310,7 @@ reindex(x, 'index', c(1, 2, 5, NA))
 \subsection{\code{mark:source_error/error}}{
 \describe{
 \item{package}{\code{{mark}}}
-\item{class}{\code{mark:source_error}}
+\item{class}{\code{mark::source_error}}
 \item{type}{\strong{error}}
 }
 \emph{no help documentation provided}
@@ -318,7 +318,7 @@ reindex(x, 'index', c(1, 2, 5, NA))
 \subsection{\code{mark:switch_error/condition}}{
 \describe{
 \item{package}{\code{{mark}}}
-\item{class}{\code{mark:switch_error}}
+\item{class}{\code{mark::switch_error}}
 \item{type}{\strong{condition}}
 }
 \emph{no help documentation provided}
@@ -326,7 +326,7 @@ reindex(x, 'index', c(1, 2, 5, NA))
 \subsection{\code{mark:timezone_not_found_error/error}}{
 \describe{
 \item{package}{\code{{mark}}}
-\item{class}{\code{mark:timezone_not_found_error}}
+\item{class}{\code{mark::timezone_not_found_error}}
 \item{type}{\strong{error}}
 }
 When using a string for a timezone, this value must be found within \code{OlsonNames()}
@@ -334,7 +334,7 @@ When using a string for a timezone, this value must be found within \code{OlsonN
 \subsection{\code{mark:view_labels_error/error}}{
 \describe{
 \item{package}{\code{{mark}}}
-\item{class}{\code{mark:view_labels_error}}
+\item{class}{\code{mark::view_labels_error}}
 \item{type}{\strong{error}}
 }
 This may be because you are using RStudio :  https://community.rstudio.com/t/view-is-causing-an-error/75297/4 You can try :  \code{utils::View(get_labels(x), title = "Labels")}

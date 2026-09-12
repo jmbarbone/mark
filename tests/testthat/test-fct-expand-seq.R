@@ -31,11 +31,11 @@ test_that("fct_expand_seq() fails", {
 
   expect_error(
     fct_expand_seq(as.ordered("a"), min_lvl = NA),
-    class = "mark:fct_expand_seq_error"
+    class = "mark::fct_expand_seq_error"
   )
 
   expect_error(
     fct_expand_seq(as.ordered("a"), max_lvl = NA),
-    class = "mark:fct_expand_seq_error"
+    class = "mark::fct_expand_seq_error"
   )
 })

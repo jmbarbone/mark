@@ -377,7 +377,7 @@ na_timezone_found_warning := condition(
 )
 
 timezone_not_found_error := condition(
-  function(x) paste0("Timezone(s) not found: ", collapse(x, sep = ", "), "\n"),
+  \(x) paste0("Timezone(s) not found: ", collapse(x, sep = ", "), "\n"),
   type = "error",
   exports = "diff_time",
   classes = "value_error",

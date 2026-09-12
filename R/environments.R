@@ -36,7 +36,7 @@ print.mark_environments <- function(x, ...) {
 #'   environment
 # nolint next: object_name_linter.
 ls_all <- function(all.names = FALSE) {
-  sapply(search(), function(s) ls(as.environment(s), all.names = all.names))
+  sapply(search(), \(s) ls(as.environment(s), all.names = all.names))
 }
 
 #'@export
@@ -87,5 +87,5 @@ ls_object <- make_do_ls(is.object)
 # nolint next: object_name_linter
 do_ls <- function(FUN, pattern, all.names = FALSE, envir = parent.frame()) {
   .ls <- ls(envir = envir, pattern = pattern, all.names = all.names)
-  .ls[vap_lgl(.ls, function(x) FUN(get0(x, envir = envir)))]
+  .ls[vap_lgl(.ls, \(x) FUN(get0(x, envir = envir)))]
 }

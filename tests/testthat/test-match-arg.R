@@ -15,7 +15,7 @@ test_that("match_param() works", {
       sep = "\n"
     ),
     fixed = TRUE,
-    class = "mark:match_param_error"
+    class = "mark::match_param_error"
   )
 
   foo2 <- function(y = 1:3) {
@@ -38,7 +38,7 @@ test_that("match_param() works", {
       "  choices  a, b, c",
       sep = "\n"
     ),
-    class = "mark:match_param_error",
+    class = "mark::match_param_error",
     fixed = TRUE
   )
 
@@ -56,7 +56,7 @@ test_that("match_param() can partialy match", {
   }
 
   expect_identical(fruits(), "apple")
-  expect_error(fruits("a"), class = "mark:match_param_error")
+  expect_error(fruits("a"), class = "mark::match_param_error")
   expect_identical(fruits("app"), "apple")
 
   fruits <- function(x = list("apple" = 1:2, "apricot" = 3, "banana" = 4)) {
@@ -64,7 +64,7 @@ test_that("match_param() can partialy match", {
   }
 
   expect_identical(fruits(), "apple")
-  expect_error(fruits(c(a = 0)), class = "mark:match_param_error")
+  expect_error(fruits(c(a = 0)), class = "mark::match_param_error")
   expect_identical(fruits(1), "apple")
 })
 

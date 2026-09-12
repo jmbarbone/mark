@@ -52,7 +52,7 @@ test_that("list2df()", {
     value = c(1, 2:4, letters[10:20])
   )
 
-  expect_warning(list2df(x), class = "mark:list2df_warning")
+  expect_warning(list2df(x), class = "mark::list2df_warning")
   expect_warning(list2df(x, warn = FALSE), NA)
   expect_equal(list2df(x, warn = FALSE), exp)
 

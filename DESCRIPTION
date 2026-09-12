@@ -1,7 +1,7 @@
 Package: mark
 Type: Package
 Title: Multipurpose Aids for R Kit
-Version: 0.8.3.9009
+Version: 0.8.3.9010
 Authors@R:
     person(given   = "Jordan Mark",
            family  = "Barbone",
@@ -57,8 +57,8 @@ Suggests:
     xopen,
     yaml (>= 2.3.9),
 Remotes:
-    github::jmbarbone/cnd@v0.1.1.9002,
-    github::jmbarbone/fuj@v0.2.2.9013
+    github::jmbarbone/cnd@v0.1.1.9007,
+    github::jmbarbone/fuj@v0.2.2.9016
 Roxygen: list(markdown = TRUE)
 Config/testthat/edition: 3
 Config/testthat/parallel: true
@@ -139,4 +139,4 @@ Collate:
     'within.R'
     'write.R'
     'zzz.R'
-Config/roxygen2/version: 8.0.0
+Config/roxygen2/version: 8.1.0
