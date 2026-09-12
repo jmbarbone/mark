@@ -86,22 +86,30 @@ mark_compress_methods()
 # just writes to stdout()
 df <- data.frame(a = 1, b = 2)
 write_file_md5(df)
+#> Warning: <deprecated_warning>
+#> `mark::package_available()` is deprecated and will be removed in '0.9.0', use `fuj::available_namespace()` instead
 #> "a" "b"
 #> 1 2
 
 temp <- tempfile()
 write_file_md5(df, temp) # new
+#> Warning: <deprecated_warning>
+#> `mark::package_available()` is deprecated and will be removed in '0.9.0', use `fuj::available_namespace()` instead
 #> mark:md5_condition/condition
-#> (mark:md5_condition/cnd::condition/condition)
-#> /tmp/RtmpwhPTuu/file1a2d1942f1d8 (new file)
+#> (mark::md5_condition/cnd::condition/condition)
+#> /tmp/Rtmpm29cap/file1a2c97ca138 (new file)
 write_file_md5(df, temp) # same
+#> Warning: <deprecated_warning>
+#> `mark::package_available()` is deprecated and will be removed in '0.9.0', use `fuj::available_namespace()` instead
 #> mark:md5_condition/condition
-#> (mark:md5_condition/cnd::condition/condition)
-#> /tmp/RtmpwhPTuu/file1a2d1942f1d8 (md5 same)
+#> (mark::md5_condition/cnd::condition/condition)
+#> /tmp/Rtmpm29cap/file1a2c97ca138 (md5 same)
 df$c <- 3
 write_file_md5(df, temp) # changes
+#> Warning: <deprecated_warning>
+#> `mark::package_available()` is deprecated and will be removed in '0.9.0', use `fuj::available_namespace()` instead
 #> mark:md5_condition/condition
-#> (mark:md5_condition/cnd::condition/condition)
-#> /tmp/RtmpwhPTuu/file1a2d1942f1d8 (md5 change)
+#> (mark::md5_condition/cnd::condition/condition)
+#> /tmp/Rtmpm29cap/file1a2c97ca138 (md5 change)
 fs::file_delete(temp)
 ```

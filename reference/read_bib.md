@@ -55,6 +55,8 @@ if (package_available("tibble")) {
 } else {
   head(bibdf)
 }
+#> Warning: <deprecated_warning>
+#> `mark::package_available()` is deprecated and will be removed in '0.9.0', use `fuj::available_namespace()` instead
 #> # A tibble: 4 × 16
 #>   key     field author journal title year  issn  month number pages volume doi  
 #>   <chr>   <chr> <chr>  <chr>   <chr> <chr> <chr> <chr> <chr>  <chr> <chr>  <chr>
@@ -82,10 +84,14 @@ if (package_available("bib2df") & package_available("bench")) {
   )[1:9]
 # }
 }
+#> Warning: <deprecated_warning>
+#> `mark::package_available()` is deprecated and will be removed in '0.9.0', use `fuj::available_namespace()` instead
+#> Warning: <deprecated_warning>
+#> `mark::package_available()` is deprecated and will be removed in '0.9.0', use `fuj::available_namespace()` instead
 #> # A tibble: 3 × 9
 #>   expression      min median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_time
 #>   <bch:expr> <bch:tm> <bch:>     <dbl> <bch:byt>    <dbl> <int> <dbl>   <bch:tm>
-#> 1 read_bib     1.37ms 1.48ms      673.    9.41KB     8.98   300     4      446ms
-#> 2 bib2df       4.48ms 4.72ms      208.     2.9MB     9.57    87     4      418ms
-#> 3 foo          2.24ms  2.4ms      414.  355.36KB     6.61   188     3      454ms
+#> 1 read_bib     1.37ms 1.43ms      698.    9.41KB     8.49   329     4      471ms
+#> 2 bib2df       4.53ms 4.62ms      215.     2.9MB     8.77    98     4      456ms
+#> 3 foo          2.34ms 2.38ms      413.  385.77KB     4.15   199     2      482ms
 ```

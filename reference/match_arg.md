@@ -43,7 +43,7 @@ shh(match_arg("b", x))
 
 # Produces error
 shh(try(match_arg("pear", x)))
-#> Error in match_arg() : <mark:match_arg_error>
+#> Error in match_arg() : <mark::match_arg_error>
 #> pear : 'pear' did not match of of the following:
 #>    'apple'
 #> pear : 'pear' did not match of of the following:
@@ -61,7 +61,7 @@ foo(10, 3)
 
 # Error
 try(foo(1, 0))
-#> Error in match_arg() : <mark:match_arg_error>
+#> Error in match_arg() : <mark::match_arg_error>
 #> op : '0' did not match of of the following:
 #>    '1'
 #> op : '0' did not match of of the following:

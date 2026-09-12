@@ -63,6 +63,8 @@ percentile_rank(x)
 if (package_available("dplyr")) {
   dplyr::percent_rank(x)
 }
+#> Warning: <deprecated_warning>
+#> `mark::package_available()` is deprecated and will be removed in '0.9.0', use `fuj::available_namespace()` instead
 #> [1] 0.0000000 0.3333333 0.0000000 0.6666667 0.5000000        NA 0.6666667
 #> [8] 1.0000000
 

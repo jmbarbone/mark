@@ -79,7 +79,7 @@ fruits <- function(x = c("apple", "banana", "orange")) {
 fruits()         # apple
 #> [1] "apple"
 try(fruits("b")) # must be exact fruits("banana")
-#> Error in match_param() : <mark:match_param_error>
+#> Error in match_param() : <mark::match_param_error>
 #> `match_param(x)` failed in `fruits("b")`:
 #>   param    b
 #>   choices  apple, banana, orange
@@ -93,7 +93,7 @@ pfruits <- function(x = c("apple", "apricot", "banana")) {
 pfruits()          # apple
 #> [1] "apple"
 try(pfruits("ap")) # matchParamMatchError
-#> Error in match_param() : <mark:match_param_error>
+#> Error in match_param() : <mark::match_param_error>
 #> `match_param(x)` failed in `pfruits("ap")`:
 #>   param    ap
 #>   choices  apple, apricot, banana

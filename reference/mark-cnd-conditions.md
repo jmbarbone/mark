@@ -23,7 +23,7 @@ package though the use of
 
 - class:
 
-  `mark:append_warning`
+  `mark::append_warning`
 
 - type:
 
@@ -39,7 +39,7 @@ package though the use of
 
 - class:
 
-  `mark:assign_labels_error`
+  `mark::assign_labels_error`
 
 - type:
 
@@ -79,7 +79,7 @@ Labels must not be null; to remove labels, use
 
 - class:
 
-  `mark:base_conversion_error`
+  `mark::base_conversion_error`
 
 - type:
 
@@ -95,7 +95,7 @@ Labels must not be null; to remove labels, use
 
 - class:
 
-  `mark:description_version_error`
+  `mark::description_version_error`
 
 - type:
 
@@ -111,7 +111,7 @@ Labels must not be null; to remove labels, use
 
 - class:
 
-  `mark:fct_expand_seq_error`
+  `mark::fct_expand_seq_error`
 
 - type:
 
@@ -127,7 +127,7 @@ Labels must not be null; to remove labels, use
 
 - class:
 
-  `mark:import_error`
+  `mark::import_error`
 
 - type:
 
@@ -155,7 +155,7 @@ For example:
 
 - class:
 
-  `mark:internal_error`
+  `mark::internal_error`
 
 - type:
 
@@ -173,7 +173,7 @@ encountered, please report an issue at
 
 - class:
 
-  `mark:list2df_warning`
+  `mark::list2df_warning`
 
 - type:
 
@@ -189,7 +189,7 @@ encountered, please report an issue at
 
 - class:
 
-  `mark:match_arg_error`
+  `mark::match_arg_error`
 
 - type:
 
@@ -205,7 +205,7 @@ encountered, please report an issue at
 
 - class:
 
-  `mark:match_param_error`
+  `mark::match_param_error`
 
 - type:
 
@@ -221,7 +221,7 @@ encountered, please report an issue at
 
 - class:
 
-  `mark:md5_condition`
+  `mark::md5_condition`
 
 - type:
 
@@ -240,7 +240,7 @@ produced.
 
 - class:
 
-  `mark:na_timezone_found_warning`
+  `mark::na_timezone_found_warning`
 
 - type:
 
@@ -256,7 +256,7 @@ produced.
 
 - class:
 
-  `mark:not_available_error`
+  `mark::not_available_error`
 
 - type:
 
@@ -272,7 +272,7 @@ produced.
 
 - class:
 
-  `mark:numeric_datetime_tz_error`
+  `mark::numeric_datetime_tz_error`
 
 - type:
 
@@ -295,7 +295,7 @@ produced.
 
 - class:
 
-  `mark:options_error`
+  `mark::options_error`
 
 - type:
 
@@ -311,7 +311,7 @@ produced.
 
 - class:
 
-  `mark:path_error`
+  `mark::path_error`
 
 - type:
 
@@ -327,7 +327,7 @@ produced.
 
 - class:
 
-  `mark:path_warning`
+  `mark::path_warning`
 
 - type:
 
@@ -343,7 +343,7 @@ File creation cannot be performed when the path is an existing directory
 
 - class:
 
-  `mark:reindex_error`
+  `mark::reindex_error`
 
 - type:
 
@@ -359,7 +359,7 @@ File creation cannot be performed when the path is an existing directory
 
 - class:
 
-  `mark:reindex_warning`
+  `mark::reindex_warning`
 
 - type:
 
@@ -392,7 +392,7 @@ will not match on NA values but instead will return a row of NAs
 
 - class:
 
-  `mark:source_error`
+  `mark::source_error`
 
 - type:
 
@@ -408,7 +408,7 @@ will not match on NA values but instead will return a row of NAs
 
 - class:
 
-  `mark:switch_error`
+  `mark::switch_error`
 
 - type:
 
@@ -424,7 +424,7 @@ will not match on NA values but instead will return a row of NAs
 
 - class:
 
-  `mark:timezone_not_found_error`
+  `mark::timezone_not_found_error`
 
 - type:
 
@@ -441,7 +441,7 @@ When using a string for a timezone, this value must be found within
 
 - class:
 
-  `mark:view_labels_error`
+  `mark::view_labels_error`
 
 - type:
 

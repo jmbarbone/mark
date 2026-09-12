@@ -11,7 +11,7 @@ to character vectors only."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">mark</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.3.9009</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.3.9010</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,7 +33,7 @@ to character vectors only."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Match arguments</h1>
-      <small class="dont-index">Source: <a href="https://github.com/jmbarbone/mark/blob/v0.8.3.9009/R/match-arg.R" class="external-link"><code>R/match-arg.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/jmbarbone/mark/blob/main/R/match-arg.R" class="external-link"><code>R/match-arg.R</code></a></small>
       <div class="d-none name"><code>match_arg.Rd</code></div>
     </div>
 
@@ -82,7 +82,7 @@ to <code>character</code> vectors only.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Produces error</span></span></span>
 <span class="r-in"><span><span class="fu">shh</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="fu">match_arg</span><span class="op">(</span><span class="st">"pear"</span>, <span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Error in match_arg() : &lt;mark:match_arg_error&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Error in match_arg() : &lt;mark::match_arg_error&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> pear : 'pear' did not match of of the following:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    'apple'</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> pear : 'pear' did not match of of the following:</span>
@@ -100,7 +100,7 @@ to <code>character</code> vectors only.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Error</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="fu">foo</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Error in match_arg() : &lt;mark:match_arg_error&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Error in match_arg() : &lt;mark::match_arg_error&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> op : '0' did not match of of the following:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    '1'</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> op : '0' did not match of of the following:</span>

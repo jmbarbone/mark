@@ -85,11 +85,13 @@ cat(fizzbuzz(30), sep = "\n")
 if (package_available("bench")) {
   bench::mark(fizzbuzz(1e5), fizzbuzz_lazy(1e5))
 }
+#> Warning: <deprecated_warning>
+#> `mark::package_available()` is deprecated and will be removed in '0.9.0', use `fuj::available_namespace()` instead
 #> # A tibble: 2 × 13
 #>   expression     min  median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_time
-#>   <bch:expr>   <bch> <bch:t>     <dbl> <bch:byt>    <dbl> <int> <dbl>   <bch:tm>
-#> 1 fizzbuzz(1e…  30ms  31.2ms      31.7    5.19MB     5.29    12     2      378ms
-#> 2 fizzbuzz_la… 463µs 479.1µs    2045.    38.21MB    80.7    380    15      186ms
+#>   <bch:expr> <bch:t> <bch:t>     <dbl> <bch:byt>    <dbl> <int> <dbl>   <bch:tm>
+#> 1 fizzbuzz(…  28.2ms  28.4ms      34.3    5.19MB     7.35    14     3      408ms
+#> 2 fizzbuzz_… 524.3µs 540.1µs    1839.    38.21MB    68.4    538    20      292ms
 #> # ℹ 4 more variables: result <list>, memory <list>, time <list>, gc <list>
 # }
 ```

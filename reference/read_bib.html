@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">mark</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.3.9009</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.3.9010</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,7 +29,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Read Bib file</h1>
-      <small class="dont-index">Source: <a href="https://github.com/jmbarbone/mark/blob/v0.8.3.9009/R/bib.R" class="external-link"><code>R/bib.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/jmbarbone/mark/blob/main/R/bib.R" class="external-link"><code>R/bib.R</code></a></small>
       <div class="d-none name"><code>read_bib.Rd</code></div>
     </div>
 
@@ -90,6 +90,8 @@ This will also include as many categories as possible from the entry.</p>
 <span class="r-in"><span><span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">bibdf</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>&lt;deprecated_warning&gt;</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> `mark::package_available()` is deprecated and will be removed in '0.9.0', use `fuj::available_namespace()` instead</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 4 × 16</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   key     field author journal title year  issn  month number pages volume doi  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
@@ -117,12 +119,16 @@ This will also include as many categories as possible from the entry.</p>
 <span class="r-in"><span>  <span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">9</span><span class="op">]</span></span></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>&lt;deprecated_warning&gt;</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> `mark::package_available()` is deprecated and will be removed in '0.9.0', use `fuj::available_namespace()` instead</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>&lt;deprecated_warning&gt;</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> `mark::package_available()` is deprecated and will be removed in '0.9.0', use `fuj::available_namespace()` instead</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 9</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   expression      min median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_time</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> read_bib     1.37ms 1.48ms      673.    9.41KB     8.98   300     4      446ms</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> bib2df       4.48ms 4.72ms      208.     2.9MB     9.57    87     4      418ms</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> foo          2.24ms  2.4ms      414.  355.36KB     6.61   188     3      454ms</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> read_bib     1.37ms 1.43ms      698.    9.41KB     8.49   329     4      471ms</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> bib2df       4.53ms 4.62ms      215.     2.9MB     8.77    98     4      456ms</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> foo          2.34ms 2.38ms      413.  385.77KB     4.15   199     2      482ms</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

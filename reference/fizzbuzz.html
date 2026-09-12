@@ -11,7 +11,7 @@ utilize that.  No reason to reinvent the wheel."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">mark</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.3.9009</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.3.9010</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,7 +33,7 @@ utilize that.  No reason to reinvent the wheel."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Fizz Buzz</h1>
-      <small class="dont-index">Source: <a href="https://github.com/jmbarbone/mark/blob/v0.8.3.9009/R/fizzbuzz.R" class="external-link"><code>R/fizzbuzz.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/jmbarbone/mark/blob/main/R/fizzbuzz.R" class="external-link"><code>R/fizzbuzz.R</code></a></small>
       <div class="d-none name"><code>fizzbuzz.Rd</code></div>
     </div>
 
@@ -125,11 +125,13 @@ solution with default parameters up to <code>1e6</code></p>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="package_available.html">package_available</a></span><span class="op">(</span><span class="st">"bench"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="https://bench.r-lib.org/reference/mark.html" class="external-link">mark</a></span><span class="op">(</span><span class="fu">fizzbuzz</span><span class="op">(</span><span class="fl">1e5</span><span class="op">)</span>, <span class="fu">fizzbuzz_lazy</span><span class="op">(</span><span class="fl">1e5</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>&lt;deprecated_warning&gt;</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> `mark::package_available()` is deprecated and will be removed in '0.9.0', use `fuj::available_namespace()` instead</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 13</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   expression     min  median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_time</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;bch&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:t&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> fizzbuzz(1e…  30ms  31.2ms      31.7    5.19MB     5.29    12     2      378ms</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> fizzbuzz_la… 463µs 479.1µs    <span style="text-decoration: underline;">2</span>045.    38.21MB    80.7    380    15      186ms</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:t&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:t&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> fizzbuzz(…  28.2ms  28.4ms      34.3    5.19MB     7.35    14     3      408ms</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> fizzbuzz_… 524.3µs 540.1µs    <span style="text-decoration: underline;">1</span>839.    38.21MB    68.4    538    20      292ms</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 4 more variables: result &lt;list&gt;, memory &lt;list&gt;, time &lt;list&gt;, gc &lt;list&gt;</span></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
