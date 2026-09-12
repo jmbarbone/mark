@@ -91,7 +91,7 @@ if (package_available("bib2df") & package_available("bench")) {
 #> # A tibble: 3 × 9
 #>   expression      min median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_time
 #>   <bch:expr> <bch:tm> <bch:>     <dbl> <bch:byt>    <dbl> <int> <dbl>   <bch:tm>
-#> 1 read_bib     1.37ms 1.43ms      698.    9.41KB     8.49   329     4      471ms
-#> 2 bib2df       4.53ms 4.62ms      215.     2.9MB     8.77    98     4      456ms
-#> 3 foo          2.34ms 2.38ms      413.  385.77KB     4.15   199     2      482ms
+#> 1 read_bib     1.74ms 1.82ms      543.    9.41KB     9.09   239     4      440ms
+#> 2 bib2df       5.59ms 5.77ms      172.     2.9MB     6.62    78     3      453ms
+#> 3 foo          3.25ms 3.35ms      293.  392.43KB     4.28   137     2      468ms
 ```
