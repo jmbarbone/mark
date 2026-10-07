@@ -108,32 +108,33 @@ check_base <- function(b, high = 9L) {
 
 # conditions --------------------------------------------------------------
 
-base_conversion_error := condition(
-  function(s, base, x, high) {
-    switch(
-      s,
-      alpha_limit = sprintf(
-        'Cannot calculate alpha base "%s" for "%s" which has letters beyond "%s"', # nolint: line_length_linter.
-        base,
-        x,
-        x[base]
-      ),
-      ten = "base_n() is currently only valid for conversions to base 10",
-      single_limit = sprintf(
-        paste0(
-          "Cannot caluclate base \"%s\" for \"%s\" which has numbers greater",
-          " than or equal to the base value"
+base_conversion_error %:=%
+  condition(
+    message = function(type, base, x, high) {
+      switch(
+        type,
+        alpha_limit = sprintf(
+          'Cannot calculate alpha base "%s" for "%s" which has letters beyond "%s"', # nolint: line_length_linter.
+          base,
+          x,
+          x[base]
         ),
-        base,
-        x
-      ),
-      alpha_length = "base must be of length 1",
-      integer = "base must be an integer",
-      limit = sprintf("base must be between 1 and %s", high),
-      stop(internal_error("Unknown base conversion error type: ", type))
-    )
-  },
-  type = "error",
-  exports = c("base_alpha", "base_n")
-  # TODO include help
-)
+        ten = "base_n() is currently only valid for conversions to base 10",
+        single_limit = sprintf(
+          paste0(
+            "Cannot caluclate base \"%s\" for \"%s\" which has numbers greater",
+            " than or equal to the base value"
+          ),
+          base,
+          x
+        ),
+        alpha_length = "base must be of length 1",
+        integer = "base must be an integer",
+        limit = sprintf("base must be between 1 and %s", high),
+        stop(internal_error("Unknown base conversion error type: ", type))
+      )
+    },
+    type = "error",
+    exports = c("base_alpha", "base_n")
+    # TODO include help
+  )

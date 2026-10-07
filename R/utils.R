@@ -195,17 +195,18 @@ check_interactive <- function() {
 }
 
 # TODO is this even needed?  Maybe if options were active bindings
-options_error := condition(
-  function(x) {
-    switch(
-      x,
-      interactive = "mark.check_interactive must be TRUE, FALSE, or NA",
-      stop(internal_error(paste("bad value:", x)))
-    )
-  },
-  classes = "input_error",
-  type = "error"
-)
+options_error %:=%
+  condition(
+    message = function(type) {
+      switch(
+        type,
+        interactive = "mark.check_interactive must be TRUE, FALSE, or NA",
+        stop(internal_error(paste("bad value:", type)))
+      )
+    },
+    classes = "input_error",
+    type = "error"
+  )
 
 try_formats <- function(date = FALSE) {
   x <- c(

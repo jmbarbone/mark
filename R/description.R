@@ -231,9 +231,10 @@ today_as_version <- function(zero = FALSE) {
 
 # conditions --------------------------------------------------------------
 
-description_version_error := condition(
-  "Multiple version lines found in DESCRIPTION",
-  type = "error",
-  classes = "value_error",
-  exports = c("get_version", "update_version")
-)
+description_version_error %:=%
+  condition(
+    "Multiple version lines found in DESCRIPTION",
+    type = "error",
+    classes = "value_error",
+    exports = c("get_version", "update_version")
+  )

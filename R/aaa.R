@@ -21,18 +21,19 @@ walrus <- function(sym, val) {
 
 # standard conditions -----------------------------------------------------
 
-internal_error := condition(
-  function(x) {
-    c(
-      x,
-      "\nThis is an internal `{mark}` error.  If you encounter this, please",
-      " report an issue at <https://github.com/jmbarbone/mark/issues>"
+internal_error %:=%
+  condition(
+    function(x) {
+      c(
+        x,
+        "\nThis is an internal `{mark}` error.  If you encounter this, please",
+        " report an issue at <https://github.com/jmbarbone/mark/issues>"
+      )
+    },
+    type = "error",
+    help = c(
+      "Generic error to capture internal `{mark}` errors.  If any of these are",
+      " encountered, please report an issue at",
+      " <https://github.com/jmbarbone/mark/issues>"
     )
-  },
-  type = "error",
-  help = c(
-    "Generic error to capture internal `{mark}` errors.  If any of these are",
-    " encountered, please report an issue at",
-    " <https://github.com/jmbarbone/mark/issues>"
   )
-)

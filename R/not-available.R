@@ -79,16 +79,17 @@ delayedAssign("NA_POSIXlt_", not_available("logical", 1L))
 
 # conditions --------------------------------------------------------------
 
-not_available_error := condition(
-  function(x) {
-    sprintf(
-      paste0(
-        "\"%1$s\" not found\n",
-        "Can be set with `mark::set_not_available(%1$s, value = .)`"
-      ),
-      x
-    )
-  },
-  type = "error",
-  classes = "value_error"
-)
+not_available_error %:=%
+  condition(
+    function(x) {
+      sprintf(
+        paste0(
+          "\"%1$s\" not found\n",
+          "Can be set with `mark::set_not_available(%1$s, value = .)`"
+        ),
+        x
+      )
+    },
+    type = "error",
+    classes = "value_error"
+  )

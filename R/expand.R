@@ -162,20 +162,21 @@ unique_name_check <- function(x) {
 # conditions --------------------------------------------------------------
 
 # TODO use na_warning(); move information to function docs
-reindex_warning := condition(
-  function(x) {
-    paste(
-      ngettext(
-        length(x),
-        "NA value detected in index at position:",
-        "NA values detected in index at positions:"
-      ),
-      collapse(x, sep = ", ")
-    )
-  },
-  type = "warning",
-  exports = "reindex",
-  help = "NA values in index may cause errors with expansion
+reindex_warning %:=%
+  condition(
+    function(x) {
+      paste(
+        ngettext(
+          length(x),
+          "NA value detected in index at position:",
+          "NA values detected in index at positions:"
+        ),
+        collapse(x, sep = ", ")
+      )
+    },
+    type = "warning",
+    exports = "reindex",
+    help = "NA values in index may cause errors with expansion
 
 `reindex()` will not match on NA values but instead will return a row of NAs
 
@@ -195,13 +196,14 @@ reindex(x, 'index', c(1, 2, 5, NA))
 #> <NA>    NA   <NA>
 ```
 "
-)
+  )
 
-reindex_error := condition(
-  "x[[index]] returned `NULL`",
-  type = "error",
-  classes = "value_error",
-  exports = "reindex"
-)
+reindex_error %:=%
+  condition(
+    "x[[index]] returned `NULL`",
+    type = "error",
+    classes = "value_error",
+    exports = "reindex"
+  )
 
 # terminal line

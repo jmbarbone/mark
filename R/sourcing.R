@@ -315,35 +315,36 @@ print.source_env <- function(x, ...) {
 
 # conditions --------------------------------------------------------------
 
-source_error := condition(
-  function(x, params = NULL) {
-    switch(
-      x,
-      label = "label not found in .Rmd file",
-      # NOTE maybe 'source' is a different type of error
-      source = paste0(
-        "RDS file not succesfully saved here:\n  ",
-        params$file,
-        "\n",
-        "\nRscript stderr:\n",
-        collapse0(readLines(params$err), sep = "\n"),
-        "\n",
-        "\nRscript stdout:\n",
-        collapse0(readLines(params$out), sep = "\n"),
-        "\n"
-      ),
-      stop(internal_error())
+source_error %:=%
+  condition(
+    message = function(type, params = NULL) {
+      switch(
+        type,
+        label = "label not found in .Rmd file",
+        # NOTE maybe 'source' is a different type of error
+        source = paste0(
+          "RDS file not succesfully saved here:\n  ",
+          params$file,
+          "\n",
+          "\nRscript stderr:\n",
+          collapse0(readLines(params$err), sep = "\n"),
+          "\n",
+          "\nRscript stdout:\n",
+          collapse0(readLines(params$out), sep = "\n"),
+          "\n"
+        ),
+        stop(internal_error())
+      )
+    },
+    type = "error",
+    classes = "value_error",
+    package = "mark",
+    exports = c(
+      "source_to_env",
+      "eval_named_chunk"
     )
-  },
-  type = "error",
-  classes = "value_error",
-  package = "mark",
-  exports = c(
-    "source_to_env",
-    "eval_named_chunk"
+    # TODO include help
   )
-  # TODO include help
-)
 
 # globalVariables ---------------------------------------------------------
 

@@ -189,35 +189,36 @@ remove_labels.data.frame <- function(x, cols, ...) {
 
 # conditions --------------------------------------------------------------
 
-assign_labels_error := condition(
-  function(s, ..., cols, dots, ls) {
-    switch(
-      s,
-      columns = sprintf(
-        ngettext(
-          length(cols),
-          "Columns not found: %s",
-          "Column not found: %s"
+assign_labels_error %:=%
+  condition(
+    message = function(type, ..., cols, dots, ls) {
+      switch(
+        type,
+        columns = sprintf(
+          ngettext(
+            length(cols),
+            "Columns not found: %s",
+            "Column not found: %s"
+          ),
+          toString(cols)
         ),
-        toString(cols)
-      ),
-      dots = if (identical(dots, ls)) {
-        sprintf("labels provided are malformed: %s", toString(dots))
-      } else {
-        sprintf(
-          "`.ls` and `...` were both set and/or malformed\n ... %s\n .ls %s",
-          toString(dots),
-          toString(ls)
-        )
-      },
-      stop(internal_error())
-    )
-  },
-  type = "error",
-  exports = c("assign_labels", "remove_labels"),
-  classes = "value_error", # NOTE maybe assign_error()?
-  # nolint start: line_length_linter.
-  help = r"(
+        dots = if (identical(dots, ls)) {
+          sprintf("labels provided are malformed: %s", toString(dots))
+        } else {
+          sprintf(
+            "`.ls` and `...` were both set and/or malformed\n ... %s\n .ls %s",
+            toString(dots),
+            toString(ls)
+          )
+        },
+        stop(internal_error())
+      )
+    },
+    type = "error",
+    exports = c("assign_labels", "remove_labels"),
+    classes = "value_error", # NOTE maybe assign_error()?
+    # nolint start: line_length_linter.
+    help = r"(
 `assign_labels_error`
 
 **Columns not found**
@@ -245,17 +246,18 @@ assign_labels(df, a = 'AAA', b = NULL)
 df <- assign_labels(df, a = 'AAA')
 df <- remove_labels(df, 'b')
 ```)"
-)
+  )
 # nolint end: line_length_linter.
 
-view_labels_error := condition(
-  "Cannot use `View()`",
-  type = "error",
-  exports = "view_labels",
-  help = c(
-    "This may be because you are using RStudio :",
-    "  https://community.rstudio.com/t/view-is-causing-an-error/75297/4 ",
-    "You can try :",
-    '  `utils::View(get_labels(x), title = "Labels")`'
+view_labels_error %:=%
+  condition(
+    "Cannot use `View()`",
+    type = "error",
+    exports = "view_labels",
+    help = c(
+      "This may be because you are using RStudio :",
+      "  https://community.rstudio.com/t/view-is-causing-an-error/75297/4 ",
+      "You can try :",
+      '  `utils::View(get_labels(x), title = "Labels")`'
+    )
   )
-)
