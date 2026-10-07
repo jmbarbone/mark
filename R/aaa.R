@@ -16,7 +16,7 @@ walrus <- function(sym, val) {
 # have any code associated with it. It looks like an = but allows expressions on
 # either side, making it a more flexible alternative to =. It is used in
 # data.table for similar reasons.
-`:=` <- `%:=%` <- walrus
+`%:=%` <- walrus # NOTE not yet using `:=` directly
 
 
 # standard conditions -----------------------------------------------------
