@@ -37,7 +37,7 @@
 #' x <- c(1, 2, 1, 7, 5, NA_integer_, 7, 10)
 #' percentile_rank(x)
 #'
-#' if (package_available("dplyr")) {
+#' if (fuj::available_namespace("dplyr")) {
 #'   dplyr::percent_rank(x)
 #' }
 #'

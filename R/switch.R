@@ -275,20 +275,21 @@ switch_lengths_check <- function(lhs, rhs) {
 # conditions --------------------------------------------------------------
 
 # TODO review of these can be simplified
-switch_error := condition(
-  function(x, params = NULL) {
-    switch(
-      x,
-      numeric = "`x` did not appear to be numeric, cannot continue evaluating lhs", # nolint: line_length_linter.
-      ambiguous_infinity = "Ambiguous infinity, cannot calculate",
-      evaluate = paste0("Could not evaluate lhs\n", params),
-      lengths_check = "statements have different lengths",
-      lengths_check_0 = "Cannot have 0 length rhs",
-      lengths_check_2 = "2 lengths found, one of which was not 1",
-      lengths_check_3 = "3 or more lengths found, stopping",
-      result = "results must be of length 1L",
-      stop(internal_error()),
-    )
-  },
-  classes = "value_error"
-)
+switch_error %:=%
+  condition(
+    message = function(type, params = NULL) {
+      switch(
+        type,
+        numeric = "`x` did not appear to be numeric, cannot continue evaluating lhs", # nolint: line_length_linter.
+        ambiguous_infinity = "Ambiguous infinity, cannot calculate",
+        evaluate = paste0("Could not evaluate lhs\n", params),
+        lengths_check = "statements have different lengths",
+        lengths_check_0 = "Cannot have 0 length rhs",
+        lengths_check_2 = "2 lengths found, one of which was not 1",
+        lengths_check_3 = "3 or more lengths found, stopping",
+        result = "results must be of length 1L",
+        stop(internal_error()),
+      )
+    },
+    classes = "value_error"
+  )

@@ -242,7 +242,7 @@ type_convert2 <- function(x) {
 }
 
 tibble <- function(x) {
-  if (getOption("mark.tibble", TRUE) && package_available("tibble")) {
+  if (getOption("mark.tibble", TRUE) && fuj::available_namespace("tibble")) {
     tibble::as_tibble(x)
   } else {
     x

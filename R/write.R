@@ -295,7 +295,7 @@ get_list_hook <- function(hook) {
 
   switch(
     hook,
-    auto = if (package_available("jsonlite")) {
+    auto = if (fuj::available_namespace("jsonlite")) {
       get_list_hook("json")
     } else {
       get_list_hook("default")

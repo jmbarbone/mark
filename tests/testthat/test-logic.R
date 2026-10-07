@@ -5,8 +5,8 @@ test_that("Logical extension work", {
   y <- c(TRUE, FALSE, NA,    TRUE,  FALSE, NA,    TRUE, FALSE, NA)
   z <- c(TRUE, TRUE,  FALSE, FALSE, NA,    NA,    TRUE, FALSE, NA)
 
-  xL <- as.integer(x) # nolint: object_name_linter.
-  xD <- as.double(x) # nolint: object_name_linter.
+  x_int <- as.integer(x)
+  x_dbl <- as.double(x)
 
   res_n <- logical(length(x))
 
@@ -41,8 +41,8 @@ test_that("Logical extension work", {
   expect_identical(is_false(c(TRUE, FALSE, NA)), c(FALSE, TRUE,  FALSE))
 
   expect_true(is_boolean(x))
-  expect_true(is_boolean(xL))
-  expect_true(is_boolean(xD))
+  expect_true(is_boolean(x_int))
+  expect_true(is_boolean(x_dbl))
 
   expect_equal(AND(x, y),               res_xy_and)
   expect_equal(AND(x, y, na.rm = TRUE), res_xy_and_na)

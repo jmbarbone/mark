@@ -26,13 +26,13 @@
 #' file <- "https://raw.githubusercontent.com/jmbarbone/bib-references/master/references.bib"
 #' bibdf <- read_bib(file, max_lines = 51L)
 #'
-#' if (package_available("tibble")) {
+#' if (fuj::available_namespace("tibble")) {
 #'   tibble::as_tibble(bibdf)
 #' } else {
 #'   head(bibdf)
 #' }
 #'
-#' if (package_available("bib2df") & package_available("bench")) {
+#' if (fuj::available_namespace("bib2df") & fuj::available_namespace("bench")) {
 #'   file <- system.file("extdata", "bib2df_testfile_3.bib", package = "bib2df")
 #'
 #'   # Doesn't include the 'tidying' up
