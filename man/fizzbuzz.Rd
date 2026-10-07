@@ -38,7 +38,7 @@ cat(fizzbuzz(30), sep = "\n")
 
 \donttest{
 # show them how fast your solution is:
-if (package_available("bench")) {
+if (fuj::available_namespace("bench")) {
   bench::mark(fizzbuzz(1e5), fizzbuzz_lazy(1e5))
 }
 }

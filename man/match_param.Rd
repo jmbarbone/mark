@@ -50,7 +50,7 @@ The following conditions are associated with this function:
 
 \describe{
 
-\item{\code{\link[=mark-cnd-conditions]{mark:match_param_error/error}}}{
+\item{\code{\link[=mark-cnd-conditions]{mark::match_param_error/error}}}{
 
 }
 
