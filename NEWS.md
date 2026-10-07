@@ -1,35 +1,47 @@
-# mark (development version)
+# mark 0.9.0
 
-* substantial changes to _conditions_
-  * all _conditions_ previously created with [`fuj::new_condition()`](https://jmbarbone.github.io/fuj/reference/new_condition.html) have been rewritten with [`cnd::condition()`](https://jmbarbone.github.io/cnd/reference/condition.html) [#259]
-  * all of these condition now use different class names, generated through [`cnd::condition()`](https://jmbarbone.github.io/cnd/reference/condition.html)
-  * for more information, see https://jmbarbone.github.io/cnd
-  * FIXME: ensure names: `{rd_name}_{thing}` -- and see about switching messages around: (`message = function(type, params)`)
+`{mark}`'s title has been updated
 
-* the following arguments were deprecated and unused, and have now been removed completely:
-  * `list2df(show_NA)`
-  * `vector2df(show_NA)`
-  * `t_df(id)`
+## Conditions
+
+Substantial changes to _conditions_
+
+* all _conditions_ previously created with [`fuj::new_condition()`](https://jmbarbone.github.io/fuj/reference/new_condition.html) have been rewritten with [`cnd::condition()`](https://jmbarbone.github.io/cnd/reference/condition.html) [#259]
+* all of these condition now use different class names, generated through [`cnd::condition()`](https://jmbarbone.github.io/cnd/reference/condition.html)
+* for more information, see https://jmbarbone.github.io/cnd
+* FIXME: ensure names: `{rd_name}_{thing}` -- and see about switching messages around: (`message = function(type, params)`)
+
+## removals
+
+The following arguments were deprecated and unused, and have now been removed completely:
+
+* `list2df(show_NA)`
+* `vector2df(show_NA)`
+* `t_df(id)`
+
+## features
 
 * `merge_list(sort)` included to toggle name sorting in result
-
 * `make_sf()` now uses `substitute()` to provide more information inside the function body when viewing [#129](https://github.com/jmbarbone/mark/issues/129)
 * `round_to()` added to round values to a set [#142](https://github.com/jmbarbone/mark/issues/142)
-* `is_true()`, `is_false()` now works as documented [#262](https://github.com/jmbarbone/mark/issues/262)
-* `to_boolean()` now works as documented [#262](https://github.com/jmbarbone/mark/issues/262)
-  * `to_boolean.character()`, and `to_boolean.factor()` have been improved; 
-they will also now require exact matches;
-cleanup (e.g., trimming whitespace and lowercasing) are not longer performed
-  * `to_boolean.integer()` added
-  * `to_boolean.numeric()`, `to_boolean.integer()` will now return `NA`
+* `to_boolean.character()`, and `to_boolean.factor()` have been improved; they will also now require exact matches; cleanup (e.g., trimming white space and lower-casing) are not longer performed
+* `to_boolean.integer()` added
+* `to_boolean.numeric()`, `to_boolean.integer()` will now return `NA`
 * `md5(bytes)` added to use `tools::md5sum(bytpes)` for **R > 4.2.0** [#258](https://github.com/jmbarbone/mark/issues/258)
 * `md5()` now uses little-endian serialization (_i.e._, `serialize(xdr = FALSE)`) for more consistent results across platforms and faster speed; which may cause hashes created prior to _change_
-* `{mark}`'s title has been updated
 * `write_file_md5(method = "feather")`, `write_file_md5(method = "parquet")` now use `{feather}` and `{nanoparquet}`, respectively, rather than `{arrow}` [#245](https://github.com/jmbarbone/mark/issues/245)
+* `outer_call()` uses `format()` for calls, reducing the size of very large object inputs; specifically from `match_param()`
+
+## fixes
+
+* `is_true()`, `is_false()` now works as documented [#262](https://github.com/jmbarbone/mark/issues/262)
+* `to_boolean()` now works as documented [#262](https://github.com/jmbarbone/mark/issues/262)
 * `read_clipboard("md")` no longer needs `{readMdTable}`
 * `read_clibpboard()` will always return a `tibble` if `{tibble}` is available (this can be turned off if `options(mark.tibble = FALSE)`)
-* `outer_call()` uses `format()` for calls, reducing the size of very large object inputs; specifically from `match_param()`
-* internal: dependency updates
+
+## internal
+
+* dependency updates
 
 # mark 0.8.3
 
