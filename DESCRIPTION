@@ -23,9 +23,9 @@ Depends:
     R (>= 4.1.0)
 Imports:
     cli,
-    cnd,
+    cnd (>= 0.2.0),
     fs (>= 0.2.0),
-    fuj,
+    fuj (>= 0.3.0),
     magrittr (>= 2.0.1),
     rlang,
     stats (>= 3.6),
@@ -56,9 +56,6 @@ Suggests:
     withr (>= 2.3.0),
     xopen,
     yaml (>= 2.3.9),
-Remotes:
-    github::jmbarbone/cnd@35-v0.2.0,
-    github::jmbarbone/fuj@99-v0.3
 Roxygen: list(markdown = TRUE)
 Config/testthat/edition: 3
 Config/testthat/parallel: true
