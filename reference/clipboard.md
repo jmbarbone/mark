@@ -69,6 +69,7 @@ occur.
 ## Examples
 
 ``` r
+if (FALSE) { # \dontrun{
 foo <- function(x) {
   write_clipboard(x)
   y <- read_clipboard()
@@ -79,21 +80,14 @@ foo <- function(x) {
 }
 
 foo(1:4)
-#> Error: Clipboard on X11 requires 'xclip' (recommended) or 'xsel'; Clipboard on Wayland requires 'wl-copy' and 'wl-paste'.
 foo(seq(-1, 1, .02))
-#> Error: Clipboard on X11 requires 'xclip' (recommended) or 'xsel'; Clipboard on Wayland requires 'wl-copy' and 'wl-paste'.
 foo(Sys.Date() + 1:4)
-#> Error: Clipboard on X11 requires 'xclip' (recommended) or 'xsel'; Clipboard on Wayland requires 'wl-copy' and 'wl-paste'.
 
 # May have some rounding issues
 x <- "0.316362437326461129"
 write_clipboard(x)
-#> Error: Clipboard on X11 requires 'xclip' (recommended) or 'xsel'; Clipboard on Wayland requires 'wl-copy' and 'wl-paste'.
 res <- as.character(read_clipboard())
-#> Error: Clipboard on X11 requires 'xclip' (recommended) or 'xsel'; Clipboard on Wayland requires 'wl-copy' and 'wl-paste'.
 all.equal(x, res)
-#> Error: object 'res' not found
 x; res
-#> [1] "0.316362437326461129"
-#> Error: object 'res' not found
+} # }
 ```

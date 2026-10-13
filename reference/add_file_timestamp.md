@@ -44,7 +44,7 @@ file1 <- tempfile(fileext = ".txt")
 file2 <- tempfile()
 
 add_file_timestamp(file1)
-#> /tmp/RtmpwTwBCK/file1990609f05e9 2026-09-12 143255.txt
+#> /tmp/Rtmpa71Q5j/file1a6c64aaf6ff 2026-10-13 051348.txt
 add_file_timestamp(file2)
-#> /tmp/RtmpwTwBCK/file19902366094c 2026-09-12 143255
+#> /tmp/Rtmpa71Q5j/file1a6c5b4c627e 2026-10-13 051348
 ```

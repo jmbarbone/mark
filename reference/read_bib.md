@@ -50,23 +50,24 @@ categories as possible from the entry.
 file <- "https://raw.githubusercontent.com/jmbarbone/bib-references/master/references.bib"
 bibdf <- read_bib(file, max_lines = 51L)
 
-if (package_available("tibble")) {
+if (fuj::available_namespace("tibble")) {
   tibble::as_tibble(bibdf)
 } else {
   head(bibdf)
 }
-#> Warning: <deprecated_warning>
-#> `mark::package_available()` is deprecated and will be removed in '0.9.0', use `fuj::available_namespace()` instead
-#> # A tibble: 4 × 16
-#>   key     field author journal title year  issn  month number pages volume doi  
-#>   <chr>   <chr> <chr>  <chr>   <chr> <chr> <chr> <chr> <chr>  <chr> <chr>  <chr>
-#> 1 ames20… arti… Ames,… Journa… The … 2006  0092… aug   4      440-… 40     10.1…
-#> 2 anders… arti… Ander… Psycho… Effe… 2001  NA    NA    5      353-… 12     10.1…
-#> 3 ayduk2… arti… Ayduk… Journa… Regu… 2000  NA    NA    5      776   79     10.1…
-#> 4 barbon… inpr… Barbo… NA      Equa… 2023  NA    Jul   S18    e077… 19     doi/…
-#> # ℹ 4 more variables: publisher <chr>, note <chr>, url <chr>, abstract <chr>
+#> # A tibble: 6 × 18
+#>   key   field title year  url   institution file  publisher urldate websitetitle
+#>   <chr> <chr> <chr> <chr> <chr> <chr>       <chr> <chr>     <chr>   <chr>       
+#> 1 2017… tech… "201… 2017  http… Neilsen     ":20… NA        NA      NA          
+#> 2 2017… tech… "Buz… 2017  http… BuzzAngle …  NA   NA        NA      NA          
+#> 3 acad… webs… "Aca… NA    http… NA           NA   Johns Ho… 2018-1… Data Manage…
+#> 4 adam… book  "The… 1989  NA    NA           NA   Harmony … NA      NA          
+#> 5 ali2… arti… "Int… 2010  NA    NA           NA   Universi… NA      NA          
+#> 6 ames… arti… "The… 2006  NA    NA           NA   Elsevier  NA      NA          
+#> # ℹ 8 more variables: author <chr>, address <chr>, isbn <chr>, journal <chr>,
+#> #   volume <chr>, number <chr>, pages <chr>, doi <chr>
 
-if (package_available("bib2df") & package_available("bench")) {
+if (fuj::available_namespace("bib2df") & fuj::available_namespace("bench")) {
   file <- system.file("extdata", "bib2df_testfile_3.bib", package = "bib2df")
 
   # Doesn't include the 'tidying' up
@@ -84,14 +85,10 @@ if (package_available("bib2df") & package_available("bench")) {
   )[1:9]
 # }
 }
-#> Warning: <deprecated_warning>
-#> `mark::package_available()` is deprecated and will be removed in '0.9.0', use `fuj::available_namespace()` instead
-#> Warning: <deprecated_warning>
-#> `mark::package_available()` is deprecated and will be removed in '0.9.0', use `fuj::available_namespace()` instead
 #> # A tibble: 3 × 9
 #>   expression      min median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_time
 #>   <bch:expr> <bch:tm> <bch:>     <dbl> <bch:byt>    <dbl> <int> <dbl>   <bch:tm>
-#> 1 read_bib     1.74ms 1.82ms      543.    9.41KB     9.09   239     4      440ms
-#> 2 bib2df       5.59ms 5.77ms      172.     2.9MB     6.62    78     3      453ms
-#> 3 foo          3.25ms 3.35ms      293.  392.43KB     4.28   137     2      468ms
+#> 1 read_bib     1.95ms 2.02ms      488.    9.41KB     6.72   218     3      447ms
+#> 2 bib2df       5.93ms 6.13ms      157.     8.6MB     6.74    70     3      445ms
+#> 3 foo          3.33ms 3.42ms      287.  385.74KB     4.25   135     2      471ms
 ```

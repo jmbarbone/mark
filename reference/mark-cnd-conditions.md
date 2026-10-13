@@ -15,7 +15,7 @@ package though the use of
 
 ## `{mark}` conditions
 
-### `mark:append_warning/warning`
+### `mark::append_warning/warning`
 
 - package:
 
@@ -31,7 +31,7 @@ package though the use of
 
 *no help documentation provided*
 
-### `mark:assign_labels_error/error`
+### `mark::assign_labels_error/error`
 
 - package:
 
@@ -71,7 +71,7 @@ Labels must not be null; to remove labels, use
     df <- assign_labels(df, a = 'AAA')
     df <- remove_labels(df, 'b')
 
-### `mark:base_conversion_error/error`
+### `mark::base_conversion_error/error`
 
 - package:
 
@@ -87,7 +87,7 @@ Labels must not be null; to remove labels, use
 
 *no help documentation provided*
 
-### `mark:description_version_error/error`
+### `mark::description_version_error/error`
 
 - package:
 
@@ -103,7 +103,7 @@ Labels must not be null; to remove labels, use
 
 *no help documentation provided*
 
-### `mark:fct_expand_seq_error/error`
+### `mark::fct_expand_seq_error/error`
 
 - package:
 
@@ -119,7 +119,7 @@ Labels must not be null; to remove labels, use
 
 *no help documentation provided*
 
-### `mark:import_error/error`
+### `mark::import_error/error`
 
 - package:
 
@@ -147,7 +147,7 @@ For example:
     foo <- NULL
     import('package', 'foo', overwrite = TRUE)
 
-### `mark:internal_error/error`
+### `mark::internal_error/error`
 
 - package:
 
@@ -165,7 +165,7 @@ Generic error to capture internal `{mark}` errors. If any of these are
 encountered, please report an issue at
 <https://github.com/jmbarbone/mark/issues>
 
-### `mark:list2df_warning/warning`
+### `mark::list2df_warning/warning`
 
 - package:
 
@@ -181,7 +181,7 @@ encountered, please report an issue at
 
 *no help documentation provided*
 
-### `mark:match_arg_error/error`
+### `mark::match_arg_error/error`
 
 - package:
 
@@ -197,7 +197,7 @@ encountered, please report an issue at
 
 *no help documentation provided*
 
-### `mark:match_param_error/error`
+### `mark::match_param_error/error`
 
 - package:
 
@@ -213,7 +213,7 @@ encountered, please report an issue at
 
 *no help documentation provided*
 
-### `mark:md5_condition/condition`
+### `mark::md5_condition/condition`
 
 - package:
 
@@ -232,7 +232,7 @@ message will indicate whether the file was new, or if the md5 hash was
 the same or different. When `quiet = TRUE`, no messages will be
 produced.
 
-### `mark:na_timezone_found_warning/warning`
+### `mark::na_timezone_found_warning/warning`
 
 - package:
 
@@ -248,7 +248,7 @@ produced.
 
 *no help documentation provided*
 
-### `mark:not_available_error/error`
+### `mark::not_available_error/error`
 
 - package:
 
@@ -264,7 +264,7 @@ produced.
 
 *no help documentation provided*
 
-### `mark:numeric_datetime_tz_error/error`
+### `mark::numeric_datetime_tz_error/error`
 
 - package:
 
@@ -287,7 +287,7 @@ produced.
     # or:
     diff_time(100, 200, tz = 0)
 
-### `mark:options_error/error`
+### `mark::options_error/error`
 
 - package:
 
@@ -303,7 +303,7 @@ produced.
 
 *no help documentation provided*
 
-### `mark:path_error/error`
+### `mark::path_error/error`
 
 - package:
 
@@ -319,7 +319,7 @@ produced.
 
 *no help documentation provided*
 
-### `mark:path_warning/warning`
+### `mark::path_warning/warning`
 
 - package:
 
@@ -335,7 +335,7 @@ produced.
 
 File creation cannot be performed when the path is an existing directory
 
-### `mark:reindex_error/error`
+### `mark::reindex_error/error`
 
 - package:
 
@@ -351,7 +351,7 @@ File creation cannot be performed when the path is an existing directory
 
 *no help documentation provided*
 
-### `mark:reindex_warning/warning`
+### `mark::reindex_warning/warning`
 
 - package:
 
@@ -384,7 +384,7 @@ will not match on NA values but instead will return a row of NAs
     #> 5        5      e
     #> <NA>    NA   <NA>
 
-### `mark:source_error/error`
+### `mark::source_error/error`
 
 - package:
 
@@ -400,7 +400,7 @@ will not match on NA values but instead will return a row of NAs
 
 *no help documentation provided*
 
-### `mark:switch_error/condition`
+### `mark::switch_error/condition`
 
 - package:
 
@@ -416,7 +416,7 @@ will not match on NA values but instead will return a row of NAs
 
 *no help documentation provided*
 
-### `mark:timezone_not_found_error/error`
+### `mark::timezone_not_found_error/error`
 
 - package:
 
@@ -433,7 +433,7 @@ will not match on NA values but instead will return a row of NAs
 When using a string for a timezone, this value must be found within
 [`OlsonNames()`](https://rdrr.io/r/base/timezones.html)
 
-### `mark:view_labels_error/error`
+### `mark::view_labels_error/error`
 
 - package:
 

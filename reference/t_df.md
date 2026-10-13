@@ -33,7 +33,7 @@ Transposes a `data.frame` as a `data.frame`
 x <- data.frame(col_a = Sys.Date() + 1:5, col_b = letters[1:5], col_c = 1:5)
 t_df(x)
 #>   colname      row_1      row_2      row_3      row_4      row_5
-#> 1   col_a 2026-09-13 2026-09-14 2026-09-15 2026-09-16 2026-09-17
+#> 1   col_a 2026-10-14 2026-10-15 2026-10-16 2026-10-17 2026-10-18
 #> 2   col_b          a          b          c          d          e
 #> 3   col_c          1          2          3          4          5
 ```

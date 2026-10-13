@@ -64,7 +64,7 @@ Conditions are generated through the
 [`{cnd}`](https://jmbarbone.github.io/cnd/reference/cnd-package.html)
 package. The following conditions are associated with this function:
 
-- [`mark:match_param_error/error`](https://jmbarbone.github.io/mark/reference/mark-cnd-conditions.md):
+- [`mark::match_param_error/error`](https://jmbarbone.github.io/mark/reference/mark-cnd-conditions.md):
 
 For more conditions, see:
 [mark-cnd-conditions](https://jmbarbone.github.io/mark/reference/mark-cnd-conditions.md)
