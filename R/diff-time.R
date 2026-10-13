@@ -350,12 +350,13 @@ sys_tz <- function(method = 1) {
 
 # TODO too many different condititons -- simplify
 
-numeric_datetime_tz_error := condition(
-  "Date times cannot be numeric when tz is NULL",
-  type = "error",
-  exports = "diff_time",
-  classes = "type_error",
-  help = "```r
+numeric_datetime_tz_error %:=%
+  condition(
+    "Date times cannot be numeric when tz is NULL",
+    type = "error",
+    exports = "diff_time",
+    classes = "type_error",
+    help = "```r
 # Instead of this:
 diff_time(100, 200, tz = NULL)
 
@@ -365,24 +366,26 @@ diff_time(100, 200, tz = 'America/New_York')
 # or:
 diff_time(100, 200, tz = 0)
 ```"
-)
-
-na_timezone_found_warning := condition(
-  function() {
-    paste("NA found in timezones; setting to default timezone:", default_tz())
-  },
-  type = "warning",
-  classes = "value_warning",
-  exports = "diff_time"
-)
-
-timezone_not_found_error := condition(
-  \(x) paste0("Timezone(s) not found: ", collapse(x, sep = ", "), "\n"),
-  type = "error",
-  exports = "diff_time",
-  classes = "value_error",
-  help = c(
-    "When using a string for a timezone, this value must be found within",
-    " `OlsonNames()`"
   )
-)
+
+na_timezone_found_warning %:=%
+  condition(
+    function() {
+      paste("NA found in timezones; setting to default timezone:", default_tz())
+    },
+    type = "warning",
+    classes = "value_warning",
+    exports = "diff_time"
+  )
+
+timezone_not_found_error %:=%
+  condition(
+    \(x) paste0("Timezone(s) not found: ", collapse(x, sep = ", "), "\n"),
+    type = "error",
+    exports = "diff_time",
+    classes = "value_error",
+    help = c(
+      "When using a string for a timezone, this value must be found within",
+      " `OlsonNames()`"
+    )
+  )

@@ -65,9 +65,10 @@ append0.default <- function(x, values, pos = NULL, ...) {
 # conditions --------------------------------------------------------------
 
 # TODO does this need to be it's own condition?
-append_warning := condition(
-  message = "expanding to the largest n",
-  type = "warning",
-  package = "mark",
-  exports = "insert"
-)
+append_warning %:=%
+  condition(
+    message = "expanding to the largest n",
+    type = "warning",
+    package = "mark",
+    exports = "insert"
+  )

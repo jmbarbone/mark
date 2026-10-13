@@ -68,5 +68,5 @@ test_that("quiet_stop()", {
 
 test_that("other funs", {
   expect_error(rn_soft("bad package name"), NULL)
-  expect_true(package_available("methods"))
+  expect_true(fuj::available_namespace("methods"))
 })

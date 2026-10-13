@@ -26,12 +26,13 @@ import <- function(pkg, fun, overwrite = FALSE) {
 # conditions --------------------------------------------------------------
 
 # nolint start: line_length_linter.
-import_error := condition(
-  message = function(fun) sprintf("'%s' has already been assigned", fun),
-  type = "error",
-  exports = "import",
-  classes = "value_error", # NOTE maybe assign_error()?
-  help = "
+import_error %:=%
+  condition(
+    message = function(fun) sprintf("'%s' has already been assigned", fun),
+    type = "error",
+    exports = "import",
+    classes = "value_error", # NOTE maybe assign_error()?
+    help = "
 The object you are trying to import has already been assigned in the environment you are importing to.  Use the `overwrite` option to replace the object.
 
 For example:
@@ -46,5 +47,5 @@ foo <- NULL
 import('package', 'foo', overwrite = TRUE)
 ```
 "
-)
+  )
 # nolint end: line_length_linter.

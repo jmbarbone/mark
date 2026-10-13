@@ -276,15 +276,16 @@ reset_rownames <- function(data, n = nrow(data)) {
 
 # conditions --------------------------------------------------------------
 
-list2df_warning := condition(
-  function(x) {
-    ngettext(
-      any(c("character", "factor") %in% x),
-      "Not all values are the same class: converting to character",
-      "Not all values are the same class"
-    )
-  },
-  type = "warning",
-  classes = "class_warning",
-  exports = "list2df"
-)
+list2df_warning %:=%
+  condition(
+    function(x) {
+      ngettext(
+        any(c("character", "factor") %in% x),
+        "Not all values are the same class: converting to character",
+        "Not all values are the same class"
+      )
+    },
+    type = "warning",
+    classes = "class_warning",
+    exports = "list2df"
+  )

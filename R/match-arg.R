@@ -206,71 +206,73 @@ cleanup_param_list <- function(x) {
 # conditions --------------------------------------------------------------
 
 # TODO remove
-match_arg_error := condition(
-  message = function(csx, x, table) {
-    sprintf(
-      "%s : '%s' did not match of of the following:\n   '%s'",
-      csx,
-      x,
-      table
-    )
-  },
-  type = "error",
-  classes = "input_error"
-)
-
-match_param_error := condition(
-  message = function(input, argument, param, choices) {
-    to_value <- function(x) {
-      if (all(names(x) == as.character(x))) {
-        return(toString(x))
-      }
-
-      nms <- names(x)
-      if (is.null(nms)) {
-        return(toString(x))
-      }
-
-      ok <- nzchar(nms)
-      nms[ok] <- paste(nms[ok], "= ")
-      toString(paste0(nms, x))
-    }
-
-    to_options <- function(x) {
-      if (all(names(x) == as.character(x))) {
-        return(toString(x))
-      }
-
-      collapse(
-        mapply(
-          function(x, nm) {
-            if (nzchar(nm)) {
-              sprintf("%s = %s", nm, toString(x))
-            } else {
-              toString(x)
-            }
-          },
-          x = x,
-          nm = names(x),
-          USE.NAMES = FALSE
-        ),
-        sep = " | "
+match_arg_error %:=%
+  condition(
+    message = function(csx, x, table) {
+      sprintf(
+        "%s : '%s' did not match of of the following:\n   '%s'",
+        csx,
+        x,
+        table
       )
-    }
+    },
+    type = "error",
+    classes = "input_error"
+  )
 
-    sprintf(
-      paste0(
-        "`match_param(%s)` failed in `%s`:\n",
-        "  param    %s\n",
-        "  choices  %s"
-      ),
-      input,
-      argument,
-      to_value(param),
-      to_options(choices)
-    )
-  },
-  type = "error",
-  classes = "input_error",
-  exports = "match_param"
-)
+match_param_error %:=%
+  condition(
+    message = function(input, argument, param, choices) {
+      to_value <- function(x) {
+        if (all(names(x) == as.character(x))) {
+          return(toString(x))
+        }
+
+        nms <- names(x)
+        if (is.null(nms)) {
+          return(toString(x))
+        }
+
+        ok <- nzchar(nms)
+        nms[ok] <- paste(nms[ok], "= ")
+        toString(paste0(nms, x))
+      }
+
+      to_options <- function(x) {
+        if (all(names(x) == as.character(x))) {
+          return(toString(x))
+        }
+
+        collapse(
+          mapply(
+            function(x, nm) {
+              if (nzchar(nm)) {
+                sprintf("%s = %s", nm, toString(x))
+              } else {
+                toString(x)
+              }
+            },
+            x = x,
+            nm = names(x),
+            USE.NAMES = FALSE
+          ),
+          sep = " | "
+        )
+      }
+
+      sprintf(
+        paste0(
+          "`match_param(%s)` failed in `%s`:\n",
+          "  param    %s\n",
+          "  choices  %s"
+        ),
+        input,
+        argument,
+        to_value(param),
+        to_options(choices)
+      )
+    },
+    type = "error",
+    classes = "input_error",
+    exports = "match_param"
+  )

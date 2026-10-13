@@ -17,6 +17,7 @@
 #'
 #' @name clipboard
 #' @examples
+#' \dontrun{
 #' foo <- function(x) {
 #'   write_clipboard(x)
 #'   y <- read_clipboard()
@@ -36,6 +37,7 @@
 #' res <- as.character(read_clipboard())
 #' all.equal(x, res)
 #' x; res
+#' }
 
 # nocov start
 
@@ -242,7 +244,7 @@ type_convert2 <- function(x) {
 }
 
 tibble <- function(x) {
-  if (getOption("mark.tibble", TRUE) && package_available("tibble")) {
+  if (getOption("mark.tibble", TRUE) && fuj::available_namespace("tibble")) {
     tibble::as_tibble(x)
   } else {
     x

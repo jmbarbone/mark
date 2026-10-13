@@ -24,7 +24,7 @@ test_that("clipboard", {
     res <- read_clipboard("data.frame")
 
     expect_s3_class(res, "data.frame")
-    if (package_available("tibble")) {
+    if (fuj::available_namespace("tibble")) {
       expect_equal(as.data.frame(res), x)
     }
 

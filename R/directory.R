@@ -486,44 +486,46 @@ add_file_timestamp <- function(
 
 # TODO use value_error()
 
-path_error := condition(
-  "No recent file found",
-  type = "error",
-  classes = "value_error",
-  exports = "get_recent_file"
-)
+path_error %:=%
+  condition(
+    "No recent file found",
+    type = "error",
+    classes = "value_error",
+    exports = "get_recent_file"
+  )
 
-path_warning := condition(
-  function(s, x) {
-    switch(
-      s,
-      not_found = function(x) {
-        ngettext(
-          length(x),
-          paste("Path not found:", norm_path(x)),
-          paste0(
-            "Paths not found:",
-            paste0("\n   ", norm_path(x), collapse = "\n")
+path_warning %:=%
+  condition(
+    function(s, x) {
+      switch(
+        s,
+        not_found = function(x) {
+          ngettext(
+            length(x),
+            paste("Path not found:", norm_path(x)),
+            paste0(
+              "Paths not found:",
+              paste0("\n   ", norm_path(x), collapse = "\n")
+            )
           )
-        )
-      },
-      directories = function(x) {
-        ngettext(
-          length(x),
-          paste("File is a directory:", norm_path(x)),
-          paste0(
-            "Files are directories:",
-            paste0("\n   ", norm_path(x), collapse = "\n")
+        },
+        directories = function(x) {
+          ngettext(
+            length(x),
+            paste("File is a directory:", norm_path(x)),
+            paste0(
+              "Files are directories:",
+              paste0("\n   ", norm_path(x), collapse = "\n")
+            )
           )
-        )
-      },
-      stop(internal_error())
-    )
-  },
-  type = "warning",
-  classes = "value_warning",
-  exports = c("get_recent_file", "norm_path"),
-  help = {
-    "File creation cannot be performed when the path is an existing directory"
-  }
-)
+        },
+        stop(internal_error())
+      )
+    },
+    type = "warning",
+    classes = "value_warning",
+    exports = c("get_recent_file", "norm_path"),
+    help = {
+      "File creation cannot be performed when the path is an existing directory"
+    }
+  )

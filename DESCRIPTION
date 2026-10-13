@@ -1,7 +1,7 @@
 Package: mark
 Type: Package
 Title: Multipurpose Aids for R Kit
-Version: 0.8.3.9010
+Version: 0.9.0
 Authors@R:
     person(given   = "Jordan Mark",
            family  = "Barbone",
@@ -23,9 +23,9 @@ Depends:
     R (>= 4.1.0)
 Imports:
     cli,
-    cnd,
+    cnd (>= 0.2.0),
     fs (>= 0.2.0),
-    fuj,
+    fuj (>= 0.3.0),
     magrittr (>= 2.0.1),
     rlang,
     stats (>= 3.6),
@@ -56,9 +56,6 @@ Suggests:
     withr (>= 2.3.0),
     xopen,
     yaml (>= 2.3.9),
-Remotes:
-    github::jmbarbone/cnd@v0.1.1.9007,
-    github::jmbarbone/fuj@v0.2.2.9016
 Roxygen: list(markdown = TRUE)
 Config/testthat/edition: 3
 Config/testthat/parallel: true
@@ -108,7 +105,6 @@ Collate:
     'merge-list.R'
     'na-assignment.R'
     'names.R'
-    'namespace.R'
     'nas.R'
     'normalize.R'
     'note.R'

@@ -41,7 +41,7 @@ test_clipboard <- function(x, ...) {
 expect_clip <- function(input, method) {
   with_clip({
     write_clipboard(input)
-    res <- if (package_available("tibble")) {
+    res <- if (fuj::available_namespace("tibble")) {
       tibble::tibble(a = 1L, b = 2L, c = 3L)
     } else {
       fuj::dataframe(a = 1L, b = 2L, c = 3L)
