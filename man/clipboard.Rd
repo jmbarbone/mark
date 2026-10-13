@@ -55,6 +55,7 @@ As these functions rely on \code{\link[clipr:read_clip]{clipr::read_clip()}}. Fo
 copying and pasting floats, there may be some rounding that can occur.
 }
 \examples{
+\dontrun{
 foo <- function(x) {
   write_clipboard(x)
   y <- read_clipboard()
@@ -74,4 +75,5 @@ write_clipboard(x)
 res <- as.character(read_clipboard())
 all.equal(x, res)
 x; res
+}
 }

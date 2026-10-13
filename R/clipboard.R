@@ -17,6 +17,7 @@
 #'
 #' @name clipboard
 #' @examples
+#' \dontrun{
 #' foo <- function(x) {
 #'   write_clipboard(x)
 #'   y <- read_clipboard()
@@ -36,6 +37,7 @@
 #' res <- as.character(read_clipboard())
 #' all.equal(x, res)
 #' x; res
+#' }
 
 # nocov start
 
