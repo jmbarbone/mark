@@ -88,7 +88,7 @@ if (fuj::available_namespace("bib2df") & fuj::available_namespace("bench")) {
 #> # A tibble: 3 × 9
 #>   expression      min median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_time
 #>   <bch:expr> <bch:tm> <bch:>     <dbl> <bch:byt>    <dbl> <int> <dbl>   <bch:tm>
-#> 1 read_bib     1.95ms 2.02ms      488.    9.41KB     6.72   218     3      447ms
-#> 2 bib2df       5.93ms 6.13ms      157.     8.6MB     6.74    70     3      445ms
-#> 3 foo          3.33ms 3.42ms      287.  385.74KB     4.25   135     2      471ms
+#> 1 read_bib     1.81ms 1.92ms      516.    9.41KB     9.06   228     4      442ms
+#> 2 bib2df       5.76ms 6.05ms      160.     8.6MB     4.33    74     2      462ms
+#> 3 foo          3.29ms 3.47ms      283.  385.74KB     4.28   132     2      467ms
 ```
