@@ -2,6 +2,10 @@
 
 ## mark (development version)
 
+- resolves CRAN dev
+  [`structure()`](https://rdrr.io/r/base/structure.html) errors
+  [\#273](https://github.com/jmbarbone/mark/issues/273)
+
 ## mark 0.9.0
 
 CRAN release: 2026-10-13
@@ -16,7 +20,7 @@ Substantial changes to *conditions*
   [`fuj::new_condition()`](https://jmbarbone.github.io/fuj/reference/new_condition.html)
   have been rewritten with
   [`cnd::condition()`](https://jmbarbone.github.io/cnd/reference/condition.html)
-  \[#259\]
+  [\#259](https://github.com/jmbarbone/mark/issues/259)
 - all of these condition now use different class names, generated
   through
   [`cnd::condition()`](https://jmbarbone.github.io/cnd/reference/condition.html)

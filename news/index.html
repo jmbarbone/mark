@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">mark</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.0.9001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,19 +29,22 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/jmbarbone/mark/blob/v0.9.0.9000/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/jmbarbone/mark/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="mark-development-version">mark (development version)<a class="anchor" aria-label="anchor" href="#mark-development-version"></a></h2>
-</div>
+<ul><li>resolves CRAN dev <code><a href="https://rdrr.io/r/base/structure.html" class="external-link">structure()</a></code> errors <a href="https://github.com/jmbarbone/mark/issues/273" class="external-link">#273</a>
+</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.9.0" id="mark-090">mark 0.9.0<a class="anchor" aria-label="anchor" href="#mark-090"></a></h2><p class="text-muted">CRAN release: 2026-10-13</p>
 <p><a href="https://CRAN.R-project.org/package=mark" class="external-link">mark</a>’s title has been updated</p>
 <div class="section level3">
 <h3 id="conditions-0-9-0">Conditions<a class="anchor" aria-label="anchor" href="#conditions-0-9-0"></a></h3>
 <p>Substantial changes to <em>conditions</em></p>
-<ul><li>all <em>conditions</em> previously created with <a href="https://jmbarbone.github.io/fuj/reference/new_condition.html" class="external-link"><code>fuj::new_condition()</code></a> have been rewritten with <a href="https://jmbarbone.github.io/cnd/reference/condition.html" class="external-link"><code>cnd::condition()</code></a> [#259]</li>
+<ul><li>all <em>conditions</em> previously created with <a href="https://jmbarbone.github.io/fuj/reference/new_condition.html" class="external-link"><code>fuj::new_condition()</code></a> have been rewritten with <a href="https://jmbarbone.github.io/cnd/reference/condition.html" class="external-link"><code>cnd::condition()</code></a> <a href="https://github.com/jmbarbone/mark/issues/259" class="external-link">#259</a>
+</li>
 <li>all of these condition now use different class names, generated through <a href="https://jmbarbone.github.io/cnd/reference/condition.html" class="external-link"><code>cnd::condition()</code></a>
 </li>
 <li>for more information, see <a href="https://jmbarbone.github.io/cnd" class="external-link uri">https://jmbarbone.github.io/cnd</a>
