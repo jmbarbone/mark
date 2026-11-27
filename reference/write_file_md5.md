@@ -77,7 +77,7 @@ mark_compress_methods()
 - `mark.list.hook`: when a `data.frame` contains a `list` column, this
   function is applied to each element of the list. The default `"auto"`
   uses
-  [`jsonlite::toJSON()`](https://jeroen.r-universe.dev/jsonlite/reference/fromJSON.html)
+  [`jsonlite::toJSON()`](https://rdrr.io/pkg/jsonlite/man/fromJSON.html)
   if the package `jsonlite` is available, otherwise
 
 ## Examples
@@ -93,15 +93,15 @@ temp <- tempfile()
 write_file_md5(df, temp) # new
 #> mark::md5_condition/condition
 #> (mark::md5_condition/cnd::condition/condition)
-#> /tmp/RtmpGMF6r8/file1a1b42aa480f (new file)
+#> /tmp/RtmpnZqWO8/file1a269b5a520 (new file)
 write_file_md5(df, temp) # same
 #> mark::md5_condition/condition
 #> (mark::md5_condition/cnd::condition/condition)
-#> /tmp/RtmpGMF6r8/file1a1b42aa480f (md5 same)
+#> /tmp/RtmpnZqWO8/file1a269b5a520 (md5 same)
 df$c <- 3
 write_file_md5(df, temp) # changes
 #> mark::md5_condition/condition
 #> (mark::md5_condition/cnd::condition/condition)
-#> /tmp/RtmpGMF6r8/file1a1b42aa480f (md5 change)
+#> /tmp/RtmpnZqWO8/file1a269b5a520 (md5 change)
 fs::file_delete(temp)
 ```
