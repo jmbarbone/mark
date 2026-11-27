@@ -21,19 +21,22 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - uses: posit-dev/setup-air@v1
+
+      - name: setup air
+        uses: posit-dev/setup-air@v1
 
       - id: check
+        name: check formatting
         run: air format . --check
       
-      - name: suggest
-        if: steps.check.outcome == 'failure'
-        run: |
-          air format . || true
-          exit 0
+      - id: format
+        name: apply format
+        if: failure() && steps.check.outcome == 'failure'
+        run: air format . || true
       
-      - name: suggest
-        if: steps.check.outcome == 'failure'
+      - id: suggest
+        name: suggest formatting
+        if: failure() && steps.check.outcome == 'failure'
         uses: reviewdog/action-suggester@v1.27
         with:
           tool_name: air
