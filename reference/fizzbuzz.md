@@ -88,8 +88,8 @@ if (fuj::available_namespace("bench")) {
 #> # A tibble: 2 × 13
 #>   expression     min  median `itr/sec` mem_alloc `gc/sec` n_itr  n_gc total_time
 #>   <bch:expr> <bch:t> <bch:t>     <dbl> <bch:byt>    <dbl> <int> <dbl>   <bch:tm>
-#> 1 fizzbuzz(…  28.2ms  28.9ms      34.2    5.19MB     4.89    14     2      409ms
-#> 2 fizzbuzz_… 400.4µs 431.7µs    2290.    38.21MB    86.5    556    21      243ms
+#> 1 fizzbuzz(…  28.2ms  28.6ms      34.4    5.19MB     4.91    14     2      407ms
+#> 2 fizzbuzz_…   425µs 450.9µs    2201.    38.21MB    84.5    521    20      237ms
 #> # ℹ 4 more variables: result <list>, memory <list>, time <list>, gc <list>
 # }
 ```
