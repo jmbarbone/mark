@@ -7,7 +7,7 @@ x <- dataframe(
   a = sample(letters, n, TRUE),
   b = sample(letters, n, TRUE),
   c = sample(letters, n, TRUE)
-))
+)
 
 xchars <- stringi::stri_rand_strings(26 * n, 5)
 chars <- as.data.frame(matrix(xchars, ncol = 26))
@@ -15,7 +15,10 @@ names(chars) <- letters
 ints <- as.data.frame(matrix(stats::rpois(2 * n, 20), ncol = 2))
 dbls <- as.data.frame(matrix(stats::runif(3 * n), ncol = 3))
 bools <- as.data.frame(matrix(sample(c(TRUE, FALSE, NA), n, TRUE)))
-facts <- as.data.frame(matrix(factor(xchars, levels = sort(unique(xchars))), ncol = 26))
+facts <- as.data.frame(matrix(
+  factor(xchars, levels = sort(unique(xchars))),
+  ncol = 26
+))
 
 x <- cbind(chars, ints, dbls, bools, facts)
 names(x) <- make.unique(names(x))

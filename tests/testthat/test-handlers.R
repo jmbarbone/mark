@@ -32,7 +32,7 @@ test_that("handler examples", {
 
   expect_identical(
     get_error(c(1, 0, 2), foo),
-     list(`1` = NULL, `0` = "x > 0 is not TRUE", `2` = NULL)
+    list(`1` = NULL, `0` = "x > 0 is not TRUE", `2` = NULL)
   )
 
   expect_identical(

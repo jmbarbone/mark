@@ -1,5 +1,7 @@
 # mark (development version)
 
+* resolves CRAN dev `structure()` errors [#273](https://github.com/jmbarbone/mark/issues/273)
+
 # mark 0.9.0
 
 `{mark}`'s title has been updated
@@ -8,7 +10,7 @@
 
 Substantial changes to _conditions_
 
-* all _conditions_ previously created with [`fuj::new_condition()`](https://jmbarbone.github.io/fuj/reference/new_condition.html) have been rewritten with [`cnd::condition()`](https://jmbarbone.github.io/cnd/reference/condition.html) [#259]
+* all _conditions_ previously created with [`fuj::new_condition()`](https://jmbarbone.github.io/fuj/reference/new_condition.html) have been rewritten with [`cnd::condition()`](https://jmbarbone.github.io/cnd/reference/condition.html) [#259](https://github.com/jmbarbone/mark/issues/259)
 * all of these condition now use different class names, generated through [`cnd::condition()`](https://jmbarbone.github.io/cnd/reference/condition.html)
 * for more information, see https://jmbarbone.github.io/cnd
 * FIXME: ensure names: `{rd_name}_{thing}` -- and see about switching messages around: (`message = function(type, params)`)

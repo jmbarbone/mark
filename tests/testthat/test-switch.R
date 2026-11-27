@@ -4,6 +4,7 @@ test_that("switch_params() works as expected", {
 })
 
 test_that("switch_case() works as expected", {
+  # fmt: skip
   res <- switch_case(
     1:5 == 4      ~ NA_integer_, #> 4
     1:5 %% 2 == 0 ~ 1:5,         #> 2 & 4

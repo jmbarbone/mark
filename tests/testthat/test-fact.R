@@ -1,4 +1,3 @@
-
 # fact.logical() ----
 
 test_that("fact.logical() works", {
@@ -308,13 +307,12 @@ test_that("fact_reverse() works", {
 })
 
 
-
 # other methods -----------------------------------------------------------
 
 test_that("[.fact() works", {
   x <- fact(1:3)
-  x1 <- do.call(structure, c(1, attributes(x)))
-  x2 <- do.call(structure, c(2, attributes(x)))
+  x1 <- do.call(structure, c(1L, attributes(x)))
+  x2 <- do.call(structure, c(2L, attributes(x)))
   expect_identical(x[1], x1)
   expect_identical(x[2], x2)
 })

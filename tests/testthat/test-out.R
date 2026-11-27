@@ -6,8 +6,9 @@ test_that("`%out%` returns opposite of `%in%`", {
   sstr <- c("c", "ab", "B", "bba", "c", NA, "@", "bla", "a", "Ba", "%")
   expect_true(
     no_match(
-      sstr[sstr %in%  c(letters, LETTERS)],
-      sstr[sstr %out% c(letters, LETTERS)])
+      sstr[sstr %in% c(letters, LETTERS)],
+      sstr[sstr %out% c(letters, LETTERS)]
+    )
   )
 })
 
