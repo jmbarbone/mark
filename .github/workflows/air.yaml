@@ -1,0 +1,42 @@
+# Workflow derived from https://github.com/posit-dev/setup-air/tree/main/examples
+
+on:
+  push:
+    branches: 
+      - main
+    paths: 
+    - '**/*.R'
+  pull_request:
+    paths: 
+    - '**/*.R'
+
+name: air.yaml
+
+permissions: read-all
+
+jobs:
+  air:
+    name: air
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: posit-dev/setup-air@v1
+
+      - id: check
+        run: air format . --check
+      
+      - name: suggest
+        if: steps.check.outcome == 'failure'
+        run: |
+          air format . || true
+          exit 0
+      
+      - name: suggest
+        if: steps.check.outcome == 'failure'
+        uses: reviewdog/action-suggester@v1.27
+        with:
+          tool_name: air
+          level: warning
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      
