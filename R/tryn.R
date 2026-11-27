@@ -1,4 +1,3 @@
-
 #' Try an expression a set number of times
 #'
 #' @param expr expression to evaluate
@@ -21,9 +20,11 @@ tryn <- function(expr, n = 10, silent = TRUE) {
       cond <- attr(res, "condition")
       msg <- paste0(
         "tryn() failed: maximum attempts reached: ",
-        attempt, "\n",
+        attempt,
+        "\n",
         "Error in ",
-        as.character(as.expression(cond[["call"]])), " : ",
+        as.character(as.expression(cond[["call"]])),
+        " : ",
         cond[["message"]]
       )
       stop(simpleError(msg))

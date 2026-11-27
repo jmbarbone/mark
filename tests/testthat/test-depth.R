@@ -9,13 +9,14 @@ test_that("depth", {
   expect_equal(depth(c(1, 2, 3)), 1L)
   expect_equal(depth(list(list(1, list(list())))), 3L)
 
-  ls <- list(a = 1,
-             b = list(
-               # 2
-               list(
-                 3
-               )
-             )
+  ls <- list(
+    a = 1,
+    b = list(
+      # 2
+      list(
+        3
+      )
+    )
   )
   expect_equal(depth(ls), 3L)
 

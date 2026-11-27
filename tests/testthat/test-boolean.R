@@ -1,4 +1,3 @@
-
 test_that("to_boolean() works", {
   x <- c(TRUE, FALSE, NA)
   expect_identical(to_boolean(x), x)
@@ -8,16 +7,18 @@ test_that("to_boolean() works", {
   expect_identical(to_boolean(x), exp)
   expect_identical(to_boolean(as.integer(x)), exp)
 
+  # fmt: skip
   x <- c(
     "true", "false",
     "TRUE", "FALSE",
-    "T", "F",
-    "yes", "no",
-    "Y", "N",
+    "T",    "F",
+    "yes",  "no",
+    "Y",    "N",
     "what", "okay",
     NA
   )
 
+  # fmt: skip
   exp <- c(
     TRUE, FALSE,
     TRUE, FALSE,

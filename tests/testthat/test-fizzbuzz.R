@@ -1,5 +1,4 @@
 test_that("fizzbuzz() works", {
-
   exp <- c(
     "",
     "",

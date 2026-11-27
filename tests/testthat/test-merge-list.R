@@ -1,5 +1,5 @@
 test_that("merge_list() works", {
-  x <- list(a = 1, b = 2,    c = NULL, d = NULL)
+  x <- list(a = 1, b = 2, c = NULL, d = NULL)
   y <- list(a = 2, b = NULL, c = 3)
 
   obj <- merge_list(x, y)

@@ -48,30 +48,36 @@ simpleTimeReport <- function(title = NULL, expr, envir = parent.frame()) {
   len_add <- max(lens) - lens + 2L
   ne <- new.env()
 
-  local({
-    for (i in seq_along(calls)) {
-      .st <- Sys.time()
-      cat0(calls[i], rep(" ", len_add[i]))
-      withCallingHandlers(
-        # capture any outputs separately than the results
-        outputs[[i]] <<-
-          utils::capture.output(results[[i]] <<-
-              eval(exprs[i], envir)),
-        error = function(e) {
-          stop("\n", e$message, call. = FALSE)
-        },
-        warning = function(e) {
-          warnings[[i]] <<- e$message
-          # Only invoke Restart if it is the same warning?
-          invokeRestart("muffleWarning")
-        },
-        message = function(e) {
-          messages[[i]] <<- e$message
-          invokeRestart("muffleMessage")
-        })
-      cat0(crayon_cyan(formatTimeDiff(.st)), "\n")
-    }
-  }, ne)
+  local(
+    {
+      for (i in seq_along(calls)) {
+        .st <- Sys.time()
+        cat0(calls[i], rep(" ", len_add[i]))
+        withCallingHandlers(
+          # capture any outputs separately than the results
+          outputs[[i]] <<-
+            utils::capture.output(
+              results[[i]] <<-
+                eval(exprs[i], envir)
+            ),
+          error = function(e) {
+            stop("\n", e$message, call. = FALSE)
+          },
+          warning = function(e) {
+            warnings[[i]] <<- e$message
+            # Only invoke Restart if it is the same warning?
+            invokeRestart("muffleWarning")
+          },
+          message = function(e) {
+            messages[[i]] <<- e$message
+            invokeRestart("muffleMessage")
+          }
+        )
+        cat0(crayon_cyan(formatTimeDiff(.st)), "\n")
+      }
+    },
+    ne
+  )
 
   cat0(line, "\n")
 
@@ -101,7 +107,7 @@ simpleTimeReport <- function(title = NULL, expr, envir = parent.frame()) {
 
   if (
     !identical(outputs, rep_len(list(), n)) &&
-    any(!vap_lgl(outputs, is.null))
+      any(!vap_lgl(outputs, is.null))
   ) {
     cat0("\nOutputs\n", line, "\n")
     for (i in seq_along(outputs)) {
@@ -114,12 +120,12 @@ simpleTimeReport <- function(title = NULL, expr, envir = parent.frame()) {
 
   res <- struct(
     results,
-    class    = c("reported_results", "list"),
-    names    = calls,
-    call     = mc,
+    class = c("reported_results", "list"),
+    names = calls,
+    call = mc,
     messages = messages,
     warnings = warnings,
-    outputs  = outputs
+    outputs = outputs
   )
 
   invisible(res)

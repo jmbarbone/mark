@@ -19,7 +19,8 @@ for (i in seq_along(x)) {
 df <- quick_df(x)
 df$bad <- NA
 
-res <- bench::mark(                            # median
+# fmt: skip
+res <- bench::mark(                     # median
   as.data.frame(x),                     #  305us
   plyr::quickdf(x),                     #   37us
   quick_df(x),                          #   21us

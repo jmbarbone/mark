@@ -1,4 +1,3 @@
-
 test_that("append0() works", {
   expect_identical(append0(1:3, 4L), 1:4)
   expect_identical(append0(1:3, 4L, 2), c(1L, 4L, 2L, 3L))

@@ -8,9 +8,12 @@ month <- sample(c("UN", "XX", month.abb), n, TRUE)
 month[sample(1e4, 1e2)] <- sample(0:12, 1e2, TRUE)
 day <- sample(0:32, n, TRUE)
 
-ymd <- paste( year, month,  day, sep = "-")
-dmy <- paste(  day, month, year, sep = "-")
-mdy <- paste(month,   day, year, sep = "-")
+# fmt: skip
+{
+  ymd <- paste( year, month,  day, sep = "-")
+  dmy <- paste(  day, month, year, sep = "-")
+  mdy <- paste(month,   day, year, sep = "-")
+}
 
 
 bench::mark(
@@ -22,4 +25,3 @@ bench::mark(
 )
 
 # bench:::autoplot.bench_mark(.Last.value)
-

@@ -4,7 +4,9 @@ indent-width = 2
 indent-style = "space"
 line-ending = "lf"
 persistent-line-breaks = true
-exclude = []
+exclude = [
+  "tests/testthat/scripts/lines",
+]
 default-exclude = true
 skip = [
   "crayon_blue",
